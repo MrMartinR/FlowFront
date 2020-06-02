@@ -65,7 +65,7 @@ function ForgotPassword(props) {
           <div className="text-center mb-10 mb-lg-20">
             <h3 className="font-size-h1">Forgotten Password ?</h3>
             <div className="text-muted font-weight-bold">
-              Enter your email to reset your password
+              Reset your password
             </div>
           </div>
           <form

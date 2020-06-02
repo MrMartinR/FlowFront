@@ -39,7 +39,7 @@ export function AuthPage() {
                 {/* start:: Aside content */}
                 <div className="flex-column-fluid d-flex flex-column justify-content-center">
                   <h3 className="font-size-h1 mb-5 text-white">
-                    Welcome to Metronic!
+                    Welcome to FlowApp!
                   </h3>
                   <p className="font-weight-lighter text-white opacity-80">
                     The ultimate Bootstrap & React 16 admin theme framework for next
@@ -73,13 +73,7 @@ export function AuthPage() {
 
             {/*begin::Content*/}
             <div className="flex-row-fluid d-flex flex-column position-relative p-7 overflow-hidden">
-              {/*begin::Content header*/}
-              <div className="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
-                <span className="font-weight-bold text-dark-50">Don't have an account yet?</span>
-                <Link to="/auth/registration" className="font-weight-bold ml-2" id="kt_login_signup">Sign Up!</Link>
-              </div>
-              {/*end::Content header*/}
-
+              
               {/* begin::Content body */}
               <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
                 <Switch>

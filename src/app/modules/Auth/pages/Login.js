@@ -17,9 +17,11 @@ import { login } from "../_redux/authCrud";
   https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
 */
 
+//email: "user1@example.com",
+//password: "samurai1",
 const initialValues = {
-  email: "admin@demo.com",
-  password: "demo",
+  email: "",
+  password: "",
 };
 
 function Login(props) {
@@ -62,21 +64,27 @@ function Login(props) {
       return "is-valid";
     }
 
-    return "";
+    return ""
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
+      console.log("submitting..")
       enableLoading();
       setTimeout(() => {
         login(values.email, values.password)
-          .then(({ data: { accessToken } }) => {
+          .then(res => {
             disableLoading();
-            props.login(accessToken);
-          })
+            var accessToken = res.headers["access-token"]
+            var uid = res.headers.uid
+            var client = res.headers.client
+            var expiry = res.headers.expiry            
+            props.login(accessToken, uid);
+          })    
           .catch(() => {
+            console.log("error")
             disableLoading();
             setSubmitting(false);
             setStatus(
@@ -97,7 +105,7 @@ function Login(props) {
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
         <p className="text-muted font-weight-bold">
-          Enter your username and password
+          Howdy, Flower!
         </p>
       </div>
       {/* end::Head */}
@@ -111,18 +119,18 @@ function Login(props) {
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
-        ) : (
-          <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-            <div className="alert-text ">
-              Use account <strong>admin@demo.com</strong> and password{" "}
-              <strong>demo</strong> to continue.
-            </div>
-          </div>
-        )}
+        ) : ""
+          // <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
+          //   <div className="alert-text ">
+          //     Use account <strong>admin@demo.com</strong> and password{" "}
+          //     <strong>demo</strong> to continue.
+          //   </div>
+          // </div>
+        }
 
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Email"
+            placeholder="Type your eMail"
             type="email"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "email"
@@ -138,7 +146,7 @@ function Login(props) {
         </div>
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Password"
+            placeholder="Type your Password"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "password"
@@ -152,21 +160,30 @@ function Login(props) {
             </div>
           ) : null}
         </div>
-        <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
+        <div className="form-group text-right">
           <Link
             to="/auth/forgot-password"
             className="text-dark-50 text-hover-primary my-3 mr-2"
             id="kt_login_forgot"
           >
             <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
-          </Link>
+          </Link>          
+        </div>
+        <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
+          <Link
+            to="/auth/registration"
+            className="btn btn-primary font-weight-bold px-20 py-4 my-3"
+            id="kt_login_signup"
+          >
+            Sign Up
+          </Link>          
           <button
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}
-            className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
+            className={`btn btn-primary font-weight-bold px-20 py-4 my-3`}
           >
-            <span>Sign In</span>
+            <span>Login</span>
             {loading && <span className="ml-3 spinner spinner-white"></span>}
           </button>
         </div>
