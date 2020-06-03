@@ -1,5 +1,6 @@
 import axios from "axios";
 export const API_URL = "http://localhost:3001"
+
 export const LOGIN_URL = API_URL+"/api/v1/auth/sign_in";
 export const REGISTER_URL = API_URL+"/api/v1/auth";
 export const REQUEST_PASSWORD_URL = API_URL+"/api/auth/forgot-password";
