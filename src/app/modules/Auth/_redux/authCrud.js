@@ -1,10 +1,16 @@
 import axios from "axios";
-export const API_URL = "http://localhost:3001"
 
+if(process.env.NODE_ENV === 'development') {
+   var API_URL = 'http://localhost:3001'
+}
+
+if(process.env.NODE_ENV === 'production') {
+  var API_URL = 'https://flowappdev.herokuapp.com/'
+} 
 
 export const LOGIN_URL = API_URL+"/api/v1/auth/sign_in";
 export const REGISTER_URL = API_URL+"/api/v1/auth";
-export const REQUEST_PASSWORD_URL = API_URL+"api/v1/auth/password";
+export const REQUEST_PASSWORD_URL = API_URL+"/api/v1/auth/password";
 
 export const ME_URL = "api/me";
 
@@ -19,6 +25,7 @@ export function register(email, fullname, username, password) {
 }
 
 export function requestPassword(email) {
+  console.log("REQUESTPASSWORD-- "+ REQUEST_PASSWORD_URL);
   return axios.post(REQUEST_PASSWORD_URL, { email });
 }
 
