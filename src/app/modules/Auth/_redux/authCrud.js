@@ -1,7 +1,8 @@
 import axios from "axios";
-export const LOGIN_URL = "http://flowappdev.herokuapp.com/api/v1/auth/sign_in";
-export const REGISTER_URL = "api/auth/register";
-export const REQUEST_PASSWORD_URL = "api/auth/forgot-password";
+export const API_URL = "http://localhost:3001"
+export const LOGIN_URL = API_URL+"/api/v1/auth/sign_in";
+export const REGISTER_URL = API_URL+"/api/v1/auth";
+export const REQUEST_PASSWORD_URL = API_URL+"/api/auth/forgot-password";
 
 export const ME_URL = "api/me";
 
@@ -11,8 +12,8 @@ export function login(email, password) {
   });  
 }
 
-export function register(email, fullname, username, password) {
-  return axios.post(REGISTER_URL, { email, fullname, username, password });
+export function register(email, fullname, username, password) {  
+  return axios.post(REGISTER_URL, { user:{email, fullname, username, password }});
 }
 
 export function requestPassword(email) {

@@ -19,15 +19,7 @@ const initialValues = {
 function Registration(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
-  const RegistrationSchema = Yup.object().shape({
-    fullname: Yup.string()
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
-      .required(
-        intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
-      ),
+  const RegistrationSchema = Yup.object().shape({    
     email: Yup.string()
       .email("Wrong email format")
       .min(3, "Minimum 3 symbols")
@@ -52,20 +44,7 @@ function Registration(props) {
         intl.formatMessage({
           id: "AUTH.VALIDATION.REQUIRED_FIELD",
         })
-      ),
-    changepassword: Yup.string()
-      .required(
-        intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
-      )
-      .when("password", {
-        is: (val) => (val && val.length > 0 ? true : false),
-        then: Yup.string().oneOf(
-          [Yup.ref("password")],
-          "Password and Confirm Password didn't match"
-        ),
-      }),
+      ),    
     acceptTerms: Yup.bool().required(
       "You must accept the terms and conditions"
     ),
@@ -97,15 +76,18 @@ function Registration(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       register(values.email, values.fullname, values.username, values.password)
-        .then(({ data: { accessToken } }) => {
-          props.register(accessToken);
+        .then((res) => {                    
+          var accessToken = res.headers["access-token"]
+          var uid = res.headers["uid"]            
+          props.login(accessToken, uid);
           disableLoading();
         })
-        .catch(() => {
+        .catch((error) => {
           setSubmitting(false);
+          //console.log(error.response.data.errors.full_messages);          
           setStatus(
             intl.formatMessage({
-              id: "AUTH.VALIDATION.INVALID_LOGIN",
+              id: error.response.data.errors.full_messages.join('   |   '),
             })
           );
           disableLoading();
