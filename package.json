@@ -8,6 +8,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "lint": "eslint src",
+        "heroku-postbuild": "npm run build",
         "format": "prettier --write \"src/**/*.{js,css,scss,html}\"",
         "rtl": "webpack"
     },
@@ -89,7 +90,7 @@
         "copyfiles": "2.1.1",
         "node-sass": "^4.14.1",
         "prettier": "1.19.1",
-        "serve": "11.2.0",
+        "serve": "^11.2.0",
         "webpack-cli": "3.3.11",
         "webpack-messages": "2.0.4",
         "webpack-rtl-plugin": "2.0.0"
