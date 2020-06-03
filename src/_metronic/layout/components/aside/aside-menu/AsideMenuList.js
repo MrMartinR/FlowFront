@@ -33,6 +33,35 @@ export function AsideMenuList({ layoutProps }) {
 
           {/*begin::1 Level*/}
           <li
+              className={`menu-item ${getMenuItemActive("/setting")}`}
+              aria-haspopup="true"
+          >
+            <NavLink className="menu-link" to="/setting">
+            <span className="svg-icon menu-icon">
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/>
+            </span>
+              <span className="menu-text">Setting</span>
+            </NavLink>
+          </li>
+          {/*end::1 Level*/}
+
+           {/*begin::1 Level*/}
+           <li
+              className={`menu-item ${getMenuItemActive("/user-account")}`}
+              aria-haspopup="true"
+          >
+            <NavLink className="menu-link" to="/user-account">
+            <span className="svg-icon menu-icon">
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/>
+            </span>
+              <span className="menu-text">User Account</span>
+            </NavLink>
+          </li>
+          {/*end::1 Level*/}
+
+
+          {/*begin::1 Level*/}
+          <li
               className={`menu-item ${getMenuItemActive("/builder")}`}
               aria-haspopup="true"
           >
