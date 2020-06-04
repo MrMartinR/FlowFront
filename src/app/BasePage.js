@@ -1,11 +1,13 @@
 import React, {Suspense, lazy} from "react";
 import {Redirect, Switch, Route} from "react-router-dom";
 import {LayoutSplashScreen, ContentRoute} from "../_metronic/layout";
-import {BuilderPage} from "./pages/BuilderPage";
 import {DashboardPage} from "./pages/DashboardPage";
 import {SettingPage} from "./pages/SettingPage";
-import {UserAccountPage} from "./pages/UserAccountPage";
-
+import {AccountsPage} from "./pages/AccountsPage";
+import {LendingPage} from "./pages/LendingPage";
+import {PropertyPage} from "./pages/PropertyPage";
+import {PlatformsPage} from "./pages/PlatformsPage";
+import {OriginatorsPage} from "./pages/OriginatorsPage";
 
 const GoogleMaterialPage = lazy(() =>
   import("./modules/GoogleMaterialExamples/GoogleMaterialPage")
@@ -31,13 +33,16 @@ export default function BasePage() {
                     <Redirect exact from="/" to="/dashboard"/>
                 }
                 <ContentRoute path="/dashboard" component={DashboardPage}/>
-                <ContentRoute path="/builder" component={BuilderPage}/>
                 <ContentRoute path="/setting" component={SettingPage}/>
-                <ContentRoute path="/user-account" component={UserAccountPage}/>
+                <ContentRoute path="/accounts" component={AccountsPage}/>
+                <ContentRoute path="/lending" component={LendingPage}/>
+                <ContentRoute path="/property" component={PropertyPage}/>
+                <ContentRoute path="/platforms" component={PlatformsPage}/>
+                <ContentRoute path="/originators" component={OriginatorsPage}/>                
                 <Route path="/google-material" component={GoogleMaterialPage}/>
                 <Route path="/react-bootstrap" component={ReactBootstrapPage}/>
                 <Route path="/e-commerce" component={ECommercePage}/>
-                <Redirect to="error/error-v1"/>
+                <Redirect to="error/error-v6"/>
             </Switch>
         </Suspense>
     );
