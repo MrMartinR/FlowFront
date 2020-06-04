@@ -1,8 +1,10 @@
 import axios from "axios";
 var API_URL = 'http://localhost:3001'
+var FORGOT_PASSWORD_CALLBACK = "https://flowfront.herokuapp.com/"
 
 if(process.env.NODE_ENV === 'development') {
     API_URL = 'http://localhost:3001'
+    FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
 }
 
 if(process.env.NODE_ENV === 'production') {
@@ -29,7 +31,7 @@ export function register(email, fullname, username, password) {
 
 export function requestPassword(email,redirect_url) {
   console.log("REQUESTPASSWORD-- "+ REQUEST_PASSWORD_URL);
-  redirect_url = "http://localhost:3000/auth/forgot-password-actions"
+  redirect_url = FORGOT_PASSWORD_CALLBACK+"/auth/forgot-password-actions"
   return axios.post(REQUEST_PASSWORD_URL, { email, redirect_url });
 }
 
