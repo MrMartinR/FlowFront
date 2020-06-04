@@ -66,7 +66,7 @@ function ForgotPasswordAction(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
         submitRequestPassword(values.password,values.changepassword,access_token, client,uid,expiry)
         .then(res => {
-            alert('sukses');
+            //alert('sukses');
             console.log(res);
             props.history.push('/dashboard')
             this.addNotification(res.data.message);
