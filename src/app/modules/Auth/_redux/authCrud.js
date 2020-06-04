@@ -31,7 +31,7 @@ export function register(email, fullname, username, password) {
 
 export function requestPassword(email,redirect_url) {
   console.log("REQUESTPASSWORD-- "+ REQUEST_PASSWORD_URL);
-  redirect_url = FORGOT_PASSWORD_CALLBACK+"auth/forgot-password-actions"
+  redirect_url = FORGOT_PASSWORD_CALLBACK+"/auth/forgot-password-actions"
   return axios.post(REQUEST_PASSWORD_URL, { email, redirect_url });
 }
 
