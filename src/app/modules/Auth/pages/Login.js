@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,Component, Fragment  } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -6,6 +6,9 @@ import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../_redux/authRedux";
 import { login } from "../_redux/authCrud";
+import {Button, Toast, Col, Row} from "react-bootstrap";
+//import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+
 
 /*
   INTL (i18n) docs:
@@ -18,7 +21,8 @@ import { login } from "../_redux/authCrud";
 */
 
 //email: "user1@example.com",
-//password: "samurai1",
+//password: "samurai1",<Toast>
+
 const initialValues = {
   email: "",
   password: "",
@@ -85,6 +89,8 @@ function Login(props) {
           })    
           .catch(() => {
             console.log("error")
+            
+            Toast.Body("test")
             disableLoading();
             setSubmitting(false);
             setStatus(
@@ -98,6 +104,16 @@ function Login(props) {
   });
 
   return (
+  //  <>
+   
+  //   <Toast.Header>
+  //   <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+  //   <strong className="mr-auto">Bootstrap</strong>
+  //   <small>11 mins ago</small>
+  // </Toast.Header>
+  // <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+  // </Toast>
+
     <div className="login-form login-signin" id="kt_login_signin_form">
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
@@ -190,7 +206,61 @@ function Login(props) {
       </form>
       {/*end::Form*/}
     </div>
+   // </>
   );
 }
+
+function Example() {
+  const [showA, setShowA] = useState(true);
+  const [showB, setShowB] = useState(true);
+
+  const toggleShowA = () => setShowA(!showA);
+  const toggleShowB = () => setShowB(!showB);
+
+  return (
+    <Row>
+      <Col xs={6}>
+        <Toast show={showA} onClose={toggleShowA}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+        </Toast>
+      </Col>
+      <Col xs={6}>
+        <Button onClick={toggleShowA}>
+          Toggle Toast <strong>with</strong> Animation
+        </Button>
+      </Col>
+      <Col xs={6} className="my-1">
+        <Toast onClose={toggleShowB} show={showB} animation={false}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+        </Toast>
+      </Col>
+      <Col xs={6}>
+        <Button onClick={toggleShowB}>
+          Toggle Toast <strong>without</strong> Animation
+        </Button>
+      </Col>
+    </Row>
+  );
+}
+
+//render(<Example />);
 
 export default injectIntl(connect(null, auth.actions)(Login));
