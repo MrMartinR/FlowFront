@@ -68,7 +68,8 @@ function ForgotPasswordAction(props) {
         .then(res => {
             //alert('sukses');
             console.log(res);
-            props.history.push('/dashboard')
+            props.history.push('/dashboard');
+            localStorage.setItem('forgot_pwd_notif', res.data.message);
             this.addNotification(res.data.message);
           }).catch(() => {
           setIsRequested(false);

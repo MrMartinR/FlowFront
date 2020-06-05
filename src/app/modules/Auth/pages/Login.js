@@ -76,6 +76,7 @@ function Login(props) {
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       console.log("submitting..")
+      localStorage.setItem('forgot_pwd_notif',null)      
       enableLoading();
       setTimeout(() => {
         login(values.email, values.password)
@@ -136,13 +137,16 @@ function Login(props) {
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
         ) : ""
-          // <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-          //   <div className="alert-text ">
-          //     Use account <strong>admin@demo.com</strong> and password{" "}
-          //     <strong>demo</strong> to continue.
-          //   </div>
-          // </div>
         }
+{
+  localStorage.getItem('forgot_pwd_notif') != "null" ?(
+<div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
+            <div className="alert-text ">
+            {localStorage.getItem('forgot_pwd_notif')}
+            </div>
+          </div>) : ""
+}
+
 
         <div className="form-group fv-plugins-icon-container">
           <input
