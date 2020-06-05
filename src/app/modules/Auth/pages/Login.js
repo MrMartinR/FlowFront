@@ -34,16 +34,16 @@ function Login(props) {
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .min(3, "Minimum 3 characters")
+      .max(50, "Maximum 50 characters")
       .required(
         intl.formatMessage({
           id: "AUTH.VALIDATION.REQUIRED_FIELD",
         })
       ),
     password: Yup.string()
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .min(3, "Minimum 3 characters")
+      .max(50, "Maximum 50 characters")
       .required(
         intl.formatMessage({
           id: "AUTH.VALIDATION.REQUIRED_FIELD",
