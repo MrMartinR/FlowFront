@@ -28,7 +28,7 @@ const initialValues = {
   password: "",
 };
 
-function Login(props) {
+function Login(props) {  
   const { intl } = props;
   const [loading, setLoading] = useState(false);
   const LoginSchema = Yup.object().shape({
@@ -76,7 +76,7 @@ function Login(props) {
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       console.log("submitting..")
-      localStorage.setItem('forgot_pwd_notif',null)      
+      localStorage.removeItem('forgot_pwd_notif');
       enableLoading();
       setTimeout(() => {
         login(values.email, values.password)
@@ -105,15 +105,6 @@ function Login(props) {
   });
 
   return (
-  //  <>
-   
-  //   <Toast.Header>
-  //   <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-  //   <strong className="mr-auto">Bootstrap</strong>
-  //   <small>11 mins ago</small>
-  // </Toast.Header>
-  // <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
-  // </Toast>
 
     <div className="login-form login-signin" id="kt_login_signin_form">
       {/* begin::Head */}
@@ -139,7 +130,7 @@ function Login(props) {
         ) : ""
         }
 {
-  localStorage.getItem('forgot_pwd_notif') != "null" ?(
+  ((localStorage.getItem('forgot_pwd_notif') === null) == false) ?(
 <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
             <div className="alert-text ">
             {localStorage.getItem('forgot_pwd_notif')}
