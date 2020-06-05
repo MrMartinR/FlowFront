@@ -67,10 +67,9 @@ function ForgotPasswordAction(props) {
         submitRequestPassword(values.password,values.changepassword,access_token, client,uid,expiry)
         .then(res => {
             //alert('sukses');
-            console.log(res);
-            props.history.push('/dashboard');
             localStorage.setItem('forgot_pwd_notif', res.data.message);
-            this.addNotification(res.data.message);
+            console.log(res);
+            props.history.push('/dashboard');                        
           }).catch(() => {
           setIsRequested(false);
           setSubmitting(false);
