@@ -61,6 +61,7 @@ export const actions = {
 };
 
 export function* saga() {
+  console.log("AQUI!!")
   yield takeLatest(actionTypes.Login, function* loginSaga() {
     yield put(actions.requestUser());
   });

@@ -3,7 +3,7 @@ import {Redirect, Switch, Route} from "react-router-dom";
 import {LayoutSplashScreen, ContentRoute} from "../_metronic/layout";
 import {DashboardPage} from "./pages/DashboardPage";
 import {SettingPage} from "./pages/SettingPage";
-import {AccountsPage} from "./pages/AccountsPage";
+import {AccountsPage} from "./pages/Account/AccountsPage";
 import {LendingPage} from "./pages/LendingPage";
 import {PropertyPage} from "./pages/PropertyPage";
 import {PlatformsPage} from "./pages/PlatformsPage";
