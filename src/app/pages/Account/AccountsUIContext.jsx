@@ -10,10 +10,10 @@ export function useAccountsUIContext() {
 
 export const AccountsUIConsumer = AccountsUIContext.Consumer;
 
-export function AccountsUIProvider({ customersUIEvents, children }) {
+export function AccountsUIProvider({ accountsUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
-  
+
   const setQueryParams = useCallback(nextQueryParams => {
     setQueryParamsBase(prevQueryParams => {
       if (isFunction(nextQueryParams)) {
@@ -30,25 +30,14 @@ export function AccountsUIProvider({ customersUIEvents, children }) {
 
   const initAccount = {
     id: undefined,
-    provider: '',
-    uid: '',
-    // encrypted_password: '',
-    // reset_password_token: '',
-    // reset_password_sent_at: 1,
-    // allow_password_change: 1,
-    // remember_created_at: 1,
-    username: '',
-    image: '',
-    email: '',
-    currency_id: 1,
-    country_id: 1,
-    // tokens: {},
-    // created_at: 1,
-    // updated_at: 1,
-    role: '',
-    dob: 1,
-    nam: '',
-    surname: '',
+    currency_id: '',
+    country_id: '',
+    category: '',
+    name: '',
+    icon: '',
+    created_at: '',
+    updated_at: '',
+    platform_id: '',
   }
 
   const value = {
@@ -58,12 +47,12 @@ export function AccountsUIProvider({ customersUIEvents, children }) {
     setIds,
     setQueryParams,
     initAccount,
-    // newAccountButtonClick: customersUIEvents.newAccountButtonClick,
-    // openEditAccountDialog: customersUIEvents.openEditAccountDialog,
-    // openDeleteAccountDialog: customersUIEvents.openDeleteAccountDialog,
-    // openDeleteAccountsDialog: customersUIEvents.openDeleteAccountsDialog,
-    // openFetchAccountsDialog: customersUIEvents.openFetchAccountsDialog,
-    // openUpdateAccountsStatusDialog: customersUIEvents.openUpdateAccountsStatusDialog
+    // newAccountButtonClick: accountsUIEvents.newAccountButtonClick,
+    openEditAccountDialog: accountsUIEvents.openEditAccountDialog,
+    // openDeleteAccountDialog: accountsUIEvents.openDeleteAccountDialog,
+    // openDeleteAccountsDialog: accountsUIEvents.openDeleteAccountsDialog,
+    // openFetchAccountsDialog: accountsUIEvents.openFetchAccountsDialog,
+    // openUpdateAccountsStatusDialog: accountsUIEvents.openUpdateAccountsStatusDialog
   };
 
   return <AccountsUIContext.Provider value={value}>{children}</AccountsUIContext.Provider>;

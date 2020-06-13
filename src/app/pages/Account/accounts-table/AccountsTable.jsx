@@ -1,11 +1,10 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, Fragment } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory, {
-  PaginationProvider,
-} from "react-bootstrap-table2-paginator";
+import CustomPagination from "./CustomPagination";
+import Pagination from '@material-ui/lab/Pagination';
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../redux/accounts/accountsActions";
 import {
@@ -18,7 +17,6 @@ import {
 } from "../../../../_metronic/_helpers";
 import * as uiHelpers from "../AccountsUIHelpers";
 import * as columnFormatters from "./column-formatters";
-import { Pagination } from "../../../../_metronic/_partials/controls";
 import { useAccountsUIContext } from "../AccountsUIContext";
 
 export function AccountsTable() {
@@ -40,8 +38,7 @@ export function AccountsTable() {
     (state) => ({ currentState: state.accounts }),
     shallowEqual
   );
-  const { total_pages, data, listLoading } = currentState;
-  console.log('data', data)
+  const { accountTable: { entities, page, pages }, listLoading } = currentState;
 
   // Accounts Redux state
   const dispatch = useDispatch();
@@ -49,37 +46,46 @@ export function AccountsTable() {
     // clear selections list
     accountsUIProps.setIds([]);
     // server call by queryParams
-    dispatch(actions.fetchAccounts(accountsUIProps.queryParams));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountsUIProps.queryParams, dispatch]);
+    const { pageNumber, pageSize } = accountsUIProps.queryParams;
+    dispatch(actions.fetchAccounts({ page: pageNumber, perPage: pageSize }));
+  }, []);
+
   // Table columns
   const columns = [
     {
       dataField: "id",
-      text: "ID",
+      text: "id",
       sort: true,
-      sortCaret: sortCaret,
-      headerSortingClasses,
+      hidden: true
     },
     {
       dataField: "name",
       text: "Name",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      // headerSortingClasses,
+    },
+    {
+      dataField: "image",
+      text: "Image",
+    },
+    {
+      dataField: "currenc",
+      text: "Currency",
+      sort: true,
+      sortCaret: sortCaret,
     },
     {
       dataField: "category",
       text: "Category",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      // headerSortingClasses,
     },
     {
-      dataField: "image",
-      text: "Image",
+      dataField: "countr",
+      text: "Country",
       sort: true,
-      sort: false,
       sortCaret: sortCaret,
     },
     {
@@ -96,7 +102,7 @@ export function AccountsTable() {
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditAccountDialog: accountsUIProps.openEditAccountDialog,
-        openDeleteAccountDialog: accountsUIProps.openDeleteAccountDialog,
+        openDeleteAccountDialog: accountsUIProps.openDeleteAccountDialog
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
@@ -105,50 +111,47 @@ export function AccountsTable() {
       },
     }
   ];
-  // Table pagination properties
-  const paginationOptions = {
-    custom: true,
-    totalSize: total_pages,
-    sizePerPageList: uiHelpers.sizePerPageList,
-    sizePerPage: accountsUIProps.queryParams.pageSize,
-    page: accountsUIProps.queryParams.pageNumber,
+
+  const sortCustom = (type, { sortField, sortOrder, data }) => {
+    if (data !== null) {
+      let isAsc = sortOrder === 'asc' ? true : false;
+      dispatch(actions.accountSort({ field: sortField, isAsc, entities: data }));
+    }
+  }
+
+  const pagesChange = (e, value) => {
+    const { pageSize } = accountsUIProps.queryParams;
+    // accountsUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }))
+    dispatch(actions.fetchAccounts({ page: value, perPage: pageSize }));
   };
   return (
-    <>
-      <PaginationProvider pagination={paginationFactory(paginationOptions)}>
-        {({ paginationProps, paginationTableProps }) => {
-          return (
-            <Pagination
-              isLoading={listLoading}
-              paginationProps={paginationProps}
-            >
-              <BootstrapTable
-                wrapperClasses="table-responsive"
-                bordered={false}
-                classes="table table-head-custom table-vertical-center"
-                bootstrap4
-                remote
-                keyField="id"
-                data={data === null ? [] : data}
-                columns={columns}
-                defaultSorted={uiHelpers.defaultSorted}
-                onTableChange={getHandlerTableChange(
-                  accountsUIProps.setQueryParams
-                )}
-                selectRow={getSelectRow({
-                  data,
-                  ids: accountsUIProps.ids,
-                  setIds: accountsUIProps.setIds,
-                })}
-                {...paginationTableProps}
-              >
-                <PleaseWaitMessage data={data} />
-                <NoRecordsFoundMessage data={data} />
-              </BootstrapTable>
-            </Pagination>
-          );
-        }}
-      </PaginationProvider>
-    </>
+    <Fragment>
+      <BootstrapTable
+        wrapperClasses="table-responsive"
+        bordered={false}
+        classes="table table-head-custom table-vertical-center table-hover"
+        bootstrap4
+        remote
+
+        keyField="id"
+        data={entities === null ? [] : entities}
+        columns={columns}
+        defaultSorted={uiHelpers.defaultSorted}
+        onTableChange={sortCustom}
+        selectRow={getSelectRow({
+          entities,
+          ids: accountsUIProps.ids,
+          setIds: accountsUIProps.setIds,
+        })}
+      >
+        <PleaseWaitMessage entities={entities} />
+        <NoRecordsFoundMessage entities={entities} />
+      </BootstrapTable>
+      <Pagination
+        count={pages}
+        page={page}
+        style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}
+        onChange={pagesChange} />
+    </Fragment>
   );
 }

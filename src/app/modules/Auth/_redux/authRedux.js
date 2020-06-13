@@ -13,18 +13,24 @@ export const actionTypes = {
 
 const initialAuthState = {
   user: undefined,
-  authToken: undefined
+  authToken: undefined,
+  client: undefined,
+  expiry: undefined,
+  token: undefined
 };
 
 export const reducer = persistReducer(
-  { storage, key: "demo1-auth", whitelist: ["user", "authToken"] },
+  { storage, key: "demo1-auth", whitelist: ["user", "authToken", "client", "expiry", "token"] },
   (state = initialAuthState, action) => {
     switch (action.type) {
       case actionTypes.Login: {
-        var authToken = action.payload.authToken;
-        var uid = action.payload.uid;
-        
-        return { authToken, user: {email: uid, fullname: uid} };
+        let authToken = action.payload.authToken;
+        let uid = action.payload.uid;
+        let client = action.payload.client;
+        let expiry = action.payload.expiry;
+        let token = action.payload.token;
+
+        return { authToken, user: { email: uid, fullname: uid }, client, expiry, token };
       }
 
       case actionTypes.Register: {
@@ -50,7 +56,7 @@ export const reducer = persistReducer(
 );
 
 export const actions = {
-  login: (authToken, uid) => ({ type: actionTypes.Login, payload: { authToken, uid } }),
+  login: (authToken, uid, client, expiry, token) => ({ type: actionTypes.Login, payload: { authToken, uid, client, expiry, token } }),
   register: authToken => ({
     type: actionTypes.Register,
     payload: { authToken }
@@ -61,7 +67,6 @@ export const actions = {
 };
 
 export function* saga() {
-  console.log("AQUI!!")
   yield takeLatest(actionTypes.Login, function* loginSaga() {
     yield put(actions.requestUser());
   });

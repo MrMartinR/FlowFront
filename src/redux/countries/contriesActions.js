@@ -1,5 +1,5 @@
-import * as requestFromServer from "./accountsCrud";
-import { accountsSlice, callTypes } from "./accountsSlice";
+import * as requestFromServer from "./contriesCrud";
+import { accountsSlice, callTypes } from "./contriesSlice";
 
 const { actions } = accountsSlice;
 

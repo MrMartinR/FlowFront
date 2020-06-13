@@ -1,6 +1,7 @@
 import React from "react";
 import {useField} from "formik";
 import {FieldFeedbackLabel} from "./FieldFeedbackLabel";
+import SearchSelect from "../../../../app/sharedComponents/searchSelect";
 
 const getFieldCSSClasses = (touched, errors) => {
   const classes = ["form-control", "form-control-solid"];
@@ -28,13 +29,13 @@ export function Select({
   return (
     <>
       {label && <label>Select {label}</label>}
-      <select
+      <SearchSelect
         className={getFieldCSSClasses(touched, error)}
         {...field}
         {...props}
       >
         {children}
-      </select>
+      </SearchSelect>
       {withFeedbackLabel && (
         <FieldFeedbackLabel
           erros={error}

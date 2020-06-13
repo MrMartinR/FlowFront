@@ -82,11 +82,12 @@ function Login(props) {
         login(values.email, values.password)
           .then(res => {
             disableLoading();
-            var accessToken = res.headers["access-token"]
-            var uid = res.headers.uid
-            var client = res.headers.client
-            var expiry = res.headers.expiry            
-            props.login(accessToken, uid);
+            var accessToken = res.data.token["token"]; 
+            let uid = res.data.data.uid
+            let client = res.data.token.client
+            let expiry = res.data.token.expiry  
+            let token = res.data.token["token"];
+            props.login(accessToken, uid, client, expiry, token);
           })    
           .catch(() => {
             console.log("error")

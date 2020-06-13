@@ -1,20 +1,65 @@
 import * as requestFromServer from "./customersCrud";
-import {customersSlice, callTypes} from "./customersSlice";
+import { customersSlice, callTypes } from "./customersSlice";
 
-const {actions} = customersSlice;
+const { actions } = customersSlice;
 
 export const fetchCustomers = queryParams => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.list }));
-  return requestFromServer
-    .findCustomers(queryParams)
-    .then(response => {
-      const { totalCount, entities } = response.data;
-      dispatch(actions.customersFetched({ totalCount, entities }));
-    })
-    .catch(error => {
-      error.clientMessage = "Can't find customers";
-      dispatch(actions.catchError({ error, callType: callTypes.list }));
-    });
+  let response = {
+    totalCount: 7,
+    entities: [
+      {
+        id: 5,
+        firstName: "a",
+        lastName: "a",
+        email: "a",
+        userName: "a",
+        gender: "Female",
+        status: 0,
+        dateOfBbirth: "a",
+        ipAddress: "a",
+        type: 1
+      },
+      {
+        id: 1,
+        firstName: "bb",
+        lastName: "b",
+        email: "b",
+        userName: "b",
+        gender: "Female",
+        status: 0,
+        dateOfBbirth: "b",
+        ipAddress: "b",
+        type: 1
+      },
+      {
+        id: 4,
+        firstName: "c",
+        lastName: "c",
+        email: "c",
+        userName: "c",
+        gender: "Female",
+        status: 0,
+        dateOfBbirth: "c",
+        ipAddress: "c",
+        type: 1
+      }
+    ]
+  }
+  const { totalCount, entities } = response;
+  console.log('entities', entities)
+  dispatch(actions.customersFetched({ totalCount, entities }));
+  return response;
+  // return requestFromServer
+  //   .findCustomers(queryParams)
+  //   .then(response => {
+  //     const { totalCount, entities } = response.data;
+  //     dispatch(actions.customersFetched({ totalCount, entities }));
+  //   })
+  //   .catch(error => {
+  //     error.clientMessage = "Can't find customers";
+  //     dispatch(actions.catchError({ error, callType: callTypes.list }));
+  //   });
 };
 
 export const fetchCustomer = id => dispatch => {

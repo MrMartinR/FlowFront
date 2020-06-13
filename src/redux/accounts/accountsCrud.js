@@ -1,24 +1,33 @@
 import axios from "axios";
+import store from "../../redux/store";
 
-const options = {
-  headers: {
-    "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Content-Type": "application/json; charset=utf-8",
-    "access-token": "MiZMCEa5nVwGpCuWGwsf2A",
-    "token-type": "Bearer",
-    "client": "8Kva7F90IbIgwEzrPqhRHQ",
-    "expiry": "1592930535",
-    "uid": "admin@flowapp.com"
-  }
-};
+const optionsHeaders = () => {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState();
+
+  const options = {
+    headers: {
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Content-Type": "application/json; charset=utf-8",
+      "access-token": token,
+      "token-type": "Bearer",
+      "client": client,
+      "expiry": expiry,
+      "uid": user.email
+    }
+  };
+  return options;
+}
+
 
 const API_URL = 'http://localhost:3001';
-// const API_URL = process.env;
+// const API_URL = process.env.API_URL;
 export const ACCOUNT_URL = API_URL + "/api/v1/accounts";
 
-// CREATE =>  POST: add a new customer to the server
-export function createAccount(customer) {
-  return axios.post(ACCOUNT_URL, { customer });
+// CREATE =>  POST: add a new account to the server
+export function createAccount(account) {
+  return axios.post(ACCOUNT_URL, { account });
 }
 
 // READ
@@ -26,21 +35,19 @@ export function getAllAccounts() {
   return axios.get(ACCOUNT_URL);
 }
 
-export function getAccountById(customerId) {
-  return axios.get(`${ACCOUNT_URL}/${customerId}`);
+export function getAccountById(accountId) {
+  return axios.get(`${ACCOUNT_URL}/${accountId}`, optionsHeaders());
 }
 
 // Method from server should return QueryResultsModel(items: any[], totalsCount: number)
 // items => filtered/sorted result
-export function findAccounts(queryParams) {
-  let a = axios.get(`${ACCOUNT_URL}?page=1&per_page=10`, options);
-  console.log('a', a)
-  return a;
+export function findAccounts({ page, perPage = 10 }) {
+  return axios.get(`${ACCOUNT_URL}?page=${page}&per_page=${perPage}`, optionsHeaders());
 }
 
-// UPDATE => PUT: update the customer on the server
-export function updateAccount(customer) {
-  return axios.put(`${ACCOUNT_URL}/${customer.id}`, { customer });
+// UPDATE => PUT: update the account on the server
+export function updateAccount(account) {
+  return axios.put(`${ACCOUNT_URL}/${account.id}`, { account });
 }
 
 // UPDATE Status
@@ -51,9 +58,9 @@ export function updateStatusForAccounts(ids, status) {
   });
 }
 
-// DELETE => delete the customer from the server
-export function deleteAccount(customerId) {
-  return axios.delete(`${ACCOUNT_URL}/${customerId}`);
+// DELETE => delete the account from the server
+export function deleteAccount(accountId) {
+  return axios.delete(`${ACCOUNT_URL}/${accountId}`);
 }
 
 // DELETE Accounts by ids
