@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Util from '../../app/utils';
 
-const initialCustomersState = {
+const initialAccountsState = {
   listLoading: false,
   actionsLoading: false,
   accountTable: { entities: null, page: null, pages: null, perPage: null },
@@ -15,7 +15,7 @@ export const callTypes = {
 
 export const accountsSlice = createSlice({
   name: "accounts",
-  initialState: initialCustomersState,
+  initialState: initialAccountsState,
   reducers: {
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`;

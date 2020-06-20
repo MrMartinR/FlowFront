@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Util from '../../app/utils';
 
-const initialCustomersState = {
+const initialCountriesState = {
   listLoading: false,
   actionsLoading: false,
-  accountTable: { entities: null, page: null, pages: null, perPage: null },
-  accountForEdit: undefined,
+  countryTable: { entities: null, page: null, pages: null, perPage: null },
+  countryForEdit: undefined,
   lastError: null
 };
 export const callTypes = {
@@ -13,9 +13,9 @@ export const callTypes = {
   action: "action"
 };
 
-export const accountsSlice = createSlice({
-  name: "accounts",
-  initialState: initialCustomersState,
+export const countriesSlice = createSlice({
+  name: "Countries",
+  initialState: initialCountriesState,
   reducers: {
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`;
@@ -33,68 +33,68 @@ export const accountsSlice = createSlice({
         state.actionsLoading = true;
       }
     },
-    accountSort: (state, action) => {
+    countrySort: (state, action) => {
       const { field, isAsc, entities } = action.payload;
       let areEmptyFields = entities.some(i => i[field]);
       if (areEmptyFields) {
         let entitiesOrdened = [...entities].sort(
           Util.sortCustom(field, isAsc, (a) => a.toUpperCase())
         );
-        state.accountTable.entities = entitiesOrdened
+        state.countryTable.entities = entitiesOrdened
       }
     },
     // getCustomerById
-    accountFetched: (state, action) => {
+    countryFetched: (state, action) => {
       state.actionsLoading = false;
-      state.accountForEdit = action.payload.accountForEdit;
+      state.countryForEdit = action.payload.countryForEdit;
       state.error = null;
     },
     // findCustomers
-    accountsFetched: (state, action) => {
+    countriesFetched: (state, action) => {
       const { pages, page, entities } = action.payload;
       state.listLoading = false;
       state.error = null;
-      state.accountTable.entities = entities;
-      state.accountTable.pages = pages;
-      state.accountTable.page = page;
+      state.countryTable.entities = entities;
+      state.countryTable.pages = pages;
+      state.countryTable.page = page;
     },
     // createCustomer
-    accountCreated: (state, action) => {
+    countryCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.accountTable.entities.push(action.payload.account);
+      state.countryTable.entities.push(action.payload.country);
     },
     // updateCustomer
-    accountUpdated: (state, action) => {
+    countryUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.accountTable.entities = state.accountTable.entities.map(entity => {
-        if (entity.id === action.payload.account.id) {
-          return action.payload.account;
+      state.countryTable.entities = state.countryTable.entities.map(entity => {
+        if (entity.id === action.payload.country.id) {
+          return action.payload.country;
         }
         return entity;
       });
     },
     // deleteCustomer
-    accountDeleted: (state, action) => {
+    countryDeleted: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.accountTable.entities = state.accountTable.entities.filter(el => el.id !== action.payload.id);
+      state.countryTable.entities = state.countryTable.entities.filter(el => el.id !== action.payload.id);
     },
     // deleteCustomers
-    accountsDeleted: (state, action) => {
+    countriesDeleted: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.accountTable.entities = state.accountTable.entities.filter(
+      state.countryTable.entities = state.countryTable.entities.filter(
         el => !action.payload.ids.includes(el.id)
       );
     },
-    // accountsUpdateState
-    accountsStatusUpdated: (state, action) => {
+    // CountriesUpdateState
+    countriesStatusUpdated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
       const { ids, status } = action.payload;
-      state.accountTable.entities = state.accountTable.entities.map(entity => {
+      state.countryTable.entities = state.countryTable.entities.map(entity => {
         if (ids.findIndex(id => id === entity.id) > -1) {
           entity.status = status;
         }

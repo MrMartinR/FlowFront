@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../redux/accounts/accountsActions";
 import { AccountEditDialogHeader } from "./AccountEditDialogHeader";
-import { AccountEditForm } from "./AccountEditForm";
+import { MyEnhancedAccountForm } from "./AccountEditForm";
 import { useAccountsUIContext } from "../AccountsUIContext";
 
 export function AccountEditDialog({ id, show, onHide }) {
@@ -30,10 +30,8 @@ export function AccountEditDialog({ id, show, onHide }) {
     dispatch(actions.fetchAccount(id));
   }, [id]);
   
-  console.log('accountForEdit', accountForEdit)
   // server request for saving account
   const saveAccount = (account) => {
-    console.log('account', account)
     if (!id) {
       // server request for creating account
       dispatch(actions.createAccount(account)).then(() => onHide());
@@ -51,7 +49,7 @@ export function AccountEditDialog({ id, show, onHide }) {
       aria-labelledby="example-modal-sizes-title-lg"
     >
       <AccountEditDialogHeader id={id} />
-      <AccountEditForm
+      <MyEnhancedAccountForm
         saveAccount={saveAccount}
         actionsLoading={actionsLoading}
         account={accountForEdit || accountsUIProps.initAccount}

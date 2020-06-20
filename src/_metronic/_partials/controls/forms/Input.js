@@ -23,6 +23,8 @@ export function Input({
   type = "text",
   ...props
 }) {
+  if (field.name =='email')
+  console.log('field', field)
   return (
     <>
       {label && <label>Enter {label}</label>}

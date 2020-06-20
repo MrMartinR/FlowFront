@@ -4,6 +4,7 @@ import {LayoutSplashScreen, ContentRoute} from "../_metronic/layout";
 import {DashboardPage} from "./pages/DashboardPage";
 import {SettingPage} from "./pages/SettingPage";
 import {AccountsPage} from "./pages/Account/AccountsPage";
+import {CountriesPage} from "./pages/Country/CountriesPage";
 import {LendingPage} from "./pages/LendingPage";
 import {PropertyPage} from "./pages/PropertyPage";
 import {PlatformsPage} from "./pages/PlatformsPage";
@@ -35,6 +36,7 @@ export default function BasePage() {
                 <ContentRoute path="/dashboard" component={DashboardPage}/>
                 <ContentRoute path="/setting" component={SettingPage}/>
                 <ContentRoute path="/accounts" component={AccountsPage}/>
+                <ContentRoute path="/countries" component={CountriesPage}/>
                 <ContentRoute path="/lending" component={LendingPage}/>
                 <ContentRoute path="/property" component={PropertyPage}/>
                 <ContentRoute path="/platforms" component={PlatformsPage}/>

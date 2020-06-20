@@ -47,7 +47,6 @@ export const fetchCustomers = queryParams => dispatch => {
     ]
   }
   const { totalCount, entities } = response;
-  console.log('entities', entities)
   dispatch(actions.customersFetched({ totalCount, entities }));
   return response;
   // return requestFromServer

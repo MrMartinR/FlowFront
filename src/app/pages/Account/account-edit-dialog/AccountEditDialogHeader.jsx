@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { Modal } from "react-bootstrap";
+import { Modal, Badge } from "react-bootstrap";
 import { ModalProgressBar } from "../../../../_metronic/_partials/controls";
 
 export function AccountEditDialogHeader({ id }) {
@@ -13,23 +13,31 @@ export function AccountEditDialogHeader({ id }) {
     shallowEqual
   );
 
-  const [title, setTitle] = useState("");
-  // Title couting
-  useEffect(() => {
-    let _title = id ? "" : "New Account";
-    if (accountForEdit && id) {
-      _title = `Edit account '${accountForEdit.firstName} ${accountForEdit.lastName}'`;
-    }
+  // const [title, setTitle] = useState("");
+  // // Title couting
+  // useEffect(() => {
+  //   let _title = id ? "" : "New Account";
+  //   if (accountForEdit && id) {
+  //     _title = `Edit account ${(
+  //       <Badge variant="secondary">{accountForEdit.name}</Badge>
+  //     )}`;
+  //   }
 
-    setTitle(_title);
-    // eslint-disable-next-line
-  }, [accountForEdit, actionsLoading]);
+  //   setTitle(_title);
+  //   // eslint-disable-next-line
+  // }, [accountForEdit, actionsLoading]);
 
   return (
     <>
       {actionsLoading && <ModalProgressBar />}
       <Modal.Header closeButton>
-        <Modal.Title id="example-modal-sizes-title-lg">{title}</Modal.Title>
+        <Modal.Title id="example-modal-sizes-title-lg">
+          {accountForEdit && id ? (
+            <label> Edit account <Badge variant="secondary">{accountForEdit.name}</Badge></label>
+          ) : (
+            "New Account"
+          )}
+        </Modal.Title>
       </Modal.Header>
     </>
   );
