@@ -8,9 +8,9 @@ import { AccountsCard } from "./AccountsCard";
 export function AccountsPage({ history }) {
 
   const accountsUIEvents = {
-    // newAccountButtonClick: () => {
-    //   history.push("/accounts/new");
-    // },
+    newAccountButtonClick: () => {
+      history.push("/accounts/new");
+    },
     openEditAccountDialog: (id) => {
       history.push(`/accounts/${id}/edit`);
     },
@@ -32,6 +32,16 @@ export function AccountsPage({ history }) {
     <AccountsUIProvider accountsUIEvents={accountsUIEvents}>
     {/* <AccountsUIProvider > */}
       <AccountsLoadingDialog />
+      <Route path="/accounts/new">
+        {({ history, match }) => (
+          <AccountEditDialog
+            show={match != null}
+            onHide={() => {
+              history.push("/accounts");
+            }}
+          />
+        )}
+      </Route>
       <Route path="/accounts/:id/edit">
         {({ history, match }) => (
           <AccountEditDialog

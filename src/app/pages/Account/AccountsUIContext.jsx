@@ -47,7 +47,7 @@ export function AccountsUIProvider({ accountsUIEvents, children }) {
     setIds,
     setQueryParams,
     initAccount,
-    // newAccountButtonClick: accountsUIEvents.newAccountButtonClick,
+    newAccountButtonClick: accountsUIEvents.newAccountButtonClick,
     openEditAccountDialog: accountsUIEvents.openEditAccountDialog,
     // openDeleteAccountDialog: accountsUIEvents.openDeleteAccountDialog,
     // openDeleteAccountsDialog: accountsUIEvents.openDeleteAccountsDialog,

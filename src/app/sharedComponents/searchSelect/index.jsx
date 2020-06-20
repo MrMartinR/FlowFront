@@ -1,43 +1,53 @@
-import React from 'react';
+import React from "react";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import { Form } from "react-bootstrap";
 
-import Select from 'react-select';
-// import { colourOptions } from '../data';
+const options = [
+  { value: "Food", label: "Food" },
+  { value: "Being Fabulous", label: "Being Fabulous" },
+  { value: "Ken Wheeler", label: "Ken Wheeler" },
+  { value: "ReasonML", label: "ReasonML" },
+  { value: "Unicorns", label: "Unicorns" },
+  { value: "Kittens", label: "Kittens" },
+];
+const animatedComponents = makeAnimated();
 
-const CustomClearText = () => 'clear all';
-const ClearIndicator = props => {
-  const {
-    children = <CustomClearText />,
-    getStyles,
-    innerProps: { ref, ...restInnerProps },
-  } = props;
+export const MultiSelect = ({
+  name,
+  value,
+  error,
+  touched,
+  onChange,
+  onBlur,
+  addClass,
+  multi=false
+}) => {
+  const handleChange = (value) => {
+    // this is going to call setFieldValue and manually update values.topcis
+    onChange(name, value);
+  };
+
+  const handleBlur = () => {
+    // this is going to call setFieldTouched and manually update touched.topcis
+    onBlur(name, true);
+  };
   return (
-    <div
-      {...restInnerProps}
-      ref={ref}
-      style={getStyles('clearIndicator', props)}
-    >
-      <div style={{ padding: '0px 5px' }}>{children}</div>
-    </div>
+    <Form.Group className={addClass}>
+      <label htmlFor="color">{name} (select at least 3) </label>
+      <Select
+        isMulti={multi}
+        components={animatedComponents}
+        isSearchable={true}
+        closeMenuOnSelect={false}
+        options={options}
+        onChange={() => handleChange()}
+        onBlur={() => handleBlur()}
+        value={value}
+      />
+      {!!error && touched && (
+        <div style={{ color: "red", marginTop: ".5rem" }}>{error}</div>
+      )}
+    </Form.Group>
   );
 };
-
-const ClearIndicatorStyles = (base, state) => ({
-  ...base,
-  cursor: 'pointer',
-  color: state.isFocused ? 'blue' : 'black',
-});
-
-export default function SearchSelect(props) {
-  console.log('props', props)
-  return (
-    <Select
-      closeMenuOnSelect={false}
-      components={{ ClearIndicator }}
-      styles={{ clearIndicator: ClearIndicatorStyles }}
-      // defaultValue={}
-      // isMulti= {false}
-      // options={[{value:"red", label: "red"}]}
-      // options={}
-    />
-  );
-}
