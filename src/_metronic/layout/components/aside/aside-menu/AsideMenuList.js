@@ -37,7 +37,15 @@ export function AsideMenuList({ layoutProps }) {
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Accounts</span>
             </NavLink>
-          </li>          
+          </li>
+
+          
+          <li className={`menu-item ${getMenuItemActive("/currency")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/currency">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Currency</span>
+            </NavLink>
+          </li>    
 
           <li className={`menu-item ${getMenuItemActive("/lending")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/lending">
@@ -65,7 +73,8 @@ export function AsideMenuList({ layoutProps }) {
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Originators</span>
             </NavLink>
-          </li>       
+          </li>
+
           {/*end::1 Level*/}
           
           {/* Components */}
