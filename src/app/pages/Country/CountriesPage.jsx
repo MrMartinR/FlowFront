@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
 // import { CountriesLoadingDialog } from "./countries-loading-dialog/CountriesLoadingDialog";
-// import { CountryEditDialog } from "./country-edit-dialog/CountryEditDialog";
+import { CountryEditDialog } from "./countries-edit-dialog/CountryEditDialog";
 import { CountriesUIProvider } from "./CountriesUIContext";
 import { CountriesCard } from "./CountriesCard";
 
@@ -26,16 +26,10 @@ export function CountriesPage({ history }) {
     //   history.push("/countries/updateStatus");
     // }
   };
-  // return (
-  //   <Fragment>
-  //     <h1>PAGE</h1>
-  //     <CountriesCard />
-  //   </Fragment>
-  // );
   return (
     <CountriesUIProvider countriesUIEvents={countriesUIEvents}>
       {/* <CountriesLoadingDialog /> */}
-      {/* <Route path="/countries/new">
+       <Route path="/countries/new">
         {({ history, match }) => (
           <CountryEditDialog
             show={match != null}
@@ -52,12 +46,11 @@ export function CountriesPage({ history }) {
             id={match && match.params.id}
             onHide={() => {
               history.push("/countries");
-              u;
             }}
           />
         )}
       </Route>
-       */}
+      
       <CountriesCard />
     </CountriesUIProvider>
   );

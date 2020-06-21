@@ -123,8 +123,7 @@ export function AccountsTable() {
     accountsUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }))
     dispatch(actions.fetchAccounts({ page: value, perPage: pageSize }));
   };
-  console.log('entities', entities ? entities : [])
-  // console.log('entities', entities ? entities[2].replace(/\\/g, "") : [])
+  
   return (
     <Fragment>
       <BootstrapTable

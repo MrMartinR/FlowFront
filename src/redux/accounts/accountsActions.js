@@ -13,7 +13,13 @@ export const fetchAccounts = params => dispatch => {
     .findAccounts(params)
     .then(response => {
       const { pages, page, entities } = response.data;
-      // entities = entities['currencies'].replace(/\\/g, "");
+      entities.map(i => i ?  
+      console.log(Object.keys(i.currencies).lenght > 0 ? i.currencies.replace(/\\/g, "") : 0) : console.log(i.currencies)
+      )
+      // for (const i of entities) {
+      //   console.log(i.currencies  )
+        
+      // }
       console.log('sssss', entities)
       dispatch(actions.accountsFetched({ pages, page, entities }));
     })

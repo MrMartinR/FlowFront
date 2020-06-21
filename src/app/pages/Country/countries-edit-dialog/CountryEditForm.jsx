@@ -10,47 +10,43 @@ import { MultiSelect } from "../../../sharedComponents/searchSelect";
 import { Input } from "../../../sharedComponents/inputShared";
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
-    id: Yup.string().nullable(),
     name: Yup.string()
       .min(4, "Type more than 4 characters")
       .max(20, "Type less than 20 characters")
       .required("Name is required"),
-    category: Yup.string()
+    iso_code: Yup.string()
       .min(4, "Type more than 4 characters")
-      .max(20, "Type less than 20 characters")
-      .required("Category is required"),
-    icon: Yup.mixed().nullable(),
-    // .required('An Icon is required'),
-    currency: Yup.array()
-      .nullable(),
-    countries: Yup.array()
-      .nullable(),
+      .max(10, "Type less than 20 characters")
+      .required("ISO Code is required"),
+    continent: Yup.array()
+      .min(4, "Type more than 4 characters")
+      .max(10, "Type less than 20 characters")
+      .required("Continent is required"),
+    flag: Yup.boolean().required("The Flag is required"),
+    currency_id: Yup.array()
+      .min(1, "Pick at least 1 tags")
+      .of(
+        Yup.object().shape({
+          label: Yup.string().required(),
+          value: Yup.string().required(),
+        })
+      ),
   }),
   enableReinitialize: true,
   mapPropsToValues: ({
-    account: { id, name, category, icon, country, currency },
-  }) => {
-
-    // let countryMap =
-    //   country !== undefined && !country
-    //     ? []
-    //     : country.map((c) => ({ value: c.id, label: c.name }));
-
-
-    return {
-      id,
-      name,
-      category,
-      icon: icon,
-      country: [], //countryMap
-      currency: [], //currencyMap
-    };
-  },
+    account: { id, name, iso_code, continent, currency_id, flag },
+  }) => ({
+    id,
+    name,
+    iso_code,
+    continent,
+    currency_id: [], //countryMap
+    flag,
+  }),
   handleSubmit: (values, { setSubmitting }) => {
     const payload = {
       ...values,
-      countries: [values].countries.map((t) => t.value),
-      currency: [values].currency.map((t) => t.value),
+      currency_id: [values].contries.map((t) => t.value),
     };
     setTimeout(() => {
       alert(JSON.stringify(payload, null, 2));
@@ -60,7 +56,7 @@ const formikEnhancer = withFormik({
   displayName: "MyForm",
 });
 
-export const AccountEditForm = (props) => {
+export const CountryEditForm = (props) => {
   const {
     values,
     touched,
@@ -112,25 +108,33 @@ export const AccountEditForm = (props) => {
               </Col>
             </Row>
             <Row>
-            <MultiSelect
-                value={values.platform_id}
+              <Input
+                value={values.name}
                 onChange={setFieldValue}
                 onBlur={setFieldTouched}
-                error={errors.platform_id}
-                touched={touched.platform_id}
-                multi={true}
-                name="Platform"
+                error={errors.name}
+                touched={touched.name}
+                name="name"
+                type="text"
                 addClass={["col-md-5", "col-xs-12"]}
               />
-            </Row>
-            <Row>
-              <MultiSelect
-                value={values.countries}
+              <Input
+                value={values.category}
                 onChange={setFieldValue}
                 onBlur={setFieldTouched}
-                error={errors.countries}
-                touched={touched.countries}
-                name="countries"
+                error={errors.category}
+                touched={touched.category}
+                name="category"
+                type="text"
+                addClass={["col-md-5", "col-xs-12"]}
+              />
+              <MultiSelect
+                value={values.contries}
+                onChange={setFieldValue}
+                onBlur={setFieldTouched}
+                error={errors.contries}
+                touched={touched.contries}
+                name="contries"
                 multi={true}
                 addClass={["col-md-5", "col-xs-12"]}
               />
@@ -142,16 +146,6 @@ export const AccountEditForm = (props) => {
                 touched={touched.currency}
                 multi={true}
                 name="currency"
-                addClass={["col-md-5", "col-xs-12"]}
-              />
-              <MultiSelect
-                value={values.platform_id}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-                error={errors.platform_id}
-                touched={touched.platform_id}
-                multi={true}
-                name="Platform"
                 addClass={["col-md-5", "col-xs-12"]}
               />
             </Row>
@@ -191,4 +185,4 @@ export const AccountEditForm = (props) => {
   );
 };
 
-export const MyEnhancedAccountForm = formikEnhancer(AccountEditForm);
+export const MyEnhancedCountryForm = formikEnhancer(CountryEditForm);

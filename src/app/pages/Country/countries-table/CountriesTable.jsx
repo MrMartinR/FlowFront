@@ -61,6 +61,13 @@ export function CountriesTable() {
       hidden: true,
     },
     {
+      dataField: "flag",
+      text: "Flag",
+      sort: true,
+      sortCaret: sortCaret,
+      // headerSortingClasses,
+    },
+    {
       dataField: "name",
       text: "Name",
       sort: true,
@@ -68,28 +75,22 @@ export function CountriesTable() {
       // headerSortingClasses,
     },
     {
-      dataField: "image",
-      text: "Icon",
+      dataField: "iso_code",
+      text: "ISO Code",
     },
     {
-      dataField: "currenc",
-      text: "Currency",
+      dataField: "continent",
+      text: "Continent",
       sort: true,
       sortCaret: sortCaret,
     },
-    {
-      dataField: "category",
-      text: "Category",
-      sort: true,
-      sortCaret: sortCaret,
-      // headerSortingClasses,
-    },
-    {
-      dataField: "countr",
-      text: "Country",
-      sort: true,
-      sortCaret: sortCaret,
-    },
+    // {
+    //   dataField: "currency_id",
+    //   text: "Currencies",
+    //   sort: true,
+    //   sortCaret: sortCaret,
+    //   // headerSortingClasses,
+    // },
     {
       dataField: "status",
       text: "Status",
