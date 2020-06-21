@@ -8,12 +8,14 @@ import { productsSlice } from "../app/modules/ECommerce/_redux/products/products
 import { remarksSlice } from "../app/modules/ECommerce/_redux/remarks/remarksSlice";
 import { specificationsSlice } from "../app/modules/ECommerce/_redux/specifications/specificationsSlice";
 import { countriesSlice } from "./countries/countriesSlice";
+import { currenciesSlice } from "./currencies/currenciesSlice";
 
 export const rootReducer = combineReducers({
   accounts: accountsSlice.reducer,
   auth: auth.reducer,
   customers: customersSlice.reducer,
   countries: countriesSlice.reducer,
+  currencies: currenciesSlice.reducer, 
   products: productsSlice.reducer,
   remarks: remarksSlice.reducer,
   specifications: specificationsSlice.reducer,
