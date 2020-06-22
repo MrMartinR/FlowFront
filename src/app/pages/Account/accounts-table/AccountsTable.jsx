@@ -3,7 +3,8 @@
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
 import React, { useEffect, useMemo, Fragment } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import Pagination from '@material-ui/lab/Pagination';
+import Image from "react-bootstrap/Image";
+import Pagination from "@material-ui/lab/Pagination";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../redux/accounts/accountsActions";
 import {
@@ -37,7 +38,10 @@ export function AccountsTable() {
     (state) => ({ currentState: state.accounts }),
     shallowEqual
   );
-  const { accountTable: { entities, page, pages }, listLoading } = currentState;
+  const {
+    accountTable: { entities, page, pages },
+    listLoading,
+  } = currentState;
 
   // Accounts Redux state
   const dispatch = useDispatch();
@@ -55,7 +59,7 @@ export function AccountsTable() {
       dataField: "id",
       text: "id",
       sort: true,
-      hidden: true
+      hidden: true,
     },
     {
       dataField: "name",
@@ -65,8 +69,9 @@ export function AccountsTable() {
       // headerSortingClasses,
     },
     {
-      dataField: "image",
+      // dataField: "image",
       text: "Icon",
+      formatter: priceFormatter,
     },
     {
       dataField: "currenc",
@@ -101,29 +106,34 @@ export function AccountsTable() {
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditAccountDialog: accountsUIProps.openEditAccountDialog,
-        openDeleteAccountDialog: accountsUIProps.openDeleteAccountDialog
+        openDeleteAccountDialog: accountsUIProps.openDeleteAccountDialog,
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
       style: {
         minWidth: "100px",
       },
-    }
+    },
   ];
+  function priceFormatter(cell, row) {
+    return <Image src="../../../../../public/media/logos/flow-logo.svg" />;
+  }
 
   const sortCustom = (type, { sortField, sortOrder, data }) => {
     if (data !== null) {
-      let isAsc = sortOrder === 'asc' ? true : false;
-      dispatch(actions.accountSort({ field: sortField, isAsc, entities: data }));
+      let isAsc = sortOrder === "asc" ? true : false;
+      dispatch(
+        actions.accountSort({ field: sortField, isAsc, entities: data })
+      );
     }
-  }
+  };
 
   const pagesChange = (e, value) => {
     const { pageSize } = accountsUIProps.queryParams;
-    accountsUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }))
+    accountsUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }));
     dispatch(actions.fetchAccounts({ page: value, perPage: pageSize }));
   };
-  
+
   return (
     <Fragment>
       <BootstrapTable
@@ -132,7 +142,6 @@ export function AccountsTable() {
         classes="table table-head-custom table-vertical-center table-hover"
         bootstrap4
         remote
-
         keyField="id"
         data={entities === null ? [] : entities}
         columns={columns}
@@ -150,8 +159,13 @@ export function AccountsTable() {
       <Pagination
         count={pages}
         page={page}
-        style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}
-        onChange={pagesChange} />
+        style={{
+          justifyContent: "center",
+          display: "flex",
+          alignItems: "center",
+        }}
+        onChange={pagesChange}
+      />
     </Fragment>
   );
 }

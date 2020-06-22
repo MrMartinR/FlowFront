@@ -23,7 +23,9 @@ export function CountryEditDialog({ id, show, onHide }) {
       countryForEdit: state.countries.countryForEdit,
     }),
     shallowEqual
-  );
+    );
+    console.log('countryForEdit', countryForEdit)
+    console.log('actionsLoading', actionsLoading)
   
   useEffect(() => {
     // server call for getting Country by id
@@ -41,6 +43,7 @@ export function CountryEditDialog({ id, show, onHide }) {
     }
   };
 
+  console.log('id', id)
   return (
     <Modal
       size="lg"

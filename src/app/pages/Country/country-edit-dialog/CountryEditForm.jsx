@@ -34,7 +34,7 @@ const formikEnhancer = withFormik({
   }),
   enableReinitialize: true,
   mapPropsToValues: ({
-    account: { id, name, iso_code, continent, currency_id, flag },
+    country: { id, name, iso_code, continent, currency_id, flag },
   }) => ({
     id,
     name,

@@ -14,7 +14,7 @@ export const callTypes = {
 };
 
 export const countriesSlice = createSlice({
-  name: "Countries",
+  name: "countries",
   initialState: initialCountriesState,
   reducers: {
     catchError: (state, action) => {

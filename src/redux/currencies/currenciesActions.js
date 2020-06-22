@@ -22,6 +22,7 @@ export const fetchCurrencies = params => dispatch => {
 };
 
 export const fetchCurrency = id => dispatch => {
+  console.log('id', id)
   if (!id) {
     return dispatch(actions.currencyFetched({ currencyForEdit: undefined }));
   }
@@ -40,6 +41,7 @@ export const fetchCurrency = id => dispatch => {
 };
 
 export const deleteCurrency = id => dispatch => {
+  console.log('1243', id)
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .deleteCurrency(id)

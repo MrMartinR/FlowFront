@@ -3,6 +3,7 @@
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
 import React, { useEffect, useMemo, Fragment } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
+import Image from "react-bootstrap/Image";
 import Pagination from "@material-ui/lab/Pagination";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../redux/currencies/currenciesActions";
@@ -21,8 +22,6 @@ import { useCurrenciesUIContext } from "../CurrenciesUIContext";
 export function CurrenciesTable() {
   // Currencies UI Context
   const currenciesUIContext = useCurrenciesUIContext();
-  
-console.log(12)
   const currenciesUIProps = useMemo(() => {
     return {
       ids: currenciesUIContext.ids,
@@ -47,7 +46,6 @@ console.log(12)
   // Currencies Redux state
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(11)
     // clear selections list
     currenciesUIProps.setIds([]);
     // server call by queryParams
@@ -71,27 +69,27 @@ console.log(12)
       // headerSortingClasses,
     },
     {
-      dataField: "code",
-      text: "Code",
+      // dataField: "image",
+      text: "Icon",
+      formatter: priceFormatter,
     },
     {
-      dataField: "symbol",
-      text: "Symbol",
+      dataField: "currenc",
+      text: "Currency",
+      sort: true,
+      sortCaret: sortCaret,
     },
     {
-      dataField: "decimal_places",
-      text: "Decimal place",
-    },
-    {
-      dataField: "Kind",
-      text: "Kind",
+      dataField: "category",
+      text: "Category",
       sort: true,
       sortCaret: sortCaret,
       // headerSortingClasses,
     },
     {
-      dataField: "fx_eur",
-      text: "Fx euro",
+      dataField: "countr",
+      text: "Country",
+      sort: true,
       sortCaret: sortCaret,
     },
     {
@@ -108,7 +106,7 @@ console.log(12)
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCurrencyDialog: currenciesUIProps.openEditCurrencyDialog,
-        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog
+        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog,
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
@@ -117,6 +115,9 @@ console.log(12)
       },
     },
   ];
+  function priceFormatter(cell, row) {
+    return <Image src="../../../../../public/media/logos/flow-logo.svg" />;
+  }
 
   const sortCustom = (type, { sortField, sortOrder, data }) => {
     if (data !== null) {
@@ -128,9 +129,9 @@ console.log(12)
   };
 
   const pagesChange = (e, value) => {
-    // const { pageSize } = currenciesUIProps.queryParams;
-    // // currenciesUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }))
-    // dispatch(actions.fetchCurrencies({ page: value, perPage: pageSize }));
+    const { pageSize } = currenciesUIProps.queryParams;
+    currenciesUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }));
+    dispatch(actions.fetchCurrencies({ page: value, perPage: pageSize }));
   };
 
   return (

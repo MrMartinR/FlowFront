@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Util from '../../app/utils';
 
-const initialCustomersState = {
+const initialCurrenciesState = {
   listLoading: false,
   actionsLoading: false,
   currencyTable: { entities: null, page: null, pages: null, perPage: null },
-  currencyForEdit: undefined,
+  currencyForEdit: null,
   lastError: null
 };
 export const callTypes = {
@@ -14,10 +14,12 @@ export const callTypes = {
 };
 
 export const currenciesSlice = createSlice({
-  name: "currencies",
-  initialState: initialCustomersState,
+  name: "Currencies",
+  initialState: initialCurrenciesState,
   reducers: {
     catchError: (state, action) => {
+      console.log('action', action)
+      console.log('state', state)
       state.error = `${action.type}: ${action.payload.error}`;
       if (action.payload.callType === callTypes.list) {
         state.listLoading = false;
@@ -89,7 +91,7 @@ export const currenciesSlice = createSlice({
         el => !action.payload.ids.includes(el.id)
       );
     },
-    // currenciesUpdateState
+    // CurrenciesUpdateState
     currenciesStatusUpdated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;

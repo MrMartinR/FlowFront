@@ -7,8 +7,8 @@ export function CountryEditDialogHeader({ id }) {
   // Country Redux state
   const { countryForEdit, actionsLoading } = useSelector(
     (state) => ({
-      countryForEdit: state.Countries.countryForEdit,
-      actionsLoading: state.Countries.actionsLoading,
+      countryForEdit: state.countries.countryForEdit,
+      actionsLoading: state.countries.actionsLoading,
     }),
     shallowEqual
   );

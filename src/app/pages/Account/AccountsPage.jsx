@@ -30,7 +30,6 @@ export function AccountsPage({ history }) {
 
   return (
     <AccountsUIProvider accountsUIEvents={accountsUIEvents}>
-    {/* <AccountsUIProvider > */}
       <AccountsLoadingDialog />
       <Route path="/accounts/new">
         {({ history, match }) => (

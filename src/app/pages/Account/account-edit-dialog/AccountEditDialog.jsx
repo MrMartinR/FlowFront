@@ -40,7 +40,6 @@ export function AccountEditDialog({ id, show, onHide }) {
       dispatch(actions.updateAccount(account)).then(() => onHide());
     }
   };
-  console.log("CCC", accountForEdit)
 
   return (
     <Modal

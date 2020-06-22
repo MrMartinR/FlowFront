@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
 // import { CountriesLoadingDialog } from "./countries-loading-dialog/CountriesLoadingDialog";
-import { CountryEditDialog } from "./countries-edit-dialog/CountryEditDialog";
+import { CountryEditDialog } from "./country-edit-dialog/CountryEditDialog";
 import { CountriesUIProvider } from "./CountriesUIContext";
 import { CountriesCard } from "./CountriesCard";
 

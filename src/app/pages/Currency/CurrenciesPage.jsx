@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 import { CurrenciesLoadingDialog } from "./currencies-loading-dialog/CurrenciesLoadingDialog";
 import { CurrencyEditDialog } from "./currency-edit-dialog/CurrencyEditDialog";
@@ -6,6 +6,7 @@ import { CurrenciesUIProvider } from "./CurrenciesUIContext";
 import { CurrenciesCard } from "./CurrenciesCard";
 
 export function CurrenciesPage({ history }) {
+
   const currenciesUIEvents = {
     newCurrencyButtonClick: () => {
       history.push("/currencies/new");
@@ -13,19 +14,19 @@ export function CurrenciesPage({ history }) {
     openEditCurrencyDialog: (id) => {
       history.push(`/currencies/${id}/edit`);
     },
-    openDeleteCurrencyDialog: (id) => {
-      history.push(`/currencies/${id}/delete`);
-    },
-    openDeleteCurrenciesDialog: () => {
-      history.push(`/currencies/deleteCurrencies`);
-    },
-    openFetchCurrenciesDialog: () => {
-      history.push(`/currencies/fetch`);
-    },
-    openUpdateCurrenciesStatusDialog: () => {
-      history.push("/currencies/updateStatus");
-    }
-  };
+    // openDeleteCurrencyDialog: (id) => {
+    //   history.push(`/currencies/${id}/delete`);
+    // },
+    // openDeleteCurrenciesDialog: () => {
+    //   history.push(`/currencies/deleteCurrencies`);
+    // },
+    // openFetchCurrenciesDialog: () => {
+    //   history.push(`/currencies/fetch`);
+    // },
+    // openUpdateCurrenciesStatusDialog: () => {
+    //   history.push("/currencies/updateStatus");
+    // }
+  }
 
   return (
     <CurrenciesUIProvider currenciesUIEvents={currenciesUIEvents}>
@@ -51,7 +52,6 @@ export function CurrenciesPage({ history }) {
           />
         )}
       </Route>
-      
       <CurrenciesCard />
     </CurrenciesUIProvider>
   );

@@ -31,6 +31,7 @@ export function CurrenciesUIProvider({ currenciesUIEvents, children }) {
   const initCurrency = {
     id: undefined,
     currency_id: '',
+    country_id: '',
     category: '',
     name: '',
     icon: '',

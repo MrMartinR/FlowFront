@@ -32,6 +32,7 @@ export const fetchCountry = id => dispatch => {
     .getCountryById(id)
     .then(response => {
       const country = response.data.data[0];
+      console.log('country', country)
       dispatch(actions.countryFetched({ countryForEdit: country }));
     })
     .catch(error => {
