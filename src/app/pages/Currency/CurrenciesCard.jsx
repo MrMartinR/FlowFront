@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../../_metronic/_partials/controls";
-// } from "../../../../_metronic/_partials/controls";
 // import { CurrenciesFilter } from "./currencies-filter/CurrenciesFilter";
 import { CurrenciesTable } from "./currencies-table/CurrenciesTable";
 // import { CurrenciesGrouping } from "./currencies-grouping/CurrenciesGrouping";
@@ -27,7 +26,7 @@ export function CurrenciesCard() {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={currenciesUIProps.newCurrencyButtonClick}
+            // onClick={currenciesUIProps.newCurrencyButtonClick}
           >
             New Currency
           </button>

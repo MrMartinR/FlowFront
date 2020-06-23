@@ -23,7 +23,10 @@ export function CurrencyEditDialog({ id, show, onHide }) {
       currencyForEdit: state.currencies.currencyForEdit,
     }),
     shallowEqual
-  );
+    );
+    
+    console.log('currencyForEdit', currencyForEdit)
+    console.log('actionsLoading', actionsLoading)
   
   useEffect(() => {
     // server call for getting Currency by id
@@ -41,6 +44,7 @@ export function CurrencyEditDialog({ id, show, onHide }) {
     }
   };
 
+  console.log('id', id)
   return (
     <Modal
       size="lg"

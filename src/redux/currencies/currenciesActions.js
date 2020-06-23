@@ -5,6 +5,7 @@ const { actions } = currenciesSlice;
 
 export const currencySort = queryParams => dispatch => {
   let { field, isAsc, entities } = queryParams
+  console.log('field', field)
   dispatch(actions.currencySort({ callType: callTypes.action, field, isAsc, entities }));
 }
 export const fetchCurrencies = params => dispatch => {
@@ -22,7 +23,6 @@ export const fetchCurrencies = params => dispatch => {
 };
 
 export const fetchCurrency = id => dispatch => {
-  console.log('id', id)
   if (!id) {
     return dispatch(actions.currencyFetched({ currencyForEdit: undefined }));
   }
@@ -32,16 +32,17 @@ export const fetchCurrency = id => dispatch => {
     .getCurrencyById(id)
     .then(response => {
       const currency = response.data.data[0];
+      console.log('currency', currency)
       dispatch(actions.currencyFetched({ currencyForEdit: currency }));
     })
     .catch(error => {
+      console.log('erroAAAAAAAAAAAr', error)
       error.clientMessage = "Can't find currency";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
 export const deleteCurrency = id => dispatch => {
-  console.log('1243', id)
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .deleteCurrency(id)

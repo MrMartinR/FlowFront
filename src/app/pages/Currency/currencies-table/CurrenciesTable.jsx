@@ -3,7 +3,6 @@
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
 import React, { useEffect, useMemo, Fragment } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import Image from "react-bootstrap/Image";
 import Pagination from "@material-ui/lab/Pagination";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../redux/currencies/currenciesActions";
@@ -62,6 +61,13 @@ export function CurrenciesTable() {
       hidden: true,
     },
     {
+      dataField: "flag",
+      text: "Flag",
+      sort: true,
+      sortCaret: sortCaret,
+      // headerSortingClasses,
+    },
+    {
       dataField: "name",
       text: "Name",
       sort: true,
@@ -69,29 +75,22 @@ export function CurrenciesTable() {
       // headerSortingClasses,
     },
     {
-      // dataField: "image",
-      text: "Icon",
-      formatter: priceFormatter,
+      dataField: "iso_code",
+      text: "ISO Code",
     },
     {
-      dataField: "currenc",
-      text: "Currency",
+      dataField: "continent",
+      text: "Continent",
       sort: true,
       sortCaret: sortCaret,
     },
-    {
-      dataField: "category",
-      text: "Category",
-      sort: true,
-      sortCaret: sortCaret,
-      // headerSortingClasses,
-    },
-    {
-      dataField: "countr",
-      text: "Country",
-      sort: true,
-      sortCaret: sortCaret,
-    },
+    // {
+    //   dataField: "currency_id",
+    //   text: "Currencies",
+    //   sort: true,
+    //   sortCaret: sortCaret,
+    //   // headerSortingClasses,
+    // },
     {
       dataField: "status",
       text: "Status",
@@ -106,7 +105,7 @@ export function CurrenciesTable() {
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCurrencyDialog: currenciesUIProps.openEditCurrencyDialog,
-        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog,
+        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
@@ -115,9 +114,6 @@ export function CurrenciesTable() {
       },
     },
   ];
-  function priceFormatter(cell, row) {
-    return <Image src="../../../../../public/media/logos/flow-logo.svg" />;
-  }
 
   const sortCustom = (type, { sortField, sortOrder, data }) => {
     if (data !== null) {
@@ -129,9 +125,9 @@ export function CurrenciesTable() {
   };
 
   const pagesChange = (e, value) => {
-    const { pageSize } = currenciesUIProps.queryParams;
-    currenciesUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }));
-    dispatch(actions.fetchCurrencies({ page: value, perPage: pageSize }));
+    // const { pageSize } = currenciesUIProps.queryParams;
+    // // currenciesUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }))
+    // dispatch(actions.fetchCurrencies({ page: value, perPage: pageSize }));
   };
 
   return (

@@ -5,6 +5,7 @@ const { actions } = accountsSlice;
 
 export const accountSort = queryParams => dispatch => {
   let { field, isAsc, entities } = queryParams
+  console.log('fieldXXX', field)
   dispatch(actions.accountSort({ callType: callTypes.action, field, isAsc, entities }));
 }
 export const fetchAccounts = params => dispatch => {

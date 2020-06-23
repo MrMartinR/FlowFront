@@ -5,7 +5,7 @@ const initialCurrenciesState = {
   listLoading: false,
   actionsLoading: false,
   currencyTable: { entities: null, page: null, pages: null, perPage: null },
-  currencyForEdit: null,
+  currencyForEdit: undefined,
   lastError: null
 };
 export const callTypes = {
@@ -14,12 +14,10 @@ export const callTypes = {
 };
 
 export const currenciesSlice = createSlice({
-  name: "Currencies",
+  name: "currencies",
   initialState: initialCurrenciesState,
   reducers: {
     catchError: (state, action) => {
-      console.log('action', action)
-      console.log('state', state)
       state.error = `${action.type}: ${action.payload.error}`;
       if (action.payload.callType === callTypes.list) {
         state.listLoading = false;
