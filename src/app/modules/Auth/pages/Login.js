@@ -81,7 +81,7 @@ function Login(props) {
             var uid = res.headers.uid
             var client = res.headers.client
             var expiry = res.headers.expiry            
-            props.login(accessToken, uid);
+            props.login(accessToken, uid, client, expiry);
           })    
           .catch(() => {
             console.log("error")

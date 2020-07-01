@@ -13,18 +13,21 @@ export const actionTypes = {
 
 const initialAuthState = {
   user: undefined,
-  authToken: undefined
+  authToken: undefined,
+  client : undefined,
+  expiry : undefined
 };
 
 export const reducer = persistReducer(
-  { storage, key: "demo1-auth", whitelist: ["user", "authToken"] },
+  { storage, key: "demo1-auth", whitelist: ["user", "authToken", "client", "expiry"] },
   (state = initialAuthState, action) => {
     switch (action.type) {
       case actionTypes.Login: {
         var authToken = action.payload.authToken;
         var uid = action.payload.uid;
-        
-        return { authToken, user: {email: uid, fullname: uid} };
+        var client = action.payload.client;
+        var expiry = action.payload.expiry;
+        return { authToken, user: {email: uid, fullname: uid}, client : client, expiry : expiry };
       }
 
       case actionTypes.Register: {
@@ -50,7 +53,7 @@ export const reducer = persistReducer(
 );
 
 export const actions = {
-  login: (authToken, uid) => ({ type: actionTypes.Login, payload: { authToken, uid } }),
+  login: (authToken, uid, client, expiry) => ({ type: actionTypes.Login, payload: { authToken, uid, client, expiry } }),
   register: authToken => ({
     type: actionTypes.Register,
     payload: { authToken }
