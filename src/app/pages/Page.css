@@ -1,0 +1,6 @@
+.page {
+
+}
+#outlined-select-currency, #outlined-select-continent, #outlined-select-type {
+    width: 150px;
+}
