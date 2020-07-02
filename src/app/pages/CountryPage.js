@@ -20,7 +20,7 @@ import { Card } from 'react-bootstrap';
 import TextField from '@material-ui/core/TextField';
 import './Page.css';
 
-
+const SAPI_URL = "http://localhost:3001"
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -40,7 +40,7 @@ const StyledTableRow = withStyles(theme => ({
 }))(TableRow);
 
 const getAllCountries = (headerPara) => {
-  return axios.get('/api/v1/countries?page=1',{
+  return axios.get(SAPI_URL + '/api/v1/countries?page=1',{
     headers: { 
       'access-token': headerPara.authToken,
       'client' : headerPara.client,
@@ -50,7 +50,7 @@ const getAllCountries = (headerPara) => {
   });
 }
 const getAllCurrencies = (headerPara) => {
-  return axios.get('/api/v1/currencies?page=1',{
+  return axios.get(SAPI_URL + '/api/v1/currencies?page=1',{
     headers: { 
       'access-token': headerPara.authToken,
       'client' : headerPara.client,
@@ -124,7 +124,7 @@ const CountryPage = (props) => {
 }
 
 const addCountry = (headerPara, values) => {
-  return axios.post('/api/v1/countries',
+  return axios.post(SAPI_URL + '/api/v1/countries',
   { country:values},
   {
     headers: { 
