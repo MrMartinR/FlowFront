@@ -20,7 +20,7 @@ import { Card } from 'react-bootstrap';
 import TextField from '@material-ui/core/TextField';
 import './Page.css';
 
-const SAPI_URL = "http://localhost:3001"
+const SAPI_URL = ""
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
