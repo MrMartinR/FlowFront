@@ -31,7 +31,7 @@ export function AuthPage() {
                   <img
                       alt="Logo"
                       className="max-h-70px"
-                      src={toAbsoluteUrl("/media/logos/logo-letter-1.png")}
+                      src={toAbsoluteUrl("#")}
                   />
                 </Link>
                 {/* end:: Aside header */}
@@ -42,8 +42,7 @@ export function AuthPage() {
                     Welcome to FlowApp!
                   </h3>
                   <p className="font-weight-lighter text-white opacity-80">
-                    The ultimate Bootstrap & React 16 admin theme framework for next
-                    generation web apps.
+                    text descrition company
                   </p>
                 </div>
                 {/* end:: Aside content */}
@@ -51,7 +50,7 @@ export function AuthPage() {
                 {/* start:: Aside footer for desktop */}
                 <div className="d-none flex-column-auto d-lg-flex justify-content-between mt-10">
                   <div className="opacity-70 font-weight-bold	text-white">
-                    &copy; 2020 Metronic
+                    &copy; 2020 Flow App
                   </div>
                   <div className="d-flex">
                     <Link to="/terms" className="text-white">
@@ -75,9 +74,10 @@ export function AuthPage() {
             <div className="flex-row-fluid d-flex flex-column position-relative p-7 overflow-hidden">
 
               {/* begin::Content body */}
+                {/*add component login and registration */}
               <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
                 <Switch>
-                <ContentRoute path="/auth/login" component={Login}/>
+               <ContentRoute path="/auth/login" component={Login}/>
                 <ContentRoute path="/auth/registration" component={Registration}/>
                 <ContentRoute
                     path="/auth/forgot-password"
@@ -93,7 +93,7 @@ export function AuthPage() {
               <div
                   className="d-flex d-lg-none flex-column-auto flex-column flex-sm-row justify-content-between align-items-center mt-5 p-5">
                 <div className="text-dark-50 font-weight-bold order-2 order-sm-1 my-2">
-                  &copy; 2020 Metronic
+                  &copy; 2020 Flow app
                 </div>
                 <div className="d-flex order-1 order-sm-2 my-2">
                   <Link to="/terms" className="text-dark-75 text-hover-primary">
