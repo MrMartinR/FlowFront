@@ -1,9 +1,9 @@
 import axios from "axios";
-var API_URL = 'http://localhost:3001'
+var API_URL = 'https://evening-fjord-12692.herokuapp.com/'
 var FORGOT_PASSWORD_CALLBACK = "https://flowfront.herokuapp.com"
 
 if (process.env.NODE_ENV === 'development') {
-  API_URL = 'http://localhost:3001'
+  API_URL = 'https://evening-fjord-12692.herokuapp.com/'
   FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
 }
 
