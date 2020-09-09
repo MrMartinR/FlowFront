@@ -18,31 +18,70 @@ export function AsideMenuList({ layoutProps }) {
         {/* begin::Menu Nav */}
         <ul className={`menu-nav ${layoutProps.ulClasses}`}>
           {/*begin::1 Level*/}
-          <li
-              className={`menu-item ${getMenuItemActive("/dashboard")}`}
-              aria-haspopup="true"
-          >
+          <li className={`menu-item ${getMenuItemActive("/dashboard")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/dashboard">
-            <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/>
-            </span>
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Dashboard</span>
             </NavLink>
           </li>
-          {/*end::1 Level*/}
 
-          {/*begin::1 Level*/}
-          <li
-              className={`menu-item ${getMenuItemActive("/admin/contributors")}`}
-              aria-haspopup="true"
-          >
-            <NavLink className="menu-link" to="/admin/contributors">
-            <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}/>
-            </span>
-              <span className="menu-text">Admin Contributors</span>
+          <li className={`menu-item ${getMenuItemActive("/setting")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/setting">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Setting</span>
             </NavLink>
           </li>
+
+          <li className={`menu-item ${getMenuItemActive("/accounts")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/accounts">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Accounts</span>
+            </NavLink>
+          </li>
+
+
+          <li className={`menu-item ${getMenuItemActive("/currency")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/currency">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Currency</span>
+            </NavLink>
+          </li>
+
+          <li className={`menu-item ${getMenuItemActive("/countries")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/countries">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Countries</span>
+            </NavLink>
+          </li>
+
+          <li className={`menu-item ${getMenuItemActive("/lending")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/lending">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Lending</span>
+            </NavLink>
+          </li>
+
+          <li className={`menu-item ${getMenuItemActive("/property")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/property">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Property</span>
+            </NavLink>
+          </li>
+
+          <li className={`menu-item ${getMenuItemActive("/platforms")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/platforms">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Platforms</span>
+            </NavLink>
+          </li>
+
+          <li className={`menu-item ${getMenuItemActive("/originators")}`} aria-haspopup="true">
+            <NavLink className="menu-link" to="/originators">
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="menu-text">Originators</span>
+            </NavLink>
+          </li>
+
           {/*end::1 Level*/}
 
           {/* Components */}

@@ -34,8 +34,8 @@ export function Routes() {
             )}
 
             <Route path="/error" component={ErrorsPage}/>
-            <Route path="/logout" component={Logout}/>
-
+            <Route path="/logout" component={Logout}/>            
+           
 
             {!isAuthorized ? (
                 /*Redirect to `/auth` when user is not authorized*/

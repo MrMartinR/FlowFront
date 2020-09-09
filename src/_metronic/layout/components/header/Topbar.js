@@ -28,15 +28,12 @@ export function Topbar() {
         uiService.config,
         "extras.quick-actions.display"
       ),
-      viewCartDisplay: objectPath.get(uiService.config, "extras.cart.display"),
+      viewCartDisplay: false,
       viewQuickPanelDisplay: objectPath.get(
         uiService.config,
         "extras.quick-panel.display"
       ),
-      viewLanguagesDisplay: objectPath.get(
-        uiService.config,
-        "extras.languages.display"
-      ),
+      viewLanguagesDisplay: false,
       viewUserDisplay: objectPath.get(uiService.config, "extras.user.display"),
     };
   }, [uiService]);
