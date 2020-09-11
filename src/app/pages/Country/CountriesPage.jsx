@@ -7,9 +7,9 @@ import { CountriesCard } from "./CountriesCard";
 
 export function CountriesPage({ history }) {
   const countriesUIEvents = {
-    // newCountryButtonClick: () => {
-    //   history.push("/countries/new");
-    // },
+    newCountryButtonClick: () => {
+       history.push("/countries/new");
+    },
     openEditCountryDialog: (id) => {
       history.push(`/countries/${id}/edit`);
     },
@@ -50,7 +50,7 @@ export function CountriesPage({ history }) {
           />
         )}
       </Route>
-      
+
       <CountriesCard />
     </CountriesUIProvider>
   );

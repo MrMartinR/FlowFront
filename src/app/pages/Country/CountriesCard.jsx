@@ -26,7 +26,7 @@ export function CountriesCard() {
           <button
             type="button"
             className="btn btn-primary"
-            // onClick={countriesUIProps.newCountryButtonClick}
+            onClick={countriesUIProps.newCountryButtonClick}
           >
             New Country
           </button>
