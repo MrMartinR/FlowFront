@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8a6b858c.chunk.css",
+    "main.js": "/static/js/main.ea128fec.chunk.js",
+    "main.js.map": "/static/js/main.ea128fec.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9c472c84.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9c472c84.js.map",
+    "static/css/2.4e26c1a1.chunk.css": "/static/css/2.4e26c1a1.chunk.css",
+    "static/js/2.eda760f9.chunk.js": "/static/js/2.eda760f9.chunk.js",
+    "static/js/2.eda760f9.chunk.js.map": "/static/js/2.eda760f9.chunk.js.map",
+    "static/js/3.51422b7c.chunk.js": "/static/js/3.51422b7c.chunk.js",
+    "static/js/3.51422b7c.chunk.js.map": "/static/js/3.51422b7c.chunk.js.map",
+    "static/js/4.c02c4558.chunk.js": "/static/js/4.c02c4558.chunk.js",
+    "static/js/4.c02c4558.chunk.js.map": "/static/js/4.c02c4558.chunk.js.map",
+    "static/js/5.05a13910.chunk.js": "/static/js/5.05a13910.chunk.js",
+    "static/js/5.05a13910.chunk.js.map": "/static/js/5.05a13910.chunk.js.map",
+    "static/js/6.1ec704d5.chunk.js": "/static/js/6.1ec704d5.chunk.js",
+    "static/js/6.1ec704d5.chunk.js.map": "/static/js/6.1ec704d5.chunk.js.map",
+    "static/js/7.45b33cf4.chunk.js": "/static/js/7.45b33cf4.chunk.js",
+    "static/js/7.45b33cf4.chunk.js.map": "/static/js/7.45b33cf4.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.cbdf57df0cf60858e1265cecbb6d845e.js": "/precache-manifest.cbdf57df0cf60858e1265cecbb6d845e.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.4e26c1a1.chunk.css.map": "/static/css/2.4e26c1a1.chunk.css.map",
+    "static/css/main.8a6b858c.chunk.css.map": "/static/css/main.8a6b858c.chunk.css.map",
+    "static/js/2.eda760f9.chunk.js.LICENSE.txt": "/static/js/2.eda760f9.chunk.js.LICENSE.txt",
+    "static/js/3.51422b7c.chunk.js.LICENSE.txt": "/static/js/3.51422b7c.chunk.js.LICENSE.txt",
+    "static/js/main.ea128fec.chunk.js.LICENSE.txt": "/static/js/main.ea128fec.chunk.js.LICENSE.txt",
+    "static/media/flaticon.css": "/static/media/Flaticon2.eafcbac0.ttf",
+    "static/media/ki.css": "/static/media/Ki.f2362a7b.woff",
+    "static/media/all.min.css": "/static/media/fa-solid-900.ec763292.svg",
+    "static/media/socicon.css": "/static/media/socicon.a35b6574.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9c472c84.js",
+    "static/css/2.4e26c1a1.chunk.css",
+    "static/js/2.eda760f9.chunk.js",
+    "static/css/main.8a6b858c.chunk.css",
+    "static/js/main.ea128fec.chunk.js"
+  ]
+}
