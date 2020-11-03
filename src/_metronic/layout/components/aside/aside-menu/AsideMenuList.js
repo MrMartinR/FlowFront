@@ -32,7 +32,7 @@ export function AsideMenuList({ layoutProps }) {
             </NavLink>
           </li>
 
-          <li className={`menu-item ${getMenuItemActive("/accounts")}`} aria-haspopup="true">
+          <li className={`menu-item d-none ${getMenuItemActive("/accounts")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/accounts">
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Accounts</span>
@@ -54,28 +54,28 @@ export function AsideMenuList({ layoutProps }) {
             </NavLink>
           </li>
 
-          <li className={`menu-item ${getMenuItemActive("/lending")}`} aria-haspopup="true">
+          <li className={`menu-item d-none ${getMenuItemActive("/lending")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/lending">
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Lending</span>
             </NavLink>
           </li>
 
-          <li className={`menu-item ${getMenuItemActive("/property")}`} aria-haspopup="true">
+          <li className={`menu-item d-none ${getMenuItemActive("/property")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/property">
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Property</span>
             </NavLink>
           </li>
 
-          <li className={`menu-item ${getMenuItemActive("/platforms")}`} aria-haspopup="true">
+          <li className={`menu-item d-none ${getMenuItemActive("/platforms")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/platforms">
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Platforms</span>
             </NavLink>
           </li>
 
-          <li className={`menu-item ${getMenuItemActive("/originators")}`} aria-haspopup="true">
+          <li className={`menu-item d-none ${getMenuItemActive("/originators")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/originators">
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
               <span className="menu-text">Originators</span>
@@ -86,7 +86,7 @@ export function AsideMenuList({ layoutProps }) {
 
           {/* Components */}
           {/* begin::section */}
-          <li className="menu-section ">
+          <li className="menu-section d-none">
             <h4 className="menu-text">Components</h4>
             <i className="menu-icon flaticon-more-v2"></i>
           </li>
@@ -95,7 +95,7 @@ export function AsideMenuList({ layoutProps }) {
           {/* Material-UI */}
           {/*begin::1 Level*/}
           <li
-              className={`menu-item menu-item-submenu ${getMenuItemActive(
+              className={`menu-item menu-item-submenu d-none${getMenuItemActive(
                   "/google-material"
               )}`}
               aria-haspopup="true"
@@ -990,7 +990,7 @@ export function AsideMenuList({ layoutProps }) {
           {/* Bootstrap */}
           {/*begin::1 Level*/}
           <li
-              className={`menu-item menu-item-submenu ${getMenuItemActive(
+              className={`menu-item menu-item-submenu d-none ${getMenuItemActive(
                   "/react-bootstrap"
               )}`}
               aria-haspopup="true"
@@ -1438,7 +1438,7 @@ export function AsideMenuList({ layoutProps }) {
 
           {/* Applications */}
           {/* begin::section */}
-          <li className="menu-section ">
+          <li className="menu-section d-none">
             <h4 className="menu-text">Applications</h4>
             <i className="menu-icon flaticon-more-v2"></i>
           </li>
@@ -1447,7 +1447,7 @@ export function AsideMenuList({ layoutProps }) {
           {/* eCommerce */}
           {/*begin::1 Level*/}
           <li
-              className={`menu-item menu-item-submenu ${getMenuItemActive(
+              className={`menu-item menu-item-submenu  d-none ${getMenuItemActive(
                   "/e-commerce"
               )}`}
               aria-haspopup="true"
@@ -1504,7 +1504,7 @@ export function AsideMenuList({ layoutProps }) {
 
           {/* Custom */}
           {/* begin::section */}
-          <li className="menu-section ">
+          <li className="menu-section d-none">
             <h4 className="menu-text">Custom</h4>
             <i className="menu-icon flaticon-more-v2"></i>
           </li>
@@ -1513,7 +1513,7 @@ export function AsideMenuList({ layoutProps }) {
           {/* Error Pages */}
           {/*begin::1 Level*/}
           <li
-              className={`menu-item menu-item-submenu ${getMenuItemActive(
+              className={`menu-item menu-item-submenu d-none ${getMenuItemActive(
                   "/error"
               )}`}
               aria-haspopup="true"

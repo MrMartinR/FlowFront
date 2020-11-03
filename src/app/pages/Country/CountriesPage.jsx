@@ -4,11 +4,12 @@ import { Route } from "react-router-dom";
 import { CountryEditDialog } from "./country-edit-dialog/CountryEditDialog";
 import { CountriesUIProvider } from "./CountriesUIContext";
 import { CountriesCard } from "./CountriesCard";
+import CountryPage from "../CountryPage";
 
 export function CountriesPage({ history }) {
   const countriesUIEvents = {
     newCountryButtonClick: () => {
-       history.push("/countries/new");
+      history.push("/countries/new");
     },
     openEditCountryDialog: (id) => {
       history.push(`/countries/${id}/edit`);
@@ -29,7 +30,18 @@ export function CountriesPage({ history }) {
   return (
     <CountriesUIProvider countriesUIEvents={countriesUIEvents}>
       {/* <CountriesLoadingDialog /> */}
-       <Route path="/countries/new">
+
+      <Route path="/">
+        {({ history, match }) => (
+          <CountryPage
+            show={match != null}
+            onHide={() => {
+              history.push("/countries");
+            }}
+          />
+        )}
+      </Route>
+      <Route path="/countries/new">
         {({ history, match }) => (
           <CountryEditDialog
             show={match != null}
@@ -51,7 +63,7 @@ export function CountriesPage({ history }) {
         )}
       </Route>
 
-      <CountriesCard />
+      {/* <CountriesCard /> */}
     </CountriesUIProvider>
   );
 }

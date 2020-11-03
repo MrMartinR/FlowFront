@@ -35,7 +35,7 @@ export function CountriesCard() {
       <CardBody>
         {/* <CountriesFilter /> */}
         {/* {countriesUIProps.ids.length > 0 && <CountriesGrouping />} */}
-        <CountriesTable />
+        {/* <CountriesTable /> */}
       </CardBody>
     </Card>
   );
