@@ -4,8 +4,13 @@ import { CurrenciesLoadingDialog } from "./currencies-loading-dialog/CurrenciesL
 import { CurrencyEditDialog } from "./currency-edit-dialog/CurrencyEditDialog";
 import { CurrenciesUIProvider } from "./CurrenciesUIContext";
 import { CurrenciesCard } from "./CurrenciesCard";
+import { useSelector } from "react-redux";
 
-export function CurrenciesPage({ history }) {
+export function CurrenciesPage(props) {
+  const { history } = props;
+
+  const auth = useSelector((state) => state.auth);
+  console.log("auth: ", auth);
 
   const currenciesUIEvents = {
     newCurrencyButtonClick: () => {
@@ -26,11 +31,23 @@ export function CurrenciesPage({ history }) {
     // openUpdateCurrenciesStatusDialog: () => {
     //   history.push("/currencies/updateStatus");
     // }
-  }
+  };
 
   return (
     <CurrenciesUIProvider currenciesUIEvents={currenciesUIEvents}>
       <CurrenciesLoadingDialog />
+
+      <Route path="/">
+        {({ history, match }) => (
+          <CurrenciesCard
+            show={match != null}
+            onHide={() => {
+              history.push("/currencies");
+            }}
+            auth={auth}
+          />
+        )}
+      </Route>
       <Route path="/currencies/new">
         {({ history, match }) => (
           <CurrencyEditDialog
@@ -52,7 +69,6 @@ export function CurrenciesPage({ history }) {
           />
         )}
       </Route>
-      <CurrenciesCard />
     </CurrenciesUIProvider>
   );
 }

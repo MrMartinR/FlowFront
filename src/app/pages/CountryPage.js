@@ -20,6 +20,7 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../_metronic/_partials/controls";
+import { API_URL } from "../modules/Auth/_redux/authCrud";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -40,7 +41,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const getAllCountries = (headerPara) => {
-  return axios.get("/api/v1/countries?page=1", {
+  return axios.get(`${API_URL}/api/v1/countries?page=1`, {
     headers: {
       "access-token": headerPara.authToken,
       client: headerPara.client,
@@ -72,38 +73,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CountryPage = (props) => {
-  const [rows, setRows] = useState([
-    {
-      id: 1,
-      continent: "test 1",
-      iso_code: "112",
-      name: "test_1",
-      currency: {
-        symbol: "s1",
-      },
-    },
-    {
-      id: 2,
-      continent: "test 2",
-      iso_code: "114",
-      name: "test_2",
-      currency: {
-        symbol: "s2",
-      },
-    },
-  ]);
+  const [rows, setRows] = useState([]);
   useEffect(() => {
     // Update the document title using the browser API
-    // getAllCountries(props.auth)
-    //   .then((res) => {
-    //     var resData = res.data;
-    //     if (resData.success) {
-    //       setRows(resData.data);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    getAllCountries(props.auth)
+      .then((res) => {
+        var resData = res.data;
+        if (resData.success) {
+          setRows(resData.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const classes = useStyles();

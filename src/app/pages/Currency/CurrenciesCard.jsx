@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardBody,
@@ -17,6 +17,7 @@ import Paper from "@material-ui/core/Paper";
 // import { CurrenciesGrouping } from "./currencies-grouping/CurrenciesGrouping";
 import { useCurrenciesUIContext } from "./CurrenciesUIContext";
 import { withStyles, makeStyles } from "@material-ui/styles";
+import { API_URL } from "../../modules/Auth/_redux/authCrud";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -46,7 +47,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export function CurrenciesCard() {
+export function CurrenciesCard(props) {
   const currenciesUIContext = useCurrenciesUIContext();
   const currenciesUIProps = useMemo(() => {
     return {
@@ -55,26 +56,33 @@ export function CurrenciesCard() {
     };
   }, [currenciesUIContext]);
 
-  const [rows, setRows] = useState([
-    {
-      id: 1,
-      continent: "test 1",
-      iso_code: "112",
-      name: "test_1",
-      currency: {
-        symbol: "s1",
+  const getAllCurrencies = (headerPara) => {
+    return axios.get(`${API_URL}/api/v1/currencies?page=1`, {
+      headers: {
+        "access-token": headerPara.authToken,
+        client: headerPara.client,
+        uid: headerPara.user.fullname,
+        expiry: headerPara.expiry,
       },
-    },
-    {
-      id: 2,
-      continent: "test 2",
-      iso_code: "114",
-      name: "test_2",
-      currency: {
-        symbol: "s2",
-      },
-    },
-  ]);
+    });
+  };
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    getAllCurrencies(props.auth)
+      .then((res) => {
+        var resData = res.data;
+        console.log("resData: ", resData);
+        if (resData.success) {
+          setRows(resData.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const [rows, setRows] = useState([]);
   const classes = useStyles();
 
   return (
@@ -95,29 +103,21 @@ export function CurrenciesCard() {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <StyledTableCell>Flag</StyledTableCell>
+                <StyledTableCell>Type</StyledTableCell>
                 <StyledTableCell align="right">ISO Code</StyledTableCell>
                 <StyledTableCell align="right">Name</StyledTableCell>
                 <StyledTableCell align="right">Currency</StyledTableCell>
-                <StyledTableCell align="right">Continent</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <StyledTableRow key={row.id}>
                   <StyledTableCell component="th" scope="row">
-                    {row.continent}
+                    {row.type}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.iso_code}
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.code}</StyledTableCell>
                   <StyledTableCell align="right">{row.name}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.currency.symbol}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.continent}
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.symbol}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

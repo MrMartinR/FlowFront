@@ -1,20 +1,21 @@
 import axios from "axios";
-var API_URL = 'https://evening-fjord-12692.herokuapp.com/'
+var _API_URL = 'https://evening-fjord-12692.herokuapp.com/'
 var FORGOT_PASSWORD_CALLBACK = "https://flowfront.herokuapp.com"
 
 if (process.env.NODE_ENV === 'development') {
-  API_URL = 'https://evening-fjord-12692.herokuapp.com/'
+  _API_URL = 'https://evening-fjord-12692.herokuapp.com/'
   FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
 }
 
 if (process.env.NODE_ENV === 'production') {
-  API_URL = 'https://flowappdev.herokuapp.com'
+  _API_URL = 'https://flowappdev.herokuapp.com'
 }
 
-export const LOGIN_URL = API_URL + "/api/v1/auth/sign_in";
-export const REGISTER_URL = API_URL + "/api/v1/auth";
-export const REQUEST_PASSWORD_URL = API_URL + "/api/v1/auth/password";
-export const SUBMIT_PASSWORD_URL = API_URL + "/api/v1/auth/password";
+export const API_URL = _API_URL;
+export const LOGIN_URL = _API_URL + "/api/v1/auth/sign_in";
+export const REGISTER_URL = _API_URL + "/api/v1/auth";
+export const REQUEST_PASSWORD_URL = _API_URL + "/api/v1/auth/password";
+export const SUBMIT_PASSWORD_URL = _API_URL + "/api/v1/auth/password";
 
 
 export const ME_URL = "api/me";
