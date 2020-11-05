@@ -7,9 +7,9 @@ if (process.env.NODE_ENV === 'development') {
   FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
 }
 
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
   _API_URL = 'https://flowappdev.herokuapp.com'
-}
+// }
 
 export const API_URL = _API_URL;
 export const LOGIN_URL = _API_URL + "/api/v1/auth/sign_in";
