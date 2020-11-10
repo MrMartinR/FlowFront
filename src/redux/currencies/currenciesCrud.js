@@ -30,11 +30,6 @@ export function createCurrency(currency) {
   return axios.post(CURRENCY_URL, { currency });
 }
 
-// READ
-export function getAllCurrencies() {
-  return axios.get(CURRENCY_URL);
-}
-
 export function getCurrencyById(currencyId) {
   return axios.get(`${CURRENCY_URL}/${currencyId}`, optionsHeaders());
 }

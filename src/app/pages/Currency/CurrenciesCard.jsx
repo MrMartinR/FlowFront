@@ -18,6 +18,9 @@ import Paper from "@material-ui/core/Paper";
 import { useCurrenciesUIContext } from "./CurrenciesUIContext";
 import { withStyles, makeStyles } from "@material-ui/styles";
 import { API_URL } from "../../modules/Auth/_redux/authCrud";
+import { addCurrency, CurrencySchema } from "../../actions/currencyActions";
+import { useFormik } from "formik";
+import CurrencyForm from "./CurrencyForm";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -84,6 +87,51 @@ export function CurrenciesCard(props) {
 
   const [rows, setRows] = useState([]);
   const classes = useStyles();
+  const initialValues = {
+    symbol: "",
+    code: "",
+    name: "",
+    kind: "",
+    fx_eur: "",
+    decimal_places: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: CurrencySchema,
+    onSubmit: (values, { setStatus, setSubmitting }) => {
+      setTimeout(() => {
+        var formvalues = {
+          symbol: values.symbol,
+          code: values.code,
+          name: values.name,
+          kind: values.kind,
+          fx_eur: values.fx_eur,
+          decimal_places: values.decimal_places,
+        };
+        addCurrency(props.auth, formvalues)
+          .then((res) => {
+            if (res.status === 200) {
+              getAllCurrencies(props.props)
+                .then((res) => {
+                  var resData = res.data;
+                  if (resData.success) {
+                    props.setRows(resData.data);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+            setSubmitting(false);
+          })
+          .catch(() => {
+            console.log("error");
+            setSubmitting(false);
+          });
+      }, 1000);
+    },
+  });
 
   return (
     <Card>
@@ -92,11 +140,20 @@ export function CurrenciesCard(props) {
           <button
             type="button"
             className="btn btn-primary"
-            // onClick={currenciesUIProps.newCurrencyButtonClick}
+            onClick={(e) => {
+              console.log("e: ", e);
+              formik.handleSubmit(e);
+            }}
+            disabled={formik.isSubmitting}
           >
             New Currency
           </button>
         </CardHeaderToolbar>
+        <CurrencyForm
+          {...props}
+          formik={formik}
+          initialValues={initialValues}
+        />
       </CardHeader>
       <CardBody>
         <Paper className={classes.root}>
@@ -123,9 +180,6 @@ export function CurrenciesCard(props) {
             </TableBody>
           </Table>
         </Paper>
-        {/* <CurrenciesFilter /> */}
-        {/* {currenciesUIProps.ids.length > 0 && <CurrenciesGrouping />} */}
-        {/* <CurrenciesTable /> */}
       </CardBody>
     </Card>
   );

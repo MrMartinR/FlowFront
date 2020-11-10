@@ -3,10 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import * as Yup from "yup";
 import { FormControl, MenuItem, TextField } from "@material-ui/core";
-import {
-  getAllCountries,
-  getAllCurrencies,
-} from "../../actions/countryActions";
+import { getAllCountries } from "../../actions/countryActions";
+import { getAllCurrencies } from "../../actions/currencyActions";
 
 const CountryForm = (props) => {
   const { formik } = props;

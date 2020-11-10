@@ -2,10 +2,10 @@ import axios from "axios";
 import { API_URL } from "./../modules/Auth/_redux/authCrud";
 import * as Yup from "yup";
 
-export const addCountry = (headerPara, values) => {
+export const addCurrency = (headerPara, values) => {
   return axios.post(
-    `${API_URL}/api/v1/countries`,
-    { country: values },
+    `${API_URL}/api/v1/currencies`,
+    { currency: values },
     {
       headers: {
         "access-token": headerPara.authToken,
@@ -17,8 +17,8 @@ export const addCountry = (headerPara, values) => {
   );
 };
 
-export const getAllCountries = (headerPara) => {
-  return axios.get(`${API_URL}/api/v1/countries?page=1`, {
+export const getAllCurrencies = (headerPara) => {
+  return axios.get(`${API_URL}/api/v1/currencies?page=1`, {
     headers: {
       "access-token": headerPara.authToken,
       client: headerPara.client,
@@ -28,16 +28,17 @@ export const getAllCountries = (headerPara) => {
   });
 };
 
-export const CountrySchema = Yup.object().shape({
-  continent: Yup.string()
+export const CurrencySchema = Yup.object().shape({
+  code: Yup.string()
     .min(2, "Minimum 2 symbols")
     .max(50, "Maximum 50 symbols")
     .required("This field is required"),
-  flag: Yup.string()
+  name: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("This field is required"),
-  iso_code: Yup.string().required("This field is required"),
-  name: Yup.string().required("This field is required"),
-  currency_id: Yup.string().required("This field is required"),
+  fx_eur: Yup.string().required("This field is required"),
+  kind: Yup.string().required("This field is required"),
+  symbol: Yup.string().required("This field is required"),
+  decimal_places: Yup.string().required("This field is required"),
 });

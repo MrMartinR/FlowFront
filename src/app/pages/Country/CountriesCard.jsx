@@ -32,11 +32,7 @@ export function CountriesCard() {
           </button>
         </CardHeaderToolbar>
       </CardHeader>
-      <CardBody>
-        {/* <CountriesFilter /> */}
-        {/* {countriesUIProps.ids.length > 0 && <CountriesGrouping />} */}
-        {/* <CountriesTable /> */}
-      </CardBody>
+      <CardBody></CardBody>
     </Card>
   );
 }
