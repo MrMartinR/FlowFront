@@ -21,6 +21,7 @@ import TextField from '@material-ui/core/TextField';
 import './Page.css';
 import { getAllCurrencies } from '../actions/currencyActions';
 
+const SAPI_URL = ""
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,

@@ -53,7 +53,7 @@ export function MixedWidget1({ className }) {
     <div className={`card card-custom bg-gray-100 ${className}`}>
       {/* Header */}
       <div className="card-header border-0 bg-danger py-5">
-        <h3 className="card-title font-weight-bolder text-white">Sales Stat</h3>
+        <h3 className="card-title font-weight-bolder text-white">Sales Stat Test Release Branch</h3>
         <div className="card-toolbar">
           <Dropdown className="dropdown-inline" drop="down" alignRight>
             <Dropdown.Toggle
