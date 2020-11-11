@@ -6,6 +6,7 @@ import {ContentRoute} from "../../../../_metronic/layout"
 import Login from "./Login";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
+import ForgotPasswordAction from "./ForgotPasswordAction";
 import "../../../../_metronic/_assets/sass/pages/login/login-3.scss";
 
 export function AuthPage() {
@@ -30,28 +31,28 @@ export function AuthPage() {
                 <Link to="/" className="flex-column-auto mt-5">
                   <img
                       alt="Logo"
-                      className="max-h-70px"
-                      src={toAbsoluteUrl("/media/logos/logo-letter-1.png")}
+                      className="max-h-70px max-w-70px"
+                      src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
                   />
                 </Link>
                 {/* end:: Aside header */}
 
                 {/* start:: Aside content */}
                 <div className="flex-column-fluid d-flex flex-column justify-content-center">
-                  <h3 className="font-size-h1 mb-5 text-white">
-                    Welcome to FlowApp!
+                  <h3 className="font-size-h1 mb-5 text-white mt-1">
+                    Welcome to Flow
                   </h3>
-                  <p className="font-weight-lighter text-white opacity-80">
+                  {/* <p className="font-weight-lighter text-white opacity-80">
                     The ultimate Bootstrap & React 16 admin theme framework for next
                     generation web apps.
-                  </p>
+                  </p> */}
                 </div>
                 {/* end:: Aside content */}
 
                 {/* start:: Aside footer for desktop */}
-                <div className="d-none flex-column-auto d-lg-flex justify-content-between mt-10">
+                {/* <div className="d-none flex-column-auto d-lg-flex justify-content-between mt-10">
                   <div className="opacity-70 font-weight-bold	text-white">
-                    &copy; 2020 Metronic
+                    &copy; 2020 Flow App
                   </div>
                   <div className="d-flex">
                     <Link to="/terms" className="text-white">
@@ -64,7 +65,7 @@ export function AuthPage() {
                       Contact
                     </Link>
                   </div>
-                </div>
+                </div> */}
                 {/* end:: Aside footer for desktop */}
               </div>
               {/*end: Aside Container*/}
@@ -73,15 +74,20 @@ export function AuthPage() {
 
             {/*begin::Content*/}
             <div className="flex-row-fluid d-flex flex-column position-relative p-7 overflow-hidden">
-              
+
               {/* begin::Content body */}
+                {/*add component login and registration */}
               <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
                 <Switch>
-                <ContentRoute path="/auth/login" component={Login}/>
+               <ContentRoute path="/auth/login" component={Login}/>
                 <ContentRoute path="/auth/registration" component={Registration}/>
                 <ContentRoute
                     path="/auth/forgot-password"
                     component={ForgotPassword}
+                />
+                 <ContentRoute
+                    path="/auth/forgot-password-actions"
+                    component={ForgotPasswordAction}
                 />
                 <Redirect from="/auth" exact={true} to="/auth/login"/>
                 <Redirect to="/auth/login"/>
@@ -90,10 +96,10 @@ export function AuthPage() {
               {/*end::Content body*/}
 
               {/* begin::Mobile footer */}
-              <div
+              {/* <div
                   className="d-flex d-lg-none flex-column-auto flex-column flex-sm-row justify-content-between align-items-center mt-5 p-5">
                 <div className="text-dark-50 font-weight-bold order-2 order-sm-1 my-2">
-                  &copy; 2020 Metronic
+                  &copy; 2020 Flow app
                 </div>
                 <div className="d-flex order-1 order-sm-2 my-2">
                   <Link to="/terms" className="text-dark-75 text-hover-primary">
@@ -112,7 +118,7 @@ export function AuthPage() {
                     Contact
                   </Link>
                 </div>
-              </div>
+              </div> */}
               {/* end::Mobile footer */}
             </div>
             {/*end::Content*/}

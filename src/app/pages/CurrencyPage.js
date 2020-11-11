@@ -19,6 +19,7 @@ import Button from '@material-ui/core/Button';
 import { Card } from 'react-bootstrap';
 import TextField from '@material-ui/core/TextField';
 import './Page.css';
+import { getAllCurrencies } from '../actions/currencyActions';
 
 const SAPI_URL = ""
 const StyledTableCell = withStyles(theme => ({
@@ -39,16 +40,6 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-const getAllCurrencies = (headerPara) => {
-  return axios.get(SAPI_URL+'/api/v1/currencies?page=1',{
-    headers: { 
-      'access-token': headerPara.authToken,
-      'client' : headerPara.client,
-      'uid' : headerPara.user.fullname,
-      'expiry' : headerPara.expiry
-    }
-  });
-}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -117,27 +108,6 @@ const CurrencyPage = (props) => {
   );
 }
 
-const addCurrency = (headerPara, values) => {
-  return axios.post(SAPI_URL+'/api/v1/currencies',
-  { currency:values},
-  {
-    headers: { 
-      'access-token': headerPara.props.authToken,
-      'client' : headerPara.props.client,
-      'uid' : headerPara.props.user.fullname,
-      'expiry' : headerPara.props.expiry
-    }
-  });
-}
-
-const initialValues = {
-  type: "",
-  code: "",
-  symbol :"",
-  name : "",
-  decimal_places : "",
-  fx_eur : "",
-};
 const useFormStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -164,29 +134,6 @@ const useFormStyles = makeStyles(theme => ({
 const CurrencyForm = (props) => {
   const classes = useFormStyles();
   const [loading, setLoading] = useState(false);
-  const CurrencySchema = Yup.object().shape({
-    code: Yup.string()
-      .min(2, "Minimum 2 symbols")
-      .max(50, "Maximum 50 symbols")
-      .required(
-        "This field is required"
-      ),
-    name: Yup.string()
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
-      .required(
-        "This field is required"
-      ),
-    type: Yup.string().required(
-        "This field is required"
-      ),
-    symbol: Yup.string().required(
-        "This field is required"
-      ),
-    decimal_places: Yup.string().required(
-        "This field is required"
-      ),
-  });
 
   const enableLoading = () => {
     setLoading(true);

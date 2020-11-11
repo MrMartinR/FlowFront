@@ -43,9 +43,13 @@ function ForgotPassword(props) {
     validationSchema: ForgotPasswordSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       requestPassword(values.email)
-        .then(() => setIsRequested(true))
+        .then(res => {
+          setIsRequested(true)
+          localStorage.setItem('forgot_pwd_notif', res.data.message);          
+        })
         .catch(() => {
           setIsRequested(false);
+          localStorage.setItem('forgot_pwd_notif', null);          
           setSubmitting(false);
           setStatus(
             intl.formatMessage(

@@ -2,11 +2,16 @@ export default function setupAxios(axios, store) {
   axios.interceptors.request.use(
     config => {
       const {
-        auth: { authToken }
+        auth: { authToken, user, client, expiry, token }
       } = store.getState();
 
       if (authToken) {
-        config.headers.Authorization = `Bearer ${authToken}`;
+        config.headers["token-type"] = "Bearer";
+        // config.headers.Authorization = `Bearer ${authToken}`;
+        // config.headers.uid = user.uid;
+        // config.headers.client = client;
+        // config.headers.expiry = expiry;
+        // config.headers["access-token"] = token;
       }
 
       return config;
