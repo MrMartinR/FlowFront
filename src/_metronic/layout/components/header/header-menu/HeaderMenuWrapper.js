@@ -24,9 +24,9 @@ export function HeaderMenuWrapper() {
         };
     }, [uiService]);
     const getHeaderLogo = () => {
-        let result = "logo-light.png";
+        let result = "logo-light.svg";
         if (layoutProps.headerSelfTheme && layoutProps.headerSelfTheme !== "dark") {
-            result = "logo-dark.png";
+            result = "logo-light.svg";
         }
         return toAbsoluteUrl(`/media/logos/${result}`);
     };
