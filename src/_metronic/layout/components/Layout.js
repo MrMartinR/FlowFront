@@ -74,7 +74,7 @@ export function Layout({ children }) {
             <QuickUser/>
             <QuickPanel/>
             <ScrollTop/>
-            <StickyToolbar/>
+            {/* <StickyToolbar/> */}
             {/*end::Main*/}
             <LayoutInit />
         </>

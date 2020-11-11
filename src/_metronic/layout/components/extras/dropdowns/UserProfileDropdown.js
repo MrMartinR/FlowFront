@@ -26,7 +26,7 @@ export function UserProfileDropdown() {
             id="dropdown-toggle-user-profile"
         >
           <div className={"btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2"}>
-            <span className="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>             )}
+            <span className="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1"></span>             )}
             <span className="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">
               {user.fullname}
             </span>
