@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Table from "@material-ui/core/Table";
@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useSubheader } from "../../_metronic/layout";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { connect } from "react-redux";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
@@ -25,7 +25,7 @@ import {
   getAllCurrencies,
 } from "../actions/currencyActions";
 
-const SAPI_URL = "";
+// const SAPI_URL = "";
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -69,7 +69,7 @@ const CurrencyPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [props.auth]);
 
   const classes = useStyles();
   const suhbeader = useSubheader();
@@ -145,18 +145,6 @@ const CurrencyForm = (props) => {
 
   const disableLoading = () => {
     setLoading(false);
-  };
-
-  const getInputClasses = (fieldname) => {
-    if (formik.touched[fieldname] && formik.errors[fieldname]) {
-      return "is-invalid";
-    }
-
-    if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-      return "is-valid";
-    }
-
-    return "";
   };
 
   const formik = useFormik({

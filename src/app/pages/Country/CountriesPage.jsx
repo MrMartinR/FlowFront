@@ -1,9 +1,10 @@
-import React, { Fragment } from "react";
+// import React, { Fragment } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 // import { CountriesLoadingDialog } from "./countries-loading-dialog/CountriesLoadingDialog";
 import { CountryEditDialog } from "./country-edit-dialog/CountryEditDialog";
 import { CountriesUIProvider } from "./CountriesUIContext";
-import { CountriesCard } from "./CountriesCard";
+// import { CountriesCard } from "./CountriesCard";
 import CountryPage from "../CountryPage";
 
 export function CountriesPage({ history }) {

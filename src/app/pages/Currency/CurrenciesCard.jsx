@@ -148,7 +148,7 @@ export function CurrenciesCard(props) {
         <CurrencyForm
           {...props}
           formik={formik}
-          initialValues={initialValues}
+          initialValues={currencyInitialValues}
         />
       </CardHeader>
       <CardBody>
