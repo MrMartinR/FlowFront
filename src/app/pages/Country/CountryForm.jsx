@@ -1,21 +1,12 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { FormControl, MenuItem, TextField } from "@material-ui/core";
-import { getAllCountries } from "../../actions/countryActions";
 import { getAllCurrencies } from "../../actions/currencyActions";
 
 const CountryForm = (props) => {
   const { formik } = props;
-
-  const initialValues = {
-    continent: "",
-    flag: "",
-    iso_code: "",
-    name: "",
-    currency_id: "",
-  };
   const useFormStyles = makeStyles((theme) => ({
     container: {
       display: "flex",
@@ -41,16 +32,11 @@ const CountryForm = (props) => {
 
   const classes = useFormStyles();
   const [currencies, setCurrencies] = useState([]);
-  const [countries, setCountries] = useState([]);
 
   React.useEffect(() => {
     getAllCurrencies(props.auth).then((res) => {
       const data = res.data;
       setCurrencies(data.data);
-    });
-    getAllCountries(props.auth).then((res) => {
-      const data = res.data;
-      setCountries(data.data);
     });
   }, []);
 

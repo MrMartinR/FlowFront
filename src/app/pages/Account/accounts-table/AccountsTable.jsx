@@ -40,7 +40,7 @@ export function AccountsTable() {
   );
   const {
     accountTable: { entities, page, pages },
-    listLoading,
+    // listLoading,
   } = currentState;
 
   // Accounts Redux state

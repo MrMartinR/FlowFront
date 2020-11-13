@@ -65,13 +65,13 @@ export const AccountEditForm = (props) => {
   const {
     values,
     touched,
-    dirty,
+    // dirty,
     errors,
     handleSubmit,
-    handleReset,
+    // handleReset,
     setFieldValue,
     setFieldTouched,
-    isSubmitting,
+    // isSubmitting,
     actionsLoading,
     onHide,
   } = props;

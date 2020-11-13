@@ -20,7 +20,7 @@ export function AuthPage() {
           >
             {/*begin::Aside*/}
             <div
-                className="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10"
+                className="login-aside d-md-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10 d-sm-none d-none"
                 style={{
                   backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-4.jpg")})`
                 }}
@@ -77,7 +77,7 @@ export function AuthPage() {
 
               {/* begin::Content body */}
                 {/*add component login and registration */}
-              <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
+              <div className="d-flex flex-column-fluid flex-center mt-md-30 mt-lg-0">
                 <Switch>
                <ContentRoute path="/auth/login" component={Login}/>
                 <ContentRoute path="/auth/registration" component={Registration}/>

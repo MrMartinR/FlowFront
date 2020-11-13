@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../_redux/authRedux";
 import { login } from "../_redux/authCrud";
+import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 // import { Button, Toast, Col, Row } from "react-bootstrap";
 //import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
 
@@ -108,6 +109,11 @@ function Login(props) {
     <div className="login-form login-signin" id="kt_login_signin_form">
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
+        <img
+          alt="Logo"
+          className="max-h-70px d-block d-md-none"
+          src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
+        />
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
@@ -139,7 +145,7 @@ function Login(props) {
 
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Type your eMail"
+            placeholder="Type your email"
             type="email"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "email"
@@ -155,7 +161,7 @@ function Login(props) {
         </div>
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Type your Password"
+            placeholder="Type your password"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "password"

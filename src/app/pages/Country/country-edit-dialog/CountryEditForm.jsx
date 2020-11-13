@@ -34,7 +34,8 @@ const formikEnhancer = withFormik({
   }),
   enableReinitialize: true,
   mapPropsToValues: ({
-    country: { id, name, iso_code, continent, currency_id, flag },
+    country: { id, name, iso_code, continent, flag },
+    // country: { id, name, iso_code, continent, currency_id, flag },
   }) => ({
     id,
     name,
@@ -60,13 +61,13 @@ export const CountryEditForm = (props) => {
   const {
     values,
     touched,
-    dirty,
+    // dirty,
     errors,
     handleSubmit,
-    handleReset,
+    // handleReset,
     setFieldValue,
     setFieldTouched,
-    isSubmitting,
+    // isSubmitting,
     actionsLoading,
     onHide,
   } = props;

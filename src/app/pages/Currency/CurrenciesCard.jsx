@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -15,7 +15,7 @@ import Paper from "@material-ui/core/Paper";
 // import { CurrenciesFilter } from "./currencies-filter/CurrenciesFilter";
 // import { CurrenciesTable } from "./currencies-table/CurrenciesTable";
 // import { CurrenciesGrouping } from "./currencies-grouping/CurrenciesGrouping";
-import { useCurrenciesUIContext } from "./CurrenciesUIContext";
+// import { useCurrenciesUIContext } from "./CurrenciesUIContext";
 import { withStyles, makeStyles } from "@material-ui/styles";
 import { API_URL } from "../../modules/Auth/_redux/authCrud";
 import {
@@ -55,7 +55,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 export function CurrenciesCard(props) {
-  const currenciesUIContext = useCurrenciesUIContext();
+  // const currenciesUIContext = useCurrenciesUIContext();
   // const currenciesUIProps = useMemo(() => {
   //   return {
   //     ids: currenciesUIContext.ids,
