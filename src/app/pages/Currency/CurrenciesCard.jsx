@@ -56,12 +56,12 @@ const StyledTableRow = withStyles((theme) => ({
 
 export function CurrenciesCard(props) {
   const currenciesUIContext = useCurrenciesUIContext();
-  const currenciesUIProps = useMemo(() => {
-    return {
-      ids: currenciesUIContext.ids,
-      newCurrencyButtonClick: currenciesUIContext.newCurrencyButtonClick,
-    };
-  }, [currenciesUIContext]);
+  // const currenciesUIProps = useMemo(() => {
+  //   return {
+  //     ids: currenciesUIContext.ids,
+  //     newCurrencyButtonClick: currenciesUIContext.newCurrencyButtonClick,
+  //   };
+  // }, [currenciesUIContext]);
 
   const getAllCurrencies = (headerPara) => {
     return axios.get(`${API_URL}/api/v1/currencies?page=1`, {
