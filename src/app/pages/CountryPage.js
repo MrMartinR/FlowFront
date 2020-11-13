@@ -66,7 +66,7 @@ const CountryPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [props.auth]);
 
   const classes = useStyles();
   const suhbeader = useSubheader();
@@ -94,6 +94,7 @@ const CountryPage = (props) => {
     validationSchema: CountrySchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
+      console.log("loading: ", loading);
       setTimeout(() => {
         var formvalues = {
           continent: values.continent,

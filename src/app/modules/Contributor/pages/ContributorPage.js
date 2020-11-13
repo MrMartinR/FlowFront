@@ -5,6 +5,7 @@ import {toAbsoluteUrl} from "../../../../_metronic/_helpers";
 import {ContentRoute} from "../../../../_metronic/layout"
 import Registration from "./Registration";
 import "../../../../_metronic/_assets/sass/pages/login/login-3.scss";
+import ForgotPassword from "../../Auth/pages/ForgotPassword";
 
 export function ContributorPage() {
   return (

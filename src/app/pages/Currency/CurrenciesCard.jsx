@@ -18,7 +18,11 @@ import Paper from "@material-ui/core/Paper";
 import { useCurrenciesUIContext } from "./CurrenciesUIContext";
 import { withStyles, makeStyles } from "@material-ui/styles";
 import { API_URL } from "../../modules/Auth/_redux/authCrud";
-import { addCurrency, CurrencySchema } from "../../actions/currencyActions";
+import {
+  addCurrency,
+  CurrencySchema,
+  currencyInitialValues,
+} from "../../actions/currencyActions";
 import { useFormik } from "formik";
 import CurrencyForm from "./CurrencyForm";
 
@@ -52,12 +56,12 @@ const StyledTableRow = withStyles((theme) => ({
 
 export function CurrenciesCard(props) {
   const currenciesUIContext = useCurrenciesUIContext();
-  const currenciesUIProps = useMemo(() => {
-    return {
-      ids: currenciesUIContext.ids,
-      newCurrencyButtonClick: currenciesUIContext.newCurrencyButtonClick,
-    };
-  }, [currenciesUIContext]);
+  // const currenciesUIProps = useMemo(() => {
+  //   return {
+  //     ids: currenciesUIContext.ids,
+  //     newCurrencyButtonClick: currenciesUIContext.newCurrencyButtonClick,
+  //   };
+  // }, [currenciesUIContext]);
 
   const getAllCurrencies = (headerPara) => {
     return axios.get(`${API_URL}/api/v1/currencies?page=1`, {
@@ -87,17 +91,9 @@ export function CurrenciesCard(props) {
 
   const [rows, setRows] = useState([]);
   const classes = useStyles();
-  const initialValues = {
-    symbol: "",
-    code: "",
-    name: "",
-    kind: "",
-    fx_eur: "",
-    decimal_places: "",
-  };
 
   const formik = useFormik({
-    initialValues,
+    initialValues: currencyInitialValues,
     validationSchema: CurrencySchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       setTimeout(() => {
@@ -152,7 +148,7 @@ export function CurrenciesCard(props) {
         <CurrencyForm
           {...props}
           formik={formik}
-          initialValues={initialValues}
+          initialValues={currencyInitialValues}
         />
       </CardHeader>
       <CardBody>

@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import * as Yup from "yup";
-import { FormControl, MenuItem, TextField } from "@material-ui/core";
-import { getAllCountries } from "../../actions/countryActions";
-import { getAllCurrencies } from "../../actions/currencyActions";
+// import * as Yup from "yup";
+import { FormControl, TextField } from "@material-ui/core";
 
 const CurrencyForm = (props) => {
-  const { formik, initialValues } = props;
+  const { formik } = props;
 
   const useFormStyles = makeStyles((theme) => ({
     container: {

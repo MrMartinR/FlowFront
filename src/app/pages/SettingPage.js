@@ -1,6 +1,7 @@
 import React from "react";
 import { toAbsoluteUrl } from "../../_metronic/_helpers";
-import { Form, InputGroup, Col, Row, Image } from "react-bootstrap";
+// import { Form, InputGroup, Col, Row, Image } from "react-bootstrap";
+import { Form, Col } from "react-bootstrap";
 import { useSubheader } from "../../_metronic/layout";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -22,13 +23,6 @@ export const SettingPage = () => {
     },
   };
 
-  const onBlur = (e) => {
-    console.log("e:onBlur ", e);
-  };
-
-  const onFocus = (e) => {
-    console.log("e:onFocus ", e);
-  };
   const handleChange = (e) => {
     console.log("e: handleChange", e);
   };

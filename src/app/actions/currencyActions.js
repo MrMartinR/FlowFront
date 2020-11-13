@@ -42,3 +42,12 @@ export const CurrencySchema = Yup.object().shape({
   symbol: Yup.string().required("This field is required"),
   decimal_places: Yup.string().required("This field is required"),
 });
+
+export const currencyInitialValues = {
+  symbol: "",
+  code: "",
+  name: "",
+  kind: "",
+  fx_eur: "",
+  decimal_places: "",
+};

@@ -1,4 +1,4 @@
-import React, { useState,Component, Fragment  } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -6,9 +6,8 @@ import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../_redux/authRedux";
 import { login } from "../_redux/authCrud";
-import {Button, Toast, Col, Row} from "react-bootstrap";
+// import { Button, Toast, Col, Row } from "react-bootstrap";
 //import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
-
 
 /*
   INTL (i18n) docs:
@@ -68,29 +67,29 @@ function Login(props) {
       return "is-valid";
     }
 
-    return ""
+    return "";
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      console.log("submitting..")
-      localStorage.removeItem('forgot_pwd_notif');
+      console.log("submitting..");
+      localStorage.removeItem("forgot_pwd_notif");
       enableLoading();
       setTimeout(() => {
         login(values.email, values.password)
-          .then(res => {
+          .then((res) => {
             disableLoading();
             var accessToken = res.data.token["token"];
-            let uid = res.data.data.uid
-            let client = res.data.token.client
-            let expiry = res.data.token.expiry
+            let uid = res.data.data.uid;
+            let client = res.data.token.client;
+            let expiry = res.data.token.expiry;
             let token = res.data.token["token"];
             props.login(accessToken, uid, client, expiry, token);
           })
           .catch(() => {
-            console.log("error")
+            console.log("error");
 
             //Toast.Body("test")
             disableLoading();
@@ -106,16 +105,13 @@ function Login(props) {
   });
 
   return (
-
     <div className="login-form login-signin" id="kt_login_signin_form">
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
-        <p className="text-muted font-weight-bold">
-          Howdy, Flower!
-        </p>
+        <p className="text-muted font-weight-bold">Howdy, Flower!</p>
       </div>
       {/* end::Head */}
 
@@ -128,17 +124,18 @@ function Login(props) {
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
-        ) : ""
-        }
-{
-  ((localStorage.getItem('forgot_pwd_notif') === null) == false) ?(
-<div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
+        ) : (
+          ""
+        )}
+        {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
+          <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
             <div className="alert-text ">
-            {localStorage.getItem('forgot_pwd_notif')}
+              {localStorage.getItem("forgot_pwd_notif")}
             </div>
-          </div>) : ""
-}
-
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="form-group fv-plugins-icon-container">
           <input
@@ -202,60 +199,60 @@ function Login(props) {
       </form>
       {/*end::Form*/}
     </div>
-   // </>
+    // </>
   );
 }
 
-function Example() {
-  const [showA, setShowA] = useState(true);
-  const [showB, setShowB] = useState(true);
+// function Example() {
+//   const [showA, setShowA] = useState(true);
+//   const [showB, setShowB] = useState(true);
 
-  const toggleShowA = () => setShowA(!showA);
-  const toggleShowB = () => setShowB(!showB);
+//   const toggleShowA = () => setShowA(!showA);
+//   const toggleShowB = () => setShowB(!showB);
 
-  return (
-    <Row>
-      <Col xs={6}>
-        <Toast show={showA} onClose={toggleShowA}>
-          <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded mr-2"
-              alt=""
-            />
-            <strong className="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-          </Toast.Header>
-          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-        </Toast>
-      </Col>
-      <Col xs={6}>
-        <Button onClick={toggleShowA}>
-          Toggle Toast <strong>with</strong> Animation
-        </Button>
-      </Col>
-      <Col xs={6} className="my-1">
-        <Toast onClose={toggleShowB} show={showB} animation={false}>
-          <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded mr-2"
-              alt=""
-            />
-            <strong className="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-          </Toast.Header>
-          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-        </Toast>
-      </Col>
-      <Col xs={6}>
-        <Button onClick={toggleShowB}>
-          Toggle Toast <strong>without</strong> Animation
-        </Button>
-      </Col>
-    </Row>
-  );
-}
+//   return (
+//     <Row>
+//       <Col xs={6}>
+//         <Toast show={showA} onClose={toggleShowA}>
+//           <Toast.Header>
+//             <img
+//               src="holder.js/20x20?text=%20"
+//               className="rounded mr-2"
+//               alt=""
+//             />
+//             <strong className="mr-auto">Bootstrap</strong>
+//             <small>11 mins ago</small>
+//           </Toast.Header>
+//           <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+//         </Toast>
+//       </Col>
+//       <Col xs={6}>
+//         <Button onClick={toggleShowA}>
+//           Toggle Toast <strong>with</strong> Animation
+//         </Button>
+//       </Col>
+//       <Col xs={6} className="my-1">
+//         <Toast onClose={toggleShowB} show={showB} animation={false}>
+//           <Toast.Header>
+//             <img
+//               src="holder.js/20x20?text=%20"
+//               className="rounded mr-2"
+//               alt=""
+//             />
+//             <strong className="mr-auto">Bootstrap</strong>
+//             <small>11 mins ago</small>
+//           </Toast.Header>
+//           <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+//         </Toast>
+//       </Col>
+//       <Col xs={6}>
+//         <Button onClick={toggleShowB}>
+//           Toggle Toast <strong>without</strong> Animation
+//         </Button>
+//       </Col>
+//     </Row>
+//   );
+// }
 
 //render(<Example />);
 
