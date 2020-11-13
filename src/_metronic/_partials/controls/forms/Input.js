@@ -1,5 +1,5 @@
 import React from "react";
-import {FieldFeedbackLabel} from "./FieldFeedbackLabel";
+import { FieldFeedbackLabel } from "./FieldFeedbackLabel";
 
 const getFieldCSSClasses = (touched, errors) => {
   const classes = ["form-control"];
@@ -23,8 +23,8 @@ export function Input({
   type = "text",
   ...props
 }) {
-  if (field.name =='email')
-  console.log('field', field)
+  if (field.name === "email")
+  console.log("field", field);
   return (
     <>
       {label && <label>Enter {label}</label>}

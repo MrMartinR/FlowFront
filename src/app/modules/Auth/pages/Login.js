@@ -127,7 +127,7 @@ function Login(props) {
         ) : (
           ""
         )}
-        {(localStorage.getItem("forgot_pwd_notif") === null) == false ? (
+        {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
           <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
             <div className="alert-text ">
               {localStorage.getItem("forgot_pwd_notif")}
