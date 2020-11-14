@@ -43,7 +43,7 @@ export function AsideMenuList({ layoutProps }) {
           <li className={`menu-item ${getMenuItemActive("/currency")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/currency">
               <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
-              <span className="menu-text">Currency</span>
+              <span className="menu-text">Currencies</span>
             </NavLink>
           </li>
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo } from "react";
 import { Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -25,9 +26,6 @@ export function CountryEditDialog({ id, show, onHide }) {
     shallowEqual
     );
     
-    console.log('countryForEdit', countryForEdit)
-    console.log('actionsLoading', actionsLoading)
-  
   useEffect(() => {
     // server call for getting Country by id
     dispatch(actions.fetchCountry(id));
@@ -44,7 +42,6 @@ export function CountryEditDialog({ id, show, onHide }) {
     }
   };
 
-  console.log('id', id)
   return (
     <Modal
       size="lg"
