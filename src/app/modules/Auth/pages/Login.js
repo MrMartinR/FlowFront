@@ -85,13 +85,12 @@ function Login(props) {
             var accessToken = res.data.token["token"];
             let uid = res.data.data.uid;
             let client = res.data.token.client;
+            const userData = res.data.data;
             let expiry = res.data.token.expiry;
             let token = res.data.token["token"];
-            props.login(accessToken, uid, client, expiry, token);
+            props.login(accessToken, uid, client, expiry, token, userData);
           })
           .catch(() => {
-            console.log("error");
-
             //Toast.Body("test")
             disableLoading();
             setSubmitting(false);
@@ -125,6 +124,7 @@ function Login(props) {
       <form
         onSubmit={formik.handleSubmit}
         className="form fv-plugins-bootstrap fv-plugins-framework"
+        autoComplete="on"
       >
         {formik.status ? (
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">

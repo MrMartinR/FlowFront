@@ -79,7 +79,6 @@ export function CurrenciesCard(props) {
     getAllCurrencies(props.auth)
       .then((res) => {
         var resData = res.data;
-        console.log("resData: ", resData);
         if (resData.success) {
           setRows(resData.data);
         }
