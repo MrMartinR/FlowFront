@@ -10,7 +10,6 @@ export function CurrenciesPage(props) {
   const { history } = props;
 
   const auth = useSelector((state) => state.auth);
-  console.log("auth: ", auth);
 
   const currenciesUIEvents = {
     newCurrencyButtonClick: () => {

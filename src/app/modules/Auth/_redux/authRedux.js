@@ -8,7 +8,7 @@ export const actionTypes = {
   Logout: "[Logout] Action",
   Register: "[Register] Action",
   UserRequested: "[Request User] Action",
-  UserLoaded: "[Load User] Auth API"
+  UserLoaded: "[Load User] Auth API",
 };
 
 const initialAuthState = {
@@ -16,11 +16,15 @@ const initialAuthState = {
   authToken: undefined,
   client: undefined,
   expiry: undefined,
-  token: undefined
+  token: undefined,
 };
 
 export const reducer = persistReducer(
-  { storage, key: "demo1-auth", whitelist: ["user", "authToken", "client", "expiry", "token"] },
+  {
+    storage,
+    key: "demo1-auth",
+    whitelist: ["user", "authToken", "client", "expiry", "token"],
+  },
   (state = initialAuthState, action) => {
     switch (action.type) {
       case actionTypes.Login: {
@@ -30,7 +34,13 @@ export const reducer = persistReducer(
         let expiry = action.payload.expiry;
         let token = action.payload.token;
 
-        return { authToken, user: { email: uid, fullname: uid }, client, expiry, token };
+        return {
+          authToken,
+          user: { ...action.payload.userData, email: uid, fullname: uid },
+          client,
+          expiry,
+          token,
+        };
       }
 
       case actionTypes.Register: {
@@ -56,14 +66,20 @@ export const reducer = persistReducer(
 );
 
 export const actions = {
-  login: (authToken, uid, client, expiry, token) => ({ type: actionTypes.Login, payload: { authToken, uid, client, expiry, token } }),
-  register: authToken => ({
+  login: (authToken, uid, client, expiry, token, userData) => ({
+    type: actionTypes.Login,
+    payload: { authToken, uid, client, expiry, token, userData },
+  }),
+  register: (authToken) => ({
     type: actionTypes.Register,
-    payload: { authToken }
+    payload: { authToken },
   }),
   logout: () => ({ type: actionTypes.Logout }),
-  requestUser: user => ({ type: actionTypes.UserRequested, payload: { user } }),
-  fulfillUser: user => ({ type: actionTypes.UserLoaded, payload: { user } })
+  requestUser: (user) => ({
+    type: actionTypes.UserRequested,
+    payload: { user },
+  }),
+  fulfillUser: (user) => ({ type: actionTypes.UserLoaded, payload: { user } }),
 };
 
 export function* saga() {
@@ -77,7 +93,6 @@ export function* saga() {
 
   yield takeLatest(actionTypes.UserRequested, function* userRequested() {
     //const { data: user } = yield getUserByToken();
-
     //yield put(actions.fulfillUser(user));
   });
 }
