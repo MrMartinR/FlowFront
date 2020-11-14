@@ -218,7 +218,7 @@ export function QuickPanel() {
                   <div className="d-flex align-items-center bg-light-warning rounded p-5 mb-5">
                   <span className="svg-icon svg-icon-warning mr-5">
                     <SVG
-                        src={toAbsoluteUrl("/media//svg/icons/Home/Library.svg")}
+                        src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}
                         className="svg-icon svg-icon-lg"
                     ></SVG>
                   </span>
