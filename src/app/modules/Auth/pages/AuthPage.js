@@ -20,7 +20,7 @@ export function AuthPage() {
           >
             {/*begin::Aside*/}
             <div
-                className="login-aside d-md-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10 d-sm-none d-none"
+                className="login-aside flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10 d-none"
                 style={{
                   backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-4.jpg")})`
                 }}

@@ -111,13 +111,13 @@ function Login(props) {
       <div className="text-center mb-10 mb-lg-20">
         <img
           alt="Logo"
-          className="max-h-70px d-block d-md-none"
+          className="max-h-70px max-h-md-100px d-block"
           src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
         />
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
-        <p className="text-muted font-weight-bold">Howdy, Flower!</p>
+        <p className="text-muted font-weight-bold"></p>
       </div>
       {/* end::Head */}
 
