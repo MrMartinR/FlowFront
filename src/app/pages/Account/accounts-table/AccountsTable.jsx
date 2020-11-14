@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
