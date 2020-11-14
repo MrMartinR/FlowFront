@@ -20,7 +20,7 @@ export function AsideMenuList({ layoutProps }) {
           {/*begin::1 Level*/}
           <li className={`menu-item ${getMenuItemActive("/dashboard")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/dashboard">
-              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Layout/Layout-grid.svg")}/></span>
               <span className="menu-text">Dashboard</span>
             </NavLink>
           </li>
@@ -42,14 +42,14 @@ export function AsideMenuList({ layoutProps }) {
 
           <li className={`menu-item ${getMenuItemActive("/currency")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/currency">
-              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Pound.svg")}/></span>
               <span className="menu-text">Currencies</span>
             </NavLink>
           </li>
 
           <li className={`menu-item ${getMenuItemActive("/countries")}`} aria-haspopup="true">
             <NavLink className="menu-link" to="/countries">
-              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}/></span>
+              <span className="svg-icon menu-icon"><SVG src={toAbsoluteUrl("/media/svg/icons/Map/Marker1.svg")}/></span>
               <span className="menu-text">Countries</span>
             </NavLink>
           </li>

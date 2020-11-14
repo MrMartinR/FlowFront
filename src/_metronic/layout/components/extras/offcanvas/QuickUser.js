@@ -87,7 +87,7 @@ export function QuickUser() {
               className="btn btn-light-primary btn-bold"
               onClick={logoutClick}
             >
-              Sign out
+              Log out
             </button>
           </div>
         </div>
@@ -100,29 +100,27 @@ export function QuickUser() {
             to="/setting"
           >
             {/* <a className="navi-item"> */}
-              <div className="navi-link">
-                <div className="symbol symbol-40 bg-light mr-3">
-                  <div className="symbol-label">
-                    <span className="svg-icon svg-icon-md svg-icon-success">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/General/Notification2.svg"
-                        )}
-                      ></SVG>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="navi-text">
-                  <div className="font-weight-bold">Settings</div>
-                  <div className="text-muted">
-                    Account settings and more
-                    {/* <span className="label label-light-danger label-inline font-weight-bold">
-                    update
-                  </span> */}
-                  </div>
+            <div className="navi-link">
+              <div className="symbol symbol-40 bg-light mr-3">
+                <div className="symbol-label">
+                  <span className="svg-icon svg-icon-md svg-icon-success">
+                    <SVG
+                      src={toAbsoluteUrl("/media/svg/icons/Tools/Tools.svg")}
+                    ></SVG>
+                  </span>
                 </div>
               </div>
+
+              <div className="navi-text">
+                <div className="font-weight-bold">Settings</div>
+                <div className="text-muted">
+                  Account settings and more
+                  {/* <span className="label label-light-danger label-inline font-weight-bold">
+                    update
+                  </span> */}
+                </div>
+              </div>
+            </div>
             {/* </a> */}
           </NavLink>
 
@@ -131,23 +129,23 @@ export function QuickUser() {
             to="/setting1"
           >
             {/* <a className="navi-item"> */}
-              <div className="navi-link">
-                <div className="symbol symbol-40 bg-light mr-3">
-                  <div className="symbol-label">
-                    <span className="svg-icon svg-icon-md svg-icon-warning">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/Shopping/Chart-bar1.svg"
-                        )}
-                      ></SVG>
-                    </span>
-                  </div>
-                </div>
-                <div className="navi-text">
-                  <div className="font-weight-bold">My Messages</div>
-                  <div className="text-muted">Inbox and tasks</div>
+            <div className="navi-link">
+              <div className="symbol symbol-40 bg-light mr-3">
+                <div className="symbol-label">
+                  <span className="svg-icon svg-icon-md svg-icon-warning">
+                    <SVG
+                      src={toAbsoluteUrl(
+                        "/media/svg/icons/Shopping/Chart-bar1.svg"
+                      )}
+                    ></SVG>
+                  </span>
                 </div>
               </div>
+              <div className="navi-text">
+                <div className="font-weight-bold">My Messages</div>
+                <div className="text-muted">Inbox and tasks</div>
+              </div>
+            </div>
             {/* </a> */}
           </NavLink>
 
@@ -156,23 +154,23 @@ export function QuickUser() {
             to="/setting2"
           >
             {/* <a className="navi-item"> */}
-              <div className="navi-link">
-                <div className="symbol symbol-40 bg-light mr-3">
-                  <div className="symbol-label">
-                    <span className="svg-icon svg-icon-md svg-icon-danger">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/Files/Selected-file.svg"
-                        )}
-                      ></SVG>
-                    </span>
-                  </div>
-                </div>
-                <div className="navi-text">
-                  <div className="font-weight-bold">My Activities</div>
-                  <div className="text-muted">Logs and notifications</div>
+            <div className="navi-link">
+              <div className="symbol symbol-40 bg-light mr-3">
+                <div className="symbol-label">
+                  <span className="svg-icon svg-icon-md svg-icon-danger">
+                    <SVG
+                      src={toAbsoluteUrl(
+                        "/media/svg/icons/Files/Selected-file.svg"
+                      )}
+                    ></SVG>
+                  </span>
                 </div>
               </div>
+              <div className="navi-text">
+                <div className="font-weight-bold">My Activities</div>
+                <div className="text-muted">Logs and notifications</div>
+              </div>
+            </div>
             {/* </a> */}
           </NavLink>
 
@@ -181,23 +179,23 @@ export function QuickUser() {
             to="/setting4"
           >
             {/* <a className="navi-item"> */}
-              <div className="navi-link">
-                <div className="symbol symbol-40 bg-light mr-3">
-                  <div className="symbol-label">
-                    <span className="svg-icon svg-icon-md svg-icon-primary">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/Communication/Mail-opened.svg"
-                        )}
-                      ></SVG>
-                    </span>
-                  </div>
-                </div>
-                <div className="navi-text">
-                  <div className="font-weight-bold">My Tasks</div>
-                  <div className="text-muted">latest tasks and projects</div>
+            <div className="navi-link">
+              <div className="symbol symbol-40 bg-light mr-3">
+                <div className="symbol-label">
+                  <span className="svg-icon svg-icon-md svg-icon-primary">
+                    <SVG
+                      src={toAbsoluteUrl(
+                        "/media/svg/icons/Communication/Mail-opened.svg"
+                      )}
+                    ></SVG>
+                  </span>
                 </div>
               </div>
+              <div className="navi-text">
+                <div className="font-weight-bold">My Tasks</div>
+                <div className="text-muted">latest tasks and projects</div>
+              </div>
+            </div>
             {/* </a> */}
           </NavLink>
         </div>
