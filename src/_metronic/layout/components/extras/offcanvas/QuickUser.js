@@ -96,8 +96,8 @@ export function QuickUser() {
 
         <div className="navi navi-spacer-x-0 p-0">
           <NavLink
-            className={`menu-item navi-item ${getMenuItemActive("/setting")}`}
-            to="/setting"
+            className={`menu-item navi-item ${getMenuItemActive("/settings")}`}
+            to="/settings"
           >
             {/* <a className="navi-item"> */}
             <div className="navi-link">

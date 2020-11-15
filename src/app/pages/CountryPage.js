@@ -70,7 +70,7 @@ const CountryPage = (props) => {
 
   const classes = useStyles();
   const suhbeader = useSubheader();
-  suhbeader.setTitle("Country Page");
+  suhbeader.setTitle("Countries");
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
