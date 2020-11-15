@@ -60,7 +60,8 @@ export const SettingPage = (props) => {
   return (
     <>
       <div className="row">
-        <div className="col-lg-12 col-xxl-4 order-1 order-xxl-2">
+        <div className="col-lg-12 order-1 order-xxl-2">
+          {/* <div className="col-lg-12 col-xxl-4 order-1 order-xxl-2"> */}
           <div className="card">
             <div className="card-body d-flex flex-column">
               <div className="flex-column-auto mt-5">
@@ -72,19 +73,22 @@ export const SettingPage = (props) => {
               </div>
 
               <Form className="mt-5">
+                {/* <Form.Row>
+
+                </Form.Row>
+ */}
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridUsername">
                     <TextField
+                      className="w-100"
                       label="Username"
                       value={userProfile.username ? userProfile.username : ""}
                       disabled={true}
                     />
                   </Form.Group>
-                </Form.Row>
-
-                <Form.Row>
                   <Form.Group as={Col} controlId="formGridEmail">
                     <TextField
+                      className="w-100"
                       type="email"
                       disabled={true}
                       label="Email"
@@ -95,7 +99,11 @@ export const SettingPage = (props) => {
 
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridPassword">
-                    <TextField type="password" label="Type New Password" />
+                    <TextField
+                      className="w-100"
+                      type="password"
+                      label="Type New Password"
+                    />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="formGridState">
@@ -113,6 +121,7 @@ export const SettingPage = (props) => {
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridName">
                     <TextField
+                      className="w-100"
                       type="text"
                       label="Name"
                       value={userProfile.name ? userProfile.name : ""}
@@ -121,6 +130,7 @@ export const SettingPage = (props) => {
 
                   <Form.Group as={Col} controlId="formGridSurname">
                     <TextField
+                      className="w-100"
                       type="text"
                       label="Surname"
                       value={userProfile.lastname ? userProfile.lastname : ""}
@@ -129,7 +139,7 @@ export const SettingPage = (props) => {
 
                   <Form.Group as={Col} controlId="formGridDOB">
                     <TextField
-                      className="date"
+                      className="w-100"
                       type="date"
                       label="Date of Birth"
                       value={""}
@@ -176,6 +186,7 @@ export const SettingPage = (props) => {
                       ))}
                     </Select>
                   </Form.Group>
+                  <Form.Group as={Col}></Form.Group>
                 </Form.Row>
               </Form>
             </div>
