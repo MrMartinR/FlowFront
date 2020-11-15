@@ -43,9 +43,13 @@ function ForgotPassword(props) {
     validationSchema: ForgotPasswordSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       requestPassword(values.email)
-        .then(() => setIsRequested(true))
+        .then((res) => {
+          setIsRequested(true);
+          localStorage.setItem("forgot_pwd_notif", res.data.message);
+        })
         .catch(() => {
           setIsRequested(false);
+          localStorage.setItem("forgot_pwd_notif", null);
           setSubmitting(false);
           setStatus(
             intl.formatMessage(
@@ -82,6 +86,7 @@ function ForgotPassword(props) {
             <div className="form-group fv-plugins-icon-container">
               <input
                 type="email"
+                placeholder="Type your email"
                 className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
                   "email"
                 )}`}

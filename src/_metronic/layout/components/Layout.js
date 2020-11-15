@@ -12,7 +12,7 @@ import {SubHeader} from "./subheader/SubHeader";
 import {QuickPanel} from "./extras/offcanvas/QuickPanel";
 import {QuickUser} from "./extras/offcanvas/QuickUser";
 import {ScrollTop} from "./extras/ScrollTop";
-import {StickyToolbar} from "./extras/StickyToolbar";
+// import {StickyToolbar} from "./extras/StickyToolbar";
 
 export function Layout({ children }) {
     const uiService = useHtmlClassService();
@@ -74,7 +74,7 @@ export function Layout({ children }) {
             <QuickUser/>
             <QuickPanel/>
             <ScrollTop/>
-            <StickyToolbar/>
+            {/* <StickyToolbar/> */}
             {/*end::Main*/}
             <LayoutInit />
         </>

@@ -12,8 +12,7 @@ export function HeaderMobile() {
     return {
       headerLogo: uiService.getStickyLogo(),
       asideDisplay: objectPath.get(uiService.config, "aside.self.display"),
-      headerMenuSelfDisplay:
-          objectPath.get(uiService.config, "header.menu.self.display") === true,
+      headerMenuSelfDisplay: false          ,
       headerMobileCssClasses: uiService.getClasses("header_mobile", true),
       headerMobileAttributes: uiService.getAttributes("header_mobile")
     };

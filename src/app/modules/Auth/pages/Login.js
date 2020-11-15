@@ -6,6 +6,9 @@ import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../_redux/authRedux";
 import { login } from "../_redux/authCrud";
+import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
+// import { Button, Toast, Col, Row } from "react-bootstrap";
+//import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
 
 /*
   INTL (i18n) docs:
@@ -18,7 +21,8 @@ import { login } from "../_redux/authCrud";
 */
 
 //email: "user1@example.com",
-//password: "samurai1",
+//password: "samurai1",<Toast>
+
 const initialValues = {
   email: "",
   password: "",
@@ -30,16 +34,16 @@ function Login(props) {
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .min(3, "Minimum 3 characters")
+      .max(50, "Maximum 50 characters")
       .required(
         intl.formatMessage({
           id: "AUTH.VALIDATION.REQUIRED_FIELD",
         })
       ),
     password: Yup.string()
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .min(3, "Minimum 3 characters")
+      .max(50, "Maximum 50 characters")
       .required(
         intl.formatMessage({
           id: "AUTH.VALIDATION.REQUIRED_FIELD",
@@ -64,27 +68,30 @@ function Login(props) {
       return "is-valid";
     }
 
-    return ""
+    return "";
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      console.log("submitting..")
+      console.log("submitting..");
+      localStorage.removeItem("forgot_pwd_notif");
       enableLoading();
       setTimeout(() => {
         login(values.email, values.password)
-          .then(res => {
+          .then((res) => {
             disableLoading();
-            var accessToken = res.headers["access-token"]
-            var uid = res.headers.uid
-            var client = res.headers.client
-            var expiry = res.headers.expiry            
-            props.login(accessToken, uid, client, expiry);
-          })    
+            var accessToken = res.data.token["token"];
+            let uid = res.data.data.uid;
+            let client = res.data.token.client;
+            const userData = res.data.data;
+            let expiry = res.data.token.expiry;
+            let token = res.data.token["token"];
+            props.login(accessToken, uid, client, expiry, token, userData);
+          })
           .catch(() => {
-            console.log("error")
+            //Toast.Body("test")
             disableLoading();
             setSubmitting(false);
             setStatus(
@@ -101,12 +108,15 @@ function Login(props) {
     <div className="login-form login-signin" id="kt_login_signin_form">
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
+        <img
+          alt="Logo"
+          className="max-h-70px max-h-md-100px d-block"
+          src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
+        />
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
-        <p className="text-muted font-weight-bold">
-          Howdy, Flower!
-        </p>
+        <p className="text-muted font-weight-bold"></p>
       </div>
       {/* end::Head */}
 
@@ -114,23 +124,28 @@ function Login(props) {
       <form
         onSubmit={formik.handleSubmit}
         className="form fv-plugins-bootstrap fv-plugins-framework"
+        autoComplete="on"
       >
         {formik.status ? (
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
-        ) : ""
-          // <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-          //   <div className="alert-text ">
-          //     Use account <strong>admin@demo.com</strong> and password{" "}
-          //     <strong>demo</strong> to continue.
-          //   </div>
-          // </div>
-        }
+        ) : (
+          ""
+        )}
+        {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
+          <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
+            <div className="alert-text ">
+              {localStorage.getItem("forgot_pwd_notif")}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Type your eMail"
+            placeholder="Type your email"
             type="email"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "email"
@@ -146,7 +161,7 @@ function Login(props) {
         </div>
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Type your Password"
+            placeholder="Type your password"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "password"
@@ -167,7 +182,7 @@ function Login(props) {
             id="kt_login_forgot"
           >
             <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
-          </Link>          
+          </Link>
         </div>
         <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
           <Link
@@ -176,7 +191,7 @@ function Login(props) {
             id="kt_login_signup"
           >
             Sign Up
-          </Link>          
+          </Link>
           <button
             id="kt_login_signin_submit"
             type="submit"
@@ -190,7 +205,61 @@ function Login(props) {
       </form>
       {/*end::Form*/}
     </div>
+    // </>
   );
 }
+
+// function Example() {
+//   const [showA, setShowA] = useState(true);
+//   const [showB, setShowB] = useState(true);
+
+//   const toggleShowA = () => setShowA(!showA);
+//   const toggleShowB = () => setShowB(!showB);
+
+//   return (
+//     <Row>
+//       <Col xs={6}>
+//         <Toast show={showA} onClose={toggleShowA}>
+//           <Toast.Header>
+//             <img
+//               src="holder.js/20x20?text=%20"
+//               className="rounded mr-2"
+//               alt=""
+//             />
+//             <strong className="mr-auto">Bootstrap</strong>
+//             <small>11 mins ago</small>
+//           </Toast.Header>
+//           <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+//         </Toast>
+//       </Col>
+//       <Col xs={6}>
+//         <Button onClick={toggleShowA}>
+//           Toggle Toast <strong>with</strong> Animation
+//         </Button>
+//       </Col>
+//       <Col xs={6} className="my-1">
+//         <Toast onClose={toggleShowB} show={showB} animation={false}>
+//           <Toast.Header>
+//             <img
+//               src="holder.js/20x20?text=%20"
+//               className="rounded mr-2"
+//               alt=""
+//             />
+//             <strong className="mr-auto">Bootstrap</strong>
+//             <small>11 mins ago</small>
+//           </Toast.Header>
+//           <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+//         </Toast>
+//       </Col>
+//       <Col xs={6}>
+//         <Button onClick={toggleShowB}>
+//           Toggle Toast <strong>without</strong> Animation
+//         </Button>
+//       </Col>
+//     </Row>
+//   );
+// }
+
+//render(<Example />);
 
 export default injectIntl(connect(null, auth.actions)(Login));

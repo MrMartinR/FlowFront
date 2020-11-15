@@ -15,7 +15,7 @@ class AlertDismissible extends React.Component {
     return (
       <>
         <Alert show={this.state.show} variant="success">
-          <Alert.Heading>How's it going?!</Alert.Heading>
+          <Alert.Heading>Son alertas de ejemplo!</Alert.Heading>
           <p>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
             eget lacinia odio sem nec elit. Cras mattis consectetur purus sit

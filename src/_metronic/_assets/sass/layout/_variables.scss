@@ -8,8 +8,9 @@ $root-font-size-lg:                             	12px; // Root font size for tab
 $root-font-size-md:                             	12px; // Root font size for mobile mode
 
 // Layout Theme Colors
+// dark:  #1e1e2d, // Dark theme color
 $layout-themes: (
-	dark:  #1e1e2d, // Dark theme color
+	dark:  #ffffff, // Dark theme color
 	light: #ffffff // Light theme color
 ) !default;
 
@@ -1653,10 +1654,10 @@ $aside-menu-config: (
 							self: (
 								bg-color: (
 									default: transparent,
-									open: #1b1b28,
-									here: #1b1b28,
-									active: #1b1b28,
-									hover: #1b1b28
+									open: #3699ff,
+									here: #3699ff,
+									active: #3699ff,
+									hover: #3699ff
 								)
 							),
 
@@ -1666,8 +1667,8 @@ $aside-menu-config: (
 									default: #494b74,
 									open: $primary,
 									here: $primary,
-									active: $primary,
-									hover: $primary
+									active: #ffffff,
+									hover: #ffffff
 								),
 							),
 
