@@ -35,7 +35,7 @@ export default function BasePage() {
                     <Redirect exact from="/" to="/dashboard"/>
                 }
                 <ContentRoute path="/dashboard" component={DashboardPage}/>
-                <ContentRoute path="/setting" component={SettingPage}/>
+                <ContentRoute path="/settings" component={SettingPage}/>
                 <ContentRoute path="/accounts" component={AccountsPage}/>
                 <ContentRoute path="/countries" component={CountriesPage}/>
                 <ContentRoute path="/lending" component={LendingPage}/>

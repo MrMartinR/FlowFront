@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toAbsoluteUrl } from "../../_metronic/_helpers";
 // import { Form, InputGroup, Col, Row, Image } from "react-bootstrap";
 import { Form, Col } from "react-bootstrap";
@@ -8,10 +8,15 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import { getAllCountries } from "../actions/countryActions";
+import { getUserProfile } from "../actions/userActions";
+import { useSelector } from "react-redux";
+import { getAllCurrencies } from "../actions/currencyActions";
 
-export const SettingPage = () => {
+export const SettingPage = (props) => {
+  const auth = useSelector((state) => state.auth);
   const suhbeader = useSubheader();
-  suhbeader.setTitle("setting");
+  suhbeader.setTitle("Settings");
 
   const classes = {
     inputRoot: {
@@ -22,6 +27,31 @@ export const SettingPage = () => {
       flexGrow: 1,
     },
   };
+  const [currencies, setCurrencies] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [userProfile, setUserProfile] = useState({});
+  console.log("userProfile: ", userProfile);
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    getUserProfile(auth)
+      .then((res) => setUserProfile(res.data.data[0]))
+      .catch((err) => {
+        console.log(err);
+      });
+
+    getAllCountries(auth)
+      .then((res) => setCountries(res.data.data))
+      .catch((err) => {
+        console.log(err);
+      });
+
+    getAllCurrencies(auth)
+      .then((res) => setCurrencies(res.data.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [auth]);
 
   const handleChange = (e) => {
     console.log("e: handleChange", e);
@@ -44,13 +74,22 @@ export const SettingPage = () => {
               <Form className="mt-5">
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridUsername">
-                    <TextField label="Username" />
+                    <TextField
+                      label="Username"
+                      value={userProfile.username ? userProfile.username : ""}
+                      disabled={true}
+                    />
                   </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridEmail">
-                    <TextField type="email" label="Enter email" />
+                    <TextField
+                      type="email"
+                      disabled={true}
+                      label="Email"
+                      value={userProfile.email ? userProfile.email : ""}
+                    />
                   </Form.Group>
                 </Form.Row>
 
@@ -64,23 +103,40 @@ export const SettingPage = () => {
                       variant="contained"
                       color="secondary"
                       className={classes.button}
+                      style={{ textTransform: "none" }}
                     >
-                      Change password
+                      Change Password
                     </Button>
                   </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridName">
-                    <TextField type="text" label="Name" />
+                    <TextField
+                      type="text"
+                      label="Name"
+                      value={userProfile.name ? userProfile.name : ""}
+                    />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="formGridSurname">
-                    <TextField type="text" label="Surname" />
+                    <TextField
+                      type="text"
+                      label="Surname"
+                      value={userProfile.lastname ? userProfile.lastname : ""}
+                    />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="formGridDOB">
-                    <TextField type="text" label="Date of Birth" />
+                    <TextField
+                      className="date"
+                      type="date"
+                      label="Date of Birth"
+                      value={""}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
                   </Form.Group>
                 </Form.Row>
 
@@ -94,8 +150,11 @@ export const SettingPage = () => {
                       value={""}
                       onChange={handleChange}
                     >
-                      <MenuItem value={"UK"}>UK</MenuItem>
-                      <MenuItem value={"US"}>US</MenuItem>
+                      {countries.map(({ name }, key) => (
+                        <MenuItem key={key} value={name}>
+                          {name}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </Form.Group>
 
@@ -110,9 +169,11 @@ export const SettingPage = () => {
                       value={""}
                       onChange={handleChange}
                     >
-                      <MenuItem value={"USD"}>USD</MenuItem>
-                      <MenuItem value={"AED"}>AED</MenuItem>
-                      <MenuItem value={"GBP"}>GBP</MenuItem>
+                      {currencies.map(({ code }, key) => (
+                        <MenuItem key={key} value={code}>
+                          {code}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </Form.Group>
                 </Form.Row>
