@@ -30,7 +30,6 @@ export const SettingPage = (props) => {
   const [currencies, setCurrencies] = useState([]);
   const [countries, setCountries] = useState([]);
   const [userProfile, setUserProfile] = useState({});
-  console.log("userProfile: ", userProfile);
 
   useEffect(() => {
     // Update the document title using the browser API
@@ -73,10 +72,6 @@ export const SettingPage = (props) => {
               </div>
 
               <Form className="mt-5">
-                {/* <Form.Row>
-
-                </Form.Row>
- */}
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridUsername">
                     <TextField
@@ -95,22 +90,16 @@ export const SettingPage = (props) => {
                       value={userProfile.email ? userProfile.email : ""}
                     />
                   </Form.Group>
-                </Form.Row>
-
-                <Form.Row>
                   <Form.Group as={Col} controlId="formGridPassword">
                     <TextField
-                      className="w-100"
                       type="password"
                       label="Type New Password"
+                      className="col-7"
                     />
-                  </Form.Group>
-
-                  <Form.Group as={Col} controlId="formGridState">
                     <Button
                       variant="contained"
                       color="secondary"
-                      className={classes.button}
+                      className={(classes.button += " col-5")}
                       style={{ textTransform: "none" }}
                     >
                       Change Password
