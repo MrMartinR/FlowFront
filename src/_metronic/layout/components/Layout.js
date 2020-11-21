@@ -6,7 +6,7 @@ import {useHtmlClassService} from "../_core/MetronicLayout";
 import {Header} from "./header/Header";
 import {HeaderMobile} from "./header-mobile/HeaderMobile";
 import {Aside} from "./aside/Aside";
-import {Footer} from "./footer/Footer";
+// import {Footer} from "./footer/Footer";
 import {LayoutInit} from "./LayoutInit";
 import {SubHeader} from "./subheader/SubHeader";
 import {QuickPanel} from "./extras/offcanvas/QuickPanel";
@@ -65,7 +65,7 @@ export function Layout({ children }) {
                             {/*end::Entry*/}
                         </div>
                         {/*end::Content*/}
-                        <Footer/>
+                        {/* <Footer/> */}
                     </div>
                     {/*end::Wrapper*/}
                 </div>
