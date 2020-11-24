@@ -9,9 +9,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { getAllCountries } from "../actions/countryActions";
-import { getUserProfile } from "../actions/userActions";
+import { getUserProfile, updateProfile } from "../actions/userActions";
 import { useSelector } from "react-redux";
 import { getAllCurrencies } from "../actions/currencyActions";
+import CustomizedSnackbars from "../utils/snackbar";
 
 export const SettingPage = (props) => {
   const auth = useSelector((state) => state.auth);
@@ -30,6 +31,11 @@ export const SettingPage = (props) => {
   const [currencies, setCurrencies] = useState([]);
   const [countries, setCountries] = useState([]);
   const [userProfile, setUserProfile] = useState({});
+  console.log("userProfile: ", userProfile);
+
+  const setState = (newState) => {
+    setUserProfile({ ...userProfile, ...newState });
+  };
 
   useEffect(() => {
     // Update the document title using the browser API
@@ -52,12 +58,57 @@ export const SettingPage = (props) => {
       });
   }, [auth]);
 
-  const handleChange = (e) => {
-    console.log("e: handleChange", e);
+  const handleChange = (e, field) => {
+    let data;
+    if (["country", "currency"].includes(field)) {
+      const id = e.currentTarget.id;
+      data = { [`${field}_id`]: id };
+      setState({ [field]: e.target.value });
+    } else {
+      data = { [field]: userProfile[field] };
+    }
+
+    updateProfile(auth, data)
+      .then((res) => {
+        if (res.data && res.data.success) {
+          setSnackState({
+            message: `${field.replace(
+              field[0],
+              field[0].toUpperCase()
+            )} saved!`,
+            open: true,
+            variant: "success",
+          });
+        }
+      })
+      .catch((err) => {
+        setSnackState({
+          message: err.message,
+          open: true,
+          variant: "error",
+        });
+      });
+  };
+
+  const [snackState, _setSnackState] = useState({
+    message: "",
+    variant: "success",
+    open: false,
+  });
+
+  const setSnackState = (newState) => {
+    _setSnackState({ ...snackState, ...newState });
   };
 
   return (
     <>
+      <CustomizedSnackbars
+        {...snackState}
+        setSnackState={setSnackState}
+        handleClose={() => {
+          setSnackState({ open: false });
+        }}
+      />
       <div className="row">
         <div className="col-lg-12 order-1 order-xxl-2">
           {/* <div className="col-lg-12 col-xxl-4 order-1 order-xxl-2"> */}
@@ -79,6 +130,8 @@ export const SettingPage = (props) => {
                       label="Username"
                       value={userProfile.username ? userProfile.username : ""}
                       disabled={true}
+                      onChange={(e) => setState({ username: e.target.value })}
+                      onBlur={(e) => handleChange(e, "username")}
                     />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridEmail">
@@ -87,6 +140,8 @@ export const SettingPage = (props) => {
                       type="email"
                       disabled={true}
                       label="Email"
+                      onBlur={(e) => handleChange(e, "email")}
+                      onChange={(e) => setState({ email: e.target.value })}
                       value={userProfile.email ? userProfile.email : ""}
                     />
                   </Form.Group>
@@ -95,12 +150,14 @@ export const SettingPage = (props) => {
                       type="password"
                       label="Type New Password"
                       className="col-7"
+                      onChange={(e) => setState({ password: e.target.value })}
                     />
                     <Button
                       variant="contained"
                       color="secondary"
                       className={(classes.button += " col-5")}
                       style={{ textTransform: "none" }}
+                      onClick={(e) => handleChange(e, "password")}
                     >
                       Change Password
                     </Button>
@@ -113,6 +170,8 @@ export const SettingPage = (props) => {
                       className="w-100"
                       type="text"
                       label="Name"
+                      onBlur={(e) => handleChange(e, "name")}
+                      onChange={(e) => setState({ name: e.target.value })}
                       value={userProfile.name ? userProfile.name : ""}
                     />
                   </Form.Group>
@@ -122,7 +181,9 @@ export const SettingPage = (props) => {
                       className="w-100"
                       type="text"
                       label="Surname"
-                      value={userProfile.lastname ? userProfile.lastname : ""}
+                      onChange={(e) => setState({ surname: e.target.value })}
+                      onBlur={(e) => handleChange(e, "surname")}
+                      value={userProfile.surname ? userProfile.surname : ""}
                     />
                   </Form.Group>
 
@@ -131,10 +192,12 @@ export const SettingPage = (props) => {
                       className="w-100"
                       type="date"
                       label="Date of Birth"
-                      value={""}
+                      value={userProfile.dob ? userProfile.dob : ""}
                       InputLabelProps={{
                         shrink: true,
                       }}
+                      onChange={(e) => setState({ dob: e.target.value })}
+                      onBlur={(e) => handleChange(e, "dob")}
                     />
                   </Form.Group>
                 </Form.Row>
@@ -146,11 +209,11 @@ export const SettingPage = (props) => {
                       labelId="country-simple-select"
                       id="country-simple-select"
                       className="w-100"
-                      value={""}
-                      onChange={handleChange}
+                      onChange={(e) => handleChange(e, "country")}
+                      value={userProfile.country ? userProfile.country : ""}
                     >
-                      {countries.map(({ name }, key) => (
-                        <MenuItem key={key} value={name}>
+                      {countries.map(({ name, id }, key) => (
+                        <MenuItem key={key} id={id} value={name}>
                           {name}
                         </MenuItem>
                       ))}
@@ -165,11 +228,15 @@ export const SettingPage = (props) => {
                       labelId="currency-simple-select"
                       id="currency-simple-select"
                       className="w-100"
-                      value={""}
-                      onChange={handleChange}
+                      value={
+                        userProfile.currency && userProfile.currency
+                          ? userProfile.currency
+                          : "ALL"
+                      }
+                      onChange={(e) => handleChange(e, "currency")}
                     >
-                      {currencies.map(({ code }, key) => (
-                        <MenuItem key={key} value={code}>
+                      {currencies.map(({ code, id }, key) => (
+                        <MenuItem key={key} id={id} value={code}>
                           {code}
                         </MenuItem>
                       ))}
