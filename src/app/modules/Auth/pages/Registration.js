@@ -8,6 +8,9 @@ import * as auth from "../_redux/authRedux";
 import { register } from "../_redux/authCrud";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 const initialValues = {
   fullname: "",
   email: "",
@@ -98,12 +101,12 @@ function Registration(props) {
 
   return (
     <div className="login-form login-signin" style={{ display: "block" }}>
+      <img
+        alt="Logo"
+        className="max-h-70px max-h-md-100px d-block m-auto"
+        src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
+      />
       <div className="text-center mb-10 mb-lg-20">
-        <img
-          alt="Logo"
-          className="max-h-70px max-h-md-100px d-block"
-          src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
-        />
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.REGISTER.TITLE" />
         </h3>
@@ -125,17 +128,16 @@ function Registration(props) {
 
         {/* begin: Username */}
         <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Choose your username"
-            type="text"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "username"
-            )}`}
-            name="username"
+          <TextField
+            id="outlined-uncontrolled"
+            label="Username"
+            margin="normal"
+            variant="outlined"
+            autoComplete={false}
             {...formik.getFieldProps("username")}
           />
           {formik.touched.username && formik.errors.username ? (
-            <div className="fv-plugins-message-container">
+            <div className="ml-5 fv-plugins-message-container">
               <div className="fv-help-block">{formik.errors.username}</div>
             </div>
           ) : null}
@@ -144,17 +146,16 @@ function Registration(props) {
 
         {/* begin: Email */}
         <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Type your email"
-            type="email"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "email"
-            )}`}
-            name="email"
+          <TextField
+            id="outlined-uncontrolled"
+            label="Email"
+            margin="normal"
+            variant="outlined"
+            autoComplete={false}
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email ? (
-            <div className="fv-plugins-message-container">
+            <div className="ml-5 fv-plugins-message-container">
               <div className="fv-help-block">{formik.errors.email}</div>
             </div>
           ) : null}
@@ -163,17 +164,16 @@ function Registration(props) {
 
         {/* begin: Password */}
         <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Choose your password"
-            type="password"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "password"
-            )}`}
-            name="password"
+          <TextField
+            id="outlined-uncontrolled"
+            label="Password"
+            margin="normal"
+            variant="outlined"
+            autoComplete={false}
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password ? (
-            <div className="fv-plugins-message-container">
+            <div className="ml-5 fv-plugins-message-container">
               <div className="fv-help-block">{formik.errors.password}</div>
             </div>
           ) : null}

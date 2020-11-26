@@ -92,7 +92,7 @@ export function QuickUser() {
           </div>
         </div>
 
-        <div className="separator separator-dashed mt-8 mb-5" />
+        <div className="separator separator-dashed mt-8 mb-2" />
 
         <div className="navi navi-spacer-x-0 p-0">
           <NavLink
@@ -123,6 +123,7 @@ export function QuickUser() {
             </div>
             {/* </a> */}
           </NavLink>
+          <div className="separator separator-dashed my-2"></div>
 
           <NavLink
             className={`menu-item navi-item ${getMenuItemActive("/setting")}`}
@@ -148,6 +149,7 @@ export function QuickUser() {
             </div>
             {/* </a> */}
           </NavLink>
+          <div className="separator separator-dashed my-2"></div>
 
           <NavLink
             className={`menu-item navi-item ${getMenuItemActive("/setting")}`}
@@ -173,6 +175,7 @@ export function QuickUser() {
             </div>
             {/* </a> */}
           </NavLink>
+          <div className="separator separator-dashed my-2"></div>
 
           <NavLink
             className={`menu-item navi-item ${getMenuItemActive("/setting")}`}

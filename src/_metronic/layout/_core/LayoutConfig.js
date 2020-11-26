@@ -134,7 +134,7 @@ export function getInitLayoutConfig() {
       },
       footer: {
         self: {
-          display: true
+          display: false
         }
       },
       menu: {

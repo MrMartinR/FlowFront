@@ -7,8 +7,9 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../_redux/authRedux";
 import { login } from "../_redux/authCrud";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
-// import { Button, Toast, Col, Row } from "react-bootstrap";
-//import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 /*
   INTL (i18n) docs:
@@ -107,12 +108,12 @@ function Login(props) {
   return (
     <div className="login-form login-signin" id="kt_login_signin_form">
       {/* begin::Head */}
-      <div className="text-center mb-10 mb-lg-20">
-        <img
-          alt="Logo"
-          className="max-h-70px max-h-md-100px d-block"
-          src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
-        />
+      <img
+        alt="Logo"
+        className="max-h-70px max-h-md-100px d-block m-auto"
+        src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
+      />
+      <div className="text-center mb-5 mb-lg-20">
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
@@ -143,34 +144,32 @@ function Login(props) {
           ""
         )}
 
-        <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Type your email"
-            type="email"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "email"
-            )}`}
-            name="email"
+        <div className="form-group">
+          <TextField
+            id="outlined-uncontrolled"
+            label="Email"
+            margin="normal"
+            variant="outlined"
+            autoComplete={false}
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email ? (
-            <div className="fv-plugins-message-container">
+            <div className="ml-5 fv-plugins-message-container">
               <div className="fv-help-block">{formik.errors.email}</div>
             </div>
           ) : null}
         </div>
         <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Type your password"
-            type="password"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "password"
-            )}`}
-            name="password"
+          <TextField
+            id="outlined-uncontrolled"
+            label="Password"
+            margin="normal"
+            variant="outlined"
+            autoComplete={false}
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password ? (
-            <div className="fv-plugins-message-container">
+            <div className="ml-5 fv-plugins-message-container">
               <div className="fv-help-block">{formik.errors.password}</div>
             </div>
           ) : null}
@@ -208,58 +207,5 @@ function Login(props) {
     // </>
   );
 }
-
-// function Example() {
-//   const [showA, setShowA] = useState(true);
-//   const [showB, setShowB] = useState(true);
-
-//   const toggleShowA = () => setShowA(!showA);
-//   const toggleShowB = () => setShowB(!showB);
-
-//   return (
-//     <Row>
-//       <Col xs={6}>
-//         <Toast show={showA} onClose={toggleShowA}>
-//           <Toast.Header>
-//             <img
-//               src="holder.js/20x20?text=%20"
-//               className="rounded mr-2"
-//               alt=""
-//             />
-//             <strong className="mr-auto">Bootstrap</strong>
-//             <small>11 mins ago</small>
-//           </Toast.Header>
-//           <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-//         </Toast>
-//       </Col>
-//       <Col xs={6}>
-//         <Button onClick={toggleShowA}>
-//           Toggle Toast <strong>with</strong> Animation
-//         </Button>
-//       </Col>
-//       <Col xs={6} className="my-1">
-//         <Toast onClose={toggleShowB} show={showB} animation={false}>
-//           <Toast.Header>
-//             <img
-//               src="holder.js/20x20?text=%20"
-//               className="rounded mr-2"
-//               alt=""
-//             />
-//             <strong className="mr-auto">Bootstrap</strong>
-//             <small>11 mins ago</small>
-//           </Toast.Header>
-//           <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-//         </Toast>
-//       </Col>
-//       <Col xs={6}>
-//         <Button onClick={toggleShowB}>
-//           Toggle Toast <strong>without</strong> Animation
-//         </Button>
-//       </Col>
-//     </Row>
-//   );
-// }
-
-//render(<Example />);
 
 export default injectIntl(connect(null, auth.actions)(Login));
