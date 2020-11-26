@@ -56,7 +56,12 @@ export const SettingPage = (props) => {
       });
 
     getAllCurrencies(auth)
-      .then((res) => setCurrencies(res.data.data))
+      .then((res) => {
+        const currencies = res.data.data.sort((a, b) =>
+          a.code > b.code ? 1 : b.code > a.code ? -1 : 0
+        );
+        setCurrencies(currencies);
+      })
       .catch((err) => {
         console.log(err);
       });
