@@ -175,7 +175,7 @@ export const SettingPage = (props) => {
                       onFileChange={onFileChange}
                     />
                     <small className="ml-3">
-                      Allowed file types jpg, jpeg, png and svg.
+                      Allowed file types jpg, jpeg, png.
                     </small>
                   </Col>
                 </Form.Group>
