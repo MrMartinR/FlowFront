@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { toAbsoluteUrl } from "../../_metronic/_helpers";
 // import { Form, InputGroup, Col, Row, Image } from "react-bootstrap";
-import { Form, Col } from "react-bootstrap";
+import { Form, Col, Row } from "react-bootstrap";
 import { useSubheader } from "../../_metronic/layout";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -13,6 +14,8 @@ import { getUserProfile, updateProfile } from "../actions/userActions";
 import { useSelector } from "react-redux";
 import { getAllCurrencies } from "../actions/currencyActions";
 import CustomizedSnackbars from "../utils/snackbar";
+import BadgeAvatars from "../utils/BadgeAvatar";
+import { Card, CardHeader } from "../../_metronic/_partials/controls";
 
 export const SettingPage = (props) => {
   const auth = useSelector((state) => state.auth);
@@ -30,8 +33,9 @@ export const SettingPage = (props) => {
   };
   const [currencies, setCurrencies] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [userProfile, setUserProfile] = useState({});
-  console.log("userProfile: ", userProfile);
+  const [userProfile, setUserProfile] = useState({
+    avatar_url: toAbsoluteUrl("/media/logos/flow-logo.svg"),
+  });
 
   const setState = (newState) => {
     setUserProfile({ ...userProfile, ...newState });
@@ -72,10 +76,7 @@ export const SettingPage = (props) => {
       .then((res) => {
         if (res.data && res.data.success) {
           setSnackState({
-            message: `${field.replace(
-              field[0],
-              field[0].toUpperCase()
-            )} saved!`,
+            message: `Saved!`,
             open: true,
             variant: "success",
           });
@@ -95,36 +96,163 @@ export const SettingPage = (props) => {
     variant: "success",
     open: false,
   });
+  const variant = "outlined";
 
   const setSnackState = (newState) => {
     _setSnackState({ ...snackState, ...newState });
   };
 
+  const onFileChange = (e) => {
+    const file =
+      e.target && e.target.files && e.target.files[0] ? e.target.files[0] : "";
+    updateProfile(
+      auth,
+      {
+        avatar: file,
+      },
+      file && file.name ? file.name : false
+    )
+      .then((res) => {
+        if (res.data && res.data.success) {
+          setSnackState({
+            message: `Saved!`,
+            open: true,
+            variant: "success",
+          });
+          setState({
+            avatar_url: res.data.data[0].avatar_url,
+          });
+        }
+      })
+      .catch((err) => {
+        setSnackState({
+          message: err.message,
+          open: true,
+          variant: "error",
+        });
+      });
+  };
+
   return (
     <>
-      <CustomizedSnackbars
-        {...snackState}
-        setSnackState={setSnackState}
-        handleClose={() => {
-          setSnackState({ open: false });
-        }}
-      />
-      <div className="row">
-        <div className="col-lg-12 order-1 order-xxl-2">
-          {/* <div className="col-lg-12 col-xxl-4 order-1 order-xxl-2"> */}
-          <div className="card">
-            <div className="card-body d-flex flex-column">
-              <div className="flex-column-auto mt-5">
-                <img
-                  alt="Logo"
-                  className="max-h-200px"
-                  src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
-                />
-              </div>
+      <Card className="mt-4">
+        <CardHeader
+          title={
+            <>
+              <Row className="h3">User Settings</Row>
+              <Row>
+                <small>Update your account and settings</small>
+              </Row>
+            </>
+          }
+        />
 
-              <Form className="mt-5">
-                <Form.Row>
-                  <Form.Group as={Col} controlId="formGridUsername">
+        <CustomizedSnackbars
+          {...snackState}
+          setSnackState={setSnackState}
+          handleClose={() => {
+            setSnackState({ open: false });
+          }}
+        />
+        <Row>
+          <div className="col-lg-12 order-1 order-xxl-2">
+            {/* <div className="col-lg-12 col-xxl-4 order-1 order-xxl-2"> */}
+            <div className="card">
+              <div className="card-body d-flex flex-column">
+                <InputLabel className="font-weight-bold my-7 h2">
+                  Personal Information
+                </InputLabel>
+
+                <Form.Group as={Row} controlId="formGridAvatar">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Avatar
+                    </InputLabel>
+                  </Col>
+                  <Col>
+                    <BadgeAvatars
+                      src={userProfile.avatar_url}
+                      onFileChange={onFileChange}
+                    />
+                    <small className="ml-3">
+                      Allowed file types jpg, jpeg, png and svg.
+                    </small>
+                  </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} controlId="formGridName">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Name
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
+                    <TextField
+                      className="w-100"
+                      type="text"
+                      label="Name"
+                      variant={variant}
+                      onBlur={(e) => handleChange(e, "name")}
+                      onChange={(e) => setState({ name: e.target.value })}
+                      value={userProfile.name ? userProfile.name : ""}
+                    />
+                  </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} controlId="formGridSurname">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Surname
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
+                    <TextField
+                      className="w-100"
+                      type="text"
+                      label="Surname"
+                      variant={variant}
+                      onChange={(e) => setState({ surname: e.target.value })}
+                      onBlur={(e) => handleChange(e, "surname")}
+                      value={userProfile.surname ? userProfile.surname : ""}
+                    />
+                  </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} controlId="formGridDOB">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Date of Birth
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
+                    <TextField
+                      className="w-100"
+                      type="date"
+                      label="Date of Birth"
+                      variant={variant}
+                      value={userProfile.dob ? userProfile.dob : ""}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => setState({ dob: e.target.value })}
+                      onBlur={(e) => handleChange(e, "dob")}
+                    />
+                  </Col>
+                </Form.Group>
+
+                <div className="separator separator-dashed my-4"></div>
+
+                <InputLabel className="font-weight-bold my-7 h2">
+                  Account Information
+                </InputLabel>
+
+                <Form.Group as={Row} controlId="formGridUsername">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Username
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
                     <TextField
                       className="w-100"
                       label="Username"
@@ -132,9 +260,17 @@ export const SettingPage = (props) => {
                       disabled={true}
                       onChange={(e) => setState({ username: e.target.value })}
                       onBlur={(e) => handleChange(e, "username")}
+                      variant={variant}
                     />
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="formGridEmail">
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId="formGridEmail">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Email
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
                     <TextField
                       className="w-100"
                       type="email"
@@ -143,74 +279,29 @@ export const SettingPage = (props) => {
                       onBlur={(e) => handleChange(e, "email")}
                       onChange={(e) => setState({ email: e.target.value })}
                       value={userProfile.email ? userProfile.email : ""}
+                      variant={variant}
                     />
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="formGridPassword">
-                    <TextField
-                      type="password"
-                      label="Type New Password"
-                      className="col-7"
-                      onChange={(e) => setState({ password: e.target.value })}
-                    />
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className={(classes.button += " col-5")}
-                      style={{ textTransform: "none" }}
-                      onClick={(e) => handleChange(e, "password")}
-                    >
-                      Change Password
-                    </Button>
-                  </Form.Group>
-                </Form.Row>
-
-                <Form.Row>
-                  <Form.Group as={Col} controlId="formGridName">
-                    <TextField
-                      className="w-100"
-                      type="text"
-                      label="Name"
-                      onBlur={(e) => handleChange(e, "name")}
-                      onChange={(e) => setState({ name: e.target.value })}
-                      value={userProfile.name ? userProfile.name : ""}
-                    />
-                  </Form.Group>
-
-                  <Form.Group as={Col} controlId="formGridSurname">
-                    <TextField
-                      className="w-100"
-                      type="text"
-                      label="Surname"
-                      onChange={(e) => setState({ surname: e.target.value })}
-                      onBlur={(e) => handleChange(e, "surname")}
-                      value={userProfile.surname ? userProfile.surname : ""}
-                    />
-                  </Form.Group>
-
-                  <Form.Group as={Col} controlId="formGridDOB">
-                    <TextField
-                      className="w-100"
-                      type="date"
-                      label="Date of Birth"
-                      value={userProfile.dob ? userProfile.dob : ""}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      onChange={(e) => setState({ dob: e.target.value })}
-                      onBlur={(e) => handleChange(e, "dob")}
-                    />
-                  </Form.Group>
-                </Form.Row>
-
-                <Form.Row>
-                  <Form.Group as={Col} controlId="formGridCounry">
-                    <InputLabel id="country-simple-select">Country</InputLabel>
+                    <small>Email will not be publicly displayed</small>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId="formGridCounry">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Country
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
                     <Select
                       labelId="country-simple-select"
                       id="country-simple-select"
                       className="w-100"
+                      variant={variant}
                       onChange={(e) => handleChange(e, "country")}
-                      value={userProfile.country ? userProfile.country : ""}
+                      value={
+                        userProfile.country && userProfile.country.name
+                          ? userProfile.country.name
+                          : ""
+                      }
                     >
                       {countries.map(({ name, id }, key) => (
                         <MenuItem key={key} id={id} value={name}>
@@ -218,16 +309,21 @@ export const SettingPage = (props) => {
                         </MenuItem>
                       ))}
                     </Select>
-                  </Form.Group>
+                  </Col>
+                </Form.Group>
 
-                  <Form.Group as={Col} controlId="formGridCurrency">
-                    <InputLabel id="currency-simple-select">
+                <Form.Group as={Row} controlId="formGridCurrency">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
                       Currency
                     </InputLabel>
+                  </Col>
+                  <Col lg={6}>
                     <Select
                       labelId="currency-simple-select"
                       id="currency-simple-select"
                       className="w-100"
+                      variant={variant}
                       value={
                         userProfile.currency && userProfile.currency
                           ? userProfile.currency
@@ -241,14 +337,100 @@ export const SettingPage = (props) => {
                         </MenuItem>
                       ))}
                     </Select>
-                  </Form.Group>
-                  <Form.Group as={Col}></Form.Group>
-                </Form.Row>
-              </Form>
+                    <small>Select your currency base</small>
+                  </Col>
+                </Form.Group>
+                <div className="separator separator-dashed my-4"></div>
+
+                <InputLabel className="font-weight-bold my-7 h2">
+                  Change Password
+                </InputLabel>
+
+                <Form.Group as={Row} controlId="formGridCurrPassword">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Current Password
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
+                    <TextField
+                      type="password"
+                      label="Current Password"
+                      className="w-100"
+                      variant={variant}
+                      onChange={(e) =>
+                        setState({ currentPassword: e.target.value })
+                      }
+                    />
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                      style={{ color: "#3783e7" }}
+                    >
+                      Forget Password?
+                    </a>
+                  </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} controlId="formGridNewPassword">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      New Password
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
+                    <TextField
+                      type="password"
+                      label="New Password"
+                      className="w-100"
+                      variant={variant}
+                      onChange={(e) =>
+                        setState({ newPassword: e.target.value })
+                      }
+                    />
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId="formGridVerifyPassword">
+                  <Col lg={3}>
+                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                      Verify Password
+                    </InputLabel>
+                  </Col>
+                  <Col lg={6}>
+                    <TextField
+                      type="password"
+                      className="w-100"
+                      label="Verify Password"
+                      variant={variant}
+                      onChange={(e) =>
+                        setState({ verifyPassword: e.target.value })
+                      }
+                    />
+                  </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} controlId="formGridPassword">
+                  <Col lg={9}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      className={(classes.button += " h-100 float-right")}
+                      style={{
+                        textTransform: "none",
+                      }}
+                      onClick={(e) => handleChange(e, "newPassword")}
+                    >
+                      Change Password
+                    </Button>
+                  </Col>
+                </Form.Group>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Row>
+      </Card>
     </>
   );
 };
