@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { injectIntl } from "react-intl";
 import * as auth from "../_redux/authRedux";
 import { requestPassword } from "../_redux/authCrud";
+import { TextField } from "@material-ui/core";
 
 const initialValues = {
   email: "",
@@ -84,13 +85,12 @@ function ForgotPassword(props) {
               </div>
             )}
             <div className="form-group fv-plugins-icon-container">
-              <input
-                type="email"
-                placeholder="Type your email"
-                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-                  "email"
-                )}`}
-                name="email"
+              <TextField
+                id="outlined-uncontrolled"
+                label="Email"
+                margin="normal"
+                variant="outlined"
+                autoComplete={false}
                 {...formik.getFieldProps("email")}
               />
               {formik.touched.email && formik.errors.email ? (
