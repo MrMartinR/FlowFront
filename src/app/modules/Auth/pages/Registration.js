@@ -133,7 +133,8 @@ function Registration(props) {
             label="Username"
             margin="normal"
             variant="outlined"
-            autoComplete={false}
+            autoComplete={true}
+            type="text"
             {...formik.getFieldProps("username")}
           />
           {formik.touched.username && formik.errors.username ? (
@@ -151,7 +152,8 @@ function Registration(props) {
             label="Email"
             margin="normal"
             variant="outlined"
-            autoComplete={false}
+            autoComplete={true}
+            type="email"
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email ? (
@@ -169,7 +171,8 @@ function Registration(props) {
             label="Password"
             margin="normal"
             variant="outlined"
-            autoComplete={false}
+            autoComplete={true}
+            type="password"
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password ? (

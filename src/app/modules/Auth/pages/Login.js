@@ -150,7 +150,8 @@ function Login(props) {
             label="Email"
             margin="normal"
             variant="outlined"
-            autoComplete={false}
+            autoComplete={true}
+            type="email"
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email ? (
@@ -165,7 +166,8 @@ function Login(props) {
             label="Password"
             margin="normal"
             variant="outlined"
-            autoComplete={false}
+            autoComplete={true}
+            type="password"
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password ? (
