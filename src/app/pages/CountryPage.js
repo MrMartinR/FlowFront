@@ -22,6 +22,8 @@ import {
   CountrySchema,
   getAllCountries,
 } from "../actions/countryActions";
+import { Avatar } from "@material-ui/core";
+import { toAbsoluteUrl } from "../../_metronic/_helpers";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -107,11 +109,11 @@ const CountryPage = (props) => {
           .then((res) => {
             disableLoading();
             if (res.status === 200) {
-              getAllCountries(props.props)
+              getAllCountries(props.auth)
                 .then((res) => {
                   var resData = res.data;
                   if (resData.success) {
-                    props.setRows(resData.data);
+                    setRows(resData.data);
                   }
                 })
                 .catch((err) => {
@@ -153,6 +155,7 @@ const CountryPage = (props) => {
                   <StyledTableCell>Continent</StyledTableCell>
                   <StyledTableCell align="right">ISO Code</StyledTableCell>
                   <StyledTableCell align="right">Name</StyledTableCell>
+                  <StyledTableCell align="right">Flag</StyledTableCell>
                   <StyledTableCell align="right">Currency</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -167,7 +170,24 @@ const CountryPage = (props) => {
                     </StyledTableCell>
                     <StyledTableCell align="right">{row.name}</StyledTableCell>
                     <StyledTableCell align="right">
-                      {row.currency.symbol}
+                      <Avatar
+                        style={{
+                          height: "40px",
+                          width: "40px",
+                          border: "2px solid #f3f3f3",
+                          float: "right",
+                        }}
+                        variant="rounded"
+                        alt={row.iso_code}
+                        src={toAbsoluteUrl(
+                          `/media/svg/Flags_Mini/${row.iso_code.toLowerCase()}.svg`
+                        )}
+                      />
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.currency && row.currency.code
+                        ? row.currency.code
+                        : ""}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
