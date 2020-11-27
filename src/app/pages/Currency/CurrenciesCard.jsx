@@ -107,12 +107,13 @@ export function CurrenciesCard(props) {
         };
         addCurrency(props.auth, formvalues)
           .then((res) => {
+            debugger;
             if (res.status === 200) {
-              getAllCurrencies(props.props)
+              getAllCurrencies(props.auth)
                 .then((res) => {
                   var resData = res.data;
                   if (resData.success) {
-                    props.setRows(resData.data);
+                    setRows(resData.data);
                   }
                 })
                 .catch((err) => {
@@ -136,10 +137,7 @@ export function CurrenciesCard(props) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={(e) => {
-              console.log("e: ", e);
-              formik.handleSubmit(e);
-            }}
+            onClick={(e) => formik.handleSubmit(e)}
             disabled={formik.isSubmitting}
           >
             New Currency
