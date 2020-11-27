@@ -92,7 +92,7 @@ export default function CustomizedSnackbars(props) {
     open,
     handleClose = () => {},
   } = props;
-  
+
   return (
     <div>
       <Snackbar
