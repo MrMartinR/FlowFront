@@ -107,13 +107,12 @@ export function CurrenciesCard(props) {
         };
         addCurrency(props.auth, formvalues)
           .then((res) => {
-            debugger;
             if (res.status === 200) {
-              getAllCurrencies(props.auth)
+              getAllCurrencies(props.props)
                 .then((res) => {
                   var resData = res.data;
                   if (resData.success) {
-                    setRows(resData.data);
+                    props.setRows(resData.data);
                   }
                 })
                 .catch((err) => {
@@ -137,7 +136,10 @@ export function CurrenciesCard(props) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={(e) => formik.handleSubmit(e)}
+            onClick={(e) => {
+              console.log("e: ", e);
+              formik.handleSubmit(e);
+            }}
             disabled={formik.isSubmitting}
           >
             New Currency
@@ -154,21 +156,19 @@ export function CurrenciesCard(props) {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
+                <StyledTableCell align="left">Name</StyledTableCell>
+                <StyledTableCell align="left">ISO Code</StyledTableCell>
+                <StyledTableCell align="left">Symbol</StyledTableCell>
                 <StyledTableCell>Type</StyledTableCell>
-                <StyledTableCell align="right">ISO Code</StyledTableCell>
-                <StyledTableCell align="right">Name</StyledTableCell>
-                <StyledTableCell align="right">Currency</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <StyledTableRow key={row.id}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.type}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.code}</StyledTableCell>
-                  <StyledTableCell align="right">{row.name}</StyledTableCell>
-                  <StyledTableCell align="right">{row.symbol}</StyledTableCell>
+                  <StyledTableCell align="left">{row.name}</StyledTableCell>
+                  <StyledTableCell align="left">{row.code}</StyledTableCell>
+                  <StyledTableCell align="left">{row.symbol}</StyledTableCell>
+                  <StyledTableCell scope="row">{row.type}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
