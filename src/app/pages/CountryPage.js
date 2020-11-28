@@ -152,30 +152,24 @@ const CountryPage = (props) => {
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
+                  <StyledTableCell align="left">Name</StyledTableCell>
+                  <StyledTableCell align="left">Flag</StyledTableCell>
+                  <StyledTableCell align="left">ISO Code</StyledTableCell>
                   <StyledTableCell>Continent</StyledTableCell>
-                  <StyledTableCell align="right">ISO Code</StyledTableCell>
-                  <StyledTableCell align="right">Name</StyledTableCell>
-                  <StyledTableCell align="right">Flag</StyledTableCell>
-                  <StyledTableCell align="right">Currency</StyledTableCell>
+                  <StyledTableCell align="left">Currency</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
                   <StyledTableRow key={row.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.continent}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.iso_code}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.name}</StyledTableCell>
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="left">{row.name}</StyledTableCell>
+                    <StyledTableCell align="left">
                       <Avatar
                         style={{
                           height: "40px",
                           width: "40px",
                           border: "2px solid #f3f3f3",
-                          float: "right",
+                          float: "left",
                         }}
                         variant="rounded"
                         alt={row.iso_code}
@@ -184,7 +178,13 @@ const CountryPage = (props) => {
                         )}
                       />
                     </StyledTableCell>
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="left">
+                      {row.iso_code}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {row.continent}
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
                       {row.currency && row.currency.code
                         ? row.currency.code
                         : ""}
