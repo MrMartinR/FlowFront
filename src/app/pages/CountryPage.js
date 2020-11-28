@@ -22,6 +22,9 @@ import {
   CountrySchema,
   getAllCountries,
 } from "../actions/countryActions";
+import { Avatar } from "@material-ui/core";
+import { toAbsoluteUrl } from "../../_metronic/_helpers";
+import CustomizedSnackbars from "../utils/snackbar";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -94,7 +97,6 @@ const CountryPage = (props) => {
     validationSchema: CountrySchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
-      console.log("loading: ", loading);
       setTimeout(() => {
         var formvalues = {
           continent: values.continent,
@@ -107,11 +109,16 @@ const CountryPage = (props) => {
           .then((res) => {
             disableLoading();
             if (res.status === 200) {
-              getAllCountries(props.props)
+              getAllCountries(props.auth)
                 .then((res) => {
                   var resData = res.data;
                   if (resData.success) {
-                    props.setRows(resData.data);
+                    setSnackState({
+                      message: "Country Added!",
+                      open: true,
+                      variant: "success",
+                    });
+                    setRows(resData.data);
                   }
                 })
                 .catch((err) => {
@@ -129,9 +136,26 @@ const CountryPage = (props) => {
     },
   });
 
+  const [snackState, _setSnackState] = useState({
+    message: "",
+    variant: "success",
+    open: false,
+  });
+
+  const setSnackState = (newState) => {
+    _setSnackState({ ...snackState, ...newState });
+  };
+
   return (
     <>
       <Card>
+        <CustomizedSnackbars
+          {...snackState}
+          setSnackState={setSnackState}
+          handleClose={() => {
+            setSnackState({ open: false });
+          }}
+        />
         <CardHeader title="Countries list">
           <CardHeaderToolbar>
             <button
@@ -150,24 +174,42 @@ const CountryPage = (props) => {
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
+                  <StyledTableCell align="left">Name</StyledTableCell>
+                  <StyledTableCell align="left">Flag</StyledTableCell>
+                  <StyledTableCell align="left">ISO Code</StyledTableCell>
                   <StyledTableCell>Continent</StyledTableCell>
-                  <StyledTableCell align="right">ISO Code</StyledTableCell>
-                  <StyledTableCell align="right">Name</StyledTableCell>
-                  <StyledTableCell align="right">Currency</StyledTableCell>
+                  <StyledTableCell align="left">Currency</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
                   <StyledTableRow key={row.id}>
+                    <StyledTableCell align="left">{row.name}</StyledTableCell>
+                    <StyledTableCell align="left">
+                      <Avatar
+                        style={{
+                          height: "40px",
+                          width: "40px",
+                          border: "2px solid #f3f3f3",
+                          float: "left",
+                        }}
+                        variant="rounded"
+                        alt={row.iso_code}
+                        src={toAbsoluteUrl(
+                          `/media/svg/Flags_Mini/${row.iso_code.toLowerCase()}.svg`
+                        )}
+                      />
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
+                      {row.iso_code}
+                    </StyledTableCell>
                     <StyledTableCell component="th" scope="row">
                       {row.continent}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.iso_code}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.name}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.currency.symbol}
+                    <StyledTableCell align="left">
+                      {row.currency && row.currency.code
+                        ? row.currency.code
+                        : ""}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
