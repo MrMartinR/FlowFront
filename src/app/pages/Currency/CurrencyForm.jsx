@@ -91,7 +91,7 @@ const CurrencyForm = (props) => {
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-kind-dense`}
-            label="Kind"
+            label="Type"
             type="text"
             className={clsx(classes.textField, classes.dense)}
             margin="dense"
@@ -105,7 +105,7 @@ const CurrencyForm = (props) => {
             </div>
           ) : null}
         </FormControl>
-        <FormControl className={classes.formControl}>
+        {/* <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-fx_eur-dense`}
             label="fx eur"
@@ -121,7 +121,7 @@ const CurrencyForm = (props) => {
               <div className="fv-help-block">{formik.errors.fx_eur}</div>
             </div>
           ) : null}
-        </FormControl>
+        </FormControl> */}
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-symbol-dense`}
