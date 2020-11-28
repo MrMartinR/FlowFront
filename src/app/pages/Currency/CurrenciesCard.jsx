@@ -179,6 +179,7 @@ export function CurrenciesCard(props) {
                 <StyledTableCell align="left">ISO Code</StyledTableCell>
                 <StyledTableCell align="left">Symbol</StyledTableCell>
                 <StyledTableCell>Type</StyledTableCell>
+                <StyledTableCell align="left">Decimal Places</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -188,6 +189,9 @@ export function CurrenciesCard(props) {
                   <StyledTableCell align="left">{row.code}</StyledTableCell>
                   <StyledTableCell align="left">{row.symbol}</StyledTableCell>
                   <StyledTableCell scope="row">{row.type}</StyledTableCell>
+                  <StyledTableCell align="left">
+                    {row.decimal_places}
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
