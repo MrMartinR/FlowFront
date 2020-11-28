@@ -24,6 +24,7 @@ import {
 } from "../actions/countryActions";
 import { Avatar } from "@material-ui/core";
 import { toAbsoluteUrl } from "../../_metronic/_helpers";
+import CustomizedSnackbars from "../utils/snackbar";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -96,7 +97,6 @@ const CountryPage = (props) => {
     validationSchema: CountrySchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
-      console.log("loading: ", loading);
       setTimeout(() => {
         var formvalues = {
           continent: values.continent,
@@ -113,6 +113,11 @@ const CountryPage = (props) => {
                 .then((res) => {
                   var resData = res.data;
                   if (resData.success) {
+                    setSnackState({
+                      message: "Country Added!",
+                      open: true,
+                      variant: "success",
+                    });
                     setRows(resData.data);
                   }
                 })
@@ -131,9 +136,26 @@ const CountryPage = (props) => {
     },
   });
 
+  const [snackState, _setSnackState] = useState({
+    message: "",
+    variant: "success",
+    open: false,
+  });
+
+  const setSnackState = (newState) => {
+    _setSnackState({ ...snackState, ...newState });
+  };
+
   return (
     <>
       <Card>
+        <CustomizedSnackbars
+          {...snackState}
+          setSnackState={setSnackState}
+          handleClose={() => {
+            setSnackState({ open: false });
+          }}
+        />
         <CardHeader title="Countries list">
           <CardHeaderToolbar>
             <button

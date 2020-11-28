@@ -26,6 +26,7 @@ import {
 } from "../../actions/currencyActions";
 import { useFormik } from "formik";
 import CurrencyForm from "./CurrencyForm";
+import CustomizedSnackbars from "../../utils/snackbar";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -102,17 +103,21 @@ export function CurrenciesCard(props) {
           code: values.code,
           name: values.name,
           kind: values.kind,
-          fx_eur: values.fx_eur,
           decimal_places: values.decimal_places,
         };
         addCurrency(props.auth, formvalues)
           .then((res) => {
             if (res.status === 200) {
-              getAllCurrencies(props.props)
+              getAllCurrencies(props.auth)
                 .then((res) => {
-                  var resData = res.data;
+                  setSnackState({
+                    message: "Currency Added!",
+                    open: true,
+                    variant: "success",
+                  });
+                  const resData = res.data;
                   if (resData.success) {
-                    props.setRows(resData.data);
+                    setRows(resData.data);
                   }
                 })
                 .catch((err) => {
@@ -129,17 +134,31 @@ export function CurrenciesCard(props) {
     },
   });
 
+  const [snackState, _setSnackState] = useState({
+    message: "",
+    variant: "success",
+    open: false,
+  });
+
+  const setSnackState = (newState) => {
+    _setSnackState({ ...snackState, ...newState });
+  };
+
   return (
     <Card>
+      <CustomizedSnackbars
+        {...snackState}
+        setSnackState={setSnackState}
+        handleClose={() => {
+          setSnackState({ open: false });
+        }}
+      />
       <CardHeader title="Currencies list">
         <CardHeaderToolbar>
           <button
             type="button"
             className="btn btn-primary"
-            onClick={(e) => {
-              console.log("e: ", e);
-              formik.handleSubmit(e);
-            }}
+            onClick={formik.handleSubmit}
             disabled={formik.isSubmitting}
           >
             New Currency

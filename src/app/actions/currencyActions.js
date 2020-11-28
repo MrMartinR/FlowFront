@@ -37,7 +37,7 @@ export const CurrencySchema = Yup.object().shape({
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("This field is required"),
-  fx_eur: Yup.string().required("This field is required"),
+  // fx_eur: Yup.string().required("This field is required"),
   kind: Yup.string().required("This field is required"),
   symbol: Yup.string().required("This field is required"),
   decimal_places: Yup.string().required("This field is required"),
@@ -48,6 +48,6 @@ export const currencyInitialValues = {
   code: "",
   name: "",
   kind: "",
-  fx_eur: "",
+  // fx_eur: "",
   decimal_places: "",
 };
