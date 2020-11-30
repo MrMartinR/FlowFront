@@ -5,6 +5,7 @@ import {
 } from "../../../_metronic/_partials/controls";
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import { CardHeader } from "@material-ui/core";
 // import Card from '@material-ui/core/Card';
 // import CardActions from '@material-ui/core/CardActions';
 // import CardContent from '@material-ui/core/CardContent';
@@ -65,18 +66,20 @@ export function AccountsDetails({selectedItemIndex, list, currencyTable, countri
         </div>
 
         <div style={{display: 'flex', flexDirection: (window.innerWidth < 600) ? 'column' : 'row'}}>
-          <Card style={{width: "350px", height: "200px"}}>
-            <CardBody>
-              <Typography variant="h5" style={{textAlign: 'center', marginBottom: "2rem", borderBottomWidth: "0.1rem", borderBottomColor: "#ccc", borderBottomStyle: "solid"}}>Currencies</Typography>
+          <Card style={{width: "350px", height: "200px", margin: "1rem", borderWidth: "0.1rem", borderColor: "#ccc", borderStyle: "solid", borderColor: '#eee'}}>
+            <CardHeader style={{textAlign: 'center'}} title="Currencies" />
+            <CardBody style={{padding: "1rem"}}>
+              {/* <Typography variant="h5" style={{textAlign: 'center', marginBottom: "2rem", borderBottomWidth: "0.1rem", borderBottomColor: "#ccc", borderBottomStyle: "solid"}}>Currencies</Typography> */}
               {currencies && currencies.map((value, index) => (
-                <Chip key={index} label={value} style={{margin: ".4rem"}} />
+                <Chip key={index} label={value} style={{marginRight: ".4rem"}} />
               ))}
             </CardBody>
           </Card>
 
-          <Card style={{width: "350px", height: "200px"}}>
-            <CardBody>
-              <Typography variant="h5" style={{textAlign: 'center', marginBottom: "2rem", borderBottomWidth: "0.1rem", borderBottomColor: "#ccc", borderBottomStyle: "solid"}}>Countries</Typography>
+          <Card style={{width: "350px", height: "200px", margin: "1rem", borderWidth: "0.1rem", borderColor: "#ccc", borderStyle: "solid", borderColor: '#eee'}}>
+            <CardHeader style={{textAlign: 'center'}} title="Countries" />
+            <CardBody style={{padding: "1rem"}}>
+              {/* <Typography variant="h5" style={{textAlign: 'center', marginBottom: "2rem", borderBottomWidth: "0.1rem", borderBottomColor: "#ccc", borderBottomStyle: "solid"}}>Countries</Typography> */}
               {countries && countries.map((value, index) => (
                 <Chip key={index} label={value} style={{margin: ".4rem"}} />
               ))}
