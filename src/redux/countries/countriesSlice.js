@@ -45,18 +45,17 @@ export const countriesSlice = createSlice({
     },
     // getCustomerById
     countryFetched: (state, action) => {
+      console.log("ACTION: ", action);
       state.actionsLoading = false;
       state.countryForEdit = action.payload.countryForEdit;
       state.error = null;
     },
     // findCustomers
     countriesFetched: (state, action) => {
-      const { pages, page, entities } = action.payload;
+      const { entities } = action.payload;
       state.listLoading = false;
       state.error = null;
       state.countryTable.entities = entities;
-      state.countryTable.pages = pages;
-      state.countryTable.page = page;
     },
     // createCustomer
     countryCreated: (state, action) => {

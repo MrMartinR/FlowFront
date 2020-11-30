@@ -44,6 +44,10 @@ export function AccountsTable() {
     // listLoading,
   } = currentState;
 
+  useEffect(() => {
+    console.log(currentState);
+  }, [currentState])
+
   // Accounts Redux state
   const dispatch = useDispatch();
   useEffect(() => {

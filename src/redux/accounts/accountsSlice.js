@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Util from '../../app/utils';
 
 const initialAccountsState = {
-  listLoading: false,
+  listLoading: true,
   actionsLoading: false,
   accountTable: { entities: null, page: null, pages: null, perPage: null },
   accountForEdit: undefined,
@@ -55,6 +55,15 @@ export const accountsSlice = createSlice({
       state.listLoading = false;
       state.error = null;
       state.accountTable.entities = entities;
+      state.accountTable.pages = pages;
+      state.accountTable.page = page;
+    },
+    // findNewCustomers
+    accountsAppend: (state, action) => {
+      const { pages, page, entities } = action.payload;
+      state.listLoading = false;
+      state.error = null;
+      state.accountTable.entities = [...state.accountTable.entities, ...entities];
       state.accountTable.pages = pages;
       state.accountTable.page = page;
     },
