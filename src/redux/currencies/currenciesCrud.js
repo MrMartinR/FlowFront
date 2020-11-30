@@ -21,7 +21,7 @@ const optionsHeaders = () => {
 }
 
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://api.flowfin.tech';
 // const API_URL = process.env.API_URL;
 export const CURRENCY_URL = API_URL + "/api/v1/currencies";
 
@@ -32,6 +32,10 @@ export function createCurrency(currency) {
 
 export function getCurrencyById(currencyId) {
   return axios.get(`${CURRENCY_URL}/${currencyId}`, optionsHeaders());
+}
+
+export function findAllCurrencies() {
+  return axios.get(CURRENCY_URL, optionsHeaders());
 }
 
 // Method from server should return QueryResultsModel(items: any[], totalsCount: number)

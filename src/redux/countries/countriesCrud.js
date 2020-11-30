@@ -8,7 +8,6 @@ const optionsHeaders = () => {
 
   const options = {
     headers: {
-      "Referrer-Policy": "strict-origin-when-cross-origin",
       "Content-Type": "application/json; charset=utf-8",
       "access-token": token,
       "token-type": "Bearer",
@@ -21,7 +20,7 @@ const optionsHeaders = () => {
 }
 
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://api.flowfin.tech';
 // const API_URL = process.env.API_URL;
 export const COUNTRY_URL = API_URL + "/api/v1/countries";
 
@@ -32,7 +31,7 @@ export function createCountry(country) {
 
 // READ
 export function getAllCountries() {
-  return axios.get(COUNTRY_URL);
+  return axios.get(COUNTRY_URL, optionsHeaders());
 }
 
 export function getCountryById(countryId) {

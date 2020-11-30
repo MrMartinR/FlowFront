@@ -27,17 +27,17 @@ function ForgotPassword(props) {
       ),
   });
 
-  const getInputClasses = (fieldname) => {
-    if (formik.touched[fieldname] && formik.errors[fieldname]) {
-      return "is-invalid";
-    }
+  // const getInputClasses = (fieldname) => {
+  //   if (formik.touched[fieldname] && formik.errors[fieldname]) {
+  //     return "is-invalid";
+  //   }
 
-    if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-      return "is-valid";
-    }
+  //   if (formik.touched[fieldname] && !formik.errors[fieldname]) {
+  //     return "is-valid";
+  //   }
 
-    return "";
-  };
+  //   return "";
+  // };
 
   const formik = useFormik({
     initialValues,

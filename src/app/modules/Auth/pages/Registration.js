@@ -8,7 +8,6 @@ import * as auth from "../_redux/authRedux";
 import { register } from "../_redux/authCrud";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 const initialValues = {
@@ -62,17 +61,17 @@ function Registration(props) {
     setLoading(false);
   };
 
-  const getInputClasses = (fieldname) => {
-    if (formik.touched[fieldname] && formik.errors[fieldname]) {
-      return "is-invalid";
-    }
+  // const getInputClasses = (fieldname) => {
+  //   if (formik.touched[fieldname] && formik.errors[fieldname]) {
+  //     return "is-invalid";
+  //   }
 
-    if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-      return "is-valid";
-    }
+  //   if (formik.touched[fieldname] && !formik.errors[fieldname]) {
+  //     return "is-valid";
+  //   }
 
-    return "";
-  };
+  //   return "";
+  // };
 
   const formik = useFormik({
     initialValues,

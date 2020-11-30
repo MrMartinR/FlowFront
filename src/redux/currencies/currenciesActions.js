@@ -5,9 +5,23 @@ const { actions } = currenciesSlice;
 
 export const currencySort = queryParams => dispatch => {
   let { field, isAsc, entities } = queryParams
-  console.log('field', field)
+  // console.log('field', field)
   dispatch(actions.currencySort({ callType: callTypes.action, field, isAsc, entities }));
 }
+export const fetchAllCurrencies = params => dispatch => {
+  dispatch(actions.startCall({ callType: callTypes.list }));
+  return requestFromServer
+    .findAllCurrencies(params)
+    .then(response => {
+      // console.log("CURRENCIES: ", response);
+      const { data } = response.data;
+      dispatch(actions.currenciesFetched({ pages: 200, page: 1, entities: data }));
+    })
+    .catch(error => {
+      error.clientMessage = "Can't find currencies";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+};
 export const fetchCurrencies = params => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.list }));
   return requestFromServer

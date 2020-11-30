@@ -9,6 +9,7 @@ export const countrySort = queryParams => dispatch => {
   dispatch(actions.countrySort({ callType: callTypes.action, field, isAsc, entities }));
 }
 export const fetchCountries = params => dispatch => {
+  console.log("Called");
   dispatch(actions.startCall({ callType: callTypes.list }));
   return requestFromServer
     .findCountries(params)
@@ -19,6 +20,20 @@ export const fetchCountries = params => dispatch => {
     .catch(error => {
       error.clientMessage = "Can't find countries";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+};
+
+export const fetchAllCountry = params => dispatch => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getAllCountries()
+    .then(response => {
+      const {data} = response.data;
+      dispatch(actions.countriesFetched({ entities: data }));
+    })
+    .catch(error => {
+      error.clientMessage = "Can't find country";
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 

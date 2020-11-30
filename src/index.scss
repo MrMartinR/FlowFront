@@ -109,3 +109,20 @@
     max-height: 50px;
   }
 }
+
+
+.ReactVirtualized__Grid {
+  outline: none;
+}
+
+.ReactVirtualized__Grid::-webkit-scrollbar {
+  display: none;
+}
+
+.AccountsListItem {
+  border-bottom: solid .1rem #eee;
+}
+
+.AccountsListItem:hover {
+  background-color: #eee;
+}
