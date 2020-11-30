@@ -26,8 +26,8 @@ export const MultiSelect = ({
 }) => {
   const handleChange = (value) => {
     // this is going to call setFieldValue and manually update values.topcis
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
     onChange(name, value);
   };
 
