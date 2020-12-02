@@ -34,7 +34,7 @@ export default function BadgeAvatars({
           }}
           variant="rounded"
           alt="Travis Howard"
-          src={`https://app.flowfin.tech${src}`}
+          src={src}
         />
       ) : (
         <Badge
