@@ -14,7 +14,12 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function BadgeAvatars({ src, onFileChange, readOnly }) {
+export default function BadgeAvatars({
+  src,
+  onFileChange,
+  readOnly,
+  name = "F",
+}) {
   const classes = useStyles();
 
   return (
@@ -29,7 +34,7 @@ export default function BadgeAvatars({ src, onFileChange, readOnly }) {
           }}
           variant="rounded"
           alt="Travis Howard"
-          src={src}
+          src={`https://app.flowfin.tech${src}`}
         />
       ) : (
         <Badge
@@ -73,7 +78,7 @@ export default function BadgeAvatars({ src, onFileChange, readOnly }) {
                 border: "5px solid #f3f3f3",
               }}
               variant="rounded"
-              alt="Travis Howard"
+              alt={name}
               src={src}
             />
           </Badge>

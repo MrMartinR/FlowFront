@@ -36,6 +36,13 @@ export const SettingPage = (props) => {
   const [userProfile, setUserProfile] = useState({
     avatar_url: toAbsoluteUrl("/media/logos/flow-logo.svg"),
   });
+  
+  const changePasswordIsDisabled = () => {
+    if(userProfile.newPassword){
+      
+    }
+    return false;
+  };
 
   const setState = (newState) => {
     setUserProfile({ ...userProfile, ...newState });
@@ -65,6 +72,7 @@ export const SettingPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    document.getElementById("kt_quick_user_close").click();
   }, [auth]);
 
   const handleChange = (e, field) => {
@@ -75,6 +83,7 @@ export const SettingPage = (props) => {
       setState({ [field]: e.target.value });
     } else {
       data = { [field]: userProfile[field] };
+      setState(data);
     }
 
     updateProfile(auth, data)
@@ -85,6 +94,7 @@ export const SettingPage = (props) => {
             open: true,
             variant: "success",
           });
+          setState(res.data.data[0]);
         }
       })
       .catch((err) => {
@@ -170,7 +180,7 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridAvatar">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Avatar
                     </InputLabel>
                   </Col>
@@ -178,6 +188,7 @@ export const SettingPage = (props) => {
                     <BadgeAvatars
                       src={userProfile.avatar_url}
                       onFileChange={onFileChange}
+                      name={userProfile.name}
                     />
                     <small className="ml-3">
                       Allowed file types jpg, jpeg, png.
@@ -187,7 +198,7 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridName">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Name
                     </InputLabel>
                   </Col>
@@ -206,7 +217,7 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridSurname">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Surname
                     </InputLabel>
                   </Col>
@@ -225,11 +236,11 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridDOB">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Date of Birth
                     </InputLabel>
                   </Col>
-                  <Col lg={6}>
+                  <Col lg={3}>
                     <TextField
                       className="w-100"
                       type="date"
@@ -243,9 +254,17 @@ export const SettingPage = (props) => {
                       onBlur={(e) => handleChange(e, "dob")}
                     />
                   </Col>
+                  <Col lg={3}>
+                    <small>
+                      <p className="mb-0 mt-3">
+                        Date of Birth will not be publicly displayed
+                      </p>
+                      <p>Will be use to calculate you FI</p>
+                    </small>
+                  </Col>
                 </Form.Group>
 
-                <div className="separator separator-dashed my-4"></div>
+                <div className="separator separator-dashed my-3"></div>
 
                 <InputLabel className="font-weight-bold my-7 h2">
                   Account Information
@@ -253,7 +272,7 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridUsername">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Username
                     </InputLabel>
                   </Col>
@@ -271,7 +290,7 @@ export const SettingPage = (props) => {
                 </Form.Group>
                 <Form.Group as={Row} controlId="formGridEmail">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Email
                     </InputLabel>
                   </Col>
@@ -291,7 +310,7 @@ export const SettingPage = (props) => {
                 </Form.Group>
                 <Form.Group as={Row} controlId="formGridCounry">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Country
                     </InputLabel>
                   </Col>
@@ -319,20 +338,20 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridCurrency">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Currency
                     </InputLabel>
                   </Col>
-                  <Col lg={6}>
+                  <Col lg={2}>
                     <Select
                       labelId="currency-simple-select"
                       id="currency-simple-select"
                       className="w-100"
                       variant={variant}
                       value={
-                        userProfile.currency && userProfile.currency
-                          ? userProfile.currency
-                          : "ALL"
+                        userProfile.currency && userProfile.currency.code
+                          ? userProfile.currency.code
+                          : ""
                       }
                       onChange={(e) => handleChange(e, "currency")}
                     >
@@ -342,10 +361,14 @@ export const SettingPage = (props) => {
                         </MenuItem>
                       ))}
                     </Select>
-                    <small>Select your currency base</small>
+                  </Col>
+                  <Col lg={3}>
+                    <small>
+                      <p className="mb-0 mt-3">Select your currency base</p>
+                    </small>
                   </Col>
                 </Form.Group>
-                <div className="separator separator-dashed my-4"></div>
+                <div className="separator separator-dashed my-3"></div>
 
                 <InputLabel className="font-weight-bold my-7 h2">
                   Change Password
@@ -353,7 +376,7 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridCurrPassword">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Current Password
                     </InputLabel>
                   </Col>
@@ -381,7 +404,7 @@ export const SettingPage = (props) => {
 
                 <Form.Group as={Row} controlId="formGridNewPassword">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       New Password
                     </InputLabel>
                   </Col>
@@ -399,7 +422,7 @@ export const SettingPage = (props) => {
                 </Form.Group>
                 <Form.Group as={Row} controlId="formGridVerifyPassword">
                   <Col lg={3}>
-                    <InputLabel className="font-weight-bold mt-7 ml-5 h5 d-none d-sm-block">
+                    <InputLabel className="font-weight-bold mt-7 ml-5 d-none d-sm-block">
                       Verify Password
                     </InputLabel>
                   </Col>
@@ -425,6 +448,7 @@ export const SettingPage = (props) => {
                       style={{
                         textTransform: "none",
                       }}
+                      disabled={changePasswordIsDisabled()}
                       onClick={(e) => handleChange(e, "newPassword")}
                     >
                       Change Password
