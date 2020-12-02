@@ -74,7 +74,6 @@ const CountryPage = (props) => {
   const classes = useStyles();
   const suhbeader = useSubheader();
   suhbeader.setTitle("Countries");
-  const [loading, setLoading] = useState(false);
 
   const initialValues = {
     continent: "",
@@ -84,19 +83,10 @@ const CountryPage = (props) => {
     currency_id: "",
   };
 
-  const enableLoading = () => {
-    setLoading(true);
-  };
-
-  const disableLoading = () => {
-    setLoading(false);
-  };
-
   const formik = useFormik({
     initialValues,
     validationSchema: CountrySchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      enableLoading();
       setTimeout(() => {
         var formvalues = {
           continent: values.continent,
@@ -107,7 +97,6 @@ const CountryPage = (props) => {
         };
         addCountry(props.auth, formvalues)
           .then((res) => {
-            disableLoading();
             if (res.status === 200) {
               getAllCountries(props.auth)
                 .then((res) => {
@@ -129,7 +118,6 @@ const CountryPage = (props) => {
           })
           .catch(() => {
             console.log("error");
-            disableLoading();
             setSubmitting(false);
           });
       }, 1000);

@@ -67,7 +67,7 @@ export function QuickUser() {
             <i className="symbol-badge bg-success" /> */}
           </div>
           <div className="d-flex flex-column">
-            <a className="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+            {/* <a className="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
               {userProfile.name} {userProfile.surname}
             </a>
             <div className="navi mt-2">
@@ -89,12 +89,10 @@ export function QuickUser() {
                   </span>
                 )}
               </a>
-            </div>
-            {/* <Link to="/logout" className="btn btn-light-primary btn-bold">
-                Sign Out
-              </Link> */}
+            </div> */}
+
             <button
-              className="btn btn-light-primary btn-bold"
+              className="btn btn-light-primary btn-bold mt-10"
               onClick={logoutClick}
             >
               Log out
