@@ -1,17 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
-import { AccountEditDialog } from "../Account/account-edit-dialog/AccountEditDialog";
 import { AccountsLoadingDialog } from "../Account/accounts-loading-dialog/AccountsLoadingDialog";
-import { AccountsUIProvider } from "../Account/AccountsUIContext";
-import UserAccountPage from "./UserAccountPage";
+import { UserAccountCreateDialog } from "./UserAccountCreateDialog";
+import { UserAccountsUIProvider } from "./UserAccountsUIContext";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as userAccountsActions from "../../../redux/userAccounts/userAccountsActions";
+import * as currenciesActions from "../../../redux/currencies/currenciesActions";
+import * as countriesActions from "../../../redux/countries/countriesActions";
+import { UserAccountsList } from "./UserAccountList";
+import { UserAccountsDetails } from "./UserAccountDetails";
 
-export function UserAccountsPage({ history }) {
-  const accountsUIEvents = {
+const AccountsPageStyles = {
+  main: {
+    display: "flex",
+    flexDirection: "row",
+    height: "100%",
+    overflowY: "scroll",
+  },
+};
+
+export const UserAccountsPage = ({ history }) => {
+  // Getting curret state of accounts list from store (Redux)
+  const { currentState } = useSelector(
+    (state) => ({ currentState: state.accounts }),
+    shallowEqual
+  );
+  const { currenciesState } = useSelector(
+    (state) => ({ currenciesState: state.currencies }),
+    shallowEqual
+  );
+  const { countriesState } = useSelector(
+    (state) => ({ countriesState: state.countries }),
+    shallowEqual
+  );
+
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const [list, setList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [perPage] = useState(10);
+
+  // Accounts Redux state
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (dispatch && perPage) {
+      const pageNumber = 1;
+      dispatch(
+        userAccountsActions.fetchAccounts({
+          page: pageNumber,
+          perPage: perPage,
+        })
+      );
+      dispatch(countriesActions.fetchAllCountry());
+      dispatch(currenciesActions.fetchAllCurrencies());
+    }
+  }, [dispatch, perPage]);
+
+  useEffect(() => {
+    // console.log(currentState);
+    // console.log(currenciesState);
+    // console.log(countriesState);
+    if (
+      currentState &&
+      currentState.accountTable &&
+      currentState.accountTable.entities &&
+      currentState.accountTable.entities.length > 0
+    ) {
+      setList(currentState.accountTable.entities);
+      setCurrentPage(currentState.accountTable.page);
+      setTotalPages(currentState.accountTable.pages);
+      setIsLoading(currentState.listLoading);
+    }
+  }, [currentState, currenciesState, countriesState]);
+
+  const userAccountsUIEvents = {
     newAccountButtonClick: () => {
-      history.push("/accounts/new");
+      history.push("/user_accounts/new");
     },
     openEditAccountDialog: (id) => {
-      history.push(`/accounts/${id}/edit`);
+      history.push(`/user_accounts/${id}/edit`);
     },
     // openDeleteAccountDialog: (id) => {
     //   history.push(`/accounts/${id}/delete`);
@@ -28,21 +96,21 @@ export function UserAccountsPage({ history }) {
   };
 
   return (
-    <AccountsUIProvider accountsUIEvents={accountsUIEvents}>
+    <UserAccountsUIProvider userAccountsUIEvents={userAccountsUIEvents}>
       <AccountsLoadingDialog />
-      <Route path="/">
-        {({ history, match }) => (
-          <UserAccountPage
-            show={match != null}
-            onHide={() => {
-              history.push("/user_accounts");
-            }}
-          />
-        )}
-      </Route>
       <Route path="/user_accounts/new">
         {({ history, match }) => (
-          <AccountEditDialog
+          <UserAccountCreateDialog
+            countriesTable={
+              countriesState && countriesState.countryTable
+                ? countriesState.countryTable.entities
+                : null
+            }
+            currencyTable={
+              currenciesState && currenciesState.currencyTable
+                ? currenciesState.currencyTable.entities
+                : null
+            }
             show={match != null}
             onHide={() => {
               history.push("/user_accounts");
@@ -50,7 +118,7 @@ export function UserAccountsPage({ history }) {
           />
         )}
       </Route>
-      <Route path="/user_accounts/:id/edit">
+      {/* <Route path="/user_accounts/:id/edit">
         {({ history, match }) => (
           <AccountEditDialog
             show={match != null}
@@ -60,7 +128,33 @@ export function UserAccountsPage({ history }) {
             }}
           />
         )}
-      </Route>
-    </AccountsUIProvider>
+      </Route> */}
+      <div style={AccountsPageStyles.main}>
+        <UserAccountsList
+          perPage={perPage}
+          isLoading={isLoading}
+          list={list}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setSelectedItemIndex={setSelectedItemIndex}
+          newAccountFunc={userAccountsUIEvents.newAccountButtonClick}
+          style={{ position: "static" }}
+        />
+        <UserAccountsDetails
+          countriesTable={
+            countriesState && countriesState.countryTable
+              ? countriesState.countryTable.entities
+              : null
+          }
+          currencyTable={
+            currenciesState && currenciesState.currencyTable
+              ? currenciesState.currencyTable.entities
+              : null
+          }
+          list={list}
+          selectedItemIndex={selectedItemIndex}
+        />
+      </div>
+    </UserAccountsUIProvider>
   );
-}
+};
