@@ -10,6 +10,7 @@ import { PropertyPage } from "./pages/PropertyPage";
 import { PlatformsPage } from "./pages/PlatformsPage";
 import { OriginatorsPage } from "./pages/OriginatorsPage";
 import { CurrenciesPage } from "./pages/Currency/CurrenciesPage";
+import { UserAccountsPage } from "./pages/UserAccount/UserAccount";
 
 const GoogleMaterialPage = lazy(() =>
   import("./modules/GoogleMaterialExamples/GoogleMaterialPage")
@@ -37,6 +38,7 @@ export default function BasePage() {
         <ContentRoute path="/dashboard" component={DashboardPage} />
         <ContentRoute path="/settings" component={SettingPage} />
         <ContentRoute path="/accounts" component={AccountsPage} />
+        <ContentRoute path="/user_accounts" component={UserAccountsPage} />
         <ContentRoute path="/countries" component={CountriesPage} />
         <ContentRoute path="/lending" component={LendingPage} />
         <ContentRoute path="/property" component={PropertyPage} />
