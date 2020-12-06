@@ -52,7 +52,7 @@ export default function VirtualizedListComponent({
             <Avatar
               // alt={``}
               // src={`/static/images/avatar/1.jpg`}
-              src={getUrlFromSvgString(list[index].icon)}
+              src={getUrlFromSvgString(list[index].account.icon)}
             > 
               
             </Avatar>

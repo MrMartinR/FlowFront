@@ -2,6 +2,7 @@ import { all } from "redux-saga/effects";
 import { combineReducers } from "redux";
 
 import * as auth from "../app/modules/Auth/_redux/authRedux";
+import { userAccountsSlice } from "./userAccounts/userAccountsSlice";
 import { accountsSlice } from "./accounts/accountsSlice";
 import { customersSlice } from "../app/modules/ECommerce/_redux/customers/customersSlice";
 import { productsSlice } from "../app/modules/ECommerce/_redux/products/productsSlice";
@@ -11,6 +12,7 @@ import { countriesSlice } from "./countries/countriesSlice";
 import { currenciesSlice } from "./currencies/currenciesSlice";
 
 export const rootReducer = combineReducers({
+  userAccounts: userAccountsSlice.reducer,
   accounts: accountsSlice.reducer,
   auth: auth.reducer,
   customers: customersSlice.reducer,
