@@ -95,7 +95,7 @@ export const UserAccountsPage = ({ history }) => {
 
   return (
     <UserAccountsUIProvider userAccountsUIEvents={userAccountsUIEvents}>
-      <AccountsLoadingDialog />
+      { currentState.listLoading ? <AccountsLoadingDialog /> : <></> }
       <Route path="/user_accounts/new">
         {({ history, match }) => (
           <UserAccountCreateDialog
