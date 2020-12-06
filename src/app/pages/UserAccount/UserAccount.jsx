@@ -22,7 +22,7 @@ const AccountsPageStyles = {
 export const UserAccountsPage = ({ history }) => {
   // Getting curret state of accounts list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.accounts }),
+    (state) => ({ currentState: state.userAccounts }),
     shallowEqual
   );
   const { currenciesState } = useSelector(
@@ -47,7 +47,7 @@ export const UserAccountsPage = ({ history }) => {
     if (dispatch && perPage) {
       const pageNumber = 1;
       dispatch(
-        userAccountsActions.fetchAccounts({
+        userAccountsActions.fetchUserAccounts({
           page: pageNumber,
           perPage: perPage,
         })
@@ -58,18 +58,16 @@ export const UserAccountsPage = ({ history }) => {
   }, [dispatch, perPage]);
 
   useEffect(() => {
-    // console.log(currentState);
-    // console.log(currenciesState);
-    // console.log(countriesState);
     if (
       currentState &&
-      currentState.accountTable &&
-      currentState.accountTable.entities &&
-      currentState.accountTable.entities.length > 0
+      currentState.userAccountTable &&
+      currentState.userAccountTable.success &&
+      currentState.userAccountTable.data &&
+      currentState.userAccountTable.data.length > 0
     ) {
-      setList(currentState.accountTable.entities);
-      setCurrentPage(currentState.accountTable.page);
-      setTotalPages(currentState.accountTable.pages);
+      setList(currentState.userAccountTable.data);
+      setCurrentPage(currentState.userAccountTable.page);
+      setTotalPages(currentState.userAccountTable.pages);
       setIsLoading(currentState.listLoading);
     }
   }, [currentState, currenciesState, countriesState]);

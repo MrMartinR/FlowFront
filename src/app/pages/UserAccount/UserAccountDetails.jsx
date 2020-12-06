@@ -22,12 +22,12 @@ export const UserAccountsDetails = ({
       let countryNames = [];
 
       for (let i = 0; i < currencyTable.length; i++) {
-        if (currencyIds.includes(currencyTable[i].id)) {
+        if (countryIds && currencyIds.includes(currencyTable[i].id)) {
           currencyNames.push(currencyTable[i].name);
         }
       }
       for (let i = 0; i < countriesTable.length; i++) {
-        if (countryIds.includes(countriesTable[i].id)) {
+        if (countryIds && countryIds.includes(countriesTable[i].id)) {
           countryNames.push(countriesTable[i].name);
         }
       }
@@ -68,7 +68,7 @@ export const UserAccountsDetails = ({
               alt=""
               src={
                 list[selectedItemIndex]
-                  ? getUrlFromSvgString(list[selectedItemIndex].icon)
+                  ? getUrlFromSvgString(list[selectedItemIndex].account.icon)
                   : null
               }
             />

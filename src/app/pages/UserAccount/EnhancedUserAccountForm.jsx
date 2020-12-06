@@ -10,8 +10,14 @@ import { MultiSelect } from "../../sharedComponents/searchSelect";
 import { Input } from "../../sharedComponents/inputShared";
 import { Avatar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+// import { StepperTemplate } from "./Stepper";
 
-const useStyles = makeStyles({
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Typography from '@material-ui/core/Typography';
+
+const useStyles = makeStyles(theme=>({
   avatarContainer: {
     display: "flex",
     flexDirection: "column",
@@ -25,7 +31,34 @@ const useStyles = makeStyles({
   input: {
     display: "none",
   },
-});
+  root: {
+    width: '90%',
+  },
+  backButton: {
+    marginRight: theme.spacing(1),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+function getSteps() {
+  return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
+}
+
+function getStepContent(stepIndex) {
+  switch (stepIndex) {
+    case 0:
+      return 'Select campaign settings...';
+    case 1:
+      return 'What is an ad group anyways?';
+    case 2:
+      return 'This is the bit I really care about!';
+    default:
+      return 'Uknown stepIndex';
+  }
+}
 
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
@@ -50,6 +83,7 @@ const formikEnhancer = withFormik({
   }),
   enableReinitialize: true,
   mapPropsToValues: ({ account, saveAccount }) => {
+
     return {
       id: account.id,
       name: account.name,
@@ -91,6 +125,7 @@ const formikEnhancer = withFormik({
   displayName: "MyForm",
 });
 
+
 export const AccountEditForm = (props) => {
   const {
     values,
@@ -107,6 +142,22 @@ export const AccountEditForm = (props) => {
     currencyTable,
     countriesTable,
   } = props;
+  
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+  
+  function handleNext() {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  }
+  
+  function handleBack() {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  }
+  
+  function handleReset() {
+    setActiveStep(0);
+  }
 
   useEffect(() => {
     if (currencyTable && countriesTable) {
@@ -139,7 +190,7 @@ export const AccountEditForm = (props) => {
   const [iconData, setIconData] = useState(null);
   const [selectionData, setSelectionData] = useState(null);
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const getUrlFromSvgString = (string) => {
     let blob = new Blob([string], { type: "image/svg+xml" });
@@ -179,110 +230,154 @@ export const AccountEditForm = (props) => {
           </div>
         )} */}
         {/* <form onSubmit={handleSubmit}> */}
-        <form>
-          <Container>
-            <Row>
-              <Col sm={8}>
-                <Input
-                  value={values.name}
-                  onChange={setFieldValue}
-                  onBlur={setFieldTouched}
-                  error={errors.name}
-                  touched={touched.name}
-                  name="name"
-                  type="text"
-                  // addClass={["col-md-5", "col-xs-12"]}
-                />
-                <Input
-                  value={values.category}
-                  onChange={setFieldValue}
-                  onBlur={setFieldTouched}
-                  error={errors.category}
-                  touched={touched.category}
-                  name="category"
-                  type="text"
-                  // addClass={["col-md-5", "col-xs-12"]}
-                />
-              </Col>
-              <Col sm={4} className={classes.avatarContainer}>
-                <Avatar
-                  className={classes.bigAvatar}
-                  src={iconData ? getUrlFromSvgString(iconData) : null}
-                />
-                <input
-                  name={"icon"}
-                  accept="image/svg+xml"
-                  className={classes.input}
-                  id="contained-button-file"
-                  type="file"
-                  onChange={fileUploaded}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
-                    Upload
-                  </Button>
-                </label>
-                {/* <Image src="/static/images/avatar/1.jpg" thumbnail /> */}
-              </Col>
-            </Row>
-            <Row>
-              <MultiSelect
-                value={values.countries}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-                error={errors.countries}
-                touched={touched.countries}
-                name="countries"
-                multi={true}
-                addClass={["col-md-8", "col-xs-12"]}
-                list={selectionData ? selectionData.countries : []}
-              />
-            </Row>
-            <Row>
-              <MultiSelect
-                value={values.currency}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-                error={errors.currency}
-                touched={touched.currency}
-                multi={true}
-                name="currency"
-                addClass={["col-md-8", "col-xs-12"]}
-                list={selectionData ? selectionData.currencies : []}
-              />
-            </Row>
-          </Container>
+        {/* <StepperTemplate /> */}
+        <div className={classes.root}>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <div>
+            <form>
+              <Container>
+              {activeStep === 0 && (
+                <Row>
+                  <Col sm={8}>
+                    <Input
+                      value={values.name}
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
+                      error={errors.name}
+                      touched={touched.name}
+                      name="name"
+                      type="text"
+                      // addClass={["col-md-5", "col-xs-12"]}
+                    />
+                    <Input
+                      value={values.category}
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
+                      error={errors.category}
+                      touched={touched.category}
+                      name="category"
+                      type="text"
+                      // addClass={["col-md-5", "col-xs-12"]}
+                    />
+                  </Col>
+                  <Col sm={4} className={classes.avatarContainer}>
+                    <Avatar
+                      className={classes.bigAvatar}
+                      src={iconData ? getUrlFromSvgString(iconData) : null}
+                    />
+                    <input
+                      name={"icon"}
+                      accept="image/svg+xml"
+                      className={classes.input}
+                      id="contained-button-file"
+                      type="file"
+                      onChange={fileUploaded}
+                    />
+                    <label htmlFor="contained-button-file">
+                      <Button variant="contained" color="primary" component="span">
+                        Upload
+                      </Button>
+                    </label>
+                    {/* <Image src="/static/images/avatar/1.jpg" thumbnail /> */}
+                  </Col>
+                </Row>
+              )}
+              {activeStep === 1 && ( 
+                <Row>
+                  <MultiSelect
+                    value={values.countries}
+                    onChange={setFieldValue}
+                    onBlur={setFieldTouched}
+                    error={errors.countries}
+                    touched={touched.countries}
+                    name="countries"
+                    multi={true}
+                    addClass={["col-md-8", "col-xs-12"]}
+                    list={selectionData ? selectionData.countries : []}
+                  />
+                </Row>
+              )}
+              {activeStep === 2 && (
+                <Row>
+                  <MultiSelect
+                    value={values.currency}
+                    onChange={setFieldValue}
+                    onBlur={setFieldTouched}
+                    error={errors.currency}
+                    touched={touched.currency}
+                    multi={true}
+                    name="currency"
+                    addClass={["col-md-8", "col-xs-12"]}
+                    list={selectionData ? selectionData.currencies : []}
+                  />
+                </Row>
+              )}
+              </Container>
 
-          {/* <button
-            type="button"
-            className="outline"
-            onClick={handleReset}
-            disabled={!dirty || isSubmitting}
-          >
-            Reset
-          </button>
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button> */}
-        </form>
+              {/* <button
+                type="button"
+                className="outline"
+                onClick={handleReset}
+                disabled={!dirty || isSubmitting}
+              >
+                Reset
+              </button>
+              <button type="submit" disabled={isSubmitting}>
+                Submit
+              </button> */}
+            </form>
+          </div>
+          <div>
+            {activeStep === steps.length ? (
+              <div>
+                <Typography className={classes.instructions}>All steps completed</Typography>
+                <Button onClick={handleReset}>Reset</Button>
+              </div>
+            ) : (
+              <div>
+                <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                <div>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.backButton}
+                  >
+                    Back
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={handleNext}>
+                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </Modal.Body>
-      <Modal.Footer>
-        <button
-          type="button"
-          onClick={onHide}
-          className="btn btn-light btn-elevate"
-        >
-          Cancel
-        </button>
-        <> </>
-        <button
-          type="submit"
-          onClick={() => handleSubmit()}
-          className="btn btn-primary btn-elevate"
-        >
-          Save
-        </button>
-      </Modal.Footer>
+      {activeStep === steps.length && 
+        <Modal.Footer>
+          <button
+            type="button"
+            onClick={onHide}
+            className="btn btn-light btn-elevate"
+          >
+            Cancel
+          </button>
+          <> </>
+          <button
+            type="submit"
+            onClick={() => handleSubmit()}
+            className="btn btn-primary btn-elevate"
+          >
+            Save
+          </button>
+        </Modal.Footer>
+      }
     </Fragment>
   );
 };

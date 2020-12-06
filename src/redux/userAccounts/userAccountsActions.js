@@ -1,128 +1,126 @@
 import * as requestFromServer from "./userAccountsCrud";
-import { accountsSlice, callTypes } from "./userAccountsSlice";
+import { userAccountsSlice, callTypes } from "./userAccountsSlice";
 
-const { actions } = accountsSlice;
+const { actions } = userAccountsSlice;
 
-export const accountSort = (queryParams) => (dispatch) => {
+export const userAccountSort = (queryParams) => (dispatch) => {
   let { field, isAsc, entities } = queryParams;
   // console.log('fieldXXX', field)
   dispatch(
-    actions.accountSort({ callType: callTypes.action, field, isAsc, entities })
+    actions.userAccountSort({ callType: callTypes.action, field, isAsc, entities })
   );
-};
-export const fetchAccounts = (params) => (dispatch) => {
+}; 
+export const fetchUserAccounts = (params) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.list }));
   return requestFromServer
-    .findAccounts(params)
+    .findUserAccounts(params)
     .then((response) => {
-      const { pages, page, entities } = response.data;
-      dispatch(actions.accountsFetched({ pages, page, entities }));
+      const { data } = response;
+      dispatch(actions.userAccountsFetched({ data }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't find accounts";
+      error.clientMessage = "Can't find userAccounts";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
 
-// This works similar to fetchAccounts. The difference is that rather than replacing existing data,
+// This works similar to fetchuserAccounts. The difference is that rather than replacing existing data,
 // its append new data to existing data. Usefull for implementing infinite list where new data is loaded on demand.
-export const fetchNextAccounts = (params) => (dispatch) => {
+export const fetchNextUserAccounts = (params) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.list }));
   return requestFromServer
-    .findNextAccounts(params)
+    .findNextUserAccounts(params)
     .then((response) => {
       const { pages, page, entities } = response.data;
-      dispatch(actions.accountsAppend({ pages, page, entities }));
+      dispatch(actions.userAccountsAppend({ pages, page, entities }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't find more accounts";
+      error.clientMessage = "Can't find more userAccounts";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
 
-export const fetchAccount = (id) => (dispatch) => {
+export const fetchuserAccount = (id) => (dispatch) => {
   if (!id) {
-    return dispatch(actions.accountFetched({ accountForEdit: undefined }));
+    return dispatch(actions.userAccountFetched({ userAccountForEdit: undefined }));
   }
 
   dispatch(actions.startCall({ callType: callTypes.action }));
   console.log("Looking");
   return requestFromServer
-    .getAccountById(id)
+    .getUserAccountById(id)
     .then((response) => {
-      console.log("Fetched");
-      console.log(response.data);
-      const account = response.data.data[0];
-      dispatch(actions.accountFetched({ accountForEdit: account }));
+      const userAccount = response.data.data[0];
+      dispatch(actions.userAccountFetched({ userAccountForEdit: userAccount }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't find account";
+      error.clientMessage = "Can't find userAccount";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteAccount = (id) => (dispatch) => {
+export const deleteUserAccount = (id) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .deleteAccount(id)
+    .deleteUserAccount(id)
     .then((response) => {
-      dispatch(actions.accountDeleted({ id }));
+      dispatch(actions.userAccountDeleted({ id }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't delete account";
+      error.clientMessage = "Can't delete userAccount";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const createAccount = (accountForCreation) => (dispatch) => {
+export const createUserAccount = (userAccountForCreation) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .createAccount(accountForCreation)
+    .createUserAccount(userAccountForCreation)
     .then((response) => {
-      const { account } = response.data;
-      dispatch(actions.accountCreated({ account }));
+      const { userAccount } = response.data;
+      dispatch(actions.userAccountCreated({ userAccount }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't create account";
+      error.clientMessage = "Can't create userAccount";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const updateAccount = (account) => (dispatch) => {
+export const updateUserAccount = (userAccount) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .updateAccount(account)
+    .updateUserAccount(userAccount)
     .then(() => {
-      dispatch(actions.accountUpdated({ account }));
+      dispatch(actions.userAccountUpdated({ userAccount }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't update account";
+      error.clientMessage = "Can't update userAccount";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const updateAccountsStatus = (ids, status) => (dispatch) => {
+export const updateUserAccountsStatus = (ids, status) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .updateStatusForAccounts(ids, status)
+    .updateStatusForUserAccounts(ids, status)
     .then(() => {
-      dispatch(actions.accountsStatusUpdated({ ids, status }));
+      dispatch(actions.userAccountsStatusUpdated({ ids, status }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't update accounts status";
+      error.clientMessage = "Can't update userAccounts status";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteAccounts = (ids) => (dispatch) => {
+export const deleteUserAccounts = (ids) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .deleteAccounts(ids)
+    .deleteUserAccounts(ids)
     .then(() => {
-      dispatch(actions.accountsDeleted({ ids }));
+      dispatch(actions.userAccountsDeleted({ ids }));
     })
     .catch((error) => {
-      error.clientMessage = "Can't delete accounts";
+      error.clientMessage = "Can't delete userAccounts";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

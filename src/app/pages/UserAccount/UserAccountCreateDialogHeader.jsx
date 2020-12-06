@@ -4,11 +4,11 @@ import { Modal, Badge } from "react-bootstrap";
 import { ModalProgressBar } from "../../../_metronic/_partials/controls";
 
 export const UserAccountCreateDialogHeader = ({ id }) => {
-  // Account Redux state
-  const { accountForEdit, actionsLoading } = useSelector(
+  // User Account Redux state
+  const { userAccountForEdit, actionsLoading } = useSelector(
     (state) => ({
-      accountForEdit: state.accounts.accountForEdit,
-      actionsLoading: state.accounts.actionsLoading,
+      userAccountForEdit: state.userAccounts.userAccountForEdit,
+      actionsLoading: state.userAccounts.actionsLoading,
     }),
     shallowEqual
   );
@@ -18,14 +18,14 @@ export const UserAccountCreateDialogHeader = ({ id }) => {
       {actionsLoading && <ModalProgressBar />}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
-          {accountForEdit && id ? (
+          {userAccountForEdit && id ? (
             <label>
               {" "}
-              Edit account{" "}
-              <Badge variant="secondary">{accountForEdit.name}</Badge>
+              Edit userAccount{" "}
+              <Badge variant="secondary">{userAccountForEdit.name}</Badge>
             </label>
           ) : (
-            "Create Account"
+            "Create User Account"
           )}
         </Modal.Title>
       </Modal.Header>
