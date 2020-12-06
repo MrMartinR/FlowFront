@@ -10,7 +10,7 @@ import { MultiSelect } from "../../sharedComponents/searchSelect";
 import { Input } from "../../sharedComponents/inputShared";
 import { Avatar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { StepperTemplate } from "./Stepper";
+// import { StepperTemplate } from "./Stepper";
 
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
