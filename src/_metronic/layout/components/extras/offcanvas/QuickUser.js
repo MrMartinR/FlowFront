@@ -95,7 +95,7 @@ export function QuickUser() {
               className="btn btn-light-primary btn-bold mt-10"
               onClick={logoutClick}
             >
-              Log out
+              Sign Out
             </button>
           </div>
         </div>
