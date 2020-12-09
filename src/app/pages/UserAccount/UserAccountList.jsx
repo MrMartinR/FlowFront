@@ -5,30 +5,30 @@ import {
   CardHeaderToolbar,
 } from "../../../_metronic/_partials/controls";
 import VirtualizedListComponent from "../Account/VirtualizedListComponent";
-import { useDispatch } from "react-redux";
-import * as actions from "../../../redux/accounts/accountsActions";
+// import { useDispatch } from "react-redux";
+// import * as actions from "../../../redux/accounts/accountsActions";
 import { AutoSizer } from "react-virtualized";
 
 export const UserAccountsList = (props) => {
   const {
     newAccountFunc,
     setSelectedItemIndex,
-    perPage,
+    // perPage,
     isLoading,
     list,
     currentPage,
     totalPages,
   } = props;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const loadMore = () => {
-    if (list.length !== 0) {
-      // console.log("Loading...");
-      dispatch(
-        actions.fetchNextAccounts({ page: currentPage + 1, perPage: perPage })
-      );
-    }
-  };
+  // const loadMore = () => {
+  //   if (list.length !== 0) {
+  //     // console.log("Loading...");
+  //     dispatch(
+  //       actions.fetchNextAccounts({ page: currentPage + 1, perPage: perPage })
+  //     );
+  //   }
+  // };
 
   // const [ hasNextPage, setHasNextPage ] = useState(true)
 
@@ -63,7 +63,7 @@ export const UserAccountsList = (props) => {
               list={list}
               listHeight={height}
               loadNextPage={() => {
-                loadMore();
+                // loadMore();
               }}
             />
           );
