@@ -7,9 +7,14 @@ export const userAccountSort = (queryParams) => (dispatch) => {
   let { field, isAsc, entities } = queryParams;
   // console.log('fieldXXX', field)
   dispatch(
-    actions.userAccountSort({ callType: callTypes.action, field, isAsc, entities })
+    actions.userAccountSort({
+      callType: callTypes.action,
+      field,
+      isAsc,
+      entities,
+    })
   );
-}; 
+};
 export const fetchUserAccounts = (params) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.list }));
   return requestFromServer
@@ -42,7 +47,9 @@ export const fetchNextUserAccounts = (params) => (dispatch) => {
 
 export const fetchuserAccount = (id) => (dispatch) => {
   if (!id) {
-    return dispatch(actions.userAccountFetched({ userAccountForEdit: undefined }));
+    return dispatch(
+      actions.userAccountFetched({ userAccountForEdit: undefined })
+    );
   }
 
   dispatch(actions.startCall({ callType: callTypes.action }));
@@ -121,6 +128,20 @@ export const deleteUserAccounts = (ids) => (dispatch) => {
     })
     .catch((error) => {
       error.clientMessage = "Can't delete userAccounts";
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
+
+export const fetchAccountTransaction = () => (dispatch) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getUserTransactions()
+    .then((response) => {
+      const userAccountTransactions = response.data.data;
+      dispatch(actions.userAccountTransactions({ userAccountTransactions }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find userAccount";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

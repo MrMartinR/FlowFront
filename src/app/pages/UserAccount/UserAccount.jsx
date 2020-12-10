@@ -36,6 +36,7 @@ export const UserAccountsPage = ({ history }) => {
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const [list, setList] = useState([]);
+  const [allTransactions, setAllTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,6 +55,7 @@ export const UserAccountsPage = ({ history }) => {
       );
       dispatch(countriesActions.fetchAllCountry());
       dispatch(currenciesActions.fetchAllCurrencies());
+      dispatch(userAccountsActions.fetchAccountTransaction());
     }
   }, [dispatch, perPage]);
 
@@ -69,6 +71,14 @@ export const UserAccountsPage = ({ history }) => {
       setCurrentPage(currentState.userAccountTable.page);
       setTotalPages(currentState.userAccountTable.pages);
       setIsLoading(currentState.listLoading);
+    }
+    if (
+      currentState &&
+      currentState.userAccountTransactions &&
+      currentState.userAccountTransactions &&
+      currentState.userAccountTransactions.length > 0
+    ) {
+      setAllTransactions(currentState.userAccountTransactions);
     }
   }, [currentState, currenciesState, countriesState]);
 
@@ -95,7 +105,7 @@ export const UserAccountsPage = ({ history }) => {
 
   return (
     <UserAccountsUIProvider userAccountsUIEvents={userAccountsUIEvents}>
-      { currentState.listLoading ? <AccountsLoadingDialog /> : <></> }
+      {currentState.listLoading ? <AccountsLoadingDialog /> : <></>}
       <Route path="/user_accounts/new">
         {({ history, match }) => (
           <UserAccountCreateDialog
@@ -137,6 +147,7 @@ export const UserAccountsPage = ({ history }) => {
           setSelectedItemIndex={setSelectedItemIndex}
           newAccountFunc={userAccountsUIEvents.newAccountButtonClick}
           style={{ position: "static" }}
+          allTransactions={allTransactions}
         />
         <UserAccountsDetails
           countriesTable={

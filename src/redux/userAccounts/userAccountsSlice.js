@@ -107,6 +107,12 @@ export const userAccountsSlice = createSlice({
         }
         return entity;
       });
-    }
+    },
+    // userAccountTransactions
+    userAccountTransactions: (state, action) => {
+      state.actionsLoading = false;
+      state.userAccountTransactions = action.payload.userAccountTransactions;
+      state.error = null;
+    },
   }
 });
