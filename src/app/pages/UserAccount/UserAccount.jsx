@@ -41,7 +41,11 @@ export const UserAccountsPage = ({ history }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [perPage] = useState(10);
+  let selectedUserAccount = {};
 
+  if (list && list[selectedItemIndex]) {
+    selectedUserAccount = list[selectedItemIndex];
+  }
   // Accounts Redux state
   const dispatch = useDispatch();
   useEffect(() => {
@@ -150,17 +154,8 @@ export const UserAccountsPage = ({ history }) => {
           allTransactions={allTransactions}
         />
         <UserAccountsDetails
-          countriesTable={
-            countriesState && countriesState.countryTable
-              ? countriesState.countryTable.entities
-              : null
-          }
-          currencyTable={
-            currenciesState && currenciesState.currencyTable
-              ? currenciesState.currencyTable.entities
-              : null
-          }
-          list={list}
+          allTransactions={allTransactions}
+          selectedUserAccount={selectedUserAccount}
           selectedItemIndex={selectedItemIndex}
         />
       </div>
