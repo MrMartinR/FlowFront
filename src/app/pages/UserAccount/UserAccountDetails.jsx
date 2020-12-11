@@ -17,7 +17,7 @@ import { Col, Row } from "react-bootstrap";
 import { Avatar, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { getUrlFromSvgString, hasValue } from "../../utils/AccountsUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSync } from "@fortawesome/free-solid-svg-icons";
+import { faSync, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 export const UserAccountsDetails = ({
   selectedItemIndex,
@@ -52,22 +52,19 @@ export const UserAccountsDetails = ({
   }))();
 
   const [transactions, setTransactions] = useState([]);
-  const [value, setValue] = useState("");
-  const [balance, setBalance] = useState("");
+  let value = 0;
+  let balance = 0;
+  transactions
+    .map(({ amount }) => amount)
+    .forEach((amount) => {
+      if (hasValue(amount)) balance = +amount;
+    });
 
   useEffect(() => {
     const currTransaction = allTransactions.filter(
       (t) => t.user_account_id === selectedUserAccount.id
     );
     setTransactions(currTransaction);
-    let balance = 0;
-    transactions
-      .map(({ amount }) => amount)
-      .forEach((amount) => {
-        if (hasValue(amount)) balance = +amount;
-      });
-    setBalance(balance);
-    setValue(0);
   }, [selectedItemIndex]);
 
   const userIcon =
@@ -179,7 +176,21 @@ export const UserAccountsDetails = ({
               )}
               {transactions.map((row) => (
                 <StyledTableRow key={row.id}>
-                  <StyledTableCell align="left">{row.date}</StyledTableCell>
+                  <StyledTableCell align="left">
+                    {row.date}
+                    {row.category === "Expense" && (
+                      <FontAwesomeIcon
+                        style={{ marginLeft: "15px" }}
+                        icon={faArrowUp}
+                      />
+                    )}
+                    {row.category === "Expense" && (
+                      <FontAwesomeIcon
+                        style={{ marginLeft: "15px" }}
+                        icon={faArrowUp}
+                      />
+                    )}
+                  </StyledTableCell>
                   <StyledTableCell align="left">{row.category}</StyledTableCell>
                   <StyledTableCell align="left">
                     {row.description}
