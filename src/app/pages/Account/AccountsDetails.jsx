@@ -66,7 +66,7 @@ export function AccountsDetails({selectedItemIndex, list, currencyTable, countri
         </div>
 
         <div style={{display: 'flex', flexDirection: (window.innerWidth < 600) ? 'column' : 'row'}}>
-          <Card style={{width: "350px", height: "200px", margin: "1rem", borderWidth: "0.1rem", borderColor: "#ccc", borderStyle: "solid", borderColor: '#eee'}}>
+          <Card style={{width: "350px", height: "200px", margin: "1rem", borderWidth: "0.1rem", borderStyle: "solid", borderColor: '#eee'}}>
             <CardHeader style={{textAlign: 'center'}} title="Currencies" />
             <CardBody style={{padding: "1rem"}}>
               {/* <Typography variant="h5" style={{textAlign: 'center', marginBottom: "2rem", borderBottomWidth: "0.1rem", borderBottomColor: "#ccc", borderBottomStyle: "solid"}}>Currencies</Typography> */}
@@ -76,7 +76,7 @@ export function AccountsDetails({selectedItemIndex, list, currencyTable, countri
             </CardBody>
           </Card>
 
-          <Card style={{width: "350px", height: "200px", margin: "1rem", borderWidth: "0.1rem", borderColor: "#ccc", borderStyle: "solid", borderColor: '#eee'}}>
+          <Card style={{width: "350px", height: "200px", margin: "1rem", borderWidth: "0.1rem", borderStyle: "solid", borderColor: '#eee'}}>
             <CardHeader style={{textAlign: 'center'}} title="Countries" />
             <CardBody style={{padding: "1rem"}}>
               {/* <Typography variant="h5" style={{textAlign: 'center', marginBottom: "2rem", borderBottomWidth: "0.1rem", borderBottomColor: "#ccc", borderBottomStyle: "solid"}}>Countries</Typography> */}

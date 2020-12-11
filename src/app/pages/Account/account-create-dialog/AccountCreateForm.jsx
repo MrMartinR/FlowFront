@@ -67,17 +67,17 @@ const formikEnhancer = withFormik({
   },
 
   handleSubmit: (values, { setSubmitting }) => {
-    // const payload = {
-    //   ...values,
-    //   countries: values.countries.map((t) => t.value),
-    //   currency: values.currency.map((t) => t.value),
-    // };
+    const payload = {
+      ...values,
+      countries: values.countries.map((t) => t.value),
+      currency: values.currency.map((t) => t.value),
+    };
     values.createAccountFunc({
-      name: values.name,
-      category: values.category,
-      icon: values.icon,
-      country_id: values.countries,
-      currency_id: values.currency,
+      name: payload.name,
+      category: payload.category,
+      // icon: payload.icon,
+      country_id: payload.countries,
+      currency_id: payload.currency,
     }, ()=>{
       alert("New account has been created!");
       setSubmitting(false);

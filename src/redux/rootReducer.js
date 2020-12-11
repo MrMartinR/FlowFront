@@ -10,6 +10,8 @@ import { remarksSlice } from "../app/modules/ECommerce/_redux/remarks/remarksSli
 import { specificationsSlice } from "../app/modules/ECommerce/_redux/specifications/specificationsSlice";
 import { countriesSlice } from "./countries/countriesSlice";
 import { currenciesSlice } from "./currencies/currenciesSlice";
+import { platformsSlice } from "./platforms/platformsSlice";
+import { iconsSlice } from "./icons/iconsSlice";
 
 export const rootReducer = combineReducers({
   userAccounts: userAccountsSlice.reducer,
@@ -21,6 +23,8 @@ export const rootReducer = combineReducers({
   products: productsSlice.reducer,
   remarks: remarksSlice.reducer,
   specifications: specificationsSlice.reducer,
+  platforms: platformsSlice.reducer,
+  icons: iconsSlice.reducer
 });
 
 export function* rootSaga() {

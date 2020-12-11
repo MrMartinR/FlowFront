@@ -21,7 +21,7 @@ export function AccountCreateDialog({ id, show, onHide, countriesTable, currency
   // server request for saving account
   const saveAccount = (account, callback) => {
     // console.log("ACCOUNT: ", account);
-    dispatch(AccountActions.createAccount(account)).then(() => onHide());
+    dispatch(AccountActions.createAccount({account: account})).then(() => onHide());
   };
 
   return (

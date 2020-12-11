@@ -7,9 +7,9 @@ import { AccountsPage } from "./pages/Account/AccountsPage";
 import { CountriesPage } from "./pages/Country/CountriesPage";
 import { LendingPage } from "./pages/LendingPage";
 import { PropertyPage } from "./pages/PropertyPage";
-import { PlatformsPage } from "./pages/PlatformsPage";
 import { OriginatorsPage } from "./pages/OriginatorsPage";
 import { CurrenciesPage } from "./pages/Currency/CurrenciesPage";
+import { PlatformsPage } from "./pages/Platform/PlatformsPage";
 import { UserAccountsPage } from "./pages/UserAccount/UserAccount";
 
 const GoogleMaterialPage = lazy(() =>
