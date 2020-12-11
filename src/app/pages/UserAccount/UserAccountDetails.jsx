@@ -17,7 +17,11 @@ import { Col, Row } from "react-bootstrap";
 import { Avatar, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { getUrlFromSvgString, hasValue } from "../../utils/AccountsUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSync, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSync,
+  faArrowUp,
+  faExpandAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const UserAccountsDetails = ({
   selectedItemIndex,
@@ -180,14 +184,14 @@ export const UserAccountsDetails = ({
                     {row.date}
                     {row.category === "Expense" && (
                       <FontAwesomeIcon
-                        style={{ marginLeft: "15px" }}
+                        style={{ float: "right" }}
                         icon={faArrowUp}
                       />
                     )}
-                    {row.category === "Expense" && (
+                    {["Out", "In"].includes(row.category) && (
                       <FontAwesomeIcon
-                        style={{ marginLeft: "15px" }}
-                        icon={faArrowUp}
+                        style={{ float: "right" }}
+                        icon={faExpandAlt}
                       />
                     )}
                   </StyledTableCell>
