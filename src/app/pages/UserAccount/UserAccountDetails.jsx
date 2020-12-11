@@ -15,7 +15,9 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles, makeStyles } from "@material-ui/styles";
 import { Col, Row } from "react-bootstrap";
 import { Avatar, ListItemAvatar, ListItemText } from "@material-ui/core";
-import { getUrlFromSvgString } from "../../utils/AccountsUtils";
+import { getUrlFromSvgString, hasValue } from "../../utils/AccountsUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 
 export const UserAccountsDetails = ({
   selectedItemIndex,
@@ -50,60 +52,106 @@ export const UserAccountsDetails = ({
   }))();
 
   const [transactions, setTransactions] = useState([]);
-  console.log("transactions: ", transactions);
+  const [value, setValue] = useState("");
+  const [balance, setBalance] = useState("");
 
   useEffect(() => {
     const currTransaction = allTransactions.filter(
       (t) => t.user_account_id === selectedUserAccount.id
     );
     setTransactions(currTransaction);
-  }, [selectedItemIndex, selectedUserAccount]);
+    let balance = 0;
+    transactions
+      .map(({ amount }) => amount)
+      .forEach((amount) => {
+        if (hasValue(amount)) balance = +amount;
+      });
+    setBalance(balance);
+    setValue(0);
+  }, [selectedItemIndex]);
 
-  console.log("selectedUserAccount: ", selectedUserAccount);
+  const userIcon =
+    selectedUserAccount.account && selectedUserAccount.account.icon
+      ? selectedUserAccount.account.icon
+      : null;
+
+  const showValue = (value, classes) => (
+    <span className="symbol symbol-light-success">
+      <span
+        style={{
+          width: "130px",
+          height: "39px",
+        }}
+        className={`symbol-label font-size-h6 font-weight-bold ${classes}`}
+      >
+        {value}
+      </span>
+    </span>
+  );
+
   return (
     <Card style={{ marginLeft: "1rem", width: "100%", minWidth: "400px" }}>
-      <CardHeader>
+      <CardHeader className="pr-0 ">
         <CardHeaderToolbar className="w-100">
           <Row className="w-100">
-            <Col md="2">
+            <Col md="4">
               <Row>
-                <ListItemAvatar>
-                  <Avatar
-                    style={{
-                      height: "40px",
-                      width: "40px",
-                    }}
-                    alt={selectedUserAccount.name}
-                    src={
-                      selectedUserAccount.account &&
-                      selectedUserAccount.account.icon
-                        ? getUrlFromSvgString(selectedUserAccount.account.icon)
-                        : null
-                    }
-                  ></Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  classes={makeStyles((theme) => {
-                    console.log("theme: ", theme);
-                    return {
-                      root: {
-                        fontSize: theme.typography.overline.fontSize,
-                      },
-                    };
-                  })()}
-                  primary={selectedUserAccount.name}
-                />
+                {selectedUserAccount.account && (
+                  <>
+                    <ListItemAvatar>
+                      <Avatar
+                        style={{
+                          height: "40px",
+                          width: "40px",
+                        }}
+                        alt={selectedUserAccount.name}
+                        src={
+                          selectedUserAccount.account
+                            ? getUrlFromSvgString(userIcon)
+                            : null
+                        }
+                      ></Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={selectedUserAccount.name}
+                      style={{
+                        marginTop: "1rem",
+                      }}
+                    />
+                  </>
+                )}
               </Row>
             </Col>
-            <Col>
+            <Col md="1">
               <button
                 type="button"
                 className="btn btn-primary"
-                // onClick={formik.handleSubmit}
-                // disabled={formik.isSubmitting}
+                style={{
+                  height: "39px",
+                  width: "49px",
+                }}
               >
-                New Transactiion
+                <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSync} />
               </button>
+            </Col>
+            <Col md="2">{showValue(`Value: ${value}`)}</Col>
+            <Col md="2">{showValue(`Balance: ${balance}`, "mr-3")}</Col>
+            <Col md="3">
+              <Row>
+                <button type="button" className="btn btn-primary ml-4">
+                  New Transactiion
+                </button>
+                {/* <button
+                  type="button"
+                  className="btn btn-primary ml-3"
+                  style={{
+                    height: "39px",
+                    width: "49px",
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSync} />
+                </button> */}
+              </Row>
             </Col>
           </Row>
         </CardHeaderToolbar>
