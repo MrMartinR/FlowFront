@@ -1,140 +1,195 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Card, CardBody } from "../../../_metronic/_partials/controls";
-import Typography from "@material-ui/core/Typography";
-import Chip from "@material-ui/core/Chip";
-import { CardHeader } from "@material-ui/core";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  CardHeaderToolbar,
+} from "../../../_metronic/_partials/controls";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import Paper from "@material-ui/core/Paper";
+import { withStyles, makeStyles } from "@material-ui/styles";
+import { Col, Row } from "react-bootstrap";
+import { Avatar, ListItemAvatar, ListItemText } from "@material-ui/core";
+import { getUrlFromSvgString, hasValue } from "../../utils/AccountsUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 
 export const UserAccountsDetails = ({
   selectedItemIndex,
-  list,
-  currencyTable,
-  countriesTable,
+  allTransactions = [],
+  selectedUserAccount,
 }) => {
-  const [currencies, setCurrencies] = useState([]);
-  const [countries, setCountries] = useState([]);
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.common.black,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
+  }))(TableRow);
+  const classes = makeStyles((theme) => ({
+    root: {
+      width: "100%",
+      marginTop: theme.spacing(3),
+      overflowX: "auto",
+    },
+    table: {
+      minWidth: 700,
+    },
+  }))();
+
+  const [transactions, setTransactions] = useState([]);
+  const [value, setValue] = useState("");
+  const [balance, setBalance] = useState("");
 
   useEffect(() => {
-    if (list[selectedItemIndex] && currencyTable && countriesTable) {
-      let countryIds = list[selectedItemIndex].country_id;
-      let currencyIds = list[selectedItemIndex].currency_id;
+    const currTransaction = allTransactions.filter(
+      (t) => t.user_account_id === selectedUserAccount.id
+    );
+    setTransactions(currTransaction);
+    let balance = 0;
+    transactions
+      .map(({ amount }) => amount)
+      .forEach((amount) => {
+        if (hasValue(amount)) balance = +amount;
+      });
+    setBalance(balance);
+    setValue(0);
+  }, [selectedItemIndex]);
 
-      let currencyNames = [];
-      let countryNames = [];
+  const userIcon =
+    selectedUserAccount.account && selectedUserAccount.account.icon
+      ? selectedUserAccount.account.icon
+      : null;
 
-      for (let i = 0; i < currencyTable.length; i++) {
-        if (countryIds && currencyIds.includes(currencyTable[i].id)) {
-          currencyNames.push(currencyTable[i].name);
-        }
-      }
-      for (let i = 0; i < countriesTable.length; i++) {
-        if (countryIds && countryIds.includes(countriesTable[i].id)) {
-          countryNames.push(countriesTable[i].name);
-        }
-      }
-
-      setCurrencies(currencyNames);
-      setCountries(countryNames);
-    }
-  }, [list, selectedItemIndex, currencyTable, countriesTable]);
-
-  const getUrlFromSvgString = (string) => {
-    let blob = new Blob([string], { type: "image/svg+xml" });
-    let url = URL.createObjectURL(blob);
-    return url;
-  };
+  const showValue = (value, classes) => (
+    <span className="symbol symbol-light-success">
+      <span
+        style={{
+          width: "130px",
+          height: "39px",
+        }}
+        className={`symbol-label font-size-h6 font-weight-bold ${classes}`}
+      >
+        {value}
+      </span>
+    </span>
+  );
 
   return (
     <Card style={{ marginLeft: "1rem", width: "100%", minWidth: "400px" }}>
+      <CardHeader className="pr-0 ">
+        <CardHeaderToolbar className="w-100">
+          <Row className="w-100">
+            <Col md="4">
+              <Row>
+                {selectedUserAccount.account && (
+                  <>
+                    <ListItemAvatar>
+                      <Avatar
+                        style={{
+                          height: "40px",
+                          width: "40px",
+                        }}
+                        alt={selectedUserAccount.name}
+                        src={
+                          selectedUserAccount.account
+                            ? getUrlFromSvgString(userIcon)
+                            : null
+                        }
+                      ></Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={selectedUserAccount.name}
+                      style={{
+                        marginTop: "1rem",
+                      }}
+                    />
+                  </>
+                )}
+              </Row>
+            </Col>
+            <Col md="1">
+              <button
+                type="button"
+                className="btn btn-primary"
+                style={{
+                  height: "39px",
+                  width: "49px",
+                }}
+              >
+                <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSync} />
+              </button>
+            </Col>
+            <Col md="2">{showValue(`Value: ${value}`)}</Col>
+            <Col md="2">{showValue(`Balance: ${balance}`, "mr-3")}</Col>
+            <Col md="3">
+              <Row>
+                <button type="button" className="btn btn-primary ml-4">
+                  New Transactiion
+                </button>
+                {/* <button
+                  type="button"
+                  className="btn btn-primary ml-3"
+                  style={{
+                    height: "39px",
+                    width: "49px",
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSync} />
+                </button> */}
+              </Row>
+            </Col>
+          </Row>
+        </CardHeaderToolbar>
+      </CardHeader>
+
       <CardBody>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            padding: "4rem",
-          }}
-        >
-          <div
-            style={{
-              width: "4rem",
-              height: "4rem",
-              marginRight: "2rem",
-              borderColor: "#666",
-              borderWidth: ".2rem",
-              borderRadius: ".4rem",
-            }}
-          >
-            <img
-              alt=""
-              src={
-                list[selectedItemIndex]
-                  ? getUrlFromSvgString(list[selectedItemIndex].account.icon)
-                  : null
-              }
-            />
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Typography variant="h2">
-              {list[selectedItemIndex] ? list[selectedItemIndex].name : "-"}
-            </Typography>
-            <Typography style={{ color: "gray" }} variant="h5">
-              {list[selectedItemIndex] ? list[selectedItemIndex].category : "-"}
-            </Typography>
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: window.innerWidth < 600 ? "column" : "row",
-          }}
-        >
-          <Card
-            style={{
-              width: "350px",
-              height: "200px",
-              margin: "1rem",
-              borderWidth: "0.1rem",
-              //   borderColor: "#ccc",
-              borderStyle: "solid",
-              borderColor: "#eee",
-            }}
-          >
-            <CardHeader style={{ textAlign: "center" }} title="Currencies" />
-            <CardBody style={{ padding: "1rem" }}>
-              {/* <Typography variant="h5" style={{textAlign: 'center', marginBottom: "2rem", borderBottomWidth: "0.1rem", borderBottomColor: "#ccc", borderBottomStyle: "solid"}}>Currencies</Typography> */}
-              {currencies &&
-                currencies.map((value, index) => (
-                  <Chip
-                    key={index}
-                    label={value}
-                    style={{ marginRight: ".4rem" }}
-                  />
-                ))}
-            </CardBody>
-          </Card>
-
-          <Card
-            style={{
-              width: "350px",
-              height: "200px",
-              margin: "1rem",
-              borderWidth: "0.1rem",
-              //   borderColor: "#ccc",
-              borderStyle: "solid",
-              borderColor: "#eee",
-            }}
-          >
-            <CardHeader style={{ textAlign: "center" }} title="Countries" />
-            <CardBody style={{ padding: "1rem" }}>
-              {countries &&
-                countries.map((value, index) => (
-                  <Chip key={index} label={value} style={{ margin: ".4rem" }} />
-                ))}
-            </CardBody>
-          </Card>
-        </div>
+        <Paper className={classes.root}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="left">Date</StyledTableCell>
+                <StyledTableCell align="left">Category</StyledTableCell>
+                <StyledTableCell align="left">Concept</StyledTableCell>
+                <StyledTableCell align="left">Amount</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {!transactions.length && (
+                <StyledTableRow key={1}>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell>No transaction found.</StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
+                </StyledTableRow>
+              )}
+              {transactions.map((row) => (
+                <StyledTableRow key={row.id}>
+                  <StyledTableCell align="left">{row.date}</StyledTableCell>
+                  <StyledTableCell align="left">{row.category}</StyledTableCell>
+                  <StyledTableCell align="left">
+                    {row.description}
+                  </StyledTableCell>
+                  <StyledTableCell scope="row">{row.amount}</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
       </CardBody>
     </Card>
   );

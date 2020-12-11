@@ -63,7 +63,7 @@ export function AsideMenuList({ layoutProps }) {
                 )}
               />
             </span>
-            <span className="menu-text">User Accounts</span>
+            <span className="menu-text">Accounts</span>
           </NavLink>
         </li>
 
