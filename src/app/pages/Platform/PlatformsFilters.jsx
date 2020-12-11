@@ -66,7 +66,7 @@ const protOptions = [
 ];
 
 
-const PlatformsFilters = ({ history }) => {
+const PlatformsFilters = ({ setFilterOpen }) => {
   
   const classes = useStyles();
   const [statusList, setSetStatusList] = React.useState([]);
@@ -110,7 +110,7 @@ const PlatformsFilters = ({ history }) => {
 
   const filterResult = () => {
     dispatch(actions.filterPlatforms({statusList, catList, protList, secMarketYes, secMarketNo}))
-    history.push("/platforms")
+    setFilterOpen(false)
   }
 
   return (

@@ -83,7 +83,7 @@ export const PlatformsPage = ({ history }) => {
         }}
       >
         <Fade in={filterOpen}>
-          <PlatformsFilters />
+          <PlatformsFilters setFilterOpen={setFilterOpen} />
         </Fade>
       </Modal>
       <AutoSizer style={{ height: '100%', width:"100%", maxWidth: '910px', boxShadow: '0px 0px 10px #bbb'}}>
@@ -92,7 +92,7 @@ export const PlatformsPage = ({ history }) => {
             <div className="pf_topBar" style={{height: '30px'}}>
               <Typography variant="h5"> Platforms </Typography>
               <IconButton size="small" color="default" onClick={handleFilterOpen} >
-                <FilterList history={history} />
+                <FilterList />
               </IconButton>
             </div>
             <div className="pf_container" style={{height: height-30}}>
