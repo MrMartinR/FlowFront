@@ -169,6 +169,14 @@ export const UserAccountsDetails = ({
               </TableRow>
             </TableHead>
             <TableBody>
+              {!transactions.length && (
+                <StyledTableRow key={1}>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell>No transaction found.</StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
+                </StyledTableRow>
+              )}
               {transactions.map((row) => (
                 <StyledTableRow key={row.id}>
                   <StyledTableCell align="left">{row.date}</StyledTableCell>
