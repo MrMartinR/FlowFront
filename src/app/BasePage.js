@@ -12,15 +12,6 @@ import { CurrenciesPage } from "./pages/Currency/CurrenciesPage";
 import { PlatformsPage } from "./pages/Platform/PlatformsPage";
 import { UserAccountsPage } from "./pages/UserAccount/UserAccount";
 
-const GoogleMaterialPage = lazy(() =>
-  import("./modules/GoogleMaterialExamples/GoogleMaterialPage")
-);
-const ReactBootstrapPage = lazy(() =>
-  import("./modules/ReactBootstrapExamples/ReactBootstrapPage")
-);
-const ECommercePage = lazy(() =>
-  import("./modules/ECommerce/pages/eCommercePage")
-);
 
 export default function BasePage() {
   // useEffect(() => {
@@ -45,9 +36,6 @@ export default function BasePage() {
         <ContentRoute path="/platforms" component={PlatformsPage} />
         <ContentRoute path="/originators" component={OriginatorsPage} />
         <ContentRoute path="/currencies" component={CurrenciesPage} />
-        <Route path="/google-material" component={GoogleMaterialPage} />
-        <Route path="/react-bootstrap" component={ReactBootstrapPage} />
-        <Route path="/e-commerce" component={ECommercePage} />
         <Redirect to="error/error-v6" />
       </Switch>
     </Suspense>

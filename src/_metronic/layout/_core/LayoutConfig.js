@@ -111,7 +111,10 @@ export function getInitLayoutConfig() {
       fixed: true,
       width: "fluid", // fixed/fluid,
       clear: false,
-      style: "solid" // solid/transparent
+      style: "solid", // solid/transparent
+      breadcrumb: {
+        "display": true
+      }
     },
     content: {
       width: "fixed" // fluid|fixed
@@ -124,7 +127,7 @@ export function getInitLayoutConfig() {
     aside: {
       self: {
         theme: "light", // light/dark
-        display: true,
+        display: false,
         fixed: true,
         minimize: {
           toggle: true, // allow toggle
@@ -158,7 +161,7 @@ export function getInitLayoutConfig() {
     },
     extras: {
       search: {
-        display: true,
+        display: false,
         layout: "dropdown", // offcanvas, dropdown
         offcanvas: {
           direction: "right"
@@ -195,14 +198,14 @@ export function getInitLayoutConfig() {
         }
       },
       languages: {
-        display: true
+        display: false
       },
-      cart: {
-        display: true,
-        dropdown: {
-          style: "dark", // ligth, dark
-        }
-      },
+      // cart: {
+      //   display: false,
+      //   dropdown: {
+      //     style: "dark", // ligth, dark
+      //   }
+      // },
       "quick-panel": {
         display: true,
         offcanvas: {
