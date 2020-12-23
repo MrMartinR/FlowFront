@@ -184,7 +184,7 @@ const CountryPage = (props) => {
                         variant="rounded"
                         alt={row.iso_code}
                         src={toAbsoluteUrl(
-                          `/media/svg/Flags_Mini/${row.iso_code.toLowerCase()}.svg`
+                          `/media/svg/flags/${row.iso_code.toLowerCase()}.svg`
                         )}
                       />
                     </StyledTableCell>

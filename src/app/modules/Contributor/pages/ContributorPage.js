@@ -17,12 +17,12 @@ export function ContributorPage() {
               id="kt_login"
           >
             {/*begin::Aside*/}
-            <div
+            {/* <div
                 className="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10"
                 style={{
                   backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-4.jpg")})`
                 }}
-            >
+            > */}
               {/*begin: Aside Container*/}
               <div className="d-flex flex-row-fluid flex-column justify-content-between">
                 {/* start:: Aside header */}
