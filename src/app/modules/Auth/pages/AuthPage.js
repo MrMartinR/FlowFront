@@ -20,10 +20,10 @@ export function AuthPage() {
           >
             {/*begin::Aside*/}
             <div
-                // className="login-aside flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10 d-none"
-                // style={{
-                //   backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-4.jpg")})`
-                // }}
+                className="login-aside flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10 d-none"
+                style={{
+                  backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-4.jpg")})`
+                }}
             >
               {/*begin: Aside Container*/}
               <div className="d-flex flex-row-fluid flex-column justify-content-between">

@@ -24,9 +24,9 @@ export function HeaderMenuWrapper() {
         };
     }, [uiService]);
     const getHeaderLogo = () => {
-        let result = "flow-logo.svg";
+        let result = "logo-light.svg";
         if (layoutProps.headerSelfTheme && layoutProps.headerSelfTheme !== "dark") {
-            result = "flow-logo.svg";
+            result = "logo-light.svg";
         }
         return toAbsoluteUrl(`/media/logos/${result}`);
     };
@@ -39,7 +39,7 @@ export function HeaderMenuWrapper() {
                     {/*begin::Header Logo*/}
                     <div className="header-logo">
                         <Link to="/">
-                            <img alt="Flow logo" src={getHeaderLogo()}/>
+                            <img alt="logo" src={getHeaderLogo()}/>
                         </Link>
                     </div>
                     {/*end::Header Logo*/}

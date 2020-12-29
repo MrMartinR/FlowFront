@@ -64,7 +64,7 @@ export function getInitLayoutConfig() {
     loader: {
       enabled: true,
       type: "", // default|spinner-message|spinner-logo
-      logo: toAbsoluteUrl("/media/logos/flow-logo.svg"),
+      logo: toAbsoluteUrl("/media/logos/logo-dark-sm.png"),
       message: "Please wait..."
     },
     // page toolbar

@@ -120,11 +120,8 @@ export function AccountsTable() {
       },
     },
   ];
-  //[Martin] wtf is friceFormatter
   function priceFormatter(cell, row) {
-    // return <Image src="../../../../../public/media/logos/flow-logo.svg" />;
-    return <Image src="../../../../../public/favicon-32x32.png" />;
-
+    return <Image src="../../../../../public/media/logos/flow-logo.svg" />;
   }
 
   const sortCustom = (type, { sortField, sortOrder, data }) => {

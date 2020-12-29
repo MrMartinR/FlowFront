@@ -48,9 +48,7 @@ export default function VirtualizedListComponent({
     } else {
       return (
         <ListItem onClick={()=>rowSelected(index)} key={key} className="AccountsListItem" style={style}>
-         
           <ListItemAvatar>
-            
             <Avatar
               // alt={``}
               // src={`/static/images/avatar/1.jpg`}
@@ -59,7 +57,6 @@ export default function VirtualizedListComponent({
               
             </Avatar>
           </ListItemAvatar>
-          
           <ListItemText id={key} primary={list[index].name} />
         </ListItem>
       );
