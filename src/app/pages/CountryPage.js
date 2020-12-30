@@ -1,3 +1,5 @@
+//[REV] failed to refactor to tsx
+
 import React, { useEffect, useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -9,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import { useSubheader } from "../../_metronic/layout";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
-import "./Page.css";
+
 import {
   Card,
   CardBody,
@@ -136,6 +138,7 @@ const CountryPage = (props) => {
 
   return (
     <>
+      {/* Add Country Assistant */}
       <Card>
         <CustomizedSnackbars
           {...snackState}
@@ -144,7 +147,8 @@ const CountryPage = (props) => {
             setSnackState({ open: false });
           }}
         />
-        <CardHeader title="Countries list">
+        <CardHeader title="Add Country Assistant">
+          <CountryForm {...props} formik={formik} />
           <CardHeaderToolbar>
             <button
               type="button"
@@ -155,8 +159,12 @@ const CountryPage = (props) => {
               Add New Country
             </button>
           </CardHeaderToolbar>
-          <CountryForm {...props} formik={formik} />
         </CardHeader>
+      </Card>
+
+      {/* countries list */}
+      <Card>
+        <CardHeader title="Countries list"></CardHeader>
         <CardBody>
           <Paper className={classes.root}>
             <Table className={classes.table}>

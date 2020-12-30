@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "development") {
 
 // if (process.env.NODE_ENV === 'production') {
 // _API_URL = 'https://flowappdev.herokuapp.com'
-_API_URL = "https://api.flowfin.tech";
+_API_URL = "http://localhost:3001";
 // }
 
 export const API_URL = _API_URL;

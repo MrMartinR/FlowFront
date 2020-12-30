@@ -1,10 +1,7 @@
-// import React, { Fragment } from "react";
 import React from "react";
 import { Route } from "react-router-dom";
-// import { CountriesLoadingDialog } from "./countries-loading-dialog/CountriesLoadingDialog";
 import { CountryEditDialog } from "./country-edit-dialog/CountryEditDialog";
 import { CountriesUIProvider } from "./CountriesUIContext";
-// import { CountriesCard } from "./CountriesCard";
 import CountryPage from "../CountryPage";
 
 export function CountriesPage({ history }) {
@@ -15,18 +12,6 @@ export function CountriesPage({ history }) {
     openEditCountryDialog: (id) => {
       history.push(`/countries/${id}/edit`);
     },
-    // openDeleteCountryDialog: (id) => {
-    //   history.push(`/countries/${id}/delete`);
-    // },
-    // openDeleteCountriesDialog: () => {
-    //   history.push(`/countries/deleteCountries`);
-    // },
-    // openFetchCountriesDialog: () => {
-    //   history.push(`/countries/fetch`);
-    // },
-    // openUpdateCountriesStatusDialog: () => {
-    //   history.push("/countries/updateStatus");
-    // }
   };
   return (
     <CountriesUIProvider countriesUIEvents={countriesUIEvents}>

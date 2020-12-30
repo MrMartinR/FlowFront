@@ -20,7 +20,8 @@ const optionsHeaders = () => {
   return options;
 };
 
-const API_URL = "https://api.flowfin.tech";
+const API_URL = "http://localhost:3001";
+// const API_URL = "https://api.flowfin.tech";
 // const API_URL = process.env.API_URL;
 
 // // Works for Accounts

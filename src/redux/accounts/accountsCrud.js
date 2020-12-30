@@ -12,16 +12,16 @@ const optionsHeaders = () => {
       "Content-Type": "application/json; charset=utf-8",
       "access-token": token,
       "token-type": "Bearer",
-      "client": client,
-      "expiry": expiry,
-      "uid": user.email
-    }
+      client: client,
+      expiry: expiry,
+      uid: user.email,
+    },
   };
   return options;
-}
+};
 
-
-const API_URL = 'https://api.flowfin.tech';
+const API_URL = "http://localhost:3001";
+// const API_URL = 'https://api.flowfin.tech';
 // const API_URL = process.env.API_URL;
 export const ACCOUNT_URL = API_URL + "/api/v1/accounts";
 
@@ -43,13 +43,19 @@ export function getAccountById(accountId) {
 // Method from server should return QueryResultsModel(items: any[], totalsCount: number)
 // items => filtered/sorted result
 export function findAccounts({ page, perPage = 10 }) {
-  return axios.get(`${ACCOUNT_URL}?page=${page}&per_page=${perPage}`, optionsHeaders());
+  return axios.get(
+    `${ACCOUNT_URL}?page=${page}&per_page=${perPage}`,
+    optionsHeaders()
+  );
 }
 
 // This works similar to findAccounts. The difference is that rather than replacing existing data,
 // its append new data to existing data. Usefull for implementing infinite list where new data is loaded on demand.
 export function findNextAccounts({ page, perPage = 10 }) {
-  return axios.get(`${ACCOUNT_URL}?page=${page}&per_page=${perPage}`, optionsHeaders());
+  return axios.get(
+    `${ACCOUNT_URL}?page=${page}&per_page=${perPage}`,
+    optionsHeaders()
+  );
 }
 
 // UPDATE => PUT: update the account on the server
@@ -61,7 +67,7 @@ export function updateAccount(account) {
 export function updateStatusForAccounts(ids, status) {
   return axios.post(`${ACCOUNT_URL}/updateStatusForAccounts`, {
     ids,
-    status
+    status,
   });
 }
 

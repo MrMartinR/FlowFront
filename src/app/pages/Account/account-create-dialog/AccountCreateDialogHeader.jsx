@@ -13,27 +13,17 @@ export function AccountCreateDialogHeader({ id }) {
     shallowEqual
   );
 
-  // const [title, setTitle] = useState("");
-  // // Title couting
-  // useEffect(() => {
-  //   let _title = id ? "" : "New Account";
-  //   if (accountForEdit && id) {
-  //     _title = `Edit account ${(
-  //       <Badge variant="secondary">{accountForEdit.name}</Badge>
-  //     )}`;
-  //   }
-
-  //   setTitle(_title);
-  //   // eslint-disable-next-line
-  // }, [accountForEdit, actionsLoading]);
-
   return (
     <>
       {actionsLoading && <ModalProgressBar />}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
           {accountForEdit && id ? (
-            <label> Edit account <Badge variant="secondary">{accountForEdit.name}</Badge></label>
+            <label>
+              {" "}
+              Edit account{" "}
+              <Badge variant="secondary">{accountForEdit.name}</Badge>
+            </label>
           ) : (
             "Create Account"
           )}

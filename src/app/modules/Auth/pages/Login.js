@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -8,7 +8,7 @@ import * as auth from "../_redux/authRedux";
 import { login } from "../_redux/authCrud";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 
 /*
   INTL (i18n) docs:
@@ -34,7 +34,7 @@ function Login(props) {
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
-      .min(3, "Minimum 3 characters")
+      .min(6, "Minimum 6 characters")
       .max(50, "Maximum 50 characters")
       .required(
         intl.formatMessage({
@@ -58,18 +58,6 @@ function Login(props) {
   const disableLoading = () => {
     setLoading(false);
   };
-
-  // const getInputClasses = (fieldname) => {
-  //   if (formik.touched[fieldname] && formik.errors[fieldname]) {
-  //     return "is-invalid";
-  //   }
-
-  //   if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-  //     return "is-valid";
-  //   }
-
-  //   return "";
-  // };
 
   const formik = useFormik({
     initialValues,
@@ -145,7 +133,7 @@ function Login(props) {
 
         <div className="form-group">
           <TextField
-            id="outlined-uncontrolled"
+            // id="outlined-uncontrolled"
             label="Email"
             margin="normal"
             variant="outlined"
@@ -161,7 +149,7 @@ function Login(props) {
         </div>
         <div className="form-group fv-plugins-icon-container">
           <TextField
-            id="outlined-uncontrolled"
+            // id="outlined-uncontrolled"
             label="Password"
             margin="normal"
             variant="outlined"
@@ -175,7 +163,9 @@ function Login(props) {
             </div>
           ) : null}
         </div>
-        <div className="form-group text-right">
+
+        {/* forgot password */}
+        {/* <div className="form-group text-right">
           <Link
             to="/auth/forgot-password"
             className="text-dark-50 text-hover-primary my-3 mr-2"
@@ -183,22 +173,23 @@ function Login(props) {
           >
             <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
           </Link>
-        </div>
+        </div> */}
+
         <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
-          <Link
+          {/* <Link
             to="/auth/registration"
             className="btn btn-primary font-weight-bold px-20 py-4 my-3"
             id="kt_login_signup"
           >
             Sign Up
-          </Link>
+          </Link> */}
           <button
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}
             className={`btn btn-primary font-weight-bold px-20 py-4 my-3`}
           >
-            <span>Login</span>
+            <span>Sign In</span>
             {loading && <span className="ml-3 spinner spinner-white"></span>}
           </button>
         </div>

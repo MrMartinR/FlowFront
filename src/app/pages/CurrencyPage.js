@@ -1,3 +1,5 @@
+//[REV] failed to refactor to tsx
+
 import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -17,7 +19,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import { Card } from "react-bootstrap";
 import TextField from "@material-ui/core/TextField";
-import "./Page.css";
+
 import {
   addCurrency,
   currencyInitialValues,

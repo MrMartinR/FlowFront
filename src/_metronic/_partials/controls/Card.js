@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import clsx from "clsx";
-import {isFragment} from "react-is";
+import { isFragment } from "react-is";
 
 export const CardHeaderIcon = forwardRef(({ className }, ref) => (
   <span ref={ref} className={clsx("card-head-icon", className)} />
@@ -124,7 +124,7 @@ export const CardBody = forwardRef(
         "card-body",
         {
           "card-body-fit": fit,
-          "card-body-fluid": fluid
+          "card-body-fluid": fluid,
         },
         className
       )}

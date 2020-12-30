@@ -86,7 +86,7 @@ function ForgotPassword(props) {
             )}
             <div className="form-group fv-plugins-icon-container">
               <TextField
-                id="outlined-uncontrolled"
+                // id="outlined-uncontrolled"
                 label="Email"
                 margin="normal"
                 variant="outlined"

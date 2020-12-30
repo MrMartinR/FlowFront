@@ -1,11 +1,12 @@
-import React, {createContext} from "react";
-import {useMemo} from "react";
-import {useContext} from "react";
+//[REV] errors renaming to tsx
+import React, { createContext } from "react";
+import { useMemo } from "react";
+import { useContext } from "react";
 
 const I18N_CONFIG_KEY = process.env.REACT_APP_I18N_CONFIG_KEY || "i18nConfig";
 const initialState = {
-    selectedLang: "en"
-  };
+  selectedLang: "en",
+};
 
 function getConfig() {
   const ls = localStorage.getItem(I18N_CONFIG_KEY);

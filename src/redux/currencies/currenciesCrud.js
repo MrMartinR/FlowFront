@@ -12,16 +12,16 @@ const optionsHeaders = () => {
       "Content-Type": "application/json; charset=utf-8",
       "access-token": token,
       "token-type": "Bearer",
-      "client": client,
-      "expiry": expiry,
-      "uid": user.email
-    }
+      client: client,
+      expiry: expiry,
+      uid: user.email,
+    },
   };
   return options;
-}
+};
 
-
-const API_URL = 'https://api.flowfin.tech';
+const API_URL = "http://localhost:3001";
+// const API_URL = 'https://api.flowfin.tech';
 // const API_URL = process.env.API_URL;
 export const CURRENCY_URL = API_URL + "/api/v1/currencies";
 
@@ -41,7 +41,10 @@ export function findAllCurrencies() {
 // Method from server should return QueryResultsModel(items: any[], totalsCount: number)
 // items => filtered/sorted result
 export function findCurrencies({ page, perPage = 10 }) {
-  return axios.get(`${CURRENCY_URL}?page=${page}&per_page=${perPage}`, optionsHeaders());
+  return axios.get(
+    `${CURRENCY_URL}?page=${page}&per_page=${perPage}`,
+    optionsHeaders()
+  );
 }
 
 // UPDATE => PUT: update the currency on the server
@@ -53,7 +56,7 @@ export function updateCurrency(currency) {
 export function updateStatusForCurrencies(ids, status) {
   return axios.post(`${CURRENCY_URL}/updateStatusForCurrencies`, {
     ids,
-    status
+    status,
   });
 }
 
