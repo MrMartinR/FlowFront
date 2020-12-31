@@ -4,7 +4,7 @@
  * @returns {Boolean}
  */
 export const hasValue = (value) => {
-  return !["", undefined, null].includes(value) ? true : false;
+    return !['', undefined, null].includes(value) ? true : false;
 };
 
 /**
@@ -13,7 +13,7 @@ export const hasValue = (value) => {
  * @return {string}
  */
 export const getUrlFromSvgString = (string) => {
-  let blob = new Blob([string], { type: "image/svg+xml" });
-  let url = URL.createObjectURL(blob);
-  return url;
+    let blob = new Blob([string], { type: 'image/svg+xml' });
+    let url = URL.createObjectURL(blob);
+    return url;
 };

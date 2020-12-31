@@ -1,16 +1,12 @@
 {
-  "name": "flow_app",
+  "name": "flow",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start -o",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint src",
-    "format": "prettier --write \"src/**/*.{js,css,scss,html}\"",
-    "rtl": "webpack",
-    "heroku-postbuild": "npm run build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -19,15 +15,13 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all",
-      "ie 11"
+      "not op_mini all"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version",
-      "last 1 edge version",
-      "IE 11"
+      "last 1 edge version"
     ]
   },
   "dependencies": {
@@ -46,7 +40,6 @@
     "@tanem/svg-injector": "8.0.50",
     "apexcharts": "3.19.2",
     "axios": "0.19.2",
-    "axios-mock-adapter": "1.18.1",
     "bootstrap": "4.5.0",
     "clipboard-copy": "3.1.0",
     "clsx": "1.1.0",
@@ -78,7 +71,7 @@
     "react-portal": "4.2.0",
     "react-redux": "7.1.3",
     "react-router-dom": "5.1.2",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "4.0.1",
     "react-select": "3.1.0",
     "react-swipeable-views": "0.13.9",
     "react-syntax-highlighter": "12.2.1",
@@ -101,7 +94,6 @@
     "@types/react-router-dom": "^5.1.6",
     "copyfiles": "2.1.1",
     "node-sass": "^4.14.1",
-    "prettier": "1.19.1",
     "serve": "^11.2.0",
     "typescript": "^4.1.3",
     "webpack-cli": "3.3.11",
