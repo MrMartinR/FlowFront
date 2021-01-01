@@ -27,11 +27,11 @@ export default function VirtualizedListComponent({
   // Every row is loaded except for our loading indicator row.
   const isRowLoaded = ({index}) => !hasNextPage || index < list.length;
 
-  const getUrlFromSvgString = (string) => {
-    let blob = new Blob([string], {type: 'image/svg+xml'});
-    let url = URL.createObjectURL(blob);
-    return url;
-  }
+  // const getUrlFromSvgString = (string) => {
+  //   let blob = new Blob([string], {type: 'image/svg+xml'});
+  //   let url = URL.createObjectURL(blob);
+  //   return url;
+  // }
 
   const rowSelected = (index) => {
     setSelectedItemIndex(index)
@@ -42,26 +42,25 @@ export default function VirtualizedListComponent({
     if (!isRowLoaded({index})) {
       return (
         <ListItem key={key} className="AccountsListItem" style={{...style, justifyContent: "center"}}>
-          <CircularProgress className="splash-screen-spinner"/>
-        </ListItem>
+          <CircularProgress className="splash-screen-spinner"/>  loading
+        </ListItem> 
       );
     } else {
       return (
         <ListItem onClick={()=>rowSelected(index)} key={key} className="AccountsListItem" style={style}>
          
           <ListItemAvatar>
-            
             <Avatar
               // alt={``}
               // src={`/static/images/avatar/1.jpg`}
-              src={getUrlFromSvgString(list[index].account.icon)}
-            > 
-              
-            </Avatar>
+              src={''}
+             /> 
           </ListItemAvatar>
           
-          <ListItemText id={key} primary={list[index].name} />
-        </ListItem>
+          <ListItemText id={key} primary={list[index].category} />
+          {/* there is no name field anymore testing with category field until not get the name from contacts*/}
+          {/* <ListItemText id={key} primary={list[index].name} /> */}
+        </ListItem> 
       );
     }
   };
@@ -78,7 +77,7 @@ export default function VirtualizedListComponent({
           rowRenderer={rowRenderer}
           rowCount={rowCount}
           height={listHeight-70}
-          rowHeight={60}
+          rowHeight={50}
           width={250}
         />
       )}

@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 import * as auth from '../app/modules/Auth/_redux/authRedux';
 import { userAccountsSlice } from './userAccounts/userAccountsSlice';
+import { contactsSlice } from '../app/pages/Contacts/state/contactsSlice';
 import { accountsSlice } from './accounts/accountsSlice';
 import { countriesSlice } from './countries/countriesSlice';
 import { currenciesSlice } from './currencies/currenciesSlice';
@@ -11,6 +12,7 @@ import { iconsSlice } from './icons/iconsSlice';
 
 export const rootReducer = combineReducers({
     userAccounts: userAccountsSlice.reducer,
+    contacts: contactsSlice.reducer,
     accounts: accountsSlice.reducer,
     auth: auth.reducer,
     countries: countriesSlice.reducer,

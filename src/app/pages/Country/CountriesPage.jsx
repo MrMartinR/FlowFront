@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { CountryEditDialog } from "./country-edit-dialog/CountryEditDialog";
 import { CountriesUIProvider } from "./CountriesUIContext";
-import CountryPage from "../CountryPage";
+import CountryPage from "./CountryPage";
 
 export function CountriesPage({ history }) {
   const countriesUIEvents = {
