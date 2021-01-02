@@ -11,7 +11,6 @@ import * as _redux from './redux';
 import store, { persistor } from './redux/store';
 import App from './app/App';
 import './index.scss'; // Standard version
-// import "./sass/style.react.rtl.css"; // RTL version
 import './_metronic/_assets/plugins/keenthemes-icons/font/ki.css';
 import 'socicon/css/socicon.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -46,6 +45,8 @@ const { PUBLIC_URL } = process.env;
 _redux.setupAxios(axios, store);
 
 ReactDOM.render(
+    // StrictMode is a tool for highlighting potential problems in an application in development. 
+    <React.StrictMode>
     <MetronicI18nProvider>
         <MetronicLayoutProvider>
             <MetronicSubheaderProvider>
@@ -54,6 +55,7 @@ ReactDOM.render(
                 </MetronicSplashScreenProvider>
             </MetronicSubheaderProvider>
         </MetronicLayoutProvider>
-    </MetronicI18nProvider>,
+    </MetronicI18nProvider>
+    </React.StrictMode>,
     document.getElementById('root'),
 );

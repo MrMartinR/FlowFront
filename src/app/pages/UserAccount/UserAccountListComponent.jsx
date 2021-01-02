@@ -1,6 +1,5 @@
-import { Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import React from 'react';
-
+import { Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import { InfiniteLoader, List } from "react-virtualized"
 
 
@@ -27,12 +26,6 @@ export default function VirtualizedListComponent({
   // Every row is loaded except for our loading indicator row.
   const isRowLoaded = ({index}) => !hasNextPage || index < list.length;
 
-  // const getUrlFromSvgString = (string) => {
-  //   let blob = new Blob([string], {type: 'image/svg+xml'});
-  //   let url = URL.createObjectURL(blob);
-  //   return url;
-  // }
-
   const rowSelected = (index) => {
     setSelectedItemIndex(index)
   }
@@ -41,22 +34,20 @@ export default function VirtualizedListComponent({
 
     if (!isRowLoaded({index})) {
       return (
-        <ListItem key={key} className="AccountsListItem" style={{...style, justifyContent: "center"}}>
-          <CircularProgress className="splash-screen-spinner"/>  loading
+        <ListItem key={key} className="UserAccountsListItem" style={{...style, justifyContent: "center"}}>
+          <CircularProgress className="splash-screen-spinner"/>
         </ListItem> 
       );
     } else {
       return (
-        <ListItem onClick={()=>rowSelected(index)} key={key} className="AccountsListItem" style={style}>
-         
+        <ListItem onClick={()=>rowSelected(index)} key={key} className="UserAccountsListItem" style={style}>
           <ListItemAvatar>
             <Avatar
               // alt={``}
               // src={`/static/images/avatar/1.jpg`}
               src={''}
-             /> 
+             />
           </ListItemAvatar>
-          
           <ListItemText id={key} primary={list[index].name} />
         </ListItem> 
       );

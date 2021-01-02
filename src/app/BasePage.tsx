@@ -3,7 +3,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import { LayoutSplashScreen, ContentRoute } from '../_metronic/layout';
 import { DashboardPage } from './pages/DashboardPage';
 import { SettingPage } from './pages/SettingPage';
-import { Contacts } from './pages/Contacts';
+import { Contacts } from './pages/Contact';
 import { AccountsPage } from './pages/Account/AccountsPage';
 import { CountriesPage } from './pages/Country/CountriesPage';
 import { LendingPage } from './pages/LendingPage.js';

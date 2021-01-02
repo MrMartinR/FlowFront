@@ -77,7 +77,7 @@ export function getInitLayoutConfig() {
                 theme: 'light', // light|dark
                 fixed: {
                     desktop: true,
-                    mobile: true,
+                    // mobile: false,
                 },
             },
             menu: {
@@ -85,7 +85,7 @@ export function getInitLayoutConfig() {
                     display: true,
                     layout: 'default', // tab/default
                     'root-arrow': false,
-                    'icon-style': 'duotone', // duotone, line, bold, solid
+                    'icon-style': 'line', // duotone, line, bold, solid
                 },
                 desktop: {
                     arrow: true,
@@ -117,7 +117,7 @@ export function getInitLayoutConfig() {
             },
         },
         content: {
-            width: 'fixed', // fluid|fixed
+            width: 'fluid', // fluid|fixed
         },
         brand: {
             self: {

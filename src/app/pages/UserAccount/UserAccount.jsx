@@ -92,18 +92,7 @@ export const UserAccountsPage = ({ history }) => {
     openEditAccountDialog: (id) => {
       history.push(`/user_accounts/${id}/edit`);
     },
-    // openDeleteAccountDialog: (id) => {
-    //   history.push(`/accounts/${id}/delete`);
-    // },
-    // openDeleteAccountsDialog: () => {
-    //   history.push(`/accounts/deleteAccounts`);
-    // },
-    // openFetchAccountsDialog: () => {
-    //   history.push(`/accounts/fetch`);
-    // },
-    // openUpdateAccountsStatusDialog: () => {
-    //   history.push("/accounts/updateStatus");
-    // }
+
   };
 
   return (
