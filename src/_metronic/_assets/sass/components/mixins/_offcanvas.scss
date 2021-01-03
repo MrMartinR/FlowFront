@@ -31,9 +31,6 @@
       left: 0;
     }
 
-    @include for-ie11 {
-      transition: none !important;
-    }
   }
 
   @if $width != null {

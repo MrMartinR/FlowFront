@@ -7,14 +7,12 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { useSubheader } from '../../../_metronic/layout';
 import { useFormik } from 'formik';
 import { connect } from 'react-redux';
-
 import { Card, CardBody, CardHeader, CardHeaderToolbar } from '../../../_metronic/_partials/controls';
 import CountryForm from './CountryForm';
-import { addCountry, CountrySchema, getAllCountries } from '../../actions/countryActions';
+import { addCountry, CountrySchema, getAllCountries } from './countryActions';
 import { Avatar } from '@material-ui/core';
 import { toAbsoluteUrl } from '../../../_metronic/_helpers';
 import CustomizedSnackbars from '../../utils/snackbar';
@@ -157,7 +155,6 @@ const CountryPage = (props) => {
             <Card>
                 <CardHeader title="Countries list"></CardHeader>
                 <CardBody>
-                    <Paper className={classes.root}>
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
@@ -198,7 +195,6 @@ const CountryPage = (props) => {
                                 ))}
                             </TableBody>
                         </Table>
-                    </Paper>
                 </CardBody>
             </Card>
             <Card></Card>

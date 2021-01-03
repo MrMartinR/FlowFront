@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from './../modules/Auth/_redux/authCrud';
+import { API_URL } from '../../modules/Auth/_redux/authCrud';
 import * as Yup from 'yup';
 
 // [REV] put the headers in a let statement??

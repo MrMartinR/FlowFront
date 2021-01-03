@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import { toAbsoluteUrl } from '../../_metronic/_helpers';
-// import { Form, InputGroup, Col, Row, Image } from "react-bootstrap";
 import { Form, Col, Row } from 'react-bootstrap';
 import { useSubheader } from '../../_metronic/layout';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { getAllCountries } from '../actions/countryActions';
+import { getAllCountries } from './Country/countryActions';
 import { getUserProfile, updateProfile } from '../actions/userActions';
 import { useSelector } from 'react-redux';
 import { getAllCurrencies } from '../actions/currencyActions';

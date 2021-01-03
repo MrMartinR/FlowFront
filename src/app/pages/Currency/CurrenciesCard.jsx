@@ -12,11 +12,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
-import Paper from "@material-ui/core/Paper";
-// import { CurrenciesFilter } from "./currencies-filter/CurrenciesFilter";
-// import { CurrenciesTable } from "./currencies-table/CurrenciesTable";
-// import { CurrenciesGrouping } from "./currencies-grouping/CurrenciesGrouping";
-// import { useCurrenciesUIContext } from "./CurrenciesUIContext";
 import { withStyles, makeStyles } from "@material-ui/styles";
 import { API_URL } from "../../modules/Auth/_redux/authCrud";
 import {
@@ -171,7 +166,6 @@ export function CurrenciesCard(props) {
         />
       </CardHeader>
       <CardBody>
-        <Paper className={classes.root}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -196,7 +190,6 @@ export function CurrenciesCard(props) {
               ))}
             </TableBody>
           </Table>
-        </Paper>
       </CardBody>
     </Card>
   );

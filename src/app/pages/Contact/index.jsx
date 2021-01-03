@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ContactsUIProvider } from "./ContactsUIContext";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
 import { ContactsList } from "./ContactList";

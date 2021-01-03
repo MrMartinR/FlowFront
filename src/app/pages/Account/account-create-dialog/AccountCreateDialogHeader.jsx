@@ -1,7 +1,6 @@
 import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Modal, Badge } from "react-bootstrap";
-import { ModalProgressBar } from "../../../../_metronic/_partials/controls";
 
 export function AccountCreateDialogHeader({ id }) {
   // Account Redux state
@@ -15,7 +14,7 @@ export function AccountCreateDialogHeader({ id }) {
 
   return (
     <>
-      {actionsLoading && <ModalProgressBar />}
+      {actionsLoading}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
           {accountForEdit && id ? (

@@ -1,7 +1,6 @@
 import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Modal, Badge } from "react-bootstrap";
-import { ModalProgressBar } from "../../../../_metronic/_partials/controls";
 
 export function CurrencyEditDialogHeader({ id }) {
   // Currency Redux state
@@ -13,23 +12,10 @@ export function CurrencyEditDialogHeader({ id }) {
     shallowEqual
   );
 
-  // const [title, setTitle] = useState("");
-  // // Title couting
-  // useEffect(() => {
-  //   let _title = id ? "" : "New Currency";
-  //   if (currencyForEdit && id) {
-  //     _title = `Edit currency ${(
-  //       <Badge variant="secondary">{currencyForEdit.name}</Badge>
-  //     )}`;
-  //   }
-
-  //   setTitle(_title);
-  //   // eslint-disable-next-line
-  // }, [currencyForEdit, actionsLoading]);
 
   return (
     <>
-      {actionsLoading && <ModalProgressBar />}
+      {actionsLoading}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
           {currencyForEdit && id ? (

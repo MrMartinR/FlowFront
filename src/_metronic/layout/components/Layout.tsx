@@ -4,7 +4,6 @@ import objectPath from 'object-path';
 import { useHtmlClassService } from '../_core/MetronicLayout';
 // Import Layout components
 import { Header } from './header/Header';
-import { HeaderMobile } from './header-mobile/HeaderMobile';
 import { LayoutInit } from './LayoutInit';
 import { SubHeader } from './subheader/SubHeader';
 
@@ -27,7 +26,6 @@ export function Layout({ children }: any) {
     return layoutProps.selfLayout !== 'blank' ? (
         <>
             {/*begin::Main*/}
-            <HeaderMobile />
             <div className="d-flex flex-column flex-root">
                 {/*begin::Page*/}
                 <div className="d-flex flex-row flex-column-fluid page">

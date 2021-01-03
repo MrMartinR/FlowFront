@@ -28,10 +28,6 @@
             flex: 1 auto;
             -ms-flex: 1 0 0px;  // IE10-11 fix
             min-width: 0;
-
-            @include for-ie11 {
-                min-width: none;  // IE10-11 fix
-            }
         }
 
     	// Center

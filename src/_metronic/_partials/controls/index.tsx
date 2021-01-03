@@ -16,4 +16,3 @@ export { PaginationToolbar } from './pagination/PaginationToolbar';
 export * from './Card';
 export { SVGIcon } from './SVGIcon';
 export { LoadingDialog } from './LoadingDialog';
-export { ModalProgressBar } from './ModalProgressBar';

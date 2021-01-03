@@ -15,8 +15,6 @@ export function CountriesPage({ history }) {
   };
   return (
     <CountriesUIProvider countriesUIEvents={countriesUIEvents}>
-      {/* <CountriesLoadingDialog /> */}
-
       <Route path="/">
         {({ history, match }) => (
           <CountryPage

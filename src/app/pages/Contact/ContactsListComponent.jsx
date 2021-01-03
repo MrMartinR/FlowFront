@@ -27,12 +27,6 @@ export default function VirtualizedList({
   // Every row is loaded except for our loading indicator row.
   const isRowLoaded = ({index}) => !hasNextPage || index < list.length;
 
-  const getUrlFromSvgString = (string) => {
-    let blob = new Blob([string], {type: 'image/svg+xml'});
-    let url = URL.createObjectURL(blob);
-    return url;
-  }
-
   const rowSelected = (index) => {
     setSelectedItemIndex(index)
   }

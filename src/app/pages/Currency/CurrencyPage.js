@@ -9,9 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useSubheader } from '../../_metronic/layout';
+import { useSubheader } from '../../../_metronic/layout';
 import { useFormik } from 'formik';
 // import * as Yup from "yup";
 import { connect } from 'react-redux';
@@ -20,7 +19,7 @@ import Button from '@material-ui/core/Button';
 import { Card } from 'react-bootstrap';
 import TextField from '@material-ui/core/TextField';
 
-import { addCurrency, currencyInitialValues, CurrencySchema, getAllCurrencies } from '../actions/currencyActions';
+import { addCurrency, currencyInitialValues, CurrencySchema, getAllCurrencies } from '../../actions/currencyActions';
 
 // const SAPI_URL = "";
 const StyledTableCell = withStyles((theme) => ({
@@ -75,7 +74,6 @@ const CurrencyPage = (props) => {
     return (
         <>
             <CurrencyForm props={props.auth} setRows={setRows} />
-            <Paper className={classes.root}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -102,7 +100,6 @@ const CurrencyPage = (props) => {
                         ))}
                     </TableBody>
                 </Table>
-            </Paper>
         </>
     );
 };

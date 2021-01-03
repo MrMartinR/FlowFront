@@ -65,10 +65,6 @@ export const UserAccountsDetails = ({
     setTransactions(currTransaction);
   }, [selectedItemIndex]);
 
-  const userIcon =
-    selectedUserAccount.account && selectedUserAccount.account.icon
-      ? selectedUserAccount.account.icon
-      : null;
 
   const showValue = (value, classes) => (
     <span className="symbol symbol-light-success">
