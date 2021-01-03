@@ -5,7 +5,7 @@ export const ContactMethods = () => {
 
 
   return (
-    <Card style={{ marginLeft: "1rem", width: "40%", height: "50%", minWidth: "300px", height: "400px" }}>
+    <Card style={{ marginLeft: "1rem", width: "50%", height: "100%", minWidth: "300px", minHeight: "300px" }}>
       <CardHeader title="Contact Methods" >
         <CardHeaderToolbar>
           <button>

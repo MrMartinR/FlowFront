@@ -5,21 +5,12 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../../_metronic/_partials/controls";
-import { makeStyles } from "@material-ui/styles";
 
-const ContactDetails = () => {
-    const classes = makeStyles((theme) => ({
-      root: {
-         width: "100%",
-         marginTop: theme.spacing(3),
-         overflowX: "auto",
-        },
-    }))();
 
+const IndividualDetails = () => {
 
   return (
-    <Card style={{ marginLeft: "1rem", width: "40%", minWidth: "300px"}}>
-    {/* <Card style={{ marginLeft: "1rem", width: "40%", minWidth: "300px" }}> */}
+    <Card style={{ marginLeft: "1rem", width: "50%", minHeight: "300px", minWidth: "350px"}}>
       <CardHeader className="pr-0 ">
         <CardHeaderToolbar className="w-100">
 
@@ -27,6 +18,10 @@ const ContactDetails = () => {
       </CardHeader>
 
       <CardBody>
+            {/* <ContactName
+          primary={selectedContact.name}
+          style={{ marginTop: "1rem",}}
+        /> */}
          <p>individuals</p>
       </CardBody>
     </Card>
@@ -34,9 +29,10 @@ const ContactDetails = () => {
 };
 
 
-export default function IndividualDetails(){
+// exports the component to use in the ContactsDetails component
+export default IndividualDetails;
 
-  return (
-    <ContactDetails />
-  )
+// Set display names of the componebnt for debugging.
+if (process.env.NODE_ENV !== 'production') {
+  IndividualDetails.displayName = "IndividualDetails";
 }

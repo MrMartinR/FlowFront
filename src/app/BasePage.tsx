@@ -32,7 +32,8 @@ export default function basePage() {
                 <ContentRoute path="/platforms" component={PlatformsPage} />
                 <ContentRoute path="/originators" component={OriginatorsPage} />
                 <ContentRoute path="/currencies" component={CurrenciesPage} />
-                <Redirect to="error/error-v6" />
+                <Redirect to="error" />
+                {/* <Redirect to="error/error" /> */}
             </Switch>
         </Suspense>
     );

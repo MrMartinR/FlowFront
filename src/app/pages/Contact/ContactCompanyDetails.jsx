@@ -5,39 +5,32 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../../_metronic/_partials/controls";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/styles";
-import { ListItemText as ContactName} from "@material-ui/core";
 
 
-export const CompanyDetails = ({ selectedContact }) => {
-    const classes = makeStyles((theme) => ({
-      root: {
-         width: "100%",
-         marginTop: theme.spacing(3),
-         overflowX: "auto",
-        },
-    }))();
-
-
+const CompanyDetails = () => {
+   
   return (
-    <Card style={{ marginLeft: "1rem", width: "40%", height: "50%", minWidth: "300px" }}>
-       <CardHeader className="pr-0 ">
+    <Card style={{ marginLeft: "1rem", width: "50%", minHeight: "300px", minWidth: "350px" }}>
+       <CardHeader className="pr-0">
           <CardHeaderToolbar className="w-100">
-                {/* <ContactName
-                      primary={selectedContact.trade_name}
-                      style={{ marginTop: "1rem",}}
-                    /> */}
          </CardHeaderToolbar>
         </CardHeader>
         <CardBody>
+              {/* <ContactName
+          primary={selectedContact.trade_name}
+          style={{ marginTop: "1rem",}}
+        /> */}
           <p>Company</p>
         </CardBody>
     </Card>
   );
 };
 
-// display the name of the component for debugging purposes
-CompanyDetails.displayName = "CompanyDetails";
 
+// exports the component to use in the ContactsDetails component
 export default CompanyDetails;
+
+// Set display names of the componebnt for debugging.
+if (process.env.NODE_ENV !== 'production') {
+  CompanyDetails.displayName = "CompanyDetails";
+}

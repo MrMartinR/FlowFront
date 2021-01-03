@@ -1,13 +1,13 @@
 //
-// Login 4
+// Login 3
 // Pages SASS files are compiled into separate css files
 //
 
 
 // Initialization of global variables, mixins and functions
-@import "../../init";
+// @import "../../init";
 
-.login.login-4 {
+.login.login-3 {
     // Form modes
     .login-signin,
     .login-signup,
@@ -56,11 +56,7 @@
             display: block;
         }
     }
-}
-
-// Desktop view
-@include media-breakpoint-up(lg) {
-    .login.login-4 {
+    .login.login-3 {
         .login-aside {
             width: 100%;
             max-width: 600px;
@@ -68,38 +64,7 @@
 
         .login-form {
             width: 100%;
-            max-width: 400px;
-        }
-    }
-}
-
-// Tablet and Mobile mode
-@include media-breakpoint-between(lg, xl) {
-    .login.login-4 {
-        .login-aside {
-            width: 100%;
-            max-width: 400px;
-        }
-    }
-}
-
-// Tablet mode
-@include media-breakpoint-down(md) {
-    .login.login-4 {
-        .login-form {
-            width: 100%;
-            max-width: 350px;
-        }
-    }
-}
-
-// Mobile mode
-@include media-breakpoint-down(xs) {
-    .login.login-4 {
-
-        .login-form {
-            width: 100%;
-            max-width: 100%;
+            max-width: 450px;
         }
     }
 }

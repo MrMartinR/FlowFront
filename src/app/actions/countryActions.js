@@ -2,6 +2,21 @@ import axios from 'axios';
 import { API_URL } from './../modules/Auth/_redux/authCrud';
 import * as Yup from 'yup';
 
+// [REV] put the headers in a let statement??
+// [REV] fullname prop on headers??
+
+// get the data from the API countries table
+export const getAllCountries = (headerPara) => {
+    return axios.get(`${API_URL}/api/v1/countries?page=1`, {
+        headers: {
+            'access-token': headerPara.authToken,
+            client: headerPara.client,
+            uid: headerPara.user.fullname,
+            expiry: headerPara.expiry,
+        },
+    });
+};
+
 export const addCountry = (headerPara, values) => {
     return axios.post(
         `${API_URL}/api/v1/countries`,
@@ -17,17 +32,7 @@ export const addCountry = (headerPara, values) => {
     );
 };
 
-export const getAllCountries = (headerPara) => {
-    return axios.get(`${API_URL}/api/v1/countries?page=1`, {
-        headers: {
-            'access-token': headerPara.authToken,
-            client: headerPara.client,
-            uid: headerPara.user.fullname,
-            expiry: headerPara.expiry,
-        },
-    });
-};
-
+// [REV] what is this validation symbols??
 export const CountrySchema = Yup.object().shape({
     continent: Yup.string()
         .min(2, 'Minimum 2 symbols')
