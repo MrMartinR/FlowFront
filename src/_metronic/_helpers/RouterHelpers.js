@@ -1,14 +1,14 @@
-import * as utils from "./LocalStorageHelpers";
+import * as utils from './LocalStorageHelpers';
 
-const localStorageLastLocationKey = "metronic-lastLocation";
+const localStorageLastLocationKey = 'metronic-lastLocation';
 
 function acceptLocation(lastLocation) {
     if (
         lastLocation &&
         lastLocation.pathname &&
-        lastLocation.pathname !== "/" &&
-        lastLocation.pathname.indexOf("auth") === -1 &&
-        lastLocation.pathname !== "/logout"
+        lastLocation.pathname !== '/' &&
+        lastLocation.pathname.indexOf('auth') === -1 &&
+        lastLocation.pathname !== '/logout'
     ) {
         return true;
     }
@@ -18,11 +18,7 @@ function acceptLocation(lastLocation) {
 
 export function saveLastLocation(lastLocation) {
     if (acceptLocation(lastLocation)) {
-        utils.setStorage(
-            localStorageLastLocationKey,
-            JSON.stringify(lastLocation),
-            120
-        );
+        utils.setStorage(localStorageLastLocationKey, JSON.stringify(lastLocation), 120);
     }
 }
 
@@ -31,10 +27,10 @@ export function forgotLastLocation() {
 }
 
 export function getLastLocation() {
-    const defaultLocation = { pathname: "/", title: "Dashboard"};
+    const defaultLocation = { pathname: '/', title: 'Dashboard' };
     const localStorateLocations = utils.getStorage(localStorageLastLocationKey);
     if (!localStorateLocations) {
-        return { pathname: "/", title: "Dashboard"};
+        return { pathname: '/', title: 'Dashboard' };
     }
 
     try {
@@ -53,11 +49,11 @@ export function getCurrentUrl(location) {
 export function checkIsActive(location, url) {
     const current = getCurrentUrl(location);
     if (!current || !url) {
-        return  false;
+        return false;
     }
 
     if (current === url) {
-        return  true;
+        return true;
     }
 
     if (current.indexOf(url) > -1) {

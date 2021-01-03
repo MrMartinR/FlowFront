@@ -516,8 +516,9 @@ $input-solid-placeholder-color:                     $input-placeholder-color;  /
 $input-solid-color:                              	$dark-75; // Custom variable
 
 // Forms
-$form-group-margin-bottom:                          1.75rem !default;
-$form-label-font-size:                              1rem !default; // Custom variable
+$form-group-margin-bottom:                          1rem !default;
+$form-label-font-size:                              14px !default; // Custom variable
+// $form-label-font-size:                              1rem !default; // Custom variable
 $form-label-font-weight:                            400 !default; // Custom variable
 $form-feedback-font-size:                           0.9rem !default; // Custom variable
 $form-feedback-font-weight:                         400 !default; // Custom variable

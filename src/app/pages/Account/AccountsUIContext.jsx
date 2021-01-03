@@ -30,11 +30,11 @@ export function AccountsUIProvider({ accountsUIEvents, children }) {
 
   const initAccount = {
     id: undefined,
-    currency_id: '',
-    country_id: '',
+    currency_id: [],
+    country_id: [],
     category: '',
     name: '',
-    icon: '',
+    icon: null,
     created_at: '',
     updated_at: '',
     platform_id: '',

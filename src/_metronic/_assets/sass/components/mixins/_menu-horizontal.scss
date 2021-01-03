@@ -820,20 +820,11 @@
 						display: block;
 						animation: #{get($config, base, class)}-submenu-fade-in .3s ease 1, #{get($config, base, class)}-submenu-move-down .3s ease-out 1;
 
-						// ie8-11 versions hack
-                    	@include for-ie11 {
-                        	animation: none;
-                    	}
-
 						> .menu-subnav > .menu-item.menu-item-hover {
 							> .menu-submenu {
 								display: block;
 								animation: #{get($config, base, class)}-submenu-fade-in .3s ease 1, #{get($config, base, class)}-submenu-move-up .3s ease-out 1;
 
-								// ie8-11 versions hack
-                    			@include for-ie11 {
-                        			animation: none;
-                    			}
 							}
 						}
 					}

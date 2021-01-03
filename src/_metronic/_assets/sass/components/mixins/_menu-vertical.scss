@@ -869,10 +869,6 @@
 					 		top: auto;
 					 		bottom: get($layout, dropdown, item, submenu, self, offset, inner, up);
 					 		animation: #{get($base-config, class)}-submenu-fade-in .3s ease 1, #{get($base-config, class)}-submenu-move-down .3s ease-out 1;
-
-	                    	@include for-ie11 {
-	                        	animation: none;
-	                    	}
 					 	}
 
 						.menu-subnav {

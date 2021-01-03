@@ -2,12 +2,15 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React, { Fragment } from "react";
-import { Modal, Container, Row, Col, Image } from "react-bootstrap";
+import React, { Fragment, useState } from "react";
+import { Modal, Container, Row, Col } from "react-bootstrap";
 import { withFormik } from "formik";
 import * as Yup from "yup";
 import { MultiSelect } from "../../../sharedComponents/searchSelect";
 import { Input } from "../../../sharedComponents/inputShared";
+import { Avatar, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
     id: Yup.string().nullable(),
@@ -61,7 +64,31 @@ const formikEnhancer = withFormik({
   displayName: "MyForm",
 });
 
+const useStyles = makeStyles({
+  avatarContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  bigAvatar: {
+    margin: 10,
+    width: "10rem",
+    height: "10rem",
+  },
+  input: {
+    display: 'none'
+  }
+});
+
+
 export const AccountEditForm = (props) => {
+  
+  const getUrlFromSvgString = (string) => {
+    let blob = new Blob([string], {type: 'image/svg+xml'});
+    let url = URL.createObjectURL(blob);
+    return url;
+  }
+  const classes = useStyles();
   const {
     values,
     touched,
@@ -75,6 +102,30 @@ export const AccountEditForm = (props) => {
     actionsLoading,
     onHide,
   } = props;
+
+  const [ iconData, setIconData ] = useState(null)
+
+  const fileUploaded = (e) => {
+    // console.log(e.target.files);
+    var fr=new FileReader(); 
+    fr.onload=function(){ 
+      // console.log("INN");
+      // console.log(fr.result);
+      let data = fr.result;
+      let index = data.indexOf("<svg");
+      if (index < 0) {
+        return;
+      }
+      if (index !== 0) {
+        data = data.substring(index) // removing extra text from the start of file.
+      }
+      // console.log(data);
+      setIconData(data)
+    } 
+      
+    fr.readAsText(e.target.files[0]); 
+  }
+
   return (
     <Fragment>
       <Modal.Body className="overlay overlay-block">
@@ -108,21 +159,31 @@ export const AccountEditForm = (props) => {
                   // addClass={["col-md-5", "col-xs-12"]}
                 />
               </Col>
-              <Col sm={4}>
-                <Image src="holder.js/171x180" thumbnail />
+              <Col sm={4} className={classes.avatarContainer}>
+                {iconData ? 
+                  <Avatar
+                    className={classes.bigAvatar}
+                    src={getUrlFromSvgString(iconData)}
+                    /> 
+                    :
+                  <Avatar
+                    className={classes.bigAvatar}
+                    />
+                }
+                <input
+                  accept="image/svg+xml"
+                  className={classes.input}
+                  id="contained-button-file"
+                  type="file"
+                  onChange={fileUploaded}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button variant="contained" color="primary" component="span">
+                    Upload
+                  </Button>
+                </label>
+                {/* <Image src="/static/images/avatar/1.jpg" thumbnail /> */}
               </Col>
-            </Row>
-            <Row>
-            <MultiSelect
-                value={values.platform_id}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-                error={errors.platform_id}
-                touched={touched.platform_id}
-                multi={true}
-                name="Platform"
-                addClass={["col-md-5", "col-xs-12"]}
-              />
             </Row>
             <Row>
               <MultiSelect
@@ -133,8 +194,10 @@ export const AccountEditForm = (props) => {
                 touched={touched.countries}
                 name="countries"
                 multi={true}
-                addClass={["col-md-5", "col-xs-12"]}
+                addClass={["col-md-8", "col-xs-12"]}
               />
+            </Row>
+            <Row>
               <MultiSelect
                 value={values.currency}
                 onChange={setFieldValue}
@@ -143,17 +206,7 @@ export const AccountEditForm = (props) => {
                 touched={touched.currency}
                 multi={true}
                 name="currency"
-                addClass={["col-md-5", "col-xs-12"]}
-              />
-              <MultiSelect
-                value={values.platform_id}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-                error={errors.platform_id}
-                touched={touched.platform_id}
-                multi={true}
-                name="Platform"
-                addClass={["col-md-5", "col-xs-12"]}
+                addClass={["col-md-8", "col-xs-12"]}
               />
             </Row>
           </Container>

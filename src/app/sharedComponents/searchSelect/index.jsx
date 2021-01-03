@@ -3,14 +3,14 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { Form } from "react-bootstrap";
 
-const options = [
-  { value: "Food", label: "Food" },
-  { value: "Being Fabulous", label: "Being Fabulous" },
-  { value: "Ken Wheeler", label: "Ken Wheeler" },
-  { value: "ReasonML", label: "ReasonML" },
-  { value: "Unicorns", label: "Unicorns" },
-  { value: "Kittens", label: "Kittens" },
-];
+// const options = [
+//   { value: "Food", label: "Food" },
+//   { value: "Being Fabulous", label: "Being Fabulous" },
+//   { value: "Ken Wheeler", label: "Ken Wheeler" },
+//   { value: "ReasonML", label: "ReasonML" },
+//   { value: "Unicorns", label: "Unicorns" },
+//   { value: "Kittens", label: "Kittens" },
+// ];
 const animatedComponents = makeAnimated();
 
 export const MultiSelect = ({
@@ -21,27 +21,30 @@ export const MultiSelect = ({
   onChange,
   onBlur,
   addClass,
-  multi=false
+  multi=false,
+  list=[]
 }) => {
   const handleChange = (value) => {
     // this is going to call setFieldValue and manually update values.topcis
+    // console.log(name);
+    // console.log(value);
     onChange(name, value);
   };
 
   const handleBlur = () => {
     // this is going to call setFieldTouched and manually update touched.topcis
-    onBlur(name, true);
+    // onBlur(name, true);
   };
   return (
     <Form.Group className={addClass}>
-      <label htmlFor="color">{name} (select at least 3) </label>
+      <label htmlFor="color">{name}</label>
       <Select
         isMulti={multi}
         components={animatedComponents}
         isSearchable={true}
         closeMenuOnSelect={false}
-        options={options}
-        onChange={() => handleChange()}
+        options={list}
+        onChange={(e) => handleChange(e)}
         onBlur={() => handleBlur()}
         value={value}
       />

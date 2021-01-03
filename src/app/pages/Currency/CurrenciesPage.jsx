@@ -18,18 +18,6 @@ export function CurrenciesPage(props) {
     openEditCurrencyDialog: (id) => {
       history.push(`/currencies/${id}/edit`);
     },
-    // openDeleteCurrencyDialog: (id) => {
-    //   history.push(`/currencies/${id}/delete`);
-    // },
-    // openDeleteCurrenciesDialog: () => {
-    //   history.push(`/currencies/deleteCurrencies`);
-    // },
-    // openFetchCurrenciesDialog: () => {
-    //   history.push(`/currencies/fetch`);
-    // },
-    // openUpdateCurrenciesStatusDialog: () => {
-    //   history.push("/currencies/updateStatus");
-    // }
   };
 
   return (
