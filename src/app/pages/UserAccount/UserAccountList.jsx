@@ -4,9 +4,7 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../../_metronic/_partials/controls";
-import VirtualizedListComponent from "../Account/VirtualizedListComponent";
-// import { useDispatch } from "react-redux";
-// import * as actions from "../../../redux/accounts/accountsActions";
+import VirtualizedListComponent from "./UserAccountListComponent";
 import { AutoSizer } from "react-virtualized";
 
 export const UserAccountsList = (props) => {
@@ -19,28 +17,16 @@ export const UserAccountsList = (props) => {
     currentPage,
     totalPages,
   } = props;
-  // const dispatch = useDispatch();
-
-  // const loadMore = () => {
-  //   if (list.length !== 0) {
-  //     // console.log("Loading...");
-  //     dispatch(
-  //       actions.fetchNextAccounts({ page: currentPage + 1, perPage: perPage })
-  //     );
-  //   }
-  // };
-
-  // const [ hasNextPage, setHasNextPage ] = useState(true)
 
   return (
     <Card
       style={
-        window.innerWidth < 600
+        window.minWidth < 600
           ? { minWidth: "200px", maxWidth: "200px" }
           : { minWidth: "250px", maxWidth: "250px" }
       }
     >
-      <CardHeader title="User Accounts">
+      <CardHeader>
         <CardHeaderToolbar>
           <button
             type="button"

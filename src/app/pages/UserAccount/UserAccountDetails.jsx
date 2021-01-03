@@ -11,17 +11,11 @@ import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import Paper from "@material-ui/core/Paper";
 import { withStyles, makeStyles } from "@material-ui/styles";
 import { Col, Row } from "react-bootstrap";
 import { Avatar, ListItemAvatar, ListItemText } from "@material-ui/core";
-import { getUrlFromSvgString, hasValue } from "../../utils/AccountsUtils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSync,
-  faArrowUp,
-  faExpandAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { hasValue } from "./UserAccountsUtils";
+
 
 export const UserAccountsDetails = ({
   selectedItemIndex,
@@ -71,10 +65,6 @@ export const UserAccountsDetails = ({
     setTransactions(currTransaction);
   }, [selectedItemIndex]);
 
-  const userIcon =
-    selectedUserAccount.account && selectedUserAccount.account.icon
-      ? selectedUserAccount.account.icon
-      : null;
 
   const showValue = (value, classes) => (
     <span className="symbol symbol-light-success">
@@ -106,11 +96,7 @@ export const UserAccountsDetails = ({
                           width: "40px",
                         }}
                         alt={selectedUserAccount.name}
-                        src={
-                          selectedUserAccount.account
-                            ? getUrlFromSvgString(userIcon)
-                            : null
-                        }
+                        src={ '' }
                       ></Avatar>
                     </ListItemAvatar>
                     <ListItemText
@@ -132,7 +118,7 @@ export const UserAccountsDetails = ({
                   width: "49px",
                 }}
               >
-                <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSync} />
+                refresh
               </button>
             </Col>
             <Col md="2">{showValue(`Value: ${value}`)}</Col>
@@ -142,16 +128,6 @@ export const UserAccountsDetails = ({
                 <button type="button" className="btn btn-primary ml-4">
                   New Transactiion
                 </button>
-                {/* <button
-                  type="button"
-                  className="btn btn-primary ml-3"
-                  style={{
-                    height: "39px",
-                    width: "49px",
-                  }}
-                >
-                  <FontAwesomeIcon style={{ fontSize: "20px" }} icon={faSync} />
-                </button> */}
               </Row>
             </Col>
           </Row>
@@ -159,7 +135,6 @@ export const UserAccountsDetails = ({
       </CardHeader>
 
       <CardBody>
-        <Paper className={classes.root}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -183,16 +158,10 @@ export const UserAccountsDetails = ({
                   <StyledTableCell align="left">
                     {row.date}
                     {row.category === "Expense" && (
-                      <FontAwesomeIcon
-                        style={{ float: "right" }}
-                        icon={faArrowUp}
-                      />
+                    "Expense icon"
                     )}
                     {["Out", "In"].includes(row.category) && (
-                      <FontAwesomeIcon
-                        style={{ float: "right" }}
-                        icon={faExpandAlt}
-                      />
+                      "InOut"
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="left">{row.category}</StyledTableCell>
@@ -204,7 +173,6 @@ export const UserAccountsDetails = ({
               ))}
             </TableBody>
           </Table>
-        </Paper>
       </CardBody>
     </Card>
   );

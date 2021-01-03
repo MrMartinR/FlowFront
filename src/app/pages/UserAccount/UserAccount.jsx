@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
-import { AccountsLoadingDialog } from "../Account/accounts-loading-dialog/AccountsLoadingDialog";
 import { UserAccountCreateDialog } from "./UserAccountCreateDialog";
 import { UserAccountsUIProvider } from "./UserAccountsUIContext";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -93,23 +92,11 @@ export const UserAccountsPage = ({ history }) => {
     openEditAccountDialog: (id) => {
       history.push(`/user_accounts/${id}/edit`);
     },
-    // openDeleteAccountDialog: (id) => {
-    //   history.push(`/accounts/${id}/delete`);
-    // },
-    // openDeleteAccountsDialog: () => {
-    //   history.push(`/accounts/deleteAccounts`);
-    // },
-    // openFetchAccountsDialog: () => {
-    //   history.push(`/accounts/fetch`);
-    // },
-    // openUpdateAccountsStatusDialog: () => {
-    //   history.push("/accounts/updateStatus");
-    // }
+
   };
 
   return (
     <UserAccountsUIProvider userAccountsUIEvents={userAccountsUIEvents}>
-      {currentState.listLoading ? <AccountsLoadingDialog /> : <></>}
       <Route path="/user_accounts/new">
         {({ history, match }) => (
           <UserAccountCreateDialog
@@ -130,17 +117,7 @@ export const UserAccountsPage = ({ history }) => {
           />
         )}
       </Route>
-      {/* <Route path="/user_accounts/:id/edit">
-        {({ history, match }) => (
-          <AccountEditDialog
-            show={match != null}
-            id={match && match.params.id}
-            onHide={() => {
-              history.push("/user_accounts");
-            }}
-          />
-        )}
-      </Route> */}
+
       <div style={AccountsPageStyles.main}>
         <UserAccountsList
           perPage={perPage}

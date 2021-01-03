@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme=>({
 }));
 
 function getSteps() {
-  return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Select category', 'Select country', 'Select currency'];
 }
 
 function getStepContent(stepIndex) {

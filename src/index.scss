@@ -5,44 +5,13 @@
 // Theme Styles
 @import "./_metronic/_assets/sass/style.react.scss";
 
-// Default Layout themes
-@import "./_metronic/_assets/sass/themes/layout/header/base/light.scss";
-@import "./_metronic/_assets/sass/themes/layout/header/menu/light.scss";
-@import "./_metronic/_assets/sass/themes/layout/brand/dark.scss";
-@import "./_metronic/_assets/sass/themes/layout/aside/dark.scss";
+
+// Header
+@import "../src/common/sass/header-base.scss";
+
 
 @import "./app/pages/Platform/platforms.scss";
 
-// Header themes
-// Light
-//@import "./_metronic/_assets/sass/themes/layout/header/base/light.scss";
-// Dark
-// @import "./_metronic/_assets/sass/themes/layout/header/base/dark.scss";
-
-// Header Menu themes
-// Light
-//@import "./_metronic/_assets/sass/themes/layout/header/menu/light.scss";
-// Dark
-// @import "./_metronic/_assets/sass/themes/layout/header/menu/dark.scss";
-
-// Brand themes
-.brand-dark {
-  @import "./_metronic/_assets/sass/themes/layout/brand/dark.scss";
-}
-// Light
-.brand-light {
-  @import "./_metronic/_assets/sass/themes/layout/brand/light.scss";
-}
-
-// Aside themes
-// Dark
-//@import "./_metronic/_assets/sass/themes/layout/aside/dark.scss";
-// Light
-// @import "./_metronic/_assets/sass/themes/layout/aside/light.scss";
-
-// .example-highlight {
-//   padding: 0rem 1.5rem 1.75rem !important;
-// }
 
 .example-highlight > pre {
   background: none transparent !important;
@@ -56,7 +25,7 @@
       background: none transparent !important;
     }
   }
-}
+} 
 
 .json > pre {
   background: none #fff !important;
