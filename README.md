@@ -1,7 +1,18 @@
 # Flow Front End
 
-## Check the Following Style Guides
+## Style Guides
 
-# [SASS](docs/StyleGuide-React.md)
+### [SASS](docs/StyleGuide-React.md)
 
-# [React](docs/StyleGuide-React.md)
+
+### [React](docs/StyleGuide-React.md)
+
+
+
+## Official Documentation
+
+### [Material-UI](https://material-ui.com)
+
+### [SASS](https://sass-lang.com/documentation)
+
+### [React](https://reactjs.org/docs/getting-started.html)
