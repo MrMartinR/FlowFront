@@ -1,5 +1,7 @@
-#SASS
-[Style Guide SASS](STYLEGUIDE-Sass.md)
+# SASS
+---
+## [Style Guide SASS](StyleGuide-Sass.md)
 
-#React
-[Style Guide React](STYLEGUIDE-React.md)
+# React
+---
+## [Style Guide React](StyleGuide-React.md)
