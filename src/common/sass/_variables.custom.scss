@@ -1,6 +1,5 @@
 //
 // Custom Components Config
-// To override any custom variable safely you can use _variables.demo.scss
 //
 
 // Base icons(See: plugins/keenthemes-icons/font/ki.css)
@@ -145,20 +144,6 @@ $symbol-sizes: (
     150:150px
 );
 
-// Burger Icon
-$burger-icon-config: (
-    width: 24px,
-    height: 24px,
-    transition: all 0.3s,
-    thickness: 2px,
-    space: 6px,
-    radius: 2px,
-    theme: (
-        default: $text-muted,
-        hover: $primary,
-        active: $primary
-    )
-) !default;
 
 // Checkbox
 $checkbox-config: (

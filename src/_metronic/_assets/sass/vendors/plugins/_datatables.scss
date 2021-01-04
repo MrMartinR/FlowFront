@@ -25,7 +25,7 @@ $dt-page-color-active: $white;
         border-spacing: 0 !important;
         margin: 1rem 0 !important;
 
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
 
         // General
         th, td {
@@ -188,7 +188,7 @@ $dt-page-color-active: $white;
                     font-size: 1rem;
                     line-height: 1rem;
                     font-weight: 500;
-                    @include border-radius($border-radius);
+                    // @include border-radius($border-radius);
                     border: 0;
                     transition: $transition-link;
                     color: $dt-page-color;
@@ -316,25 +316,6 @@ $dt-page-color-active: $white;
         }
     }
 
-    // Tablet and mobile mode
-    @include media-breakpoint-down(md) {
-        .dataTables_pager {
-            margin-top: 1rem;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-
-    // Mobile mode
-    @include media-breakpoint-down(sm) {
-        .dataTables_paginate {
-            margin-left: 0 !important;
-
-            .pagination .page-item:first-child {
-                margin-left: 0 !important;
-            }
-        }
-    }
 
     // Responsive mode
     table.dataTable.collapsed > tbody > {
@@ -410,12 +391,12 @@ $dt-page-color-active: $white;
     }
 
     // Bootstrap 4
-    .dt-bootstrap4 {
-        .dropdown {
-            .dropdown-menu.dropdown-menu-right {
-                /*rtl:ignore*/
-                margin-left: 65px;
-            }
-        }
-    }
+    // .dt-bootstrap4 {
+    //     .dropdown {
+    //         .dropdown-menu.dropdown-menu-right {
+    //             /*rtl:ignore*/
+    //             margin-left: 65px;
+    //         }
+    //     }
+    // }
 }

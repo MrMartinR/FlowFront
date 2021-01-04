@@ -8,7 +8,7 @@
     width: 265px;
     padding: 10px;
     left: auto;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 
     &.datetimepicker-orient-top {
         margin-top: 8px;
@@ -24,7 +24,7 @@
         width: 33px;
         height: 33px;
         font-weight: regular;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
     }
 
     thead {
@@ -149,7 +149,7 @@
         tr>th {
             &.today,
             &.clear {
-                @include border-radius($border-radius);
+                // @include border-radius($border-radius);
 
                 font-weight: 500;
 

@@ -28,7 +28,7 @@ box-shadow: $header-shadow;
   .menu-nav {
 	> .menu-item {
 		> .menu-link {
-			@include border-radius(4px);
+			// @include border-radius(4px);
 
 			.menu-text {
 				color: $menu-link-color;

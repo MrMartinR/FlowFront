@@ -17,7 +17,7 @@
     box-shadow: $box-shadow;
     opacity: 0;
     transition: $transition-link;
-    @include border-radius($border-radius !important);
+    // @include border-radius($border-radius !important);
 
     .svg-icon {
         @include svg-icon-size(24px);
@@ -50,13 +50,6 @@
         }
     }
 
-    // Tablet & Mobile Modess
-    @include media-breakpoint-down(md) {
-        bottom: get($scrolltop-config, bottom, tablet-and-mobile);
-        right: get($scrolltop-config, right, tablet-and-mobile);
-        width: get($scrolltop-config, size, tablet-and-mobile);
-        height: get($scrolltop-config, size, tablet-and-mobile);
-    }
 }
 
 // Animations

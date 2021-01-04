@@ -17,22 +17,6 @@ a {
   border-bottom: 1px solid #5867dd !important;
 }
 
-// builder
-.builder-tabs {
-  .MuiTabs-flexContainer {
-    button {
-      margin-right: 20px;
-      padding: 18px 0;
-      min-width: auto;
-      text-transform: none;
-      font-size: 1rem;
-    }
-  }
-
-  .PrivateTabIndicator-colorSecondary-64 {
-    background-color: #5867dd;
-  }
-}
 
 .MuiFormControl-marginNormal { width: 100%; }
 
@@ -64,23 +48,6 @@ a {
 }
 
 
-// quick-actions-panel
-.MuiBackdrop-root {
-  background: rgba(0,0,0,.05) !important;
-}
-
-// Demos examples toolbar
-.kt-comming-soon {
-  .kt-demo-panel__item-preview-overlay {
-    opacity: 1 !important;
-  }
-}
-
-// user-notifications
-.tab-content {
-  background-color: #fff;
-}
-
 // Material UI
 // For Select component
 .react-select {
@@ -100,7 +67,7 @@ a {
         font-size: 16px;
       }
       input {
-        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-family: "Poppins", "Roboto", "Helvetica", "Arial", sans-serif;
         font-weight: 400;
         line-height: 1.5;
         font-size: 16px;

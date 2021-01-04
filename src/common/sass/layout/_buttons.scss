@@ -7,6 +7,8 @@
 .btn {
 	outline: none !important;
 	vertical-align: middle;
+	border-radius: 0.3rem;
+
 
 	// Transition
 	@include button-custom-transition($transition-link);
@@ -17,7 +19,7 @@
 
 	// Button styles
 	&.btn-square {
-		border-radius: 0;
+		border-radius: 1rem;
 	}
 
 	&.btn-pill {
@@ -233,12 +235,12 @@
 	}
 
 	&.dropleft > .btn {
-		@include border-top-right-radius($btn-border-radius !important);
-		@include border-bottom-right-radius($btn-border-radius !important);
+		//  @include border-top-right-radius($btn-border-radius !important);
+		//  @include border-bottom-right-radius($btn-border-radius !important);
 
 		&.dropdown-toggle-split {
-			@include border-top-right-radius(0 !important);
-			@include border-bottom-right-radius(0 !important);
+			//  @include border-top-right-radius(0 !important);
+			//  @include border-bottom-right-radius(0 !important);
 		}
 
 		&.dropdown-toggle {
@@ -707,59 +709,4 @@
 			$btn-active-background, $btn-active-border, $btn-active-color, $btn-active-icon, $btn-active-box-shadow
 		);
 	}
-}
-
-// Social buttons
-@each $name, $value in $social-colors {
-    .btn.btn-#{$name} {
-		$btn-background: get($value, base);
-		$btn-border: get($value, base);
-		$btn-color: get($value, inverse);
-		$btn-icon: get($value, inverse);
-		$btn-box-shadow: null;
-
-		$btn-hover-background: get($value, hover);
-		$btn-hover-border: get($value, hover);
-		$btn-hover-color: get($value, inverse);
-		$btn-hover-icon: get($value, inverse);
-		$btn-hover-box-shadow: null;
-
-		$btn-active-background: $btn-hover-background;
-		$btn-active-border: $btn-hover-border;
-		$btn-active-color: $btn-hover-color;
-		$btn-active-icon: $btn-hover-icon;
-		$btn-active-box-shadow: $btn-hover-box-shadow;
-
-		@include button-custom-variant(
-			$btn-background, $btn-border, $btn-color, $btn-icon, $btn-box-shadow,
-			$btn-hover-background, $btn-hover-border, $btn-hover-color, $btn-hover-icon, $btn-hover-box-shadow,
-			$btn-active-background, $btn-active-border, $btn-active-color, $btn-active-icon, $btn-active-box-shadow
-		);
-    }
-
-	.btn.btn-light-#{$name} {
-		$btn-background: get($value, light);
-		$btn-border: transparent;
-		$btn-color: get($value, base);
-		$btn-icon: get($value, base);
-		$btn-box-shadow: null;
-
-		$btn-hover-background: get($value, base);
-		$btn-hover-border: transparent;
-		$btn-hover-color: get($value, inverse);
-		$btn-hover-icon: get($value, inverse);
-		$btn-hover-box-shadow: null;
-
-		$btn-active-background: $btn-hover-background;
-		$btn-active-border: $btn-hover-border;
-		$btn-active-color: $btn-hover-color;
-		$btn-active-icon: $btn-hover-icon;
-		$btn-active-box-shadow: $btn-hover-box-shadow;
-
-		@include button-custom-variant(
-			$btn-background, $btn-border, $btn-color, $btn-icon, $btn-box-shadow,
-			$btn-hover-background, $btn-hover-border, $btn-hover-color, $btn-hover-icon, $btn-hover-box-shadow,
-			$btn-active-background, $btn-active-border, $btn-active-color, $btn-active-icon, $btn-active-box-shadow
-		);
-    }
 }

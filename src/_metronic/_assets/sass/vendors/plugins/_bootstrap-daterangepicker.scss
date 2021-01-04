@@ -10,7 +10,7 @@
     margin: 0;
     width: auto;
     box-shadow: $dropdown-box-shadow;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
     border: 0;
     font-family: $font-family-base;
     z-index: $zindex-dropdown;
@@ -72,7 +72,7 @@
             font-size: 0.9rem;
             font-weight: 500;
             padding: 0.5rem 1rem;
-            @include border-radius($border-radius);
+            // @include border-radius($border-radius);
         }
     }
 
@@ -142,7 +142,7 @@
             &.active {
                 background-color: $primary !important;
                 color: $primary-inverse !important;
-                @include border-radius($border-radius);
+                // @include border-radius($border-radius);
 
                 &.start-date {
                     border-top-right-radius: 0;
@@ -155,13 +155,13 @@
                 }
 
                 &.start-date.end-date {
-                    @include border-radius($border-radius);
+                    // @include border-radius($border-radius);
                 }
             }
 
             &.today,
             &.today.active {
-                @include border-radius($border-radius);
+                // @include border-radius($border-radius);
                 background: rgba($primary, 0.12) !important;
                 color: $primary !important;
             }
@@ -174,7 +174,7 @@
     }
 
     select {
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
         background: transparent !important;
         border-color: $input-border-color !important;
         color: $input-color !important;

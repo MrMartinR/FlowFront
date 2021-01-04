@@ -32,7 +32,7 @@
     }
 
     > span {
-		@include border-radius($border-radius);
+		// @include border-radius($border-radius);
         background-color: none;
         position: absolute;
         top: 1px;

@@ -103,7 +103,7 @@
 		}
 
 		// link border radius
-		@include border-radius(get($item, link, self, border-radius));
+		border-radius: 4px;
 
 		// menu root level "here" arrow
 		.menu-item-here {
@@ -325,29 +325,29 @@
 }
 
 @mixin menu-hor-submenu-width($config) {
-	@include media-breakpoint-between(lg, xl) {
-		.#{get($config, base, class)} {
-			.menu-nav {
-				// menu root item
-				> .menu-item {
-					// general submenu
-					.menu-submenu {
-						&.menu-submenu-full,
-						&.menu-submenu-fixed,
-						&.menu-submenu-auto,
-						&.menu-submenu-auto.menu-submenu-mimimal-desktop-wide,
-						&.menu-submenu-fixed-xl,
-						&.menu-submenu-fixed-xxl {
-							margin: 0 auto;
-							width: auto;
-							left: 20px;
-							right: 20px;
-						}
+
+	.#{get($config, base, class)} {
+		.menu-nav {
+			// menu root item
+			> .menu-item {
+				// general submenu
+				.menu-submenu {
+					&.menu-submenu-full,
+					&.menu-submenu-fixed,
+					&.menu-submenu-auto,
+					&.menu-submenu-auto.menu-submenu-mimimal-desktop-wide,
+					&.menu-submenu-fixed-xl,
+					&.menu-submenu-fixed-xxl {
+						margin: 0 auto;
+						width: auto;
+						left: 20px;
+						right: 20px;
 					}
 				}
 			}
 		}
 	}
+	
 
 	// Responsive container widths
 	@each $breakpoint, $width in $grid-breakpoints {
@@ -454,7 +454,7 @@
 					top: 100%;
 
 					@include fix-animation-lags();
-					@include border-radius(get($config, build, layout, item, submenu, self, border-radius));
+					// @include border-radius(get($config, build, layout, item, submenu, self, border-radius));
 					@include attr(margin, get($config, build, layout, item, submenu, self, margin));
 					@include attr(padding, get($config, build, layout, item, submenu, self, padding, classic));
 
@@ -748,7 +748,7 @@
 				// submenu
 				.menu-submenu {
 					padding: get($config, build, layout, item, submenu, self, padding, megamenu);
-					@include border-radius(get($config, build, layout, item, submenu, self, border-radius));
+					// @include border-radius(get($config, build, layout, item, submenu, self, border-radius));
 
 					> .menu-subnav {
 						> .menu-item {
@@ -786,9 +786,7 @@
 
 					&.menu-submenu-classic {
 						padding: get($config, build, layout, item, submenu, self, padding, classic);
-						> .menu-subnav {
 
-						}
 					}
 
 					// inline submenu
@@ -914,76 +912,10 @@
 	}
 }
 
-// Build Theme
-@mixin menu-hor-build-theme($config, $theme) {
-	$theme-config: ();
-
-	@if ($theme == default) {
-		$theme-config: get($config, build, theme);
-	} @else {
-		$theme-config: get($config, build, themes, $theme);
-	}
-
-	// Base vertical menu
-	@if (get($config, base, mode) == general) {
-
-		@include menu-hor-theme(get($config, base, class), $theme-config);
-
-	} @else if (get($config, base, mode) == desktop) {
-		// Desktop Mode
-		@include media-breakpoint-up(lg) {
-			@include menu-hor-theme(get($config, base, class), $theme-config);
-		}
-
-	} @else if (get($config, base, mode) == tablet-and-mobile) {
-		// Tablet & Mobile Modes
-		@include media-breakpoint-down(md) {
-			@include menu-hor-theme(get($config, base, class), $theme-config);
-		}
-	}
-}
 
 // Build Layout
 @mixin menu-hor-build-layout($config) {
-	// Base vertical menu
-	@if (get($config, base, mode) == general) {
-
-		@include menu-hor-base($config);
-
-	} @else if (get($config, base, mode) == desktop) {
-
-		// Desktop Mode
-		@include media-breakpoint-up(lg) {
-			@include menu-hor-base($config);
-		}
-
-		@include menu-hor-submenu-width($config);
-
-	} @else if (get($config, base, mode) == tablet-and-mobile) {
-		// Tablet & Mobile Modes
-		@include media-breakpoint-down(md) {
-			@include menu-hor-base($config);
-		}
-	}
-
-	// Horizontal Menu Hoverable Submenu Animations
-	@keyframes #{get($config, base, class)}-submenu-fade-out {
-	    from   { opacity: 1; }
-	    to { opacity: 0; }
-	}
-
-	@keyframes #{get($config, base, class)}-submenu-fade-in {
-	    from   { opacity: 0; }
-	    to { opacity: 1; }
-	}
-
-	@keyframes #{get($config, base, class)}-submenu-move-up {
-	    from   { margin-top: get($config, build, layout, item, submenu, self, animation, offset); }
-	    to { margin-top: 0; }
-	}
-
-	@keyframes #{get($config, base, class)}-submenu-move-down {
-	    from   { margin-top: -(get($config, build, layout, item, submenu, self, animation, offset)); }
-	    to { margin-top: 0; }
-	}
+// Base vertical menu
+	@include menu-hor-base($config);
+	@include menu-hor-submenu-width($config);
 }

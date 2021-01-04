@@ -9,7 +9,7 @@
     display: flex;
     padding: 1.4em;
     border: 1px solid $gray-200;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 
     .option-control {
     	width: 2.7rem;

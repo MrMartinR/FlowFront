@@ -44,14 +44,9 @@ export const CardHeader = forwardRef(
 
             const headerElement = document.querySelector('.header');
             const subheaderElement = document.querySelector('.subheader');
-            const headerMobileElement = document.querySelector('.header-mobile');
 
             let nextMarginTop = 0;
 
-            // mobile header
-            if (window.getComputedStyle(headerElement).height === '0px') {
-                nextMarginTop = headerMobileElement.offsetHeight;
-            } else {
                 // desktop header
                 if (document.body.classList.contains('header-minimize-topbar')) {
                     // hardcoded minimized header height
@@ -66,7 +61,7 @@ export const CardHeader = forwardRef(
                         nextMarginTop += subheaderElement.offsetHeight;
                     }
                 }
-            }
+
 
             setTop(nextMarginTop);
         }, [sticky, windowHeight]);

@@ -13,7 +13,7 @@
 	text-align: center;
 	cursor: pointer;
     border: 2px dashed $gray-200;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 
     .dropzone-msg-title {
 		color:  $dark-75;
@@ -31,7 +31,7 @@
 
     .dz-preview {
 		.dz-image {
-			@include border-radius($border-radius);
+			// @include border-radius($border-radius);
 		}
     }
 
@@ -75,7 +75,7 @@
         display: flex;
         align-items: center;
         margin-top: 0.75rem;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
         padding: 0.5rem 1rem;
         background-color: $gray-100;
 
@@ -110,7 +110,7 @@
 
             .progress {
                 height: 5px;
-                @include transition;
+                // @include transition;
             }
         }
 

@@ -27,7 +27,7 @@
         left: auto #{'/*rtl:ignore*/'}!important;
         background: $white;
         box-shadow: $dropdown-box-shadow;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
 
         .tt-dataset {
             .tt-suggestion {

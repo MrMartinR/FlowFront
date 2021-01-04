@@ -83,7 +83,7 @@
 	// Rounded Style
     &.radio-rounded {
         > span {
-			@include border-radius($border-radius);
+			// @include border-radius($border-radius);
         }
     }
 

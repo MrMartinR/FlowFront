@@ -56,7 +56,7 @@
 	&.form-control-solid {
 		background-color: $input-solid-bg;
 		border-color: $input-solid-bg;
-		@include placeholder($input-solid-placeholder-color);
+		// @include placeholder($input-solid-placeholder-color);
 		color: $input-solid-color;
 		transition: $transition-input;
 
@@ -83,15 +83,15 @@
 
 // Placeholder colors
 .placeholder-dark-50 {
-	@include placeholder($dark-50);
+	// @include placeholder($dark-50);
 }
 
 .placeholder-dark-75 {
-	@include placeholder($dark-75);
+	// @include placeholder($dark-75);
 }
 
 .placeholder-white {
-	@include placeholder($white);
+	// @include placeholder($white);
 }
 
 // Custom inputs
@@ -162,7 +162,7 @@
 	&.input-group-solid {
 		align-items: center;
 		background-color: $input-solid-bg;
-		@include border-radius($input-border-radius);
+		// @include border-radius($input-border-radius);
 
 		&.active,
 		&.focus {
@@ -173,7 +173,7 @@
 		}
 
 		.form-control {
-			@include input-reset();
+			// @include input-reset();
 
 			&.form-control-solid {
 				&:active,
@@ -189,11 +189,11 @@
 		}
 
 		&.input-group-sm {
-			@include border-radius($input-border-radius-sm);
+			// @include border-radius($input-border-radius-sm);
 		}
 
 		&.input-group-lg {
-			@include border-radius($input-border-radius-lg);
+			// @include border-radius($input-border-radius-lg);
 		}
 
 		.input-group-prepend,

@@ -18,20 +18,14 @@ export class HtmlClassService {
         this.classes = {
             header: [],
             header_container: [],
-            // header_mobile: [],
             header_menu: [],
-            // aside: [],
-            // aside_menu: [],
             subheader: [],
             subheader_container: [],
             content: [],
             content_container: [],
-            // footer_container: [],
         };
 
         this.attributes = {
-            // aside_menu: {},
-            // header_mobile: {},
             header_menu: {},
         };
 
@@ -44,11 +38,7 @@ export class HtmlClassService {
         this.initSubheader();
 
         this.initContent();
-        // init aside and aside menu
-        // this.initAside();
-
-        // init footer
-        // this.initFooter();
+       
 
         // init theme
         this.initTheme();
@@ -59,10 +49,8 @@ export class HtmlClassService {
         const headerSelfFixedDesktop = objectPath.get(updatedConfig, 'header.self.fixed.desktop');
         const subheaderFixed = objectPath.get(updatedConfig, 'subheader.fixed');
         if (subheaderFixed && headerSelfFixedDesktop) {
-            // Page::setOption('layout', 'subheader/style', 'solid');
             updatedConfig.subheader.style = 'solid';
         } else {
-            // Page::setOption('layout', 'subheader/fixed', false);
             updatedConfig.subheader.fixed = false;
         }
         return updatedConfig;
@@ -94,16 +82,7 @@ export class HtmlClassService {
     }
 
     getLogo() {
-        const brandSkin = objectPath.get(this.config, 'brand.self.theme');
-            return toAbsoluteUrl('/media/logos/logo-light.svg');
-    }
-
-    getStickyLogo() {
-        let logo = objectPath.get(this.config, 'self.logo.sticky');
-        if (typeof logo === 'undefined') {
-            logo = this.getLogo();
-        }
-        return logo + '';
+        return toAbsoluteUrl('/media/logos/logo-light.svg');
     }
 
     /**
@@ -133,15 +112,8 @@ export class HtmlClassService {
      */
     initHeader() {
         // Fixed header
-        const headerSelfFixedDesktop = objectPath.get(this.config, 'header.self.fixed.desktop');
             document.body.classList.add('header-fixed');
             objectPath.push(this.classes, 'header', 'header-fixed');
-
-        // const headerSelfFixedMobile = objectPath.get(this.config, 'header.self.fixed.mobile');
-        // if (headerSelfFixedMobile) {
-        //     document.body.classList.add('header-mobile-fixed');
-        //     objectPath.push(this.classes, 'header_mobile', 'header-mobile-fixed');
-        // }
 
         // Menu
         const headerMenuSelfDisplay = objectPath.get(this.config, 'header.menu.self.display');

@@ -4,8 +4,10 @@
 
 // Base
 .card.card-custom {
-    box-shadow: $card-box-shadow;
     border: 0;
+    background-color: white;
+    border-radius: 6px;
+
 
     // Header
     > .card-header {
@@ -208,11 +210,6 @@
         background-color: transparent;
     }
 
-    // No Shadow
-    &.card-shadowless {
-        box-shadow: none;
-    }
-
     // Border style
     &.card-border {
         box-shadow: none;
@@ -274,42 +271,36 @@
 }
 
 .card-rounded {
-    border-radius: $card-border-radius;
+    // border-radius: $card-border-radius;
+    border-radius: 36px;
 }
 
 .card-rounded-top {
-    border-top-left-radius: $card-border-radius;
-    border-top-right-radius: $card-border-radius;
+    // border-top-left-radius: $card-border-radius;
+    // border-top-right-radius: $card-border-radius;    
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
 }
 
 .card-rounded-bottom {
-    border-bottom-left-radius: $card-border-radius;
-    border-bottom-right-radius: $card-border-radius;
+    border-bottom-left-radius: 36px;
+    border-bottom-right-radius: 36px;
+    // border-bottom-left-radius: $card-border-radius;
+    // border-bottom-right-radius: $card-border-radius;
 }
 
-// Mobile mode
-@include media-breakpoint-down(sm) {
-    .card.card-custom {
-        // Header
-        > .card-header:not(.flex-nowrap) {
-            min-height: 0;
-            padding-top: $card-header-spacer-y;
-            padding-bottom: $card-header-spacer-y;
-        }
-    }
-}
-
+// [REV] Hardcoded the radius in the next classes    // @include border-radius($card-border-radius);
 // Card related helper classes
 .rounded-card {
-    @include border-radius($card-border-radius);
+    border-radius: 6px;
 }
 
 .rounded-card-top {
-    @include border-top-left-radius($card-border-radius);
-    @include border-top-right-radius($card-border-radius);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 .rounded-card-bottom {
-    @include border-bottom-left-radius($card-border-radius);
-    @include border-bottom-right-radius($card-border-radius);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }

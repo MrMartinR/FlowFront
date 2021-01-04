@@ -14,7 +14,7 @@
 	> .menu-heading,
 	> .menu-link {
 		cursor: pointer;
-		@include border-radius(get($item, link, self, border-radius));
+		// @include border-radius(get($item, link, self, border-radius));
 		// link height
 		min-height: get($item, link, self, height);
 
@@ -856,7 +856,7 @@
 						display: flex !important;
 						width: get($layout, dropdown, item, submenu, self, width);
 						margin-left: get($layout, dropdown, item, submenu, self, width);
-						@include border-radius(get($layout, dropdown, item, submenu, self, border-radius));
+						// @include border-radius(get($layout, dropdown, item, submenu, self, border-radius));
 
 						&.menu-submenu-up {
 							bottom: 0;

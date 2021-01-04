@@ -7,7 +7,7 @@
 .datepicker {
     width: 265px;
     padding: 10px;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 
     &.datepicker-orient-top {
         margin-top: 8px;
@@ -23,7 +23,7 @@
         font-weight: regular;
         width: 33px;
         height: 33px;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
     }
 
     thead {
@@ -139,7 +139,7 @@
 
             &.today,
             &.clear {
-                @include border-radius($border-radius);
+                // @include border-radius($border-radius);
                 font-weight: 500;
 
                 &:hover {

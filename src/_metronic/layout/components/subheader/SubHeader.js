@@ -39,15 +39,6 @@ export function SubHeader() {
             >
                 {/* Info */}
                 <div className="d-flex align-items-center flex-wrap mr-1">
-                    {layoutProps.subheaderMobileToggle && (
-                        <button
-                            className="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none"
-                            id="kt_subheader_mobile_toggle"
-                        >
-                            <span />
-                        </button>
-                    )}
-
                     <BreadCrumbs items={subheader.breadcrumbs} />
                 </div>
             </div>

@@ -5,6 +5,7 @@
 
 // Theme functions
 @import
+
     "base/functions/get",
     "base/functions/math",
     "base/functions/valueif",
@@ -18,7 +19,6 @@
     "base/mixins/placeholder",
     "components/mixins/tooltip",
     "components/mixins/buttons",
-    "components/mixins/burger-icon",
     "components/mixins/checkbox",
     "components/mixins/radio",
     "components/mixins/switch",
@@ -32,12 +32,10 @@
     "components/mixins/label",
     "vendors/plugins/mixins/perfect-scrollbar";
 
-// Bootstrap mixins
-// @import "~bootstrap/scss/mixins";
 
 // Global variables
-@import "components/variables.bootstrap";
-@import "components/variables.custom";
+@import "../../../common/sass/variables.bootstrap";
+@import "../../../common/sass/variables.custom";
 
 // 3rd-Party plugins variables
 @import "vendors/plugins/variables";

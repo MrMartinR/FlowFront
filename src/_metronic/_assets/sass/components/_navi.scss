@@ -421,7 +421,7 @@ $navi-link-arrow-color-active: $primary;
                     width: 4px;
                     background-color: transparent;
                     transition: $transition;
-                    @include border-radius(2px);
+                    // @include border-radius(2px);
                     content: " ";
                 }
 

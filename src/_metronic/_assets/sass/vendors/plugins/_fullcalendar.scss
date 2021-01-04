@@ -68,26 +68,11 @@
             }
         }
 
-        // Past
-        td.fc-past {
-
-        }
-
-        // Today
-        td.fc-today {
-
-        }
-
-        // Future
-        td.fc-future {
-
-        }
-
         // Event
         .fc-event,
         .fc-event-dot {
             padding: 0;
-            @include border-radius($border-radius);
+            // @include border-radius($border-radius);
 
             .fc-content {
                 padding: 0.55rem 0.55rem 0.55rem 2rem;
@@ -141,7 +126,7 @@
 
         // Popover
         .fc-popover {
-            @include border-radius($border-radius);
+            // @include border-radius($border-radius);
 
             .fc-header {
                 padding: 0.75rem 1.25rem;
@@ -163,17 +148,8 @@
 
                 .fc-event {
                     margin-bottom: 0.5rem;
-                    @include border-radius($border-radius);
+                    // @include border-radius($border-radius);
 
-                    &.fc-not-start.fc-not-end {
-                        @include border-top-right-radius(0);
-                        @include border-bottom-right-radius(0);
-                    }
-
-                    &.fc-not-start.fc-end {
-                        @include border-top-left-radius(0);
-                        @include border-bottom-left-radius(0);
-                    }
                 }
             }
         }
@@ -196,12 +172,12 @@
                 font-size: 1rem;
 
                 &.fc-corner-left {
-                    @include border-top-left-radius($border-radius);
+                    // @include border-top-left-radius($border-radius);
                     @include border-bottom-left-radius($border-radius);
                 }
 
                 &.fc-corner-right {
-                    @include border-top-right-radius($border-radius);
+                   //  @include border-top-right-radius($border-radius);
                     @include border-bottom-right-radius($border-radius);
                 }
 
@@ -238,41 +214,40 @@
         cursor: -webkit-grab;
     }
 
-    @include media-breakpoint-down(lg) {
-        .fc-unthemed {
-            // toolbar
-            .fc-toolbar {
-                margin-bottom: 1.5rem;
+    .fc-unthemed {
+        // toolbar
+        .fc-toolbar {
+            margin-bottom: 1.5rem;
 
-                .fc-left,
-                .fc-right,
-                .fc-center {
-                    display: block;
-                    float: none;
-                    margin-bottom: 1rem;
+            .fc-left,
+            .fc-right,
+            .fc-center {
+                display: block;
+                float: none;
+                margin-bottom: 1rem;
+                text-align: center;
+
+                h2 {
                     text-align: center;
+                    float: none;
+                }
 
-                    h2 {
-                        text-align: center;
-                        float: none;
-                    }
-
-                    > .fc-button-group {
-                        display: inline-block;
-                        float: none;
-
-                        > .fc-button {
-                            float: none;
-                        }
-                    }
+                > .fc-button-group {
+                    display: inline-block;
+                    float: none;
 
                     > .fc-button {
                         float: none;
                     }
                 }
+
+                > .fc-button {
+                    float: none;
+                }
             }
         }
     }
+    
 }
 
 // Theme
@@ -285,20 +260,11 @@
             border-color: $gray-200;
         }
 
-        // Past
-        td.fc-past {
-
-        }
-
         // Today
         td.fc-today {
             background: rgba($primary, 0.025);
         }
 
-        // Future
-        td.fc-future {
-
-        }
 
         // Event
         .fc-day-grid-event {

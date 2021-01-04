@@ -73,7 +73,7 @@
                 border: 0;
                 padding: 0.5rem 1rem;
                 box-shadow: $dropdown-box-shadow;
-                @include border-radius($border-radius);
+                // @include border-radius($border-radius);
             }
         }
     }
@@ -82,14 +82,14 @@
         border: 0;
         padding: 0.5rem 1rem;
         box-shadow: $dropdown-box-shadow;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
 
         input[type=text] {
             @include input-reset();
             border: 1px solid $border-color;
             color: $input-plaintext-color;
             outline: none !important;
-            @include border-radius($border-radius);
+            // @include border-radius($border-radius);
 
             &:active,
             &:focus {
@@ -123,6 +123,6 @@
         background-color: $gray-900;
         color: $text-muted;
         overflow: visible;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
     }
 }

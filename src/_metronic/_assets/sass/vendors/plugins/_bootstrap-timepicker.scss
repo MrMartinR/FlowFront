@@ -7,7 +7,7 @@
 .bootstrap-timepicker-widget {
     left: auto;
     width: 180px;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 
     .bootstrap-timepicker-hour,
     .bootstrap-timepicker-minute,
@@ -19,12 +19,12 @@
     }
 
     table td {
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
 
         > a {
             display: flex;
             border: 0;
-            @include border-radius($border-radius);
+            // @include border-radius($border-radius);
             width: 33px;
             height: 33px;
             align-items: center;

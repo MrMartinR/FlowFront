@@ -46,7 +46,7 @@
 	&.label-inline {
 		width: auto;
 		padding: 0.15rem 0.75rem;
-		@include border-radius($border-radius);
+		// @include border-radius($border-radius);
 
 		// Sizing
 		&.label-md {

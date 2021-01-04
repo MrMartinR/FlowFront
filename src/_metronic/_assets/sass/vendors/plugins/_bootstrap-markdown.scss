@@ -6,8 +6,8 @@
 // Base
 .md-editor {
     outline: none !important;
-    @include border-top-left-radius($border-radius);
-    @include border-top-right-radius($border-radius);
+    // @include border-top-left-radius($border-radius);
+   //  @include border-top-right-radius($border-radius);
     border: 1px solid $input-border-color;
 
     .md-footer,
@@ -17,8 +17,8 @@
     }
 
     .md-header {
-        @include border-top-left-radius($border-radius);
-        @include border-top-right-radius($border-radius);
+        // @include border-top-left-radius($border-radius);
+       //  @include border-top-right-radius($border-radius);
 
         .btn-group {
             margin-right: 0.74rem;

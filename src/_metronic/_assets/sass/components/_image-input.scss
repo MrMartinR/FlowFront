@@ -7,7 +7,7 @@
 .image-input {
 	position: relative;
 	display: inline-block;
-	@include border-radius($border-radius);
+	// @include border-radius($border-radius);
 	background-repeat: no-repeat;
 	background-size: cover;
 
@@ -15,7 +15,7 @@
 	.image-input-wrapper {
 		width: 120px;
 		height: 120px;
-		@include border-radius($border-radius);
+		// @include border-radius($border-radius);
 		background-repeat: no-repeat;
 		background-size: cover;
 	}

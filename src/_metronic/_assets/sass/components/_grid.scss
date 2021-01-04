@@ -37,22 +37,22 @@
     }
 
 	// Responsive breakpoints
-    @each $breakpoint in map-keys($grid-breakpoints) {
-        @include media-breakpoint-up($breakpoint) {
-			$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    // @each $breakpoint in map-keys($grid-breakpoints) {
+    //     // @include media-breakpoint-up($breakpoint) {
+	// 		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-            &.row-col-divider#{$infix} {
-                > div {
-                    border-bottom:0;
-                    border-right: 1px solid $grid-divider-bg;
+    //         &.row-col-divider#{$infix} {
+    //             > div {
+    //                 border-bottom:0;
+    //                 border-right: 1px solid $grid-divider-bg;
 
-                    &:last-child {
-                        border-right: 0;
-                    }
-                }
-            }
-        }
-    }
+    //                 &:last-child {
+    //                     border-right: 0;
+    //                 }
+    //             }
+    //         }
+    //     // }
+    // }
 }
 
 // Gutter helpers

@@ -91,7 +91,7 @@
     background: $white;
     box-shadow: $dropdown-box-shadow;
     border: 0;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 
     li {
         padding: 0;
@@ -146,5 +146,5 @@
     margin-right: -4px !important;
     background-color: $gray-100 !important;
     border: 1px solid $gray-100 !important;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 }

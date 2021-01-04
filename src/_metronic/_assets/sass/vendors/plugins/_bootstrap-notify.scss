@@ -28,29 +28,9 @@
         }
     }
 
-    // Tablet mode
-    @include media-breakpoint-down(md) {
-        max-width: 70%;
-    }
-
-    // Mobile mode
-    @include media-breakpoint-down(md) {
-        max-width: 90%;
-    }
-
     &[data-notify-position=top-center],
     &[data-notify-position=bottom-center] {
         width: 30%;
-
-        // Tablet mode
-        @include media-breakpoint-down(md) {
-            width: 70%;
-        }
-
-        // Mobile mode
-        @include media-breakpoint-down(md) {
-            width: 90%;
-        }
     }
 
     .icon {

@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardHeader, CardHeaderToolbar,} from "../../../_metronic/_partials/controls";
 import VirtualizedList from "./ContactsListComponent";
 import { AutoSizer } from "react-virtualized";
+import { Button } from "@material-ui/core";
 
 export const ContactsList = (props) => {
   const {
@@ -23,15 +24,15 @@ export const ContactsList = (props) => {
     >
       <CardHeader>
         <CardHeaderToolbar>
-          <button
-            type="button"
+          <Button
+            // type="button"
             className="btn btn-primary"
             onClick={(e) => {
               //Filter Private Contacts
             }}
           >
             Private
-          </button>
+          </Button>
         </CardHeaderToolbar>
       </CardHeader>
       <AutoSizer>

@@ -13,7 +13,7 @@
         border: 1px solid $gray-200;
         color: $input-plaintext-color;
         outline: none !important;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
 
         &:active,
         &:focus {
@@ -34,8 +34,8 @@
             padding: 0.75rem 0.75rem;
             border: 1px solid $gray-200;
             border-bottom: 0;
-            @include border-top-left-radius($border-radius);
-            @include border-top-right-radius($border-radius);
+            // @include border-top-left-radius($border-radius);
+           //  @include border-top-right-radius($border-radius);
         }
 
         .dual-listbox__buttons {
@@ -43,7 +43,7 @@
 
             .dual-listbox__button {
                 @include button-reset();
-                @include border-radius($border-radius);
+                // @include border-radius($border-radius);
                 margin-bottom: 0.5rem !important;
                 padding: $input-btn-padding-y-sm $input-btn-padding-x-sm;
                 color: $dark-50;

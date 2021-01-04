@@ -7,7 +7,7 @@
     display: inline-block;;
     flex-shrink: 0;
     position: relative;
-    @include border-radius($border-radius);
+    // @include border-radius($border-radius);
 
     // Label
     .symbol-label {
@@ -22,7 +22,7 @@
         background-position: center center;
         background-size: cover;
 
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
     }
 
     // Badge
@@ -37,19 +37,19 @@
     // Image
     > img {
         display: flex;
-        @include border-radius($border-radius);
+        // @include border-radius($border-radius);
     }
 
     // Circle style
     &.symbol-circle {
-        @include border-radius(50%);
+        // @include border-radius(50%);
 
         > img {
-            @include border-radius(50%);
+            // @include border-radius(50%);
         }
 
         .symbol-label {
-            @include border-radius(50%);
+            // @include border-radius(50%);
         }
     }
 
@@ -74,19 +74,19 @@
 
     // Responsize sizes
     @each $breakpoint in map-keys($grid-breakpoints) {
-        @include media-breakpoint-up($breakpoint) {
-            $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        // @include media-breakpoint-up($breakpoint) {
+        //     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-            @each $name, $value in $symbol-sizes {
-                @if ($name == 'default') {
-                    @include symbol-size($value);
-                } @else {
-                    &.symbol#{$infix}-#{$name} {
-                        @include symbol-size($value);
-                    }
-                }
-            }
-        }
+        //     @each $name, $value in $symbol-sizes {
+        //         @if ($name == 'default') {
+        //             @include symbol-size($value);
+        //         } @else {
+        //             &.symbol#{$infix}-#{$name} {
+        //                 @include symbol-size($value);
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
 

@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { toAbsoluteUrl } from '../../../../_helpers';
 import { useHtmlClassService } from '../../../_core/MetronicLayout';
 import { HeaderMenu } from './HeaderMenu';
-//[REV] show the SVG logo instead the png logo
-// import SVG from "react-inlinesvg";
+
 
 export function HeaderMenuWrapper() {
     const uiService = useHtmlClassService();
@@ -24,15 +23,12 @@ export function HeaderMenuWrapper() {
 
     const headerLogo = () => {
         return toAbsoluteUrl(`/media/logos/logo-light.png`);
-        // return <SVG src={toAbsoluteUrl(`/media/logos/logo-light.svg`)}></SVG>;
     };
 
     return (
         <>
             {/*begin::Header Menu Wrapper*/}
             <div className="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
-                {layoutProps.disabledAsideSelfDisplay && (
-                    <>
                         {/*begin::Header Logo*/}
                         <div className="header-logo">
                             <Link to="/">
@@ -40,8 +36,6 @@ export function HeaderMenuWrapper() {
                             </Link>
                         </div>
                         {/*end::Header Logo*/}
-                    </>
-                )}
                 {/*begin::Header Menu*/}
                 <HeaderMenu layoutProps={layoutProps} />
                 {/*end::Header Menu*/}

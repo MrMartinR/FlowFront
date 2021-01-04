@@ -1,6 +1,5 @@
 //
 // Global variables for Bootstrap customization.
-// To override any Bootstrap variable safely you can use _variables.demo.scss
 //
 
 //
@@ -183,51 +182,7 @@ $theme-shadow-colors: (
     "dark-75":    $dark-75
 ) !default;  // Custom variable
 
-// Social Network Colors Used With Boostrap Buttons(see: https://primarycolors.net/)
-$social-colors: (
-	facebook: (
-		base: #3b5998,
-		inverse: #ffffff,
-        light: rgba(#3b5998, 0.1),
-        hover: darken(#3b5998, 7.5%)
-	),
-	google: (
-		base: #dd4b39,
-		inverse: #ffffff,
-        light: rgba(#dd4b39, 0.1),
-        hover: darken(#dd4b39, 7.5%)
-	),
-	twitter: (
-		base: #1da1f2,
-		inverse: #ffffff,
-        light: rgba(#1da1f2, 0.1),
-        hover: darken(#1da1f2, 7.5%)
-	),
-	instagram: (
-		base: #e1306c,
-		inverse: #ffffff,
-        light: rgba(#e1306c, 0.1),
-        hover: darken(#e1306c, 7.5%)
-	),
-	youtube: (
-		base: #ff0000,
-		inverse: #ffffff,
-        light: rgba(#ff0000, 0.1),
-        hover: darken(#ff0000, 7.5%)
-	),
-    linkedin: (
-        base: #0077b5,
-        inverse: #ffffff,
-        light: rgba(#0077b5, 0.1),
-        hover: darken(#0077b5, 7.5%)
-    ),
-    skype: (
-        base: #00aff0,
-        inverse: #ffffff,
-        light: rgba(#00aff0, 0.1),
-        hover: darken(#00aff0, 7.5%)
-    )
-) !default; // Custom variable
+
 
 // Extended custom spacing for Bootstrap
 //
@@ -314,10 +269,6 @@ $hover-bg:                                          $gray-100 !default; // Custo
 $active-bg:                                         darken($gray-100, 1%) !default; // Custom variable
 
 // Options
-//
-// Quickly modify global styling by enabling or disabling optional features.
-$enable-rounded: 									true !default;
-$enable-shadows:                              		true !default;
 
 // Grid breakpoints
 //
@@ -518,7 +469,7 @@ $input-solid-color:                              	$dark-75; // Custom variable
 // Forms
 $form-group-margin-bottom:                          1rem !default;
 $form-label-font-size:                              14px !default; // Custom variable
-// $form-label-font-size:                              1rem !default; // Custom variable
+$form-label-font-size:                              1rem !default; // Custom variable
 $form-label-font-weight:                            400 !default; // Custom variable
 $form-feedback-font-size:                           0.9rem !default; // Custom variable
 $form-feedback-font-weight:                         400 !default; // Custom variable

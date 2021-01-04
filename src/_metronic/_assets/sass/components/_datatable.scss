@@ -616,7 +616,7 @@
 					font-size: 0.9rem;
 					line-height: 1rem;
 					font-weight: 500;
-					@include border-radius($border-radius);
+					// @include border-radius($border-radius);
 
 					> i {
 						font-size: 0.6rem;
@@ -670,7 +670,7 @@
 					width: 3.5rem;
 					text-align: center;
 					transition: $transition-link;
-					@include border-radius($border-radius !important);
+					// @include border-radius($border-radius !important);
 					background-color: get($datatable-config, page-bg);
 					border-color: get($datatable-config, page-bg);
 					color: get($datatable-config, page-color);
@@ -701,7 +701,7 @@
 					border: 0 !important;
 					color: get($datatable-config, page-info-color);
 					background-color: get($datatable-config, page-info-bg) !important;
-					@include border-radius($border-radius);
+					// @include border-radius($border-radius);
 
 					.filter-option,
 					&:after,
@@ -751,9 +751,4 @@
 			background-color: get($datatable-config, scrollbar-bg);
 		}
 	}
-}
-
-// Mobile mode
-@include media-breakpoint-down(sm) {
-
 }

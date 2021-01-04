@@ -54,7 +54,7 @@
     &.list-hover {
         .list-item {
             cursor: pointer;
-            @include border-radius($border-radius);
+            // @include border-radius($border-radius);
 
             &:hover {
                 transition: $transition;

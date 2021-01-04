@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardHeaderToolbar,} from "../../../../_metronic/_partials/controls";
+import { Button } from "@material-ui/core";
 
 export const ContactMethods = () => {
 
@@ -8,9 +9,9 @@ export const ContactMethods = () => {
     <Card style={{ marginLeft: "1rem", width: "50%", height: "100%", minWidth: "300px", minHeight: "300px" }}>
       <CardHeader title="Contact Methods" >
         <CardHeaderToolbar>
-          <button>
+          <Button>
             +
-          </button>
+          </Button>
         </CardHeaderToolbar>
       </CardHeader>
     </Card>
