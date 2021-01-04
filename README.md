@@ -16,3 +16,5 @@
 ### [SASS](https://sass-lang.com/documentation)
 
 ### [React](https://reactjs.org/docs/getting-started.html)
+
+### [TypeScript](https://www.typescriptlang.org/docs)
