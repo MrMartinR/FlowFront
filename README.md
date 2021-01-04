@@ -2,6 +2,6 @@
 
 ## Check the Following Style Guides
 
-# [SASS](docs/STYLEGUIDE-Sass.md)
+# [SASS](docs/StyleGuide-React.md)
 
-# [React](docs/STYLEGUIDE-React.md)
+# [React](docs/StyleGuide-React.md)
