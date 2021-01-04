@@ -32,14 +32,14 @@
 
 	// Pill style
 	&.form-control-pill {
-		border-radius: $input-line-height;
+		border-radius: "3px";
 
 		&.form-control-sm {
-			border-radius: $input-line-height-sm;
+			border-radius: "6px";
 		}
 
 		&.form-control-lg {
-			border-radius: $input-line-height-lg;
+			border-radius: "6px";
 		}
 	}
 
@@ -235,7 +235,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: calc(#{$input-line-height * 1em} + #{$input-padding-y * 2} + #{$input-height-border});
+		width: '20px';
 
 		i {
 			line-height: 0;
@@ -254,7 +254,7 @@
 	}
 
 	.form-control {
-		padding-left: calc(#{$input-line-height * 1em} + #{$input-padding-y * 2} + #{$input-height-border});
+		padding-left: '20px';
 	}
 
 	&.input-icon-right {
@@ -265,7 +265,7 @@
 
 		.form-control {
 			padding-left: $input-btn-padding-x;
-			padding-right: calc(#{$input-line-height * 1em} + #{$input-padding-y * 2} + #{$input-height-border});
+			padding-right:  '20px';
 		}
 	}
 }

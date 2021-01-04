@@ -1,7 +1,6 @@
 import { Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import React from 'react';
-
-import { InfiniteLoader, List } from "react-virtualized"
+import { InfiniteLoader, List } from "react-virtualized";
 
 
 export default function VirtualizedList({
@@ -35,22 +34,22 @@ export default function VirtualizedList({
 
     if (!isRowLoaded({index})) {
       return (
-        <ListItem key={key} className="AccountsListItem" style={{...style, justifyContent: "center"}}>
-          <CircularProgress className="splash-screen-spinner"/>
+        <ListItem key={key} style={{...style, justifyContent: "center"}}>
+          <CircularProgress />
         </ListItem>
       );
     } else {
 
       return (
-        <ListItem onClick={()=>rowSelected(index)} key={key} className="AccountsListItem" style={style}>
+        <ListItem onClick={()=>rowSelected(index)} key={key} style={style}>
          
           <ListItemAvatar>
             <Avatar
               alt={``}
-              src={`/static/images/avatar/1.jpg`}
+              src={``}
             />
           </ListItemAvatar>
-          
+
           <ListItemText id={key} primary={list[index].trade_name+'/'+list[index].name} />
         </ListItem>
       );

@@ -68,7 +68,6 @@ export const SettingPage = (props) => {
             .catch((err) => {
                 console.log(err);
             });
-        document.getElementById('kt_quick_user_close').click();
     }, [auth]);
 
     const handleChange = (e, field) => {

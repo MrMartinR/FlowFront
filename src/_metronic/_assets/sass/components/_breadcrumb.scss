@@ -34,7 +34,8 @@
 
       &:after {
         content: "-";
-        padding-left: $breadcrumb-item-padding;
+        padding-left: '10px';
+        // padding-left: $breadcrumb-item-padding;
       }
 
       &:last-child {
@@ -53,7 +54,8 @@
 
       &:after {
         content: "\2022";
-        padding-left: $breadcrumb-item-padding;
+        padding-left: '10px';
+        // padding-left: $breadcrumb-item-padding;
       }
 
       &:last-child {

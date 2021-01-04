@@ -36,11 +36,6 @@ const theme = createMuiTheme(
          * @see https://material-ui.com/customization/globals/#default-props
          */
         props: {
-            // Name of the component ⚛️
-            MuiButtonBase: {
-                // The properties to apply
-                disableRipple: true, // No more ripple, on the whole application 💣!
-            },
 
             // Set default elevation to 1 for popovers.
             MuiPopover: {

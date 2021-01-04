@@ -6,7 +6,6 @@ import ContactMethods from "./ContactMethods/ContactMethods";
 // import ContactDetailsImage from "./ContactDetailsImage";
 
 
-
   export const ContactDetails = ({ selectedContact }) => {
 
   return (

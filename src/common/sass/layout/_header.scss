@@ -1,0 +1,23 @@
+//
+// Header
+//
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	height: get($header-config, desktop, default, height);
+	position: relative;
+	z-index: 2;
+
+	// Fixed Header Mode
+	&.header-fixed {
+		height: get($header-config, desktop, fixed, height);
+		position: fixed;
+		top: 0;
+		right: 0;
+		left: 0;
+		z-index: get($header-config, desktop, fixed, zindex);
+		box-shadow: none !important;
+	}
+
+}

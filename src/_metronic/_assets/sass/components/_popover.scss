@@ -6,60 +6,56 @@
 // Base
 .popover {
     .popover-header {
-        font-size: $popover-header-font-size;
-        font-weight: $popover-header-font-weight;
-        border-bottom: 1px solid $popover-header-border-color;
+        font-size: '12px';
+        font-weight: 2;
+        border-bottom: 1px solid #ff4444;
     }
 
-    /*rtl:raw:
-    left: 0 !important;
-    right: auto !important;
-    */
 
     &.bs-popover-right {
-        margin-right: auto#{'/*rtl:ignore*/'};
-        margin-left: $popover-arrow-height#{'/*rtl:ignore*/'};
+        margin-right: auto;
+        margin-left: '10px';
 
         > .arrow {
-            right: auto#{'/*rtl:ignore*/'};
-            left: subtract(-$popover-arrow-height, $popover-border-width)#{'/*rtl:ignore*/'};
+            right: auto;
+            left: '10px';
 
             &::before {
-                right: auto#{'/*rtl:ignore*/'};
-                left: 0#{'/*rtl:ignore*/'};
-                border-width: ($popover-arrow-width / 2) $popover-arrow-height ($popover-arrow-width / 2) 0#{'/*rtl:ignore*/'};
-                border-right-color: $popover-arrow-outer-color#{'/*rtl:ignore*/'};
+                right: auto;
+                left: 0;
+                border-width: '10px';
+                border-right-color: #ff4444;
             }
 
             &::after {
-                right: auto#{'/*rtl:ignore*/'};
-                left: $popover-border-width#{'/*rtl:ignore*/'};
-                border-width: ($popover-arrow-width / 2) $popover-arrow-height ($popover-arrow-width / 2) 0#{'/*rtl:ignore*/'};
-                border-right-color: $popover-arrow-color#{'/*rtl:ignore*/'};
+                right: auto;
+                left: '10px';
+                border-width: '10px';
+                border-right-color: #ff4444;
             }
         }
     }
 
     &.bs-popover-left {
-        margin-left: auto#{'/*rtl:ignore*/'};
-        margin-right: $popover-arrow-height#{'/*rtl:ignore*/'};
+        margin-left: auto;
+        margin-right: '10px';
 
         > .arrow {
-            left: auto#{'/*rtl:ignore*/'};
-            right: subtract(-$popover-arrow-height, $popover-border-width)#{'/*rtl:ignore*/'};
+            left: auto;
+            right: '10px';
 
             &::before {
-                left: auto#{'/*rtl:ignore*/'};
-                right: 0#{'/*rtl:ignore*/'};
-                border-width: ($popover-arrow-width / 2) 0 ($popover-arrow-width / 2) $popover-arrow-height#{'/*rtl:ignore*/'};
-                border-left-color: $popover-arrow-outer-color#{'/*rtl:ignore*/'};
+                left: auto;
+                right: 0;
+                border-width: '10px';
+                border-left-color:  #ff4444;
             }
 
             &::after {
-                left: auto#{'/*rtl:ignore*/'};
-                right: $popover-border-width#{'/*rtl:ignore*/'};
-                border-width: ($popover-arrow-width / 2) 0 ($popover-arrow-width / 2) $popover-arrow-height#{'/*rtl:ignore*/'};
-                border-left-color: $popover-arrow-color#{'/*rtl:ignore*/'};
+                left: auto;
+                right: '10px';
+                border-width: '10px';
+                border-left-color:  #ff4444;
             }
         }
     }

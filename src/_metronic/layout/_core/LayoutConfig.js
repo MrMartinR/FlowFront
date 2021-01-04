@@ -77,7 +77,6 @@ export function getInitLayoutConfig() {
                 theme: 'light', // light|dark
                 fixed: {
                     desktop: true,
-                    // mobile: false,
                 },
             },
             menu: {
@@ -93,12 +92,6 @@ export function getInitLayoutConfig() {
                     submenu: {
                         theme: 'light', // light|dark
                         arrow: true,
-                    },
-                },
-                mobile: {
-                    submenu: {
-                        theme: 'light',
-                        accordion: true,
                     },
                 },
             },
@@ -119,91 +112,6 @@ export function getInitLayoutConfig() {
         content: {
             width: 'fluid', // fluid|fixed
         },
-        brand: {
-            self: {
-                theme: 'light', // light/dark
-            },
-        },
-        aside: {
-            self: {
-                theme: 'light', // light/dark
-                display: false,
-                fixed: true,
-                minimize: {
-                    toggle: true, // allow toggle
-                    default: false, // default state
-                    hoverable: true, // allow hover
-                },
-            },
-
-            menu: {
-                dropdown: false, // ok
-                scroll: true, // ok
-                'icon-style': 'duotone', // duotone, line, bold, solid
-                submenu: {
-                    accordion: true,
-                    dropdown: {
-                        arrow: true,
-                        'hover-timeout': 500, // in milliseconds
-                    },
-                },
-            },
-        },
-
-        extras: {
-            search: {
-                display: false,
-                layout: 'dropdown', // offcanvas, dropdown
-                offcanvas: {
-                    direction: 'right',
-                },
-            },
-            notifications: {
-                display: false,
-                layout: 'dropdown', // offcanvas, dropdown
-                dropdown: {
-                    style: 'dark', // light, dark
-                },
-                offcanvas: {
-                    directions: 'right',
-                },
-            },
-            'quick-actions': {
-                display: false,
-                layout: 'dropdown', // offcanvas, dropdown,
-                dropdown: {
-                    style: 'dark', // light, dark
-                },
-                offcanvas: {
-                    directions: 'right',
-                },
-            },
-            user: {
-                display: false,
-                layout: 'offcanvas', // offcanvas, dropdown
-                dropdown: {
-                    style: 'ligth',
-                },
-                offcanvas: {
-                    directions: 'right',
-                },
-            },
-
-            'quick-panel': {
-                display: true,
-                offcanvas: {
-                    directions: 'right',
-                },
-            },
-            chat: {
-                display: true,
-            },
-            toolbar: {
-                display: true,
-            },
-            scrolltop: {
-                display: true,
-            },
-        },
+        
     };
 }

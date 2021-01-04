@@ -28,7 +28,7 @@
     "components/card",
     "components/wizard",
     "components/type",
-    "components/breadcrumb",
+    // "components/breadcrumb",
     "components/nav",
     "components/alert",
     "components/buttons",
@@ -69,12 +69,9 @@
     "components/timeline-4",
     "components/timeline-5",
     "components/overlay",
-    "components/demo",
-    "components/wave",
     "components/list",
     "components/bullet",
-    "components/navi",
-    "components/ribbon";
+    "components/navi";
 
 // 4: Plugins
 @import
@@ -85,7 +82,7 @@
     "vendors/plugins/apexcharts";
 
 // 5: Layout
-@import "layout/init";
+@import "../../../common/sass/layout/init";
 
 // 6: Customizations
 //@import "style.react.custom.scss";

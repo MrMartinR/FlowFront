@@ -71,9 +71,6 @@
   }
 }
 
-// .nav-link:focus {
-//     outline: none;
-// }
 
 .brand-logo {
   img {
@@ -90,6 +87,7 @@
   display: none;
 }
 
+// [REV] move this to the accounts folder
 .AccountsListItem {
   border-bottom: solid .1rem #eee;
 }

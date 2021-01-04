@@ -13,7 +13,6 @@
 // Theme mixins
 @import
     "base/mixins/attr",
-    // "base/mixins/browsers",
     "base/mixins/fixes",
     "base/mixins/reset",
     "base/mixins/placeholder",
@@ -27,7 +26,6 @@
     "components/mixins/symbol",
     "components/mixins/menu-horizontal",
     "components/mixins/menu-vertical",
-    "components/mixins/offcanvas",
     "components/mixins/spinner",
     "components/mixins/svg-icon",
     "components/mixins/navi",
@@ -35,10 +33,9 @@
     "vendors/plugins/mixins/perfect-scrollbar";
 
 // Bootstrap mixins
-@import "~bootstrap/scss/mixins";
+// @import "~bootstrap/scss/mixins";
 
 // Global variables
-@import "components/variables.demo";
 @import "components/variables.bootstrap";
 @import "components/variables.custom";
 
@@ -46,4 +43,4 @@
 @import "vendors/plugins/variables";
 
 // Theme layout variables
-@import "layout/variables";
+@import "../../../common/sass/layout/variables";

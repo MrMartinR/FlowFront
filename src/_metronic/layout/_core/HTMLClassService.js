@@ -18,20 +18,20 @@ export class HtmlClassService {
         this.classes = {
             header: [],
             header_container: [],
-            header_mobile: [],
+            // header_mobile: [],
             header_menu: [],
-            aside: [],
-            aside_menu: [],
+            // aside: [],
+            // aside_menu: [],
             subheader: [],
             subheader_container: [],
             content: [],
             content_container: [],
-            footer_container: [],
+            // footer_container: [],
         };
 
         this.attributes = {
-            aside_menu: {},
-            header_mobile: {},
+            // aside_menu: {},
+            // header_mobile: {},
             header_menu: {},
         };
 
@@ -45,10 +45,10 @@ export class HtmlClassService {
 
         this.initContent();
         // init aside and aside menu
-        this.initAside();
+        // this.initAside();
 
         // init footer
-        this.initFooter();
+        // this.initFooter();
 
         // init theme
         this.initTheme();
@@ -95,11 +95,7 @@ export class HtmlClassService {
 
     getLogo() {
         const brandSkin = objectPath.get(this.config, 'brand.self.theme');
-        if (brandSkin === 'light') {
             return toAbsoluteUrl('/media/logos/logo-light.svg');
-        } else {
-            return toAbsoluteUrl('/media/logos/logo-light.svg');
-        }
     }
 
     getStickyLogo() {
@@ -125,10 +121,6 @@ export class HtmlClassService {
             bodyClasses.forEach((cssClass) => document.body.classList.add(cssClass));
         }
 
-        // Offcanvas directions
-        document.body.classList.add('quick-panel-right');
-        document.body.classList.add('demo-panel-right');
-        document.body.classList.add('offcanvas-right');
     }
 
     /**
@@ -142,18 +134,14 @@ export class HtmlClassService {
     initHeader() {
         // Fixed header
         const headerSelfFixedDesktop = objectPath.get(this.config, 'header.self.fixed.desktop');
-        if (headerSelfFixedDesktop) {
             document.body.classList.add('header-fixed');
             objectPath.push(this.classes, 'header', 'header-fixed');
-        } else {
-            document.body.classList.add('header-static');
-        }
 
-        const headerSelfFixedMobile = objectPath.get(this.config, 'header.self.fixed.mobile');
-        if (headerSelfFixedMobile) {
-            document.body.classList.add('header-mobile-fixed');
-            objectPath.push(this.classes, 'header_mobile', 'header-mobile-fixed');
-        }
+        // const headerSelfFixedMobile = objectPath.get(this.config, 'header.self.fixed.mobile');
+        // if (headerSelfFixedMobile) {
+        //     document.body.classList.add('header-mobile-fixed');
+        //     objectPath.push(this.classes, 'header_mobile', 'header-mobile-fixed');
+        // }
 
         // Menu
         const headerMenuSelfDisplay = objectPath.get(this.config, 'header.menu.self.display');
@@ -233,74 +221,6 @@ export class HtmlClassService {
         }
     }
 
-    /**
-     * Init Aside
-     */
-    initAside() {
-        // Check Aside
-        const asideSelfDisplay = objectPath.get(this.config, 'aside.self.display');
-        if (!asideSelfDisplay) {
-            return;
-        }
-
-        // Enable Aside
-        document.body.classList.add('aside-enabled');
-
-        // Fixed Aside
-        const asideSelfFixed = objectPath.get(this.config, 'aside.self.fixed');
-        if (asideSelfFixed) {
-            document.body.classList.add('aside-fixed');
-            objectPath.push(this.classes, 'aside', 'aside-fixed');
-        } else {
-            document.body.classList.add('aside-static');
-        }
-
-        // Check Aside
-        if (!asideSelfDisplay) {
-            return;
-        }
-
-        // Default fixed
-        if (objectPath.get(this.config, 'aside.self.minimize.default')) {
-            document.body.classList.add('aside-minimize');
-        }
-
-        if (objectPath.get(this.config, 'aside.self.minimize.hoverable')) {
-            document.body.classList.add('aside-minimize-hoverable');
-        }
-
-        // Menu
-        // Dropdown Submenu
-        const asideMenuDropdown = objectPath.get(this.config, 'aside.menu.dropdown');
-        if (asideMenuDropdown) {
-            objectPath.push(this.classes, 'aside_menu', 'aside-menu-dropdown');
-            this.attributes.aside_menu['data-menu-dropdown'] = '1';
-        }
-
-        // Scrollable Menu
-        this.attributes.aside_menu['data-menu-scroll'] = asideMenuDropdown ? '0' : '1';
-
-        const asideSubmenuDHoverTimeout = objectPath.get(this.config, 'aside.menu.submenu.dropdown.hover-timeout');
-        if (asideSubmenuDHoverTimeout) {
-            this.attributes.aside_menu['data-menu-dropdown-timeout'] = asideSubmenuDHoverTimeout;
-        }
-    }
-
-    /**
-     * Init Footer
-     */
-    initFooter() {
-        // Fixed header
-        if (objectPath.get(this.config, 'footer.fixed')) {
-            document.body.classList.add('footer-fixed');
-        }
-
-        if (objectPath.get(this.config, 'footer.self.width') === 'fluid') {
-            objectPath.push(this.classes, 'footer_container', 'container-fluid');
-        } else {
-            objectPath.push(this.classes, 'footer_container', 'container');
-        }
-    }
 
     /** Init Theme */
     initTheme() {

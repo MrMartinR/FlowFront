@@ -95,15 +95,10 @@ export const UserAccountsDetails = ({
                           height: "40px",
                           width: "40px",
                         }}
-                        alt={selectedUserAccount.name}
-                        src={ '' }
                       ></Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={selectedUserAccount.name}
-                      style={{
-                        marginTop: "1rem",
-                      }}
                     />
                   </>
                 )}
