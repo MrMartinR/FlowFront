@@ -3,7 +3,7 @@ import React from 'react';
 import { useLang } from './Metronici18n';
 import { IntlProvider } from 'react-intl';
 import '@formatjs/intl-relativetimeformat/polyfill';
-import '@formatjs/intl-relativetimeformat/dist/locale-data/en';
+import '@formatjs/intl-relativetimeformat/locale-data/en';
 
 import enMessages from './messages/en';
 
