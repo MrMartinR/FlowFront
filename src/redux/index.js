@@ -1,1 +1,1 @@
-export { default as setupAxios } from './setupAxios';
+export { default as setupAxios } from "./setupAxios"

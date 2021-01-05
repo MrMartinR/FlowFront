@@ -1,9 +1,9 @@
-import React from 'react';
-import { useSubheader } from '../../_metronic/layout';
+import React from "react"
+import { useSubheader } from "../../_metronic/layout"
 
 export const OriginatorsPage = () => {
-    const suhbeader = useSubheader();
-    suhbeader.setTitle('Originators');
+  const suhbeader = useSubheader()
+  suhbeader.setTitle("Originators")
 
-    return <>Originators Page</>;
-};
+  return <>Originators Page</>
+}

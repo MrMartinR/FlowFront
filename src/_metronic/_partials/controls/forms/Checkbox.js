@@ -1,14 +1,24 @@
-import React from 'react';
+import React from "react"
 
-export function Checkbox({ isSelected, onChange, children }) {
-    return (
-        <>
-            <input type="checkbox" style={{ display: 'none' }} />
-            <label className="checkbox checkbox-lg checkbox-single">
-                <input type="checkbox" checked={isSelected} onChange={onChange} />
-                {children}
-                <span />
-            </label>
-        </>
-    );
+function Checkbox({ isSelected, onChange, children }) {
+  return (
+    <>
+      <input type="checkbox" style={{ display: "none" }} />
+      <label
+        htmlFor="selectedCheckbox"
+        className="checkbox checkbox-lg checkbox-single"
+      >
+        <input
+          id="selectedCheckbox"
+          type="checkbox"
+          checked={isSelected}
+          onChange={onChange}
+        />
+        {children}
+        <span />
+      </label>
+    </>
+  )
 }
+
+export default Checkbox

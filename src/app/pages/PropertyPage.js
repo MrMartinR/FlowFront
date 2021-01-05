@@ -1,9 +1,9 @@
-import React from 'react';
-import { useSubheader } from '../../_metronic/layout';
+import React from "react"
+import { useSubheader } from "../../_metronic/layout"
 
 export const PropertyPage = () => {
-    const suhbeader = useSubheader();
-    suhbeader.setTitle('Property');
+  const suhbeader = useSubheader()
+  suhbeader.setTitle("Property")
 
-    return <>Property Page</>;
-};
+  return <>Property Page</>
+}

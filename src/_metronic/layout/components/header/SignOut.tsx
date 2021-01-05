@@ -1,16 +1,16 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React from "react"
+import { useHistory } from "react-router-dom"
 
 export function SignOut() {
-    const history = useHistory();
+  const history = useHistory()
 
-    const logoutClick = () => {
-        history.push('/logout');
-    };
+  const logoutClick = () => {
+    history.push("/logout")
+  }
 
-    return (
-        <button className="btn btn-light-primary" onClick={logoutClick}>
-            Sign Out
-        </button>
-    );
+  return (
+    <button className="btn btn-light-primary" onClick={logoutClick}>
+      Sign Out
+    </button>
+  )
 }
