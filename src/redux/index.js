@@ -1,1 +1,3 @@
-export { default as setupAxios } from "./setupAxios"
+import setupAxios from "./setupAxios"
+
+export default setupAxios

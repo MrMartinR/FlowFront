@@ -65,7 +65,7 @@ export const deleteCurrency = (id) => (dispatch) => {
   return requestFromServer
     .deleteCurrency(id)
     .then((response) => {
-      dispatch(actions.currencyDeleted({ id }))
+      dispatch(actions.currencyDeleted({ id, response }))
     })
     .catch((error) => {
       error.clientMessage = "Can't delete currency"

@@ -71,7 +71,7 @@ export const deleteUserAccount = (id) => (dispatch) => {
   return requestFromServer
     .deleteUserAccount(id)
     .then((response) => {
-      dispatch(actions.userAccountDeleted({ id }))
+      dispatch(actions.userAccountDeleted({ id, response }))
     })
     .catch((error) => {
       error.clientMessage = "Can't delete userAccount"

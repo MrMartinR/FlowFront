@@ -30,7 +30,7 @@ export const iconsSlice = createSlice({
         createdAt: dateObject.getTime(),
       }
     },
-    fetchIcon: (params) => (dispatch) => {},
+    // fetchIcon: (params) => (dispatch) => {},
   },
 })
 

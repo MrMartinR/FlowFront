@@ -25,7 +25,7 @@ export const fetchCountries = (params) => (dispatch) => {
     })
 }
 
-export const fetchAllCountry = (params) => (dispatch) => {
+export const fetchAllCountry = () => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
     .getAllCountries()
@@ -63,7 +63,7 @@ export const deleteCountry = (id) => (dispatch) => {
   return requestFromServer
     .deleteCountry(id)
     .then((response) => {
-      dispatch(actions.countryDeleted({ id }))
+      dispatch(actions.countryDeleted({ id, response }))
     })
     .catch((error) => {
       error.clientMessage = "Can't delete country"

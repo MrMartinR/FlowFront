@@ -3,7 +3,7 @@ import { platformsSlice, callTypes } from "./platformsSlice"
 
 const { actions } = platformsSlice
 
-export const fetchPlatforms = (params) => (dispatch) => {
+export const fetchPlatforms = () => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
     .getAllAccounts()

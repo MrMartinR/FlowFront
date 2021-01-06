@@ -45,7 +45,7 @@ export const platformsSlice = createSlice({
     filterData: (state, action) => {
       const data = action.payload
       const filteredData = []
-      for (let i = 0; i < state.platformTable.length; i++) {
+      for (let i = 0; i < state.platformTable.length; i += 1) {
         let shouldAdd = true
         if (
           data.statusList &&
@@ -53,7 +53,7 @@ export const platformsSlice = createSlice({
           !data.statusList.includes(state.platformTable[i].status)
         ) {
           shouldAdd = false
-          continue
+          // continue
         }
         if (
           data.catList &&
@@ -66,7 +66,7 @@ export const platformsSlice = createSlice({
           )
           if (!results) {
             shouldAdd = false
-            continue
+            // continue
           }
         }
         if (data.protList && data.protList.length > 0) {
@@ -79,11 +79,11 @@ export const platformsSlice = createSlice({
             ].protection_scheme.some((value) => data.protList.includes(value))
             if (!results) {
               shouldAdd = false
-              continue
+              // continue
             }
           } else {
             shouldAdd = false
-            continue
+            // continue
           }
         }
 
@@ -95,13 +95,13 @@ export const platformsSlice = createSlice({
             state.platformTable[i].secondary_market !== "Yes"
           ) {
             shouldAdd = false
-            continue
+            // continue
           } else if (
             data.secMarketNo &&
             state.platformTable[i].secondary_market !== "No"
           ) {
             shouldAdd = false
-            continue
+            // continue
           }
         }
 
