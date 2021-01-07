@@ -1,42 +1,42 @@
-// {
-//   "env": {
-//     "browser": true,
-//     "es6": true,
-//     "jest": true
-//   },
-//   "parser": "babel-eslint",
-//   "parserOptions": {
-//     "ecmaFeatures": {
-//       "jsx": true
-//     },
-//     "ecmaVersion": 2018,
-//     "sourceType": "module"
-//   },
-//   "extends": ["airbnb", "plugin:react/recommended"],
-//   "plugins": ["react"],
-//   "rules": {
-//     "react/react-in-jsx-scope": "off",
-//    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-//     "import/no-unresolved": "off",
-//     "no-shadow": "off",
-//     "no-console": "off",
-//     "no-param-reassign": 0,
-//     "react/prop-types": 0,
-//     "react/jsx-props-no-spreading": 0,
-//     "no-use-before-define": "off",
-//     "semi": 0,
-//     "import/extensions": "off",
-//     "linebreak-style":"off",
-//     "max-len": "off"
-//   },
-//   "overrides": [
-//     {
-//       "files": ["spec/**/*.js"],
-//       "rules": {
-//         "no-use-before-define": ["off"],
-//         "max-lines-per-function": ["off"]
-//       }
-//     }
-//   ]
-// }
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "extends": ["airbnb", "plugin:react/recommended"],
+  "plugins": ["react"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+   "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "import/no-unresolved": "off",
+    "no-shadow": "off",
+    "no-console": "off",
+    "no-param-reassign": 0,
+    "react/prop-types": 0,
+    "react/jsx-props-no-spreading": 0,
+    "no-use-before-define": "off",
+    "semi": 0,
+    "import/extensions": "off",
+    "linebreak-style":"off",
+    "max-len": "off"
+  },
+  "overrides": [
+    {
+      "files": ["spec/**/*.js"],
+      "rules": {
+        "no-use-before-define": ["off"],
+        "max-lines-per-function": ["off"]
+      }
+    }
+  ]
+}
 
