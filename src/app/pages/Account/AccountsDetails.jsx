@@ -3,8 +3,8 @@ import {
   Card,
   CardBody,
 } from "../../../_metronic/_partials/controls";
-import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
+import {Typography} from '@material-ui/core';
+import {Chip} from '@material-ui/core';
 import { CardHeader } from "@material-ui/core";
 // import Card from '@material-ui/core/Card';
 // import CardActions from '@material-ui/core/CardActions';

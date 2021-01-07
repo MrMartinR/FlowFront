@@ -6,12 +6,13 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../../_metronic/_partials/controls";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
+import {Table} from "@material-ui/core";
+import {TableBody} from "@material-ui/core";
+import {TableHead} from "@material-ui/core";
+import {TableRow} from "@material-ui/core";
+import {TableCell} from "@material-ui/core";
 import axios from "axios";
+/* eslint-disable  no-restricted-imports */ 
 import { withStyles, makeStyles } from "@material-ui/styles";
 import { API_URL } from "../../modules/Auth/_redux/authCrud";
 import {

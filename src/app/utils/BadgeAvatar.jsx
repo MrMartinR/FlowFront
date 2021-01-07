@@ -1,6 +1,7 @@
 import React from "react";
-import Badge from "@material-ui/core/Badge";
-import Avatar from "@material-ui/core/Avatar";
+import {Badge} from "@material-ui/core";
+import {Avatar} from "@material-ui/core";
+/* eslint-disable  no-restricted-imports */ 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) =>

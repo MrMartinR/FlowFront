@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { MultiSelect } from "../../../sharedComponents/searchSelect";
 import { Input } from "../../../sharedComponents/inputShared";
 import { Avatar, Button } from '@material-ui/core';
+/* eslint-disable  no-restricted-imports */ 
 import { makeStyles } from '@material-ui/core/styles';
 
 

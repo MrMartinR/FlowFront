@@ -1,12 +1,12 @@
 // [REV] failed to refactor to tsx
 
 import React, { useEffect, useState } from 'react'
-import { withStyles, makeStyles } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import { withStyles,makeStyles } from '@material-ui/core'
+import {Table} from '@material-ui/core'
+import {TableBody} from '@material-ui/core'
+import {TableCell} from '@material-ui/core'
+import {TableHead} from '@material-ui/core'
+import {TableRow} from '@material-ui/core'
 import { useFormik } from 'formik'
 import { connect } from 'react-redux'
 import { Avatar } from '@material-ui/core'

@@ -2,21 +2,21 @@
 
 import React, { useEffect, useState } from 'react'
 // import axios from "axios";
-import { withStyles, makeStyles } from '@material-ui/core/styles'
+import { styles } from '@material-ui/core'
 import clsx from 'clsx'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import MenuItem from '@material-ui/core/MenuItem'
+import {Table} from '@material-ui/core'
+import {TableBody} from '@material-ui/core'
+import {TableCell} from '@material-ui/core'
+import {TableHead} from '@material-ui/core'
+import {TableRow} from '@material-ui/core'
+import {MenuItem} from '@material-ui/core'
 import { useFormik } from 'formik'
 // import * as Yup from "yup";
 import { connect } from 'react-redux'
-import FormControl from '@material-ui/core/FormControl'
-import Button from '@material-ui/core/Button'
+import {FormControl} from '@material-ui/core'
+import {Button} from '@material-ui/core'
 import { Card } from 'react-bootstrap'
-import TextField from '@material-ui/core/TextField'
+import {TextField} from '@material-ui/core'
 import { useSubheader } from '../../../common/layout'
 
 import {
@@ -27,7 +27,7 @@ import {
 } from '../../actions/currencyActions'
 
 // const SAPI_URL = "";
-const StyledTableCell = withStyles((theme) => ({
+const StyledTableCell = styles.withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
@@ -37,7 +37,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell)
 
-const StyledTableRow = withStyles((theme) => ({
+const StyledTableRow = styles.withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
@@ -45,7 +45,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow)
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles.makeStyles((theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),
@@ -111,7 +111,7 @@ const CurrencyPage = ({ auth }) => {
   )
 }
 
-const useFormStyles = makeStyles((theme) => ({
+const useFormStyles = styles.makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
