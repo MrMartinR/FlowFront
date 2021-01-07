@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
 import objectPath from "object-path"
-import { toAbsoluteUrl } from "../../_helpers"
+import { toAbsoluteUrl } from "../../../_metronic/_helpers"
 
 export class HtmlClassService {
   // Public properties

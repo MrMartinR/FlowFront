@@ -1,6 +1,6 @@
 import React, { Suspense } from "react"
 import { Redirect, Switch } from "react-router-dom"
-import { LayoutSplashScreen, ContentRoute } from "../_metronic/layout"
+import { LayoutSplashScreen, ContentRoute } from "../common/layout"
 import DashboardPage from "./pages/DashboardPage"
 import SettingPage from "./pages/SettingPage"
 import { Contacts } from "./pages/Contact"

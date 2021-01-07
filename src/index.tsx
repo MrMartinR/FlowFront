@@ -13,10 +13,10 @@ import "./index.scss" // Standard version
 // Datepicker
 import "react-datepicker/dist/react-datepicker.css"
 import {
-  MetronicLayoutProvider,
+  LayoutProvider,
   MetronicSplashScreenProvider,
   MetronicSubheaderProvider,
-} from "./_metronic/layout"
+} from "./common/layout"
 import { MetronicI18nProvider } from "./_metronic/i18n"
 import "react-virtualized/styles.css"
 
@@ -36,13 +36,13 @@ ReactDOM.render(
   // StrictMode is a tool for highlighting potential problems in an application in development.
   <React.StrictMode>
     <MetronicI18nProvider>
-      <MetronicLayoutProvider>
+      <LayoutProvider>
         <MetronicSubheaderProvider>
           <MetronicSplashScreenProvider>
             <App store={store} persistor={persistor} basename={PUBLIC_URL} />
           </MetronicSplashScreenProvider>
         </MetronicSubheaderProvider>
-      </MetronicLayoutProvider>
+      </LayoutProvider>
     </MetronicI18nProvider>
   </React.StrictMode>,
   document.getElementById("root")

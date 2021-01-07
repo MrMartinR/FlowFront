@@ -1,5 +1,5 @@
 import React from "react"
-import { useSubheader } from "../../_metronic/layout"
+import { useSubheader } from "../../common/layout"
 
 export const PlatformsPage = () => {
   const suhbeader = useSubheader()

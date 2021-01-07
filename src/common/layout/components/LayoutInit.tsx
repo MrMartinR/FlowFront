@@ -1,11 +1,9 @@
 import React, { useLayoutEffect } from "react"
-import { KTUtil } from "../../_assets/js/components/util"
-import KTLayoutHeader from "../../_assets/js/layout/base/header"
-import KTLayoutHeaderMenu from "../../_assets/js/layout/base/header-menu"
-import KTLayoutContent from "../../_assets/js/layout/base/content"
-import KTLayoutSubheader from "../../_assets/js/layout/base/subheader"
-import KTLayoutStickyCard from "../../_assets/js/layout/base/sticky-card"
-import KTLayoutStretchedCard from "../../_assets/js/layout/base/stretched-card"
+import { KTUtil } from "../../../_metronic/_assets/js/components/util"
+import KTLayoutHeader from "../../../_metronic/_assets/js/layout/base/header"
+import KTLayoutHeaderMenu from "../../../_metronic/_assets/js/layout/base/header-menu"
+import KTLayoutContent from "../../../_metronic/_assets/js/layout/base/content"
+
 
 function LayoutInit() {
   useLayoutEffect(() => {

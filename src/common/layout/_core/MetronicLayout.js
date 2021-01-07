@@ -54,7 +54,7 @@ export function withHtmlClassService(Component) {
 
 export const HtmlClassServiceConsumer = HtmlClassServiceContext.Consumer
 
-export function MetronicLayoutProvider({ children }) {
+export function LayoutProvider({ children }) {
   const lc = useMemo(getConfig, [])
   const hcs = useMemo(() => {
     const service = new HtmlClassService()

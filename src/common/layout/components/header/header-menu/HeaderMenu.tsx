@@ -3,7 +3,7 @@ import React from "react"
 import { useLocation } from "react-router"
 import { NavLink } from "react-router-dom"
 // import SVG from "react-inlinesvg";
-import { checkIsActive } from "../../../../_helpers"
+import { checkIsActive } from "../../../../../_metronic/_helpers"
 // import { toAbsoluteUrl } from "../../../../_helpers";
 
 // [REV] added types any to layoutProps and url

@@ -1,4 +1,4 @@
-import { toAbsoluteUrl } from "../../_helpers"
+import { toAbsoluteUrl } from "../../../_metronic/_helpers"
 
 function getInitLayoutConfig() {
   return {
