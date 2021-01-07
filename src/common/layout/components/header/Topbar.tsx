@@ -1,7 +1,7 @@
-import * as React from "react"
-import SignOut from "./SignOut"
+import * as React from 'react'
+import SignOut from './SignOut'
 
-function Topbar() {
+export function Topbar() {
   return (
     // {/* sign out button */}
     <div className="topbar">

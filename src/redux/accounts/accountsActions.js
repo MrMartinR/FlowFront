@@ -1,5 +1,5 @@
-import * as requestFromServer from "./accountsCrud"
-import { accountsSlice, callTypes } from "./accountsSlice"
+import * as requestFromServer from './accountsCrud'
+import { accountsSlice, callTypes } from './accountsSlice'
 
 const { actions } = accountsSlice
 
@@ -7,7 +7,9 @@ export const accountSort = (queryParams) => (dispatch) => {
   const { field, isAsc, entities } = queryParams
   // console.log('fieldXXX', field)
   dispatch(
-    actions.accountSort({ callType: callTypes.action, field, isAsc, entities })
+    actions.accountSort({
+      callType: callTypes.action, field, isAsc, entities,
+    }),
   )
 }
 export const fetchAccounts = (params) => (dispatch) => {
@@ -46,11 +48,11 @@ export const fetchAccount = (id) => (dispatch) => {
   }
 
   dispatch(actions.startCall({ callType: callTypes.action }))
-  console.log("Looking")
+  console.log('Looking')
   return requestFromServer
     .getAccountById(id)
     .then((response) => {
-      console.log("Fetched")
+      console.log('Fetched')
       console.log(response.data)
       const account = response.data.data[0]
       dispatch(actions.accountFetched({ accountForEdit: account }))

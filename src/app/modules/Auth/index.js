@@ -1,2 +1,2 @@
-export { AuthPage } from "./pages/AuthPage"
-export { default as Logout } from "./pages/Logout"
+export { AuthPage } from './pages/AuthPage'
+export { default as Logout } from './pages/Logout'

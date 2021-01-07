@@ -1,40 +1,40 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react"
-import { Form, Col, Row } from "react-bootstrap"
-import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
-import InputLabel from "@material-ui/core/InputLabel"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select from "@material-ui/core/Select"
-import { useSelector } from "react-redux"
-import { getAllCountries } from "./Country/countryActions"
-import { getUserProfile, updateProfile } from "../actions/userActions"
-import { useSubheader } from "../../common/layout"
-import { toAbsoluteUrl } from "../../_metronic/_helpers"
-import { getAllCurrencies } from "../actions/currencyActions"
-import CustomizedSnackbars from "../utils/snackbar"
-import BadgeAvatars from "../utils/BadgeAvatar"
-import { Card, CardHeader } from "../../_metronic/_partials/controls"
+import React, { useEffect, useState } from 'react'
+import { Form, Col, Row } from 'react-bootstrap'
+import {TextField} from '@material-ui/core'
+import {Button} from '@material-ui/core'
+import {InputLabel} from '@material-ui/core'
+import {MenuItem} from '@material-ui/core'
+import {Select} from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import { getAllCountries } from './Country/countryActions'
+import { getUserProfile, updateProfile } from '../actions/userActions'
+import { useSubheader } from '../../common/layout'
+import { toAbsoluteUrl } from '../../_metronic/_helpers'
+import { getAllCurrencies } from '../actions/currencyActions'
+import CustomizedSnackbars from '../utils/snackbar'
+import BadgeAvatars from '../utils/BadgeAvatar'
+import { Card, CardHeader } from '../../_metronic/_partials/controls'
 
 const SettingPage = () => {
   const auth = useSelector((state) => state.auth)
   const suhbeader = useSubheader()
-  suhbeader.setTitle("Settings")
+  suhbeader.setTitle('Settings')
 
   const classes = {
     inputRoot: {
-      flexWrap: "wrap",
+      flexWrap: 'wrap',
     },
     inputInput: {
-      width: "auto",
+      width: 'auto',
       flexGrow: 1,
     },
   }
   const [currencies, setCurrencies] = useState([])
   const [countries, setCountries] = useState([])
   const [userProfile, setUserProfile] = useState({
-    avatar_url: toAbsoluteUrl("/media/logos/flow-logo.svg"),
+    avatar_url: toAbsoluteUrl('/media/logos/flow-logo.svg'),
   })
 
   const changePasswordIsDisabled = () => {
@@ -81,7 +81,7 @@ const SettingPage = () => {
 
   const handleChange = (e, field) => {
     let data
-    if (["country", "currency"].includes(field)) {
+    if (['country', 'currency'].includes(field)) {
       const { id } = e.currentTarget
       data = { [`${field}_id`]: id }
       setState({ [field]: e.target.value })
@@ -94,9 +94,9 @@ const SettingPage = () => {
       .then((res) => {
         if (res.data && res.data.success) {
           setSnackState({
-            message: `Saved!`,
+            message: 'Saved!',
             open: true,
-            variant: "success",
+            variant: 'success',
           })
           setState(res.data.data[0])
         }
@@ -105,38 +105,37 @@ const SettingPage = () => {
         setSnackState({
           message: err.message,
           open: true,
-          variant: "error",
+          variant: 'error',
         })
       })
   }
 
   const [snackState, _setSnackState] = useState({
-    message: "",
-    variant: "success",
+    message: '',
+    variant: 'success',
     open: false,
   })
-  const variant = "outlined"
+  const variant = 'outlined'
 
   const setSnackState = (newState) => {
     _setSnackState({ ...snackState, ...newState })
   }
 
   const onFileChange = (e) => {
-    const file =
-      e.target && e.target.files && e.target.files[0] ? e.target.files[0] : ""
+    const file = e.target && e.target.files && e.target.files[0] ? e.target.files[0] : ''
     updateProfile(
       auth,
       {
         avatar: file,
       },
-      file && file.name ? file.name : false
+      file && file.name ? file.name : false,
     )
       .then((res) => {
         if (res.data && res.data.success) {
           setSnackState({
-            message: `Saved!`,
+            message: 'Saved!',
             open: true,
-            variant: "success",
+            variant: 'success',
           })
           setState({
             avatar_url: res.data.data[0].avatar_url,
@@ -147,7 +146,7 @@ const SettingPage = () => {
         setSnackState({
           message: err.message,
           open: true,
-          variant: "error",
+          variant: 'error',
         })
       })
   }
@@ -156,14 +155,14 @@ const SettingPage = () => {
     <>
       <Card className="mt-4">
         <CardHeader
-          title={
+          title={(
             <>
               <Row className="h3">User Settings</Row>
               <Row>
                 <small>Update your account and settings</small>
               </Row>
             </>
-          }
+          )}
         />
 
         <CustomizedSnackbars
@@ -212,9 +211,9 @@ const SettingPage = () => {
                       type="text"
                       label="Name"
                       variant={variant}
-                      onBlur={(e) => handleChange(e, "name")}
+                      onBlur={(e) => handleChange(e, 'name')}
                       onChange={(e) => setState({ name: e.target.value })}
-                      value={userProfile.name ? userProfile.name : ""}
+                      value={userProfile.name ? userProfile.name : ''}
                     />
                   </Col>
                 </Form.Group>
@@ -232,8 +231,8 @@ const SettingPage = () => {
                       label="Surname"
                       variant={variant}
                       onChange={(e) => setState({ surname: e.target.value })}
-                      onBlur={(e) => handleChange(e, "surname")}
-                      value={userProfile.surname ? userProfile.surname : ""}
+                      onBlur={(e) => handleChange(e, 'surname')}
+                      value={userProfile.surname ? userProfile.surname : ''}
                     />
                   </Col>
                 </Form.Group>
@@ -250,12 +249,12 @@ const SettingPage = () => {
                       type="date"
                       label="Date of Birth"
                       variant={variant}
-                      value={userProfile.dob ? userProfile.dob : ""}
+                      value={userProfile.dob ? userProfile.dob : ''}
                       InputLabelProps={{
                         shrink: true,
                       }}
                       onChange={(e) => setState({ dob: e.target.value })}
-                      onBlur={(e) => handleChange(e, "dob")}
+                      onBlur={(e) => handleChange(e, 'dob')}
                     />
                   </Col>
                   <Col lg={3}>
@@ -284,10 +283,10 @@ const SettingPage = () => {
                     <TextField
                       className="w-100"
                       label="Username"
-                      value={userProfile.username ? userProfile.username : ""}
+                      value={userProfile.username ? userProfile.username : ''}
                       disabled
                       onChange={(e) => setState({ username: e.target.value })}
-                      onBlur={(e) => handleChange(e, "username")}
+                      onBlur={(e) => handleChange(e, 'username')}
                       variant={variant}
                     />
                   </Col>
@@ -304,9 +303,9 @@ const SettingPage = () => {
                       type="email"
                       disabled
                       label="Email"
-                      onBlur={(e) => handleChange(e, "email")}
+                      onBlur={(e) => handleChange(e, 'email')}
                       onChange={(e) => setState({ email: e.target.value })}
-                      value={userProfile.email ? userProfile.email : ""}
+                      value={userProfile.email ? userProfile.email : ''}
                       variant={variant}
                     />
                     <small>Email will not be publicly displayed</small>
@@ -324,11 +323,11 @@ const SettingPage = () => {
                       id="country-simple-select"
                       className="w-100"
                       variant={variant}
-                      onChange={(e) => handleChange(e, "country")}
+                      onChange={(e) => handleChange(e, 'country')}
                       value={
                         userProfile.country && userProfile.country.name
                           ? userProfile.country.name
-                          : ""
+                          : ''
                       }
                     >
                       {countries.map(({ name, id }) => (
@@ -355,9 +354,9 @@ const SettingPage = () => {
                       value={
                         userProfile.currency && userProfile.currency.code
                           ? userProfile.currency.code
-                          : ""
+                          : ''
                       }
-                      onChange={(e) => handleChange(e, "currency")}
+                      onChange={(e) => handleChange(e, 'currency')}
                     >
                       {currencies.map(({ code, id }) => (
                         <MenuItem key={id} id={id} value={code}>
@@ -390,16 +389,14 @@ const SettingPage = () => {
                       label="Current Password"
                       className="w-100"
                       variant={variant}
-                      onChange={(e) =>
-                        setState({ currentPassword: e.target.value })
-                      }
+                      onChange={(e) => setState({ currentPassword: e.target.value })}
                     />
                     <a
                       href="#"
                       onClick={(e) => {
                         e.preventDefault()
                       }}
-                      style={{ color: "#3783e7" }}
+                      style={{ color: '#3783e7' }}
                     >
                       Forget Password?
                     </a>
@@ -418,9 +415,7 @@ const SettingPage = () => {
                       label="New Password"
                       className="w-100"
                       variant={variant}
-                      onChange={(e) =>
-                        setState({ newPassword: e.target.value })
-                      }
+                      onChange={(e) => setState({ newPassword: e.target.value })}
                     />
                   </Col>
                 </Form.Group>
@@ -436,9 +431,7 @@ const SettingPage = () => {
                       className="w-100"
                       label="Verify Password"
                       variant={variant}
-                      onChange={(e) =>
-                        setState({ verifyPassword: e.target.value })
-                      }
+                      onChange={(e) => setState({ verifyPassword: e.target.value })}
                     />
                   </Col>
                 </Form.Group>
@@ -448,12 +441,12 @@ const SettingPage = () => {
                     <Button
                       variant="contained"
                       color="secondary"
-                      className={(classes.button += " h-100 float-right")}
+                      className={(classes.button += ' h-100 float-right')}
                       style={{
-                        textTransform: "none",
+                        textTransform: 'none',
                       }}
                       disabled={changePasswordIsDisabled()}
-                      onClick={(e) => handleChange(e, "newPassword")}
+                      onClick={(e) => handleChange(e, 'newPassword')}
                     >
                       Change Password
                     </Button>

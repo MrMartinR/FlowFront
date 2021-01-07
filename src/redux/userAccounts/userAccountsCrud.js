@@ -1,17 +1,19 @@
-import axios from "axios"
-import store from "../store"
+import axios from 'axios'
+import store from '../store'
 
 const optionsHeaders = () => {
   const {
-    auth: { user, client, expiry, token },
+    auth: {
+      user, client, expiry, token,
+    },
   } = store.getState()
 
   const options = {
     headers: {
-      "Referrer-Policy": "strict-origin-when-cross-origin",
-      "Content-Type": "application/json; charset=utf-8",
-      "access-token": token,
-      "token-type": "Bearer",
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
       client,
       expiry,
       uid: user.email,
@@ -20,7 +22,7 @@ const optionsHeaders = () => {
   return options
 }
 
-const API_URL = "http://localhost:3001"
+const API_URL = 'http://localhost:3001'
 // const API_URL = "https://api.flowfin.tech";
 // const API_URL = process.env.API_URL;
 
@@ -54,7 +56,7 @@ export function findUserAccounts({ page, perPage = 10 }) {
   // return axios.get(`${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`, optionsHeaders());
   return axios.get(
     `${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`,
-    optionsHeaders()
+    optionsHeaders(),
   )
 }
 
@@ -63,7 +65,7 @@ export function findUserAccounts({ page, perPage = 10 }) {
 export function findNextUserAccounts({ page, perPage = 10 }) {
   return axios.get(
     `${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`,
-    optionsHeaders()
+    optionsHeaders(),
   )
 }
 

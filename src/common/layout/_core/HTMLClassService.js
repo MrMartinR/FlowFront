@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
-import objectPath from "object-path"
-import { toAbsoluteUrl } from "../../../_metronic/_helpers"
+import objectPath from 'object-path'
+import { toAbsoluteUrl } from '../../../_metronic/_helpers'
 
 export class HtmlClassService {
   // Public properties
@@ -51,11 +51,11 @@ export class HtmlClassService {
     const updatedConfig = { ...layoutConfig }
     const headerSelfFixedDesktop = objectPath.get(
       updatedConfig,
-      "header.self.fixed.desktop"
+      'header.self.fixed.desktop',
     )
-    const subheaderFixed = objectPath.get(updatedConfig, "subheader.fixed")
+    const subheaderFixed = objectPath.get(updatedConfig, 'subheader.fixed')
     if (subheaderFixed && headerSelfFixedDesktop) {
-      updatedConfig.subheader.style = "solid"
+      updatedConfig.subheader.style = 'solid'
     } else {
       updatedConfig.subheader.fixed = false
     }
@@ -70,9 +70,9 @@ export class HtmlClassService {
    */
   getClasses(path, toString) {
     if (path) {
-      const classes = objectPath.get(this.classes, path) || ""
+      const classes = objectPath.get(this.classes, path) || ''
       if (toString && Array.isArray(classes)) {
-        return classes.join(" ")
+        return classes.join(' ')
       }
       return classes.toString()
     }
@@ -88,7 +88,7 @@ export class HtmlClassService {
   }
 
   getLogo() {
-    return toAbsoluteUrl("/media/logos/logo-light.svg")
+    return toAbsoluteUrl('/media/logos/logo-light.svg')
   }
 
   /**
@@ -97,15 +97,15 @@ export class HtmlClassService {
   initLayout() {
     const selfBodyBackgroundImage = objectPath.get(
       this.config,
-      "self.body.background-image"
+      'self.body.background-image',
     )
     if (selfBodyBackgroundImage) {
       document.body.style.backgroundImage = `url("${selfBodyBackgroundImage}'")`
     }
 
-    const _selfBodyClass = objectPath.get(this.config, "self.body.class")
+    const _selfBodyClass = objectPath.get(this.config, 'self.body.class')
     if (_selfBodyClass) {
-      const bodyClasses = _selfBodyClass.toString().split(" ")
+      const bodyClasses = _selfBodyClass.toString().split(' ')
       bodyClasses.forEach((cssClass) => document.body.classList.add(cssClass))
     }
   }
@@ -120,32 +120,32 @@ export class HtmlClassService {
    */
   initHeader() {
     // Fixed header
-    document.body.classList.add("header-fixed")
-    objectPath.push(this.classes, "header", "header-fixed")
+    document.body.classList.add('header-fixed')
+    objectPath.push(this.classes, 'header', 'header-fixed')
 
     // Menu
     const headerMenuSelfDisplay = objectPath.get(
       this.config,
-      "header.menu.self.display"
+      'header.menu.self.display',
     )
     if (headerMenuSelfDisplay) {
       const headerMenuSelfLayout = objectPath.get(
         this.config,
-        "header.menu.self.layout"
+        'header.menu.self.layout',
       )
       const headerMenuLayoutCssClass = `header-menu-layout-${headerMenuSelfLayout}`
-      objectPath.push(this.classes, "header_menu", headerMenuLayoutCssClass)
+      objectPath.push(this.classes, 'header_menu', headerMenuLayoutCssClass)
 
-      if (objectPath.get(this.config, "header.menu.self.root-arrow")) {
-        objectPath.push(this.classes, "header_menu", "header-menu-root-arrow")
+      if (objectPath.get(this.config, 'header.menu.self.root-arrow')) {
+        objectPath.push(this.classes, 'header_menu', 'header-menu-root-arrow')
       }
     }
 
-    const headerSelfWidth = objectPath.get(this.config, "header.self.width")
-    if (headerSelfWidth === "fluid") {
-      objectPath.push(this.classes, "header_container", "container-fluid")
+    const headerSelfWidth = objectPath.get(this.config, 'header.self.width')
+    if (headerSelfWidth === 'fluid') {
+      objectPath.push(this.classes, 'header_container', 'container-fluid')
     } else {
-      objectPath.push(this.classes, "header_container", "container")
+      objectPath.push(this.classes, 'header_container', 'container')
     }
   }
 
@@ -153,41 +153,41 @@ export class HtmlClassService {
    * Init Subheader
    */
   initSubheader() {
-    const subheaderDisplay = objectPath.get(this.config, "subheader.display")
+    const subheaderDisplay = objectPath.get(this.config, 'subheader.display')
     if (subheaderDisplay) {
-      document.body.classList.add("subheader-enabled")
+      document.body.classList.add('subheader-enabled')
     } else {
       return
     }
 
     // Fixed content head
-    const subheaderFixed = objectPath.get(this.config, "subheader.fixed")
+    const subheaderFixed = objectPath.get(this.config, 'subheader.fixed')
     const headerSelfFixedDesktop = objectPath.get(
       this.config,
-      "header.self.fixed.desktop"
+      'header.self.fixed.desktop',
     )
     if (subheaderFixed && headerSelfFixedDesktop) {
-      document.body.classList.add("subheader-fixed")
+      document.body.classList.add('subheader-fixed')
       // Page::setOption('layout', 'subheader/style', 'solid'); => See preInit()
     } else {
       // Page::setOption('layout', 'subheader/fixed', false); => See preInit()
     }
 
-    const subheaderStyle = objectPath.get(this.config, "subheader.style")
+    const subheaderStyle = objectPath.get(this.config, 'subheader.style')
     if (subheaderStyle) {
       const subheaderClass = `subheader-${subheaderStyle}`
-      objectPath.push(this.classes, "subheader", subheaderClass)
+      objectPath.push(this.classes, 'subheader', subheaderClass)
     }
 
-    const subheaderWidth = objectPath.get(this.config, "subheader.width")
-    if (subheaderWidth === "fluid") {
-      objectPath.push(this.classes, "subheader_container", "container-fluid")
+    const subheaderWidth = objectPath.get(this.config, 'subheader.width')
+    if (subheaderWidth === 'fluid') {
+      objectPath.push(this.classes, 'subheader_container', 'container-fluid')
     } else {
-      objectPath.push(this.classes, "subheader_container", "container")
+      objectPath.push(this.classes, 'subheader_container', 'container')
     }
 
-    if (objectPath.get(this.config, "subheader.clear")) {
-      objectPath.push(this.classes, "subheader", "mb-0")
+    if (objectPath.get(this.config, 'subheader.clear')) {
+      objectPath.push(this.classes, 'subheader', 'mb-0')
     }
   }
 
@@ -195,29 +195,29 @@ export class HtmlClassService {
    * Init Content
    */
   initContent() {
-    if (objectPath.get(this.config, "content.fit-top")) {
-      objectPath.push(this.classes, "content", "pt-0")
+    if (objectPath.get(this.config, 'content.fit-top')) {
+      objectPath.push(this.classes, 'content', 'pt-0')
     }
 
-    if (objectPath.get(this.config, "content.fit-bottom")) {
-      objectPath.push(this.classes, "content", "pb-0")
+    if (objectPath.get(this.config, 'content.fit-bottom')) {
+      objectPath.push(this.classes, 'content', 'pb-0')
     }
 
-    if (objectPath.get(this.config, "content.width") === "fluid") {
-      objectPath.push(this.classes, "content_container", "container-fluid")
+    if (objectPath.get(this.config, 'content.width') === 'fluid') {
+      objectPath.push(this.classes, 'content_container', 'container-fluid')
     } else {
-      objectPath.push(this.classes, "content_container", "container")
+      objectPath.push(this.classes, 'content_container', 'container')
     }
   }
 
   /** Init Theme */
   initTheme() {
-    const asideSelfDisplay = objectPath.get(this.config, "aside.self.display")
+    const asideSelfDisplay = objectPath.get(this.config, 'aside.self.display')
     if (!asideSelfDisplay) {
-      const headerSelfTheme = objectPath.get(this.config, "header.self.theme")
+      const headerSelfTheme = objectPath.get(this.config, 'header.self.theme')
       document.body.classList.add(`brand-${headerSelfTheme}`)
     } else {
-      const brandSelfTheme = objectPath.get(this.config, "brand.self.theme")
+      const brandSelfTheme = objectPath.get(this.config, 'brand.self.theme')
       document.body.classList.add(`brand-${brandSelfTheme}`)
     }
   }

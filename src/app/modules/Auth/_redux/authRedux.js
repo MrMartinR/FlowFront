@@ -1,14 +1,14 @@
-import { persistReducer } from "redux-persist"
-import storage from "redux-persist/lib/storage"
-import { put, takeLatest } from "redux-saga/effects"
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { put, takeLatest } from 'redux-saga/effects'
 // import { getUserByToken } from "./authCrud";
 
 export const actionTypes = {
-  Login: "[Login] Action",
-  Logout: "[Logout] Action",
-  Register: "[Register] Action",
-  UserRequested: "[Request User] Action",
-  UserLoaded: "[Load User] Auth API",
+  Login: '[Login] Action',
+  Logout: '[Logout] Action',
+  Register: '[Register] Action',
+  UserRequested: '[Request User] Action',
+  UserLoaded: '[Load User] Auth API',
 }
 
 const initialAuthState = {
@@ -22,8 +22,8 @@ const initialAuthState = {
 export const reducer = persistReducer(
   {
     storage,
-    key: "demo1-auth",
-    whitelist: ["user", "authToken", "client", "expiry", "token"],
+    key: 'demo1-auth',
+    whitelist: ['user', 'authToken', 'client', 'expiry', 'token'],
   },
   (state = initialAuthState, action) => {
     switch (action.type) {
@@ -62,13 +62,15 @@ export const reducer = persistReducer(
       default:
         return state
     }
-  }
+  },
 )
 
 export const actions = {
   login: (authToken, uid, client, expiry, token, userData) => ({
     type: actionTypes.Login,
-    payload: { authToken, uid, client, expiry, token, userData },
+    payload: {
+      authToken, uid, client, expiry, token, userData,
+    },
   }),
   register: (authToken) => ({
     type: actionTypes.Register,

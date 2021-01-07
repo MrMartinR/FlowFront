@@ -1,11 +1,11 @@
-import React, { useMemo } from "react"
-import objectPath from "object-path"
+import React, { useMemo } from 'react'
+import objectPath from 'object-path'
 // LayoutContext
-import { useHtmlClassService } from "../_core/MetronicLayout"
+import { useHtmlClassService } from '../_core/MetronicLayout'
 // Import Layout components
-import Header from "./header/Header"
-import LayoutInit from "./LayoutInit"
-import SubHeader from "./subheader/SubHeader"
+import Header from './header/Header'
+import LayoutInit from './LayoutInit'
+import SubHeader from './subheader/SubHeader'
 
 // [REV] adding type any to children
 export function Layout({ children }: any) {
@@ -14,20 +14,20 @@ export function Layout({ children }: any) {
   const layoutProps = useMemo(
     () => ({
       layoutConfig: uiService.config,
-      selfLayout: objectPath.get(uiService.config, "self.layout"),
-      subheaderDisplay: objectPath.get(uiService.config, "subheader.display"),
+      selfLayout: objectPath.get(uiService.config, 'self.layout'),
+      subheaderDisplay: objectPath.get(uiService.config, 'subheader.display'),
       desktopHeaderDisplay: objectPath.get(
         uiService.config,
-        "header.self.fixed.desktop"
+        'header.self.fixed.desktop',
       ),
-      contentCssClasses: uiService.getClasses("content", true),
-      contentContainerClasses: uiService.getClasses("content_container", true),
-      contentExtended: objectPath.get(uiService.config, "content.extended"),
+      contentCssClasses: uiService.getClasses('content', true),
+      contentContainerClasses: uiService.getClasses('content_container', true),
+      contentExtended: objectPath.get(uiService.config, 'content.extended'),
     }),
-    [uiService]
+    [uiService],
   )
 
-  return layoutProps.selfLayout !== "blank" ? (
+  return layoutProps.selfLayout !== 'blank' ? (
     <>
       {/* begin::Main */}
       <div className="d-flex flex-column flex-root">

@@ -9,13 +9,14 @@ import * as Yup from "yup";
 import { MultiSelect } from "../../sharedComponents/searchSelect";
 import { Input } from "../../sharedComponents/inputShared";
 import { Avatar, Button } from "@material-ui/core";
+/* eslint-disable  no-restricted-imports */ 
 import { makeStyles } from "@material-ui/core/styles";
 // import { StepperTemplate } from "./Stepper";
 
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Typography from '@material-ui/core/Typography';
+import {Stepper} from '@material-ui/core';
+import {Step} from '@material-ui/core';
+import {StepLabel} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 
 const useStyles = makeStyles(theme=>({
   avatarContainer: {

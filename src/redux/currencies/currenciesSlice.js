@@ -1,20 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit"
-import Util from "../../app/utils"
+import { createSlice } from '@reduxjs/toolkit'
+import Util from '../../app/utils'
 
 const initialCurrenciesState = {
   listLoading: false,
   actionsLoading: false,
-  currencyTable: { entities: null, page: null, pages: null, perPage: null },
+  currencyTable: {
+    entities: null, page: null, pages: null, perPage: null,
+  },
   currencyForEdit: undefined,
   lastError: null,
 }
 export const callTypes = {
-  list: "list",
-  action: "action",
+  list: 'list',
+  action: 'action',
 }
 
 export const currenciesSlice = createSlice({
-  name: "currencies",
+  name: 'currencies',
   initialState: initialCurrenciesState,
   reducers: {
     catchError: (state, action) => {
@@ -38,7 +40,7 @@ export const currenciesSlice = createSlice({
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
         const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase())
+          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
         )
         state.currencyTable.entities = entitiesOrdened
       }
@@ -74,7 +76,7 @@ export const currenciesSlice = createSlice({
             return action.payload.currency
           }
           return entity
-        }
+        },
       )
     },
     // deleteCustomer
@@ -82,7 +84,7 @@ export const currenciesSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.currencyTable.entities = state.currencyTable.entities.filter(
-        (el) => el.id !== action.payload.id
+        (el) => el.id !== action.payload.id,
       )
     },
     // deleteCustomers
@@ -90,7 +92,7 @@ export const currenciesSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.currencyTable.entities = state.currencyTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id)
+        (el) => !action.payload.ids.includes(el.id),
       )
     },
     // CurrenciesUpdateState
@@ -104,7 +106,7 @@ export const currenciesSlice = createSlice({
             entity.status = status
           }
           return entity
-        }
+        },
       )
     },
   },

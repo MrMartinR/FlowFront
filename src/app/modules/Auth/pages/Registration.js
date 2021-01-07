@@ -1,20 +1,20 @@
-import React, { useState } from "react"
-import { useFormik } from "formik"
-import { connect } from "react-redux"
-import * as Yup from "yup"
-import { Link } from "react-router-dom"
-import { FormattedMessage, injectIntl } from "react-intl"
-import TextField from "@material-ui/core/TextField"
-import * as auth from "../_redux/authRedux"
-import { register } from "../_redux/authCrud"
-import { toAbsoluteUrl } from "../../../../_metronic/_helpers"
+import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import * as Yup from 'yup'
+import { Link } from 'react-router-dom'
+import { FormattedMessage, injectIntl } from 'react-intl'
+import {TextField} from '@material-ui/core'
+import * as auth from '../_redux/authRedux'
+import { register } from '../_redux/authCrud'
+import { toAbsoluteUrl } from '../../../../_metronic/_helpers'
 
 const initialValues = {
-  fullname: "",
-  email: "",
-  username: "",
-  password: "",
-  changepassword: "",
+  fullname: '',
+  email: '',
+  username: '',
+  password: '',
+  changepassword: '',
   acceptTerms: false,
 }
 
@@ -23,32 +23,32 @@ function Registration(props) {
   const [loading, setLoading] = useState(false)
   const RegistrationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Wrong email format")
-      .min(3, "Minimum 3 characters")
-      .max(50, "Maximum 50 characters")
+      .email('Wrong email format')
+      .min(3, 'Minimum 3 characters')
+      .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       ),
     username: Yup.string()
-      .min(3, "Minimum 3 characters")
-      .max(50, "Maximum 50 characters")
+      .min(3, 'Minimum 3 characters')
+      .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       ),
     password: Yup.string()
-      .min(3, "Minimum 3 characters")
-      .max(50, "Maximum 50 characters")
+      .min(3, 'Minimum 3 characters')
+      .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       ),
     acceptTerms: Yup.bool().required(
-      "You must accept the terms and conditions"
+      'You must accept the terms and conditions',
     ),
   })
 
@@ -79,7 +79,7 @@ function Registration(props) {
       enableLoading()
       register(values.email, values.fullname, values.username, values.password)
         .then((res) => {
-          const accessToken = res.headers["access-token"]
+          const accessToken = res.headers['access-token']
           const { uid } = res.headers
           props.login(accessToken, uid)
           disableLoading()
@@ -89,8 +89,8 @@ function Registration(props) {
           // console.log(error.response.data.errors.full_messages);
           setStatus(
             intl.formatMessage({
-              id: error.response.data.errors.full_messages.join("   |   "),
-            })
+              id: error.response.data.errors.full_messages.join('   |   '),
+            }),
           )
           disableLoading()
         })
@@ -98,11 +98,11 @@ function Registration(props) {
   })
 
   return (
-    <div className="login-form login-signin" style={{ display: "block" }}>
+    <div className="login-form login-signin" style={{ display: 'block' }}>
       <img
         alt="Logo"
         className="max-h-70px max-h-md-100px d-block m-auto"
-        src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
+        src={toAbsoluteUrl('/media/logos/flow-logo.svg')}
       />
       <div className="text-center mb-10 mb-lg-20">
         <h3 className="font-size-h1">
@@ -133,7 +133,7 @@ function Registration(props) {
             variant="outlined"
             autoComplete
             type="text"
-            {...formik.getFieldProps("username")}
+            {...formik.getFieldProps('username')}
           />
           {formik.touched.username && formik.errors.username ? (
             <div className="ml-5 fv-plugins-message-container">
@@ -152,7 +152,7 @@ function Registration(props) {
             variant="outlined"
             autoComplete
             type="email"
-            {...formik.getFieldProps("email")}
+            {...formik.getFieldProps('email')}
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="ml-5 fv-plugins-message-container">
@@ -171,7 +171,7 @@ function Registration(props) {
             variant="outlined"
             autoComplete
             type="password"
-            {...formik.getFieldProps("password")}
+            {...formik.getFieldProps('password')}
           />
           {formik.touched.password && formik.errors.password ? (
             <div className="ml-5 fv-plugins-message-container">
@@ -187,8 +187,9 @@ function Registration(props) {
             <input
               type="checkbox"
               name="acceptTerms"
-              {...formik.getFieldProps("acceptTerms")}
-            />{" "}
+              {...formik.getFieldProps('acceptTerms')}
+            />
+            {' '}
             <Link to="/terms" target="_blank" rel="noopener noreferrer">
               I accept the Term & Conditions
             </Link>

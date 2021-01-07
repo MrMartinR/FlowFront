@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
 // [Martin] I imported the NavLink Class to show the menu in the dashboard
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom'
 
 function DashboardPage() {
   return (

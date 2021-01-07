@@ -1,9 +1,9 @@
-import React from "react"
-import { useSubheader } from "../../common/layout"
+import React from 'react'
+import { useSubheader } from '../../common/layout'
 
 const OriginatorsPage = () => {
   const suhbeader = useSubheader()
-  suhbeader.setTitle("Originators")
+  suhbeader.setTitle('Originators')
 
   return <>Originators Page</>
 }

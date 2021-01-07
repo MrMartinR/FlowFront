@@ -1,16 +1,18 @@
-import axios from "axios"
-import store from "../store"
+import axios from 'axios'
+import store from '../store'
 
 const optionsHeaders = () => {
   const {
-    auth: { user, client, expiry, token },
+    auth: {
+      user, client, expiry, token,
+    },
   } = store.getState()
 
   const options = {
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "access-token": token,
-      "token-type": "Bearer",
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
       client,
       expiry,
       uid: user.email,
@@ -19,7 +21,7 @@ const optionsHeaders = () => {
   return options
 }
 
-const API_URL = "http://localhost:3001"
+const API_URL = 'http://localhost:3001'
 // const API_URL = 'https://api.flowfin.tech';
 // const API_URL = process.env.API_URL;
 export const COUNTRY_URL = `${API_URL}/api/v1/countries`
@@ -43,7 +45,7 @@ export function getCountryById(countryId) {
 export function findCountries({ page, perPage = 10 }) {
   return axios.get(
     `${COUNTRY_URL}?page=${page}&per_page=${perPage}`,
-    optionsHeaders()
+    optionsHeaders(),
   )
 }
 

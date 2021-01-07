@@ -1,21 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit"
-import Util from "../../../utils"
+import { createSlice } from '@reduxjs/toolkit'
+import Util from '../../../utils'
 
 const initialContactsState = {
   listLoading: true,
   actionsLoading: false,
-  contactsTable: { entities: null, page: null, pages: null, perPage: null },
+  contactsTable: {
+    entities: null, page: null, pages: null, perPage: null,
+  },
   contactForEdit: undefined,
   lastError: null,
 }
 export const callTypes = {
-  list: "list",
-  action: "action",
+  list: 'list',
+  action: 'action',
 }
 export const contactsSlice = createSlice({
   // [REV] not working if I change the name to contacts
   // name: 'contacts',
-  name: "userAccounts",
+  name: 'userAccounts',
 
   initialState: initialContactsState,
   reducers: {
@@ -42,7 +44,7 @@ export const contactsSlice = createSlice({
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
         const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase())
+          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
         )
         state.accountTable.entities = entitiesOrdened
       }
@@ -89,7 +91,7 @@ export const contactsSlice = createSlice({
             return action.payload.userAccount
           }
           return entity
-        }
+        },
       )
     },
 
@@ -97,7 +99,7 @@ export const contactsSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.contactsTable.entities = state.contactsTable.entities.filter(
-        (el) => el.id !== action.payload.id
+        (el) => el.id !== action.payload.id,
       )
     },
 
@@ -105,7 +107,7 @@ export const contactsSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.contactsTable.entities = state.contactsTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id)
+        (el) => !action.payload.ids.includes(el.id),
       )
     },
 
@@ -119,7 +121,7 @@ export const contactsSlice = createSlice({
             entity.status = status
           }
           return entity
-        }
+        },
       )
     },
   },

@@ -9,12 +9,12 @@ import * as platformsActions from "../../../redux/platforms/platformsActions";
 import { AutoSizer } from "react-virtualized";
 import { Typography } from "@material-ui/core";
 
-import IconButton from '@material-ui/core/IconButton';
+import {IconButton} from '@material-ui/core';
 import FilterList from '@material-ui/icons/FilterList';
 
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import {Modal} from '@material-ui/core';
+import {Backdrop} from '@material-ui/core';
+import {Fade} from '@material-ui/core';
 
 const list = []
 

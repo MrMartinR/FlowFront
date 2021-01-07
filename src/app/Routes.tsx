@@ -5,21 +5,21 @@
  * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
  */
 
-import React from "react"
-import { Redirect, Switch, Route } from "react-router-dom"
-import { shallowEqual, useSelector } from "react-redux"
-import { Layout } from "../common/layout"
-import BasePage from "./BasePage"
-import { Logout, AuthPage } from "./modules/Auth/index"
-import ErrorsPage from "./modules/Errors/ErrorsPage"
+import React from 'react'
+import { Redirect, Switch, Route } from 'react-router-dom'
+import { shallowEqual, useSelector } from 'react-redux'
+import { Layout } from '../common/layout'
+import BasePage from './BasePage'
+import { Logout, AuthPage } from './modules/Auth/index'
+import ErrorsPage from './modules/Errors/ErrorsPage'
 
-function Routes() {
+export function Routes() {
   const { isAuthorized } = useSelector(
     // [REV] added type Any on refactor
     ({ auth }: any) => ({
       isAuthorized: auth.user != null,
     }),
-    shallowEqual
+    shallowEqual,
   )
 
   return (

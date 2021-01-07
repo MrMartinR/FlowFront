@@ -1,9 +1,9 @@
-import React, { createContext, useState, useContext } from "react"
+import React, { createContext, useState, useContext } from 'react'
 
 export function getBreadcrumbsAndTitle(menuId, pathName) {
   const result = {
     breadcrumbs: [],
-    title: "",
+    title: '',
   }
 
   const menu = document.getElementById(menuId)
@@ -12,22 +12,22 @@ export function getBreadcrumbsAndTitle(menuId, pathName) {
   }
 
   const activeLinksArray = Array.from(
-    menu.getElementsByClassName("active") || []
+    menu.getElementsByClassName('active') || [],
   )
-  const activeLinks = activeLinksArray.filter((el) => el.tagName === "A")
+  const activeLinks = activeLinksArray.filter((el) => el.tagName === 'A')
   if (!activeLinks) {
     return result
   }
 
   activeLinks.forEach((link) => {
-    const titleSpans = link.getElementsByClassName("menu-text")
+    const titleSpans = link.getElementsByClassName('menu-text')
     if (titleSpans) {
       const titleSpan = Array.from(titleSpans).find(
-        (t) => t.innerHTML && t.innerHTML.trim().length > 0
+        (t) => t.innerHTML && t.innerHTML.trim().length > 0,
       )
       if (titleSpan) {
         result.breadcrumbs.push({
-          pathname: link.pathname.replace(process.env.PUBLIC_URL, ""),
+          pathname: link.pathname.replace(process.env.PUBLIC_URL, ''),
           title: titleSpan.innerHTML,
         })
       }
@@ -39,12 +39,12 @@ export function getBreadcrumbsAndTitle(menuId, pathName) {
 
 export function getTitle(breadCrumbs, pathname) {
   if (!breadCrumbs || !pathname) {
-    return ""
+    return ''
   }
 
   const { length } = breadCrumbs
   if (!length) {
-    return ""
+    return ''
   }
 
   return breadCrumbs[length - 1].title
@@ -59,9 +59,11 @@ export function useSubheader() {
 export const SubheaderConsumer = SubheaderContext.Consumer
 
 export function MetronicSubheaderProvider({ children }) {
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState('')
   const [breadcrumbs, setBreadcrumbs] = useState([])
-  const value = { title, setTitle, breadcrumbs, setBreadcrumbs }
+  const value = {
+    title, setTitle, breadcrumbs, setBreadcrumbs,
+  }
   return (
     <SubheaderContext.Provider value={value}>
       {children}

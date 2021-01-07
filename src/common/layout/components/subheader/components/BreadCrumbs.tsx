@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react"
-import { Link } from "react-router-dom"
+import React from 'react'
+import { Link } from 'react-router-dom'
 // [REV] adding type any to items
 function BreadCrumbs({ items }: any) {
   if (!items || !items.length) {
-    return ""
+    return ''
   }
 
   return (

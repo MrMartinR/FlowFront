@@ -3,22 +3,22 @@
  * changed or moved.
  */
 
-import React from "react"
-import ReactDOM from "react-dom"
-import axios from "axios"
-import * as _redux from "./redux"
-import store, { persistor } from "./redux/store"
-import App from "./app/App"
-import "./index.scss" // Standard version
+import React from 'react'
+import ReactDOM from 'react-dom'
+import axios from 'axios'
+import * as _redux from './redux'
+import store, { persistor } from './redux/store'
+import App from './app/App'
+import './index.scss' // Standard version
 // Datepicker
-import "react-datepicker/dist/react-datepicker.css"
+import 'react-datepicker/dist/react-datepicker.css'
 import {
   LayoutProvider,
   MetronicSplashScreenProvider,
   MetronicSubheaderProvider,
-} from "./common/layout"
-import { MetronicI18nProvider } from "./_metronic/i18n"
-import "react-virtualized/styles.css"
+} from './common/layout'
+import { MetronicI18nProvider } from './_metronic/i18n'
+import 'react-virtualized/styles.css'
 
 /**
  * Base URL of the website.
@@ -45,5 +45,5 @@ ReactDOM.render(
       </LayoutProvider>
     </MetronicI18nProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 )

@@ -7,7 +7,7 @@ export default function setupAxios(axios, store) {
       } = store.getState()
 
       if (authToken) {
-        config.headers["token-type"] = "Bearer"
+        config.headers['token-type'] = 'Bearer'
         // config.headers.Authorization = `Bearer ${authToken}`;
         // config.headers.uid = user.uid;
         // config.headers.client = client;
@@ -17,6 +17,6 @@ export default function setupAxios(axios, store) {
 
       return config
     },
-    (err) => Promise.reject(err)
+    (err) => Promise.reject(err),
   )
 }

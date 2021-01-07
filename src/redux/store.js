@@ -1,9 +1,9 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
-import createSagaMiddleware from "redux-saga"
-import { reduxBatch } from "@manaflair/redux-batch"
-import { persistReducer, persistStore } from "redux-persist"
-import storage from "redux-persist/lib/storage"
-import { rootReducer, rootSaga } from "./rootReducer"
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import createSagaMiddleware from 'redux-saga'
+import { reduxBatch } from '@manaflair/redux-batch'
+import { persistReducer, persistStore } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { rootReducer, rootSaga } from './rootReducer'
 
 const sagaMiddleware = createSagaMiddleware()
 const middleware = [
@@ -16,9 +16,9 @@ const middleware = [
 ]
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["icons"], // only icons will be persisted
+  whitelist: ['icons'], // only icons will be persisted
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -26,7 +26,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = configureStore({
   reducer: persistedReducer,
   middleware,
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== 'production',
   enhancers: [reduxBatch],
 })
 

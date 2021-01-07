@@ -1,20 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit"
-import Util from "../../app/utils"
+import { createSlice } from '@reduxjs/toolkit'
+import Util from '../../app/utils'
 
 const initialCountriesState = {
   listLoading: false,
   actionsLoading: false,
-  countryTable: { entities: null, page: null, pages: null, perPage: null },
+  countryTable: {
+    entities: null, page: null, pages: null, perPage: null,
+  },
   countryForEdit: undefined,
   lastError: null,
 }
 export const callTypes = {
-  list: "list",
-  action: "action",
+  list: 'list',
+  action: 'action',
 }
 
 export const countriesSlice = createSlice({
-  name: "countries",
+  name: 'countries',
   initialState: initialCountriesState,
   reducers: {
     catchError: (state, action) => {
@@ -38,14 +40,14 @@ export const countriesSlice = createSlice({
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
         const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase())
+          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
         )
         state.countryTable.entities = entitiesOrdened
       }
     },
     // getCustomerById
     countryFetched: (state, action) => {
-      console.log("ACTION: ", action)
+      console.log('ACTION: ', action)
       state.actionsLoading = false
       state.countryForEdit = action.payload.countryForEdit
       state.error = null
@@ -73,7 +75,7 @@ export const countriesSlice = createSlice({
             return action.payload.country
           }
           return entity
-        }
+        },
       )
     },
     // deleteCustomer
@@ -81,7 +83,7 @@ export const countriesSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.countryTable.entities = state.countryTable.entities.filter(
-        (el) => el.id !== action.payload.id
+        (el) => el.id !== action.payload.id,
       )
     },
     // deleteCustomers
@@ -89,7 +91,7 @@ export const countriesSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.countryTable.entities = state.countryTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id)
+        (el) => !action.payload.ids.includes(el.id),
       )
     },
     // CountriesUpdateState
@@ -103,7 +105,7 @@ export const countriesSlice = createSlice({
             entity.status = status
           }
           return entity
-        }
+        },
       )
     },
   },

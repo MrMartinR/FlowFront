@@ -1,5 +1,5 @@
-import * as requestFromServer from "./contactsCRUD"
-import { contactsSlice, callTypes } from "./contactsSlice"
+import * as requestFromServer from './contactsCRUD'
+import { contactsSlice, callTypes } from './contactsSlice'
 
 const { actions } = contactsSlice
 
@@ -11,7 +11,7 @@ export const contactsSort = (queryParams) => (dispatch) => {
       field,
       isAsc,
       entities,
-    })
+    }),
   )
 }
 export const fetchContacts = (params) => (dispatch) => {

@@ -1,5 +1,5 @@
-import * as requestFromServer from "./currenciesCrud"
-import { currenciesSlice, callTypes } from "./currenciesSlice"
+import * as requestFromServer from './currenciesCrud'
+import { currenciesSlice, callTypes } from './currenciesSlice'
 
 const { actions } = currenciesSlice
 
@@ -7,7 +7,9 @@ export const currencySort = (queryParams) => (dispatch) => {
   const { field, isAsc, entities } = queryParams
   // console.log('field', field)
   dispatch(
-    actions.currencySort({ callType: callTypes.action, field, isAsc, entities })
+    actions.currencySort({
+      callType: callTypes.action, field, isAsc, entities,
+    }),
   )
 }
 export const fetchAllCurrencies = (params) => (dispatch) => {
@@ -18,7 +20,7 @@ export const fetchAllCurrencies = (params) => (dispatch) => {
       // console.log("CURRENCIES: ", response);
       const { data } = response.data
       dispatch(
-        actions.currenciesFetched({ pages: 200, page: 1, entities: data })
+        actions.currenciesFetched({ pages: 200, page: 1, entities: data }),
       )
     })
     .catch((error) => {
@@ -50,11 +52,11 @@ export const fetchCurrency = (id) => (dispatch) => {
     .getCurrencyById(id)
     .then((response) => {
       const currency = response.data.data[0]
-      console.log("currency", currency)
+      console.log('currency', currency)
       dispatch(actions.currencyFetched({ currencyForEdit: currency }))
     })
     .catch((error) => {
-      console.log("erroAAAAAAAAAAAr", error)
+      console.log('erroAAAAAAAAAAAr', error)
       error.clientMessage = "Can't find currency"
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
