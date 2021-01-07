@@ -1,15 +1,15 @@
-import React, { useState } from "react"
-import { useFormik } from "formik"
-import { connect } from "react-redux"
-import { Link, Redirect } from "react-router-dom"
-import * as Yup from "yup"
-import { injectIntl } from "react-intl"
-import { TextField } from "@material-ui/core"
-import * as auth from "../_redux/authRedux"
-import { requestPassword } from "../_redux/authCrud"
+import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
+import * as Yup from 'yup'
+import { injectIntl } from 'react-intl'
+import { TextField } from '@material-ui/core'
+import * as auth from '../_redux/authRedux'
+import { requestPassword } from '../_redux/authCrud'
 
 const initialValues = {
-  email: "",
+  email: '',
 }
 
 function ForgotPassword(props) {
@@ -17,13 +17,13 @@ function ForgotPassword(props) {
   const [isRequested, setIsRequested] = useState(false)
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Wrong email format")
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .email('Wrong email format')
+      .min(3, 'Minimum 3 symbols')
+      .max(50, 'Maximum 50 symbols')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       ),
   })
 
@@ -46,17 +46,17 @@ function ForgotPassword(props) {
       requestPassword(values.email)
         .then((res) => {
           setIsRequested(true)
-          localStorage.setItem("forgot_pwd_notif", res.data.message)
+          localStorage.setItem('forgot_pwd_notif', res.data.message)
         })
         .catch(() => {
           setIsRequested(false)
-          localStorage.setItem("forgot_pwd_notif", null)
+          localStorage.setItem('forgot_pwd_notif', null)
           setSubmitting(false)
           setStatus(
             intl.formatMessage(
-              { id: "AUTH.VALIDATION.NOT_FOUND" },
-              { name: values.email }
-            )
+              { id: 'AUTH.VALIDATION.NOT_FOUND' },
+              { name: values.email },
+            ),
           )
         })
     },
@@ -66,7 +66,7 @@ function ForgotPassword(props) {
     <>
       {isRequested && <Redirect to="/auth" />}
       {!isRequested && (
-        <div className="login-form login-forgot" style={{ display: "block" }}>
+        <div className="login-form login-forgot" style={{ display: 'block' }}>
           <div className="text-center mb-10 mb-lg-20">
             <h3 className="font-size-h1">Forgotten Password ?</h3>
             <div className="text-muted font-weight-bold">
@@ -92,7 +92,7 @@ function ForgotPassword(props) {
                 variant="outlined"
                 autoComplete
                 type="email"
-                {...formik.getFieldProps("email")}
+                {...formik.getFieldProps('email')}
               />
               {formik.touched.email && formik.errors.email ? (
                 <div className="fv-plugins-message-container">

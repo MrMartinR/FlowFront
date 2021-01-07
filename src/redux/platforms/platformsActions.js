@@ -1,5 +1,5 @@
-import * as requestFromServer from "./platformsCrud"
-import { platformsSlice, callTypes } from "./platformsSlice"
+import * as requestFromServer from './platformsCrud'
+import { platformsSlice, callTypes } from './platformsSlice'
 
 const { actions } = platformsSlice
 

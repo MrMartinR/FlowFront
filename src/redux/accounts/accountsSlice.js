@@ -1,20 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit"
-import Util from "../../app/utils"
+import { createSlice } from '@reduxjs/toolkit'
+import Util from '../../app/utils'
 
 const initialAccountsState = {
   listLoading: true,
   actionsLoading: false,
-  accountTable: { entities: null, page: null, pages: null, perPage: null },
+  accountTable: {
+    entities: null, page: null, pages: null, perPage: null,
+  },
   accountForEdit: undefined,
   lastError: null,
 }
 export const callTypes = {
-  list: "list",
-  action: "action",
+  list: 'list',
+  action: 'action',
 }
 
 export const accountsSlice = createSlice({
-  name: "accounts",
+  name: 'accounts',
   initialState: initialAccountsState,
   reducers: {
     catchError: (state, action) => {
@@ -38,7 +40,7 @@ export const accountsSlice = createSlice({
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
         const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase())
+          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
         )
         state.accountTable.entities = entitiesOrdened
       }
@@ -86,7 +88,7 @@ export const accountsSlice = createSlice({
             return action.payload.account
           }
           return entity
-        }
+        },
       )
     },
     // deleteCustomer
@@ -94,7 +96,7 @@ export const accountsSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.accountTable.entities = state.accountTable.entities.filter(
-        (el) => el.id !== action.payload.id
+        (el) => el.id !== action.payload.id,
       )
     },
     // deleteCustomers
@@ -102,7 +104,7 @@ export const accountsSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.accountTable.entities = state.accountTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id)
+        (el) => !action.payload.ids.includes(el.id),
       )
     },
     // accountsUpdateState
@@ -116,7 +118,7 @@ export const accountsSlice = createSlice({
             entity.status = status
           }
           return entity
-        }
+        },
       )
     },
   },

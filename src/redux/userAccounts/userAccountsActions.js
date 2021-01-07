@@ -1,5 +1,5 @@
-import * as requestFromServer from "./userAccountsCrud"
-import { userAccountsSlice, callTypes } from "./userAccountsSlice"
+import * as requestFromServer from './userAccountsCrud'
+import { userAccountsSlice, callTypes } from './userAccountsSlice'
 
 const { actions } = userAccountsSlice
 
@@ -12,7 +12,7 @@ export const userAccountSort = (queryParams) => (dispatch) => {
       field,
       isAsc,
       entities,
-    })
+    }),
   )
 }
 export const fetchUserAccounts = (params) => (dispatch) => {
@@ -48,12 +48,12 @@ export const fetchNextUserAccounts = (params) => (dispatch) => {
 export const fetchuserAccount = (id) => (dispatch) => {
   if (!id) {
     return dispatch(
-      actions.userAccountFetched({ userAccountForEdit: undefined })
+      actions.userAccountFetched({ userAccountForEdit: undefined }),
     )
   }
 
   dispatch(actions.startCall({ callType: callTypes.action }))
-  console.log("Looking")
+  console.log('Looking')
   return requestFromServer
     .getUserAccountById(id)
     .then((response) => {

@@ -1,10 +1,10 @@
-import * as requestFromServer from "./iconsCrud"
-import { iconsSlice } from "./iconsSlice"
+import * as requestFromServer from './iconsCrud'
+import { iconsSlice } from './iconsSlice'
 
 const { actions } = iconsSlice
 
 export const updateIcon = (params) => (dispatch) =>
-  // console.log("updateIcon params");
+// console.log("updateIcon params");
 
   requestFromServer.fetchIcon(params.category, params.uid).then((response) => {
     const { data } = response.data

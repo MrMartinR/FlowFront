@@ -1,34 +1,34 @@
-import React, { useMemo } from "react"
-import objectPath from "object-path"
-import { Link } from "react-router-dom"
-import { toAbsoluteUrl } from "../../../../../_metronic/_helpers"
-import { useHtmlClassService } from "../../../_core/MetronicLayout"
-import { HeaderMenu } from "./HeaderMenu"
+import React, { useMemo } from 'react'
+import objectPath from 'object-path'
+import { Link } from 'react-router-dom'
+import { toAbsoluteUrl } from '../../../../../_metronic/_helpers'
+import { useHtmlClassService } from '../../../_core/MetronicLayout'
+import { HeaderMenu } from './HeaderMenu'
 
 export function HeaderMenuWrapper() {
   const uiService = useHtmlClassService()
   const layoutProps = useMemo(
     () => ({
       config: uiService.config,
-      ktMenuClasses: uiService.getClasses("header_menu", true),
+      ktMenuClasses: uiService.getClasses('header_menu', true),
       rootArrowEnabled: objectPath.get(
         uiService.config,
-        "header.menu.self.root-arrow"
+        'header.menu.self.root-arrow',
       ),
       menuDesktopToggle: objectPath.get(
         uiService.config,
-        "header.menu.desktop.toggle"
+        'header.menu.desktop.toggle',
       ),
-      headerMenuAttributes: uiService.getAttributes("header_menu"),
-      headerSelfTheme: objectPath.get(uiService.config, "header.self.theme"),
-      ulClasses: uiService.getClasses("header_menu_nav", true),
+      headerMenuAttributes: uiService.getAttributes('header_menu'),
+      headerSelfTheme: objectPath.get(uiService.config, 'header.self.theme'),
+      ulClasses: uiService.getClasses('header_menu_nav', true),
       disabledAsideSelfDisplay:
-        objectPath.get(uiService.config, "aside.self.display") === false,
+        objectPath.get(uiService.config, 'aside.self.display') === false,
     }),
-    [uiService]
+    [uiService],
   )
 
-  const headerLogo = () => toAbsoluteUrl(`/media/logos/logo-light.png`)
+  const headerLogo = () => toAbsoluteUrl('/media/logos/logo-light.png')
 
   return (
     <>

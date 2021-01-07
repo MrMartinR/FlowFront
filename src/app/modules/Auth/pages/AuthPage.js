@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react"
-import { Switch, Redirect } from "react-router-dom"
-import { ContentRoute } from "../../../../common/layout"
-import Login from "./Login"
-import Registration from "./Registration"
-import ForgotPassword from "./ForgotPassword"
-import ForgotPasswordAction from "./ForgotPasswordAction"
-import "./login.scss"
+import React from 'react'
+import { Switch, Redirect } from 'react-router-dom'
+import { ContentRoute } from '../../../../common/layout'
+import Login from './Login'
+import Registration from './Registration'
+import ForgotPassword from './ForgotPassword'
+import ForgotPasswordAction from './ForgotPasswordAction'
+import './login.scss'
 
 export function AuthPage() {
   return (

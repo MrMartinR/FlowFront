@@ -1,11 +1,11 @@
 // [REV] errors renaming to tsx
-import React from "react"
-import { IntlProvider } from "react-intl"
-import { useLang } from "./Metronici18n"
-import "@formatjs/intl-relativetimeformat/polyfill"
-import "@formatjs/intl-relativetimeformat/locale-data/en"
+import React from 'react'
+import { IntlProvider } from 'react-intl'
+import { useLang } from './Metronici18n'
+import '@formatjs/intl-relativetimeformat/polyfill'
+import '@formatjs/intl-relativetimeformat/locale-data/en'
 
-import enMessages from "./messages/en"
+import enMessages from './messages/en'
 
 const allMessages = {
   en: enMessages,

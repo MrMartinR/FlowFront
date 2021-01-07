@@ -1,26 +1,26 @@
 // [REV] failed to refactor to tsx
 
-import React, { useEffect, useState } from "react"
-import { withStyles, makeStyles } from "@material-ui/core/styles"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableHead from "@material-ui/core/TableHead"
-import TableRow from "@material-ui/core/TableRow"
-import { useFormik } from "formik"
-import { connect } from "react-redux"
-import { Avatar } from "@material-ui/core"
-import { useSubheader } from "../../../common/layout"
+import React, { useEffect, useState } from 'react'
+import { withStyles, makeStyles } from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { Avatar } from '@material-ui/core'
+import { useSubheader } from '../../../common/layout'
 import {
   Card,
   CardBody,
   CardHeader,
   CardHeaderToolbar,
-} from "../../../_metronic/_partials/controls"
-import CountryForm from "./CountryForm"
-import { addCountry, CountrySchema, getAllCountries } from "./countryActions"
-import { toAbsoluteUrl } from "../../../_metronic/_helpers"
-import CustomizedSnackbars from "../../utils/snackbar"
+} from '../../../_metronic/_partials/controls'
+import CountryForm from './CountryForm'
+import { addCountry, CountrySchema, getAllCountries } from './countryActions'
+import { toAbsoluteUrl } from '../../../_metronic/_helpers'
+import CustomizedSnackbars from '../../utils/snackbar'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -34,7 +34,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    "&:nth-of-type(odd)": {
+    '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
     },
   },
@@ -42,9 +42,9 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: '100%',
     marginTop: theme.spacing(3),
-    overflowX: "auto",
+    overflowX: 'auto',
   },
   table: {
     minWidth: 700,
@@ -70,14 +70,14 @@ const CountryPage = (props) => {
 
   const classes = useStyles()
   const suhbeader = useSubheader()
-  suhbeader.setTitle("Countries")
+  suhbeader.setTitle('Countries')
 
   const initialValues = {
-    continent: "",
-    flag: "",
-    iso_code: "",
-    name: "",
-    currency_id: "",
+    continent: '',
+    flag: '',
+    iso_code: '',
+    name: '',
+    currency_id: '',
   }
 
   const formik = useFormik({
@@ -100,9 +100,9 @@ const CountryPage = (props) => {
                   const resData = res.data
                   if (resData.success) {
                     setSnackState({
-                      message: "Country Added!",
+                      message: 'Country Added!',
                       open: true,
-                      variant: "success",
+                      variant: 'success',
                     })
                     setRows(resData.data)
                   }
@@ -114,7 +114,7 @@ const CountryPage = (props) => {
             setSubmitting(false)
           })
           .catch(() => {
-            console.log("error")
+            console.log('error')
             setSubmitting(false)
           })
       }, 1000)
@@ -122,8 +122,8 @@ const CountryPage = (props) => {
   })
 
   const [snackState, _setSnackState] = useState({
-    message: "",
-    variant: "success",
+    message: '',
+    variant: 'success',
     open: false,
   })
 
@@ -178,15 +178,15 @@ const CountryPage = (props) => {
                   <StyledTableCell align="left">
                     <Avatar
                       style={{
-                        height: "40px",
-                        width: "40px",
-                        border: "2px solid #f3f3f3",
-                        float: "left",
+                        height: '40px',
+                        width: '40px',
+                        border: '2px solid #f3f3f3',
+                        float: 'left',
                       }}
                       variant="rounded"
                       alt={row.iso_code}
                       src={toAbsoluteUrl(
-                        `/media/svg/flags/${row.iso_code.toLowerCase()}.svg`
+                        `/media/svg/flags/${row.iso_code.toLowerCase()}.svg`,
                       )}
                     />
                   </StyledTableCell>
@@ -195,7 +195,7 @@ const CountryPage = (props) => {
                     {row.continent}
                   </StyledTableCell>
                   <StyledTableCell align="left">
-                    {row.currency && row.currency.code ? row.currency.code : ""}
+                    {row.currency && row.currency.code ? row.currency.code : ''}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

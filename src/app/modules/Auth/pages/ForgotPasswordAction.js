@@ -1,15 +1,15 @@
 /* eslint-disable global-require */
-import React, { useState } from "react"
-import { useFormik } from "formik"
-import { connect } from "react-redux"
-import { Link, Redirect, useHistory } from "react-router-dom"
-import * as Yup from "yup"
-import { injectIntl } from "react-intl"
-import * as auth from "../_redux/authRedux"
-import { submitRequestPassword } from "../_redux/authCrud"
+import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { Link, Redirect, useHistory } from 'react-router-dom'
+import * as Yup from 'yup'
+import { injectIntl } from 'react-intl'
+import * as auth from '../_redux/authRedux'
+import { submitRequestPassword } from '../_redux/authCrud'
 
 const initialValues = {
-  email: "",
+  email: '',
 }
 
 function ForgotPasswordAction({ location, intl }) {
@@ -17,9 +17,9 @@ function ForgotPasswordAction({ location, intl }) {
   // alert('asdfadsf');
 
   const { search } = location
-  const queryString = require("query-string")
+  const queryString = require('query-string')
   const parsed = queryString.parse(search)
-  const accessToken = parsed["access-token"]
+  const accessToken = parsed['access-token']
   const { client } = parsed
   const { uid } = parsed
   const { expiry } = parsed
@@ -27,38 +27,38 @@ function ForgotPasswordAction({ location, intl }) {
   const history = useHistory()
   const ForgotPasswordSchema = Yup.object().shape({
     password: Yup.string()
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .min(3, 'Minimum 3 symbols')
+      .max(50, 'Maximum 50 symbols')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       ),
     changepassword: Yup.string()
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       )
-      .when("password", {
+      .when('password', {
         is: (val) => !!(val && val.length > 0),
         then: Yup.string().oneOf(
-          [Yup.ref("password")],
-          "Password and Confirm Password didn't match"
+          [Yup.ref('password')],
+          "Password and Confirm Password didn't match",
         ),
       }),
   })
 
   const getInputClasses = (fieldname) => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
-      return "is-invalid"
+      return 'is-invalid'
     }
 
     if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-      return "is-valid"
+      return 'is-valid'
     }
 
-    return ""
+    return ''
   }
 
   const formik = useFormik({
@@ -71,22 +71,22 @@ function ForgotPasswordAction({ location, intl }) {
         accessToken,
         client,
         uid,
-        expiry
+        expiry,
       )
         .then((res) => {
           // alert('sukses');
-          localStorage.setItem("forgot_pwd_notif", res.data.message)
+          localStorage.setItem('forgot_pwd_notif', res.data.message)
           console.log(res)
-          history.push("/dashboard")
+          history.push('/dashboard')
         })
         .catch(() => {
           setIsRequested(false)
           setSubmitting(false)
           setStatus(
             intl.formatMessage(
-              { id: "AUTH.VALIDATION.NOT_FOUND" },
-              { name: values.email }
-            )
+              { id: 'AUTH.VALIDATION.NOT_FOUND' },
+              { name: values.email },
+            ),
           )
         })
     },
@@ -96,7 +96,7 @@ function ForgotPasswordAction({ location, intl }) {
     <>
       {isRequested && <Redirect to="/auth" />}
       {!isRequested && (
-        <div className="login-form login-forgot" style={{ display: "block" }}>
+        <div className="login-form login-forgot" style={{ display: 'block' }}>
           <div className="text-center mb-10 mb-lg-20">
             <h3 className="font-size-h1">Forgotten Password ?</h3>
             <div className="text-muted font-weight-bold">
@@ -121,10 +121,10 @@ function ForgotPasswordAction({ location, intl }) {
                 placeholder="Password"
                 type="password"
                 className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-                  "password"
+                  'password',
                 )}`}
                 name="password"
-                {...formik.getFieldProps("password")}
+                {...formik.getFieldProps('password')}
               />
               {formik.touched.password && formik.errors.password ? (
                 <div className="fv-plugins-message-container">
@@ -140,10 +140,10 @@ function ForgotPasswordAction({ location, intl }) {
                 placeholder="Confirm Password"
                 type="password"
                 className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-                  "changepassword"
+                  'changepassword',
                 )}`}
                 name="changepassword"
-                {...formik.getFieldProps("changepassword")}
+                {...formik.getFieldProps('changepassword')}
               />
               {formik.touched.changepassword && formik.errors.changepassword ? (
                 <div className="fv-plugins-message-container">

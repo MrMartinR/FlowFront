@@ -1,30 +1,30 @@
 // [REV] failed to refactor to tsx
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 // import axios from "axios";
-import { withStyles, makeStyles } from "@material-ui/core/styles"
-import clsx from "clsx"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableHead from "@material-ui/core/TableHead"
-import TableRow from "@material-ui/core/TableRow"
-import MenuItem from "@material-ui/core/MenuItem"
-import { useFormik } from "formik"
+import { withStyles, makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import MenuItem from '@material-ui/core/MenuItem'
+import { useFormik } from 'formik'
 // import * as Yup from "yup";
-import { connect } from "react-redux"
-import FormControl from "@material-ui/core/FormControl"
-import Button from "@material-ui/core/Button"
-import { Card } from "react-bootstrap"
-import TextField from "@material-ui/core/TextField"
-import { useSubheader } from "../../../common/layout"
+import { connect } from 'react-redux'
+import FormControl from '@material-ui/core/FormControl'
+import Button from '@material-ui/core/Button'
+import { Card } from 'react-bootstrap'
+import TextField from '@material-ui/core/TextField'
+import { useSubheader } from '../../../common/layout'
 
 import {
   addCurrency,
   currencyInitialValues,
   CurrencySchema,
   getAllCurrencies,
-} from "../../actions/currencyActions"
+} from '../../actions/currencyActions'
 
 // const SAPI_URL = "";
 const StyledTableCell = withStyles((theme) => ({
@@ -39,7 +39,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    "&:nth-of-type(odd)": {
+    '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
     },
   },
@@ -47,9 +47,9 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: '100%',
     marginTop: theme.spacing(3),
-    overflowX: "auto",
+    overflowX: 'auto',
   },
   table: {
     minWidth: 700,
@@ -74,7 +74,7 @@ const CurrencyPage = ({ auth }) => {
 
   const classes = useStyles()
   const suhbeader = useSubheader()
-  suhbeader.setTitle("Currency Page")
+  suhbeader.setTitle('Currency Page')
 
   return (
     <>
@@ -113,8 +113,8 @@ const CurrencyPage = ({ auth }) => {
 
 const useFormStyles = makeStyles((theme) => ({
   container: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   formControl: {
     margin: theme.spacing(1),
@@ -169,7 +169,7 @@ const CurrencyForm = (props) => {
             setSubmitting(false)
           })
           .catch(() => {
-            console.log("error")
+            console.log('error')
             disableLoading()
             setSubmitting(false)
           })
@@ -193,7 +193,7 @@ const CurrencyForm = (props) => {
                 </div>
               </div>
             ) : (
-              ""
+              ''
             )}
             <div className="makeStyles-container-3 justify-content-end">
               <Button
@@ -218,7 +218,7 @@ const CurrencyForm = (props) => {
                 margin="dense"
                 variant="outlined"
                 name="code"
-                {...formik.getFieldProps("code")}
+                {...formik.getFieldProps('code')}
               />
               {formik.touched.code && formik.errors.code ? (
                 <div className="fv-plugins-message-container">
@@ -234,7 +234,7 @@ const CurrencyForm = (props) => {
                 margin="dense"
                 variant="outlined"
                 name="name"
-                {...formik.getFieldProps("name")}
+                {...formik.getFieldProps('name')}
               />
               {formik.touched.name && formik.errors.name ? (
                 <div className="fv-plugins-message-container">
@@ -250,7 +250,7 @@ const CurrencyForm = (props) => {
                 margin="dense"
                 variant="outlined"
                 name="symbol"
-                {...formik.getFieldProps("symbol")}
+                {...formik.getFieldProps('symbol')}
               />
               {formik.touched.symbol && formik.errors.symbol ? (
                 <div className="fv-plugins-message-container">
@@ -267,7 +267,7 @@ const CurrencyForm = (props) => {
                 margin="dense"
                 variant="outlined"
                 name="decimal_places"
-                {...formik.getFieldProps("decimal_places")}
+                {...formik.getFieldProps('decimal_places')}
               />
               {formik.touched.decimal_places && formik.errors.decimal_places ? (
                 <div className="fv-plugins-message-container">
@@ -301,7 +301,7 @@ const CurrencyForm = (props) => {
                 margin="dense"
                 variant="outlined"
                 value={formik.values.type}
-                {...formik.getFieldProps("type")}
+                {...formik.getFieldProps('type')}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,

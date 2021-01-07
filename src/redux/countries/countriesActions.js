@@ -1,17 +1,19 @@
-import * as requestFromServer from "./countriesCrud"
-import { countriesSlice, callTypes } from "./countriesSlice"
+import * as requestFromServer from './countriesCrud'
+import { countriesSlice, callTypes } from './countriesSlice'
 
 const { actions } = countriesSlice
 
 export const countrySort = (queryParams) => (dispatch) => {
   const { field, isAsc, entities } = queryParams
-  console.log("field", field)
+  console.log('field', field)
   dispatch(
-    actions.countrySort({ callType: callTypes.action, field, isAsc, entities })
+    actions.countrySort({
+      callType: callTypes.action, field, isAsc, entities,
+    }),
   )
 }
 export const fetchCountries = (params) => (dispatch) => {
-  console.log("Called")
+  console.log('Called')
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
     .findCountries(params)
@@ -49,7 +51,7 @@ export const fetchCountry = (id) => (dispatch) => {
     .getCountryById(id)
     .then((response) => {
       const country = response.data.data[0]
-      console.log("country", country)
+      console.log('country', country)
       dispatch(actions.countryFetched({ countryForEdit: country }))
     })
     .catch((error) => {

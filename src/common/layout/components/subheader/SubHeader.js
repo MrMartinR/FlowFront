@@ -1,15 +1,15 @@
 // [REV] error TS2786 when refactoring to TSX (renaming file)
 
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useMemo, useLayoutEffect, useEffect } from "react"
-import objectPath from "object-path"
-import { useLocation } from "react-router-dom"
+import React, { useMemo, useLayoutEffect, useEffect } from 'react'
+import objectPath from 'object-path'
+import { useLocation } from 'react-router-dom'
 // import { BreadCrumbs } from "./components/BreadCrumbs"
 import {
   getBreadcrumbsAndTitle,
   useSubheader,
-} from "../../_core/MetronicSubheader"
-import { useHtmlClassService } from "../../_core/MetronicLayout"
+} from '../../_core/MetronicSubheader'
+import { useHtmlClassService } from '../../_core/MetronicLayout'
 
 function SubHeader() {
   const uiService = useHtmlClassService()
@@ -21,19 +21,19 @@ function SubHeader() {
       config: uiService.config,
       subheaderMobileToggle: objectPath.get(
         uiService.config,
-        "subheader.mobile-toggle"
+        'subheader.mobile-toggle',
       ),
-      subheaderCssClasses: uiService.getClasses("subheader", true),
+      subheaderCssClasses: uiService.getClasses('subheader', true),
       subheaderContainerCssClasses: uiService.getClasses(
-        "subheader_container",
-        true
+        'subheader_container',
+        true,
       ),
     }),
-    [uiService]
+    [uiService],
   )
 
   useLayoutEffect(() => {
-    const header = getBreadcrumbsAndTitle("kt_header_menu", location.pathname)
+    const header = getBreadcrumbsAndTitle('kt_header_menu', location.pathname)
     const { breadcrumbs } = header
     subheader.setBreadcrumbs(breadcrumbs)
     // eslint-disable-next-line

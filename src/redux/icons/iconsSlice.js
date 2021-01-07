@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 const dateObject = new Date()
 
 export const iconsSlice = createSlice({
-  name: "icons",
+  name: 'icons',
   initialState: {},
   reducers: {
     // catchError: (state, action) => {

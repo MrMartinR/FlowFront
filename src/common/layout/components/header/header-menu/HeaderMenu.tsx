@@ -1,16 +1,15 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from "react"
-import { useLocation } from "react-router"
-import { NavLink } from "react-router-dom"
+import React from 'react'
+import { useLocation } from 'react-router'
+import { NavLink } from 'react-router-dom'
 // import SVG from "react-inlinesvg";
-import { checkIsActive } from "../../../../../_metronic/_helpers"
+import { checkIsActive } from '../../../../../_metronic/_helpers'
 // import { toAbsoluteUrl } from "../../../../_helpers";
 
 // [REV] added types any to layoutProps and url
 export function HeaderMenu({ layoutProps }: any) {
   const location = useLocation()
-  const getMenuItemActive = (url: any) =>
-    checkIsActive(location, url) ? "menu-item-active" : ""
+  const getMenuItemActive = (url: any) => (checkIsActive(location, url) ? 'menu-item-active' : '')
 
   return (
     <div
@@ -25,7 +24,7 @@ export function HeaderMenu({ layoutProps }: any) {
         {/* dashboard */}
         <li
           className={`menu-item menu-item-rel ${getMenuItemActive(
-            "/dashboard"
+            '/dashboard',
           )}`}
         >
           <NavLink className="menu-link" to="/dashboard">
@@ -37,7 +36,7 @@ export function HeaderMenu({ layoutProps }: any) {
         {/* contacts */}
         <li
           className={`menu-item menu-item-rel ${getMenuItemActive(
-            "/contacts"
+            '/contacts',
           )}`}
         >
           <NavLink className="menu-link" to="/contacts">
@@ -49,7 +48,7 @@ export function HeaderMenu({ layoutProps }: any) {
         {/* user accounts */}
         <li
           className={`menu-item menu-item-rel ${getMenuItemActive(
-            "/user_accounts"
+            '/user_accounts',
           )}`}
         >
           <NavLink className="menu-link" to="/user_accounts">
@@ -60,7 +59,7 @@ export function HeaderMenu({ layoutProps }: any) {
 
         {/* lending */}
         <li
-          className={`menu-item menu-item-rel ${getMenuItemActive("/lending")}`}
+          className={`menu-item menu-item-rel ${getMenuItemActive('/lending')}`}
         >
           <NavLink className="menu-link" to="/lending">
             <span className="menu-text">Lending</span>

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { useRouteMatch } from "react-router-dom"
+import React, { useEffect, useState } from 'react'
+import { useRouteMatch } from 'react-router-dom'
 
 //  [REV] added type any on Content children
 export function Content({ children }: any) {
   // [REV] added type any on match
   const match: any = useRouteMatch() || {}
-  const animationEndClass = "grid-animateContent-finished"
+  const animationEndClass = 'grid-animateContent-finished'
   const [cssClassesState, setCssClassesState] = useState([
-    "grid-animateContent",
+    'grid-animateContent',
     animationEndClass,
   ])
 

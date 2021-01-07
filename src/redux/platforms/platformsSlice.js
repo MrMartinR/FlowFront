@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialPlatformsState = {
   listLoading: true,
@@ -8,12 +8,12 @@ const initialPlatformsState = {
   filteredTable: null,
 }
 export const callTypes = {
-  list: "list",
-  action: "action",
+  list: 'list',
+  action: 'action',
 }
 
 export const platformsSlice = createSlice({
-  name: "platforms",
+  name: 'platforms',
   initialState: initialPlatformsState,
   reducers: {
     catchError: (state, action) => {
@@ -48,22 +48,20 @@ export const platformsSlice = createSlice({
       for (let i = 0; i < state.platformTable.length; i += 1) {
         let shouldAdd = true
         if (
-          data.statusList &&
-          data.statusList.length > 0 &&
-          !data.statusList.includes(state.platformTable[i].status)
+          data.statusList
+          && data.statusList.length > 0
+          && !data.statusList.includes(state.platformTable[i].status)
         ) {
           shouldAdd = false
           // continue
         }
         if (
-          data.catList &&
-          data.catList.length > 0 &&
-          state.platformTable[i].category &&
-          state.platformTable[i].category > 0
+          data.catList
+          && data.catList.length > 0
+          && state.platformTable[i].category
+          && state.platformTable[i].category > 0
         ) {
-          const results = state.platformTable[i].category.some((value) =>
-            data.catList.includes(value)
-          )
+          const results = state.platformTable[i].category.some((value) => data.catList.includes(value))
           if (!results) {
             shouldAdd = false
             // continue
@@ -71,8 +69,8 @@ export const platformsSlice = createSlice({
         }
         if (data.protList && data.protList.length > 0) {
           if (
-            state.platformTable[i].protection_scheme &&
-            state.platformTable[i].protection_scheme.length > 0
+            state.platformTable[i].protection_scheme
+            && state.platformTable[i].protection_scheme.length > 0
           ) {
             const results = state.platformTable[
               i
@@ -91,14 +89,14 @@ export const platformsSlice = createSlice({
           if (data.secMarketYes && data.secMarketNo) {
             // do nothing
           } else if (
-            data.secMarketYes &&
-            state.platformTable[i].secondary_market !== "Yes"
+            data.secMarketYes
+            && state.platformTable[i].secondary_market !== 'Yes'
           ) {
             shouldAdd = false
             // continue
           } else if (
-            data.secMarketNo &&
-            state.platformTable[i].secondary_market !== "No"
+            data.secMarketNo
+            && state.platformTable[i].secondary_market !== 'No'
           ) {
             shouldAdd = false
             // continue

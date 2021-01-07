@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 
-import { Card, CardHeader } from "../../_metronic/_partials/controls"
+import { Card, CardHeader } from '../../_metronic/_partials/controls'
 
 const LendingPage = () => (
   <>

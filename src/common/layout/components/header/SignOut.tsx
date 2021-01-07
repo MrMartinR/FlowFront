@@ -1,11 +1,11 @@
-import React from "react"
-import { useHistory } from "react-router-dom"
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 function SignOut() {
   const history = useHistory()
 
   const logoutClick = () => {
-    history.push("/logout")
+    history.push('/logout')
   }
 
   return (

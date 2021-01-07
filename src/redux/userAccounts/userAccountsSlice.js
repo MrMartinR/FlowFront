@@ -1,19 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit"
-import Util from "../../app/utils"
+import { createSlice } from '@reduxjs/toolkit'
+import Util from '../../app/utils'
 
 const initialUserAccountsState = {
   listLoading: true,
   actionsLoading: false,
-  userAccountTable: { entities: null, page: null, pages: null, perPage: null },
+  userAccountTable: {
+    entities: null, page: null, pages: null, perPage: null,
+  },
   userAccountForEdit: undefined,
   lastError: null,
 }
 export const callTypes = {
-  list: "list",
-  action: "action",
+  list: 'list',
+  action: 'action',
 }
 export const userAccountsSlice = createSlice({
-  name: "userAccounts",
+  name: 'userAccounts',
   initialState: initialUserAccountsState,
   reducers: {
     catchError: (state, action) => {
@@ -37,7 +39,7 @@ export const userAccountsSlice = createSlice({
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
         const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase())
+          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
         )
         state.accountTable.entities = entitiesOrdened
       }
@@ -84,7 +86,7 @@ export const userAccountsSlice = createSlice({
             return action.payload.userAccount
           }
           return entity
-        }
+        },
       )
     },
     // deleteCustomer
@@ -92,7 +94,7 @@ export const userAccountsSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.userAccountTable.entities = state.userAccountTable.entities.filter(
-        (el) => el.id !== action.payload.id
+        (el) => el.id !== action.payload.id,
       )
     },
     // deleteCustomers
@@ -100,7 +102,7 @@ export const userAccountsSlice = createSlice({
       state.error = null
       state.actionsLoading = false
       state.userAccountTable.entities = state.userAccountTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id)
+        (el) => !action.payload.ids.includes(el.id),
       )
     },
     // userAccountsUpdateState
@@ -114,7 +116,7 @@ export const userAccountsSlice = createSlice({
             entity.status = status
           }
           return entity
-        }
+        },
       )
     },
     // userAccountTransactions

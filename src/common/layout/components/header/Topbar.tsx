@@ -1,5 +1,5 @@
-import * as React from "react"
-import SignOut from "./SignOut"
+import * as React from 'react'
+import SignOut from './SignOut'
 
 export function Topbar() {
   return (

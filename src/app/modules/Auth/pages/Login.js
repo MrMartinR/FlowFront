@@ -1,13 +1,13 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 // import { Link } from "react-router-dom";
-import { useFormik } from "formik"
-import * as Yup from "yup"
-import { connect } from "react-redux"
-import { FormattedMessage, injectIntl } from "react-intl"
-import TextField from "@material-ui/core/TextField"
-import * as auth from "../_redux/authRedux"
-import { login } from "../_redux/authCrud"
-import { toAbsoluteUrl } from "../../../../_metronic/_helpers"
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { connect } from 'react-redux'
+import { FormattedMessage, injectIntl } from 'react-intl'
+import TextField from '@material-ui/core/TextField'
+import * as auth from '../_redux/authRedux'
+import { login } from '../_redux/authCrud'
+import { toAbsoluteUrl } from '../../../../_metronic/_helpers'
 
 /*
   INTL (i18n) docs:
@@ -23,8 +23,8 @@ import { toAbsoluteUrl } from "../../../../_metronic/_helpers"
 // password: "samurai1",<Toast>
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 }
 
 function Login(props) {
@@ -32,21 +32,21 @@ function Login(props) {
   const [loading, setLoading] = useState(false)
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Wrong email format")
-      .min(6, "Minimum 6 characters")
-      .max(50, "Maximum 50 characters")
+      .email('Wrong email format')
+      .min(6, 'Minimum 6 characters')
+      .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       ),
     password: Yup.string()
-      .min(3, "Minimum 3 characters")
-      .max(50, "Maximum 50 characters")
+      .min(3, 'Minimum 3 characters')
+      .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+        }),
       ),
   })
 
@@ -62,8 +62,8 @@ function Login(props) {
     initialValues,
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      console.log("submitting..")
-      localStorage.removeItem("forgot_pwd_notif")
+      console.log('submitting..')
+      localStorage.removeItem('forgot_pwd_notif')
       enableLoading()
       setTimeout(() => {
         login(values.email, values.password)
@@ -83,8 +83,8 @@ function Login(props) {
             setSubmitting(false)
             setStatus(
               intl.formatMessage({
-                id: "AUTH.VALIDATION.INVALID_LOGIN",
-              })
+                id: 'AUTH.VALIDATION.INVALID_LOGIN',
+              }),
             )
           })
       }, 1000)
@@ -97,7 +97,7 @@ function Login(props) {
       <img
         alt="Logo"
         className="max-h-70px max-h-md-100px d-block m-auto"
-        src={toAbsoluteUrl("/media/logos/flow-logo.svg")}
+        src={toAbsoluteUrl('/media/logos/flow-logo.svg')}
       />
       <div className="text-center mb-5 mb-lg-20">
         <h3 className="font-size-h1">
@@ -118,16 +118,16 @@ function Login(props) {
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
         ) : (
-          ""
+          ''
         )}
-        {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
+        {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
           <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
             <div className="alert-text ">
-              {localStorage.getItem("forgot_pwd_notif")}
+              {localStorage.getItem('forgot_pwd_notif')}
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
 
         <div className="form-group">
@@ -138,7 +138,7 @@ function Login(props) {
             variant="outlined"
             autoComplete
             type="email"
-            {...formik.getFieldProps("email")}
+            {...formik.getFieldProps('email')}
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="ml-5 fv-plugins-message-container">
@@ -154,7 +154,7 @@ function Login(props) {
             variant="outlined"
             autoComplete
             type="password"
-            {...formik.getFieldProps("password")}
+            {...formik.getFieldProps('password')}
           />
           {formik.touched.password && formik.errors.password ? (
             <div className="ml-5 fv-plugins-message-container">

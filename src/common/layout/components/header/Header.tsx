@@ -1,23 +1,23 @@
-import React, { useMemo } from "react"
-import objectPath from "object-path"
-import { useHtmlClassService } from "../../_core/MetronicLayout"
-import { Topbar } from "./Topbar"
-import { HeaderMenuWrapper } from "./header-menu/HeaderMenuWrapper"
+import React, { useMemo } from 'react'
+import objectPath from 'object-path'
+import { useHtmlClassService } from '../../_core/MetronicLayout'
+import { Topbar } from './Topbar'
+import { HeaderMenuWrapper } from './header-menu/HeaderMenuWrapper'
 
 function Header() {
   const uiService = useHtmlClassService()
 
   const layoutProps = useMemo(
     () => ({
-      headerClasses: uiService.getClasses("header", true),
-      headerAttributes: uiService.getAttributes("header"),
-      headerContainerClasses: uiService.getClasses("header_container", true),
+      headerClasses: uiService.getClasses('header', true),
+      headerAttributes: uiService.getAttributes('header'),
+      headerContainerClasses: uiService.getClasses('header_container', true),
       menuHeaderDisplay: objectPath.get(
         uiService.config,
-        "header.menu.self.display"
+        'header.menu.self.display',
       ),
     }),
-    [uiService]
+    [uiService],
   )
 
   return (
