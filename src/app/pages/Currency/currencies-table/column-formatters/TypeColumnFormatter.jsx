@@ -7,7 +7,7 @@ import {
   CurrencyTypeTitles,
 } from "../../CurrenciesUIHelpers"
 
-function TypeColumnFormatter(cellContent, row) {
+export function TypeColumnFormatter(cellContent, row) {
   return (
     <>
       <span

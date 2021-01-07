@@ -6,7 +6,7 @@ import {
   CurrencyStatusTitles,
 } from "../../CurrenciesUIHelpers"
 
-function StatusColumnFormatter(cellContent, row) {
+export function StatusColumnFormatter(cellContent, row) {
   const getLabelCssClasses = () =>
     `label label-lg label-light-${
       CurrencyStatusCssClasses[row.status]
