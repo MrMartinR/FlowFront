@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import axios from "axios"
 
 let _API_URL = "https://evening-fjord-12692.herokuapp.com/"
@@ -37,30 +38,30 @@ export function register(email, fullname, username, password) {
   })
 }
 
-export function requestPassword(email, redirect_url) {
+export function requestPassword(email, redirectUrl) {
   console.log(`REQUESTPASSWORD-- ${REQUEST_PASSWORD_URL}`)
-  redirect_url = `${FORGOT_PASSWORD_CALLBACK}/auth/forgot-password-actions`
-  return axios.post(REQUEST_PASSWORD_URL, { email, redirect_url })
+  redirectUrl = `${FORGOT_PASSWORD_CALLBACK}/auth/forgot-password-actions`
+  return axios.post(REQUEST_PASSWORD_URL, { email, redirectUrl })
 }
 
 export function submitRequestPassword(
   password,
-  password_confirmation,
-  access_token,
+  passwordConfirmation,
+  accessToken,
   client,
   uid,
   expiry
 ) {
-  console.log(`submitRequestPassword-- ${access_token}`)
+  console.log(`submitRequestPassword-- ${accessToken}`)
 
   return axios.put(
     SUBMIT_PASSWORD_URL,
-    { password, password_confirmation },
+    { password, passwordConfirmation },
     {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "access-token": access_token,
+        "access-token": accessToken,
         client,
         uid,
         expiry,

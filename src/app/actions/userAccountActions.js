@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../modules/Auth/_redux/authCrud"
 
-export const getUserAccounts = (headerPara) =>
+const getUserAccounts = (headerPara) =>
   axios.get(`${API_URL}/api/v1/user_accounts`, {
     headers: {
       "access-token": headerPara.authToken,
@@ -10,3 +10,5 @@ export const getUserAccounts = (headerPara) =>
       expiry: headerPara.expiry,
     },
   })
+
+export default getUserAccounts

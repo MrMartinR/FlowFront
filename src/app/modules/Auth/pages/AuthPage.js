@@ -49,3 +49,5 @@ export function AuthPage() {
     </>
   )
 }
+
+export default AuthPage

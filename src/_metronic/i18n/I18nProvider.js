@@ -11,7 +11,7 @@ const allMessages = {
   en: enMessages,
 }
 
-export function I18nProvider({ children }) {
+function I18nProvider({ children }) {
   const locale = useLang()
   const messages = allMessages[locale]
 
@@ -21,3 +21,5 @@ export function I18nProvider({ children }) {
     </IntlProvider>
   )
 }
+
+export default I18nProvider

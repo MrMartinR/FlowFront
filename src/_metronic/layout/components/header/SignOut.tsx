@@ -1,7 +1,7 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
 
-export function SignOut() {
+function SignOut() {
   const history = useHistory()
 
   const logoutClick = () => {
@@ -9,8 +9,14 @@ export function SignOut() {
   }
 
   return (
-    <button className="btn btn-light-primary" onClick={logoutClick}>
+    <button
+      className="btn btn-light-primary"
+      onClick={logoutClick}
+      type="button"
+    >
       Sign Out
     </button>
   )
 }
+
+export default SignOut

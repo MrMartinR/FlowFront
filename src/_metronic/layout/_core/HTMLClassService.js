@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable class-methods-use-this */
 import objectPath from "object-path"
 import { toAbsoluteUrl } from "../../_helpers"
 
@@ -220,3 +222,5 @@ export class HtmlClassService {
     }
   }
 }
+
+export default HtmlClassService

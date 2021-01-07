@@ -1,6 +1,6 @@
 import { toAbsoluteUrl } from "../../_helpers"
 
-export function getInitLayoutConfig() {
+function getInitLayoutConfig() {
   return {
     demo: "demo1",
     js: {
@@ -115,3 +115,5 @@ export function getInitLayoutConfig() {
     },
   }
 }
+
+export default getInitLayoutConfig

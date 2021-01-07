@@ -3,7 +3,7 @@ import React from "react"
 // [Martin] I imported the NavLink Class to show the menu in the dashboard
 import { NavLink } from "react-router-dom"
 
-export function DashboardPage() {
+function DashboardPage() {
   return (
     <>
       <h1>Dashboard</h1>
@@ -61,3 +61,5 @@ export function DashboardPage() {
     </>
   )
 }
+
+export default DashboardPage

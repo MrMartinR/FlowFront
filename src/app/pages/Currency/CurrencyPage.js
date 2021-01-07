@@ -56,11 +56,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const CurrencyPage = (props) => {
+const CurrencyPage = ({ auth }) => {
   const [rows, setRows] = useState([])
   useEffect(() => {
     // Update the document title using the browser API
-    getAllCurrencies(props.auth)
+    getAllCurrencies(auth)
       .then((res) => {
         const resData = res.data
         if (resData.success) {
@@ -70,7 +70,7 @@ const CurrencyPage = (props) => {
       .catch((err) => {
         console.log(err)
       })
-  }, [props.auth])
+  }, [auth])
 
   const classes = useStyles()
   const suhbeader = useSubheader()
@@ -78,7 +78,7 @@ const CurrencyPage = (props) => {
 
   return (
     <>
-      <CurrencyForm props={props.auth} setRows={setRows} />
+      <CurrencyForm props={auth} setRows={setRows} />
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -149,7 +149,7 @@ const CurrencyForm = (props) => {
   const formik = useFormik({
     initialValues: currencyInitialValues,
     validationSchema: CurrencySchema,
-    onSubmit: (values, { setStatus, setSubmitting }) => {
+    onSubmit: (values, { setSubmitting }) => {
       enableLoading()
       setTimeout(() => {
         const formvalues = {

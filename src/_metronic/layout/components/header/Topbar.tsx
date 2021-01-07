@@ -1,7 +1,7 @@
 import * as React from "react"
-import { SignOut } from "./SignOut"
+import SignOut from "./SignOut"
 
-export function Topbar() {
+function Topbar() {
   return (
     // {/* sign out button */}
     <div className="topbar">
@@ -9,3 +9,5 @@ export function Topbar() {
     </div>
   )
 }
+
+export default Topbar

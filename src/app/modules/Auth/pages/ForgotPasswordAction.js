@@ -1,7 +1,8 @@
+/* eslint-disable global-require */
 import React, { useState } from "react"
 import { useFormik } from "formik"
 import { connect } from "react-redux"
-import { Link, Redirect } from "react-router-dom"
+import { Link, Redirect, useHistory } from "react-router-dom"
 import * as Yup from "yup"
 import { injectIntl } from "react-intl"
 import * as auth from "../_redux/authRedux"
@@ -11,18 +12,19 @@ const initialValues = {
   email: "",
 }
 
-function ForgotPasswordAction(props) {
+function ForgotPasswordAction({ location, intl }) {
   // var quer = this.props.location.query.__firebase_request_key;
   // alert('asdfadsf');
 
+  const { search } = location
   const queryString = require("query-string")
-  const parsed = queryString.parse(props.location.search)
-  const access_token = parsed["access-token"]
+  const parsed = queryString.parse(search)
+  const accessToken = parsed["access-token"]
   const { client } = parsed
   const { uid } = parsed
   const { expiry } = parsed
-  const { intl } = props
   const [isRequested, setIsRequested] = useState(false)
+  const history = useHistory()
   const ForgotPasswordSchema = Yup.object().shape({
     password: Yup.string()
       .min(3, "Minimum 3 symbols")
@@ -66,7 +68,7 @@ function ForgotPasswordAction(props) {
       submitRequestPassword(
         values.password,
         values.changepassword,
-        access_token,
+        accessToken,
         client,
         uid,
         expiry
@@ -75,7 +77,7 @@ function ForgotPasswordAction(props) {
           // alert('sukses');
           localStorage.setItem("forgot_pwd_notif", res.data.message)
           console.log(res)
-          props.history.push("/dashboard")
+          history.push("/dashboard")
         })
         .catch(() => {
           setIsRequested(false)

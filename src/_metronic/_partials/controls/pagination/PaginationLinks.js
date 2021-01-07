@@ -2,7 +2,7 @@
 import React from "react"
 import { getPages, getPagesCount } from "../../../_helpers"
 
-export function PaginationLinks({ paginationProps }) {
+function PaginationLinks({ paginationProps }) {
   const { totalSize, sizePerPage, page, paginationSize } = paginationProps
   const pagesCount = getPagesCount(totalSize, sizePerPage)
   const pages = getPages(page, pagesCount, paginationSize)
@@ -10,11 +10,11 @@ export function PaginationLinks({ paginationProps }) {
     onPageChange(1)
   }
 
-  const handlePrevPage = ({ page, onPageChange }) => {
+  const handlePrevPage = ({ onPageChange }) => {
     onPageChange(page - 1)
   }
 
-  const handleNextPage = ({ page, onPageChange }) => {
+  const handleNextPage = ({ onPageChange }) => {
     if (page < pagesCount) {
       onPageChange(page + 1)
     }
@@ -37,12 +37,18 @@ export function PaginationLinks({ paginationProps }) {
           <div className={`d-flex flex-wrap py-2 mr-3 ${disabledClass}`}>
             <a
               onClick={() => handleFirstPage(paginationProps)}
+              onKeyPress={() => handleFirstPage(paginationProps)}
+              role="link"
+              tabIndex={0}
               className="btn btn-icon btn-sm btn-light btn-hover-primary mr-2 my-1"
             >
               <i className="ki ki-bold-double-arrow-back icon-xs" />
             </a>
             <a
               onClick={() => handlePrevPage(paginationProps)}
+              onKeyPress={() => handlePrevPage(paginationProps)}
+              role="link"
+              tabIndex={0}
               className="btn btn-icon btn-sm btn-light btn-hover-primary mr-2 my-1"
             >
               <i className="ki ki-bold-arrow-back icon-xs" />
@@ -57,6 +63,9 @@ export function PaginationLinks({ paginationProps }) {
               <a
                 key={p}
                 onClick={() => handleSelectedPage(paginationProps, p)}
+                onKeyPress={() => handleSelectedPage(paginationProps, p)}
+                role="link"
+                tabIndex={0}
                 className={`btn btn-icon btn-sm border-0 btn-light ${
                   page === p ? " btn-hover-primary active" : ""
                 } mr-2 my-1`}
@@ -71,12 +80,18 @@ export function PaginationLinks({ paginationProps }) {
             )}
             <a
               onClick={() => handleNextPage(paginationProps)}
+              onKeyPress={() => handleNextPage(paginationProps)}
+              role="link"
+              tabIndex={0}
               className="btn btn-icon btn-sm btn-light btn-hover-primary mr-2 my-1"
             >
               <i className="ki ki-bold-arrow-next icon-xs" />
             </a>
             <a
               onClick={() => handleLastPage(paginationProps)}
+              onKeyPress={() => handleLastPage(paginationProps)}
+              role="link"
+              tabIndex={0}
               className="btn btn-icon btn-sm btn-light btn-hover-primary mr-2 my-1"
             >
               <i className="ki ki-bold-double-arrow-next icon-xs" />
@@ -87,3 +102,5 @@ export function PaginationLinks({ paginationProps }) {
     </>
   )
 }
+
+export default PaginationLinks

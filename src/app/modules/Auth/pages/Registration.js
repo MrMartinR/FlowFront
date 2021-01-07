@@ -183,7 +183,7 @@ function Registration(props) {
 
         {/* begin: Terms and Conditions */}
         <div className="form-group">
-          <label className="checkbox">
+          <label htmlFor="acceptTerms" className="checkbox">
             <input
               type="checkbox"
               name="acceptTerms"

@@ -7,7 +7,7 @@ import KTLayoutSubheader from "../../_assets/js/layout/base/subheader"
 import KTLayoutStickyCard from "../../_assets/js/layout/base/sticky-card"
 import KTLayoutStretchedCard from "../../_assets/js/layout/base/stretched-card"
 
-export function LayoutInit() {
+function LayoutInit() {
   useLayoutEffect(() => {
     // Initialization
     KTUtil.ready(() => {
@@ -40,3 +40,5 @@ export function LayoutInit() {
   }, [])
   return <></>
 }
+
+export default LayoutInit

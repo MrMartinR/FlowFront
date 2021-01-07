@@ -2,7 +2,7 @@ import React from "react"
 
 import { Card, CardHeader } from "../../_metronic/_partials/controls"
 
-export const LendingPage = () => (
+const LendingPage = () => (
   <>
     <div>
       <div>
@@ -18,3 +18,5 @@ export const LendingPage = () => (
     </div>
   </>
 )
+
+export default LendingPage

@@ -10,10 +10,10 @@ import { Redirect, Switch, Route } from "react-router-dom"
 import { shallowEqual, useSelector } from "react-redux"
 import { Layout } from "../_metronic/layout"
 import BasePage from "./BasePage"
-import { Logout, AuthPage } from "./modules/Auth"
+import { Logout, AuthPage } from "./modules/Auth/index"
 import ErrorsPage from "./modules/Errors/ErrorsPage"
 
-export function Routes() {
+function Routes() {
   const { isAuthorized } = useSelector(
     // [REV] added type Any on refactor
     ({ auth }: any) => ({
@@ -48,3 +48,5 @@ export function Routes() {
     </Switch>
   )
 }
+
+export default Routes

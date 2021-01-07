@@ -17,3 +17,5 @@ export function StatusColumnFormatter(cellContent, row) {
     </span>
   )
 }
+
+export default StatusColumnFormatter

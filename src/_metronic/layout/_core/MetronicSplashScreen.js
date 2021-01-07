@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { createContext, useContext, useState, useEffect } from "react"
 
 const MetronicSplashScreenContext = createContext()
@@ -39,7 +40,7 @@ export function MetronicSplashScreenProvider({ children }) {
 }
 
 export function LayoutSplashScreen({ visible = true }) {
-  // Everything are ready - remove splashscreen
+  // Everything is ready - remove splashscreen
   const setCount = useContext(MetronicSplashScreenContext)
 
   useEffect(() => {

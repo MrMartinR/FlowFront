@@ -1,8 +1,8 @@
 import React from "react"
-import { PaginationLinks } from "./PaginationLinks"
-import { PaginationToolbar } from "./PaginationToolbar"
+import PaginationLinks from "./PaginationLinks"
+import PaginationToolbar from "./PaginationToolbar"
 
-export function Pagination(props) {
+function Pagination(props) {
   const { children, isLoading, paginationProps } = props
   return (
     <>
@@ -17,3 +17,5 @@ export function Pagination(props) {
     </>
   )
 }
+
+export default Pagination

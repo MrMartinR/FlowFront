@@ -53,9 +53,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CountryPage = (props) => {
   const [rows, setRows] = useState([])
+  const { auth } = props
   useEffect(() => {
     // Update the document title using the browser API
-    getAllCountries(props.auth)
+    getAllCountries(auth)
       .then((res) => {
         const resData = res.data
         if (resData.success) {
@@ -65,7 +66,7 @@ const CountryPage = (props) => {
       .catch((err) => {
         console.log(err)
       })
-  }, [props.auth])
+  }, [auth])
 
   const classes = useStyles()
   const suhbeader = useSubheader()
@@ -82,7 +83,7 @@ const CountryPage = (props) => {
   const formik = useFormik({
     initialValues,
     validationSchema: CountrySchema,
-    onSubmit: (values, { setStatus, setSubmitting }) => {
+    onSubmit: (values, { setSubmitting }) => {
       setTimeout(() => {
         const formvalues = {
           continent: values.continent,
@@ -91,11 +92,11 @@ const CountryPage = (props) => {
           name: values.name,
           currency_id: values.currency_id,
         }
-        addCountry(props.auth, formvalues)
+        addCountry(auth, formvalues)
           .then((res) => {
             if (res.status === 200) {
-              getAllCountries(props.auth)
-                .then((res) => {
+              getAllCountries(auth)
+                .then(() => {
                   const resData = res.data
                   if (resData.success) {
                     setSnackState({

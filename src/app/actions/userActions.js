@@ -3,16 +3,16 @@ import { API_URL } from "../modules/Auth/_redux/authCrud"
 
 export const updateProfile = (headerPara, details, fileName = false) => {
   const formData = new FormData()
-  for (const k in details) {
-    if (details.hasOwnProperty(k)) {
-      const data = details[k]
+  Object.entries(details).forEach(([key, value]) => {
+    if (key) {
+      const data = value
       if (fileName) {
-        formData.append(`user[${k}]`, data, fileName)
+        formData.append(`user[${key}]`, data, fileName)
       } else {
-        formData.append(`user[${k}]`, data)
+        formData.append(`user[${key}]`, data)
       }
     }
-  }
+  })
   return axios.post(`${API_URL}/api/v1/update_profile`, formData, {
     headers: {
       "access-token": headerPara.authToken,

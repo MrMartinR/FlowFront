@@ -2,7 +2,7 @@
 import React from "react"
 import { PaginationTotalStandalone } from "react-bootstrap-table2-paginator"
 
-export function PaginationToolbar(props) {
+function PaginationToolbar(props) {
   const { isLoading, paginationProps } = props
   const {
     sizePerPageList,
@@ -36,7 +36,7 @@ export function PaginationToolbar(props) {
         className={`form-control form-control-sm font-weight-bold mr-4 border-0 bg-light ${
           totalSize === 0 && "disabled"
         }`}
-        onChange={onSizeChange}
+        onBlur={onSizeChange}
         value={sizePerPage}
         style={style}
       >
@@ -57,3 +57,5 @@ export function PaginationToolbar(props) {
     </div>
   )
 }
+
+export default PaginationToolbar

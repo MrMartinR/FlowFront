@@ -3,9 +3,9 @@ import objectPath from "object-path"
 // LayoutContext
 import { useHtmlClassService } from "../_core/MetronicLayout"
 // Import Layout components
-import { Header } from "./header/Header"
-import { LayoutInit } from "./LayoutInit"
-import { SubHeader } from "./subheader/SubHeader"
+import Header from "./header/Header"
+import LayoutInit from "./LayoutInit"
+import SubHeader from "./subheader/SubHeader"
 
 // [REV] adding type any to children
 export function Layout({ children }: any) {
@@ -73,3 +73,5 @@ export function Layout({ children }: any) {
     <div className="d-flex flex-column flex-root">{children}</div>
   )
 }
+
+export default Layout

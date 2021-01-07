@@ -1,5 +1,6 @@
+/* eslint-disable react/static-property-placement */
 import React, { createContext, useContext, useMemo } from "react"
-import { getInitLayoutConfig } from "./LayoutConfig"
+import getInitLayoutConfig from "./LayoutConfig"
 import { HtmlClassService } from "./HTMLClassService"
 
 const LAYOUT_CONFIG_KEY =

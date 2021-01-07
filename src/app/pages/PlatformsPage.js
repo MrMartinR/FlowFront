@@ -7,3 +7,5 @@ export const PlatformsPage = () => {
 
   return <>Platforms Page</>
 }
+
+export default PlatformsPage

@@ -11,7 +11,7 @@ import {
 } from "../../_core/MetronicSubheader"
 import { useHtmlClassService } from "../../_core/MetronicLayout"
 
-export function SubHeader() {
+function SubHeader() {
   const uiService = useHtmlClassService()
   const location = useLocation()
   const subheader = useSubheader()
@@ -58,3 +58,5 @@ export function SubHeader() {
     </div>
   )
 }
+
+export default SubHeader

@@ -20,10 +20,12 @@ export function ErrorPage() {
           <p className="display-4 font-weight-bold text-white">
             Looks like something went wrong.
             <br />
-            We're working on it
+            We&apos;re working on it
           </p>
         </div>
       </div>
     </div>
   )
 }
+
+export default ErrorPage

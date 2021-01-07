@@ -2,7 +2,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 // [REV] adding type any to items
-export function BreadCrumbs({ items }: any) {
+function BreadCrumbs({ items }: any) {
   if (!items || !items.length) {
     return ""
   }
@@ -14,15 +14,15 @@ export function BreadCrumbs({ items }: any) {
           <i className="flaticon2-shelter text-muted icon-1x" />
         </Link>
       </li>
-      {items.map(
-        (item: { pathname: any; title: React.ReactNode }, index: any) => (
-          <li key={`bc${index}`} className="breadcrumb-item">
-            <Link className="text-muted" to={{ pathname: item.pathname }}>
-              {item.title}
-            </Link>
-          </li>
-        )
-      )}
+      {items.map((item: { pathname: any; title: React.ReactNode }) => (
+        <li key={`bc${item.pathname}`} className="breadcrumb-item">
+          <Link className="text-muted" to={{ pathname: item.pathname }}>
+            {item.title}
+          </Link>
+        </li>
+      ))}
     </ul>
   )
 }
+
+export default BreadCrumbs

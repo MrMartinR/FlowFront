@@ -17,6 +17,9 @@ export function ActionsColumnFormatter(
         title="Edit account"
         className="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
         onClick={() => openEditAccountDialog(row.id)}
+        onKeyPress={() => openEditAccountDialog(row.id)}
+        role="link"
+        tabIndex={0}
       >
         <span className="svg-icon svg-icon-md svg-icon-primary">
           <SVG
@@ -30,6 +33,9 @@ export function ActionsColumnFormatter(
         title="Delete account"
         className="btn btn-icon btn-light btn-hover-danger btn-sm"
         onClick={() => openDeleteAccountDialog(row.id)}
+        onKeyPress={() => openDeleteAccountDialog(row.id)}
+        role="link"
+        tabIndex={0}
       >
         <span className="svg-icon svg-icon-md svg-icon-danger">
           <SVG src={toAbsoluteUrl("/media/svg/icons/General/Trash.svg")} />
@@ -38,3 +44,5 @@ export function ActionsColumnFormatter(
     </>
   )
 }
+
+export default ActionsColumnFormatter

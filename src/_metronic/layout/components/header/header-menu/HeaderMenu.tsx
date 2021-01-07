@@ -73,3 +73,5 @@ export function HeaderMenu({ layoutProps }: any) {
     </div>
   )
 }
+
+export default HeaderMenu

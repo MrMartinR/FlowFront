@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react"
 import { Form, Col, Row } from "react-bootstrap"
@@ -16,7 +17,7 @@ import CustomizedSnackbars from "../utils/snackbar"
 import BadgeAvatars from "../utils/BadgeAvatar"
 import { Card, CardHeader } from "../../_metronic/_partials/controls"
 
-export const SettingPage = (props) => {
+const SettingPage = () => {
   const auth = useSelector((state) => state.auth)
   const suhbeader = useSubheader()
   suhbeader.setTitle("Settings")
@@ -37,9 +38,9 @@ export const SettingPage = (props) => {
   })
 
   const changePasswordIsDisabled = () => {
-    if (userProfile.newPassword) {
-    }
-    return false
+    if (userProfile.newPassword) return false
+
+    return true
   }
 
   const setState = (newState) => {
@@ -62,10 +63,16 @@ export const SettingPage = (props) => {
 
     getAllCurrencies(auth)
       .then((res) => {
-        const currencies = res.data.data.sort((a, b) =>
-          a.code > b.code ? 1 : b.code > a.code ? -1 : 0
-        )
-        setCurrencies(currencies)
+        const currency = res.data.data.sort((a, b) => {
+          if (a.code > b.code) {
+            return 1
+          }
+          if (b.code > a.code) {
+            return -1
+          }
+          return 0
+        })
+        setCurrencies(currency)
       })
       .catch((err) => {
         console.log(err)
@@ -324,8 +331,8 @@ export const SettingPage = (props) => {
                           : ""
                       }
                     >
-                      {countries.map(({ name, id }, key) => (
-                        <MenuItem key={key} id={id} value={name}>
+                      {countries.map(({ name, id }) => (
+                        <MenuItem key={name} id={id} value={name}>
                           {name}
                         </MenuItem>
                       ))}
@@ -352,8 +359,8 @@ export const SettingPage = (props) => {
                       }
                       onChange={(e) => handleChange(e, "currency")}
                     >
-                      {currencies.map(({ code, id }, key) => (
-                        <MenuItem key={key} id={id} value={code}>
+                      {currencies.map(({ code, id }) => (
+                        <MenuItem key={id} id={id} value={code}>
                           {code}
                         </MenuItem>
                       ))}
@@ -460,3 +467,5 @@ export const SettingPage = (props) => {
     </>
   )
 }
+
+export default SettingPage

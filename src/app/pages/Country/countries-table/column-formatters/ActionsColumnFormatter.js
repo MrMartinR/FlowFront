@@ -5,7 +5,7 @@ import React from "react"
 import SVG from "react-inlinesvg"
 import { toAbsoluteUrl } from "../../../../../_metronic/_helpers"
 
-export function ActionsColumnFormatter(
+function ActionsColumnFormatter(
   cellContent,
   row,
   rowIndex,
@@ -16,10 +16,10 @@ export function ActionsColumnFormatter(
       <a
         title="Edit country"
         className="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-        onClick={() => {
-          debugger
-          return openEditCountryDialog(row.id)
-        }}
+        onClick={() => openEditCountryDialog(row.id)}
+        onKeyPress={() => openEditCountryDialog(row.id)}
+        role="link"
+        tabIndex={0}
       >
         <span className="svg-icon svg-icon-md svg-icon-primary">
           <SVG
@@ -27,12 +27,13 @@ export function ActionsColumnFormatter(
           />
         </span>
       </a>
-      <> </>
 
       <a
         title="Delete country"
         className="btn btn-icon btn-light btn-hover-danger btn-sm"
         onClick={() => openDeleteCountryDialog(row.id)}
+        role="link"
+        tabIndex={0
       >
         <span className="svg-icon svg-icon-md svg-icon-danger">
           <SVG src={toAbsoluteUrl("/media/svg/icons/General/Trash.svg")} />
@@ -41,3 +42,5 @@ export function ActionsColumnFormatter(
     </>
   )
 }
+
+export default ActionsColumnFormatter
