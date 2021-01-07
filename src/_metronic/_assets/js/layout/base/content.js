@@ -3,7 +3,7 @@
 
 import { KTUtil } from "./../../components/util.js";
 import KTLayoutHeader from "./header.js";
-import KTLayoutSubheader from "./subheader.js";
+// import KTLayoutSubheader from "./subheader.js";
 
 var KTLayoutContent = (function() {
   // Private properties
@@ -23,7 +23,7 @@ var KTLayoutContent = (function() {
     }
 
     height = height - KTLayoutHeader.getHeight();
-    height = height - KTLayoutSubheader.getHeight();
+    // height = height - KTLayoutSubheader.getHeight();
 
     return height;
   };

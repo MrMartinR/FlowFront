@@ -52,7 +52,7 @@ function SubHeader() {
       >
         {/* Info */}
         <div className="d-flex align-items-center flex-wrap mr-1">
-          <BreadCrumbs items={subheader.breadcrumbs} />
+          <p>BreadCrumbs was there</p>
         </div>
       </div>
     </div>

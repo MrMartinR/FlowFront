@@ -3,7 +3,7 @@ import { iconsSlice } from "./iconsSlice"
 
 const { actions } = iconsSlice
 
-const updateIcon = (params) => (dispatch) =>
+export const updateIcon = (params) => (dispatch) =>
   // console.log("updateIcon params");
 
   requestFromServer.fetchIcon(params.category, params.uid).then((response) => {

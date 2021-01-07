@@ -44,7 +44,7 @@ const theme = createMuiTheme(
   }
 )
 
-function MaterialThemeProvider(props) {
+export function MaterialThemeProvider(props) {
   const { children } = props
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>

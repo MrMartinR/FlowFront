@@ -13,7 +13,7 @@ import BasePage from "./BasePage"
 import { Logout, AuthPage } from "./modules/Auth/index"
 import ErrorsPage from "./modules/Errors/ErrorsPage"
 
-function Routes() {
+export function Routes() {
   const { isAuthorized } = useSelector(
     // [REV] added type Any on refactor
     ({ auth }: any) => ({

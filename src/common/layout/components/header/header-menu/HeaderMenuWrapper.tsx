@@ -5,7 +5,7 @@ import { toAbsoluteUrl } from "../../../../../_metronic/_helpers"
 import { useHtmlClassService } from "../../../_core/MetronicLayout"
 import { HeaderMenu } from "./HeaderMenu"
 
-function HeaderMenuWrapper() {
+export function HeaderMenuWrapper() {
   const uiService = useHtmlClassService()
   const layoutProps = useMemo(
     () => ({

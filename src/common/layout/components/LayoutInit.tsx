@@ -4,7 +4,6 @@ import KTLayoutHeader from "../../../_metronic/_assets/js/layout/base/header"
 import KTLayoutHeaderMenu from "../../../_metronic/_assets/js/layout/base/header-menu"
 import KTLayoutContent from "../../../_metronic/_assets/js/layout/base/content"
 
-
 function LayoutInit() {
   useLayoutEffect(() => {
     // Initialization
@@ -25,15 +24,6 @@ function LayoutInit() {
       KTLayoutContent.init("kt_content")
 
       /// ///////////////////////////////////////////
-      // Layout Extended Partials(optional to use)//
-      /// ///////////////////////////////////////////
-      KTLayoutSubheader.init("kt_subheader")
-
-      // Init Sticky Card
-      KTLayoutStickyCard.init("kt_page_sticky_card")
-
-      // Init Stretched Card
-      KTLayoutStretchedCard.init("kt_page_stretched_card")
     })
   }, [])
   return <></>
