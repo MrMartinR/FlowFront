@@ -1,9 +1,9 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { useLocation } from 'react-router'
-import { NavLink } from 'react-router-dom'
+// import { useLocation } from 'react-router'
+import { NavLink, useLocation } from 'react-router-dom'
 // import SVG from "react-inlinesvg";
-import { checkIsActive } from '../../../../../_metronic/_helpers'
+import { checkIsActive } from '../../../../../_metronic/_helpers/index'
 // import { toAbsoluteUrl } from "../../../../_helpers";
 
 // [REV] added types any to layoutProps and url
