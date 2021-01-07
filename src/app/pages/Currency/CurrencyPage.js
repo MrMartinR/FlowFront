@@ -17,7 +17,7 @@ import FormControl from "@material-ui/core/FormControl"
 import Button from "@material-ui/core/Button"
 import { Card } from "react-bootstrap"
 import TextField from "@material-ui/core/TextField"
-import { useSubheader } from "../../../_metronic/layout"
+import { useSubheader } from "../../../common/layout"
 
 import {
   addCurrency,

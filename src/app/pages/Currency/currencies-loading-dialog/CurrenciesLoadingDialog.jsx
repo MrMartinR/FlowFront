@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { LoadingDialog } from "../../../../_metronic/_partials/controls";
+// import { LoadingDialog } from "../../../../_metronic/_partials/controls";
 
 export function CurrenciesLoadingDialog() {
   // Currencies Redux state
@@ -10,5 +10,5 @@ export function CurrenciesLoadingDialog() {
   );
   // looking for loading/dispatch
   useEffect(() => {}, [isLoading]);
-  return <LoadingDialog isLoading={isLoading} text="Loading ..." />;
+  return "";
 }

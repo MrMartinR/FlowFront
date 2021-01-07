@@ -7,6 +7,8 @@ export const addCurrency = (headerPara, values) =>
     `${API_URL}/api/v1/currencies`,
     { currency: values },
     {
+                  // [REV] WTF are this fullname /client ?? copy/paste from somewhere? replace with naming related to the project
+
       headers: {
         "access-token": headerPara.authToken,
         client: headerPara.client,

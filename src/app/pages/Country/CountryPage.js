@@ -10,7 +10,7 @@ import TableRow from "@material-ui/core/TableRow"
 import { useFormik } from "formik"
 import { connect } from "react-redux"
 import { Avatar } from "@material-ui/core"
-import { useSubheader } from "../../../_metronic/layout"
+import { useSubheader } from "../../../common/layout"
 import {
   Card,
   CardBody,

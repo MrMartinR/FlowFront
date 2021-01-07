@@ -73,7 +73,8 @@
     "yup": "0.29.0"
   },
   "dependenciesComments": {
-    "clsx": "A tiny utility for constructing className strings conditionally."
+    "clsx": "A tiny utility for constructing className strings conditionally.",
+    "react-intl": "This library is one of the most popular solutions for i18n in React and it’s now part of Formatjs. Offered by Yahoo is bundled with common locale data like dates, currencies, numbers, and support for over  150+ languages. It builds upon the concepts of the ECMAScript’s ECMAScript’s Internationalization API namespace."
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",

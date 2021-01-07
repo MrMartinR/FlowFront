@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API_URL } from "../modules/Auth/_redux/authCrud"
+import { API_URL } from "../../modules/Auth/_redux/authCrud"
 
 const getUserAccounts = (headerPara) =>
   axios.get(`${API_URL}/api/v1/user_accounts`, {

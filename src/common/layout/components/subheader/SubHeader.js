@@ -4,7 +4,7 @@
 import React, { useMemo, useLayoutEffect, useEffect } from "react"
 import objectPath from "object-path"
 import { useLocation } from "react-router-dom"
-import { BreadCrumbs } from "./components/BreadCrumbs"
+// import { BreadCrumbs } from "./components/BreadCrumbs"
 import {
   getBreadcrumbsAndTitle,
   useSubheader,
