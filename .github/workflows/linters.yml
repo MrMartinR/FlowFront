@@ -16,7 +16,10 @@ jobs:
           node-version: "12.x"
       - name: Setup ESLint
         run: |
-          npm install --save-dev eslint@6.8.x eslint-config-airbnb@18.1.x eslint-plugin-import@2.20.x eslint-plugin-jsx-a11y@6.2.x eslint-plugin-react@7.20.x eslint-plugin-react-hooks@2.5.x
-          [ -f .eslintrc.json ] || wget https://github.com/FlowFintech/FlowFront/blob/release/.eslintrc.json
+          npm install --save-dev eslint@7.17.x eslint-config-airbnb@18.2.x eslint-plugin-prettier@7.1.x eslint-plugin-jsx-a11y@6.4.x 
+          eslint-plugin-prettier@3.3.x
+          prettier@2.2.x 
+          @typescript-eslint/eslint-plugin@4.12.x @typescript-eslint/parsers@4.12.x
+          [ -f .eslintrc] || wget https://github.com/FlowFintech/FlowFront/blob/release/.eslintrc
       - name: ESLint Report
         run: npx eslint .
