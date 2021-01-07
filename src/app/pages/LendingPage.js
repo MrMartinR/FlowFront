@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react"
 
-import { Card, CardHeader } from '../../_metronic/_partials/controls';
+import { Card, CardHeader } from "../../_metronic/_partials/controls"
 
-export const LendingPage = () => {
-    return (
-        <>
-            <div>
-                <div>
-                    <Card>
-                        <CardHeader title="Platforms"></CardHeader>
-                    </Card>
-                </div>
-                <div>
-                    <Card>
-                        <CardHeader title="Loans"></CardHeader>
-                    </Card>
-                </div>
-            </div>
-        </>
-    );
-};
+const LendingPage = () => (
+  <>
+    <div>
+      <div>
+        <Card>
+          <CardHeader title="Platforms" />
+        </Card>
+      </div>
+      <div>
+        <Card>
+          <CardHeader title="Loans" />
+        </Card>
+      </div>
+    </div>
+  </>
+)
+
+export default LendingPage
