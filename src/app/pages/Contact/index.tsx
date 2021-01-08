@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 /* eslint-disable no-restricted-imports*/
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Paper } from "@material-ui/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
 import { ContactsList } from "./ContactList";
@@ -17,13 +17,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Contacts = ( ) => {
+export const Contacts = () => {
   // Getting curret state of contacts list from store (Redux)
   const { currentState } = useSelector(
-    (state:RootState) => ({ currentState: state.contacts }),
+    (state: RootState) => ({ currentState: state.contacts }),
     shallowEqual
   );
-
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const [list, setList] = useState([]);
@@ -39,9 +38,7 @@ export const Contacts = ( ) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (dispatch) {
-      dispatch(
-        contactsActions.fetchContacts()
-      );
+      dispatch(contactsActions.fetchContacts());
     }
   }, [dispatch]);
 
@@ -57,8 +54,6 @@ export const Contacts = ( ) => {
       setIsLoading(currentState.listLoading);
     }
   }, [currentState]);
-  console.log(selectedContact)
-
 
   return (
     // <div style={ContactsPageStyles.main}>
@@ -74,8 +69,7 @@ export const Contacts = ( ) => {
     // </div>
     <Grid container className={classes.root} spacing={2}>
       <Grid item md={12}>
-        <Grid container justify="center" spacing={2} md={12}>
-
+        <Grid container justify="center" spacing={2} md={12} item>
           <Grid
             container
             direction="row"
@@ -83,10 +77,9 @@ export const Contacts = ( ) => {
             alignItems="flex-start"
             key={1}
             md={4}
-
-            item>
+            item
+          >
             <ContactsList
-
               isLoading={isLoading}
               list={list}
               setSelectedItemIndex={setSelectedItemIndex}
@@ -99,10 +92,10 @@ export const Contacts = ( ) => {
             alignItems="flex-start"
             key={2}
             md={4}
-
-            item>
-            disply
-              </Grid>
+            item
+          >
+            <ContactDetails selectedContact={selectedContact} />
+          </Grid>
           <Grid
             container
             direction="row"
@@ -110,11 +103,10 @@ export const Contacts = ( ) => {
             alignItems="flex-star"
             key={3}
             md={4}
-
-            item>
+            item
+          >
             contact meth
-              </Grid>
-
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
