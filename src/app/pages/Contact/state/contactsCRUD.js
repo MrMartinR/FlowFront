@@ -39,22 +39,5 @@ export function getContactById(contactsId) {
   return axios.get(`${CONTACTS_URL}/${contactsId}`, optionsHeaders())
 }
 
-// [REV] Stick to Infinite list
-// Method from server should return QueryResultsModel(items: any[], totalsCount: number)
-// items => filtered/sorted result
-export function findContacts({ page, perPage = 10 }) {
-  perPage = 1000
-  return axios.get(
-    `${CONTACTS_URL}?page=${page}&per_page=${perPage}`,
-    optionsHeaders(),
-  )
-}
 
-// This works similar to findContacts. The difference is that rather than replacing existing data,
-// its append new data to existing data. Usefull for implementing infinite list where new data is loaded on demand.
-export function findNextContacts({ page, perPage = 10 }) {
-  return axios.get(
-    `${CONTACTS_URL}?page=${page}&per_page=${perPage}`,
-    optionsHeaders(),
-  )
-}
+
