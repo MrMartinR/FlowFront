@@ -6,7 +6,6 @@ import Login from './Login'
 import Registration from './Registration'
 import ForgotPassword from './ForgotPassword'
 import ForgotPasswordAction from './ForgotPasswordAction'
-import './login.scss'
 
 export function AuthPage() {
   return (

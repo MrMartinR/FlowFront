@@ -3,24 +3,16 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
+// [REV] Remove the internationalization 
 import { FormattedMessage, injectIntl } from 'react-intl'
-import {TextField} from '@material-ui/core'
+import { TextField, Button, Grid, Typography, CardMedia } from '@material-ui/core'
 import * as auth from '../_redux/authRedux'
 import { login } from '../_redux/authCrud'
+// [REV] Move the toAbsoluteUrl helper to common folder 
 import { toAbsoluteUrl } from '../../../../_metronic/_helpers'
+import Logo from '../../../../common/media/flow-logo.svg';
 
-/*
-  INTL (i18n) docs:
-  https://github.com/formatjs/react-intl/blob/master/docs/Components.md#formattedmessage
-*/
 
-/*
-  Formik+YUP:
-  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
-*/
-
-// email: "user1@example.com",
-// password: "samurai1",<Toast>
 
 const initialValues = {
   email: '',
@@ -78,7 +70,6 @@ function Login(props) {
             props.login(accessToken, uid, client, expiry, token, userData)
           })
           .catch(() => {
-            // Toast.Body("test")
             disableLoading()
             setSubmitting(false)
             setStatus(
@@ -92,37 +83,45 @@ function Login(props) {
   })
 
   return (
-    <div className="login-form login-signin" id="kt_login_signin_form">
-      {/* begin::Head */}
-      <img
-        alt="Logo"
-        className="max-h-70px max-h-md-100px d-block m-auto"
-        src={toAbsoluteUrl('/media/logos/flow-logo.svg')}
-      />
-      <div className="text-center mb-5 mb-lg-20">
-        <h3 className="font-size-h1">
-          <FormattedMessage id="AUTH.LOGIN.TITLE" />
-        </h3>
-        <p className="text-muted font-weight-bold" />
-      </div>
-      {/* end::Head */}
+    // main Grid 
+    <Grid 
+      container 
+      direction='row' 
+      xs={6} 
+      spacing={2} 
+      align = "center" 
+      justify = "center" 
+      alignItems = "center" 
+    >
 
-      {/* begin::Form */}
-      <form
+     {/* begin::Head */}
+      <Grid item xs={5} spacing={2}>
+          <CardMedia 
+          src={Logo} 
+          component="img" 
+          />
+        <Typography 
+          align='center'
+          variant='h4'
+          >
+          Howdy Flower!
+        </Typography>
+      </Grid>
+
+{/* form */}
+      <Grid item xs={6}>
+        <form
         onSubmit={formik.handleSubmit}
-        className="form fv-plugins-bootstrap fv-plugins-framework"
         autoComplete="on"
       >
         {formik.status ? (
-          <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
-            <div className="alert-text font-weight-bold">{formik.status}</div>
-          </div>
+            <div>{formik.status}</div>
         ) : (
           ''
         )}
         {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
-          <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-            <div className="alert-text ">
+          <div>
+            <div>
               {localStorage.getItem('forgot_pwd_notif')}
             </div>
           </div>
@@ -130,9 +129,8 @@ function Login(props) {
           ''
         )}
 
-        <div className="form-group">
+        <div>
           <TextField
-            // id="outlined-uncontrolled"
             label="Email"
             margin="normal"
             variant="outlined"
@@ -141,14 +139,13 @@ function Login(props) {
             {...formik.getFieldProps('email')}
           />
           {formik.touched.email && formik.errors.email ? (
-            <div className="ml-5 fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.email}</div>
+            <div>
+              <div>{formik.errors.email}</div>
             </div>
           ) : null}
         </div>
-        <div className="form-group fv-plugins-icon-container">
+        <div>
           <TextField
-            // id="outlined-uncontrolled"
             label="Password"
             margin="normal"
             variant="outlined"
@@ -157,45 +154,27 @@ function Login(props) {
             {...formik.getFieldProps('password')}
           />
           {formik.touched.password && formik.errors.password ? (
-            <div className="ml-5 fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.password}</div>
+            <div>
+              <div>{formik.errors.password}</div>
             </div>
           ) : null}
         </div>
 
-        {/* forgot password */}
-        {/* <div className="form-group text-right">
-          <Link
-            to="/auth/forgot-password"
-            className="text-dark-50 text-hover-primary my-3 mr-2"
-            id="kt_login_forgot"
-          >
-            <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
-          </Link>
-        </div> */}
+        <div>
 
-        <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
-          {/* <Link
-            to="/auth/registration"
-            className="btn btn-primary font-weight-bold px-20 py-4 my-3"
-            id="kt_login_signup"
-          >
-            Sign Up
-          </Link> */}
-          <button
+          <Button
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}
-            className="btn btn-primary font-weight-bold px-20 py-4 my-3"
           >
             <span>Sign In</span>
-            {loading && <span className="ml-3 spinner spinner-white" />}
-          </button>
+            {loading && <span />}
+          </Button>
         </div>
       </form>
-      {/* end::Form */}
-    </div>
-    // </>
+    </Grid>
+    </Grid>
+
   )
 }
 
