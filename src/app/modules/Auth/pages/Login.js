@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
-// import { Link } from "react-router-dom";
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
-// [REV] Remove the internationalization 
+// [TODO] Remove the internationalization 
 import { FormattedMessage, injectIntl } from 'react-intl'
 import { TextField, Button, Grid, Typography, CardMedia } from '@material-ui/core'
 import * as auth from '../_redux/authRedux'
 import { login } from '../_redux/authCrud'
-// [REV] Move the toAbsoluteUrl helper to common folder 
-import { toAbsoluteUrl } from '../../../../_metronic/_helpers'
 import Logo from '../../../../common/media/flow-logo.svg';
 
 

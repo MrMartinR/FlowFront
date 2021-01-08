@@ -11,11 +11,11 @@ import store, { persistor } from './redux/store'
 import App from './app/App'
 import './index.scss' // Standard version
 // Datepicker
-import 'react-datepicker/dist/react-datepicker.css'
+// import 'react-datepicker/dist/react-datepicker.css'
 import {
   LayoutProvider,
   MetronicSplashScreenProvider,
-  MetronicSubheaderProvider,
+  // MetronicSubheaderProvider,
 } from './common/layout'
 import { MetronicI18nProvider } from './_metronic/i18n'
 import 'react-virtualized/styles.css'
@@ -37,11 +37,9 @@ ReactDOM.render(
   <React.StrictMode>
     <MetronicI18nProvider>
       <LayoutProvider>
-        <MetronicSubheaderProvider>
           <MetronicSplashScreenProvider>
             <App store={store} persistor={persistor} basename={PUBLIC_URL} />
           </MetronicSplashScreenProvider>
-        </MetronicSubheaderProvider>
       </LayoutProvider>
     </MetronicI18nProvider>
   </React.StrictMode>,

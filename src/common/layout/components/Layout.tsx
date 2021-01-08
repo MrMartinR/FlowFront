@@ -5,7 +5,6 @@ import { useHtmlClassService } from '../_core/MetronicLayout'
 // Import Layout components
 import Header from './header/Header'
 import LayoutInit from './LayoutInit'
-import SubHeader from './subheader/SubHeader'
 
 // [REV] adding type any to children
 export function Layout({ children }: any) {
@@ -15,7 +14,6 @@ export function Layout({ children }: any) {
     () => ({
       layoutConfig: uiService.config,
       selfLayout: objectPath.get(uiService.config, 'self.layout'),
-      subheaderDisplay: objectPath.get(uiService.config, 'subheader.display'),
       desktopHeaderDisplay: objectPath.get(
         uiService.config,
         'header.self.fixed.desktop',
@@ -44,7 +42,6 @@ export function Layout({ children }: any) {
               id="kt_content"
               className={`content ${layoutProps.contentCssClasses} d-flex flex-column flex-column-fluid`}
             >
-              {layoutProps.subheaderDisplay && <SubHeader />}
               {/* begin::Entry */}
               {!layoutProps.contentExtended && (
                 <div className="d-flex flex-column-fluid">
@@ -70,7 +67,7 @@ export function Layout({ children }: any) {
     </>
   ) : (
     // BLANK LAYOUT
-    <div className="d-flex flex-column flex-root">{children}</div>
+    <div>{children}</div>
   )
 }
 

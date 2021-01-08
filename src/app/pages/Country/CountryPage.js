@@ -10,7 +10,6 @@ import {TableRow} from '@material-ui/core'
 import { useFormik } from 'formik'
 import { connect } from 'react-redux'
 import { Avatar } from '@material-ui/core'
-import { useSubheader } from '../../../common/layout'
 import {
   Card,
   CardBody,
@@ -69,8 +68,6 @@ const CountryPage = (props) => {
   }, [auth])
 
   const classes = useStyles()
-  const suhbeader = useSubheader()
-  suhbeader.setTitle('Countries')
 
   const initialValues = {
     continent: '',

@@ -1,7 +1,6 @@
 /* eslint-disable */
 "use strict";
 
-import KTOffcanvas from "./../../components/offcanvas.js";
 import KTMenu from "./../../components/menu.js";
 import { KTUtil } from "./../../components/util.js";
 
@@ -13,17 +12,7 @@ var KTLayoutHeaderMenu = function() {
     var _offcanvasObject;
 
     // Private functions
-	var _init = function() {
-		_offcanvasObject = new KTOffcanvas(_offcanvasElement, {
-			overlay: true,
-			baseClass: 'header-menu-wrapper',
-			closeBy: 'kt_header_menu_mobile_close_btn',
-			toggleBy: {
-				target: 'kt_header_mobile_toggle',
-				state: 'mobile-toggle-active'
-			}
-		});
-		
+	var _init = function() {		
 		_menuObject = new KTMenu(_menuElement, {
 			submenu: {
 				desktop: 'dropdown',
