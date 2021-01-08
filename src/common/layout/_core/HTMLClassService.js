@@ -34,12 +34,10 @@ export class HtmlClassService {
     }
 
     // init base layout
-    this.initLayout()
     this.initLoader()
 
-    // init header and subheader menu
+    // init header
     this.initHeader()
-    this.initSubheader()
 
     this.initContent()
 
@@ -49,25 +47,11 @@ export class HtmlClassService {
 
   preInit(layoutConfig) {
     const updatedConfig = { ...layoutConfig }
-    const headerSelfFixedDesktop = objectPath.get(
-      updatedConfig,
-      'header.self.fixed.desktop',
-    )
-    const subheaderFixed = objectPath.get(updatedConfig, 'subheader.fixed')
-    if (subheaderFixed && headerSelfFixedDesktop) {
-      updatedConfig.subheader.style = 'solid'
-    } else {
-      updatedConfig.subheader.fixed = false
-    }
+ 
     return updatedConfig
   }
 
-  /**
-   * Returns Classes
-   *
-   * @param path: string
-   * @param toString boolean
-   */
+ 
   getClasses(path, toString) {
     if (path) {
       const classes = objectPath.get(this.classes, path) || ''
@@ -89,25 +73,6 @@ export class HtmlClassService {
 
   getLogo() {
     return toAbsoluteUrl('/media/logos/logo-light.svg')
-  }
-
-  /**
-   * Init Layout
-   */
-  initLayout() {
-    const selfBodyBackgroundImage = objectPath.get(
-      this.config,
-      'self.body.background-image',
-    )
-    if (selfBodyBackgroundImage) {
-      document.body.style.backgroundImage = `url("${selfBodyBackgroundImage}'")`
-    }
-
-    const _selfBodyClass = objectPath.get(this.config, 'self.body.class')
-    if (_selfBodyClass) {
-      const bodyClasses = _selfBodyClass.toString().split(' ')
-      bodyClasses.forEach((cssClass) => document.body.classList.add(cssClass))
-    }
   }
 
   /**

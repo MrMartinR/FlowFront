@@ -5,7 +5,7 @@ import { Grid, ButtonGroup, Button } from '@material-ui/core'
 export function HeaderMenu() {
 
   return (
-<Grid container direction='row' xs={12} spacing={2}>
+<Grid container direction='row' spacing={2}>
         {/* begin::Dashboard */}
         <ButtonGroup>
           <Button

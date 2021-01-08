@@ -18,15 +18,6 @@ import * as uiHelpers from "../CurrenciesUIHelpers";
 import * as columnFormatters from "./column-formatters";
 import { useCurrenciesUIContext } from "../CurrenciesUIContext";
 
-
-import { LicenseInfo } from '@material-ui/x-grid';
-LicenseInfo.setLicenseKey(
-  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
-);
-
-import { XGrid } from '@material-ui/x-grid';
-
-
 export function CurrenciesTable() {
   // Currencies UI Context
   const currenciesUIContext = useCurrenciesUIContext();
@@ -139,19 +130,7 @@ export function CurrenciesTable() {
     // dispatch(actions.fetchCurrencies({ page: value, perPage: pageSize }));
   };
 
-  
   return (
-
-  //   <div style={{ height: 520, width: '100%' }}>
-  //   <XGrid
-  //     {...data}
-  //     loading={data.rows.length === 0}
-  //     rowHeight={38}
-  //     checkboxSelection
-  //   />
-  // </div>,
-
-
     <Fragment>
       <BootstrapTable
         wrapperClasses="table-responsive"

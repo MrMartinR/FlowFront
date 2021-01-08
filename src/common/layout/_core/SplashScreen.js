@@ -3,9 +3,9 @@ import React, {
   createContext, useContext, useState, useEffect,
 } from 'react'
 
-const MetronicSplashScreenContext = createContext()
+const SplashScreenContext = createContext()
 
-export function MetronicSplashScreenProvider({ children }) {
+export function SplashScreenProvider({ children }) {
   const [count, setCount] = useState(0)
   const visible = count > 0
 
@@ -35,15 +35,15 @@ export function MetronicSplashScreenProvider({ children }) {
   }, [visible])
 
   return (
-    <MetronicSplashScreenContext.Provider value={setCount}>
+    <SplashScreenContext.Provider value={setCount}>
       {children}
-    </MetronicSplashScreenContext.Provider>
+    </SplashScreenContext.Provider>
   )
 }
 
 export function LayoutSplashScreen({ visible = true }) {
   // Everything is ready - remove splashscreen
-  const setCount = useContext(MetronicSplashScreenContext)
+  const setCount = useContext(SplashScreenContext)
 
   useEffect(() => {
     if (!visible) {

@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 // [TODO] Remove the internationalization 
-import { FormattedMessage, injectIntl } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import { TextField, Button, Grid, Typography, CardMedia } from '@material-ui/core'
 import * as auth from '../_redux/authRedux'
 import { login } from '../_redux/authCrud'

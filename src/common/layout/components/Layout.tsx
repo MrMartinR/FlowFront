@@ -1,15 +1,12 @@
 import React, { useMemo } from 'react'
 import objectPath from 'object-path'
-// LayoutContext
 import { useHtmlClassService } from '../_core/MetronicLayout'
-// Import Layout components
-import Header from './header/Header'
-import LayoutInit from './LayoutInit'
+import { Grid } from "@material-ui/core"
+import HeaderWrapper from './header/HeaderWrapper'
 
 // [REV] adding type any to children
 export function Layout({ children }: any) {
   const uiService = useHtmlClassService()
-  // Layout settings (cssClasses/cssAttributes)
   const layoutProps = useMemo(
     () => ({
       layoutConfig: uiService.config,
@@ -26,45 +23,25 @@ export function Layout({ children }: any) {
   )
 
   return layoutProps.selfLayout !== 'blank' ? (
-    <>
-      {/* begin::Main */}
-      <div className="d-flex flex-column flex-root">
-        {/* begin::Page */}
-        <div className="d-flex flex-row flex-column-fluid page">
-          {/* begin::Wrapper */}
-          <div
-            className="d-flex flex-column flex-row-fluid wrapper"
-            id="kt_wrapper"
-          >
-            <Header />
-            {/* begin::Content */}
-            <div
-              id="kt_content"
-              className={`content ${layoutProps.contentCssClasses} d-flex flex-column flex-column-fluid`}
-            >
-              {/* begin::Entry */}
-              {!layoutProps.contentExtended && (
-                <div className="d-flex flex-column-fluid">
-                  {/* begin::Container */}
-                  <div className={layoutProps.contentContainerClasses}>
-                    {children}
-                  </div>
-                  {/* end::Container */}
-                </div>
-              )}
 
-              {layoutProps.contentExtended && { children }}
-              {/* end::Entry */}
+ 
+  
+          <div
+            className="wrapper"
+          >
+          <Grid container direction="column">
+
+              <Grid item>
+                <HeaderWrapper />
+              </Grid>
+
+              <Grid item>
+                {children}
+              </Grid>
+
+            </Grid>
             </div>
-            {/* end::Content */}
-          </div>
-          {/* end::Wrapper */}
-        </div>
-        {/* end::Page */}
-      </div>
-      {/* end::Main */}
-      <LayoutInit />
-    </>
+
   ) : (
     // BLANK LAYOUT
     <div>{children}</div>
