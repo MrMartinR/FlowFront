@@ -20,6 +20,7 @@ export const rootReducer = combineReducers({
   platforms: platformsSlice.reducer,
   icons: iconsSlice.reducer,
 })
+export type RootState = ReturnType<typeof rootReducer>
 
 export function* rootSaga() {
   yield all([auth.saga()])

@@ -5,10 +5,14 @@ const initialContactsState = {
   listLoading: true,
   actionsLoading: false,
   contactsTable: {
-    entities: null, page: null, pages: null, perPage: null,
+    entities: null,
+    success: false
+  },
+  singleContact:{
+    entry:null
   },
   contactForEdit: undefined,
-  lastError: null,
+  error: null,
 }
 export const callTypes = {
   list: 'list',
@@ -17,10 +21,11 @@ export const callTypes = {
 export const contactsSlice = createSlice({
   // [REV] not working if I change the name to contacts
   // name: 'contacts',
-  name: 'userAccounts',
+  name: 'contacts',
 
   initialState: initialContactsState,
   reducers: {
+    // when error occurs catch it 
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
       if (action.payload.callType === callTypes.list) {
@@ -29,7 +34,7 @@ export const contactsSlice = createSlice({
         state.actionsLoading = false
       }
     },
-
+    // set the state in which the process is in loading or setting the state
     startCall: (state, action) => {
       state.error = null
       if (action.payload.callType === callTypes.list) {
@@ -39,90 +44,34 @@ export const contactsSlice = createSlice({
       }
     },
 
-    userAccountSort: (state, action) => {
-      const { field, isAsc, entities } = action.payload
-      const areEmptyFields = entities.some((i) => i[field])
-      if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
-        )
-        state.accountTable.entities = entitiesOrdened
-      }
-    },
-
-    userAccountFetched: (state, action) => {
-      state.actionsLoading = false
-      state.contactForEdit = action.payload.contactForEdit
-      state.error = null
-    },
-
-    userAccountsFetched: (state, action) => {
+    // update the contact state on all fetch
+    contactsFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.contactsTable.data = data.data
+      state.contactsTable.entities = data.data
       state.contactsTable.success = data.success
     },
 
-    userAccountsAppend: (state, action) => {
-      const { pages, page, entities } = action.payload
+    // update the contact state on fetch a single contact
+    contactFetched: (state, action) => {
+      const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.contactsTable.entities = [
-        ...state.contactsTable.entities,
-        ...entities,
-      ]
-      state.contactsTable.pages = pages
-      state.contactsTable.page = page
+      state.singleContact.entry = data.data
+      state.contactsTable.success = data.success
     },
 
-    userAccountCreated: (state, action) => {
+    // on creation a new contact append it to existing contacts
+    newContactCreated: (state, action) => {
+      const { data } = action.payload
       state.actionsLoading = false
       state.error = null
-      state.contactsTable.entities.push(action.payload.userAccount)
+      state.contactsTable.entities.unshift(data.data)
     },
 
-    userAccountUpdated: (state, action) => {
-      state.error = null
-      state.actionsLoading = false
-      state.contactsTable.entities = state.contactsTable.entities.map(
-        (entity) => {
-          if (entity.id === action.payload.userAccount.id) {
-            return action.payload.userAccount
-          }
-          return entity
-        },
-      )
-    },
-
-    userAccountDeleted: (state, action) => {
-      state.error = null
-      state.actionsLoading = false
-      state.contactsTable.entities = state.contactsTable.entities.filter(
-        (el) => el.id !== action.payload.id,
-      )
-    },
-
-    userAccountsDeleted: (state, action) => {
-      state.error = null
-      state.actionsLoading = false
-      state.contactsTable.entities = state.contactsTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id),
-      )
-    },
-
-    userAccountsStatusUpdated: (state, action) => {
-      state.actionsLoading = false
-      state.error = null
-      const { ids, status } = action.payload
-      state.contactsTable.entities = state.contactsTable.entities.map(
-        (entity) => {
-          if (ids.findIndex((id) => id === entity.id) > -1) {
-            entity.status = status
-          }
-          return entity
-        },
-      )
-    },
+  
+  
+   
   },
 })
