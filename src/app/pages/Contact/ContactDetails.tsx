@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 export const ContactDetails = (props) => {
   const { selectedContact } = props;
   const classes = useStyles();
-  console.log(selectedContact)
   
   return (
     <Card className={classes.root} variant="outlined">

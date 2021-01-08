@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 /* eslint-disable no-restricted-imports*/
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
 import { ContactsList } from "./ContactList";
@@ -56,17 +56,6 @@ export const Contacts = () => {
   }, [currentState]);
 
   return (
-    // <div style={ContactsPageStyles.main}>
-    //   <ContactsList
-
-    //     isLoading={isLoading}
-    //     list={list}
-    //     setSelectedItemIndex={setSelectedItemIndex}
-    //   />
-    //   <ContactDetails
-    //     selectedContact={selectedContact}
-    //   />
-    // </div>
     <Grid container className={classes.root} spacing={2}>
       <Grid item md={12}>
         <Grid container justify="center" spacing={2} md={12} item>
@@ -100,7 +89,7 @@ export const Contacts = () => {
             container
             direction="row"
             justify="flex-end"
-            alignItems="flex-star"
+            alignItems="flex-start"
             key={3}
             md={4}
             item
