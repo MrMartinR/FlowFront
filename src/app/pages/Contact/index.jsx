@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export const Contacts = () => {
   // Getting curret state of contacts list from store (Redux)
   const { currentState } = useSelector(
-    (state: RootState) => ({ currentState: state.contacts }),
+    (state) => ({ currentState: state.contacts }),
     shallowEqual
   );
 
