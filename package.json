@@ -37,6 +37,7 @@
     "@reduxjs/toolkit": "1.3.6",
     "@tanem/svg-injector": "8.0.50",
     "axios": "0.19.2",
+    "bootstrap": "^4.5.3",
     "clipboard-copy": "3.1.0",
     "clsx": "1.1.0",
     "date-fns": "2.8.1",
