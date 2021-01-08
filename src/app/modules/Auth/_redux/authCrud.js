@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'development') {
 // _API_URL = 'https://flowappdev.herokuapp.com'
 _API_URL = 'http://localhost:3001'
 // }
-
+ 
 export const API_URL = _API_URL
 export const LOGIN_URL = `${_API_URL}/api/v1/auth/sign_in`
 export const REGISTER_URL = `${_API_URL}/api/v1/auth`

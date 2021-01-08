@@ -1,53 +1,62 @@
 import React from "react";
-import { Card, CardHeader, CardHeaderToolbar,} from "../../../_metronic/_partials/controls";
-import VirtualizedList from "./ContactsListComponent";
-import { AutoSizer } from "react-virtualized";
-import { Button } from "@material-ui/core";
+/* eslint-disable no-restricted-imports*/
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListSubheader,
+  ListItemIcon,
+} from "@material-ui/core";
+import FolderIcon from "@material-ui/icons/Folder";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    maxWidth: 400,
+    backgroundColor: theme.palette.background.paper,
+    position: "relative",
+    overflow: "auto",
+    maxHeight: 580,
+    top: 20,
+  },
+  listSection: {
+    backgroundColor: "inherit",
+  },
+  ul: {
+    backgroundColor: "inherit",
+    padding: 0,
+  },
+}));
 
 export const ContactsList = (props) => {
-  const {
-    setSelectedItemIndex,
-    isLoading,
-    list,
-    currentPage,
-    totalPages,
-  } = props;
-
+  const { setSelectedItemIndex, isLoading, list } = props;
+  const classes = useStyles();
+  const updateSelected = (value) => {
+    setSelectedItemIndex(value);
+  };
 
   return (
-    <Card
-      style={
-        window.innerWidth < 600
-          ? { minWidth: "200px", maxWidth: "200px" }
-          : { minWidth: "250px", maxWidth: "250px" }
-      }
-    >
-      <CardHeader>
-        <CardHeaderToolbar>
-          <Button
-            // type="button"
-            className="btn btn-primary"
-            onClick={(e) => {
-              //Filter Private Contacts
-            }}
-          >
-            Private
-          </Button>
-        </CardHeaderToolbar>
-      </CardHeader>
-      <AutoSizer>
-        {({ height, width }) => {
-          return (
-            <VirtualizedList
-              setSelectedItemIndex={setSelectedItemIndex}
-              hasNextPage={currentPage < totalPages}
-              isNextPageLoading={isLoading}
-              list={list}
-              listHeight={height}
-            />
-          );
-        }}
-      </AutoSizer>
-    </Card>
+    <List className={classes.root} subheader={<li />}>
+      <li key={`Contacts`} className={classes.listSection}>
+        <ul className={classes.ul}>
+          <ListSubheader>{`Contacts `}</ListSubheader>
+          {list.map((item, idx) => (
+            <ListItem
+              key={`${item.id}`}
+              button
+              onClick={(e) => {
+                updateSelected(idx);
+              }}
+            >
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary={`${item.trade_name}`} />
+            </ListItem>
+          ))}
+        </ul>
+      </li>
+    </List>
   );
 };

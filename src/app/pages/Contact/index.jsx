@@ -1,33 +1,34 @@
 import React, { useEffect, useState } from "react";
+/* eslint-disable no-restricted-imports*/
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
 import { ContactsList } from "./ContactList";
 import { ContactDetails } from "./ContactDetails";
 
-
-const ContactsPageStyles = {
-  main: {
-    display: "flex",
-    flexDirection: "row",
-    height: "100%",
-    overflowY: "scroll",
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
   },
-};
+  control: {
+    padding: theme.spacing(2),
+    spacing: 2,
+  },
+}));
 
-export const Contacts = ({ history }) => {
+export const Contacts = () => {
   // Getting curret state of contacts list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.userAccounts }),
+    (state) => ({ currentState: state.contacts }),
     shallowEqual
   );
 
-
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const [list, setList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [perPage] = useState(10);
+  const classes = useStyles();
+
   let selectedContact = {};
 
   if (list && list[selectedItemIndex]) {
@@ -36,46 +37,67 @@ export const Contacts = ({ history }) => {
   // Accounts Redux state
   const dispatch = useDispatch();
   useEffect(() => {
-    if (dispatch && perPage) {
-      const pageNumber = 1;
-      dispatch(
-          contactsActions.fetchContacts({
-          page: pageNumber,
-          perPage: perPage,
-        })
-      );
+    if (dispatch) {
+      dispatch(contactsActions.fetchContacts());
     }
-  }, [dispatch, perPage]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (
       currentState &&
-      currentState.userAccountTable &&
-      currentState.userAccountTable.success &&
-      currentState.userAccountTable.data &&
-      currentState.userAccountTable.data.length > 0
+      currentState.contactsTable &&
+      currentState.contactsTable.success &&
+      currentState.contactsTable.entities &&
+      currentState.contactsTable.entities.length > 0
     ) {
-      setList(currentState.userAccountTable.data);
-      setCurrentPage(currentState.userAccountTable.page);
-      setTotalPages(currentState.userAccountTable.pages);
+      setList(currentState.contactsTable.entities);
       setIsLoading(currentState.listLoading);
     }
   }, [currentState]);
 
-
   return (
-      <div style={ContactsPageStyles.main}>
-        <ContactsList
-          perPage={perPage}
-          isLoading={isLoading}
-          list={list}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setSelectedItemIndex={setSelectedItemIndex}
-        />
-        <ContactDetails
-          selectedContact={selectedContact}
-        />
-      </div>
+    <Grid container className={classes.root} spacing={2}>
+      <Grid item md={12}>
+        <Grid container justify="center" spacing={2} md={12} item>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="flex-start"
+            key={1}
+            md={4}
+            item
+          >
+            <ContactsList
+              isLoading={isLoading}
+              list={list}
+              setSelectedItemIndex={setSelectedItemIndex}
+            />
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="flex-start"
+            key={2}
+            md={4}
+            item
+          >
+            <ContactDetails selectedContact={selectedContact} />
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="flex-end"
+            alignItems="flex-start"
+            key={3}
+            md={4}
+            item
+          >
+            contact meth
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
