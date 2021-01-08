@@ -5,10 +5,9 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../../_metronic/_partials/controls";
-import { ListItemText } from "@material-ui/core";
 
 
-const IndividualDetails = (selectedContacts) => {
+const IndividualDetails = () => {
 
   return (
     <Card style={{ marginLeft: "1rem", width: "50%", minHeight: "300px", minWidth: "350px"}}>

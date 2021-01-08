@@ -14,8 +14,7 @@ import './index.scss' // Standard version
 // import 'react-datepicker/dist/react-datepicker.css'
 import {
   LayoutProvider,
-  MetronicSplashScreenProvider,
-  // MetronicSubheaderProvider,
+  SplashScreenProvider,
 } from './common/layout'
 import { MetronicI18nProvider } from './_metronic/i18n'
 import 'react-virtualized/styles.css'
@@ -37,9 +36,9 @@ ReactDOM.render(
   <React.StrictMode>
     <MetronicI18nProvider>
       <LayoutProvider>
-          <MetronicSplashScreenProvider>
+          <SplashScreenProvider>
             <App store={store} persistor={persistor} basename={PUBLIC_URL} />
-          </MetronicSplashScreenProvider>
+          </SplashScreenProvider>
       </LayoutProvider>
     </MetronicI18nProvider>
   </React.StrictMode>,

@@ -1,5 +1,4 @@
 // 3rd-party Plugins
-// @import "~highlight.js/styles/googlecode.css";
 @import "~perfect-scrollbar/css/perfect-scrollbar.css";
 
 // Theme Styles
@@ -9,7 +8,7 @@
 // Header
 @import "../src/common/sass/header-base.scss";
 
-
+// [TODO] check if make sense this thing here
 @import "./app/pages/Platform/platforms.scss";
 
 
