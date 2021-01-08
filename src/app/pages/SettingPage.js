@@ -10,7 +10,6 @@ import {Select} from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { getAllCountries } from './Country/countryActions'
 import { getUserProfile, updateProfile } from '../actions/userActions'
-import { useSubheader } from '../../common/layout'
 import { toAbsoluteUrl } from '../../_metronic/_helpers'
 import { getAllCurrencies } from '../actions/currencyActions'
 import CustomizedSnackbars from '../utils/snackbar'
@@ -19,8 +18,6 @@ import { Card, CardHeader } from '../../_metronic/_partials/controls'
 
 const SettingPage = () => {
   const auth = useSelector((state) => state.auth)
-  const suhbeader = useSubheader()
-  suhbeader.setTitle('Settings')
 
   const classes = {
     inputRoot: {

@@ -7,8 +7,6 @@ import { Contacts } from './pages/Contact'
 import { AccountsPage } from './pages/Account/AccountsPage'
 import { CountriesPage } from './pages/Country/CountriesPage'
 import LendingPage from './pages/LendingPage.js'
-import PropertyPage from './pages/PropertyPage'
-import OriginatorsPage from './pages/OriginatorsPage'
 import { CurrenciesPage } from './pages/Currency/CurrenciesPage'
 import { PlatformsPage } from './pages/Platform/PlatformsPage'
 import { UserAccountsPage } from './pages/UserAccount/UserAccount'
@@ -25,12 +23,9 @@ export default function basePage() {
         <ContentRoute path="/user_accounts" component={UserAccountsPage} />
         <ContentRoute path="/countries" component={CountriesPage} />
         <ContentRoute path="/lending" component={LendingPage} />
-        <ContentRoute path="/property" component={PropertyPage} />
         <ContentRoute path="/platforms" component={PlatformsPage} />
-        <ContentRoute path="/originators" component={OriginatorsPage} />
         <ContentRoute path="/currencies" component={CurrenciesPage} />
         <Redirect to="error" />
-        {/* <Redirect to="error/error" /> */}
       </Switch>
     </Suspense>
   )

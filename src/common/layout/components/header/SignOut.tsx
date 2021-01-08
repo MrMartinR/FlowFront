@@ -1,21 +1,15 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { Button } from "@material-ui/core"
 
 function SignOut() {
   const history = useHistory()
 
-  const logoutClick = () => {
-    history.push('/logout')
-  }
-
   return (
-    <button
-      className="btn btn-light-primary"
-      onClick={logoutClick}
-      type="button"
-    >
+    <Button 
+    onClick={() => {  history.push('/logout') }}>
       Sign Out
-    </button>
+    </Button>
   )
 }
 
