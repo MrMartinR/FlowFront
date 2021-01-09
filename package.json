@@ -75,6 +75,7 @@
   },
   "dependenciesComments": {
     "clsx": "A tiny utility for constructing className strings conditionally.",
+    "react-virtualized": "React components for efficiently rendering large lists and tabular data | https://github.com/bvaughn/react-virtualized ",
     "react-intl": "This library is one of the most popular solutions for i18n in React and it’s now part of Formatjs. Offered by Yahoo is bundled with common locale data like dates, currencies, numbers, and support for over  150+ languages. It builds upon the concepts of the ECMAScript’s ECMAScript’s Internationalization API namespace.",
     "@material-ui/x-grid": "Premium Data Tables for React",
     "@material-ui/x-license": "Dependency of @material-ui/x-grid | in order to track the license (I assume)",

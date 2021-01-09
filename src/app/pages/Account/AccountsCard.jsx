@@ -3,8 +3,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from "../../../_metronic/_partials/controls";
+} from "@material-ui/core";
 // } from "../../../../_metronic/_partials/controls";
 // import { AccountsFilter } from "./accounts-filter/AccountsFilter";
 import { AccountsTable } from "./accounts-table/AccountsTable";
@@ -23,7 +22,6 @@ export function AccountsCard() {
   return (
     <Card>
       <CardHeader title="Accounts list">
-        <CardHeaderToolbar>
           <button
             type="button"
             className="btn btn-primary"
@@ -31,7 +29,6 @@ export function AccountsCard() {
           >
             New Account
           </button>
-        </CardHeaderToolbar>
       </CardHeader>
       <CardBody>
         {/* <AccountsFilter /> */}

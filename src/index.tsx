@@ -9,15 +9,11 @@ import axios from 'axios'
 import * as _redux from './redux'
 import store, { persistor } from './redux/store'
 import App from './app/App'
-import './index.scss' // Standard version
-// Datepicker
-// import 'react-datepicker/dist/react-datepicker.css'
 import {
   LayoutProvider,
   SplashScreenProvider,
 } from './common/layout'
-import { MetronicI18nProvider } from './_metronic/i18n'
-import 'react-virtualized/styles.css'
+// import 'react-virtualized/styles.css'
 
 /**
  * Base URL of the website.
@@ -34,13 +30,11 @@ _redux.setupAxios(axios, store)
 ReactDOM.render(
   // StrictMode is a tool for highlighting potential problems in an application in development.
   <React.StrictMode>
-    <MetronicI18nProvider>
       <LayoutProvider>
           <SplashScreenProvider>
             <App store={store} persistor={persistor} basename={PUBLIC_URL} />
           </SplashScreenProvider>
       </LayoutProvider>
-    </MetronicI18nProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )

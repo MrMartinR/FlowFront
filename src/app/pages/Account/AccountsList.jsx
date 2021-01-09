@@ -2,8 +2,7 @@ import React from "react";
 import {
   Card,
   CardHeader,
-  CardHeaderToolbar,
-} from "../../../_metronic/_partials/controls";
+} from "@material-ui/core";
 // } from "../../../../_metronic/_partials/controls";
 // import { AccountsFilter } from "./accounts-filter/AccountsFilter";
 // import { AccountsTable } from "./accounts-table/AccountsTable";
@@ -31,7 +30,6 @@ export function AccountsList({newAccountFunc, setSelectedItemIndex, perPage, isL
   return (
     <Card style={ window.innerWidth < 600 ? { minWidth: '200px', maxWidth: '200px' } : { minWidth: '250px', maxWidth: '250px' }}>
       <CardHeader title="Accounts">
-        <CardHeaderToolbar>
           <button
             type="button"
             className="btn btn-primary"
@@ -44,7 +42,6 @@ export function AccountsList({newAccountFunc, setSelectedItemIndex, perPage, isL
           >
             Create
           </button>
-        </CardHeaderToolbar>
       </CardHeader>
       <AutoSizer>
         {({height, width}) => 

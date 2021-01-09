@@ -12,10 +12,8 @@ import { connect } from 'react-redux'
 import { Avatar } from '@material-ui/core'
 import {
   Card,
-  CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../_metronic/_partials/controls'
+} from '@material-ui/core'
 import CountryForm from './CountryForm'
 import { addCountry, CountrySchema, getAllCountries } from './countryActions'
 import { toAbsoluteUrl } from '../../../_metronic/_helpers'
@@ -141,7 +139,6 @@ const CountryPage = (props) => {
         />
         <CardHeader title="Add Country Assistant">
           <CountryForm {...props} formik={formik} />
-          <CardHeaderToolbar>
             <button
               type="button"
               className="btn btn-primary"
@@ -150,14 +147,13 @@ const CountryPage = (props) => {
             >
               Add New Country
             </button>
-          </CardHeaderToolbar>
         </CardHeader>
       </Card>
 
       {/* countries list */}
       <Card>
         <CardHeader title="Countries list" />
-        <CardBody>
+        {/* <CardBody> */}
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -198,7 +194,7 @@ const CountryPage = (props) => {
               ))}
             </TableBody>
           </Table>
-        </CardBody>
+        {/* </CardBody> */}
       </Card>
       <Card />
     </>

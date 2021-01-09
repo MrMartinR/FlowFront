@@ -142,14 +142,14 @@ export function CurrenciesTable() {
   
   return (
 
-  //   <div style={{ height: 520, width: '100%' }}>
-  //   <XGrid
-  //     {...data}
-  //     loading={data.rows.length === 0}
-  //     rowHeight={38}
-  //     checkboxSelection
-  //   />
-  // </div>,
+    <div style={{ height: 520, width: '100%' }}>
+    <XGrid
+      {...data}
+      loading={data.rows.length === 0}
+      rowHeight={38}
+      checkboxSelection
+    />
+  </div>,
 
 
     <Fragment>

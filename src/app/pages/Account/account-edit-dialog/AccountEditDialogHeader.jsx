@@ -1,7 +1,7 @@
 import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Modal, Badge } from "react-bootstrap";
-import { ModalProgressBar } from "../../../../_metronic/_partials/controls";
+import { ModalProgressBar } from "@material-ui/core";
 
 export function AccountEditDialogHeader({ id }) {
   // Account Redux state

@@ -2,8 +2,7 @@ import React from "react";
 import {
   Card,
   CardHeader,
-  CardHeaderToolbar,
-} from "../../../_metronic/_partials/controls";
+} from "@material-ui/core";
 import VirtualizedListComponent from "./UserAccountListComponent";
 import { AutoSizer } from "react-virtualized";
 
@@ -27,7 +26,6 @@ export const UserAccountsList = (props) => {
       }
     >
       <CardHeader>
-        <CardHeaderToolbar>
           <button
             type="button"
             className="btn btn-primary"
@@ -37,7 +35,6 @@ export const UserAccountsList = (props) => {
           >
             Create
           </button>
-        </CardHeaderToolbar>
       </CardHeader>
       <AutoSizer>
         {({ height, width }) => {
