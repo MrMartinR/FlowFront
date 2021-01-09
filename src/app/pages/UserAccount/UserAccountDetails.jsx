@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from "react";
 import {
   Card,
-  CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from "../../../_metronic/_partials/controls";
+} from "@material-ui/core";
 import {Table} from "@material-ui/core";
 import {TableBody} from "@material-ui/core";
 import {TableHead} from "@material-ui/core";
@@ -84,7 +82,6 @@ export const UserAccountsDetails = ({
   return (
     <Card style={{ marginLeft: "1rem", width: "100%", minWidth: "400px" }}>
       <CardHeader className="pr-0 ">
-        <CardHeaderToolbar className="w-100">
           <Row className="w-100">
             <Col md="4">
               <Row>
@@ -127,10 +124,8 @@ export const UserAccountsDetails = ({
               </Row>
             </Col>
           </Row>
-        </CardHeaderToolbar>
       </CardHeader>
 
-      <CardBody>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -169,7 +164,6 @@ export const UserAccountsDetails = ({
               ))}
             </TableBody>
           </Table>
-      </CardBody>
     </Card>
   );
 };

@@ -5,7 +5,7 @@ import { Form, Col, Row } from 'react-bootstrap'
 import {TextField} from '@material-ui/core'
 import {Button} from '@material-ui/core'
 import {InputLabel} from '@material-ui/core'
-import {MenuItem} from '@material-ui/core'
+import { MenuItem, Card, CardHeader } from '@material-ui/core'
 import {Select} from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { getAllCountries } from './Country/countryActions'
@@ -14,7 +14,6 @@ import { toAbsoluteUrl } from '../../_metronic/_helpers'
 import { getAllCurrencies } from '../actions/currencyActions'
 import CustomizedSnackbars from '../utils/snackbar'
 import BadgeAvatars from '../utils/BadgeAvatar'
-import { Card, CardHeader } from '../../_metronic/_partials/controls'
 
 const SettingPage = () => {
   const auth = useSelector((state) => state.auth)

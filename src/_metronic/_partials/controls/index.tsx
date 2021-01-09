@@ -1,2 +1,0 @@
-// Controls
-export * from './Card'
