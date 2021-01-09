@@ -1,3 +1,9 @@
+////////////////////////////////////////////////////////////////////
+// 
+// This module will be parked for the future
+// 
+//////////////////////////////////////////////////////////////////
+
 import React, { useState }  from 'react'
 import { Toolbar, Grid, Card, CardHeader, CardContent, Button, ButtonGroup } from "@material-ui/core"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
@@ -6,34 +12,32 @@ const finalSpaceCharacters = [
   {
     id: '01',
     name: 'Gary Goodspeed',
-    // thumb: '/media/svg/icons/status.svg'
-    thumb: '/images/gary.png'
-
+    thumb: '/media/svg/icons/dashboard.svg'
   },
   {
     id: '02',
     name: 'Little Cato',
-    thumb: '/images/gary.png'
+    thumb: '/media/svg/icons/dashboard.svg'
   },
   {
     id: '03',
     name: 'KVN',
-    thumb: '/images/gary.png'
+    thumb: '/media/svg/icons/dashboard.svg'
   },
   {
     id: '04',
     name: 'Mooncake',
-    thumb: '/images/gary.png'
+    thumb: '/media/svg/icons/dashboard.svg'
   },
   {
     id: '05',
     name: 'Quinn Ergon',
-    thumb: '/images/gary.png'
+    thumb: '/media/svg/icons/dashboard.svg'
   }
 ]
 
 
-function Kanban (){
+function Kanban2 (){
 
 
   const [characters, updateCharacters] = useState(finalSpaceCharacters);
@@ -61,11 +65,10 @@ function Kanban (){
                 </Button>
               </ButtonGroup>
             </Toolbar>
-
         </Card>
         <Card>
             <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Grid justify="space-between" item xs={3} alignContent="space-around" alignItems='center' spacing={3}>
+            <Grid item xs={3}>
               <Droppable droppableId="characters">
                 {(provided) => (
                   <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
@@ -75,7 +78,7 @@ function Kanban (){
                           {(provided) => (
                             <Card ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <CardContent>
-                            <img src={thumb}/>   { name }
+                            <img height="20" src={thumb} alt=""/> { name }
                             </CardContent>
                             </Card>
                           )}
@@ -95,7 +98,7 @@ function Kanban (){
 
 }
 
-export default Kanban
+export default Kanban2
 
 
 

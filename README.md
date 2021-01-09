@@ -114,7 +114,29 @@ Tip: To see a dependency tree visit [Anvaka](https://npm.anvaka.com)
 * [use-memo-one]()
 * [yup]()
 
-
+Dependencies extra added for Kaban-Trello
+info Direct dependencies
+└─ react-trello@2.2.9
+info All dependencies
+├─ @emotion/is-prop-valid@0.8.8
+├─ autosize@4.0.2
+├─ camelize@1.0.0
+├─ css-color-keywords@1.0.0
+├─ css-to-react-native@3.0.0
+├─ deep-diff@0.3.8
+├─ immutability-helper@2.9.1
+├─ just-curry-it@3.1.0
+├─ react-popopo@2.1.9
+├─ react-trello@2.2.9
+├─ reduce-reducers@0.4.3
+├─ redux-actions@2.6.5
+├─ redux-logger@3.0.6
+├─ shallowequal@1.1.0
+├─ to-camel-case@1.0.0
+├─ to-no-case@1.0.2
+├─ to-space-case@1.0.0
+└─ trello-smooth-dnd@1.0.0
+└─ styled-components@5.2.1
 
 ## Development
 

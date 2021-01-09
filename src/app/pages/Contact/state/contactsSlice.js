@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Util from '../../../utils'
+// import Util from '../../../utils'
 
 const initialContactsState = {
   listLoading: true,
