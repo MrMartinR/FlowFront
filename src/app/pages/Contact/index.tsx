@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   control: {
-    padding: theme.spacing(2),
-    spacing: 2,
+    padding: theme.spacing(1),
+    spacing: 1,
   },
 }));
 
 export const Contacts = () => {
   // Getting curret state of contacts list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.contacts }),
+    (state: RootState) => ({ currentState: state.contacts }),
     shallowEqual
   );
 
@@ -56,9 +56,9 @@ export const Contacts = () => {
   }, [currentState]);
 
   return (
-    <Grid container className={classes.root} spacing={2}>
+    <Grid container className={classes.root} spacing={1}>
       <Grid item md={12}>
-        <Grid container justify="center" spacing={2} md={12} item>
+        <Grid container justify="center" spacing={1} md={12} item>
           <Grid
             container
             direction="row"

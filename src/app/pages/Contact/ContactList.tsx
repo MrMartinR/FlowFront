@@ -13,7 +13,7 @@ import FolderIcon from "@material-ui/icons/Folder";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 400,
+    maxWidth: 380,
     backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflow: "auto",
