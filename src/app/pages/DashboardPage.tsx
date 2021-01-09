@@ -53,12 +53,8 @@ function DashboardPage() {
       </Grid>
  
 
-
-{/* empty grid for spacing 1 column */}
-      <Grid item xs={1} />
-
       {/* begin::kanban*/}
-      <Grid item xs={9}>
+      <Grid item xs={10}>
        <Kanban />
         {/* end::kanban*/}
       </Grid>
