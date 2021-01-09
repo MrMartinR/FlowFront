@@ -22,7 +22,8 @@ const useStyles = makeStyles({
   },
 });
 
-export const ContactDetails = (props) => {
+// [REV] I applied the type any to fix the error TS7006
+export const ContactDetails = (props: any) => {
   const { selectedContact } = props;
   const classes = useStyles();
   

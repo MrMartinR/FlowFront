@@ -29,10 +29,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ContactsList = (props) => {
-  const { setSelectedItemIndex, isLoading, list } = props;
+// [REV] I applied the type any to fix the error TS7006
+export const ContactsList = (props: any) => {
+  // [REV] Removed the isLoading
+  const { setSelectedItemIndex, list } = props;
+  // const { setSelectedItemIndex, isLoading, list } = props;
   const classes = useStyles();
-  const updateSelected = (value) => {
+  // [REV] I applied the type any to fix the error TS7006
+  const updateSelected = (value: any) => {
     setSelectedItemIndex(value);
   };
 
@@ -41,7 +45,8 @@ export const ContactsList = (props) => {
       <li key={`Contacts`} className={classes.listSection}>
         <ul className={classes.ul}>
           <ListSubheader>{`Contacts `}</ListSubheader>
-          {list.map((item, idx) => (
+          {/* [REV] I applied the type any to fix the error TS7006 */}
+          {list.map((item: any, idx: any) => (
             <ListItem
               key={`${item.id}`}
               button

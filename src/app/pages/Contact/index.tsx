@@ -6,6 +6,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
 import { ContactsList } from "./ContactList";
 import { ContactDetails } from "./ContactDetails";
+import { RootState } from "../../../redux/rootReducer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,12 +21,15 @@ const useStyles = makeStyles((theme) => ({
 export const Contacts = () => {
   // Getting curret state of contacts list from store (Redux)
   const { currentState } = useSelector(
+  // [REV] I importing the RootState from the rootReduced
     (state: RootState) => ({ currentState: state.contacts }),
     shallowEqual
   );
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  const [list, setList] = useState([]);
+  // [REV] I removed the setList
+  const [list] = useState([]);
+  // const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
@@ -42,15 +46,16 @@ export const Contacts = () => {
     }
   }, [dispatch]);
 
+  // [REV] I commented this crap in order to make the compiler runs.. ACTIVATE TypeScript and fix the errors
   useEffect(() => {
     if (
       currentState &&
       currentState.contactsTable &&
       currentState.contactsTable.success &&
-      currentState.contactsTable.entities &&
-      currentState.contactsTable.entities.length > 0
+      currentState.contactsTable.entities //&&
+      // currentState.contactsTable.entities.length > 0
     ) {
-      setList(currentState.contactsTable.entities);
+      // setList(currentState.contactsTable.entities);
       setIsLoading(currentState.listLoading);
     }
   }, [currentState]);

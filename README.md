@@ -43,10 +43,8 @@ Unlike Ant Design, Material-UI offers built-in methods to style components. make
 ### [Yup](https://github.com/jquense/yup) (Validator) 
 * Yup it is a declarative validation schema that provides chainable functions with pretty staggering capabilities.
 
-### [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) (ScrolBar)
+### [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) (ScrolBar) (ToDo)
 * [comparison](https://www.npmtrends.com/better-scroll-vs-effector-vs-iscroll-vs-perfect-scrollbar-vs-react-scroll-vs-react-custom-scrollbars)
-
-### [Metronic](https://keenthemes.com/metronic/?page=docs&section=react-quick-start) (Theme)
 
 
 # Utilities
@@ -58,3 +56,87 @@ Unlike Ant Design, Material-UI offers built-in methods to style components. make
 Shared settings.json file configuration on .vscode root folder
 "Note: Workspace settings are useful for sharing project specific settings across a team."
 
+# Dependencies
+Tip: To see a dependency tree visit [Anvaka](https://npm.anvaka.com)
+
+
+## Production
+* [@formatjs/intl-relativetimeformat](https://github.com/formatjs/formatjs) The monorepo home to all of the FormatJS related libraries, most notably react-intl.
+* [@manaflair/redux-batch](https://github.com/manaflair/redux-batch) Enhance your Redux store to support batched actions
+* [@material-ui](https://github.com/mui-org/material-ui) React components for faster and simpler web development. Build your own design system, or start with Material Design.
+  * [@material-ui/core]
+   * [@material-ui/icons]
+   * [@material-ui/lab]
+   * [@material-ui/pickers]
+   * [@material-ui/styles]
+   * [@material-ui/x-grid](https://github.com/mui-org/material-ui-x) The Material-UI eXtension with advanced components for a richer eXperience.
+   * [@material-ui/x-license](https://github.com/mui-org/material-ui-x/tree/master/packages/x-license) Dependency of @material-ui/x-grid
+* [@reduxjs/toolkit](https://github.com/reduxjs/redux-toolkit) The official, opinionated, batteries-included toolset for efficient Redux development
+* [@tanem/svg-injector](https://github.com/tanem/svg-injector) Fast, caching, dynamic inline SVG DOM injection library.
+* [axios](https://github.com/axios/axios) Promise based HTTP client for the browser and node.js
+* [clipboard-copy](https://github.com/feross/clipboard-copy) Lightweight copy to clipboard for the web
+* [clsx](https://github.com/lukeed/clsx) A tiny utility for constructing className strings conditionally.
+* [css-box-model](https://github.com/alexreardon/css-box-model#readme) Get accurate and well named css box model information about an Element
+* [date-fns]()
+* [eslint-config-react-app]()
+* [esm]() The world’s most advanced ECMAScript module loader. This fast, production ready, zero dependency loader is all you need to support ECMAScript modules in Node 6+.
+* [formik]()
+* [lodash]()
+* [material-ui-popup-state]()
+* [object-path]()
+* [perfect-scrollbar]()
+* [prop-types]()
+* [query-string]()
+* [raf-schd]()
+* [react]()
+* [react-beautiful-dnd]()
+* [react-bootstrap]()
+* [react-bootstrap-table-next]()
+* [react-bootstrap-table2-paginator]()
+* [react-datepicker]()
+* [react-dom]()
+* [react-draggable]()
+* [react-inlinesvg]()
+* [react-intl]() This library is one of the most popular solutions for i18n in React and it’s now part of Formatjs. Offered by Yahoo is bundled with common locale data like dates, currencies, numbers, and support for over  150+ languages. It builds upon the concepts of the ECMAScript’s ECMAScript’s Internationalization API namespace.
+* [react-is]()
+* [react-portal]()
+* [react-redux]()
+* [react-router]()
+* [react-router-dom]()
+* [react-scripts]()
+* [react-select]()
+* [react-virtualized]()
+* [redux]()
+* [redux-persist]()
+* [redux-saga]()
+* [sass]()
+* [serve-static]()
+* [use-memo-one]()
+* [yup]()
+
+
+
+## Development
+
+* [@types/jest]()
+* [@types/node]()
+* [@types/object-path]()
+* [@types/react]()
+* [@types/react-beautiful-dnd]()
+* [@types/react-dom]()
+* [@types/react-is]()
+* [@types/react-redux]()
+* [@types/react-router-dom]()
+* [@typescript-eslint/eslint-plugin]()
+* [@typescript-eslint/parser]()
+* [babel-eslint]()
+* [eslint]()
+* [eslint-config-airbnb]()
+* [eslint-plugin-flowtype]()
+* [eslint-plugin-import]()
+* [eslint-plugin-jsx-a11y]()
+* [eslint-plugin-react]()
+* [eslint-plugin-react-hooks]()
+* [typescript]()
+* [webpack-cli]()
+* [webpack-messages]()
