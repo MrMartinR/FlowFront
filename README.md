@@ -1,3 +1,5 @@
+[![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev)
+
 # Flow Front End
 ---
 
