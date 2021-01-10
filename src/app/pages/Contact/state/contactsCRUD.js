@@ -22,7 +22,7 @@ const optionsHeaders = () => {
   return options
 }
 
-// [REV] define a system to get the right url depending of the environment and place it in a global scope?
+// TODO: define a system to get the right url depending of the environment and place it in a global scope?
 // const API_URL = 'http://localhost:3001'
 const API_URL = "https://api.flowfin.tech";
 // const API_URL = process.env.API_URL;

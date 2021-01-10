@@ -12,10 +12,10 @@ export const LendingPage = () => {
     <Grid 
     container alignItems="center" 
     spacing={2} 
-    justify="center" 
+    justify="space-evenly" 
     alignContent="center"
     >
-      <Grid item xs={2}>
+      <Grid item xs={2} style={{textAlign: "center"}}>
         <Card>
           <CardHeader title="Platforms" />
           <CardContent>
@@ -30,7 +30,7 @@ export const LendingPage = () => {
         </Card>
       </Grid>
 
-      <Grid item xs={2}>
+      <Grid item xs={2} style={{textAlign: "center"}}>
         <Card>
           <CardHeader title="Originators" />
           <CardContent>
@@ -45,7 +45,7 @@ export const LendingPage = () => {
         </Card>
       </Grid>
 
-      <Grid item xs={2}>
+      <Grid item xs={2} style={{textAlign: "center"}}>
         <Card>
           <CardHeader title="Loans" />
           <CardContent>

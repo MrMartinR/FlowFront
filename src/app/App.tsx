@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import Routes from './Routes'
 import { LayoutSplashScreen, MaterialThemeProvider } from '../common/layout'
-// [REV] Added type any to funtion app
+// TODO: Added type any to funtion app
 export default function App({ store, persistor, basename }: any) {
   return (
     /* Provide Redux store */

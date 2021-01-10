@@ -19,7 +19,7 @@ export const callTypes = {
   action: 'action',
 }
 export const contactsSlice = createSlice({
-  // [REV] not working if I change the name to contacts
+  // TODO: not working if I change the name to contacts
   // name: 'contacts',
   name: 'contacts',
 

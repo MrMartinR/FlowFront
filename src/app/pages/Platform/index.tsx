@@ -1,7 +1,6 @@
 import React from "react"
 import { Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core'
 
-
 // import PlatformsList from './PlatformsList'
 
 export const PlatformsPage = () => {
@@ -13,19 +12,18 @@ export const PlatformsPage = () => {
           direction="column"
          >
           <Card>
-          <Toolbar variant="dense">
-            <InputBase placeholder="Search…" />
-          </Toolbar>
+            <Toolbar variant="dense">
+              <InputBase placeholder="Search…" />
+            </Toolbar>
           </Card>
-
+          
           <Card>
             <CardHeader title="Platforms List" />
-
           <CardContent>
             Table Grid X
           {/* <PlatformsList /> */}
           </CardContent>
-                    </Card>
+          </Card>
 
          </Grid>
     );
