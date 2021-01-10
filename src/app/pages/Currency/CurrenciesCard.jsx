@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from "react";
 import {
   Card,
-  CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from "../../../_metronic/_partials/controls";
+} from "@material-ui/core";
 import {Table} from "@material-ui/core";
 import {TableBody} from "@material-ui/core";
 import {TableHead} from "@material-ui/core";
@@ -150,7 +148,6 @@ export function CurrenciesCard(props) {
         }}
       />
       <CardHeader title="Currencies list">
-        <CardHeaderToolbar>
           <button
             type="button"
             className="btn btn-primary"
@@ -159,14 +156,12 @@ export function CurrenciesCard(props) {
           >
             New Currency
           </button>
-        </CardHeaderToolbar>
         <CurrencyForm
           {...props}
           formik={formik}
           initialValues={currencyInitialValues}
         />
       </CardHeader>
-      <CardBody>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -191,7 +186,6 @@ export function CurrenciesCard(props) {
               ))}
             </TableBody>
           </Table>
-      </CardBody>
     </Card>
   );
 }

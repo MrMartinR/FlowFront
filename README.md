@@ -1,3 +1,5 @@
+[![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev)
+
 # Flow Front End
 ---
 
@@ -140,8 +142,6 @@ info All dependencies
 
 ## Development
 
-### Types
-
 * [@types/jest]()
 * [@types/node]()
 * [@types/object-path]()
@@ -151,11 +151,8 @@ info All dependencies
 * [@types/react-is]()
 * [@types/react-redux]()
 * [@types/react-router-dom]()
-* [@types/react-virtualized]()
 * [@typescript-eslint/eslint-plugin]()
 * [@typescript-eslint/parser]()
-
-### DevDependencies
 * [babel-eslint]()
 * [eslint]()
 * [eslint-config-airbnb]()
@@ -167,4 +164,3 @@ info All dependencies
 * [typescript]()
 * [webpack-cli]()
 * [webpack-messages]()
-

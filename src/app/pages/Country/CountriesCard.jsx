@@ -3,8 +3,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from "../../../_metronic/_partials/controls";
+} from "@material-ui/core";
 // import { CountriesFilter } from "./countries-filter/CountriesFilter";
 // import { CountriesTable } from "./countries-table/CountriesTable";
 // import { CountriesGrouping } from "./countries-grouping/CountriesGrouping";
@@ -22,7 +21,6 @@ export function CountriesCard() {
   return (
     <Card>
       <CardHeader title="Countries list">
-        <CardHeaderToolbar>
           <button
             type="button"
             className="btn btn-primary"
@@ -30,7 +28,6 @@ export function CountriesCard() {
           >
             New Country
           </button>
-        </CardHeaderToolbar>
       </CardHeader>
       <CardBody></CardBody>
     </Card>
