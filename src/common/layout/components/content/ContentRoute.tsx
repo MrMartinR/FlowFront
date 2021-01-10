@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import Content from './Content'
 
-// [REV] added type any on ContentRoute props
+// TODO: added type any on ContentRoute props
 export function ContentRoute({children, component, render, ...props}: any) {
   return (
     <Route {...props}>

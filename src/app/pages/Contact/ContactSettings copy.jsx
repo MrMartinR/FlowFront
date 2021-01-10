@@ -1,32 +1,42 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react'
-import { Form, Col, Row } from 'react-bootstrap'
-import {TextField} from '@material-ui/core'
-import {Button} from '@material-ui/core'
-import {InputLabel} from '@material-ui/core'
-import { MenuItem, Card, CardHeader } from '@material-ui/core'
-import {Select} from '@material-ui/core'
-import { useSelector } from 'react-redux'
-import { getAllCountries } from './Country/countryActions'
-import { getUserProfile, updateProfile } from '../actions/userActions'
-import { toAbsoluteUrl } from '../../_metronic/_helpers'
-import { getAllCurrencies } from '../actions/currencyActions'
-import CustomizedSnackbars from '../utils/snackbar'
-import BadgeAvatars from '../utils/BadgeAvatar'
+import React from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
+import {Form, Col, Row} from 'react-bootstrap'
+import {
+  Grid,
+  TextField,
+  InputLabel,
+  Button,
+  MenuItem,
+  Card,
+  CardHeader,
+  CardContent,
+  Select,
+} from '@material-ui/core'
+import {useSelector} from 'react-redux'
+import {getAllCountries} from '../Country/countryActions'
+import {getUserProfile, updateProfile } from '../../actions/userActions'
+import {toAbsoluteUrl} from '../../../_metronic/_helpers'
+import {getAllCurrencies} from '../../actions/currencyActions'
+import CustomizedSnackbars from '../../utils/snackbar'
+import BadgeAvatars from '../../utils/BadgeAvatar'
 
-const SettingPage = () => {
+const Settings = () => {
   const auth = useSelector((state) => state.auth)
 
-  const classes = {
-    inputRoot: {
-      flexWrap: 'wrap',
-    },
-    inputInput: {
-      width: 'auto',
-      flexGrow: 1,
-    },
-  }
+  // const classes = {
+  //   inputRoot: {
+  //     flexWrap: 'wrap',
+  //   },
+  //   inputInput: {
+  //     width: 'auto',
+  //     flexGrow: 1,
+  //   },
+  // }
   const [currencies, setCurrencies] = useState([])
   const [countries, setCountries] = useState([])
   const [userProfile, setUserProfile] = useState({
@@ -148,17 +158,12 @@ const SettingPage = () => {
   }
 
   return (
-    <>
-      <Card className="mt-4">
+    <Grid container >
+
+      <Card xs={4}>
         <CardHeader
-          title={(
-            <>
-              <Row className="h3">User Settings</Row>
-              <Row>
-                <small>Update your account and settings</small>
-              </Row>
-            </>
-          )}
+          title="Settings"
+          subheader="Update your account and settings"
         />
 
         <CustomizedSnackbars
@@ -170,7 +175,6 @@ const SettingPage = () => {
         />
         <Row>
           <div className="col-lg-12 order-1 order-xxl-2">
-            {/* <div className="col-lg-12 col-xxl-4 order-1 order-xxl-2"> */}
             <div className="card">
               <div className="card-body d-flex flex-column">
                 <InputLabel className="font-weight-bold my-7 h2">
@@ -210,6 +214,7 @@ const SettingPage = () => {
                       onBlur={(e) => handleChange(e, 'name')}
                       onChange={(e) => setState({ name: e.target.value })}
                       value={userProfile.name ? userProfile.name : ''}
+                      size="small"
                     />
                   </Col>
                 </Form.Group>
@@ -229,6 +234,7 @@ const SettingPage = () => {
                       onChange={(e) => setState({ surname: e.target.value })}
                       onBlur={(e) => handleChange(e, 'surname')}
                       value={userProfile.surname ? userProfile.surname : ''}
+                      size="small"
                     />
                   </Col>
                 </Form.Group>
@@ -251,6 +257,7 @@ const SettingPage = () => {
                       }}
                       onChange={(e) => setState({ dob: e.target.value })}
                       onBlur={(e) => handleChange(e, 'dob')}
+                      size="small"
                     />
                   </Col>
                   <Col lg={3}>
@@ -284,6 +291,7 @@ const SettingPage = () => {
                       onChange={(e) => setState({ username: e.target.value })}
                       onBlur={(e) => handleChange(e, 'username')}
                       variant={variant}
+                      size="small"
                     />
                   </Col>
                 </Form.Group>
@@ -303,6 +311,7 @@ const SettingPage = () => {
                       onChange={(e) => setState({ email: e.target.value })}
                       value={userProfile.email ? userProfile.email : ''}
                       variant={variant}
+                      size="small"
                     />
                     <small>Email will not be publicly displayed</small>
                   </Col>
@@ -325,6 +334,7 @@ const SettingPage = () => {
                           ? userProfile.country.name
                           : ''
                       }
+                      size="small"
                     >
                       {countries.map(({ name, id }) => (
                         <MenuItem key={name} id={id} value={name}>
@@ -353,6 +363,7 @@ const SettingPage = () => {
                           : ''
                       }
                       onChange={(e) => handleChange(e, 'currency')}
+                      size="small"
                     >
                       {currencies.map(({ code, id }) => (
                         <MenuItem key={id} id={id} value={code}>
@@ -386,6 +397,7 @@ const SettingPage = () => {
                       className="w-100"
                       variant={variant}
                       onChange={(e) => setState({ currentPassword: e.target.value })}
+                      size="small"
                     />
                     <a
                       href="#"
@@ -412,6 +424,7 @@ const SettingPage = () => {
                       className="w-100"
                       variant={variant}
                       onChange={(e) => setState({ newPassword: e.target.value })}
+                      size="small"
                     />
                   </Col>
                 </Form.Group>
@@ -428,6 +441,7 @@ const SettingPage = () => {
                       label="Verify Password"
                       variant={variant}
                       onChange={(e) => setState({ verifyPassword: e.target.value })}
+                      size="small"
                     />
                   </Col>
                 </Form.Group>
@@ -437,12 +451,13 @@ const SettingPage = () => {
                     <Button
                       variant="contained"
                       color="secondary"
-                      className={(classes.button += ' h-100 float-right')}
+                      // className={(classes.button += ' h-100 float-right')}
                       style={{
                         textTransform: 'none',
                       }}
                       disabled={changePasswordIsDisabled()}
                       onClick={(e) => handleChange(e, 'newPassword')}
+                      size="small"
                     >
                       Change Password
                     </Button>
@@ -453,8 +468,8 @@ const SettingPage = () => {
           </div>
         </Row>
       </Card>
-    </>
+      </Grid>
   )
 }
 
-export default SettingPage
+export default Settings

@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
 export const Contacts = () => {
   // Getting curret state of contacts list from store (Redux)
   const { currentState } = useSelector(
-  // [REV] I importing the RootState from the rootReduced
+  // TODO: I importing the RootState from the rootReduced
     (state: RootState) => ({ currentState: state.contacts }),
     shallowEqual
   );
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  // [REV] I removed the setList
+  // TODO: I removed the setList
   const [list] = useState([]);
   // const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +46,7 @@ export const Contacts = () => {
     }
   }, [dispatch]);
 
-  // [REV] I commented this crap in order to make the compiler runs.. ACTIVATE TypeScript and fix the errors
+  // TODO: I commented this crap in order to make the compiler runs.. ACTIVATE TypeScript and fix the errors
   useEffect(() => {
     if (
       currentState &&

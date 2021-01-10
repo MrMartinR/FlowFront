@@ -8,10 +8,6 @@ export function HeaderMenu() {
 <Grid container direction='row' spacing={2}>
         {/* begin::Dashboard */}
         <ButtonGroup>
-          <Button
-           href="/dashboard">
-             Dashboard
-          </Button>
 
         {/* begin::Contacts */}
         <Button 
