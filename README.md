@@ -1,7 +1,7 @@
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev)
 
-# Flow Front End
----
+  <h1 align="center">Flow FrontEnd</h1>
+
 
 # Style Guides (Read)
 
@@ -117,6 +117,7 @@ Tip: To see a dependency tree visit [Anvaka](https://npm.anvaka.com)
 * [yup]()
 
 Dependencies extra added for Kaban-Trello
+```
 info Direct dependencies
 └─ react-trello@2.2.9
 info All dependencies
@@ -139,8 +140,11 @@ info All dependencies
 ├─ to-space-case@1.0.0
 └─ trello-smooth-dnd@1.0.0
 └─ styled-components@5.2.1
+```
 
 ## Development
+
+### Types
 
 * [@types/jest]()
 * [@types/node]()
@@ -151,8 +155,12 @@ info All dependencies
 * [@types/react-is]()
 * [@types/react-redux]()
 * [@types/react-router-dom]()
+* [@types/react-virtualized]()
 * [@typescript-eslint/eslint-plugin]()
 * [@typescript-eslint/parser]()
+
+### DevDependencies
+
 * [babel-eslint]()
 * [eslint]()
 * [eslint-config-airbnb]()
