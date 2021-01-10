@@ -2,6 +2,7 @@
 # React Style Guide
 Based on [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react)
 
+# NOTE: check all the content related to JavaScript and replace it to TypeScript
 
 This style guide is mostly based on the standards that are currently prevalent in JavaScript, although some conventions (i.e async/await or static class fields) may still be included or prohibited on a case-by-case basis. Currently, anything prior to stage 3 is not included nor recommended in this guide.
 
@@ -27,7 +28,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
   - Only include one React component per file.
     - However, multiple [Stateless, or Pure, Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) are allowed per file. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
-  - Always use JSX syntax.
+  - Always use TSX syntax.
   - Do not use `React.createElement` unless you’re initializing the app from a file that is not JSX.
   - [`react/forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) will allow `arrays` and `objects` only if it is explicitly noted what `array` and `object` contains, using `arrayOf`, `objectOf`, or `shape`.
 
@@ -82,35 +83,35 @@ This style guide is mostly based on the standards that are currently prevalent i
 
 ## Naming
 
-  - **Extensions**: Use `.jsx` extension for React components. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
-  - **Filename**: Use PascalCase for filenames. E.g., `ReservationCard.jsx`.
+  - **Extensions**: Use `.tsx` extension for React components.
+  - **Filename**: Use PascalCase for filenames. E.g., `LoanDetails.tsx`.
   - **Reference Naming**: Use PascalCase for React components and camelCase for their instances. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
 
-    ```jsx
+    ```tsx
     // bad
-    import reservationCard from './ReservationCard';
+    import loanDetails from './LoanDetails';
 
     // good
-    import ReservationCard from './ReservationCard';
+    import LoanDetails from './LoanDetails'
 
     // bad
-    const ReservationItem = <ReservationCard />;
+    const LoanItem = <LoanDetails />
 
     // good
-    const reservationItem = <ReservationCard />;
+    const loanItem = <LoanDetails />
     ```
 
-  - **Component Naming**: Use the filename as the component name. For example, `ReservationCard.jsx` should have a reference name of `ReservationCard`. However, for root components of a directory, use `index.jsx` as the filename and use the directory name as the component name:
+  - **Component Naming**: Use the filename as the component name. For example, `LoanDetails.tsx` should have a reference name of `LoanDetails`. However, for root components of a directory, use `index.tsx` as the filename and use the directory name as the component name:
 
-    ```jsx
+    ```tsx
     // bad
-    import Footer from './Footer/Footer';
+    import Footer from './Footer/Footer'
 
     // bad
-    import Footer from './Footer/index';
+    import Footer from './Footer/index'
 
     // good
-    import Footer from './Footer';
+    import Footer from './Footer'
     ```
 
   - **Higher-order Component Naming**: Use a composite of the higher-order component’s name and the passed-in component’s name as the `displayName` on the generated component. For example, the higher-order component `withFoo()`, when passed a component `Bar` should produce a component with a `displayName` of `withFoo(Bar)`.
@@ -240,11 +241,11 @@ This style guide is mostly based on the standards that are currently prevalent i
 
 ## Quotes
 
-  - Always use double quotes (`"`) for JSX attributes, but single quotes (`'`) for all other JS. eslint: [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes)
+  - Always use double quotes (`"`) for TSX attributes, but single quotes (`'`) for all other JS. eslint: [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes)
 
-    > Why? Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
+    > Why? Regular HTML attributes also typically use double quotes instead of single, so TSX attributes mirror this convention.
 
-    ```jsx
+    ```tsx
     // bad
     <Foo bar='bar' />
 
@@ -262,7 +263,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
   - Always include a single space in your self-closing tag. eslint: [`no-multi-spaces`](https://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
 
-    ```jsx
+    ```tsx
     // bad
     <Foo/>
 
@@ -277,9 +278,9 @@ This style guide is mostly based on the standards that are currently prevalent i
     <Foo />
     ```
 
-  - Do not pad JSX curly braces with spaces. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
+  - Do not pad TSX curly braces with spaces. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
 
-    ```jsx
+    ```tsx
     // bad
     <Foo bar={ baz } />
 
@@ -325,7 +326,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
   - Always include an `alt` prop on `<img>` tags. If the image is presentational, `alt` can be an empty string or the `<img>` must have `role="presentation"`. eslint: [`jsx-a11y/alt-text`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/alt-text.md)
 
-    ```jsx
+    ```tsx
     // bad
     <img src="hello.jpg" />
 
@@ -343,7 +344,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
     > Why? Screenreaders already announce `img` elements as images, so there is no need to include this information in the alt text.
 
-    ```jsx
+    ```tsx
     // bad
     <img src="hello.jpg" alt="Picture of me waving hello" />
 
@@ -404,7 +405,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   > Why? propTypes are a form of documentation, and providing defaultProps means the reader of your code doesn’t have to assume as much. In addition, it can mean that your code can omit certain type checks.
 
-  ```jsx
+  ```tsx
   // bad
   function SFC({ foo, bar, children }) {
     return <div>{foo}{bar}{children}</div>;
@@ -437,7 +438,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - HOCs that proxy down props and hoist propTypes
 
-  ```jsx
+  ```tsx
   function HOC(WrappedComponent) {
     return class Proxy extends React.Component {
       Proxy.propTypes = {
@@ -468,7 +469,7 @@ We don’t recommend using indexes for keys if the order of items may change.
   Notes for use:
   Filter out unnecessary props when possible. Also, use [prop-types-exact](https://www.npmjs.com/package/prop-types-exact) to help prevent bugs.
 
-  ```jsx
+  ```tsx
   // bad
   render() {
     const { irrelevantProp, ...relevantProps } = this.props;
@@ -486,7 +487,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Always use ref callbacks. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
 
-    ```jsx
+    ```tsx
     // bad
     <Foo
       ref="myRef"
@@ -530,7 +531,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Always self-close tags that have no children. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
 
-    ```jsx
+    ```tsx
     // bad
     <Foo variant="stuff"></Foo>
 
@@ -557,7 +558,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Use arrow functions to close over local variables. It is handy when you need to pass additional data to an event handler. Although, make sure they [do not massively hurt performance](https://www.bignerdranch.com/blog/choosing-the-best-approach-for-react-event-handlers/), in particular when passed to custom components that might be PureComponents, because they will trigger a possibly needless rerender every time.
 
-    ```jsx
+    ```tsx
     function ItemList(props) {
       return (
         <ul>
@@ -576,7 +577,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
     > Why? A bind call in the render path creates a brand new function on every single render. Do not use arrow functions in class fields, because it makes them [challenging to test and debug, and can negatively impact performance](https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1), and because conceptually, class fields are for data, not logic.
 
-    ```jsx
+    ```tsx
     // bad
     class extends React.Component {
       onClickDiv() {
@@ -620,7 +621,7 @@ We don’t recommend using indexes for keys if the order of items may change.
   - Do not use underscore prefix for internal methods of a React component.
     > Why? Underscore prefixes are sometimes used as a convention in other languages to denote privacy. But, unlike those languages, there is no native support for privacy in JavaScript, everything is public. Regardless of your intentions, adding underscore prefixes to your properties does not actually make them private, and any property (underscore-prefixed or not) should be treated as being public. See issues [#1024](https://github.com/airbnb/javascript/issues/1024), and [#490](https://github.com/airbnb/javascript/issues/490) for a more in-depth discussion.
 
-    ```jsx
+    ```tsx
     // bad
     React.createClass({
       _onClickSubmit() {
@@ -642,7 +643,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Be sure to return a value in your `render` methods. eslint: [`react/require-render-return`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md)
 
-    ```jsx
+    ```tsx
     // bad
     render() {
       (<div />);
@@ -676,9 +677,9 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - How to define `propTypes`, `defaultProps`, `contextTypes`, etc...
 
-    ```jsx
-    import React from 'react';
-    import PropTypes from 'prop-types';
+    ```tsx
+    import React from 'react'
+    import PropTypes from 'prop-types'
 
     const propTypes = {
       id: PropTypes.number.isRequired,
