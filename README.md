@@ -3,30 +3,85 @@
   <h1 align="center">Flow FrontEnd</h1>
 
 
-# Style Guides (Read)
+<!-- ABOUT THE PROJECT -->
 
-### [SASS](docs/StyleGuide-React.md)
+## About The Project
 
-### [React](docs/StyleGuide-React.md)
+This project implements an investment management application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance. Here is a link to the [backend API](https://github.com/FlowFintech/FlowBack)
 
-### [Redux](https://redux.js.org/style-guide/style-guide)
+### Background information
+
+When a business or an individual is in need of a loan, they reach out to loan originator. In most case, the loan originator does not have the money to give to this client. So, what the loan originator does is to float the loan and allow investors to fund it. The floating or display of a loan that need funding is done on a platform. Sometimes, the loan originator have their own platform.
+Now, the investor does not just invest in one platform but in multiple platforms and at times with different loan originator on the same platform (now referred to as a market place as it has more that one loan originator). These bring us to our application, `Flow`, an investment management application.
+
+Using Flow, an investor is able to take the information `after` investing in a platform and add it to our application for easier management. In the past, the investor would have numerous excel files that stored this data which is messy, not easily accessible and does not have that good user experience with tools such as sort, classify by, just ready available to them; so Flow.
 
 
-# Libraries
+## Technologies used
 
-### [Material-UI](https://material-ui.com)
+JavaScript
+TypeScript
+React
+Redux
+Material UI
+
+## Usage/Getting started
+
+The default branch of this project is the `release branch`. However, ensure to clone the master branch of the project and all other `features branches` can branch out of the `master`. Suffice to say in a case you want to open a PR, it should be opened to merge into the `master branch`.
+
+Clone the reposistory
+
+```Shell
+your@pc:~$ git clone https://github.com/FlowFintech/FlowFront -b master
+```
+
+```Shell
+your@pc:~$ cd FlowFront
+```
+
+Install all dependencies
+
+```Shell
+npm i
+```
+
+While the [backend](https://github.com/FlowFintech/FlowBack) server is alrealdy running, start the server
+
+```Shell
+npm start
+```
+
+## Contributing
+
+Depending on whether your implementing a feature or fixing a bug, we'll like to have a naming convention to how these branches are being named:
+
+Please stick to the naming format `feature/branch-name` or `bug/bugname-fixed` for a feature and bug fixes branch respectively. Your feature/bug branch should be requested to merge into the `master` branch and upon approval and merging of the PR, the feature/bug  branch should be deleted.
+
+
+## Style Guides (Read)
+
+#### [SASS](docs/StyleGuide-React.md)
+
+#### [React](docs/StyleGuide-React.md)
+
+#### [Redux](https://redux.js.org/style-guide/style-guide)
+
+
+## Libraries
+
+#### [Material-UI](https://material-ui.com)
 * Material-UI is the most popular React UI component library, has a lot of prebuilt React components, which can help you create React apps in no time.
 Unlike Ant Design, Material-UI offers built-in methods to style components. makeStyles() is useful, especially when your code starts to get big; it helps you find the element to style more quickly and makes the code more readable. The downside is that readability may degrade as a component grows. But overall, Material-UI is a strong, highly customizable library.
 
-### [Dart JS • SASS](https://sass-lang.com/documentation) (CSS Preprocessor | Syntax SCSS)
+####  [Dart JS • SASS](https://sass-lang.com/documentation) (CSS Preprocessor | Syntax SCSS)
 
-### [React](https://reactjs.org/docs/getting-started.html)
+#### [React](https://reactjs.org/docs/getting-started.html)
 
-### [Redux API Reference](https://redux.js.org/api/api-reference) (Application State Manager)
+#### [Redux API Reference](https://redux.js.org/api/api-reference) (Application State Manager)
 
-### [React-Redux API Reference](https://react-redux.js.org/api/connect)
+#### [React-Redux API Reference](https://react-redux.js.org/api/connect)
 
-### [TypeScript](https://www.typescriptlang.org/docs) (Transpiler | JavaScript Superset | Code Analysis)
+#### [TypeScript](https://www.typescriptlang.org/docs) (Transpiler | JavaScript Superset | Code Analysis)
 **Use TypeScript in STRICT MODE**
 * [Conventions](https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md)
 * [TypeScript with React](https://www.typescriptlang.org/play?jsx=2&esModuleInterop=true&q=390#example/typescript-with-react)
@@ -34,35 +89,35 @@ Unlike Ant Design, Material-UI offers built-in methods to style components. make
 * [Course TypeScript React](https://egghead.io/courses/use-typescript-to-develop-react-applications)
 * [React Components Patterns with TypeScript](https://levelup.gitconnected.com/ultimate-react-component-patterns-with-typescript-2-8-82990c516935)
 
-### [ESLint](https://eslint.org) (Linter)
+#### [ESLint](https://eslint.org) (Linter)
 
-### [Prettier](https://prettier.io) (Code Formater)
+#### [Prettier](https://prettier.io) (Code Formater)
 
-### [React Router DOM](https://reactrouter.com/web/guides/quick-start) (Router)
+#### [React Router DOM](https://reactrouter.com/web/guides/quick-start) (Router)
 
-### [React Hook Form](https://react-hook-form.com) (Forms)
+#### [React Hook Form](https://react-hook-form.com) (Forms)
 
-### [Yup](https://github.com/jquense/yup) (Validator) 
+#### [Yup](https://github.com/jquense/yup) (Validator) 
 * Yup it is a declarative validation schema that provides chainable functions with pretty staggering capabilities.
 
-### [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) (ScrolBar) (ToDo)
+#### [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) (ScrolBar) (ToDo)
 * [comparison](https://www.npmtrends.com/better-scroll-vs-effector-vs-iscroll-vs-perfect-scrollbar-vs-react-scroll-vs-react-custom-scrollbars)
 
 
-# Utilities
+## Utilities
 
-### React Developer Tools [Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+#### React Developer Tools [Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
 (You must allow access to file URLs on Extension Settings)
 
-### [VisualStudio Code](https://code.visualstudio.com)
+#### [VisualStudio Code](https://code.visualstudio.com)
 Shared settings.json file configuration on .vscode root folder
 "Note: Workspace settings are useful for sharing project specific settings across a team."
 
-# Dependencies
+## Dependencies
 Tip: To see a dependency tree visit [Anvaka](https://npm.anvaka.com)
 
 
-## Production
+### Production
 * [@formatjs/intl-relativetimeformat](https://github.com/formatjs/formatjs) The monorepo home to all of the FormatJS related libraries, most notably react-intl.
 * [@manaflair/redux-batch](https://github.com/manaflair/redux-batch) Enhance your Redux store to support batched actions
 * [@material-ui](https://github.com/mui-org/material-ui) React components for faster and simpler web development. Build your own design system, or start with Material Design.
@@ -142,9 +197,9 @@ info All dependencies
 └─ styled-components@5.2.1
 ```
 
-## Development
+### Development
 
-### Types
+#### Types
 
 * [@types/jest]()
 * [@types/node]()
@@ -159,7 +214,7 @@ info All dependencies
 * [@typescript-eslint/eslint-plugin]()
 * [@typescript-eslint/parser]()
 
-### DevDependencies
+#### DevDependencies
 
 * [babel-eslint]()
 * [eslint]()
