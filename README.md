@@ -20,14 +20,18 @@ Using Flow, an investor is able to take the information `after` investing in a p
 ## Technologies used
 
 JavaScript
+
 TypeScript
+
 React
+
 Redux
+
 Material UI
 
 ## Usage/Getting started
 
-The default branch of this project is the `release branch`. However, ensure to clone the master branch of the project and all other `features branches` can branch out of the `master`. Suffice to say in a case you want to open a PR, it should be opened to merge into the `master branch`.
+The default branch of this project is the `release` branch. However, ensure to clone the master branch of the project and all other `features` branches can branch out of the `master`. Suffice to say in a case you want to open a PR, it should be opened to merge into the `master branch`.
 
 Clone the reposistory
 
