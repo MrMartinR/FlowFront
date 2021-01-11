@@ -115,4 +115,4 @@ Unlike Ant Design, Material-UI offers built-in methods to style components. make
 Shared settings.json file configuration on .vscode root folder
 "Note: Workspace settings are useful for sharing project specific settings across a team."
 
-### [Dependencies]()
+### [Dependencies](https://github.com/FlowFintech/FlowFront/blob/readme-documentation-updates/DEPENDENCIES.md)
