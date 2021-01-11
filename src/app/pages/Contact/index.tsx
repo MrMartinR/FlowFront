@@ -4,10 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
+import * as contactMethodsActions from "./ContactMethods/state/contactMethodsActions";
 import { ContactsList } from "./ContactList";
 import { ContactDetails } from "./ContactDetails";
 import { RootState } from "../../../redux/rootReducer";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,9 +20,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Contacts = () => {
-  const { currentState } = useSelector(
-  // TODO: I importing the RootState from the rootReduced
-    (state: RootState) => ({ currentState: state.contacts }),
+  const { currentState, methodsState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.contacts,
+      methodsState: state.contactMethods,
+    }),
     shallowEqual
   );
 
@@ -36,13 +38,20 @@ export const Contacts = () => {
   if (list && list[selectedItemIndex]) {
     selectedContact = list[selectedItemIndex];
   }
-  // Accounts Redux state
-  const dispatch = useDispatch();
+  // contact Redux state
+  const GetAllContacts = () => {
+    let dispatch = useDispatch();
   useEffect(() => {
     if (dispatch) {
       dispatch(contactsActions.fetchContacts());
     }
+  
   }, [dispatch]);
+  }
+  GetAllContacts()
+  
+// console.log(methodsState)
+
 
   useEffect(() => {
     if (
@@ -55,6 +64,24 @@ export const Contacts = () => {
       setIsLoading(currentState.listLoading);
     }
   }, [currentState]);
+
+  const GetMethods = () => {
+    let MethodDispatch = useDispatch();
+    useEffect(() => {
+      let len = Object.keys(selectedContact)
+      if (len.length >= 1) {
+        let id = (selectedContact as any)?.id
+        console.log("cont id", id)
+        MethodDispatch(contactMethodsActions.fetchContactMethods(id));
+      }
+    }, [MethodDispatch,selectedContact]);
+
+  }
+  GetMethods()
+
+
+
+
 
   return (
     <Grid container className={classes.root} spacing={1}>

@@ -33,12 +33,11 @@ export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`
 // READ
 
 export function getContactMethods(contactsId) {
-  return axios.get(`${CONTACT_METHODS_URL}`,{
-    contact_method: {
-      contact_id: `${contactsId}`
+  let data ={
+    "contact_method":{
+      "contact_id":"01b92e4c-1d07-4d33-9491-ed43f3a9cf57"
     }
-  }, optionsHeaders())
+  }
+  return axios.get(`${CONTACT_METHODS_URL}`,data, optionsHeaders())
 }
-
-
 

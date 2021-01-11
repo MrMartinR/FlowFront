@@ -15,8 +15,6 @@ export const callTypes = {
   action: 'action',
 }
 export const contactMethodsSlice = createSlice({
-  // TODO: not working if I change the name to contacts
-  // name: 'contacts',
   name: 'contact methods',
 
   initialState: initialContactsState,

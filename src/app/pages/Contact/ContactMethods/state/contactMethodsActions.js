@@ -6,21 +6,19 @@ const { actions } = contactMethodsSlice
 
 
 // get a contact  methods 
-export const fetchContactMethods = (id) => (dispatch) => {
-  if (!id) {
-    let error = "Can't find contact methods without id"
-    return dispatch(actions.catchError({ error, callType: callTypes.action }))
-  }
 
-  dispatch(actions.startCall({ callType: callTypes.action }))
+export const fetchContactMethods = (id) => (dispatch) => {
+  dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
     .getContactMethods(id)
     .then((response) => {
-      let methods = response.data
-      dispatch(actions.contactMethodsFetched({ methods }))
+      const { data } = response.data
+      console.log("resrs",data)
+      dispatch(actions.contactMethodsFetched({ data }))
     })
-    .catch((error) => {
+    .catch((error)  => {
+      console.log("error", error)
       error.clientMessage = "Can't find contact methods"
-      dispatch(actions.catchError({ error, callType: callTypes.action }))
+      dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
 }

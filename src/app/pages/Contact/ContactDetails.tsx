@@ -56,11 +56,11 @@ export const ContactDetails = (props: any) => {
             {` ${selectedContact.company_name || err}`}
           </ListItem>
           <Divider />
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemText primary="Country" />
             {` ${selectedContact.country.name || err}`}
           </ListItem>
-          <Divider />
+          <Divider /> */}
           <ListItem button divider>
             <ListItemText primary="Kind" />
             {` ${selectedContact.kind || err}`}
