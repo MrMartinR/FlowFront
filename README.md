@@ -19,8 +19,6 @@ Using Flow, an investor is able to take the information `after` investing in a p
 
 ## Technologies used
 
-JavaScript
-
 TypeScript
 
 React
@@ -66,7 +64,7 @@ Please stick to the naming format `feature/branch-name` or `bug/bugname-fixed` f
 
 #### [SASS](docs/StyleGuide-React.md)
 
-#### [React](docs/StyleGuide-React.md)
+#### [React/TypeScript](docs/StyleGuide-React-TypeScript.md)
 
 #### [Redux](https://redux.js.org/style-guide/style-guide)
 
@@ -117,117 +115,4 @@ Unlike Ant Design, Material-UI offers built-in methods to style components. make
 Shared settings.json file configuration on .vscode root folder
 "Note: Workspace settings are useful for sharing project specific settings across a team."
 
-## Dependencies
-Tip: To see a dependency tree visit [Anvaka](https://npm.anvaka.com)
-
-
-### Production
-* [@formatjs/intl-relativetimeformat](https://github.com/formatjs/formatjs) The monorepo home to all of the FormatJS related libraries, most notably react-intl.
-* [@manaflair/redux-batch](https://github.com/manaflair/redux-batch) Enhance your Redux store to support batched actions
-* [@material-ui](https://github.com/mui-org/material-ui) React components for faster and simpler web development. Build your own design system, or start with Material Design.
-  * [@material-ui/core]
-   * [@material-ui/icons]
-   * [@material-ui/lab]
-   * [@material-ui/pickers]
-   * [@material-ui/styles]
-   * [@material-ui/x-grid](https://github.com/mui-org/material-ui-x) The Material-UI eXtension with advanced components for a richer eXperience.
-   * [@material-ui/x-license](https://github.com/mui-org/material-ui-x/tree/master/packages/x-license) Dependency of @material-ui/x-grid
-* [@reduxjs/toolkit](https://github.com/reduxjs/redux-toolkit) The official, opinionated, batteries-included toolset for efficient Redux development
-* [@tanem/svg-injector](https://github.com/tanem/svg-injector) Fast, caching, dynamic inline SVG DOM injection library.
-* [axios](https://github.com/axios/axios) Promise based HTTP client for the browser and node.js
-* [clipboard-copy](https://github.com/feross/clipboard-copy) Lightweight copy to clipboard for the web
-* [clsx](https://github.com/lukeed/clsx) A tiny utility for constructing className strings conditionally.
-* [css-box-model](https://github.com/alexreardon/css-box-model#readme) Get accurate and well named css box model information about an Element
-* [date-fns]()
-* [eslint-config-react-app]()
-* [esm]() The world’s most advanced ECMAScript module loader. This fast, production ready, zero dependency loader is all you need to support ECMAScript modules in Node 6+.
-* [formik]()
-* [lodash]()
-* [material-ui-popup-state]()
-* [object-path]()
-* [perfect-scrollbar]()
-* [prop-types]()
-* [query-string]()
-* [raf-schd]()
-* [react]()
-* [react-beautiful-dnd]()
-* [react-bootstrap]()
-* [react-bootstrap-table-next]()
-* [react-bootstrap-table2-paginator]()
-* [react-datepicker]()
-* [react-dom]()
-* [react-draggable]()
-* [react-inlinesvg]()
-* [react-intl]() This library is one of the most popular solutions for i18n in React and it’s now part of Formatjs. Offered by Yahoo is bundled with common locale data like dates, currencies, numbers, and support for over  150+ languages. It builds upon the concepts of the ECMAScript’s ECMAScript’s Internationalization API namespace.
-* [react-is]()
-* [react-portal]()
-* [react-redux]()
-* [react-router]()
-* [react-router-dom]()
-* [react-scripts]()
-* [react-select]()
-* [react-virtualized]()
-* [redux]()
-* [redux-persist]()
-* [redux-saga]()
-* [sass]()
-* [serve-static]()
-* [use-memo-one]()
-* [yup]()
-
-Dependencies extra added for Kaban-Trello
-```
-info Direct dependencies
-└─ react-trello@2.2.9
-info All dependencies
-├─ @emotion/is-prop-valid@0.8.8
-├─ autosize@4.0.2
-├─ camelize@1.0.0
-├─ css-color-keywords@1.0.0
-├─ css-to-react-native@3.0.0
-├─ deep-diff@0.3.8
-├─ immutability-helper@2.9.1
-├─ just-curry-it@3.1.0
-├─ react-popopo@2.1.9
-├─ react-trello@2.2.9
-├─ reduce-reducers@0.4.3
-├─ redux-actions@2.6.5
-├─ redux-logger@3.0.6
-├─ shallowequal@1.1.0
-├─ to-camel-case@1.0.0
-├─ to-no-case@1.0.2
-├─ to-space-case@1.0.0
-└─ trello-smooth-dnd@1.0.0
-└─ styled-components@5.2.1
-```
-
-### Development
-
-#### Types
-
-* [@types/jest]()
-* [@types/node]()
-* [@types/object-path]()
-* [@types/react]()
-* [@types/react-beautiful-dnd]()
-* [@types/react-dom]()
-* [@types/react-is]()
-* [@types/react-redux]()
-* [@types/react-router-dom]()
-* [@types/react-virtualized]()
-* [@typescript-eslint/eslint-plugin]()
-* [@typescript-eslint/parser]()
-
-#### DevDependencies
-
-* [babel-eslint]()
-* [eslint]()
-* [eslint-config-airbnb]()
-* [eslint-plugin-flowtype]()
-* [eslint-plugin-import]()
-* [eslint-plugin-jsx-a11y]()
-* [eslint-plugin-react]()
-* [eslint-plugin-react-hooks]()
-* [typescript]()
-* [webpack-cli]()
-* [webpack-messages]()
+### [Dependencies]()
