@@ -46,13 +46,13 @@ your@pc:~$ cd FlowFront
 Install all dependencies
 
 ```Shell
-npm i
+yarn install
 ```
 
 While the [backend](https://github.com/FlowFintech/FlowBack) server is alrealdy running, start the server
 
 ```Shell
-npm start
+yarn start
 ```
 
 ## Contributing
