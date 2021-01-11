@@ -7,6 +7,7 @@ import {
   ListItemText,
   ListSubheader,
   ListItemIcon,
+  CircularProgress,
 } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflow: "auto",
-    maxHeight: 580,
+    maxHeight: 650,
     top: 20,
   },
   listSection: {
@@ -29,16 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO: I applied the type any to fix the error TS7006
 export const ContactsList = (props: any) => {
-  // TODO: Removed the isLoading
-  const { setSelectedItemIndex, list } = props;
-  // const { setSelectedItemIndex, isLoading, list } = props;
+  const { setSelectedItemIndex, isLoading, list } = props;
   const classes = useStyles();
-  // TODO: I applied the type any to fix the error TS7006
   const updateSelected = (value: any) => {
     setSelectedItemIndex(value);
   };
+ 
 
   return (
     <List className={classes.root} subheader={<li />}>
@@ -46,7 +44,8 @@ export const ContactsList = (props: any) => {
         <ul className={classes.ul}>
           <ListSubheader>{`Contacts `}</ListSubheader>
           {/* TODO: I applied the type any to fix the error TS7006 */}
-          {list.map((item: any, idx: any) => (
+          {isLoading ? <CircularProgress color="secondary" /> :
+          list.map((item: any, idx: any) => (
             <ListItem
               key={`${item.id}`}
               button
@@ -59,7 +58,8 @@ export const ContactsList = (props: any) => {
               </ListItemIcon>
               <ListItemText primary={`${item.trade_name}`} />
             </ListItem>
-          ))}
+          ))
+          }
         </ul>
       </li>
     </List>

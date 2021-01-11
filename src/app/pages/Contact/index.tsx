@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Contacts = () => {
-  // Getting curret state of contacts list from store (Redux)
   const { currentState } = useSelector(
   // TODO: I importing the RootState from the rootReduced
     (state: RootState) => ({ currentState: state.contacts }),
@@ -27,9 +26,7 @@ export const Contacts = () => {
   );
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  // TODO: I removed the setList
-  const [list] = useState([]);
-  // const [list, setList] = useState([]);
+  const [list, setList] = useState([] as any);
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
@@ -46,16 +43,14 @@ export const Contacts = () => {
     }
   }, [dispatch]);
 
-  // TODO: I commented this crap in order to make the compiler runs.. ACTIVATE TypeScript and fix the errors
   useEffect(() => {
     if (
       currentState &&
       currentState.contactsTable &&
       currentState.contactsTable.success &&
-      currentState.contactsTable.entities //&&
-      // currentState.contactsTable.entities.length > 0
+      currentState.contactsTable.entities
     ) {
-      // setList(currentState.contactsTable.entities);
+      setList(currentState.contactsTable.entities);
       setIsLoading(currentState.listLoading);
     }
   }, [currentState]);
