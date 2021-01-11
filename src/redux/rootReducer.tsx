@@ -9,10 +9,11 @@ import { countriesSlice } from './countries/countriesSlice'
 import { currenciesSlice } from './currencies/currenciesSlice'
 import { platformsSlice } from './platforms/platformsSlice'
 import { iconsSlice } from './icons/iconsSlice'
-
+import { contactMethodsSlice } from '../app/pages/Contact/ContactMethods/state/contactMethodsSlice'
 export const rootReducer = combineReducers({
   userAccounts: userAccountsSlice.reducer,
   contacts: contactsSlice.reducer,
+  contactMethods: contactMethodsSlice.reducer,
   accounts: accountsSlice.reducer,
   auth: auth.reducer,
   countries: countriesSlice.reducer,

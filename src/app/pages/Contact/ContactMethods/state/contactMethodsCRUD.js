@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '../../../../redux/store'
+import store from '../../../../../redux/store'
 
 const optionsHeaders = () => {
   const {
@@ -23,21 +23,21 @@ const optionsHeaders = () => {
 }
 
 // TODO: define a system to get the right url depending of the environment and place it in a global scope?
-const API_URL = 'http://localhost:3001'
-// const API_URL = "https://api.flowfin.tech";
+// const API_URL = 'http://localhost:3001'
+const API_URL = "https://api.flowfin.tech";
 // const API_URL = process.env.API_URL;
 
 // especify the API endpoint
-export const CONTACTS_URL = `${API_URL}/api/v1/contacts`
+export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`
 
 // READ
-export function getAllContacts() {
-  return axios.get(CONTACTS_URL,  optionsHeaders())
+
+export function getContactMethods(contactsId) {
+  let data ={
+    "contact_method":{
+      "contact_id":"01b92e4c-1d07-4d33-9491-ed43f3a9cf57"
+    }
+  }
+  return axios.get(`${CONTACT_METHODS_URL}`,data, optionsHeaders())
 }
-
-export function getContactById(contactsId) {
-  return axios.get(`${CONTACTS_URL}/${contactsId}`, optionsHeaders())
-}
-
-
 
