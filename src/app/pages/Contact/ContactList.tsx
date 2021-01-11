@@ -16,7 +16,6 @@ import { Autocomplete } from "@material-ui/lab";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 380,
     backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflow: "auto",
@@ -60,11 +59,11 @@ export const ContactsList = (props: any) => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%",}}> 
       {isLoading ? (
         <p>loading ...</p>
       ) : (
-        <div style={{ width: 300,}}>
+        <div style={{ width: "80%",}}>
           <Autocomplete
             freeSolo
             options={options}

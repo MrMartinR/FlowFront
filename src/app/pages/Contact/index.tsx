@@ -59,7 +59,7 @@ export const Contacts = () => {
   return (
     <Grid container className={classes.root} spacing={1}>
       <Grid item md={12}>
-        <Grid container justify="center" spacing={1} md={12} item>
+        <Grid container justify="center" spacing={2} md={12} item>
           <Grid
             container
             direction="row"
