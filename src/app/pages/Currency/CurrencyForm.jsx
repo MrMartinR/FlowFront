@@ -1,17 +1,18 @@
-import React from "react";
-/* eslint-disable  no-restricted-imports */ 
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
+// TODO: Replace formik for react hook forms https://react-hook-form.com
+import React from 'react'
+/* eslint-disable  no-restricted-imports */
+import {makeStyles} from '@material-ui/core/styles'
+import clsx from 'clsx'
 // import * as Yup from "yup";
-import { FormControl, TextField } from "@material-ui/core";
+import {FormControl, TextField} from '@material-ui/core'
 
 const CurrencyForm = (props) => {
-  const { formik } = props;
+  const {formik} = props
 
   const useFormStyles = makeStyles((theme) => ({
     container: {
-      display: "flex",
-      flexWrap: "wrap",
+      display: 'flex',
+      flexWrap: 'wrap',
     },
     formControl: {
       margin: theme.spacing(1),
@@ -29,61 +30,61 @@ const CurrencyForm = (props) => {
     menu: {
       width: 200,
     },
-  }));
+  }))
 
-  const classes = useFormStyles();
+  const classes = useFormStyles()
 
   return (
-    <div className="currency_form" id="kt_add_currency_form">
-      <form className="form fv-plugins-bootstrap fv-plugins-framework">
+    <div className='currency_form' id='kt_add_currency_form'>
+      <form className='form fv-plugins-bootstrap fv-plugins-framework'>
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-name-dense`}
-            label="Name"
-            type="text"
+            label='Name'
+            type='text'
             className={clsx(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
-            name={"name"}
-            {...formik.getFieldProps("name")}
+            margin='dense'
+            variant='outlined'
+            name={'name'}
+            {...formik.getFieldProps('name')}
           />
           {formik.touched.name && formik.errors.name ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.name}</div>
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>{formik.errors.name}</div>
             </div>
           ) : null}
         </FormControl>
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-code-dense`}
-            label="Code"
-            type="text"
+            label='Code'
+            type='text'
             className={clsx(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
-            name="code"
-            {...formik.getFieldProps("code")}
+            margin='dense'
+            variant='outlined'
+            name='code'
+            {...formik.getFieldProps('code')}
           />
           {formik.touched.code && formik.errors.code ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.code}</div>
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>{formik.errors.code}</div>
             </div>
           ) : null}
         </FormControl>
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-decimal_places-dense`}
-            label="Decimal Places"
-            type="number"
+            label='Decimal Places'
+            type='number'
             className={clsx(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
-            name="decimal_places"
-            {...formik.getFieldProps("decimal_places")}
+            margin='dense'
+            variant='outlined'
+            name='decimal_places'
+            {...formik.getFieldProps('decimal_places')}
           />
           {formik.touched.decimal_places && formik.errors.decimal_places ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
                 {formik.errors.decimal_places}
               </div>
             </div>
@@ -92,17 +93,17 @@ const CurrencyForm = (props) => {
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-kind-dense`}
-            label="Type"
-            type="text"
+            label='Type'
+            type='text'
             className={clsx(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
-            name="kind"
-            {...formik.getFieldProps("kind")}
+            margin='dense'
+            variant='outlined'
+            name='kind'
+            {...formik.getFieldProps('kind')}
           />
           {formik.touched.kind && formik.errors.kind ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.kind}</div>
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>{formik.errors.kind}</div>
             </div>
           ) : null}
         </FormControl>
@@ -126,23 +127,23 @@ const CurrencyForm = (props) => {
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-symbol-dense`}
-            label="Symbol"
-            type="text"
+            label='Symbol'
+            type='text'
             className={clsx(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
-            name="symbol"
-            {...formik.getFieldProps("symbol")}
+            margin='dense'
+            variant='outlined'
+            name='symbol'
+            {...formik.getFieldProps('symbol')}
           />
           {formik.touched.symbol && formik.errors.symbol ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.symbol}</div>
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>{formik.errors.symbol}</div>
             </div>
           ) : null}
         </FormControl>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default CurrencyForm;
+export default CurrencyForm
