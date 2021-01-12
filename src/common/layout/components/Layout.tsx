@@ -4,7 +4,7 @@ import { useHtmlClassService } from '../_core/MetronicLayout'
 import { Grid } from "@material-ui/core"
 import HeaderWrapper from './header/HeaderWrapper'
 
-// [REV] adding type any to children
+// TODO: adding type any to children
 export function Layout({ children }: any) {
   const uiService = useHtmlClassService()
   const layoutProps = useMemo(

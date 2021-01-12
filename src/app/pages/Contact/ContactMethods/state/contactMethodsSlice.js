@@ -4,24 +4,18 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialContactsState = {
   listLoading: true,
   actionsLoading: false,
-  contactsTable: {
+  contactMethodsTable: {
     entities: null,
     success: false
   },
-  singleContact:{
-    entry:null
-  },
-  contactForEdit: undefined,
   error: null,
 }
 export const callTypes = {
   list: 'list',
   action: 'action',
 }
-export const contactsSlice = createSlice({
-  // TODO: not working if I change the name to contacts
-  // name: 'contacts',
-  name: 'contacts',
+export const contactMethodsSlice = createSlice({
+  name: 'contact methods',
 
   initialState: initialContactsState,
   reducers: {
@@ -44,30 +38,13 @@ export const contactsSlice = createSlice({
       }
     },
 
-    // update the contact state on all fetch
-    contactsFetched: (state, action) => {
+    // update the contactMethodsTable state on all fetch based on contact id
+    contactMethodsFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.contactsTable.entities = data.data
-      state.contactsTable.success = data.success
-    },
-
-    // update the contact state on fetch a single contact
-    contactFetched: (state, action) => {
-      const { data } = action.payload
-      state.listLoading = false
-      state.error = null
-      state.singleContact.entry = data.data
-      state.contactsTable.success = data.success
-    },
-
-    // on creation a new contact append it to existing contacts
-    newContactCreated: (state, action) => {
-      const { data } = action.payload
-      state.actionsLoading = false
-      state.error = null
-      state.contactsTable.entities.unshift(data.data)
+      state.contactMethodsTable.entities = data.data
+      state.contactMethodsTable.success = data.success
     },
 
   

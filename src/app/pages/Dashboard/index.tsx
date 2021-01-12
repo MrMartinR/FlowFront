@@ -1,8 +1,9 @@
 import React from 'react'
 import { Grid, Card, CardHeader, CardContent, Button, ButtonGroup } from "@material-ui/core"
-import Kanban from "../modules/Kanban/Kanban"
+import Kanban from "./Kanban/Kanban"
 
 function DashboardPage() {
+  
   return (
     <Grid container spacing={2}>
 
@@ -37,6 +38,10 @@ function DashboardPage() {
             <Button
               href="/originators">
                 Originators
+            </Button>
+            <Button
+              href="/loans">
+                Loans
             </Button>
             <Button
               href="/property">

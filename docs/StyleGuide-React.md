@@ -10,6 +10,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
   1. [Basic Rules](#basic-rules)
   1. [Class vs `React.createClass` vs stateless](#class-vs-reactcreateclass-vs-stateless)
+  1. [Div vs Fragment](#div-vs-fragment)
   1. [Mixins](#mixins)
   1. [Naming](#naming)
   1. [Declaration](#declaration)
@@ -74,6 +75,12 @@ This style guide is mostly based on the standards that are currently prevalent i
       return <div>{hello}</div>;
     }
     ```
+    
+## Div vs Fragment
+  - Use [Fragments](https://reactjs.org/docs/fragments.html) instead of Div
+  > So the fact that fragments eliminate the wrapper div which can cause problems with invalid HTML and with styling of the components plus the fact that they are faster and the DOM is less cluttered.
+  It’s a tiny bit faster and has less memory usage (no need to create an extra DOM node).
+  Fragments declared with the explicit <React.Fragment> syntax may have keys.
 
 ## Mixins
 

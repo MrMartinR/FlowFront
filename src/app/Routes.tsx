@@ -15,7 +15,7 @@ import ErrorsPage from './modules/Errors/ErrorsPage'
 
 export function Routes() {
   const { isAuthorized } = useSelector(
-    // [REV] added type Any on refactor
+    // TODO: added type Any on refactor
     ({ auth }: any) => ({
       isAuthorized: auth.user != null,
     }),

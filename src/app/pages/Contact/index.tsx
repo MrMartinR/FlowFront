@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
+import * as contactMethodsActions from "./ContactMethods/state/contactMethodsActions";
 import { ContactsList } from "./ContactList";
 import { ContactDetails } from "./ContactDetails";
 import { RootState } from "../../../redux/rootReducer";
@@ -19,17 +20,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Contacts = () => {
-  // Getting curret state of contacts list from store (Redux)
-  const { currentState } = useSelector(
-  // [REV] I importing the RootState from the rootReduced
-    (state: RootState) => ({ currentState: state.contacts }),
+  const { currentState, methodsState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.contacts,
+      methodsState: state.contactMethods,
+    }),
     shallowEqual
   );
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  // [REV] I removed the setList
-  const [list] = useState([]);
-  // const [list, setList] = useState([]);
+  const [list, setList] = useState([] as any);
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
@@ -38,32 +38,55 @@ export const Contacts = () => {
   if (list && list[selectedItemIndex]) {
     selectedContact = list[selectedItemIndex];
   }
-  // Accounts Redux state
-  const dispatch = useDispatch();
+  // contact Redux state
+  const GetAllContacts = () => {
+    let dispatch = useDispatch();
   useEffect(() => {
     if (dispatch) {
       dispatch(contactsActions.fetchContacts());
     }
+  
   }, [dispatch]);
+  }
+  GetAllContacts()
+  
+// console.log(methodsState)
 
-  // [REV] I commented this crap in order to make the compiler runs.. ACTIVATE TypeScript and fix the errors
+
   useEffect(() => {
     if (
       currentState &&
       currentState.contactsTable &&
       currentState.contactsTable.success &&
-      currentState.contactsTable.entities //&&
-      // currentState.contactsTable.entities.length > 0
+      currentState.contactsTable.entities
     ) {
-      // setList(currentState.contactsTable.entities);
+      setList(currentState.contactsTable.entities);
       setIsLoading(currentState.listLoading);
     }
   }, [currentState]);
 
+  const GetMethods = () => {
+    let MethodDispatch = useDispatch();
+    useEffect(() => {
+      let len = Object.keys(selectedContact)
+      if (len.length >= 1) {
+        let id = (selectedContact as any)?.id
+        console.log("cont id", id)
+        MethodDispatch(contactMethodsActions.fetchContactMethods(id));
+      }
+    }, [MethodDispatch,selectedContact]);
+
+  }
+  GetMethods()
+
+
+
+
+
   return (
     <Grid container className={classes.root} spacing={1}>
       <Grid item md={12}>
-        <Grid container justify="center" spacing={1} md={12} item>
+        <Grid container justify="center" spacing={2} md={12} item>
           <Grid
             container
             direction="row"

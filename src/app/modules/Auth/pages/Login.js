@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { useFormik } from 'formik'
+import React, {useState} from 'react'
+import {useFormik} from 'formik'
 import * as Yup from 'yup'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 // [TODO] Remove the internationalization 
-import { injectIntl } from 'react-intl'
-import { TextField, Button, Grid, Typography, CardMedia } from '@material-ui/core'
+// import { injectIntl } from 'react-intl'
+import {TextField, Button, Grid, Typography, CardMedia} from '@material-ui/core'
 import * as auth from '../_redux/authRedux'
-import { login } from '../_redux/authCrud'
+import {login} from '../_redux/authCrud'
 import Logo from '../../../../common/media/flow-logo.svg';
 
 
@@ -17,26 +17,18 @@ const initialValues = {
 }
 
 function Login(props) {
-  const { intl } = props
+  // const { intl } = props
   const [loading, setLoading] = useState(false)
-  const LoginSchema = Yup.object().shape({
+  const loginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Wrong email format')
       .min(6, 'Minimum 6 characters')
       .max(50, 'Maximum 50 characters')
-      .required(
-        intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
-        }),
-      ),
+      .required('Required'),
     password: Yup.string()
       .min(3, 'Minimum 3 characters')
       .max(50, 'Maximum 50 characters')
-      .required(
-        intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
-        }),
-      ),
+      .required('Required'),
   })
 
   const enableLoading = () => {
@@ -49,7 +41,7 @@ function Login(props) {
 
   const formik = useFormik({
     initialValues,
-    validationSchema: LoginSchema,
+    validationSchema: loginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       console.log('submitting..')
       localStorage.removeItem('forgot_pwd_notif')
@@ -69,11 +61,7 @@ function Login(props) {
           .catch(() => {
             disableLoading()
             setSubmitting(false)
-            setStatus(
-              intl.formatMessage({
-                id: 'AUTH.VALIDATION.INVALID_LOGIN',
-              }),
-            )
+            setStatus('Incorrect login details')
           })
       }, 1000)
     },
@@ -83,34 +71,33 @@ function Login(props) {
     // main Grid 
     <Grid 
       container 
-      direction='row' 
-      xs={6} 
-      spacing={2} 
-      align = "center" 
-      justify = "center" 
+      direction='column' 
+      // spacing={2} 
+      align= "center" 
+      justify = "space-around" 
       alignItems = "center" 
     >
 
-     {/* begin::Head */}
-      <Grid item xs={5} spacing={2}>
+     {/* logo */}
+      <Grid item xs="auto">
           <CardMedia 
           src={Logo} 
           component="img" 
           />
         <Typography 
           align='center'
-          variant='h4'
+          variant='h6'
           >
-          Howdy Flower!
+          Hello Flower!
         </Typography>
       </Grid>
 
-{/* form */}
-      <Grid item xs={6}>
+      {/* form */}
+      <Grid item xs="auto">
         <form
         onSubmit={formik.handleSubmit}
         autoComplete="on"
-      >
+        >
         {formik.status ? (
             <div>{formik.status}</div>
         ) : (
@@ -127,11 +114,12 @@ function Login(props) {
         )}
 
         <div>
+          {/* <InputLabel>Email</InputLabel> */}
           <TextField
             label="Email"
             margin="normal"
             variant="outlined"
-            autoComplete
+            autoComplete="on"
             type="email"
             {...formik.getFieldProps('email')}
           />
@@ -142,30 +130,28 @@ function Login(props) {
           ) : null}
         </div>
         <div>
+        {/* <InputLabel>Password</InputLabel> */}
           <TextField
             label="Password"
             margin="normal"
             variant="outlined"
-            autoComplete
+            autoComplete="on"
             type="password"
             {...formik.getFieldProps('password')}
           />
           {formik.touched.password && formik.errors.password ? (
-            <div>
               <div>{formik.errors.password}</div>
-            </div>
           ) : null}
         </div>
 
         <div>
 
           <Button
-            id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}
           >
-            <span>Sign In</span>
-            {loading && <span />}
+            Sign In
+            {loading}
           </Button>
         </div>
       </form>
@@ -175,4 +161,5 @@ function Login(props) {
   )
 }
 
-export default injectIntl(connect(null, auth.actions)(Login))
+export default connect(null, auth.actions)(Login)
+// export default injectIntl(connect(null, auth.actions)(Login))
