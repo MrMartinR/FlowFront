@@ -12,12 +12,10 @@ export const fetchContactMethods = (id) => (dispatch) => {
   return requestFromServer
     .getContactMethods(id)
     .then((response) => {
-      const { data } = response.data
-      console.log("resrs",data)
+      const { data } = response
       dispatch(actions.contactMethodsFetched({ data }))
     })
     .catch((error)  => {
-      console.log("error", error)
       error.clientMessage = "Can't find contact methods"
       dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
