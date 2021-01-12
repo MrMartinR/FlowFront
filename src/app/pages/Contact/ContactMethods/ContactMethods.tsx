@@ -75,7 +75,7 @@ export const ContactMethod = (props: any) => {
               </Avatar>
 
               <Typography className={classes.secondaryHeading}>
-                {itm.data || err}
+                {itm.kind || err}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -88,8 +88,8 @@ export const ContactMethod = (props: any) => {
                   <ListItemIcon>
                     <StarIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Kind" />
-                  {itm.kind}
+                  <ListItemText primary={itm.data} />
+                  
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon>
@@ -103,7 +103,7 @@ export const ContactMethod = (props: any) => {
           </Accordion>
         ))
       ) : (
-        <p>epyty</p>
+        <p>No contacts found</p>
       )}
     </Card>
   );
