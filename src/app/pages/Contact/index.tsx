@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as contactsActions from "./state/contactsActions";
 import * as contactMethodsActions from "./ContactMethods/state/contactMethodsActions";
+import {ContactMethod} from './ContactMethods/ContactMethods'
 import { ContactsList } from "./ContactList";
 import { ContactDetails } from "./ContactDetails";
 import { RootState } from "../../../redux/rootReducer";
@@ -30,6 +31,8 @@ export const Contacts = () => {
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const [list, setList] = useState([] as any);
+  const [listMethods, setListMethods] = useState([] as any);
+  const [methodLoading, setMethodLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
@@ -71,16 +74,24 @@ export const Contacts = () => {
       let len = Object.keys(selectedContact)
       if (len.length >= 1) {
         let id = (selectedContact as any)?.id
-        console.log("cont id", id)
         MethodDispatch(contactMethodsActions.fetchContactMethods(id));
       }
-    }, [MethodDispatch,selectedContact]);
+    }, [MethodDispatch]);
 
   }
   GetMethods()
 
-
-
+  useEffect(() => {
+    if (
+      methodsState &&
+      methodsState.contactMethodsTable &&
+      methodsState.contactMethodsTable.success &&
+      methodsState.contactMethodsTable.entities
+    ) {
+      setListMethods(methodsState.contactMethodsTable.entities);
+      setMethodLoading(methodsState.listLoading);
+    }
+  }, [methodsState]);
 
 
   return (
@@ -122,7 +133,9 @@ export const Contacts = () => {
             md={4}
             item
           >
-            contact meth
+            <ContactMethod 
+            listMethods={listMethods}
+            methodLoading={methodLoading} />
           </Grid>
         </Grid>
       </Grid>
