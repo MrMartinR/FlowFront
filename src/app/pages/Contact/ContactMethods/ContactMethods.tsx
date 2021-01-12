@@ -1,19 +1,110 @@
 import React from "react";
-import { Card, CardHeader,} from "@material-ui/core";
-import { Button } from "@material-ui/core";
+/* eslint-disable no-restricted-imports*/
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 
-export const ContactMethods = () => {
+import {
+  Typography,
+  Card,
+  AccordionSummary,
+  AccordionDetails,
+  Accordion,
+  CircularProgress,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { green } from "@material-ui/core/colors";
+import Avatar from "@material-ui/core/Avatar";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import StarIcon from "@material-ui/icons/Star";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      maxWidth: 400,
+      position: "relative",
+      overflow: "auto",
+      height: "100%",
+      top: 20,
+    },
+    green: {
+      color: "#fff",
+      backgroundColor: green[500],
+    },
+    secondaryHeading: {
+      fontSize: theme.typography.pxToRem(15),
+      color: theme.palette.text.secondary,
+      margin: "auto",
+    },
+  })
+);
+
+export const ContactMethod = (props: any) => {
+  const { methodLoading, listMethods } = props;
+  const classes = useStyles();
+  const err = "Not Found";
+  const [expanded, setExpanded] = React.useState<string | false>(false);
+
+  const handleChange = (panel: string) => (
+    event: React.ChangeEvent<{}>,
+    isExpanded: boolean
+  ) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   return (
-    <Card style={{ marginLeft: "1rem", width: "50%", height: "100%", minWidth: "300px", minHeight: "300px" }}>
-      <CardHeader title="Contact Methods" >
-          <Button>
-            +
-          </Button>
-      </CardHeader>
+    <Card className={classes.root} variant="outlined">
+      {methodLoading === true ? (
+        <CircularProgress color="secondary" />
+      ) : listMethods.length >= 1 ? (
+        listMethods.map((itm: any) => (
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Avatar className={classes.green}>
+                <AssignmentIcon />
+              </Avatar>
+
+              <Typography className={classes.secondaryHeading}>
+                {itm.data || err}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <List
+                component="nav"
+                className={classes.root}
+                aria-label="contacts"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <StarIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Kind" />
+                  {itm.kind}
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon>
+                    <StarIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Visibility" />
+                  {itm.visibility}
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
+        ))
+      ) : (
+        <p>epyty</p>
+      )}
     </Card>
   );
 };
-
-export default ContactMethods;
