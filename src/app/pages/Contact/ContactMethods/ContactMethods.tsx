@@ -103,7 +103,7 @@ export const ContactMethod = (props: any) => {
           </Accordion>
         ))
       ) : (
-        <p>epyty</p>
+        <p>No contacts found</p>
       )}
     </Card>
   );
