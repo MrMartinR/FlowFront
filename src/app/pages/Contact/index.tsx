@@ -76,7 +76,8 @@ export const Contacts = () => {
         let id = (selectedContact as any)?.id
         MethodDispatch(contactMethodsActions.fetchContactMethods(id));
       }
-    }, [MethodDispatch]);
+      // eslint-disable-next-line 
+    }, [MethodDispatch, selectedContact]);
 
   }
   GetMethods()
