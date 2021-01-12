@@ -36,6 +36,7 @@
     "@material-ui/pickers": "3.2.10",
     "@material-ui/styles": "^4.11.2",
     "@material-ui/x-grid": "^4.0.0-alpha.15",
+    "@material-ui/x-grid-data-generator": "^4.0.0-alpha.15",
     "@reduxjs/toolkit": "1.5.0",
     "@tanem/svg-injector": "8.2.2",
     "axios": "0.21.1",

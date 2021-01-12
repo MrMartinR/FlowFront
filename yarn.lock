@@ -1639,6 +1639,18 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
+"@material-ui/x-grid-data-generator@^4.0.0-alpha.15":
+  version "4.0.0-alpha.15"
+  resolved "https://registry.yarnpkg.com/@material-ui/x-grid-data-generator/-/x-grid-data-generator-4.0.0-alpha.15.tgz#acf093fabf4ebdb2671f356966af2432205a09dc"
+  integrity sha512-EKU6Qvk7VMnjtOKPty3GjiKtew1CutbVuebsjHJiPhiMUhn6yFs5wFxn2GrxORAMIG+M8ciaD4340by+FnQMIA==
+  dependencies:
+    "@types/chance" "^1.1.0"
+    chance "^1.1.6"
+    clsx "^1.0.4"
+    commander "^6.1.0"
+    esm "^3.2.25"
+    lru-cache "^6.0.0"
+
 "@material-ui/x-grid@^4.0.0-alpha.15":
   version "4.0.0-alpha.15"
   resolved "https://registry.yarnpkg.com/@material-ui/x-grid/-/x-grid-4.0.0-alpha.15.tgz#1dbc40790180420a456990510465f3a146a4c43e"
@@ -1969,6 +1981,11 @@
   integrity sha512-kSjgDMZONiIfSH1Nxcr5JIRMwUetDki63FSQfpTCz8ogF3Ulqm8+mr5f78dUYs6vMiB6gBusQqfQmBvHZj/lwg==
   dependencies:
     "@babel/types" "^7.3.0"
+
+"@types/chance@^1.1.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/chance/-/chance-1.1.1.tgz#2e06aeaf58130470f2dfe96017cdbc403de002f9"
+  integrity sha512-Ze94JMnM33+dj/tQCWxXWaQ80uYmV9HwydTyrbHAiBa91ETQuI+3iF5OFPicDpQx+md+/6rDpTp9I2VKOGOtpw==
 
 "@types/classnames@^2.2.10":
   version "2.2.11"
@@ -3584,6 +3601,11 @@ chalk@^4.0.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chance@^1.1.6:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/chance/-/chance-1.1.7.tgz#e99dde5ac16681af787b5ba94c8277c090d6cfe8"
+  integrity sha512-bua/2cZEfzS6qPm0vi3JEvGNbriDLcMj9lKxCQOjUcCJRcyjA7umP0zZm6bKWWlBN04vA0L99QGH/CZQawr0eg==
 
 char-regex@^1.0.2:
   version "1.0.2"

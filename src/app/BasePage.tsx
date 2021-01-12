@@ -9,9 +9,12 @@ import {UserAccountsPage} from './pages/UserAccount'
 import {CountriesPage} from './pages/Country/CountriesPage'
 import {LendingPage} from './pages/LendingPage'
 import {CurrenciesPage} from './pages/Currency/CurrenciesPage'
-import {PlatformsPage} from './pages/Platform'
+// import {PlatformsPage} from './pages/Platform'
+import PlatformsPage from './pages/Platform/PlatformsList'
 import {OriginatorsPage} from './pages/Originator'
 import {LoansPage} from './pages/Loan'
+
+// import { styles } from '@material-ui/core'
 
 
 
