@@ -1,9 +1,8 @@
 import React from 'react';
-import {AppBar} from '@material-ui/core/';
-import {Tabs} from '@material-ui/core/';
-import {Tab} from '@material-ui/core/';
-import {Typography} from '@material-ui/core/';
-import {Box} from '@material-ui/core/';
+import { AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core/';
+
+import Details from './Details';
+import Originators from './Originators';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -59,25 +58,33 @@ const PlatformsList = () => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-         Details
+         <h1>Details tab page</h1>
+         <p>Details content should go here... but this demo content will be here for now.</p>
+         <Details />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Originators
+          <h1>Originators tab page</h1>
+        <Originators />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Originators User
+        <h1>Originators User</h1>
+        <p>Details content goes here...</p>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Loans
+        <h1>Loans</h1>
+        <p>Details content goes here...</p>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Add a Loan
+        <h1>Add a Loan</h1>
+        <p>Details content goes here...</p>
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Account
+        <h1>Account</h1>
+        <p>Details content goes here...</p>
       </TabPanel>
       <TabPanel value={value} index={6}>
-        Sync
+        <h1>Sync</h1>
+        <p>Details content goes here...</p>
       </TabPanel>
     </div>
   );
