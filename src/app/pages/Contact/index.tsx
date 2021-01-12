@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react'
 /* eslint-disable no-restricted-imports*/
-import {makeStyles} from '@material-ui/core/styles'
-import {Grid} from '@material-ui/core'
-import {shallowEqual, useDispatch, useSelector} from 'react-redux'
-import * as contactsActions from './state/contactsActions'
-import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
-import {ContactsList} from './ContactList'
-import {ContactDetails} from './ContactDetails'
-import {RootState} from '../../../redux/rootReducer'
+
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as contactsActions from "./state/contactsActions";
+import * as contactMethodsActions from "./ContactMethods/state/contactMethodsActions";
+import {ContactMethod} from './ContactMethods/ContactMethods'
+import { ContactsList } from "./ContactList";
+import { ContactDetails } from "./ContactDetails";
+import { RootState } from "../../../redux/rootReducer";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,10 +31,14 @@ export const Contacts = () => {
     shallowEqual
   )
 
-  const [selectedItemIndex, setSelectedItemIndex] = useState(0)
-  const [list, setList] = useState([] as any)
-  const [isLoading, setIsLoading] = useState(true)
-  const classes = useStyles()
+
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const [list, setList] = useState([] as any);
+  const [listMethods, setListMethods] = useState([] as any);
+  const [methodLoading, setMethodLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const classes = useStyles();
+
 
   let selectedContact = {}
 
@@ -69,12 +76,27 @@ export const Contacts = () => {
       let len = Object.keys(selectedContact)
       if (len.length >= 1) {
         let id = (selectedContact as any)?.id
-        console.log('cont id', id)
-        MethodDispatch(contactMethodsActions.fetchContactMethods(id))
+
+        MethodDispatch(contactMethodsActions.fetchContactMethods(id));
       }
-    }, [MethodDispatch, selectedContact])
+      // eslint-disable-next-line 
+    }, [MethodDispatch, selectedContact]);
+
   }
   GetMethods()
+
+  useEffect(() => {
+    if (
+      methodsState &&
+      methodsState.contactMethodsTable &&
+      methodsState.contactMethodsTable.success &&
+      methodsState.contactMethodsTable.entities
+    ) {
+      setListMethods(methodsState.contactMethodsTable.entities);
+      setMethodLoading(methodsState.listLoading);
+    }
+  }, [methodsState]);
+
 
   return (
     <Grid container className={classes.root} spacing={1}>
@@ -115,7 +137,9 @@ export const Contacts = () => {
             md={4}
             item
           >
-            contact meth
+            <ContactMethod 
+            listMethods={listMethods}
+            methodLoading={methodLoading} />
           </Grid>
         </Grid>
       </Grid>
