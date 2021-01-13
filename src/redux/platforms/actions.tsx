@@ -36,7 +36,7 @@ function requestPlatformslist() {
 function receivePlaformslist(response: any) {
     return {
         type: RECEIVE_PLATFORMSLIST,
-        platformsTable: response,
+        platformslist: response.data,
     }
 }
 
@@ -52,7 +52,6 @@ export function fetchPlatformslist() {
         dispatch(requestPlatformslist())
         axios.get('https://api.flowfin.tech/api/v1/platforms', optionsHeaders())
         .then(function (response) {
-            console.log(response)
             return dispatch(receivePlaformslist(response.data));
         })
         .catch(function (error) {

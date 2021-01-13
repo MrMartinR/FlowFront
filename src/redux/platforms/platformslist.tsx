@@ -8,9 +8,6 @@ import {
     platformTable: null,
     isFetching: false,
     lastError: null,
-    // listLoading: true,
-    // actionsLoading: false, 
-    // filteredTable: null,
     };
   
     const reducer = (state=initialStore, action?: any) =>  {
@@ -25,6 +22,7 @@ import {
         case RECEIVE_PLATFORMSLIST: {
             return {
                 ...state,
+                platformTable: [...action.platformslist],
                 isFetching: false
             }
         }
