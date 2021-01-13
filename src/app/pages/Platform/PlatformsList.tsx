@@ -1,6 +1,8 @@
-import React from 'react';
-import { AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core/';
+import React, { useEffect } from "react";
+import { AppBar, Tabs, Tab, Typography, Box, Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core/';
+import { connect } from 'react-redux';
 
+import { fetchPlatformslist } from "../../../redux/platforms/actions";
 import Details from './Details';
 import Originators from './Originators';
 
@@ -37,7 +39,13 @@ function a11yProps(index: any) {
   };
 }
 
-const PlatformsList = () => {
+const PlatformsList = (props: any) => {
+
+  useEffect(() => {
+    props.fetchPlatformslist();
+  }, [])
+  
+
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -45,8 +53,15 @@ const PlatformsList = () => {
 
   return (
     <div className="">
-    {/* <div className={classes.root}> */}
-      <AppBar position="static">
+      <Grid container direction="column">
+        <Card>
+          <Toolbar variant="dense">
+            <InputBase placeholder="Search…" />
+          </Toolbar>
+        </Card> 
+        <Card>
+          <CardContent>
+            <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Details" {...a11yProps(0)} />
           <Tab label="Originators" {...a11yProps(1)} />
@@ -57,37 +72,65 @@ const PlatformsList = () => {
           <Tab label="Sync" {...a11yProps(6)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0}>
          <h1>Details tab page</h1>
          <p>Details content should go here... but this demo content will be here for now.</p>
          <Details />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-          <h1>Originators tab page</h1>
-        <Originators />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <h1>Originators User</h1>
-        <p>Details content goes here...</p>
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <h1>Loans</h1>
-        <p>Details content goes here...</p>
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <h1>Add a Loan</h1>
-        <p>Details content goes here...</p>
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        <h1>Account</h1>
-        <p>Details content goes here...</p>
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        <h1>Sync</h1>
-        <p>Details content goes here...</p>
-      </TabPanel>
+            <TabPanel value={value} index={1}>
+                <h1>Originators tab page</h1>
+              <Originators />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <h1>Originators User</h1>
+              <p>Details content goes here...</p>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <h1>Loans</h1>
+              <p>Details content goes here...</p>
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+              <h1>Add a Loan</h1>
+              <p>Details content goes here...</p>
+            </TabPanel>
+            <TabPanel value={value} index={5}>
+              <h1>Account</h1>
+              <p>Details content goes here...</p>
+            </TabPanel>
+            <TabPanel value={value} index={6}>
+              <h1>Sync</h1>
+              <p>Details content goes here...</p>
+            </TabPanel>
+          </CardContent>
+        </Card>
+      </Grid>
     </div>
   );
 }
 
-export default PlatformsList;
+
+const mapStateToProps = (state: any) => {
+  return {
+    platformslist: state.platformslist
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    fetchPlatformslist: () => dispatch(fetchPlatformslist())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformsList);
+
+
+
+
+
+
+
+
+
+  
+
+

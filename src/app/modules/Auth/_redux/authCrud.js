@@ -2,11 +2,13 @@
 import axios from 'axios'
 
 let _API_URL = 'https://api.flowfin.tech'
+// let _API_URL = 'http://localhost:3001'
 // let _API_URL = 'https://evening-fjord-12692.herokuapp.com'
 let FORGOT_PASSWORD_CALLBACK = 'https://flowfront.herokuapp.com'
 
 if (process.env.NODE_ENV === 'development') {
   _API_URL = 'https://api.flowfin.tech'
+  // _API_URL = 'http://localhost:3001'
   // _API_URL = 'https://evening-fjord-12692.herokuapp.com'
   FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
 }
@@ -15,7 +17,10 @@ if (process.env.NODE_ENV === 'development') {
 // _API_URL = 'https://flowappdev.herokuapp.com'
 // _API_URL = 'http://localhost:3001'
 // }
+
+// https://api.flowfin.tech/api/v1/auth/sign_in
  
+
 export const API_URL = _API_URL
 export const LOGIN_URL = `${_API_URL}/api/v1/auth/sign_in`
 export const REGISTER_URL = `${_API_URL}/api/v1/auth`
