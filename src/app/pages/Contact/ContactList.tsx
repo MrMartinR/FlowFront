@@ -41,29 +41,33 @@ export const ContactsList = (props: any) => {
 
   useEffect(() => {
     if (list.length >= 1) {
-      let opt = list.map((option: any) => option.trade_name);
-      let options = opt.filter((item: any) => item !== null);
-      setOptions(options);
+      let opt = [] as any;
+      list.map((option: any) => {
+        if (option.kind === "Company") {
+          opt.push(option.trade_name);
+        }
+        if (option.kind === "Individual") {
+          opt.push(option.name);
+        }
+        return opt;
+      });
+      setOptions(opt);
     }
   }, [list]);
 
   const handlePick = (e: any, v: any) => {
-    let selected = list.map((itm: any, idx: any) => {
-      if (itm.trade_name === v) {
-        return idx;
-      }
-      return undefined
-    });
-    let index = selected.filter((itm: any) => itm !== undefined);
-    setSelectedItemIndex(index[0]);
+    let selected = list.findIndex(
+      (itm: any) => itm.trade_name === v || itm.name === v
+    );
+    setSelectedItemIndex(selected);
   };
 
   return (
-    <div style={{ width: "100%",}}> 
+    <div style={{ width: "100%", }}>
       {isLoading ? (
         <p>loading ...</p>
       ) : (
-        <div style={{ width: "80%",}}>
+        <div style={{ width: "80%", }}>
           <Autocomplete
             freeSolo
             options={options}
@@ -99,7 +103,11 @@ export const ContactsList = (props: any) => {
                   <ListItemIcon>
                     <FolderIcon />
                   </ListItemIcon>
-                  <ListItemText primary={`${item.trade_name || item.nick}`} />
+                  {item.kind === "Company" ? (
+                    <ListItemText primary={`${item.trade_name}`} />
+                  ) : (
+                    <ListItemText primary={`${item.name}`} />
+                  )}
                 </ListItem>
               ))
             )}
