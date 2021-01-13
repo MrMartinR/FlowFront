@@ -42,7 +42,7 @@ const PlatformsList = (props: any) => {
   useEffect(() => {
     props.fetchPlatformslist();
   }, [])
-  const { platformTable = [], isFetching } = props.platformslist
+  const { platformTable = [], isFetching } = props.platforms
 
   if(isFetching) {
     return (
@@ -66,7 +66,7 @@ const PlatformsList = (props: any) => {
                   loading={data.rows.length === 0}
                   rowHeight={38}
                   checkboxSelection
-                /> */}
+                /> */}                
                 <DataGrid rows={platformTable} columns={columns} checkboxSelection />
               </div>
           </CardContent>
@@ -78,7 +78,7 @@ const PlatformsList = (props: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    platformslist: state.platformslist
+    platforms: state.platforms
   };
 };
 
