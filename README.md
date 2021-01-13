@@ -179,7 +179,7 @@ We use TypeScript as a default format using the extension `tsx`.
 
 <br>
 
-```txt
+```
 If you find some content, docs, videos, etc. that can be interesting, feel free to add the links to this document.
 ```
 
