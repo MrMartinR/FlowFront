@@ -143,6 +143,7 @@ We use TypeScript as a default format using the extension `tsx`.
    > [React Hook Form](https://react-hook-form.com) (Forms)
 
    >[Learn React For Beginners 2020 / 2021](https://www.youtube.com/watch?v=OH4msPNM2CI&list=PLQg6GaokU5CyvExiaMgXP_BS5WWNBfZJN)
+   >[Maksim Ivanov React TypeScript Videos](https://www.youtube.com/channel/UC5hby9iDkwOTQM7PIjyjbgw)
 
 
 <br>
