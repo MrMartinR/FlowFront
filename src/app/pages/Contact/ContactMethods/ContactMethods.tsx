@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
-      maxWidth: 400,
       position: "relative",
       overflow: "auto",
       height: "100%",
@@ -60,10 +59,10 @@ export const ContactMethod = (props: any) => {
       {methodLoading === true ? (
         <CircularProgress color="secondary" />
       ) : listMethods.length >= 1 ? (
-        listMethods.map((itm: any) => (
+        listMethods.map((itm: any, idx:any) => (
           <Accordion
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
+            expanded={expanded === `panel${idx}`}
+            onChange={handleChange(`panel${idx}`)}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
