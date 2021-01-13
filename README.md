@@ -152,8 +152,11 @@ We use TypeScript as a default format using the extension `tsx`.
 
  * 📄 [Documentation](https://redux.js.org/api/api-reference)
  * 🚦 [StyleGuide](https://redux.js.org/style-guide/style-guide)
- * 🎓 Resources
-    >[React-Redux](https://react-redux.js.org/api/connect)
+ * 🎓 Resources 
+   - [React-Redux](https://react-redux.js.org/api/connect) 
+   - [Redux DevTools Extension](http://extension.remotedev.io)
+   - [React Hook Form Video  Tutorial](https://www.youtube.com/watch?v=bU_eq8qyjic)
+
 
 
 <br>
