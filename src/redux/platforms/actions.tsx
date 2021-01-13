@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../store'
 
 export const REQUEST_PLATFORMSLIST = 'REQUEST_PLATFORMSLIST';
-export const RECEIVE_PLATFORMSLIST = 'RECEIVE_OPLATFORMSLIST';
+export const RECEIVE_PLATFORMSLIST = 'RECEIVE_PLATFORMSLIST';
 export const ERROR_REQUESTING_PLATFORMSLIST = 'ERROR_REQUESTING_PLATFORMSLIST';
 
 const optionsHeaders = () => {

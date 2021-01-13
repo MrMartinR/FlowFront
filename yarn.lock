@@ -1545,6 +1545,16 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
+"@material-ui/data-grid@^4.0.0-alpha.15":
+  version "4.0.0-alpha.15"
+  resolved "https://registry.yarnpkg.com/@material-ui/data-grid/-/data-grid-4.0.0-alpha.15.tgz#9dd25210adcea283cb6e6d3b15aab51a2180207e"
+  integrity sha512-jm4n1qs3TX0wLvDsa0lwDEkAHdWcxp0pN/e8zTfdxAYrziO3VluKyS79Zjgr8l/urmgqoERVF2P6gN8iwp5/Uw==
+  dependencies:
+    "@material-ui/utils" "^5.0.0-alpha.14"
+    prop-types "^15.7.2"
+    reselect "^4.0.0"
+    tslib "^2.0.0"
+
 "@material-ui/icons@4.11.2":
   version "4.11.2"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.11.2.tgz#b3a7353266519cd743b6461ae9fdfcb1b25eb4c5"
