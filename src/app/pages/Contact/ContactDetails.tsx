@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
-      maxWidth: 400,
       position: "relative",
       overflow: "auto",
       height: "100%",
@@ -41,6 +40,7 @@ export const ContactDetails = (props: any) => {
   const { selectedContact } = props;
   const classes = useStyles();
   const err = "Not Found";
+  console.log(selectedContact)
 
   return (
     <Card className={classes.root} variant="outlined">

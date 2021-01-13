@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
-      maxWidth: 400,
       position: "relative",
       overflow: "auto",
       height: "100%",

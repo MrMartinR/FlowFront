@@ -14,12 +14,8 @@ import { RootState } from "../../../redux/rootReducer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-  },
-  control: {
-    padding: theme.spacing(1),
-    spacing: 1,
-  },
+   
+  }
 }))
 
 export const Contacts = () => {
@@ -99,14 +95,12 @@ export const Contacts = () => {
 
 
   return (
-    <Grid container className={classes.root} spacing={1}>
-      <Grid item md={12}>
-        <Grid container justify='center' spacing={2} md={12} item>
+    <Grid  className={classes.root} spacing={1}>
+      <Grid container md={12}>
+        <Grid container spacing={1}>
           <Grid
-            container
             direction='row'
             justify='flex-start'
-            alignItems='flex-start'
             key={1}
             md={4}
             item
@@ -118,10 +112,9 @@ export const Contacts = () => {
             />
           </Grid>
           <Grid
-            container
+            
             direction='row'
             justify='center'
-            alignItems='flex-start'
             key={2}
             md={4}
             item
@@ -129,10 +122,8 @@ export const Contacts = () => {
             <ContactDetails selectedContact={selectedContact} />
           </Grid>
           <Grid
-            container
             direction='row'
             justify='flex-end'
-            alignItems='flex-start'
             key={3}
             md={4}
             item
