@@ -1,21 +1,20 @@
-////////////////////////////////////////////////////////////////////
-// 
-// Documentation | https://github.com/rcdexta/react-trello
-// Documentation | https://github.com/rcdexta/react-trello-example
-// I had a problem with the dependency styled-components, I had to add it manually
-// after the instalation "yarn add styled-components"
-// This module has about 70 nodes/dependencies
-// Converting the file to TSX shows a error about types, this library doesn't have @types, 
-// so we need to create a folder "types" and inside a file d.ts etc...
-// 
-//////////////////////////////////////////////////////////////////
-
-import React, { Component } from 'react'
+/**
+ * @remarks
+ *
+ *  Documentation: {@link https://github.com/rcdexta/react-trello}
+ *  Documentation: {@link https://github.com/rcdexta/react-trello-example}
+ *
+ * I had a problem with the dependency styled-components, I had to add it manually
+ * after the instalation "yarn add styled-components"
+ * This module has about 70 nodes/dependencies
+ * Converting the file to TSX shows a error about types, this library doesn't have @types,
+ * so we need to create a folder "types" and inside a file d.ts etc...
+ */
+import React, {Component} from 'react'
 import Board from 'react-trello'
-import { Toolbar, Grid, Card, CardHeader, Button } from "@material-ui/core"
+import {Toolbar, Grid, Card, CardHeader, Button} from '@material-ui/core'
 
 const data = require('./data.json')
-
 
 const handleDragStart = (cardId, laneId) => {
   console.log('drag started')
@@ -31,15 +30,15 @@ const handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
 }
 
 class Kanban extends Component {
-  state = { boardData: { lanes: [] } }
+  state = {boardData: {lanes: []}}
 
   setEventBus = (eventBus) => {
-    this.setState({ eventBus })
+    this.setState({eventBus})
   }
 
   async componentWillMount() {
     const response = await this.getBoard()
-    this.setState({ boardData: response })
+    this.setState({boardData: response})
   }
 
   getBoard() {
@@ -91,35 +90,27 @@ class Kanban extends Component {
 
   render() {
     return (
-      <Grid item >
+      <Grid item>
         <Card>
           <CardHeader title='Kanban' />
-             <Toolbar variant="dense">
-                <Button onClick={this.completeCard}>
-                Complete Buy Milk
-                </Button>
-                <Button onClick={this.addCard}>
-                Add Blocked
-                </Button>
-             </Toolbar>
-            <Board
-              editable
-              onCardAdd={this.handleCardAdd}
-              data={this.state.boardData}
-              draggable
-              onDataChange={this.shouldReceiveNewData}
-              eventBusHandle={this.setEventBus}
-              handleDragStart={handleDragStart}
-              handleDragEnd={handleDragEnd}
-            />
+          <Toolbar variant='dense'>
+            <Button onClick={this.completeCard}>Complete Buy Milk</Button>
+            <Button onClick={this.addCard}>Add Blocked</Button>
+          </Toolbar>
+          <Board
+            editable
+            onCardAdd={this.handleCardAdd}
+            data={this.state.boardData}
+            draggable
+            onDataChange={this.shouldReceiveNewData}
+            eventBusHandle={this.setEventBus}
+            handleDragStart={handleDragStart}
+            handleDragEnd={handleDragEnd}
+          />
         </Card>
-     </Grid>
+      </Grid>
     )
   }
 }
 
 export default Kanban
-
-
-
-
