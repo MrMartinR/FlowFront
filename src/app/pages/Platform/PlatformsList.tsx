@@ -59,15 +59,8 @@ const PlatformsList = (props: any) => {
             <h3>Platforms</h3>
             <div style={{ height: 600, width: '100%' }}>
               {console.log("Okay, this is working here...")}
-              {console.log(platformTable)}
-                {/* <XGrid
-                  {...data}
-                  // {...props.platformslist.platformTable}
-                  loading={data.rows.length === 0}
-                  rowHeight={38}
-                  checkboxSelection
-                /> */}                
-                <DataGrid rows={platformTable} columns={columns} checkboxSelection />
+              {console.log(platformTable)}      
+                <XGrid rows={platformTable} columns={columns} checkboxSelection />
               </div>
           </CardContent>
         </Card>

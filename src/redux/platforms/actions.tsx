@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store'
+import { API_URL } from '../utils'
 
 export const REQUEST_PLATFORMSLIST = 'REQUEST_PLATFORMSLIST';
 export const RECEIVE_PLATFORMSLIST = 'RECEIVE_PLATFORMSLIST';
@@ -50,7 +51,7 @@ function errorRequestingPlatformslist(error: any) {
 export function fetchPlatformslist() {
     return function(dispatch: (arg0: { type: string; platformsTable?: any; error?: any; }) => void) {
         dispatch(requestPlatformslist())
-        axios.get('https://api.flowfin.tech/api/v1/platforms', optionsHeaders())
+        axios.get(`${API_URL}/api/v1/platforms`, optionsHeaders())
         .then(function (response) {
             return dispatch(receivePlaformslist(response.data));
         })
