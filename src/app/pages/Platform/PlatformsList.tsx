@@ -1,53 +1,15 @@
 import React, { useEffect } from "react";
-import { AppBar, Tabs, Tab, Typography, Box, Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core/';
+import { Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import { DataGrid, ColDef, ValueGetterParams } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 import { useDemoData } from '@material-ui/x-grid-data-generator';
 
-
 import { fetchPlatformslist } from "../../../redux/platforms/actions";
-import Details from './Details';
-import Originators from './Originators';
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
   );
-
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
-
-export function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: any) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
 
 const columns: ColDef[] = [
   { field: 'id', headerName: 'Id', width: 70 },
@@ -75,131 +37,44 @@ const columns: ColDef[] = [
   { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 130 },
 ];
 
-// const rows = [...]
-const rows = [
-  {
-    id:"cd388e16-7707-5045-aa91-fde9c45a08be",
-    contact_id:"91ed9231-d3df-4ecd-ace3-de0d15f05e55",
-    category:null,
-    status:"Active",
-    liquidity:"High",
-    term:"30d",
-    invest_mode:null,
-    min_investment:"€10",
-    secondary_market:"No",
-    taxes:"PeerBerry does not deduct any tax or send information to any tax agency.",
-    cashflow_options:null,
-    protection_scheme:null,
-    cost:"Free",
-    profitable:true,
-    ifisa:null,
-    structure:null,
-    account_category:null,
-    welcome_bonus:null,
-    promo:null,
-    promo_end:null,
-    sm_notes:null,
-    contact:"Not Found",
-  }
-]
-
-
-
-
 const PlatformsList = (props: any) => {
 
   useEffect(() => {
     props.fetchPlatformslist();
   }, [])
+  const { platformTable = [], isFetching } = props.platformslist
 
-
-  const { platformTable = [] } = props.platformslist
-
-
-  const { data } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 100000,
-  });
-  
-
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
-  };
-
+  if(isFetching) {
+    return (
+      <div>
+        <h1>Loading platforms...</h1>
+      </div>
+    )
+  }
   return (
     <div className="">
       <Grid container direction="column">
         <Card>
-          <Toolbar variant="dense">
-            <InputBase placeholder="Search…" />
-          </Toolbar>
-        </Card> 
-        <Card>
           <CardContent>
-
-
-
-
-            <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Details" {...a11yProps(0)} />
-          <Tab label="Originators" {...a11yProps(1)} />
-          <Tab label="Originators User" {...a11yProps(2)} />
-          <Tab label="Loans" {...a11yProps(3)} />
-          <Tab label="Add a Loan" {...a11yProps(4)} />
-          <Tab label="Account" {...a11yProps(5)} />
-          <Tab label="Sync" {...a11yProps(6)} />
-        </Tabs>
-      </AppBar>
-            <TabPanel value={value} index={0}>
-         <h1>Details tab page</h1>
-         <p>Details content should go here... but this demo content will be here for now.</p>
-         <div style={{ height: 600, width: '100%' }}>
-           {console.log("Okay, this is working here...")}
-           {console.log(props.platformslist.platformTable)}
-            {/* <XGrid
-              {...data}
-              // {...props.platformslist.platformTable}
-              loading={data.rows.length === 0}
-              rowHeight={38}
-              checkboxSelection
-            /> */}
-            {/* <DataGrid rows={rows} columns={columns} pageSize={100} checkboxSelection /> */}
-            <DataGrid rows={props.platformslist.platformTable} columns={columns} pageSize={100} checkboxSelection />
-          </div>
-      </TabPanel>
-            <TabPanel value={value} index={1}>
-                <h1>Originators tab page</h1>
-              <Originators />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <h1>Originators User</h1>
-              <p>Details content goes here...</p>
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              <h1>Loans</h1>
-              <p>Details content goes here...</p>
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-              <h1>Add a Loan</h1>
-              <p>Details content goes here...</p>
-            </TabPanel>
-            <TabPanel value={value} index={5}>
-              <h1>Account</h1>
-              <p>Details content goes here...</p>
-            </TabPanel>
-            <TabPanel value={value} index={6}>
-              <h1>Sync</h1>
-              <p>Details content goes here...</p>
-            </TabPanel>
+            <h3>Platforms</h3>
+            <div style={{ height: 600, width: '100%' }}>
+              {console.log("Okay, this is working here...")}
+              {console.log(platformTable)}
+                {/* <XGrid
+                  {...data}
+                  // {...props.platformslist.platformTable}
+                  loading={data.rows.length === 0}
+                  rowHeight={38}
+                  checkboxSelection
+                /> */}
+                <DataGrid rows={platformTable} columns={columns} checkboxSelection />
+              </div>
           </CardContent>
         </Card>
       </Grid>
     </div>
   );
 }
-
 
 const mapStateToProps = (state: any) => {
   return {
