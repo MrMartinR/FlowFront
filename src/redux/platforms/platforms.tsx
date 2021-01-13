@@ -5,7 +5,7 @@ import {
   } from "./actions";
   
   const initialStore = {
-    platformTable: null,
+    platformTable: [],
     isFetching: false,
     lastError: null,
     };

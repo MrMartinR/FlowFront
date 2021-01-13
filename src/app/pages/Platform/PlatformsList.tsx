@@ -38,11 +38,11 @@ const columns: ColDef[] = [
 ];
 
 const PlatformsList = (props: any) => {
+  const { platformTable = [], isFetching } = props.platforms
 
   useEffect(() => {
     props.fetchPlatformslist();
   }, [])
-  const { platformTable = [], isFetching } = props.platforms
 
   if(isFetching) {
     return (
@@ -51,6 +51,9 @@ const PlatformsList = (props: any) => {
       </div>
     )
   }
+  // if(platformTable.length > 0) {
+    
+  // }
   return (
     <div className="">
       <Grid container direction="column">
@@ -58,10 +61,8 @@ const PlatformsList = (props: any) => {
           <CardContent>
             <h3>Platforms</h3>
             <div style={{ height: 600, width: '100%' }}>
-              {console.log("Okay, this is working here...")}
-              {console.log(platformTable)}      
-                <XGrid rows={platformTable} columns={columns} checkboxSelection />
-              </div>
+              <XGrid rows={platformTable} columns={columns} checkboxSelection />
+            </div>
           </CardContent>
         </Card>
       </Grid>
