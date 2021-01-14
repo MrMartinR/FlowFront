@@ -41,7 +41,7 @@ const PlatformsList = (props: any) => {
 
   useEffect(() => {
     props.fetchPlatformslist();
-  }, [props])
+  }, [])
 
   if(isFetching) {
     return (
@@ -50,9 +50,7 @@ const PlatformsList = (props: any) => {
       </div>
     )
   }
-  // if(platformTable.length > 0) {
-    
-  // }
+
   return (
     <div className="">
       <Grid container direction="column">
