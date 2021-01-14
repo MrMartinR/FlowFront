@@ -19,6 +19,7 @@ import {
 import { deepOrange, green } from "@material-ui/core/colors";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
+import ContactAdd from "./ContactAdd"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       position: "absolute",
-      width: 400,
+      width: 600,
       backgroundColor: theme.palette.background.paper,
       border: "2px solid #000",
       boxShadow: theme.shadows[5],
@@ -101,9 +102,10 @@ export const ContactDetails = (props: any) => {
     <div style={modalStyle} className={classes.paper}>
       {add === true ? (
         <div>
-          <h2 id="simple-modal-title">Add a new Contact</h2>
-          <p id="simple-modal-description">add a new contact form</p>
+          <h2 id="simple-modal-title">Add Contact</h2>
+          <ContactAdd />
         </div>
+        
       ) : (
         <div>
           <h2 id="simple-modal-title">Edit Contact</h2>
@@ -144,8 +146,8 @@ export const ContactDetails = (props: any) => {
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Grid container className={classes.root}>
-            <Grid container md={12}>
-              <Grid container direction="row" justify="space-evenly">
+            <Grid item md={12}>
+              <Grid direction="row" justify="space-evenly" container >
                 <div style={{ width: "50%", }}>
                   <Avatar variant="square" className={classes.square}>
                     ICON
