@@ -84,15 +84,16 @@ export const ContactMethod = (props: any) => {
                 aria-label="contacts"
               >
                 <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon >
                     <StarIcon />
+                      
                   </ListItemIcon>
                   <ListItemText primary={itm.data} />
                   
                 </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <StarIcon />
+                <ListItem button >
+                  <ListItemIcon >
+                    <StarIcon  />
                   </ListItemIcon>
                   <ListItemText primary="Visibility" />
                   {itm.visibility}

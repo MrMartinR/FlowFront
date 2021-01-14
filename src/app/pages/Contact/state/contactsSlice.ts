@@ -5,22 +5,20 @@ const initialContactsState = {
   listLoading: true,
   actionsLoading: false,
   contactsTable: {
-    entities: null,
+    entities: null as any,
     success: false
   },
   singleContact:{
-    entry:null
+    entry:null as any
   },
   contactForEdit: undefined,
-  error: null,
+  error: null as any,
 }
 export const callTypes = {
   list: 'list',
   action: 'action',
 }
 export const contactsSlice = createSlice({
-  // TODO: not working if I change the name to contacts
-  // name: 'contacts',
   name: 'contacts',
 
   initialState: initialContactsState,

@@ -95,12 +95,10 @@ export const Contacts = () => {
 
 
   return (
-    <Grid  className={classes.root} spacing={1}>
-      <Grid container md={12}>
-        <Grid container spacing={1}>
+    <Grid  className={classes.root}>
+      <Grid item md={12}>
+        <Grid container spacing={1} direction="row" justify="space-evenly">
           <Grid
-            direction='row'
-            justify='flex-start'
             key={1}
             md={4}
             item
@@ -112,9 +110,6 @@ export const Contacts = () => {
             />
           </Grid>
           <Grid
-            
-            direction='row'
-            justify='center'
             key={2}
             md={4}
             item
@@ -122,8 +117,6 @@ export const Contacts = () => {
             <ContactDetails selectedContact={selectedContact} />
           </Grid>
           <Grid
-            direction='row'
-            justify='flex-end'
             key={3}
             md={4}
             item
