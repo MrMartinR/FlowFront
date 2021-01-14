@@ -4,7 +4,7 @@ import { contactsSlice, callTypes } from './contactsSlice'
 const { actions } = contactsSlice
 
 // fetch all contacts
-export const fetchContacts = () => (dispatch) => {
+export const fetchContacts = () => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
     .getAllContacts()
@@ -19,7 +19,7 @@ export const fetchContacts = () => (dispatch) => {
 }
 
 // get a single contact
-export const fetchContact = (id) => (dispatch) => {
+export const fetchContact = (id: any) => (dispatch: any) => {
   if (!id) {
     let error = "Can't find Contact without id"
     return dispatch(actions.catchError({ error, callType: callTypes.action }))
