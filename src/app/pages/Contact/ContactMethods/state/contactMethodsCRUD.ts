@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`;
 // READ
 
-export function getContactMethods(contactsId) {
+export function getContactMethods(contactsId: any) {
   const {auth: {user, client, expiry, token,},} = store.getState()
   return axios.get(`${CONTACT_METHODS_URL}`,{
     params: {contact_id: contactsId},

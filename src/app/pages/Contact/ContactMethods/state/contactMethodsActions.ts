@@ -3,11 +3,9 @@ import { contactMethodsSlice, callTypes } from './contactMethodsSlice'
 
 const { actions } = contactMethodsSlice
 
-
-
 // get a contact  methods 
 
-export const fetchContactMethods = (id) => (dispatch) => {
+export const fetchContactMethods = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
     .getContactMethods(id)
