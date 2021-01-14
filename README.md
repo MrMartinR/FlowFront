@@ -143,6 +143,7 @@ We use TypeScript as a default format using the extension `tsx`.
    > [React Hook Form](https://react-hook-form.com) (Forms)
 
    >[Learn React For Beginners 2020 / 2021](https://www.youtube.com/watch?v=OH4msPNM2CI&list=PLQg6GaokU5CyvExiaMgXP_BS5WWNBfZJN)
+   >[Maksim Ivanov React TypeScript Videos](https://www.youtube.com/channel/UC5hby9iDkwOTQM7PIjyjbgw)
 
 
 <br>
@@ -152,8 +153,11 @@ We use TypeScript as a default format using the extension `tsx`.
 
  * 📄 [Documentation](https://redux.js.org/api/api-reference)
  * 🚦 [StyleGuide](https://redux.js.org/style-guide/style-guide)
- * 🎓 Resources
-    >[React-Redux](https://react-redux.js.org/api/connect)
+ * 🎓 Resources 
+   - [React-Redux](https://react-redux.js.org/api/connect) 
+   - [Redux DevTools Extension](http://extension.remotedev.io)
+   - [React Hook Form Video  Tutorial](https://www.youtube.com/watch?v=bU_eq8qyjic)
+
 
 
 <br>
@@ -179,7 +183,7 @@ We use TypeScript as a default format using the extension `tsx`.
 
 <br>
 
-```txt
+```
 If you find some content, docs, videos, etc. that can be interesting, feel free to add the links to this document.
 ```
 

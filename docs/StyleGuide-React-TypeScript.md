@@ -215,7 +215,7 @@ Name files with `camelCase`. E.g. `accordion.tsx`, `myControl.tsx`, `utils.tsx`,
     ```
 
 - **Interface**
-
+(* Use `interface` ONLY when you want `extends` or `implements`)
   * Use `PascalCase` for name.
 
   * Use `camelCase` for members.
@@ -286,12 +286,12 @@ Name files with `camelCase`. E.g. `accordion.tsx`, `myControl.tsx`, `utils.tsx`,
 
 ## Type vs. Interface
 <!-- Remove spaces in the brackets?? -->
-* Use `type` when you *might* need a union or intersection:
+* Use `type` AS DEFAULT option and when you *might* need a union or intersection:
 
 ```
 type Foo = number | { someProperty: number }
 ```
-* Use `interface` when you want `extends` or `implements` e.g.
+* Use `interface` ONLY when you want `extends` or `implements` e.g.
 
 ```
 interface Foo {
