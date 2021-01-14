@@ -5,10 +5,10 @@ const initialContactsState = {
   listLoading: true,
   actionsLoading: false,
   contactMethodsTable: {
-    entities: null,
+    entities: null as any,
     success: false
   },
-  error: null,
+  error: null as any,
 }
 export const callTypes = {
   list: 'list',
