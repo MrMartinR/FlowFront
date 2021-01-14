@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core/';
+import { Grid, Card, CardContent } from '@material-ui/core/';
 import { connect } from 'react-redux';
-import { DataGrid, ColDef, ValueGetterParams } from '@material-ui/data-grid';
+import { ColDef } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
-import { useDemoData } from '@material-ui/x-grid-data-generator';
 
 import { fetchPlatformslist } from "../../../redux/platforms/actions";
 
@@ -42,7 +41,7 @@ const PlatformsList = (props: any) => {
 
   useEffect(() => {
     props.fetchPlatformslist();
-  }, [])
+  }, [props])
 
   if(isFetching) {
     return (
