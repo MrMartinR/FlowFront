@@ -1,15 +1,12 @@
+// TODO: Replace formik for react hook forms https://react-hook-form.com
 import React, {useState} from 'react'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import {connect} from 'react-redux'
-// [TODO] Remove the internationalization 
-// import { injectIntl } from 'react-intl'
 import {TextField, Button, Grid, Typography, CardMedia} from '@material-ui/core'
 import * as auth from '../_redux/authRedux'
 import {login} from '../_redux/authCrud'
-import Logo from '../../../../common/media/flow-logo.svg';
-
-
+import Logo from '../../../../common/media/flow-logo.svg'
 
 const initialValues = {
   email: '',
@@ -17,7 +14,6 @@ const initialValues = {
 }
 
 function Login(props) {
-  // const { intl } = props
   const [loading, setLoading] = useState(false)
   const loginSchema = Yup.object().shape({
     email: Yup.string()
@@ -42,7 +38,7 @@ function Login(props) {
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: (values, { setStatus, setSubmitting }) => {
+    onSubmit: (values, {setStatus, setSubmitting}) => {
       console.log('submitting..')
       localStorage.removeItem('forgot_pwd_notif')
       enableLoading()
@@ -51,11 +47,11 @@ function Login(props) {
           .then((res) => {
             disableLoading()
             const accessToken = res.data.token.token
-            const { uid } = res.data.data
-            const { client } = res.data.token
+            const {uid} = res.data.data
+            const {client} = res.data.token
             const userData = res.data.data
-            const { expiry } = res.data.token
-            const { token } = res.data.token
+            const {expiry} = res.data.token
+            const {token} = res.data.token
             props.login(accessToken, uid, client, expiry, token, userData)
           })
           .catch(() => {
@@ -68,98 +64,75 @@ function Login(props) {
   })
 
   return (
-    // main Grid 
-    <Grid 
-      container 
-      direction='column' 
-      // spacing={2} 
-      align= "center" 
-      justify = "space-around" 
-      alignItems = "center" 
+    // main Grid
+    <Grid
+      container
+      direction='column'
+      align='center'
+      justify='space-around'
+      alignItems='center'
     >
-
-     {/* logo */}
-      <Grid item xs="auto">
-          <CardMedia 
-          src={Logo} 
-          component="img" 
-          />
-        <Typography 
-          align='center'
-          variant='h6'
-          >
+      {/* logo */}
+      <Grid item xs='auto'>
+        <CardMedia src={Logo} component='img' />
+        <Typography align='center' variant='h6'>
           Hello Flower!
         </Typography>
       </Grid>
 
       {/* form */}
-      <Grid item xs="auto">
-        <form
-        onSubmit={formik.handleSubmit}
-        autoComplete="on"
-        >
-        {formik.status ? (
-            <div>{formik.status}</div>
-        ) : (
-          ''
-        )}
-        {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
+      <Grid item xs='auto'>
+        <form onSubmit={formik.handleSubmit} autoComplete='on'>
+          {formik.status ? <div>{formik.status}</div> : ''}
+          {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
+            <div>
+              <div>{localStorage.getItem('forgot_pwd_notif')}</div>
+            </div>
+          ) : (
+            ''
+          )}
+
           <div>
-            <div>
-              {localStorage.getItem('forgot_pwd_notif')}
-            </div>
+            {/* <InputLabel>Email</InputLabel> */}
+            <TextField
+              label='Email'
+              margin='normal'
+              variant='outlined'
+              autoComplete='on'
+              type='email'
+              {...formik.getFieldProps('email')}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div>
+                <div>{formik.errors.email}</div>
+              </div>
+            ) : null}
           </div>
-        ) : (
-          ''
-        )}
-
-        <div>
-          {/* <InputLabel>Email</InputLabel> */}
-          <TextField
-            label="Email"
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            type="email"
-            {...formik.getFieldProps('email')}
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div>
-              <div>{formik.errors.email}</div>
-            </div>
-          ) : null}
-        </div>
-        <div>
-        {/* <InputLabel>Password</InputLabel> */}
-          <TextField
-            label="Password"
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            type="password"
-            {...formik.getFieldProps('password')}
-          />
-          {formik.touched.password && formik.errors.password ? (
+          <div>
+            {/* <InputLabel>Password</InputLabel> */}
+            <TextField
+              label='Password'
+              margin='normal'
+              variant='outlined'
+              autoComplete='on'
+              type='password'
+              {...formik.getFieldProps('password')}
+            />
+            {formik.touched.password && formik.errors.password ? (
               <div>{formik.errors.password}</div>
-          ) : null}
-        </div>
+            ) : null}
+          </div>
 
-        <div>
-
-          <Button
-            type="submit"
-            disabled={formik.isSubmitting}
-          >
-            Sign In
-            {loading}
-          </Button>
-        </div>
-      </form>
+          <div>
+            <Button type='submit' disabled={formik.isSubmitting}>
+              Sign In
+              {loading}
+            </Button>
+          </div>
+        </form>
+      </Grid>
     </Grid>
-    </Grid>
-
   )
 }
 
 export default connect(null, auth.actions)(Login)
-// export default injectIntl(connect(null, auth.actions)(Login))

@@ -1,15 +1,28 @@
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev)
 
-  <h1 align="center">Flow FrontEnd</h1>
+<br>
+
+<img src="./docs/frontend.svg">
+
+<br>
+
+## Table of Contents
+
+  - [About The Project](#about-the-project)
+  - [Getting Started](#getting-started)
+  - [Contributing](#contributing)
+  - [Technologies](#technologies)
+  - [Other Tools](#other-tools)
 
 
-<!-- ABOUT THE PROJECT -->
+<br>
+<br>
 
-## About The Project
+# About The Project
 
-This project implements an investment management application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance. Here is a link to the [backend API](https://github.com/FlowFintech/FlowBack)
+This project implements a finance management application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance. 
 
-### Background information
+## Background Information
 
 When a business or an individual is in need of a loan, they reach out to loan originator. In most case, the loan originator does not have the money to give to this client. So, what the loan originator does is to float the loan and allow investors to fund it. The floating or display of a loan that need funding is done on a platform. Sometimes, the loan originator have their own platform.
 Now, the investor does not just invest in one platform but in multiple platforms and at times with different loan originator on the same platform (now referred to as a market place as it has more that one loan originator). These bring us to our application, `Flow`, an investment management application.
@@ -17,24 +30,38 @@ Now, the investor does not just invest in one platform but in multiple platforms
 Using Flow, an investor is able to take the information `after` investing in a platform and add it to our application for easier management. In the past, the investor would have numerous excel files that stored this data which is messy, not easily accessible and does not have that good user experience with tools such as sort, classify by, just ready available to them; so Flow.
 
 
-## Technologies used
+<br>
 
-TypeScript
 
-React
+# Getting Started
 
-Redux
 
-Material UI
+## Package Manager 
+[<img src="./docs/yarn.svg" width="60px" title="Yarn">](https://yarnpkg.com)
+ Use [Yarn](https://yarnpkg.com) as a packager manager application. 
 
-## Usage/Getting started
+macOS via [Homebrew](http://brew.sh/)
+```shell
+brew install yarn
+```
 
-The default branch of this project is the `release` branch. However, ensure to clone the master branch of the project and all other `features` branches can branch out of the `master`. Suffice to say in a case you want to open a PR, it should be opened to merge into the `master branch`.
+Debian/Ubuntu
 
-Clone the reposistory
+```shell
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+```
+```shell
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+```
+
+<br>
+
+## Cloning the Repo
+
+The default branch of this project is the `dev` branch. In a case you want to open a PR, it should be opened to merge into the `dev branch`.
 
 ```Shell
-your@pc:~$ git clone https://github.com/FlowFintech/FlowFront -b master
+your@pc:~$ git clone https://github.com/FlowFintech/FlowFront -b dev
 ```
 
 ```Shell
@@ -47,72 +74,145 @@ Install all dependencies
 yarn install
 ```
 
-While the [backend](https://github.com/FlowFintech/FlowBack) server is alrealdy running, start the server
+While the [Backend](https://github.com/FlowFintech/FlowBack) server is alrealdy running, start the server for the frontend.
 
 ```Shell
 yarn start
 ```
+<br>
 
-## Contributing
+## <img src="./docs/github.svg" width="30px" title="TypeScript"> [GitHub Desktop](https://desktop.github.com)
+Alternatively, you can use GitHub Desktop for Windows and macOS for deal with the repos.
 
-Depending on whether your implementing a feature or fixing a bug, we'll like to have a naming convention to how these branches are being named:
+<br>
 
-Please stick to the naming format `feature/branch-name` or `bug/bugname-fixed` for a feature and bug fixes branch respectively. Your feature/bug branch should be requested to merge into the `master` branch and upon approval and merging of the PR, the feature/bug  branch should be deleted.
+>The Backend is built on Ruby on Rails, you need to have the server running, refer to the [BackEnd Documentation on GitHub](https://github.com/FlowFintech/FlowBack) to set the backend environment.
 
+<br>
 
-## Style Guides (Read)
+# Contributing
 
-#### [SASS](docs/StyleGuide-React.md)
-
-#### [React/TypeScript](docs/StyleGuide-React-TypeScript.md)
-
-#### [Redux](https://redux.js.org/style-guide/style-guide)
-
-
-## Libraries
-
-#### [Material-UI](https://material-ui.com)
-* Material-UI is the most popular React UI component library, has a lot of prebuilt React components, which can help you create React apps in no time.
-Unlike Ant Design, Material-UI offers built-in methods to style components. makeStyles() is useful, especially when your code starts to get big; it helps you find the element to style more quickly and makes the code more readable. The downside is that readability may degrade as a component grows. But overall, Material-UI is a strong, highly customizable library.
-
-####  [Dart JS • SASS](https://sass-lang.com/documentation) (CSS Preprocessor | Syntax SCSS)
-
-#### [React](https://reactjs.org/docs/getting-started.html)
-
-#### [Redux API Reference](https://redux.js.org/api/api-reference) (Application State Manager)
-
-#### [React-Redux API Reference](https://react-redux.js.org/api/connect)
-
-#### [TypeScript](https://www.typescriptlang.org/docs) (Transpiler | JavaScript Superset | Code Analysis)
-**Use TypeScript in STRICT MODE**
-* [Conventions](https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md)
-* [TypeScript with React](https://www.typescriptlang.org/play?jsx=2&esModuleInterop=true&q=390#example/typescript-with-react)
-* [React Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet)
-* [Course TypeScript React](https://egghead.io/courses/use-typescript-to-develop-react-applications)
-* [React Components Patterns with TypeScript](https://levelup.gitconnected.com/ultimate-react-component-patterns-with-typescript-2-8-82990c516935)
-
-#### [ESLint](https://eslint.org) (Linter)
-
-#### [Prettier](https://prettier.io) (Code Formater)
-
-#### [React Router DOM](https://reactrouter.com/web/guides/quick-start) (Router)
-
-#### [React Hook Form](https://react-hook-form.com) (Forms)
-
-#### [Yup](https://github.com/jquense/yup) (Validator) 
-* Yup it is a declarative validation schema that provides chainable functions with pretty staggering capabilities.
-
-#### [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) (ScrolBar) (ToDo)
-* [comparison](https://www.npmtrends.com/better-scroll-vs-effector-vs-iscroll-vs-perfect-scrollbar-vs-react-scroll-vs-react-custom-scrollbars)
+Depending on whether your implementing a **feature**, doing a  **chore**,  fixing **bugs** or a **hotfix**, you must use the following branches naming convention: {type/short-description}
+*Example*
+```shell
+git checkout -b bug/fixing-layout
+git checkout -b feature/adding-loan-details
+git checkout -b chore/correct-typo
+git checkout -b hotfix/refactor-jbuilder
+```
 
 
-## Utilities
+>Your feature/bug branch should be requested to merge into the `dev` branch and upon approval and merging of the PR, the branch should be deleted.
 
-#### React Developer Tools [Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
-(You must allow access to file URLs on Extension Settings)
+<br>
 
-#### [VisualStudio Code](https://code.visualstudio.com)
+### **Important**: Do not install any dependency, if you feel you miss some library, create a discussion thread in #frontend channel in Slack
+
+
+<br>
+
+# Technologies
+
+## <img src="./docs/typescript.svg" width="30px" title="TypeScript"> [TypeScript](https://www.typescriptlang.org)
+We use TypeScript as a default format using the extension `tsx`. 
+#####  Transpiler | JavaScript Superset | Code Analysis
+
+ * 📄 [Documentation](https://www.typescriptlang.org/docs)
+ * 🚦 [StyleGuide](docs/StyleGuide-React-TypeScript.md)
+ * 🎓 Resources
+    >[Conventions](https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md)
+
+     >[TypeScript with React](https://www.typescriptlang.org/play?jsx=2&esModuleInterop=true&q=390#example/typescript-with-react)
+     
+     >[React Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet)
+
+     >[Course TypeScript React](https://egghead.io/courses/use-typescript-to-develop-react-applications)
+
+     >[React Components Patterns with TypeScript](https://levelup.gitconnected.com/ultimate-react-component-patterns-with-typescript-2-8-82990c516935)
+
+
+<br>
+
+## <img src="./docs/react.svg" width="30px" title="React"> [React](https://reactjs.org/docs/getting-started.html)
+
+ * 📄 [Documentation](https://reactjs.org/docs/getting-started.html)
+ * 🚦 [StyleGuide](docs/StyleGuide-React-TypeScript.md)
+ * 🎓 Resources
+    >[React Router DOM](https://reactrouter.com/web/guides/quick-start) (Router)
+
+   > [React Hook Form](https://react-hook-form.com) (Forms)
+
+   >[Learn React For Beginners 2020 / 2021](https://www.youtube.com/watch?v=OH4msPNM2CI&list=PLQg6GaokU5CyvExiaMgXP_BS5WWNBfZJN)
+
+
+<br>
+
+## <img src="./docs/redux.svg" width="30px" title="Redux"> [Redux](https://redux.js.org/api/api-reference)
+##### Application State Manager
+
+ * 📄 [Documentation](https://redux.js.org/api/api-reference)
+ * 🚦 [StyleGuide](https://redux.js.org/style-guide/style-guide)
+ * 🎓 Resources
+    >[React-Redux](https://react-redux.js.org/api/connect)
+
+
+<br>
+
+## <img src="./docs/sass.svg" width="30px" title="Dart JS SASS"> [Dart JS • SASS](https://sass-lang.com)
+##### CSS Preprocessor | Syntax SCSS
+ * 📄 [Documentation](https://sass-lang.com/documentation)
+ * 🚦 [StyleGuide](docs/StyleGuide-React.md)
+
+<br>
+
+## <img src="./docs/material-ui.svg" width="30px" title="Material-UI"> [Material-UI](https://material-ui.com)
+##### Material-UI is the most popular React UI component library, has a lot of prebuilt React components, which can help you create React apps in no time.
+
+ * 📄 [Documentation](https://material-ui.com)
+  * 🎓 Resources
+    >[Material UI](https://www.youtube.com/playlist?list=PLQg6GaokU5CwiVmsZ0d_9Zsg_DnIP_xwr)
+
+
+<br>
+
+### For a full list of Libraries used in Flow refer to [this document](https://github.com/FlowFintech/FlowFront/blob/docs/Dependencies.md)
+
+<br>
+
+```txt
+If you find some content, docs, videos, etc. that can be interesting, feel free to add the links to this document.
+```
+
+<br>
+
+## Other Tools
+
+> [Trello](https://trello.com/b/CLQSqEKd/flow)
+This is a Kanban board we use to assign and track the development task.
+
+> [Slack](https://slack.com/)
+Were we disscuss and chat about the project.
+
+> [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+Extension for chrome to see the component structure, very useful for debugin React. (You must allow access to file URLs on Extension Settings)
+
+> [Postman](https://www.postman.com)
+Postman is a collaboration platform for API development. You can find the [postman collection file here](./docs/Flow_API_v1.postman_collection.json)
+
+
+> [VisualStudio Code](https://code.visualstudio.com)
 Shared settings.json file configuration on .vscode root folder
 "Note: Workspace settings are useful for sharing project specific settings across a team."
 
-### [Dependencies](https://github.com/FlowFintech/FlowFront/blob/readme-documentation-updates/DEPENDENCIES.md)
+* > [Prettier ](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) Code formatter using prettier
+
+* > [Material-UI Snippets](https://marketplace.visualstudio.com/items?itemName=vscodeshift.material-ui-snippets) Code snippets for Material-UI
+
+* > [Simple React Snippets](https://marketplace.visualstudio.com/items?itemName=burkeholland.simple-react-snippets) Dead simple React snippets you will
+
+
+
+<br>
+
+
+
