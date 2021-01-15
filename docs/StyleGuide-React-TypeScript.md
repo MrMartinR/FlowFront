@@ -89,7 +89,7 @@
   - **Directories**: 
     - Normal Directoires: Use `kebab-case`. 
     - Component Directories: Use `CamelCase`.
-  - **Extensions**: Use `.tsx` extension for React components and files with JSX content, and `ts` for pure TypeScipt files and functions.
+  - **Extensions**: Use `.tsx` extension for React components and files with JSX content, and `ts` for pure TypeScipt files.
   - **Filenames**: 
     - Use PascalCase for Components. E.g., `LoanDetails.tsx`.
     - Use camelCase for ts functions. E.g. `myControl.ts`, `utils.ts`

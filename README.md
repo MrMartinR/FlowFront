@@ -3,7 +3,7 @@
 
 <br>
 
-<img src="./docs/frontend.svg">
+<img src="./docs/flow-header.svg">
 
 <br>
 <br>
