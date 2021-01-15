@@ -126,6 +126,8 @@ export const VerticalLinearStepper = () => {
         setIsLoading(countryState.listLoading)
       }
     }, [countryState])
+    console.log(list)
+    console.log(isLoading)
   
 
   useEffect(() => {
