@@ -11,7 +11,7 @@ LicenseInfo.setLicenseKey(
   );
 
 const columns: ColDef[] = [
-  // column definition format
+  // column definition format here
   { field: 'id', headerName: 'Id', width: 70 },
 ];
 
