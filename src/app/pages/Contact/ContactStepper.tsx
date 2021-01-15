@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 /* eslint-disable no-restricted-imports*/
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import {
@@ -14,6 +14,9 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import ContactAdd from "./ContactAdd";
+import { RootState } from "../../../redux/rootReducer";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as countryActions from "../../../redux/countries/countriesActions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,9 +47,18 @@ function getSteps() {
 }
 
 export const VerticalLinearStepper = () => {
+  const {countryState} = useSelector(
+    (state: RootState) => ({
+      countryState: state.countries,
+      
+    }),
+    shallowEqual
+  )
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const [list, setList] = useState([] as any);
+  const [isLoading, setIsLoading] = useState(true);
   const [kind, setKind] = React.useState("Individual" as any);
   const [visibility, setVisibility] = React.useState("Private");
   const [checkState, setCheckState] = React.useState({
@@ -92,6 +104,29 @@ export const VerticalLinearStepper = () => {
       });
     }
   };
+
+ 
+     // contact Redux state
+     const GetAllCountries = () => {
+      let dispatch = useDispatch()
+      useEffect(() => {
+        if (dispatch) {
+          dispatch(countryActions.fetchAllCountry())
+        }
+      }, [dispatch])
+    }
+    GetAllCountries()
+    useEffect(() => {
+      if (
+        countryState &&
+        countryState.countryTable &&
+        countryState.countryTable.entities
+      ) {
+        setList(countryState.countryTable.entities)
+        setIsLoading(countryState.listLoading)
+      }
+    }, [countryState])
+  
 
   useEffect(() => {
     if (checkState.checkedA === true) {
