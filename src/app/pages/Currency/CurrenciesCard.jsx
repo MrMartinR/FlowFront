@@ -10,7 +10,7 @@ import {TableCell} from '@material-ui/core'
 import axios from 'axios'
 /* eslint-disable  no-restricted-imports */
 import {withStyles, makeStyles} from '@material-ui/styles'
-import {API_URL} from '../../modules/Auth/_redux/authCrud'
+import {API_URL} from '../../../redux/utils'
 import {
   addCurrency,
   CurrencySchema,

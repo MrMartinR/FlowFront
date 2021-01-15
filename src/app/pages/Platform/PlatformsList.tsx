@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ColDef } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 
-import { fetchPlatformslist } from "../../../redux/platforms/actions";
+import { fetchPlatformsList } from "../../../redux/platforms/actions";
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
@@ -37,11 +37,11 @@ const columns: ColDef[] = [
 ];
 
 const PlatformsList = (props: any) => {
-  const { platformTable = [], isFetching } = props.platforms
+  const { platformTable = [], isFetching, update } = props.platforms
 
   useEffect(() => {
-    props.fetchPlatformslist();
-  }, [props])
+    props.fetchPlatformsList();
+  }, [update])
 
   if(isFetching) {
     return (
@@ -50,11 +50,9 @@ const PlatformsList = (props: any) => {
       </div>
     )
   }
-  // if(platformTable.length > 0) {
-    
-  // }
+
   return (
-    <div className="">
+    <>
       <Grid container direction="column">
         <Card>
           <CardContent>
@@ -65,7 +63,7 @@ const PlatformsList = (props: any) => {
           </CardContent>
         </Card>
       </Grid>
-    </div>
+    </>
   );
 }
 
@@ -77,7 +75,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPlatformslist: () => dispatch(fetchPlatformslist())
+    fetchPlatformsList: () => dispatch(fetchPlatformsList())
   }
 };
 
