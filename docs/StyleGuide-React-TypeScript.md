@@ -1,9 +1,5 @@
 
 # React TypeScript Style Guide
-Based on [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react) and [TypeScript Style Guide and Coding Conventions](https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md)
-
-# NOTE: check all the content I just mixed two styles, from Airbnb React/JSX and from TypeScript, so maybe this is an abomination with lots of incoherencies. If you find something missing or wrong, lets discuss it!
-
 
 ## Table of Contents
 
@@ -90,20 +86,14 @@ Based on [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tre
 
 ## Naming
 
-### Can somebody show some light here and define a style??
-
-```
-keep filename the same as the function name.
-So - the naming convention for react components and js classes is TitleCase.
-For normal js functions files you would use camelCase.
-For directories, libraries or files with e.g. many of util finctions it's usual to use kebab-case.
-```
-```
-Name files with `camelCase`. E.g. `accordion.tsx`, `myControl.tsx`, `utils.tsx`, `map.tsx` etc.
-```
-  - **Extensions**: Use `.tsx` extension for React components.
-  - **Filename**: Use PascalCase for filenames. E.g., `LoanDetails.tsx`.
-  - **Reference Naming**: Use PascalCase for React components and camelCase for their instances. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
+  - **Directories**: 
+    - Normal Directoires: Use `kebab-case`. 
+    - Component Directories: Use `CamelCase`.
+  - **Extensions**: Use `.tsx` extension for React components and files with JSX content, and `ts` for pure TypeScipt files and functions.
+  - **Filenames**: 
+    - Use PascalCase for Components. E.g., `LoanDetails.tsx`.
+    - Use camelCase for ts functions. E.g. `myControl.ts`, `utils.ts`
+  - **Reference Naming**: Use PascalCase for React components and camelCase for their instances.
 
 
     ```tsx
@@ -134,8 +124,6 @@ Name files with `camelCase`. E.g. `accordion.tsx`, `myControl.tsx`, `utils.tsx`,
     ```
 
   - **Higher-order Component Naming**: Use a composite of the higher-order component’s name and the passed-in component’s name as the `displayName` on the generated component. For example, the higher-order component `withFoo()`, when passed a component `Bar` should produce a component with a `displayName` of `withFoo(Bar)`.
-
-    > Why? A component’s `displayName` may be used by developer tools or in error messages, and having a value that clearly expresses this relationship helps people understand what is happening.
 
     ```tsx
     // bad
