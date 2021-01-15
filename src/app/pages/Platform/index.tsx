@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core'
+import { Grid, Card, CardContent, Toolbar, InputBase } from '@material-ui/core'
 
 import PlatformsList from './PlatformsList'
 
