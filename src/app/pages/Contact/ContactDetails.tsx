@@ -79,12 +79,12 @@ export const ContactDetails = (props: any) => {
     setOpen(false);
   };
   const body = (
-    <div>
+    <>
       {add === true ? (
-        <div>
+        <>
           <h2 id="simple-modal-title">Add Contact</h2>
           <VerticalLinearStepper />
-        </div>
+        </>
         
       ) : (
         <div>
@@ -92,7 +92,7 @@ export const ContactDetails = (props: any) => {
           <p id="simple-modal-description">add a edit contact form</p>
         </div>
       )}
-    </div>
+    </>
   );
 
   return (
