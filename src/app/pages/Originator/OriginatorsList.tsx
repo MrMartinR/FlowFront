@@ -15,7 +15,7 @@ const columns: ColDef[] = [
   { field: 'id', headerName: 'Id', width: 70 },
 ];
 
-const OriginatorsTab = (props: any) => {
+const OriginatorsList = (props: any) => {
   const { originators = [], isFetching, update } = props.originators
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const OriginatorsTab = (props: any) => {
   }
 
   return (
-    <div className="">
+    <>
       <Grid container direction="column">
         <Card>
           <CardContent>
@@ -42,7 +42,7 @@ const OriginatorsTab = (props: any) => {
           </CardContent>
         </Card>
       </Grid>
-    </div>
+    </>
   );
 }
 
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OriginatorsTab);
+export default connect(mapStateToProps, mapDispatchToProps)(OriginatorsList);
 
 
 

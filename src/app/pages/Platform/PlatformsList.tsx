@@ -52,7 +52,7 @@ const PlatformsList = (props: any) => {
   }
 
   return (
-    <div className="">
+    <>
       <Grid container direction="column">
         <Card>
           <CardContent>
@@ -63,7 +63,7 @@ const PlatformsList = (props: any) => {
           </CardContent>
         </Card>
       </Grid>
-    </div>
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Card, CardContent, } from '@material-ui/core'
 
-import OriginatorsTab from './OriginatorsTab'
+import OriginatorsTab from './OriginatorsList'
 
 const OriginatorsPage = () => {
   return (
