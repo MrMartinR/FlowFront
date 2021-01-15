@@ -1,0 +1,231 @@
+import React, { useEffect } from "react";
+/* eslint-disable no-restricted-imports*/
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  StepContent,
+  Button,
+  Paper,
+  Typography,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+} from "@material-ui/core";
+import ContactAdd from "./ContactAdd";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      minWidth: 500,
+    },
+    button: {
+      marginTop: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    actionsContainer: {
+      marginBottom: theme.spacing(2),
+    },
+    resetContainer: {
+      padding: theme.spacing(3),
+    },
+  })
+);
+
+function getSteps() {
+  return [
+    "Select Contact Type",
+    "Select Country",
+    "Select Visibility",
+    "Fill in Contact Details",
+  ];
+}
+
+export const VerticalLinearStepper = () => {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+  const [kind, setKind] = React.useState("Individual" as any);
+  const [visibility, setVisibility] = React.useState("Private");
+  const [checkState, setCheckState] = React.useState({
+    checkedA: false,
+    checkedB: false,
+  });
+  const [checkVisible, setCheckVisible] = React.useState({
+    checkedC: false,
+    checkedD: false,
+  });
+
+  const handleKind = (e: any) => {
+    if (e.target.name === "checkedA") {
+      setCheckState({
+        ...checkState,
+        [e.target.name]: e.target.checked,
+        /* eslint-disable no-useless-computed-key */
+        ["checkedB"]: false,
+      });
+    }
+    if (e.target.name === "checkedB") {
+      setCheckState({
+        ...checkState,
+        [e.target.name]: e.target.checked,
+        /* eslint-disable no-useless-computed-key */
+        ["checkedA"]: false,
+      });
+    }
+    if (e.target.name === "checkedC") {
+      setCheckVisible({
+        ...checkVisible,
+        [e.target.name]: e.target.checked,
+        /* eslint-disable no-useless-computed-key */
+        ["checkedD"]: false,
+      });
+    }
+    if (e.target.name === "checkedD") {
+      setCheckVisible({
+        ...checkVisible,
+        [e.target.name]: e.target.checked,
+        /* eslint-disable no-useless-computed-key */
+        ["checkedC"]: false,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (checkState.checkedA === true) {
+      setKind("Company");
+    }
+    if (checkState.checkedB === true) {
+      setKind("Individual");
+    }
+  }, [checkState]);
+  useEffect(() => {
+    if (checkVisible.checkedC === true) {
+      setVisibility("Private");
+    }
+    if (checkVisible.checkedD === true) {
+      setVisibility("Public");
+    }
+  }, [checkVisible]);
+
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return (
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkState.checkedA}
+                  name="checkedA"
+                  onChange={handleKind}
+                  inputProps={{ "aria-label": "primary" }}
+                />
+              }
+              label="Company"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkState.checkedB}
+                  onChange={handleKind}
+                  name="checkedB"
+                  inputProps={{ "aria-label": "primary" }}
+                />
+              }
+              label="Individual"
+            />
+          </FormGroup>
+        );
+      case 1:
+        return "select country";
+      case 2:
+        return (
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkVisible.checkedC}
+                  name="checkedC"
+                  onChange={handleKind}
+                  inputProps={{ "aria-label": "primary" }}
+                />
+              }
+              label="Private"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkVisible.checkedD}
+                  onChange={handleKind}
+                  name="checkedD"
+                  inputProps={{ "aria-label": "primary" }}
+                />
+              }
+              label="Public"
+            />
+          </FormGroup>
+        );
+      case 3:
+        return <ContactAdd kind={kind} visibility={visibility} />;
+      default:
+        return "Unknown step";
+    }
+  };
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+  return (
+    <div className={classes.root}>
+      <Stepper activeStep={activeStep} orientation="vertical">
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+            <StepContent>
+              <Typography>{getStepContent(index)}</Typography>
+              <div className={classes.actionsContainer}>
+                <>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.button}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  </Button>
+                </>
+              </div>
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+      {activeStep === steps.length && (
+        <Paper square elevation={0} className={classes.resetContainer}>
+          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Button onClick={handleReset} className={classes.button}>
+            Reset
+          </Button>
+        </Paper>
+      )}
+    </div>
+  );
+};
+export default VerticalLinearStepper;
