@@ -37,11 +37,11 @@ const columns: ColDef[] = [
 ];
 
 const PlatformsList = (props: any) => {
-  const { platformTable = [], isFetching } = props.platforms
+  const { platformTable = [], isFetching, update } = props.platforms
 
   useEffect(() => {
     props.fetchPlatformsList();
-  }, [])
+  }, [update])
 
   if(isFetching) {
     return (

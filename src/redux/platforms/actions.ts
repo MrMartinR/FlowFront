@@ -14,7 +14,7 @@ function requestPlatformsList() {
 function receivePlatformsList(response: any) {
     return {
         type: RECEIVE_PLATFORMS_LIST,
-        PLATFORMS_LIST: response.data,
+        platformsList: response.data,
     }
 }
 

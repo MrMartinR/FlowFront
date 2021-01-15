@@ -30,7 +30,6 @@ export function fetchOriginators() {
         dispatch(requestOriginators())
         axios.get(`${API_URL}/api/v1/originators`, optionsHeaders())
         .then(function (response) {
-            // console.log(response.data)
             return dispatch(receiveOriginators(response.data));
         })
         .catch(function (error) {

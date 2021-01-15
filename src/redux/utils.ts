@@ -1,8 +1,8 @@
 import store from './store'
 
 // Backend API BASE URL
-// export const API_URL = 'https://api.flowfin.tech'
-export const API_URL = 'https://localhost:3001'
+export const API_URL = 'https://api.flowfin.tech'
+// export const API_URL = 'https://localhost:3001'
 
 
 // Authentication headers

@@ -16,11 +16,11 @@ const columns: ColDef[] = [
 ];
 
 const OriginatorsTab = (props: any) => {
-  const { originators = [], isFetching } = props.originators
+  const { originators = [], isFetching, update } = props.originators
 
   useEffect(() => {
     props.fetchOriginators();
-  }, [])
+  }, [update])
 
   if(isFetching) {
     return (

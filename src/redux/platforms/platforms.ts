@@ -7,6 +7,7 @@ import {
   const initialStore = {
     platformTable: [],
     isFetching: false,
+    update: null,
     lastError: null,
     };
   
@@ -22,8 +23,8 @@ import {
         case RECEIVE_PLATFORMS_LIST: {
             return {
                 ...state,
-                platformTable: [...action.PLATFORMS_LIST],
-                isFetching: false
+                platformTable: [...action.platformsList],
+                isFetching: false,
             }
         }
 

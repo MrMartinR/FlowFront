@@ -7,6 +7,7 @@ import {
   const initialStore = {
     originators: [],
     isFetching: false,
+    update: null,
     lastError: null,
     };
   
