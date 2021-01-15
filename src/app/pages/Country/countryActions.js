@@ -1,32 +1,34 @@
 import axios from 'axios'
 import * as Yup from 'yup'
-import { API_URL } from '../../modules/Auth/_redux/authCrud'
+import {API_URL} from '../../../redux/utils'
 
 // TODO: put the headers in a let statement??
 // TODO: fullname prop on headers??
 
 // get the data from the API countries table
-export const getAllCountries = (headerPara) => axios.get(`${API_URL}/api/v1/countries?page=1`, {
-  headers: {
-    'access-token': headerPara.authToken,
-    client: headerPara.client,
-    uid: headerPara.user.fullname,
-    expiry: headerPara.expiry,
-  },
-})
-
-export const addCountry = (headerPara, values) => axios.post(
-  `${API_URL}/api/v1/countries`,
-  { country: values },
-  {
+export const getAllCountries = (headerPara) =>
+  axios.get(`${API_URL}/api/v1/countries?page=1`, {
     headers: {
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
       expiry: headerPara.expiry,
     },
-  },
-)
+  })
+
+export const addCountry = (headerPara, values) =>
+  axios.post(
+    `${API_URL}/api/v1/countries`,
+    {country: values},
+    {
+      headers: {
+        'access-token': headerPara.authToken,
+        client: headerPara.client,
+        uid: headerPara.user.fullname,
+        expiry: headerPara.expiry,
+      },
+    }
+  )
 
 // TODO: what is this validation symbols??
 export const CountrySchema = Yup.object().shape({
