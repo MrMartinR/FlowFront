@@ -59,6 +59,7 @@
 |✅|1|[redux-saga](https://github.com/redux-saga/redux-saga/tree/master/packages/core) | Library that aims to make application side effects (i.e. asynchronous things like data fetching and impure things like accessing the browser cache) easier to manage | 
 |❗️|1|[sass](https://github.com/sass/dart-sass) | A pure JavaScript implementation of Sass. |
 |❗️|4|[serve-static](https://github.com/expressjs/serve-static) | To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express. | 
+|❗️|0|[uuid](https://github.com/uuidjs/uuid) | Generate RFC-compliant UUIDs in JavaScript | 
 |❗️|0|[use-memo-one](https://github.com/alexreardon/use-memo-one) | useMemo and useCallback with a stable cache (semantic guarantee) | 
 |❗️|7|[yup](https://github.com/jquense/yup) | Yup is a JavaScript schema builder for value parsing and validation. |
 
@@ -86,7 +87,7 @@
 
 | Type  | Name                | Description                        | 
 | ----- |-------------------- |------------------------------------| 
-|✅|4|[@microsoft/tsdoc](https://github.com/microsoft/tsdoc) | 
+|✅|4|[@microsoft/tsdoc](https://github.com/microsoft/tsdoc) | This library is the reference implementation of a parser for the TSDoc syntax. Using this library is an easy way to ensure that your tool is 100% compatible with the standard. |
 ||[babel-eslint]() | 
 ||[eslint]() | 
 ||[eslint-config-airbnb]() | 
