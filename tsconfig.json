@@ -28,7 +28,7 @@
     "src"
   ],
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": ["src/index.tsx","src/common/", "src/app/", "src/redux/"],
     "out": "docs/typedocs"
   }
 }
