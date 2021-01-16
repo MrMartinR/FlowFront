@@ -44,7 +44,7 @@ const finalSpaceCharacters = [
  *
  * @author - Martin
  * */
-function Kanban() {
+function Kanban2() {
   const [characters, updateCharacters] = useState(finalSpaceCharacters)
 
   function handleOnDragEnd(result: any) {
@@ -105,4 +105,4 @@ function Kanban() {
   )
 }
 
-export default Kanban
+export default Kanban2
