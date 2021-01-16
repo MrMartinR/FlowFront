@@ -31,8 +31,9 @@ const store = configureStore({
 })
 
 /**
- * @see https://github.com/rt2zz/redux-persist#persiststorestore-config-callback
- * @see https://github.com/rt2zz/redux-persist#persistor-object
+ * See {@link https://github.com/rt2zz/redux-persist#persiststorestore-config-callback}
+ * 
+ * See {@link https://github.com/rt2zz/redux-persist#persistor-object}
  */
 export const persistor = persistStore(store)
 
