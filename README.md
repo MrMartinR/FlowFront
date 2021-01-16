@@ -3,7 +3,7 @@
 
 <br>
 
-<img src="./docs/flow-header.svg">
+<img src="https://dev.flowfin.tech/assets/flow-header.svg">
 
 <br>
 <br>
@@ -70,7 +70,7 @@ Comment every Class/Function and other parts of the code you feel needs to be co
 
 Flow uses TSDoc library to handle the comments and TypeDoc to generate the Documentation.
 
-Use the custom tag `@Author` in every class, function, file you create.
+Use the custom tag `@author` in every class, function, file you create.
 
 
 - Check the TSDoc Guidelines and Tags [here](https://tsdoc.org)
@@ -84,7 +84,7 @@ Use the custom tag `@Author` in every class, function, file you create.
 
 # Technologies
 
-## <img src="./docs/typescript.svg" width="30px" title="TypeScript"> [TypeScript](https://www.typescriptlang.org)
+## <img src="https://dev.flowfin.tech/assets/typescript.svg" width="30px" title="TypeScript"> [TypeScript](https://www.typescriptlang.org)
 
  * 📄 [Documentation](https://www.typescriptlang.org/docs)
  * 🚦 [StyleGuide](docs/StyleGuide-React-TypeScript.md)
@@ -103,7 +103,7 @@ Use the custom tag `@Author` in every class, function, file you create.
 <br>
 
 
-## <img src="./docs/react.svg" width="30px" title="React"> [React](https://reactjs.org/docs/getting-started.html)
+## <img src="https://dev.flowfin.tech/assets/react.svg" width="30px" title="React"> [React](https://reactjs.org/docs/getting-started.html)
 
  * 📄 [Documentation](https://reactjs.org/docs/getting-started.html)
  * 🚦 [StyleGuide](docs/StyleGuide-React-TypeScript.md)
@@ -122,7 +122,7 @@ Use the custom tag `@Author` in every class, function, file you create.
 
 <br>
 
-## <img src="./docs/redux.svg" width="30px" title="Redux"> [Redux](https://redux.js.org/api/api-reference)
+## <img src="https://dev.flowfin.tech/assets/redux.svg" width="30px" title="Redux"> [Redux](https://redux.js.org/api/api-reference)
 ##### Application State Manager
 
  * 📄 [Documentation](https://redux.js.org/api/api-reference)
@@ -136,14 +136,14 @@ Use the custom tag `@Author` in every class, function, file you create.
 
 <br>
 
-## <img src="./docs/sass.svg" width="30px" title="Dart JS SASS"> [Dart JS • SASS](https://sass-lang.com)
+## <img src="https://dev.flowfin.tech/assets/sass.svg" width="30px" title="Dart JS SASS"> [Dart JS • SASS](https://sass-lang.com)
 ##### CSS Preprocessor | Syntax SCSS
  * 📄 [Documentation](https://sass-lang.com/documentation)
  * 🚦 [StyleGuide](docs/StyleGuide-React.md)
 
 <br>
 
-## <img src="./docs/material-ui.svg" width="30px" title="Material-UI"> [Material-UI](https://material-ui.com)
+## <img src="https://dev.flowfin.tech/assets/material-ui.svg" width="30px" title="Material-UI"> [Material-UI](https://material-ui.com)
 ##### Material-UI is the most popular React UI component library, has a lot of prebuilt React components, which can help you create React apps in no time.
 
  * 📄 [Documentation](https://material-ui.com)
