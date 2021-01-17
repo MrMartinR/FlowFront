@@ -13,6 +13,7 @@ import { login } from "../_redux/authCrud";
 import Logo from "../../../../common/media/flow-logo.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FormControl } from "@material-ui/core";
 
 /**
  * User login component
@@ -87,26 +88,27 @@ function Login(props: any) {
       {/* form */}
       <Grid item xs="auto">
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
-          {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
-            <React.Fragment>
-              <div>{localStorage.getItem("forgot_pwd_notif")}</div>
-            </React.Fragment>
-          ) : (
-            ""
-          )}
-          <TextField
-            label="Email"
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            type="email"
-            inputRef={register()}
-            name="email"
-          />
-          <div>
-            <span> {errors.email && errors.email.message}</span>
-
-            <div>
+          <Grid container direction="column" justify="center" alignItems="center">
+            {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
+              <React.Fragment>
+                <div>{localStorage.getItem("forgot_pwd_notif")}</div>
+              </React.Fragment>
+            ) : (
+              ""
+            )}
+            <FormControl variant="filled">
+              <TextField
+                label="Email"
+                margin="normal"
+                variant="outlined"
+                autoComplete="on"
+                type="email"
+                inputRef={register()}
+                name="email"
+              />
+              <span> {errors.email && errors.email.message}</span>
+            </FormControl>
+            <FormControl variant="filled">
               <TextField
                 label="Password"
                 margin="normal"
@@ -116,15 +118,13 @@ function Login(props: any) {
                 inputRef={register()}
                 name="password"
               />
-            </div>
-            <span> {errors.password && errors.password.message}</span>
-            <div>
+              <span> {errors.password && errors.password.message}</span>
               <Button type="submit">
                 Sign In
                 {loading}
               </Button>
-            </div>
-          </div>
+            </FormControl>
+          </Grid>
         </form>
       </Grid>
     </Grid>
