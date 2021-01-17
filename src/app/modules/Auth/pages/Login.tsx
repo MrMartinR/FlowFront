@@ -14,6 +14,11 @@ import Logo from "../../../../common/media/flow-logo.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+/**
+ * User loigin component
+ * @param {object} props
+ * @author Mohd Zeeshan
+ */
 function Login(props: any) {
   const loginSchema = Yup.object().shape({
     email: Yup.string()
@@ -40,20 +45,22 @@ function Login(props: any) {
     setLoading(false);
   };
 
-  const onSubmit = (values: any) => {
-    console.log("submitting..");
+  type Credentials = {
+    email: String;
+    password: String;
+  };
+
+  const onSubmit = ({ email, password }: Credentials) => {
     localStorage.removeItem("forgot_pwd_notif");
     enableLoading();
     setTimeout(() => {
-      login(values.email, values.password)
+      login(email, password)
         .then((res) => {
           disableLoading();
-          const accessToken = res.data.token.token;
           const userData = res.data.data;
           const { uid } = userData;
-          const { client } = res.data.token;
-          const { expiry } = res.data.token;
-          const { token } = res.data.token;
+          const { client, expiry, token } = res.data.token;
+          const accessToken = token.token;
           props.login(accessToken, uid, client, expiry, token, userData);
         })
         .catch(() => {
@@ -81,13 +88,12 @@ function Login(props: any) {
       <Grid item xs="auto">
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
-            <div>
+            <React.Fragment>
               <div>{localStorage.getItem("forgot_pwd_notif")}</div>
-            </div>
+            </React.Fragment>
           ) : (
             ""
           )}
-          <div></div>
           <TextField
             label="Email"
             margin="normal"
