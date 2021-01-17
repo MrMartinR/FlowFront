@@ -95,7 +95,7 @@ function Login(props: any) {
             alignItems="center"
           >
             {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
-              <span>{localStorage.getItem("forgot_pwd_notif")}</span>
+              <div>{localStorage.getItem("forgot_pwd_notif")}</div>
             ) : (
               ""
             )}
