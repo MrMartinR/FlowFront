@@ -7,7 +7,7 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core'
-import Kanban from './Kanban/Kanban'
+import Kanban1 from './Kanban/Kanban1'
 
 function DashboardPage() {
   return (
@@ -35,7 +35,7 @@ function DashboardPage() {
       </Grid>
 
       <Grid item xs={10}>
-        <Kanban />
+        <Kanban1 />
       </Grid>
     </Grid>
   )
