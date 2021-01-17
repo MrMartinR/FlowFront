@@ -156,7 +156,7 @@ Use the custom tag `@author` in every class, function, file you create.
 
 <br>
 
-### For a full list of Libraries used in Flow refer to [this document](https://github.com/FlowFintech/FlowFront/blob/docs/Dependencies.md)
+### For a full list of Libraries used in Flow refer to [this document](https://dev.flowfin.tech/docs-front/dependencies.html)
 
 <br>
 
