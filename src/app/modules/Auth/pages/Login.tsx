@@ -88,11 +88,14 @@ function Login(props: any) {
       {/* form */}
       <Grid item xs="auto">
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
-          <Grid container direction="column" justify="center" alignItems="center">
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
             {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
-              <React.Fragment>
-                <div>{localStorage.getItem("forgot_pwd_notif")}</div>
-              </React.Fragment>
+              <span>{localStorage.getItem("forgot_pwd_notif")}</span>
             ) : (
               ""
             )}
