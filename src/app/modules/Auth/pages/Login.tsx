@@ -17,7 +17,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 /**
  * User loigin component
  * @param {object} props
- * @author Mohd Zeeshan
+ * @author Zeeshan A
  */
 function Login(props: any) {
   const loginSchema = Yup.object().shape({
