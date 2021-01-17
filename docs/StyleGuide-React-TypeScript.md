@@ -536,7 +536,7 @@ class X implements FooBar {
     <img src="hello.jpg" role="presentation" />
     ```
 
-  - Do not use words like "image", "photo", or "picture" in `<img>` `alt` props. eslint: [`jsx-a11y/img-redundant-alt`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/img-redundant-alt.md)
+  - Do not use words like "image", "photo", or "picture" in `<img>` `alt` props.
 
     ```tsx
     // bad

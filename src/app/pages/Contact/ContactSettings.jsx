@@ -1,19 +1,15 @@
 /**
-*
-*  Settings displayed on the Contact record
-* 
-*   TODO: check if make sense the avatar here, because the contact is linked to the user, so we can use the picture in the contacts
-*   <Form.Group as={Row} controlId="formGridAvatar"> </Form.Group> 
-*
-*/
+ *
+ *  Settings displayed on the Contact record
+ *
+ *   TODO: check if make sense the avatar here, because the contact is linked to the user, so we can use the picture in the contacts
+ *   <Form.Group as={Row} controlId="formGridAvatar"> </Form.Group>
+ *
+ */
 
 /* eslint-disable no-return-assign */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {
-  useEffect,
-  useState,
-} from 'react'
+import { useEffect, useState } from 'react'
 import {
   Grid,
   TextField,
@@ -25,26 +21,26 @@ import {
   CardContent,
   Select,
 } from '@material-ui/core'
-import {useSelector} from 'react-redux'
-import {getAllCountries} from '../Country/countryActions'
-import {getUserProfile, updateProfile } from '../../actions/userActions'
-import {toAbsoluteUrl} from '../../../_metronic/_helpers'
-import {getAllCurrencies} from '../../actions/currencyActions'
+import { useSelector } from 'react-redux'
+import { getAllCountries } from '../Country/countryActions'
+import { getUserProfile, updateProfile } from '../../actions/userActions'
+import { toAbsoluteUrl } from '../../../_metronic/_helpers'
+import { getAllCurrencies } from '../../actions/currencyActions'
 import CustomizedSnackbars from '../../utils/snackbar'
 
 const Settings = () => {
   const auth = useSelector((state) => state.auth)
 
-/** const classes = {
-*  inputRoot: {
-*     flexWrap: 'wrap',
-*   },
-*   inputInput: {
-*     width: 'auto',
-*     flexGrow: 1,
-*   },
-* }
-*/
+  /** const classes = {
+   *  inputRoot: {
+   *     flexWrap: 'wrap',
+   *   },
+   *   inputInput: {
+   *     width: 'auto',
+   *     flexGrow: 1,
+   *   },
+   * }
+   */
   const [currencies, setCurrencies] = useState([])
   const [countries, setCountries] = useState([])
   const [userProfile, setUserProfile] = useState({
@@ -167,242 +163,228 @@ const Settings = () => {
   //     })
   // }
 
-
-
   return (
-
-    <Grid 
-    container
-    direction="column"
-    spacing={2}
-    alignContent="space-around"
-    alignItems="stretch"
+    <Grid
+      container
+      direction='column'
+      spacing={2}
+      alignContent='space-around'
+      alignItems='stretch'
     >
-
       <CardHeader
-        title="Settings"
-        subheader="Update your account and settings"
+        title='Settings'
+        subheader='Update your account and settings'
       />
 
-<CustomizedSnackbars
-  {...snackState}
-  setSnackState={setSnackState}
-  handleClose={() => {
-  setSnackState({ open: false })
-  }}
-/>
-      
-    {/* Personal Information */}
-      <Grid item xs={12}> 
-        <Card>
-          <CardHeader title="Personal Information" />
-          <CardContent>
+      <CustomizedSnackbars
+        {...snackState}
+        setSnackState={setSnackState}
+        handleClose={() => {
+          setSnackState({ open: false })
+        }}
+      />
 
+      {/* Personal Information */}
+      <Grid item xs={12}>
+        <Card>
+          <CardHeader title='Personal Information' />
+          <CardContent>
             {/* name */}
             <InputLabel>
               Name
-            <TextField
-              type="text"
-              InputLabelProps={{shrink: false}}
-              label=""
-              variant={variant}
-              onBlur={(e) => handleChange(e, 'name')}
-              onChange={(e) => setState({ name: e.target.value })}
-              value={userProfile.name ? userProfile.name : ''}
-              size="small"
-            />
+              <TextField
+                type='text'
+                InputLabelProps={{ shrink: false }}
+                label=''
+                variant={variant}
+                onBlur={(e) => handleChange(e, 'name')}
+                onChange={(e) => setState({ name: e.target.value })}
+                value={userProfile.name ? userProfile.name : ''}
+                size='small'
+              />
             </InputLabel>
 
-              {/* surname */}
+            {/* surname */}
             <InputLabel>
               Surname
-            <TextField
-              type="text"
-              InputLabelProps={{shrink: false}}
-              variant={variant}
-              onBlur={(e) => handleChange(e, 'surname')}
-              onChange={(e) => setState({ surname: e.target.value })}
-              value={userProfile.surname ? userProfile.surname : ''}
-              size="small"
-            />
+              <TextField
+                type='text'
+                InputLabelProps={{ shrink: false }}
+                variant={variant}
+                onBlur={(e) => handleChange(e, 'surname')}
+                onChange={(e) => setState({ surname: e.target.value })}
+                value={userProfile.surname ? userProfile.surname : ''}
+                size='small'
+              />
             </InputLabel>
 
             {/* dob */}
             <InputLabel>
               Date of Birth
-            <TextField
-              type="date"
-              InputLabelProps={{shrink: false}}
-              label=""
-              variant={variant}
-              value={userProfile.dob ? userProfile.dob : ''}
-              onChange={(e) => setState({ dob: e.target.value })}
-              onBlur={(e) => handleChange(e, 'dob')}
-              size="small"
+              <TextField
+                type='date'
+                InputLabelProps={{ shrink: false }}
+                label=''
+                variant={variant}
+                value={userProfile.dob ? userProfile.dob : ''}
+                onChange={(e) => setState({ dob: e.target.value })}
+                onBlur={(e) => handleChange(e, 'dob')}
+                size='small'
               />
-                  Date of Birth will not be publicly displayed
-                  Will be use to calculate you FI
+              Date of Birth will not be publicly displayed Will be use to
+              calculate you FI
             </InputLabel>
-           </CardContent>
+          </CardContent>
         </Card>
       </Grid>
 
       {/* Account Information */}
-      <Grid item xs={12}> 
+      <Grid item xs={12}>
         <Card>
-          <CardHeader title="Account Information" />
+          <CardHeader title='Account Information' />
           <CardContent>
-
             {/* username */}
             <InputLabel>
               Username
-           
-            <TextField
-              label=""
-              value={userProfile.username ? userProfile.username : ''}
-              disabled
-              onChange={(e) => setState({ username: e.target.value })}
-              onBlur={(e) => handleChange(e, 'username')}
-              variant={variant}
-              size="small"
-            />
+              <TextField
+                label=''
+                value={userProfile.username ? userProfile.username : ''}
+                disabled
+                onChange={(e) => setState({ username: e.target.value })}
+                onBlur={(e) => handleChange(e, 'username')}
+                variant={variant}
+                size='small'
+              />
             </InputLabel>
 
             {/* email */}
             <InputLabel>
               Email
-            <TextField
-              type="email"
-              disabled
-              label=""
-              onBlur={(e) => handleChange(e, 'email')}
-              onChange={(e) => setState({ email: e.target.value })}
-              value={userProfile.email ? userProfile.email : ''}
-              variant={variant}
-              size="small"
-            />
-            Email will not be publicly displayed
+              <TextField
+                type='email'
+                disabled
+                label=''
+                onBlur={(e) => handleChange(e, 'email')}
+                onChange={(e) => setState({ email: e.target.value })}
+                value={userProfile.email ? userProfile.email : ''}
+                variant={variant}
+                size='small'
+              />
+              Email will not be publicly displayed
             </InputLabel>
 
             {/* country */}
             <InputLabel>
               Country
-         
-            <Select
-              labelId="country-simple-select"
-              id="country-simple-select"
-              variant={variant}
-              onChange={(e) => handleChange(e, 'country')}
-              value={
-                userProfile.country && userProfile.country.name
-                  ? userProfile.country.name
-                  : ''
-              }
-              size="small"
-            >
-              {countries.map(({ name, id }) => (
-                <MenuItem key={name} id={id} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
+              <Select
+                labelId='country-simple-select'
+                id='country-simple-select'
+                variant={variant}
+                onChange={(e) => handleChange(e, 'country')}
+                value={
+                  userProfile.country && userProfile.country.name
+                    ? userProfile.country.name
+                    : ''
+                }
+                size='small'
+              >
+                {countries.map(({ name, id }) => (
+                  <MenuItem key={name} id={id} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
             </InputLabel>
 
             {/* currency */}
             <InputLabel>
               Currency
-           
-            <Select
-              labelId="currency-simple-select"
-              id="currency-simple-select"
-              variant={variant}
-              size="small"
-              value={
-                userProfile.currency && userProfile.currency.code
-                  ? userProfile.currency.code
-                  : ''
-              }
-              onChange={(e) => handleChange(e, 'currency')}
-
-            >
-              {currencies.map(({ code, id }) => (
-                <MenuItem key={id} id={id} value={code}>
-                  {code}
-                </MenuItem>
-              ))}
-            </Select>
-            Select your currency base
+              <Select
+                labelId='currency-simple-select'
+                id='currency-simple-select'
+                variant={variant}
+                size='small'
+                value={
+                  userProfile.currency && userProfile.currency.code
+                    ? userProfile.currency.code
+                    : ''
+                }
+                onChange={(e) => handleChange(e, 'currency')}
+              >
+                {currencies.map(({ code, id }) => (
+                  <MenuItem key={id} id={id} value={code}>
+                    {code}
+                  </MenuItem>
+                ))}
+              </Select>
+              Select your currency base
             </InputLabel>
- 
           </CardContent>
         </Card>
       </Grid>
 
       {/* Change Password */}
       {/* @todo: make the change password work, yup validations, password match, etc. */}
-      <Grid item xs={12}> 
+      <Grid item xs={12}>
         <Card>
-        <CardHeader title="Change Password" />
-        <CardContent>
-          <InputLabel>
-            Current Password
-         
-            <TextField
-              type="password"
-              label=""
-              variant={variant}
-              onChange={(e) => setState({ currentPassword: e.target.value })}
-              size="small"
-            />
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault()
-              }}
+          <CardHeader title='Change Password' />
+          <CardContent>
+            <InputLabel>
+              Current Password
+              <TextField
+                type='password'
+                label=''
+                variant={variant}
+                onChange={(e) => setState({ currentPassword: e.target.value })}
+                size='small'
+              />
+              <a
+                href='#'
+                onClick={(e) => {
+                  e.preventDefault()
+                }}
               >
-              Forget Password?
-            </a>
+                Forget Password?
+              </a>
             </InputLabel>
-            
+
             {/* @todo: disable popup autofill password / trigger the new password suggestion  */}
             <InputLabel>
               New Password
-            <TextField
-              type="password"
-              label=""
-              variant={variant}
-              onChange={(e) => setState({ newPassword: e.target.value })}
-              size="small"
-            />
-           </InputLabel>
+              <TextField
+                type='password'
+                label=''
+                variant={variant}
+                onChange={(e) => setState({ newPassword: e.target.value })}
+                size='small'
+              />
+            </InputLabel>
 
             {/* @todo: disable popup autofill password / trigger the new password suggestion  */}
-            <InputLabel margin="dense">
+            <InputLabel margin='dense'>
               Verify Password
-            <TextField
-              type="password"
-              label=""
-              variant={variant}
-              onChange={(e) => setState({ verifyPassword: e.target.value })}
-              size="small"
-            />
-                
-            <Button
-              size="small"
-              style={{
-                textTransform: 'none',
-              }}
-              disabled={changePasswordIsDisabled()}
-              onClick={(e) => handleChange(e, 'newPassword')}
-            >
-              Change Password
-            </Button>
+              <TextField
+                type='password'
+                label=''
+                variant={variant}
+                onChange={(e) => setState({ verifyPassword: e.target.value })}
+                size='small'
+              />
+              <Button
+                size='small'
+                style={{
+                  textTransform: 'none',
+                }}
+                disabled={changePasswordIsDisabled()}
+                onClick={(e) => handleChange(e, 'newPassword')}
+              >
+                Change Password
+              </Button>
             </InputLabel>
           </CardContent>
         </Card>
-      </Grid> 
-
-     </Grid> 
+      </Grid>
+    </Grid>
   )
 }
 
