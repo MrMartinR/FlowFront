@@ -32,7 +32,7 @@ export const optionsHeaders = () => {
 let API_URL = "https://api.flowfin.tech";
 
 // the API endpoint
-export const PLATFORMS_URL = `${API_URL}/api/v1/platforms`
+export const ORIGINATORS_URL = `${API_URL}/api/v1/originators`
 
 // // READ
 // export function getPlatforms() {
