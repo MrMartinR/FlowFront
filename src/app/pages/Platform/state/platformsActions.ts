@@ -1,39 +1,19 @@
-import * as requestFromServer from './platformsCRUD'
-import { contactsSlice, callTypes } from './platformsSlice'
+import axios from 'axios';
+import { any } from 'prop-types';
+import { optionsHeaders, PLATFORMS_URL } from './platformsCRUD'
+import { platformsSlice } from './platformsSlice'
 
-// const { actions } = platformsSlice
+const { actions } = platformsSlice;
 
-// fetch all contacts
-export const fetchContacts = () => (dispatch: any) => {
-  dispatch(actions.startCall({ callType: callTypes.list }))
-  return requestFromServer
-    .getAllContacts()
-    .then((response) => {
-      const { data } = response
-      dispatch(actions.contactsFetched({ data }))
-    })
-    .catch((error) => {
-      error.clientMessage = "Can't find Contacts"
-      dispatch(actions.catchError({ error, callType: callTypes.list }))
-    })
-}
-
-// get a single contact
-export const fetchContact = (id: any) => (dispatch: any) => {
-  if (!id) {
-    let error = "Can't find Contact without id"
-    return dispatch(actions.catchError({ error, callType: callTypes.action }))
-  }
-
-  dispatch(actions.startCall({ callType: callTypes.action }))
-  return requestFromServer
-    .getContactById(id)
-    .then((response) => {
-      let contact = response.data
-      dispatch(actions.contactFetched({ contact }))
-    })
-    .catch((error) => {
-      error.clientMessage = "Can't find Contact"
-      dispatch(actions.catchError({ error, callType: callTypes.action }))
-    })
+export const fetchPlatformsList = () => (dispatch: any) => {
+  dispatch(actions.startCall(any))
+      axios.get(PLATFORMS_URL, optionsHeaders())
+      .then(function (response) {
+        console.log(response)
+          return dispatch(actions.platformsReceived(response.data));
+      })
+      .catch(function (error) {
+        console.log(error)
+          return dispatch(actions.catchError(error));
+      });
 }

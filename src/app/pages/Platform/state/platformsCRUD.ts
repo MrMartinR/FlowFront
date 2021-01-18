@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '../../../../redux/store'
 
-const optionsHeaders = () => {
+export const optionsHeaders = () => {
   const {
     auth: {
       user, client, expiry, token,
@@ -23,19 +23,19 @@ const optionsHeaders = () => {
 }
 
 // TODO: define a system to get the right url depending of the environment and place it in a global scope?
-let API_URL;
-if (process.env.NODE_ENV === 'development') {
-  API_URL = 'http://localhost:3001'
-} else if(process.env.NODE_ENV === 'production'){
-  API_URL = "https://api.flowfin.tech";
-}
+// let API_URL;
+// if (process.env.NODE_ENV === 'development') {
+//   API_URL = 'http://localhost:3001'
+// } else if(process.env.NODE_ENV === 'production'){
+//   API_URL = "https://api.flowfin.tech";
+// }
 
-// API_URL = "https://api.flowfin.tech";
+let API_URL = "https://api.flowfin.tech";
 
 // the API endpoint
 export const PLATFORMS_URL = `${API_URL}/api/v1/platforms`
 
-// READ
-export function getAllContacts() {
-  return axios.get(PLATFORMS_URL,  optionsHeaders())
-}
+// // READ
+// export function getPlatforms() {
+//   return axios.get(PLATFORMS_URL,  optionsHeaders())
+// }
