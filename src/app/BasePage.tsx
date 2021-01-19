@@ -8,7 +8,7 @@ import {UserAccountsPage} from './pages/UserAccount'
 import {LendingPage} from './pages/LendingPage'
 import {CurrenciesPage} from './pages/Currency/CurrenciesPage'
 import PlatformsPage from './pages/Platform'
-import {OriginatorsPage} from './pages/Originator'
+import OriginatorsPage from './pages/Originator'
 import {LoansPage} from './pages/Loan'
 
 export default function BasePage() {

@@ -13,12 +13,16 @@ import {
   Chip,
   Grid,
   Avatar,
-  Modal,
   Fab,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Button
 } from "@material-ui/core";
 import { deepOrange, green } from "@material-ui/core/colors";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
+import VerticalLinearStepper from "./ContactStepper"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,40 +51,17 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "45%",
     },
-    paper: {
-      position: "absolute",
-      width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: "2px solid #000",
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
     add: {
       color: theme.palette.getContrastText(green[500]),
       backgroundColor: green[500],
     },
   })
 );
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
 
 export const ContactDetails = (props: any) => {
   const { selectedContact } = props;
   const classes = useStyles();
   const err = "Not Found";
-  const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [add, setAdd] = React.useState(true);
 
@@ -98,24 +79,25 @@ export const ContactDetails = (props: any) => {
     setOpen(false);
   };
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <>
       {add === true ? (
-        <div>
-          <h2 id="simple-modal-title">Add a new Contact</h2>
-          <p id="simple-modal-description">add a new contact form</p>
-        </div>
+        <>
+          <h2 id="simple-modal-title">Add Contact</h2>
+          <VerticalLinearStepper />
+        </>
+        
       ) : (
         <div>
           <h2 id="simple-modal-title">Edit Contact</h2>
           <p id="simple-modal-description">add a edit contact form</p>
         </div>
       )}
-    </div>
+    </>
   );
 
   return (
-    <div>
-      <div>
+    <>
+      <>
         <Fab
           className={classes.add}
           aria-label="add"
@@ -132,20 +114,23 @@ export const ContactDetails = (props: any) => {
         >
           <EditIcon />
         </Fab>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
+        <Dialog open={open} onClose={handleClose} >
+        <DialogContent>
           {body}
-        </Modal>
-      </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="contained">
+            Cancel
+          </Button>
+          
+        </DialogActions>
+      </Dialog>
+      </>
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Grid container className={classes.root}>
-            <Grid container md={12}>
-              <Grid container direction="row" justify="space-evenly">
+            <Grid item md={12}>
+              <Grid direction="row" justify="space-evenly" container >
                 <div style={{ width: "50%", }}>
                   <Avatar variant="square" className={classes.square}>
                     ICON
@@ -238,6 +223,6 @@ export const ContactDetails = (props: any) => {
           <Chip label={`${selectedContact.tags || err}`} />
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 };

@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core/';
+import { Grid, Card, CardContent } from '@material-ui/core/';
 import { connect } from 'react-redux';
-import { DataGrid, ColDef, ValueGetterParams } from '@material-ui/data-grid';
+import { ColDef } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
-import { useDemoData } from '@material-ui/x-grid-data-generator';
 
-import { fetchPlatformslist } from "../../../redux/platforms/actions";
+import { fetchPlatformsList } from "./state/platformsActions";
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
@@ -38,35 +37,33 @@ const columns: ColDef[] = [
 ];
 
 const PlatformsList = (props: any) => {
-  const { platformTable = [], isFetching } = props.platforms
+  const { platformsTable = [], loading } = props.platforms
 
   useEffect(() => {
-    props.fetchPlatformslist();
+    props.fetchPlatformsList();
   }, [])
 
-  if(isFetching) {
+  if(loading) {
     return (
       <div>
         <h1>Loading platforms...</h1>
       </div>
     )
   }
-  // if(platformTable.length > 0) {
-    
-  // }
+
   return (
-    <div className="">
+    <>
       <Grid container direction="column">
         <Card>
           <CardContent>
             <h3>Platforms</h3>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={platformTable} columns={columns} checkboxSelection />
+              <XGrid rows={platformsTable} columns={columns} checkboxSelection />
             </div>
           </CardContent>
         </Card>
       </Grid>
-    </div>
+    </>
   );
 }
 
@@ -78,7 +75,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPlatformslist: () => dispatch(fetchPlatformslist())
+    fetchPlatformsList: () => dispatch(fetchPlatformsList())
   }
 };
 

@@ -27,8 +27,6 @@
 |✅|1|[axios](https://github.com/axios/axios) | Promise based HTTP client for the browser and node.js
 |❗️|0|[clipboard-copy](https://github.com/feross/clipboard-copy) | Lightweight copy to clipboard for the web
 |✅|0|[clsx](https://github.com/lukeed/clsx) | A tiny utility for constructing className strings conditionally.
-|✅|1|[css-box-model](https://github.com/alexreardon/css-box-model#readme) | Get accurate and well named css box model information about an Element
-|✅|0|[date-fns](https://github.com/date-fns/date-fns) | date-fns provides the most comprehensive, yet simple and consistent toolset for manipulating JavaScript dates in a browser & Node.js.|
 |❗️|1|[eslint-config-react-app](https://github.com/facebook/create-react-app) | Shareable ESLint configuration used by Create React App
 |❗️|0|[esm](https://github.com/standard-things/esm) | The world’s most advanced ECMAScript module loader. This fast, production ready, zero dependency loader is all you need to support ECMAScript modules in Node 6+.
 |✅|7|[formik](https://github.com/formium/formik) | Build forms in React, without the tears.|
@@ -44,7 +42,6 @@
 |✅|18|[react-bootstrap](https://github.com/react-bootstrap/react-bootstrap) | Bootstrap 4 components built with React. | Testing |
 |✅|3|[react-bootstrap-table-next](https://github.com/react-bootstrap-table/react-bootstrap-table2) | Next generation of react-bootstrap-table | Testing, Types in another package |
 |❗️|0|[react-bootstrap-table2-paginator](https://github.com/react-bootstrap-table/react-bootstrap-table2) | Next Generation of react-bootstrap-table | Testing, paginator for react-bootstrap-table-next |
-|❗️|6|[react-datepicker](https://github.com/Hacker0x01/react-datepicker) | A simple and reusable Datepicker component for React | Rev |
 |❗️|3|[react-dom](https://github.com/facebook/react) | This package serves as the entry point to the DOM and server renderers for React. | Important |
 |✅|2|[react-draggable](https://github.com/mzabriskie/react-draggable) | A simple component for making elements draggable. | | 
 |✅|2|[react-inlinesvg](https://github.com/gilbarbara/react-inlinesvg) | Load inline, local or remote SVGs in your React components. | | 
@@ -62,37 +59,9 @@
 |✅|1|[redux-saga](https://github.com/redux-saga/redux-saga/tree/master/packages/core) | Library that aims to make application side effects (i.e. asynchronous things like data fetching and impure things like accessing the browser cache) easier to manage | 
 |❗️|1|[sass](https://github.com/sass/dart-sass) | A pure JavaScript implementation of Sass. |
 |❗️|4|[serve-static](https://github.com/expressjs/serve-static) | To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express. | 
+|✅|0|[uuid](https://github.com/uuidjs/uuid) | Generate RFC-compliant UUIDs in JavaScript | 
 |❗️|0|[use-memo-one](https://github.com/alexreardon/use-memo-one) | useMemo and useCallback with a stable cache (semantic guarantee) | 
 |❗️|7|[yup](https://github.com/jquense/yup) | Yup is a JavaScript schema builder for value parsing and validation. |
-
-
-[TODO...]
-
-Dependencies extra added for Kaban-Trello
-```
-info Direct dependencies
-└─ react-trello@2.2.9
-info All dependencies
-├─ @emotion/is-prop-valid@0.8.8
-├─ autosize@4.0.2
-├─ camelize@1.0.0
-├─ css-color-keywords@1.0.0
-├─ css-to-react-native@3.0.0
-├─ deep-diff@0.3.8
-├─ immutability-helper@2.9.1
-├─ just-curry-it@3.1.0
-├─ react-popopo@2.1.9
-├─ react-trello@2.2.9
-├─ reduce-reducers@0.4.3
-├─ redux-actions@2.6.5
-├─ redux-logger@3.0.6
-├─ shallowequal@1.1.0
-├─ to-camel-case@1.0.0
-├─ to-no-case@1.0.2
-├─ to-space-case@1.0.0
-└─ trello-smooth-dnd@1.0.0
-└─ styled-components@5.2.1
-```
 
 ## Development
 ### Types
@@ -100,6 +69,7 @@ info All dependencies
 
 | Type  | Name                | Description                        | 
 | ----- |-------------------- |------------------------------------| 
+
 ||[@types/jest]() | 
 ||[@types/node]() | 
 ||[@types/object-path]() | 
@@ -110,14 +80,15 @@ info All dependencies
 ||[@types/react-redux]() | 
 ||[@types/react-router-dom]() | 
 ||[@types/react-virtualized]() | 
-||[@typescript-eslint/eslint-plugin]() | 
-||[@typescript-eslint/parser]() | 
+||[@types/uuid]() | 
+
 
 ### DevDependencies
 
 
 | Type  | Name                | Description                        | 
 | ----- |-------------------- |------------------------------------| 
+|✅|4|[@microsoft/tsdoc](https://github.com/microsoft/tsdoc) | This library is the reference implementation of a parser for the TSDoc syntax. Using this library is an easy way to ensure that your tool is 100% compatible with the standard. |
 ||[babel-eslint]() | 
 ||[eslint]() | 
 ||[eslint-config-airbnb]() | 
@@ -126,9 +97,13 @@ info All dependencies
 ||[eslint-plugin-jsx-a11y]() | 
 ||[eslint-plugin-react]() | 
 ||[eslint-plugin-react-hooks]() | 
+|✅|11|[typedoc](https://github.com/TypeStrong/TypeDoc) | Documentation generator for TypeScript projects. |
 ||[typescript]() | 
+||[@typescript-eslint/eslint-plugin]() | 
+||[@typescript-eslint/parser]() | 
 ||[webpack-cli]() | 
 ||[webpack-messages]() | 
+
 
 
 ```
