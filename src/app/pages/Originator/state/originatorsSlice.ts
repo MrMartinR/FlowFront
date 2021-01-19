@@ -18,7 +18,7 @@ export const originatorsSlice = createSlice({
       state.originatorsTable = action.payload.data
     },
     catchError: (state, action) => {
-      // state.loading = false,
+      state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
     }
   }
