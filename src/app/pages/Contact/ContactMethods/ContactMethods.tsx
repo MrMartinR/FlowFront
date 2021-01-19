@@ -26,6 +26,8 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import StarIcon from "@material-ui/icons/Star";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
+import AddContactMethodForm from "./AddContactMethodForm"
+import EditContactMethodForm from "./EditContactMethodForm"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,12 +55,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const ContactMethod = (props: any) => {
-  const { methodLoading, listMethods } = props;
+  const { methodLoading, listMethods, selectedContact} = props;
   const classes = useStyles();
   const err = "Not Found";
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const [open, setOpen] = React.useState(false);
   const [add, setAdd] = React.useState(true);
+  const [edit, setEdit] = React.useState(null);
 
   const handleChange = (panel: string) => (
     event: React.ChangeEvent<{}>,
@@ -66,12 +69,13 @@ export const ContactMethod = (props: any) => {
   ) => {
     setExpanded(isExpanded ? panel : false);
   };
-  const handleOpen = (e: any, value: any) => {
+  const handleOpen = (e: any, value: any, itm= null) => {
     if (value === "add") {
       setAdd(true);
     }
     if (value === "edit") {
       setAdd(false);
+      setEdit(itm)
     }
     setOpen(true);
   };
@@ -84,15 +88,16 @@ export const ContactMethod = (props: any) => {
       {add === true ? (
         <>
           <h2 id="simple-modal-title">Add Contact methods</h2>
-          <p>add form</p>
-          
+
+          <AddContactMethodForm selectedContact={selectedContact}/>
+
         </>
         
       ) : (
-        <div>
+        <>
           <h2 id="simple-modal-title">Edit Contact methods</h2>
-          <p id="simple-modal-description">add a edit  form</p>
-        </div>
+          <EditContactMethodForm selectedContact={selectedContact} edit={edit}/>
+        </>
       )}
     </>
   );
@@ -107,13 +112,7 @@ export const ContactMethod = (props: any) => {
         >
           <AddIcon />
         </Fab>
-        <Fab
-          className={classes.add}
-          aria-label="edit"
-          onClick={(e) => handleOpen(e, "edit")}
-        >
-          <EditIcon />
-        </Fab>
+        
         <Dialog open={open} onClose={handleClose} >
         <DialogContent>
           {body}
@@ -145,6 +144,13 @@ export const ContactMethod = (props: any) => {
               <Typography className={classes.secondaryHeading}>
                 {itm.kind || err}
               </Typography>
+              <Fab
+          className={classes.add}
+          aria-label="edit"
+          onClick={(e) => handleOpen(e, "edit", itm)}
+        >
+          <EditIcon />
+        </Fab>
             </AccordionSummary>
             <AccordionDetails>
               <List
