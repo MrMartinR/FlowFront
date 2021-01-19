@@ -14,6 +14,7 @@ import Logo from "../../../../common/media/flow-logo.svg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormControl } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 /**
  * User login component
@@ -126,6 +127,14 @@ function Login(props: any) {
                 Sign In
                 {loading}
               </Button>
+              <Link to="/auth/registration">
+                <Button
+                  type="button"
+                  className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"
+                >
+                  Sign Up
+                </Button>
+              </Link>
             </FormControl>
           </Grid>
         </form>
