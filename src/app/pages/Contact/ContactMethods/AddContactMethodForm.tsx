@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, MenuItem } from "@material-ui/core";
 /* eslint-disable no-restricted-imports*/
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Alert from '@material-ui/lab/Alert';
-
+import * as contactMethodsActions from "./state/contactMethodsActions";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -65,13 +66,26 @@ export const AddContactMethodForm = (props: any) => {
   const { register, handleSubmit, errors } = useForm();
   const classes = useStyles();
   const [type, setType] = React.useState('Email');
+  const [formData, setFormData] = React.useState([] as any);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value);
   };
+  let MethodDispatch = useDispatch()
+    useEffect(() => {
+      var size = Object.keys(formData).length
+      if (size > 0) {
+        MethodDispatch(contactMethodsActions.createContactMethods(formData));
+      }
+         
+    }, [MethodDispatch, formData]);
+
+  
+
   const onSubmit = (data: any) => {
     data["kind"] = type
     data["contact_id"] = selectedContact.id
-    console.log("add form",data);
+    data["visibility"] = selectedContact.visibility
+    setFormData(data)
   }
   
   

@@ -52,7 +52,6 @@ export const Contacts = () => {
   }
   GetAllContacts()
 
-  // console.log(methodsState)
 
   useEffect(() => {
     if (
