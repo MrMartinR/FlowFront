@@ -79,8 +79,8 @@ export const contactMethodsSlice = createSlice({
       const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.contactMethodsTable.entities.push(data.data)
-      state.contactMethodsTable.success = data.success
+      state.contactMethodsTable.entities.push(data[0])
+      state.contactMethodsTable.success = true
     },
 
 

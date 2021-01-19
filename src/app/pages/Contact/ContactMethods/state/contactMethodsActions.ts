@@ -29,7 +29,7 @@ export const fetchContactMethods = (id: any) => (dispatch: any) => {
 * this will update the contactMethodsFetched states
 */
 export const createContactMethods = (data: any) => (dispatch: any) => {
-  dispatch(actions.startCall({ callType: callTypes.action}))
+  dispatch(actions.startCall({ callType: callTypes.list}))
   return requestFromServer
     .createContactMethods(data)
     .then((response) => {
