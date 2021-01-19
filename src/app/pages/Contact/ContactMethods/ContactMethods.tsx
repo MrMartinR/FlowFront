@@ -161,7 +161,6 @@ export const ContactMethod = (props: any) => {
                 <ListItem button>
                   <ListItemIcon >
                     <StarIcon />
-                      
                   </ListItemIcon>
                   <ListItemText primary={itm.data} />
                   
@@ -172,6 +171,12 @@ export const ContactMethod = (props: any) => {
                   </ListItemIcon>
                   <ListItemText primary="Visibility" />
                   {itm.visibility}
+                </ListItem>
+                <ListItem button >
+                  <ListItemIcon >
+                    Notes
+                  </ListItemIcon>
+                  {itm.notes || "No Notes Found"}
                 </ListItem>
               </List>
             </AccordionDetails>
