@@ -34,6 +34,11 @@ type RegisterType = {
   password: String;
 };
 
+/**
+ * User registration component
+ * @param {object} props
+ * @author Zeeshan A
+ */
 function Registration(props: any) {
   const [loading, setLoading] = useState(false);
 
