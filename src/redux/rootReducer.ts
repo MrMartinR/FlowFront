@@ -7,10 +7,10 @@ import { contactsSlice } from '../app/pages/Contact/state/contactsSlice'
 import { accountsSlice } from './accounts/accountsSlice'
 import { countriesSlice } from './countries/countriesSlice'
 import { currenciesSlice } from './currencies/currenciesSlice'
-import platforms  from './platforms/platforms'
-import originators  from './originators/originators'
 import { iconsSlice } from './icons/iconsSlice'
 import { contactMethodsSlice } from '../app/pages/Contact/ContactMethods/state/contactMethodsSlice'
+import { platformsSlice } from '../app/pages/Platform/state/platformsSlice'
+import { originatorsSlice } from '../app/pages/Originator/state/originatorsSlice'
 
 export const rootReducer = combineReducers({
   userAccounts: userAccountsSlice.reducer,
@@ -20,8 +20,8 @@ export const rootReducer = combineReducers({
   auth: auth.reducer,
   countries: countriesSlice.reducer,
   currencies: currenciesSlice.reducer,
-  platforms: platforms,
-  originators: originators,
+  platforms: platformsSlice.reducer,
+  originators: originatorsSlice.reducer,
   icons: iconsSlice.reducer,
 })
 export type RootState = ReturnType<typeof rootReducer>

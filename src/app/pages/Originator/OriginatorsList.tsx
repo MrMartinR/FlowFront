@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Grid, Card, CardContent } from '@material-ui/core/';
 import { connect } from 'react-redux';
-import { ColDef } from '@material-ui/data-grid';
-import { XGrid, LicenseInfo } from '@material-ui/x-grid';
+import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid';
 
-import { fetchOriginators } from "../../../redux/originators/actions";
+import { fetchOriginatorsList } from "./state/originatorsActions";
+
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
@@ -13,16 +13,22 @@ LicenseInfo.setLicenseKey(
 const columns: ColDef[] = [
   // column definition format here
   { field: 'id', headerName: 'Id', width: 70 },
-];
+  { field: 'contact', headerName: 'Contact', width: 70 },
+  { field: 'customer_category', headerName: 'Customer category', width: 220 },
+  { field: 'product_category_bussiness', headerName: 'Product category business', width: 180 },
+  { field: 'product_category_consumer', headerName: 'Productor category consumer', width: 240 },
+  { field: 'apr', headerName: 'Apr', width: 70 },
+] as any;
+
 
 const OriginatorsList = (props: any) => {
-  const { originators = [], isFetching, update } = props.originators
-
+  const { originatorsTable = [], loading } = props.originators
+  
   useEffect(() => {
-    props.fetchOriginators();
-  }, [update])
+    props.fetchOriginatorsList();
+  }, [])
 
-  if(isFetching) {
+  if(loading) {
     return (
       <div>
         <h1>Loading originators...</h1>
@@ -37,7 +43,7 @@ const OriginatorsList = (props: any) => {
           <CardContent>
             <h3>Originators</h3>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={originators} columns={columns} checkboxSelection />
+              <XGrid rows={originatorsTable} columns={columns} checkboxSelection />
             </div>
           </CardContent>
         </Card>
@@ -54,7 +60,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchOriginators: () => dispatch(fetchOriginators())
+    fetchOriginatorsList: () => dispatch(fetchOriginatorsList())
   }
 };
 
