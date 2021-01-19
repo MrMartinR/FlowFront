@@ -1,19 +1,15 @@
-import React, {useEffect, useState} from "react";
-import { useForm } from "react-hook-form";
-import { TextField, Button, Grid, MenuItem } from "@material-ui/core";
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { TextField, Button, Grid, MenuItem } from '@material-ui/core'
 /* eslint-disable no-restricted-imports*/
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Alert from '@material-ui/lab/Alert';
-import * as contactMethodsActions from "./state/contactMethodsActions";
-import { useDispatch } from "react-redux";
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      margin: 5,
-    },
-    
-  })
-);
+import * as contactMethodsActions from './state/contactMethodsActions'
+import { useDispatch } from 'react-redux'
+
+/**
+ * @rev  Tyred to find the substitute for <form tag, when you replate it with the material UI,
+ * send a message to Mohd and ask him to change the one he has in the Login
+ */
+
 const types = [
   {
     value: 'Twitter',
@@ -59,64 +55,56 @@ const types = [
     value: 'Address',
     label: 'Address',
   },
-];
+]
 
 export const AddContactMethodForm = (props: any) => {
-  const {selectedContact} = props
-  const { register, handleSubmit, errors } = useForm();
-  const classes = useStyles();
-  const [type, setType] = React.useState('Email');
-  const [formData, setFormData] = React.useState([] as any);
+  const { selectedContact } = props
+  const { register, handleSubmit, errors } = useForm()
+  const [type, setType] = React.useState('Email')
+  const [formData, setFormData] = React.useState([] as any)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setType(event.target.value);
-  };
+    setType(event.target.value)
+  }
   let MethodDispatch = useDispatch()
-    useEffect(() => {
-      var size = Object.keys(formData).length
-      if (size > 0) {
-        MethodDispatch(contactMethodsActions.createContactMethods(formData));
-      }
-         
-    }, [MethodDispatch, formData]);
-
-  
+  useEffect(() => {
+    var size = Object.keys(formData).length
+    if (size > 0) {
+      MethodDispatch(contactMethodsActions.createContactMethods(formData))
+    }
+  }, [MethodDispatch, formData])
 
   const onSubmit = (data: any) => {
-    data["kind"] = type
-    data["contact_id"] = selectedContact.id
-    data["visibility"] = selectedContact.visibility
+    data['kind'] = type
+    data['contact_id'] = selectedContact.id
+    data['visibility'] = selectedContact.visibility
     setFormData(data)
   }
-  
-  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container direction="column" >
-      <TextField
-          name="contact"
-          label="Contact name"
-          variant="filled"
-          value={selectedContact.trade_name || selectedContact.name }
-          className={classes.root}
+      <Grid container direction='column'>
+        <TextField
+          name='contact'
+          label='Contact name'
+          variant='filled'
+          value={selectedContact.trade_name || selectedContact.name}
         ></TextField>
         <TextField
-          name="visibility"
-          label="Visibility"
-          variant="filled"
+          name='visibility'
+          label='Visibility'
+          variant='filled'
           value={selectedContact.visibility}
-          className={classes.root}
         ></TextField>
 
-      <TextField
+        <TextField
           select
-          name="kind"
-          label="Type"
+          name='kind'
+          label='Type'
           value={type}
           onChange={handleChange}
-          helperText="Please select contact type"
+          helperText='Please select contact type'
           inputRef={register}
-          variant="filled"
+          variant='filled'
         >
           {types.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -125,29 +113,25 @@ export const AddContactMethodForm = (props: any) => {
           ))}
         </TextField>
         <TextField
-          name="data"
-          label="Data"
-          variant="filled"
+          name='data'
+          label='Data'
+          variant='filled'
           inputRef={register}
-          className={classes.root}
         />
-       
+
         <TextField
-          name="notes"
-          label="Notes"
-          variant="filled"
-          placeholder="Notes"
+          name='notes'
+          label='Notes'
+          variant='filled'
+          placeholder='Notes'
           inputRef={register}
-          color="secondary"
-          className={classes.root}
+          color='secondary'
         />
-        <br />
-        <Button type="submit" variant="contained" color="secondary">
+        <Button type='submit' variant='contained' color='secondary'>
           Submit
         </Button>
-        <br />
       </Grid>
     </form>
-  );
-};
-export default AddContactMethodForm;
+  )
+}
+export default AddContactMethodForm
