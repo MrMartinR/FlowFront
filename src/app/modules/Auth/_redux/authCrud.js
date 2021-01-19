@@ -39,7 +39,7 @@ export function login(email, password) {
   )
 }
 
-export function register(email, fullname, username, password) {
+export function registeration(email, fullname, username, password) {
   return axios.post(REGISTER_URL, {
     user: {
       email, fullname, username, password,

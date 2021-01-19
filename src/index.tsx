@@ -13,6 +13,7 @@ import {
   LayoutProvider,
   SplashScreenProvider,
 } from './common/layout'
+import {IntlProvider} from 'react-intl'
 // import 'react-virtualized/styles.css'
 
 /**
@@ -32,7 +33,9 @@ ReactDOM.render(
   <React.StrictMode>
       <LayoutProvider>
           <SplashScreenProvider>
+          <IntlProvider locale="en">
             <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+            </IntlProvider>
           </SplashScreenProvider>
       </LayoutProvider>
   </React.StrictMode>,
