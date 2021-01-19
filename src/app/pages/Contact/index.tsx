@@ -52,7 +52,6 @@ export const Contacts = () => {
   }
   GetAllContacts()
 
-  // console.log(methodsState)
 
   useEffect(() => {
     if (
@@ -123,7 +122,9 @@ export const Contacts = () => {
           >
             <ContactMethod 
             listMethods={listMethods}
-            methodLoading={methodLoading} />
+            methodLoading={methodLoading}
+            selectedContact={selectedContact}
+             />
           </Grid>
         </Grid>
       </Grid>
