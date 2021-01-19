@@ -17,3 +17,18 @@ export const fetchPlatformsList = () => (dispatch: any) => {
           return dispatch(actions.catchError(error));
       });
 }
+
+export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
+  dispatch(actions.startCall(any))
+      axios.get(`${PLATFORMS_URL}/${id}`, optionsHeaders())
+      .then(function (response) {
+        console.log(response)
+          return dispatch(actions.platformDetails(response.data));
+      })
+      .catch(function (error) {
+        console.log(error)
+          return dispatch(actions.catchError(error));
+      });
+}
+
+

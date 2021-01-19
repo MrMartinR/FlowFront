@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialPlatformsState = {
   loading: false,
   platformsTable: [],
+  platformDetails: null,
   error: null as any,
 }
 
@@ -18,8 +19,12 @@ export const platformsSlice = createSlice({
       state.platformsTable = action.payload.data
     },
     catchError: (state, action) => {
-      // state.loading = false,
+      state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
+    },
+    platformDetails: (state, action) => {
+      state.loading = false
+      state.platformDetails = action.payload.data
     }
   }
 
