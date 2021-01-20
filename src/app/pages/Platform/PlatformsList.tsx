@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { Grid, Card, CardContent } from '@material-ui/core/';
+import { Grid, Card, CardContent, Typography } from '@material-ui/core/';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { ColDef } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 
@@ -36,29 +37,41 @@ const columns: ColDef[] = [
   { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 130 },
 ];
 
+
 const PlatformsList = (props: any) => {
   const { platformsTable = [], loading } = props.platforms
-
+  
   useEffect(() => {
     props.fetchPlatformsList();
   }, [])
+  
+  const linkTo = useHistory();
+  const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
 
   if(loading) {
     return (
-      <div>
-        <h1>Loading platforms...</h1>
-      </div>
+      <>
+        <Typography variant="h5">
+            Loading platforms...
+        </Typography>
+      </>
     )
   }
-
   return (
     <>
+      <Typography variant="h3">
+          Platform 
+      </Typography>     
       <Grid container direction="column">
         <Card>
           <CardContent>
-            <h3>Platforms</h3>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={platformsTable} columns={columns} checkboxSelection />
+              <XGrid 
+                rows={platformsTable} 
+                columns={columns} 
+                onRowClick={handleClick}
+                disableMultipleSelection={true}
+              />
             </div>
           </CardContent>
         </Card>
@@ -75,7 +88,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPlatformsList: () => dispatch(fetchPlatformsList())
+    fetchPlatformsList: () => dispatch(fetchPlatformsList()),
   }
 };
 

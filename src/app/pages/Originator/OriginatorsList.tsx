@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid, Card, CardContent } from '@material-ui/core/';
+import { Grid, Card, CardContent, Typography } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid';
 
@@ -30,20 +30,28 @@ const OriginatorsList = (props: any) => {
 
   if(loading) {
     return (
-      <div>
-        <h1>Loading originators...</h1>
-      </div>
+      <>
+        <Typography variant="h5">
+            Loading originators...
+        </Typography>
+      </>
     )
   }
 
   return (
     <>
+      <Typography variant="h3">
+          Originators 
+      </Typography> 
       <Grid container direction="column">
         <Card>
           <CardContent>
-            <h3>Originators</h3>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={originatorsTable} columns={columns} checkboxSelection />
+              <XGrid 
+                rows={originatorsTable} 
+                columns={columns} 
+                disableMultipleSelection={true} 
+              />
             </div>
           </CardContent>
         </Card>
