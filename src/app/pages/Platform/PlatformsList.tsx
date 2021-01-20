@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid, Card, CardContent } from '@material-ui/core/';
+import { Grid, Card, CardContent, Typography } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ColDef } from '@material-ui/data-grid';
@@ -47,35 +47,31 @@ const PlatformsList = (props: any) => {
 
   // const handleClick = (e: any) => (<Link to={`/platforms/${e.row.id}`}></Link>)
   const handleClick = (e: any) => console.log(e.row)  
-  // const platformslist = platformsTable.map((row: any) => (<Link to={`/platforms/${row.id}`}>{row}</Link>) )
   
   if(loading) {
     return (
-      <div>
-        <h1>Loading platforms...</h1>
-      </div>
+      <>
+        <Typography variant="h5">
+            Loading platforms...
+        </Typography>
+      </>
     )
   }
   return (
     <>
+      <Typography variant="h3">
+          Platform 
+      </Typography>     
       <Grid container direction="column">
         <Card>
           <CardContent>
-            <h3>Platforms</h3>
             <div style={{ height: 600, width: '100%' }}>
               <XGrid 
-                // rows={platformslist} 
                 rows={platformsTable} 
                 columns={columns} 
                 onRowClick={handleClick}
                 disableMultipleSelection={true}
               />
-              {/* <XGrid 
-                rows={platformsTable} 
-                columns={columns} 
-                checkboxSelection 
-                onRowClick={(e: any) => (<Link to={`/platforms/${e.row.id}`} />)} 
-              /> */}
             </div>
           </CardContent>
         </Card>

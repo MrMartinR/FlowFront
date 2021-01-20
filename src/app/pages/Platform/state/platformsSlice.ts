@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialPlatformsState = {
   loading: false,
   platformsTable: [],
-  platformDetails: null,
+  platformDetails: {},
   error: null as any,
 }
 
@@ -24,7 +24,7 @@ export const platformsSlice = createSlice({
     },
     platformDetailsReceived: (state, action) => {
       state.loading = false
-      state.platformDetails = action.payload.data
+      state.platformDetails = action.payload.data[0]
     }
   }
 
