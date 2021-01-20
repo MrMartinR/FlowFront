@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid, Card, CardContent, Typography } from '@material-ui/core/';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ColDef } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 
@@ -40,14 +40,14 @@ const columns: ColDef[] = [
 
 const PlatformsList = (props: any) => {
   const { platformsTable = [], loading } = props.platforms
-
+  
   useEffect(() => {
     props.fetchPlatformsList();
   }, [])
-
-  // const handleClick = (e: any) => (<Link to={`/platforms/${e.row.id}`}></Link>)
-  const handleClick = (e: any) => console.log(e.row)  
   
+  const linkTo = useHistory();
+  const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
+
   if(loading) {
     return (
       <>

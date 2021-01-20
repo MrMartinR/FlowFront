@@ -6,10 +6,11 @@ import { fetchPlatformDetails } from "./state/platformsActions";
 
 
 const PlatformDetailsPage = (props: any) => {
+
     const { platformDetails, loading } = props.platforms
     const { match: { params } } = props
 
-   const {
+    const {
        account_category,
        cashflow_options,
        category,
@@ -57,8 +58,12 @@ const PlatformDetailsPage = (props: any) => {
                 <Grid item xs={8}>
                     <Card variant="outlined">
                         <CardContent>
+                            <Typography>
+                                Platform id: {id}
+                            </Typography>
                             <Typography variant="h5" component="h3">
-                                Contact: {contact.trade_name}
+                                {/* Contact: {contact.trade_name} */}
+                                Contact: {contact}
                             </Typography>
                             <Typography>
                                 Contact id: {contact_id}
