@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid, Card, CardContent } from '@material-ui/core/';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ColDef } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 
@@ -36,6 +37,7 @@ const columns: ColDef[] = [
   { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 130 },
 ];
 
+
 const PlatformsList = (props: any) => {
   const { platformsTable = [], loading } = props.platforms
 
@@ -43,6 +45,10 @@ const PlatformsList = (props: any) => {
     props.fetchPlatformsList();
   }, [])
 
+  // const handleClick = (e: any) => (<Link to={`/platforms/${e.row.id}`}></Link>)
+  const handleClick = (e: any) => console.log(e.row)  
+  // const platformslist = platformsTable.map((row: any) => (<Link to={`/platforms/${row.id}`}>{row}</Link>) )
+  
   if(loading) {
     return (
       <div>
@@ -50,7 +56,6 @@ const PlatformsList = (props: any) => {
       </div>
     )
   }
-
   return (
     <>
       <Grid container direction="column">
@@ -58,7 +63,19 @@ const PlatformsList = (props: any) => {
           <CardContent>
             <h3>Platforms</h3>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={platformsTable} columns={columns} checkboxSelection />
+              <XGrid 
+                // rows={platformslist} 
+                rows={platformsTable} 
+                columns={columns} 
+                onRowClick={handleClick}
+                disableMultipleSelection={true}
+              />
+              {/* <XGrid 
+                rows={platformsTable} 
+                columns={columns} 
+                checkboxSelection 
+                onRowClick={(e: any) => (<Link to={`/platforms/${e.row.id}`} />)} 
+              /> */}
             </div>
           </CardContent>
         </Card>
@@ -75,7 +92,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPlatformsList: () => dispatch(fetchPlatformsList())
+    fetchPlatformsList: () => dispatch(fetchPlatformsList()),
   }
 };
 

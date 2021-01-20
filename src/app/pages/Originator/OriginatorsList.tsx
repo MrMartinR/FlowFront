@@ -21,6 +21,13 @@ const columns: ColDef[] = [
 ] as any;
 
 
+// const columnsMap = columns.map((column) => {
+//   if (column.field === 'contact') {
+//     return 'trade_name'
+//   } else return column
+// })
+
+
 const OriginatorsList = (props: any) => {
   const { originatorsTable = [], loading } = props.originators
   
@@ -43,7 +50,11 @@ const OriginatorsList = (props: any) => {
           <CardContent>
             <h3>Originators</h3>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={originatorsTable} columns={columns} checkboxSelection />
+              <XGrid 
+                rows={originatorsTable} 
+                columns={columns} 
+                disableMultipleSelection={true} 
+              />
             </div>
           </CardContent>
         </Card>

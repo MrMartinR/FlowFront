@@ -22,7 +22,7 @@ export const platformsSlice = createSlice({
       state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
     },
-    platformDetails: (state, action) => {
+    platformDetailsReceived: (state, action) => {
       state.loading = false
       state.platformDetails = action.payload.data
     }
@@ -30,4 +30,4 @@ export const platformsSlice = createSlice({
 
 })
 
-export const { startCall, platformsReceived, catchError } = platformsSlice.actions
+export const { startCall, platformsReceived, catchError, platformDetailsReceived } = platformsSlice.actions
