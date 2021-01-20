@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 // import Util from '../../../utils'
+var lodash = require('lodash');
 
 const initialContactsState = {
   listLoading: true,
@@ -74,13 +75,61 @@ export const contactMethodsSlice = createSlice({
     * set error to null, none occured
     * set success to true 
     * push data into entities
+    * condition to check if status was true
+    * if false update errors with the error message
     */
     contactMethodsCreate: (state, action) => {
-      const { data } = action.payload
-      state.listLoading = false
-      state.error = null
-      state.contactMethodsTable.entities.push(data[0])
-      state.contactMethodsTable.success = true
+      const { data, success } = action.payload
+      if (success === true) {
+        state.listLoading = false
+        state.error = null
+        state.contactMethodsTable.entities.unshift(data[0])
+        state.contactMethodsTable.success = true
+        
+      }
+       else {
+        state.listLoading = false
+        state.error = action.payload.message
+        state.contactMethodsTable.success = false
+      }
+      
+    },
+    /*
+    * STATE(answered)
+    * Update an entry using the update form
+    * get the data from the payload
+    * extract the id and find the entry in state.contactMethodsTable.entities
+    * delete it
+    * push the new data in the state.contactMethodsTable.entities
+    *
+    * approach justification
+    * prevent a new fetch of all data and only push the edited data
+    *
+    */
+    contactMethodsUpdate: (state, action) => {
+      const { data, success } = action.payload
+      if (success === true) {
+        let get_id = data[0].id
+        let newState = []
+        lodash.find(state.contactMethodsTable.entities,function(o: any){
+          if(o.id !== get_id){
+            newState.push(o)
+          }
+        })
+        newState.unshift(data[0])
+        state.listLoading = false
+        state.error = null
+        state.contactMethodsTable.entities= newState
+        state.contactMethodsTable.success = success
+        
+      }
+       else {
+        state.listLoading = false
+        state.error = action.payload.message
+        state.contactMethodsTable.success = success
+      }
+
+      
     },
 
 

@@ -124,6 +124,7 @@ export const Contacts = () => {
             listMethods={listMethods}
             methodLoading={methodLoading}
             selectedContact={selectedContact}
+            methodsState={methodsState}
              />
           </Grid>
         </Grid>

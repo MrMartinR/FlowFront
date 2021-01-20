@@ -41,3 +41,22 @@ export const createContactMethods = (data: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
 }
+/*
+* update the contact method 
+* data: from the edit submission form
+* updateContactMethods to trigger the promise
+* contactMethodsUpdate to update the state
+*/
+export const updateContactMethods = (data: any, id: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.list}))
+  return requestFromServer
+    .updateContactMethods(data, id)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.contactMethodsUpdate(data))
+    })
+    .catch((error)  => {
+      error.clientMessage = "Can't find contact methods"
+      dispatch(actions.catchError({ error, callType: callTypes.list }))
+    })
+}

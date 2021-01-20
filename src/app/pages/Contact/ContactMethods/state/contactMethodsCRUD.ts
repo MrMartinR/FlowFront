@@ -11,9 +11,13 @@ if (process.env.NODE_ENV === 'development') {
   API_URL = "https://api.flowfin.tech";
 
 }
-export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`;
-// READ
 
+export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`;
+
+/*
+* promise function to process the axios get given contact id
+* sends header/ authorization 
+*/
 export function getContactMethods(contactsId: any) {
   const { auth: { user, client, expiry, token, }, } = store.getState()
   return axios.get(`${CONTACT_METHODS_URL}`, {
@@ -29,7 +33,10 @@ export function getContactMethods(contactsId: any) {
     },
   });
 }
-
+/*
+* promise function to process the axios post given data
+* sends header/ authorization 
+*/
 export function createContactMethods(data: any) {
   const { auth: { user, client, expiry, token } } = store.getState()
   const form = {
@@ -37,6 +44,29 @@ export function createContactMethods(data: any) {
   }
 
   return axios.post(`${CONTACT_METHODS_URL}`,
+    form,
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'access-token': token,
+        'token-type': 'Bearer',
+        client,
+        expiry,
+        uid: user.uid,
+      },
+    });
+}
+/*
+* promise function to process the axios puts given data
+* sends header/ authorization 
+*/
+export function updateContactMethods(data: any, id: any) {
+  const { auth: { user, client, expiry, token } } = store.getState()
+  const form = {
+    contact_method: data 
+  }
+
+  return axios.put(`${CONTACT_METHODS_URL}/${id}`,
     form,
     {
       headers: {
