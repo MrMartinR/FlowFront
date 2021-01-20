@@ -1,32 +1,44 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
-import React, {useState} from 'react'
-import {useFormik} from 'formik'
-import {connect} from 'react-redux'
-import {Link, Redirect} from 'react-router-dom'
+import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
 import * as Yup from 'yup'
-import {injectIntl} from 'react-intl'
-import {TextField} from '@material-ui/core'
+import { injectIntl } from 'react-intl'
+import { TextField } from '@material-ui/core'
 import * as auth from '../_redux/authRedux'
-import {requestPassword} from '../_redux/authCrud'
+import { useForm } from "react-hook-form";
+import { requestPassword } from '../_redux/authCrud'
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const initialValues = {
   email: '',
 }
 
-function ForgotPassword(props) {
-  const {intl} = props
+type PasswordType = {
+  email: String; 
+};
+
+function ForgotPassword(props: any) {
+  const { intl } = props
   const [isRequested, setIsRequested] = useState(false)
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .email('Wrong email format')
       .min(3, 'Minimum 3 symbols')
       .max(50, 'Maximum 50 symbols')
-      .required(
-        intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
-        })
-      ),
+      .required("Required"),
+    // .required(
+    //   intl.formatMessage({
+    //     id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+    //   })
+    // ),
   })
+
+  const { register, handleSubmit, errors, formState } = useForm({
+    resolver: yupResolver(ForgotPasswordSchema),
+    defaultValues: initialValues,
+  });
 
   // const getInputClasses = (fieldname) => {
   //   if (formik.touched[fieldname] && formik.errors[fieldname]) {
@@ -40,34 +52,23 @@ function ForgotPassword(props) {
   //   return "";
   // };
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: ForgotPasswordSchema,
-    onSubmit: (values, {setStatus, setSubmitting}) => {
-      requestPassword(values.email)
-        .then((res) => {
-          setIsRequested(true)
-          localStorage.setItem('forgot_pwd_notif', res.data.message)
-        })
-        .catch(() => {
-          setIsRequested(false)
-          localStorage.setItem('forgot_pwd_notif', null)
-          setSubmitting(false)
-          setStatus(
-            intl.formatMessage(
-              {id: 'AUTH.VALIDATION.NOT_FOUND'},
-              {name: values.email}
-            )
-          )
-        })
-    },
-  })
-
+  const onSubmit = ({ email }: PasswordType) => {
+    requestPassword(email)
+      .then((res) => {
+        setIsRequested(true)
+        localStorage.setItem('forgot_pwd_notif', res.data.message)
+      })
+      .catch(() => {
+        setIsRequested(false)
+        localStorage.setItem('forgot_pwd_notif', '')
+      })
+  }
+ 
   return (
     <>
       {isRequested && <Redirect to='/auth' />}
       {!isRequested && (
-        <div className='login-form login-forgot' style={{display: 'block'}}>
+        <div className='login-form login-forgot' style={{ display: 'block' }}>
           <div className='text-center mb-10 mb-lg-20'>
             <h3 className='font-size-h1'>Forgotten Password ?</h3>
             <div className='text-muted font-weight-bold'>
@@ -75,38 +76,36 @@ function ForgotPassword(props) {
             </div>
           </div>
           <form
-            onSubmit={formik.handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className='form fv-plugins-bootstrap fv-plugins-framework animated animate__animated animate__backInUp'
           >
-            {formik.status && (
+            {/* {formik.status && (
               <div className='mb-10 alert alert-custom alert-light-danger alert-dismissible'>
                 <div className='alert-text font-weight-bold'>
                   {formik.status}
                 </div>
               </div>
-            )}
+            )} */}
             <div className='form-group fv-plugins-icon-container'>
               <TextField
                 // id="outlined-uncontrolled"
                 label='Email'
                 margin='normal'
                 variant='outlined'
-                autoComplete
+                // autoComplete
                 type='email'
-                {...formik.getFieldProps('email')}
+                name='email'
+                inputRef={register()}
+              // {...formik.getFieldProps('email')}
               />
-              {formik.touched.email && formik.errors.email ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.email}</div>
-                </div>
-              ) : null}
             </div>
+            <span> {errors.email && errors.email.message}</span>
             <div className='form-group d-flex flex-wrap flex-center'>
               <button
                 id='kt_login_forgot_submit'
                 type='submit'
                 className='btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4'
-                disabled={formik.isSubmitting}
+                disabled={formState.isSubmitting}
               >
                 Submit
               </button>
