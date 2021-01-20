@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextField, Button, Grid, MenuItem, Collapse, IconButton } from '@material-ui/core'
 import {Alert, AlertTitle} from '@material-ui/lab'
@@ -56,7 +56,7 @@ const types = [
 
 export const AddContactMethodForm = (props: any) => {
   const { selectedContact, methodsState } = props
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit } = useForm()
   const [type, setType] = React.useState('Email')
   const [formData, setFormData] = React.useState([] as any)
   const [res, setRes] = React.useState(null as any)
@@ -71,6 +71,7 @@ export const AddContactMethodForm = (props: any) => {
       MethodDispatch(contactMethodsActions.createContactMethods(formData))
       setRes(methodsState.contactMethodsTable.success)
     }
+    /* eslint-disable  react-hooks/exhaustive-deps*/
   }, [MethodDispatch, formData])
 
   const onSubmit = (data: any) => {

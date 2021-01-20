@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect }  from 'react'
 import { useForm } from 'react-hook-form'
-import { TextField, Button, Grid, MenuItem } from '@material-ui/core'
-/* eslint-disable no-restricted-imports*/
-/**
- * Replace the form tag with the proper one
- */
+import { TextField, Button, Grid, MenuItem, Collapse, IconButton } from '@material-ui/core'
+import {Alert, AlertTitle} from '@material-ui/lab'
+import CloseIcon from '@material-ui/icons/Close'
+import * as contactMethodsActions from './state/contactMethodsActions'
+import { useDispatch } from 'react-redux'
+
+
 const types = [
   {
     value: 'Twitter',
@@ -53,18 +55,85 @@ const types = [
 ]
 
 export const EditContactMethodForm = (props: any) => {
-  const { selectedContact, edit } = props
-  const { register, handleSubmit, errors } = useForm()
+  const { selectedContact, edit, methodsState } = props
+  const { register, handleSubmit } = useForm()
   const [type, setType] = React.useState(edit.kind)
+  const [formData, setFormData] = React.useState([] as any)
+  const [res, setRes] = React.useState(null as any)
+  const [open, setOpen] = React.useState(true);
+  const [params, SetParams] = React.useState("" as any);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
+  let dispatch = useDispatch()
+  useEffect(() => {
+    var size = Object.keys(formData).length
+    if (size > 0) {
+      dispatch(contactMethodsActions.updateContactMethods(formData, params))
+      setRes(methodsState.contactMethodsTable.success)
+    }
+    /* eslint-disable  react-hooks/exhaustive-deps*/
+  }, [dispatch, formData])
+
   const onSubmit = (data: any) => {
+    SetParams(edit.id)
     data['kind'] = type
-    console.log('edit form', data)
+    data['contact_id'] = selectedContact.id
+    setFormData(data)
+    
   }
 
+
   return (
+    <>
+    <>
+    {res === true ?
+    <Collapse in={open}>
+    <Alert
+    severity="success"
+      action={
+        <IconButton
+          aria-label="close"
+          color="inherit"
+          size="small"
+          onClick={() => {
+            setOpen(false);
+          }}
+        >
+          <CloseIcon fontSize="inherit" />
+        </IconButton>
+      }
+    >
+      <AlertTitle>Success</AlertTitle>
+      Data Updated
+    </Alert>
+  </Collapse>
+  :res === false ?
+  <Collapse in={open}>
+        <Alert
+        severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>Error</AlertTitle>
+          {methodsState.error}
+        </Alert>
+      </Collapse>
+      :
+      <></>
+    }
+      
+    </>
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction='column'>
         <TextField
@@ -111,6 +180,7 @@ export const EditContactMethodForm = (props: any) => {
         </Button>
       </Grid>
     </form>
+    </>
   )
 }
 export default EditContactMethodForm

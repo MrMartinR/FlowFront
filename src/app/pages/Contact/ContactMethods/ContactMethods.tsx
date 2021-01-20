@@ -71,6 +71,7 @@ export const ContactMethod = (props: any) => {
           <EditContactMethodForm
             selectedContact={selectedContact}
             edit={edit}
+            methodsState={methodsState}
           />
         </>
       )}
