@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { TextField, Button, Grid, MenuItem } from '@material-ui/core'
-/* eslint-disable no-restricted-imports*/
+import { TextField, Button, Grid, MenuItem, Collapse, IconButton } from '@material-ui/core'
+import {Alert, AlertTitle} from '@material-ui/lab'
+import CloseIcon from '@material-ui/icons/Close'
 import * as contactMethodsActions from './state/contactMethodsActions'
 import { useDispatch } from 'react-redux'
 
-/**
- * @rev  Tyred to find the substitute for <form tag, when you replate it with the material UI,
- * send a message to Mohd and ask him to change the one he has in the Login
- */
 
 const types = [
   {
@@ -58,10 +55,12 @@ const types = [
 ]
 
 export const AddContactMethodForm = (props: any) => {
-  const { selectedContact } = props
-  const { register, handleSubmit, errors } = useForm()
+  const { selectedContact, methodsState } = props
+  const { register, handleSubmit } = useForm()
   const [type, setType] = React.useState('Email')
   const [formData, setFormData] = React.useState([] as any)
+  const [res, setRes] = React.useState(null as any)
+  const [open, setOpen] = React.useState(true);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
@@ -70,7 +69,9 @@ export const AddContactMethodForm = (props: any) => {
     var size = Object.keys(formData).length
     if (size > 0) {
       MethodDispatch(contactMethodsActions.createContactMethods(formData))
+      setRes(methodsState.contactMethodsTable.success)
     }
+    /* eslint-disable  react-hooks/exhaustive-deps*/
   }, [MethodDispatch, formData])
 
   const onSubmit = (data: any) => {
@@ -79,8 +80,60 @@ export const AddContactMethodForm = (props: any) => {
     data['visibility'] = selectedContact.visibility
     setFormData(data)
   }
+ 
+
 
   return (
+    <>
+    <>
+    {res === true ?
+    <Collapse in={open}>
+    <Alert
+    severity="success"
+      action={
+        <IconButton
+          aria-label="close"
+          color="inherit"
+          size="small"
+          onClick={() => {
+            setOpen(false);
+          }}
+        >
+          <CloseIcon fontSize="inherit" />
+        </IconButton>
+      }
+    >
+      <AlertTitle>Success</AlertTitle>
+      Data saved
+    </Alert>
+  </Collapse>
+  :res === false ?
+  <Collapse in={open}>
+        <Alert
+        severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>Error</AlertTitle>
+          {methodsState.error}
+        </Alert>
+      </Collapse>
+      :
+      <></>
+    }
+      
+    </>
+    
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction='column'>
         <TextField
@@ -132,6 +185,7 @@ export const AddContactMethodForm = (props: any) => {
         </Button>
       </Grid>
     </form>
+    </>
   )
 }
 export default AddContactMethodForm
