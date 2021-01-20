@@ -76,12 +76,25 @@ export const contactMethodsSlice = createSlice({
     * push data into entities
     */
     contactMethodsCreate: (state, action) => {
-      const { data } = action.payload
-      state.listLoading = false
-      state.error = null
-      state.contactMethodsTable.entities.push(data[0])
-      state.contactMethodsTable.success = true
+      const { data, success } = action.payload
+      if (success === true) {
+        state.listLoading = false
+        state.error = null
+        state.contactMethodsTable.entities.unshift(data[0])
+        state.contactMethodsTable.success = true
+        
+      }
+       else {
+        state.listLoading = false
+        state.error = action.payload.message
+        state.contactMethodsTable.success = false
+      }
+      
     },
+    /*
+    * STATE(answered)
+    * 
+    */
 
 
 

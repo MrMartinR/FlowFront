@@ -28,7 +28,7 @@ import AddContactMethodForm from './AddContactMethodForm'
 import EditContactMethodForm from './EditContactMethodForm'
 
 export const ContactMethod = (props: any) => {
-  const { methodLoading, listMethods, selectedContact } = props
+  const { methodLoading, listMethods, selectedContact, methodsState } = props
   const err = 'Not Found'
   const [expanded, setExpanded] = React.useState<string | false>(false)
   const [open, setOpen] = React.useState(false)
@@ -63,7 +63,7 @@ export const ContactMethod = (props: any) => {
             Add Contact methods
           </Typography>
 
-          <AddContactMethodForm selectedContact={selectedContact} />
+          <AddContactMethodForm selectedContact={selectedContact} methodsState={methodsState}/>
         </>
       ) : (
         <>
@@ -76,6 +76,7 @@ export const ContactMethod = (props: any) => {
       )}
     </>
   )
+ 
 
   return (
     <Card variant='outlined'>
@@ -136,10 +137,11 @@ export const ContactMethod = (props: any) => {
           </Accordion>
         ))
       ) : (
-        /**
-         * Remove the No contacts found message, when you finish testing.
-         */
-        <Typography variant='body1'>No contacts found</Typography>
+        <List subheader={<li />}>
+          <ListItem key={`item-no-item`}>
+            <ListItemText primary="" />
+          </ListItem>
+        </List>
       )}
     </Card>
   )
