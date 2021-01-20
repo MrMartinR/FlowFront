@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ColDef } from '@material-ui/data-grid';
 import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 
-import { fetchPlatformsList } from "../../../redux/platforms/actions";
+import { fetchPlatformsList } from "./state/platformsActions";
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
@@ -37,13 +37,13 @@ const columns: ColDef[] = [
 ];
 
 const PlatformsList = (props: any) => {
-  const { platformTable = [], isFetching, update } = props.platforms
+  const { platformsTable = [], loading } = props.platforms
 
   useEffect(() => {
     props.fetchPlatformsList();
-  }, [update])
+  }, [])
 
-  if(isFetching) {
+  if(loading) {
     return (
       <div>
         <h1>Loading platforms...</h1>
@@ -58,7 +58,7 @@ const PlatformsList = (props: any) => {
           <CardContent>
             <h3>Platforms</h3>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={platformTable} columns={columns} checkboxSelection />
+              <XGrid rows={platformsTable} columns={columns} checkboxSelection />
             </div>
           </CardContent>
         </Card>

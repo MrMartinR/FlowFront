@@ -6,18 +6,18 @@ let API_URL;
 
 if (process.env.NODE_ENV === 'development') {
   API_URL = 'http://localhost:3001'
-  
-} else if(process.env.NODE_ENV === 'production'){
+
+} else if (process.env.NODE_ENV === 'production') {
   API_URL = "https://api.flowfin.tech";
-  
+
 }
 export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`;
 // READ
 
 export function getContactMethods(contactsId: any) {
-  const {auth: {user, client, expiry, token,},} = store.getState()
-  return axios.get(`${CONTACT_METHODS_URL}`,{
-    params: {contact_id: contactsId},
+  const { auth: { user, client, expiry, token, }, } = store.getState()
+  return axios.get(`${CONTACT_METHODS_URL}`, {
+    params: { contact_id: contactsId },
     headers: {
       // 'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Content-Type': 'application/json; charset=utf-8',
@@ -25,7 +25,27 @@ export function getContactMethods(contactsId: any) {
       'token-type': 'Bearer',
       client,
       expiry,
-      uid: user.email
+      uid: user.uid
     },
-  },);
+  });
+}
+
+export function createContactMethods(data: any) {
+  const { auth: { user, client, expiry, token } } = store.getState()
+  const form = {
+    contact_method: data 
+  }
+
+  return axios.post(`${CONTACT_METHODS_URL}`,
+    form,
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'access-token': token,
+        'token-type': 'Bearer',
+        client,
+        expiry,
+        uid: user.uid,
+      },
+    });
 }
