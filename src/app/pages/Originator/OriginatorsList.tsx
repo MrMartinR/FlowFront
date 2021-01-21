@@ -15,8 +15,8 @@ const columns: ColDef[] = [
   { field: 'id', headerName: 'Id', width: 70 },
   { field: 'contact', headerName: 'Contact', width: 70 },
   { field: 'customer_category', headerName: 'Customer category', width: 220 },
-  { field: 'product_category_bussiness', headerName: 'Product category business', width: 180 },
-  { field: 'product_category_consumer', headerName: 'Productor category consumer', width: 240 },
+  { field: 'product_category_business', headerName: 'Business', width: 180 },
+  { field: 'product_category_consumer', headerName: 'Consumer', width: 240 },
   { field: 'apr', headerName: 'Apr', width: 70 },
 ] as any;
 
