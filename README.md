@@ -31,6 +31,8 @@ Install all dependencies
 ```Shell
 yarn install
 ```
+>Note: if your internet is 💩, maybe you will get an error, in that case use 'yarn install --network-timeout=100000'
+<br>
 
 While the [Backend](https://github.com/FlowFintech/FlowBack) server is alrealdy running, start the server for the frontend.
 

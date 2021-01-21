@@ -80,6 +80,10 @@
 				<p>Install all dependencies</p>
 				<pre><code class="language-Shell"><span style="color: #000000">yarn install</span>
 </code></pre>
+				<blockquote>
+					<p>Note: if your internet is 💩, maybe you will get an error, in that case use &#39;yarn install --network-timeout=100000&#39;
+					<br></p>
+				</blockquote>
 				<p>While the <a href="https://github.com/FlowFintech/FlowBack">Backend</a> server is alrealdy running, start the server for the frontend.</p>
 				<pre><code class="language-Shell"><span style="color: #000000">yarn start</span>
 </code></pre>
@@ -224,7 +228,7 @@
 				</ul>
 				<br>
 				<a href="#for-a-full-list-of-libraries-used-in-flow-refer-to-this-document" id="for-a-full-list-of-libraries-used-in-flow-refer-to-this-document" style="color: inherit; text-decoration: none;">
-					<h3>For a full list of Libraries used in Flow refer to <a href="https://github.com/FlowFintech/FlowFront/blob/docs/Dependencies.md">this document</a></h3>
+					<h3>For a full list of Libraries used in Flow refer to <a href="https://dev.flowfin.tech/docs-front/dependencies.html">this document</a></h3>
 				</a>
 				<br>
 				<blockquote>
@@ -302,7 +306,13 @@
 						<a href="modules/app_pages_contact_contactlist.html">app/pages/<wbr>Contact/<wbr>Contact<wbr>List</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_contact_contactmethods_addcontactmethodform.html">app/pages/<wbr>Contact/<wbr>Contact<wbr>Methods/<wbr>Add<wbr>Contact<wbr>Method<wbr>Form</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/app_pages_contact_contactmethods_contactmethods.html">app/pages/<wbr>Contact/<wbr>Contact<wbr>Methods/<wbr>Contact<wbr>Methods</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_contact_contactmethods_editcontactmethodform.html">app/pages/<wbr>Contact/<wbr>Contact<wbr>Methods/<wbr>Edit<wbr>Contact<wbr>Method<wbr>Form</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/app_pages_contact_contactmethods_state_contactmethodsactions.html">app/pages/<wbr>Contact/<wbr>Contact<wbr>Methods/state/contact<wbr>Methods<wbr>Actions</a>
@@ -389,7 +399,10 @@
 						<a href="modules/app_pages_dashboard.html">app/pages/<wbr>Dashboard</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/app_pages_dashboard_kanban_kanban.html">app/pages/<wbr>Dashboard/<wbr>Kanban/<wbr>Kanban</a>
+						<a href="modules/app_pages_dashboard_kanban_kanban1.html">app/pages/<wbr>Dashboard/<wbr>Kanban/<wbr>Kanban1</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_dashboard_kanban_kanban2.html">app/pages/<wbr>Dashboard/<wbr>Kanban/<wbr>Kanban2</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/app_pages_lendingpage.html">app/pages/<wbr>Lending<wbr>Page</a>
@@ -407,10 +420,31 @@
 						<a href="modules/app_pages_originator_originatorslist.html">app/pages/<wbr>Originator/<wbr>Originators<wbr>List</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_originator_state_originatorsactions.html">app/pages/<wbr>Originator/state/originators<wbr>Actions</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_originator_state_originatorscrud.html">app/pages/<wbr>Originator/state/originatorsCRUD</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_originator_state_originatorsslice.html">app/pages/<wbr>Originator/state/originators<wbr>Slice</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/app_pages_platform.html">app/pages/<wbr>Platform</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_platform_platformdetailspage.html">app/pages/<wbr>Platform/<wbr>Platform<wbr>Details<wbr>Page</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/app_pages_platform_platformslist.html">app/pages/<wbr>Platform/<wbr>Platforms<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_platform_state_platformsactions.html">app/pages/<wbr>Platform/state/platforms<wbr>Actions</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_platform_state_platformscrud.html">app/pages/<wbr>Platform/state/platformsCRUD</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/app_pages_platform_state_platformsslice.html">app/pages/<wbr>Platform/state/platforms<wbr>Slice</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/app_pages_useraccount.html">app/pages/<wbr>User<wbr>Account</a>
@@ -540,18 +574,6 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/redux_icons_iconsslice.html">redux/icons/icons<wbr>Slice</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/redux_originators_actions.html">redux/originators/actions</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/redux_originators_originators.html">redux/originators/originators</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/redux_platforms_actions.html">redux/platforms/actions</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/redux_platforms_platforms.html">redux/platforms/platforms</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/redux_rootreducer.html">redux/root<wbr>Reducer</a>
