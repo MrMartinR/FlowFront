@@ -62,7 +62,7 @@ function Registration(props: any) {
     ),
   });
 
-  const { register, handleSubmit, watch, errors, formState } = useForm({
+  const { register, handleSubmit, watch, errors } = useForm({
     resolver: yupResolver(RegistrationSchema),
     defaultValues: initialValues,
   });
