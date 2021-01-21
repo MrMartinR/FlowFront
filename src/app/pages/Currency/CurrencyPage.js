@@ -1,22 +1,23 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 // import axios from "axios";
-import {styles} from '@material-ui/core'
+import { styles } from '@material-ui/core'
 import clsx from 'clsx'
-import {Table} from '@material-ui/core'
-import {TableBody} from '@material-ui/core'
-import {TableCell} from '@material-ui/core'
-import {TableHead} from '@material-ui/core'
-import {TableRow} from '@material-ui/core'
-import {MenuItem} from '@material-ui/core'
-import {useFormik} from 'formik'
+import { Table } from '@material-ui/core'
+import { TableBody } from '@material-ui/core'
+import { TableCell } from '@material-ui/core'
+import { TableHead } from '@material-ui/core'
+import { TableRow } from '@material-ui/core'
+import { MenuItem } from '@material-ui/core'
+import { useForm } from "react-hook-form";
+
 // import * as Yup from "yup";
-import {connect} from 'react-redux'
-import {FormControl} from '@material-ui/core'
-import {Button} from '@material-ui/core'
-import {Card} from 'react-bootstrap'
-import {TextField} from '@material-ui/core'
-import {useSubheader} from '../../../common/layout'
+import { connect } from 'react-redux'
+import { FormControl } from '@material-ui/core'
+import { Button } from '@material-ui/core'
+import { Card } from 'react-bootstrap'
+import { TextField } from '@material-ui/core'
+import { useSubheader } from '../../../common/layout'
 
 import {
   addCurrency,
@@ -55,7 +56,7 @@ const useStyles = styles.makeStyles((theme) => ({
   },
 }))
 
-const CurrencyPage = ({auth}) => {
+const CurrencyPage = ({ auth }) => {
   const [rows, setRows] = useState([])
   useEffect(() => {
     // Update the document title using the browser API
@@ -136,7 +137,11 @@ const useFormStyles = styles.makeStyles((theme) => ({
 const CurrencyForm = (props) => {
   const classes = useFormStyles()
   const [loading, setLoading] = useState(false)
-
+  const { register, handleSubmit, errors, formState } = useForm({
+    resolver: yupResolver(CurrencySchema),
+    defaultValues: currencyInitialValues,
+  });
+  
   const enableLoading = () => {
     setLoading(true)
   }
@@ -144,37 +149,32 @@ const CurrencyForm = (props) => {
   const disableLoading = () => {
     setLoading(false)
   }
+  
 
-  const formik = useFormik({
-    initialValues: currencyInitialValues,
-    validationSchema: CurrencySchema,
-    onSubmit: (values, {setSubmitting}) => {
-      enableLoading()
-      setTimeout(() => {
-        const formvalues = {
-          kind: values.type,
-          code: values.code,
-          symbol: values.name,
-          name: values.symbol,
-          decimal_places: values.decimal_places,
-          fx_eur: values.fx_eur,
-        }
-        addCurrency(props, formvalues)
-          .then((res) => {
-            disableLoading()
-            if (res.status === 200) {
-              props.setRows(res.data)
-            }
-            setSubmitting(false)
-          })
-          .catch(() => {
-            console.log('error')
-            disableLoading()
-            setSubmitting(false)
-          })
-      }, 1000)
-    },
-  })
+  const onSubmit = ({ type, code, name, symbol, decimal_places, fx_eur }) => {
+    enableLoading()
+    setTimeout(() => {
+      const formvalues = {
+        kind: type,
+        code: code,
+        symbol: name,
+        name: symbol,
+        decimal_places: decimal_places,
+        fx_eur: fx_eur,
+      }
+      addCurrency(props, formvalues)
+        .then((res) => {
+          disableLoading()
+          if (res.status === 200) {
+            props.setRows(res.data)
+          }
+        })
+        .catch(() => {
+          console.log('error')
+          disableLoading()
+        })
+    })
+  }
 
   return (
     <div className='currency_form' id='kt_add_currency_form'>
@@ -182,25 +182,25 @@ const CurrencyForm = (props) => {
         <Card.Body>
           {/* begin::Form */}
           <form
-            onSubmit={formik.handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className='form fv-plugins-bootstrap fv-plugins-framework'
           >
-            {formik.status ? (
+            {/* {formik.status ? (
               <div className='mb-10 alert alert-custom alert-light-danger alert-dismissible'>
                 <div className='alert-text font-weight-bold'>
                   {formik.status}
                 </div>
               </div>
             ) : (
-              ''
-            )}
+                ''
+              )} */}
             <div className='makeStyles-container-3 justify-content-end'>
               <Button
                 variant='contained'
                 color='secondary'
                 type='submit'
                 id='kt_add_currency_submit'
-                disabled={formik.isSubmitting}
+                disabled={formState.isSubmitting}
                 className={classes.button}
               >
                 <span>+ Add Currency</span>
@@ -217,13 +217,10 @@ const CurrencyForm = (props) => {
                 margin='dense'
                 variant='outlined'
                 name='code'
-                {...formik.getFieldProps('code')}
+                inputRef={register()}
               />
-              {formik.touched.code && formik.errors.code ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.code}</div>
-                </div>
-              ) : null}
+              <span> {errors.code && errors.code.message}</span>
+             
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
@@ -233,13 +230,9 @@ const CurrencyForm = (props) => {
                 margin='dense'
                 variant='outlined'
                 name='name'
-                {...formik.getFieldProps('name')}
-              />
-              {formik.touched.name && formik.errors.name ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.name}</div>
-                </div>
-              ) : null}
+                inputRef={register()}
+              />        
+              <span> {errors.name && errors.name.message}</span>
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
@@ -249,13 +242,9 @@ const CurrencyForm = (props) => {
                 margin='dense'
                 variant='outlined'
                 name='symbol'
-                {...formik.getFieldProps('symbol')}
-              />
-              {formik.touched.symbol && formik.errors.symbol ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.symbol}</div>
-                </div>
-              ) : null}
+                inputRef={register()}
+              />              
+              <span> {errors.symbol && errors.symbol.message}</span>
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
@@ -266,15 +255,9 @@ const CurrencyForm = (props) => {
                 margin='dense'
                 variant='outlined'
                 name='decimal_places'
-                {...formik.getFieldProps('decimal_places')}
+                inputRef={register()}
               />
-              {formik.touched.decimal_places && formik.errors.decimal_places ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>
-                    {formik.errors.decimal_places}
-                  </div>
-                </div>
-              ) : null}
+              <span> {errors.decimal_places && errors.decimal_places.message}</span>             
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
@@ -284,12 +267,9 @@ const CurrencyForm = (props) => {
                 margin='dense'
                 variant='outlined'
                 name='fx_eur'
+                inputRef={register()}
               />
-              {formik.touched.fx_eur && formik.errors.fx_eur ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.fx_eur}</div>
-                </div>
-              ) : null}
+              <span> {errors.fx_eur && errors.fx_eur.message}</span>             
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
@@ -300,7 +280,7 @@ const CurrencyForm = (props) => {
                 margin='dense'
                 variant='outlined'
                 value={formik.values.type}
-                {...formik.getFieldProps('type')}
+                inputRef={register()}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -310,11 +290,7 @@ const CurrencyForm = (props) => {
                 <MenuItem value='Crypto'>Crypto</MenuItem>
                 <MenuItem value='Fiat'>Fiat</MenuItem>
               </TextField>
-              {formik.touched.type && formik.errors.type ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.type}</div>
-                </div>
-              ) : null}
+              <span> {errors.type && errors.type.message}</span>             
             </FormControl>
           </form>
           {/* end::Form */}
