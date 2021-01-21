@@ -35,7 +35,3 @@ if (process.env.NODE_ENV === 'development') {
 // the API endpoint
 export const LOANS_URL = `${API_URL}/api/v1/loans`
 
-// // READ
-// export function getPlatforms() {
-//   return axios.get(PLATFORMS_URL,  optionsHeaders())
-// }

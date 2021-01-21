@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { optionsHeaders, LOANS_URL } from './loansCRUD'
+import { optionsHeaders, LOANS_URL } from './loansCrud'
 import { loansSlice } from './loansSlice'
 
 const { actions } = loansSlice;
