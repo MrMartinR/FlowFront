@@ -9,7 +9,6 @@ import {
   Chip,
   Grid,
   Avatar,
-  Fab,
   Dialog,
   DialogActions,
   DialogContent,
@@ -63,13 +62,10 @@ export const ContactDetails = (props: any) => {
   return (
     <>
       <>
-        <Fab id='add' onClick={(e) => handleOpen(e, 'add')}>
-          <AddIcon />
-        </Fab>
-
-        <Fab onClick={(e) => handleOpen(e, 'edit')}>
-          <EditIcon />
-        </Fab>
+        
+          <AddIcon id='add' onClick={(e) => handleOpen(e, 'add')}> </AddIcon>
+          <EditIcon onClick={(e) => handleOpen(e, 'edit')}></EditIcon>
+      
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
           <DialogActions>

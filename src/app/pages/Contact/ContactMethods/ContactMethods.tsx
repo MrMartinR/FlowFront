@@ -12,7 +12,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Fab,
   Dialog,
   DialogActions,
   DialogContent,
@@ -81,10 +80,7 @@ export const ContactMethod = (props: any) => {
 
   return (
     <Card variant='outlined'>
-      <Fab id='add' onClick={(e) => handleOpen(e, 'add')}>
-        <AddIcon />
-      </Fab>
-
+        <AddIcon id='add' onClick={(e) => handleOpen(e, 'add')}></AddIcon>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>{body}</DialogContent>
         <DialogActions>
@@ -110,9 +106,7 @@ export const ContactMethod = (props: any) => {
               </Avatar>
 
               <Typography variant='h6'>{itm.kind || err}</Typography>
-              <Fab onClick={(e) => handleOpen(e, 'edit', itm)}>
-                <EditIcon />
-              </Fab>
+                <EditIcon onClick={(e) => handleOpen(e, 'edit', itm)}> </EditIcon>
             </AccordionSummary>
             <AccordionDetails>
               <List component='nav'>
