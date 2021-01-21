@@ -93,12 +93,32 @@
   - **Filenames**: 
     - Use PascalCase for Components. E.g., `LoanDetails.tsx`.
     - Use camelCase for ts functions. E.g. `myControl.ts`, `utils.ts`
+    > We will use camelCase for acronyms that are more than 2 characters, UPPERCASE for the rest
+
+    ```
+    // bad
+    HTMLTag
+
+    // good
+    htmlTag
+
+    // good
+    sourceIO
+
+    // bad
+    ActionsCRUD
+
+    // good
+    actionsCrud
+
+    ```
+
   - **Reference Naming**: Use PascalCase for React components and camelCase for their instances.
 
 
     ```tsx
     // bad
-    import loanDetails from './LoanDetails';
+    import loanDetails from './LoanDetails'
 
     // good
     import LoanDetails from './LoanDetails'
