@@ -8,7 +8,6 @@ export const fetchLoansData = () => (dispatch: any) => {
   dispatch(actions.startCall())
       axios.get(LOANS_URL, optionsHeaders())
       .then(function (response) {
-          console.log(response)
           return dispatch(actions.loansReceived(response.data));
       })
       .catch(function (error) {

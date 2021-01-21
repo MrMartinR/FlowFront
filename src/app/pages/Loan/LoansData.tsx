@@ -13,6 +13,32 @@ LicenseInfo.setLicenseKey(
 const columns: ColDef[] = [
   // column definition format here
   { field: 'id', headerName: 'Id', width: 70 },
+  { field: 'name', headerName: 'Name', width: 180 },
+  { field: 'air', headerName: 'Air', width: 180 },
+  { field: 'amortization', headerName: 'Amortization', width: 180 },
+  { field: 'amount', headerName: 'Amount', width: 180 },
+  { field: 'borrower', headerName: 'Borrower', width: 180 },
+  { field: 'borrower_type', headerName: 'Borrower type', width: 180 },
+  { field: 'category', headerName: 'Category', width: 180 },
+  { field: 'code', headerName: 'Code', width: 180 },
+  { field: 'country', headerName: 'Country', width: 180 },
+  { field: 'currency', headerName: 'Currency', width: 180 },
+  { field: 'date_issued', headerName: 'Date issued', width: 180 },
+  { field: 'date_listed', headerName: 'Date listed', width: 180 },
+  { field: 'date_maturity', headerName: 'Maturity date', width: 180 },
+  { field: 'description', headerName: 'Description', width: 180 },
+  { field: 'dti_rating', headerName: 'Dti rating', width: 180 },
+  { field: 'gender', headerName: 'Gender', width: 180 },
+  { field: 'installment', headerName: 'Installment', width: 180 },
+  { field: 'internal_code', headerName: 'Internal code', width: 180 },
+  { field: 'notes', headerName: 'Notes', width: 180 },
+  { field: 'originator', headerName: 'Originator', width: 180 },
+  { field: 'platform', headerName: 'Platform', width: 180 },
+  { field: 'protection_scheme', headerName: 'Protection scheme', width: 180 },
+  { field: 'rating', headerName: 'Rating', width: 180 },
+  { field: 'security_details', headerName: 'Security details', width: 180 },
+  { field: 'status', headerName: 'Status', width: 180 },
+  { field: 'xirr', headerName: 'Xirr', width: 180 },
 ] as any;
 
 
