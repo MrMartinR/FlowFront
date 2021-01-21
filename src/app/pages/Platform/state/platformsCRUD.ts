@@ -23,14 +23,14 @@ export const optionsHeaders = () => {
 
 // TODO: define a system to get the right url depending of the environment and place it in a global scope?
 
-let API_URL;
-if (process.env.NODE_ENV === 'development') {
-  API_URL = 'http://localhost:3001'
-} else if(process.env.NODE_ENV === 'production'){
-  API_URL = "https://api.flowfin.tech";
-}
+// let API_URL;
+// if (process.env.NODE_ENV === 'development') {
+//   API_URL = 'http://localhost:3001'
+// } else if(process.env.NODE_ENV === 'production'){
+//   API_URL = "https://api.flowfin.tech";
+// }
 
-// let API_URL = "https://api.flowfin.tech";
+let API_URL = "https://api.flowfin.tech";
 
 // platforms endpoint
 export const PLATFORMS_URL = `${API_URL}/api/v1/platforms`

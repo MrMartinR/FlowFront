@@ -6,39 +6,13 @@ import { fetchPlatformDetails } from "./state/platformsActions";
 
 
 const PlatformDetailsPage = (props: any) => {
-
-    const { platformDetails, loading } = props.platforms
     const { match: { params } } = props
-
-    const {
-       account_category,
-       cashflow_options,
-       category,
-       contact,
-       contact_id,
-       cost,
-       id,
-       ifisa,
-       invest_mode,
-       liquidity,
-       min_investment,
-       profitable,
-       promo,
-       promo_end,
-       protection_scheme,
-       secondary_market,
-       sm_notes,
-       status,
-       structure,
-       taxes,
-       term,
-       welcome_bonus
-    } = platformDetails
-
     useEffect(() => {
         props.fetchPlatformDetails(params.id);
     }, [])
 
+    const { platformDetails, loading } = props.platforms
+   
 
     if(loading) {
         return (
@@ -59,41 +33,40 @@ const PlatformDetailsPage = (props: any) => {
                     <Card variant="outlined">
                         <CardContent>
                             <Typography>
-                                Platform id: {id}
+                                Platform id: {platformDetails.id}
                             </Typography>
                             <Typography variant="h5" component="h3">
-                                {/* Contact: {contact.trade_name} */}
-                                Contact: {contact}
+                                Contact: 
                             </Typography>
                             <Typography>
-                                Contact id: {contact_id}
+                                Contact id: {platformDetails.contact_id}
                             </Typography>
                             <Typography>
-                                Cashflow options: {cashflow_options}
+                                Cashflow options: {platformDetails.cashflow_options}
                             </Typography>
                             <Typography>
-                                Promo: {promo}
+                                Promo: {platformDetails.promo}
                             </Typography>
                             <Typography>
-                                Liquidity: {liquidity}
+                                Liquidity: {platformDetails.liquidity}
                             </Typography>
                             <Typography>
-                                Min investment: {min_investment}
+                                Min investment: {platformDetails.min_investment}
                             </Typography>
                             <Typography>
-                                Profitable: {profitable}
+                                Profitable: {platformDetails.profitable}
                             </Typography>
                             <Typography>
-                                Term: {term}
+                                Term: {platformDetails.term}
                             </Typography>
                             <Typography>
-                                Cost: {cost}
+                                Cost: {platformDetails.cost}
                             </Typography>
                             <Typography>
-                                Taxes: {taxes}
+                                Taxes: {platformDetails.taxes}
                             </Typography>
                             <Typography>
-                                Protection scheme: {protection_scheme}
+                                Protection scheme: {platformDetails.protection_scheme}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -102,34 +75,34 @@ const PlatformDetailsPage = (props: any) => {
                     <Card variant="outlined">
                         <CardContent>
                             <Typography>
-                                Category: {category}
+                                Category: {platformDetails.category}
                             </Typography>
                             <Typography>
-                                Account category: {account_category}
+                                Account category: {platformDetails.account_category}
                             </Typography>
                             <Typography>
-                                Sm notes: {sm_notes}
+                                Sm notes: {platformDetails.sm_notes}
                             </Typography>
                             <Typography>
-                                Secondary market: {secondary_market}
+                                Secondary market: {platformDetails.secondary_market}
                             </Typography>
                             <Typography>
-                                Invest mode: {invest_mode}
+                                Invest mode: {platformDetails.invest_mode}
                             </Typography>
                             <Typography>
-                                Promo end: {promo_end}
+                                Promo end: {platformDetails.promo_end}
                             </Typography>
                             <Typography>
-                                Ifisa: {ifisa}
+                                Ifisa: {platformDetails.ifisa}
                             </Typography>
                             <Typography>
-                                Structure: {structure}
+                                Structure: {platformDetails.structure}
                             </Typography>
                             <Typography>
-                                Status: {status}
+                                Status: {platformDetails.status}
                             </Typography>
                             <Typography>
-                                Welcome bonus: {welcome_bonus}
+                                Welcome bonus: {platformDetails.welcome_bonus}
                             </Typography>
                         </CardContent>
                     </Card>
