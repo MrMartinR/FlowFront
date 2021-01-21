@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialPlatformsState = {
   loading: false,
   platformsTable: [],
-  platformDetails: {},
+  platformDetails: [],
   error: null as any,
 }
 

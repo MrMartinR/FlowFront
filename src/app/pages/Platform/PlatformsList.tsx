@@ -39,11 +39,12 @@ const columns: ColDef[] = [
 
 
 const PlatformsList = (props: any) => {
-  const { platformsTable = [], loading } = props.platforms
-  
   useEffect(() => {
     props.fetchPlatformsList();
   }, [])
+  
+  const { platformsTable = [], loading } = props.platforms
+  
   
   const linkTo = useHistory();
   const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
