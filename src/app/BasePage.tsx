@@ -10,7 +10,7 @@ import {CurrenciesPage} from './pages/Currency/CurrenciesPage'
 import PlatformsPage from './pages/Platform'
 import PlatformDetailsPage from './pages/Platform/PlatformDetailsPage'
 import OriginatorsPage from './pages/Originator'
-import {LoansPage} from './pages/Loan'
+import LoansPage from './pages/Loan'
 
 export default function BasePage() {
   return (

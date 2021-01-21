@@ -32,7 +32,10 @@ export const optionsHeaders = () => {
 
 let API_URL = "https://api.flowfin.tech";
 
-// platforms endpoint
-export const PLATFORMS_URL = `${API_URL}/api/v1/platforms`
+// the API endpoint
+export const LOANS_URL = `${API_URL}/api/v1/loans`
 
-
+// // READ
+// export function getPlatforms() {
+//   return axios.get(PLATFORMS_URL,  optionsHeaders())
+// }

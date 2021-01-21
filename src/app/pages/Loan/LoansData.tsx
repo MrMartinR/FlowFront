@@ -3,7 +3,7 @@ import { Grid, Card, CardContent, Typography } from '@material-ui/core/';
 import { connect } from 'react-redux';
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid';
 
-import { fetchOriginatorsList } from "./state/originatorsActions";
+import { fetchLoansData } from "./state/loansActions";
 
 
 LicenseInfo.setLicenseKey(
@@ -13,26 +13,21 @@ LicenseInfo.setLicenseKey(
 const columns: ColDef[] = [
   // column definition format here
   { field: 'id', headerName: 'Id', width: 70 },
-  { field: 'contact', headerName: 'Contact', width: 70 },
-  { field: 'customer_category', headerName: 'Customer category', width: 220 },
-  { field: 'product_category_business', headerName: 'Business', width: 180 },
-  { field: 'product_category_consumer', headerName: 'Consumer', width: 240 },
-  { field: 'apr', headerName: 'Apr', width: 70 },
 ] as any;
 
 
-const OriginatorsList = (props: any) => {
-  const { originatorsTable = [], loading } = props.originators
+const LoansData = (props: any) => {
+  const { loansData = [], loading } = props.loans
   
   useEffect(() => {
-    props.fetchOriginatorsList();
+    props.fetchLoansData();
   }, [])
 
   if(loading) {
     return (
       <>
         <Typography variant="h5">
-            Loading originators...
+            Loading loans...
         </Typography>
       </>
     )
@@ -41,14 +36,14 @@ const OriginatorsList = (props: any) => {
   return (
     <>
       <Typography variant="h3">
-          Originators 
+          Loans 
       </Typography> 
       <Grid container direction="column">
         <Card>
           <CardContent>
             <div style={{ height: 600, width: '100%' }}>
               <XGrid 
-                rows={originatorsTable} 
+                rows={loansData} 
                 columns={columns} 
                 disableMultipleSelection={true} 
               />
@@ -62,17 +57,17 @@ const OriginatorsList = (props: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    originators: state.originators
+    loans: state.loans
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchOriginatorsList: () => dispatch(fetchOriginatorsList())
+    fetchLoansData: () => dispatch(fetchLoansData())
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OriginatorsList);
+export default connect(mapStateToProps, mapDispatchToProps)(LoansData);
 
 
 
