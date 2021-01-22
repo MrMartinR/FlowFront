@@ -10,8 +10,8 @@ import {
   Typography,
   Button, } from "@material-ui/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as contactsActions from "./state/contactsActions";
-import * as contactMethodsActions from "./ContactMethods/state/contactMethodsActions";
+import * as contactsActions from "./state/ContactsActions";
+import * as contactMethodsActions from "./ContactMethods/state/ContactMethodsActions";
 import {ContactMethod} from './ContactMethods/ContactMethods'
 import { ContactsList } from "./ContactList";
 import { ContactDetails } from "./ContactDetails";

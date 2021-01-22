@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { TextField, Button, Grid, MenuItem, Collapse, IconButton } from '@material-ui/core'
 import {Alert, AlertTitle} from '@material-ui/lab'
 import CloseIcon from '@material-ui/icons/Close'
-import * as contactMethodsActions from './state/contactMethodsActions'
+import * as contactMethodsActions from './state/ContactMethodsActions'
 import { useDispatch } from 'react-redux'
 
 

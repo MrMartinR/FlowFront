@@ -1,7 +1,7 @@
 import React, { useEffect }  from 'react'
 import { DialogContent,DialogActions,DialogContentText, Button, Collapse, IconButton} from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import * as contactMethodsActions from './state/contactMethodsActions'
+import * as contactMethodsActions from './state/ContactMethodsActions'
 import {Alert, AlertTitle} from '@material-ui/lab'
 import CloseIcon from '@material-ui/icons/Close'
 export const DeleteContactMethod = (props: any) => {
@@ -15,10 +15,12 @@ export const DeleteContactMethod = (props: any) => {
   let dispatch = useDispatch()
   useEffect(() => {
     if(res === true){
+      // eslint-disable-next-line
       dispatch(contactMethodsActions.deleteContactMethods(edit.id))
+      // eslint-disable-next-line
       setResponse(methodsState.contactMethodsTable.success)
     }
-  }, [res])
+  }, [dispatch, res])
 
 
   return (
@@ -29,7 +31,6 @@ export const DeleteContactMethod = (props: any) => {
     severity="success"
       action={
         <IconButton
-          aria-label="close"
           color="inherit"
           size="small"
           onClick={() => {
@@ -50,7 +51,6 @@ export const DeleteContactMethod = (props: any) => {
         severity="error"
           action={
             <IconButton
-              aria-label="close"
               color="inherit"
               size="small"
               onClick={() => {
