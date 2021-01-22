@@ -92,7 +92,6 @@ export const AddContactMethodForm = (props: any) => {
     severity="success"
       action={
         <IconButton
-          aria-label="close"
           color="inherit"
           size="small"
           onClick={() => {
@@ -113,7 +112,6 @@ export const AddContactMethodForm = (props: any) => {
         severity="error"
           action={
             <IconButton
-              aria-label="close"
               color="inherit"
               size="small"
               onClick={() => {

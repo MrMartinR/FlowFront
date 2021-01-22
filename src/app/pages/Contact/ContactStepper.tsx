@@ -134,7 +134,7 @@ export const VerticalLinearStepper = () => {
                   checked={checkState.checkedA}
                   name='checkedA'
                   onChange={handleKind}
-                  inputProps={{ 'aria-label': 'primary' }}
+                  
                 />
               }
               label='Company'
@@ -145,7 +145,7 @@ export const VerticalLinearStepper = () => {
                   checked={checkState.checkedB}
                   onChange={handleKind}
                   name='checkedB'
-                  inputProps={{ 'aria-label': 'primary' }}
+                  
                 />
               }
               label='Individual'
@@ -163,7 +163,7 @@ export const VerticalLinearStepper = () => {
                   checked={checkVisible.checkedC}
                   name='checkedC'
                   onChange={handleKind}
-                  inputProps={{ 'aria-label': 'primary' }}
+                  
                 />
               }
               label='Private'
@@ -174,7 +174,7 @@ export const VerticalLinearStepper = () => {
                   checked={checkVisible.checkedD}
                   onChange={handleKind}
                   name='checkedD'
-                  inputProps={{ 'aria-label': 'primary' }}
+                  
                 />
               }
               label='Public'
