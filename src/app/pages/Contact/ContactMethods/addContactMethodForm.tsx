@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { TextField, Button, Grid, MenuItem, Collapse, IconButton } from '@material-ui/core'
 import {Alert, AlertTitle} from '@material-ui/lab'
 import CloseIcon from '@material-ui/icons/Close'
-import * as contactMethodsActions from './state/ContactMethodsActions'
+import * as contactMethodsActions from './state/contactMethodsActions'
 import { useDispatch } from 'react-redux'
 
 
@@ -92,13 +92,12 @@ export const AddContactMethodForm = (props: any) => {
     severity="success"
       action={
         <IconButton
-          color="inherit"
-          size="small"
+         
           onClick={() => {
             setOpen(false);
           }}
         >
-          <CloseIcon fontSize="inherit" />
+          <CloseIcon />
         </IconButton>
       }
     >
@@ -112,8 +111,7 @@ export const AddContactMethodForm = (props: any) => {
         severity="error"
           action={
             <IconButton
-              color="inherit"
-              size="small"
+          
               onClick={() => {
                 setOpen(false);
               }}

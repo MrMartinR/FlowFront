@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react'
 import { 
   Grid } from "@material-ui/core"
 import { shallowEqual, useDispatch, useSelector } from "react-redux"
-import * as contactsActions from "./state/ContactsActions"
-import * as contactMethodsActions from "./ContactMethods/state/ContactMethodsActions"
-import {ContactMethod} from './ContactMethods/ContactMethods'
-import { ContactsList } from "./ContactList"
-import { ContactDetails } from "./ContactDetails"
+import * as contactsActions from "./state/contactsActions"
+import * as contactMethodsActions from "./ContactMethods/state/contactMethodsActions"
+import {ContactMethod} from './ContactMethods/contactMethods'
+import { ContactsList } from "./contactList"
+import { ContactDetails } from "./contactDetails"
 import { RootState } from "../../../redux/rootReducer"
 
-import ContactAppBar from './ContactAppBar'
+import ContactToolBar from './contactAppBar'
 
 export const Contacts = () => {
   const {currentState, methodsState} = useSelector(
@@ -87,7 +87,8 @@ export const Contacts = () => {
 
   return (
     <>
-    <ContactAppBar />
+    
+    <ContactToolBar />
     <br></br>
   
     <Grid>

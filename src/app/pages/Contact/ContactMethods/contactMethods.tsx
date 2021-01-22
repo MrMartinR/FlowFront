@@ -24,9 +24,9 @@ import StarIcon from '@material-ui/icons/Star'
 import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddContactMethodForm from './AddContactMethodForm'
-import EditContactMethodForm from './EditContactMethodForm'
-import DeleteContactMethod from "./DeleteContactMethod"
+import AddContactMethodForm from './addContactMethodForm'
+import EditContactMethodForm from './editContactMethodForm'
+import DeleteContactMethod from "./deleteContactMethod"
 
 export const ContactMethod = (props: any) => {
   const { methodLoading, listMethods, selectedContact, methodsState } = props

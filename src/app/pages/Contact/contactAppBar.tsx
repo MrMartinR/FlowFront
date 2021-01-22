@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  AppBar,
+  
   Toolbar, 
   Dialog,
   DialogActions,
@@ -8,14 +8,16 @@ import {
   Typography,
   Button
 } from '@material-ui/core'
-import VerticalLinearStepper from './ContactStepper'
+import VerticalLinearStepper from './contactStepper'
 import AddIcon from '@material-ui/icons/Add'
 
 
-
-export  const ContactAppBar = () => {
-  // to be used later
-  // eslint-disable-next-line
+/**
+ * The contact top bar nav
+ * holder the add contact componet
+ */
+export  const ContactToolBar = () => {
+  // to be used later=> add
   const [add, setAdd] = React.useState(true)
   const [open, setOpen] = React.useState(false)
   const handleOpen = (e: any, value: any, itm = null) => {
@@ -30,7 +32,7 @@ export  const ContactAppBar = () => {
   }
   const body = (
     <>
-          <Typography variant='h4' id='simple-modal-title'>
+          <Typography variant='h4'>
             Add Contact
           </Typography>
           <VerticalLinearStepper />
@@ -38,7 +40,6 @@ export  const ContactAppBar = () => {
   )
   return (
     <>
-      <AppBar position="static">
         <Toolbar>
           
           <Typography variant="h6" >
@@ -57,8 +58,7 @@ export  const ContactAppBar = () => {
           </>
          
         </Toolbar>
-      </AppBar>
     </>
   );
 }
-export default  ContactAppBar
+export default  ContactToolBar

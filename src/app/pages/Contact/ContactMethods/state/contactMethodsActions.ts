@@ -1,5 +1,5 @@
-import * as requestFromServer from './ContactMethodsCrud'
-import { contactMethodsSlice, callTypes } from './ContactMethodsSlice'
+import * as requestFromServer from './contactMethodsCrud'
+import { contactMethodsSlice, callTypes } from './contactMethodsSlice'
 
 const { actions } = contactMethodsSlice
 
