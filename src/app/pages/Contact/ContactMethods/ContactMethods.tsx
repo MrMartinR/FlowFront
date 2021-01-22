@@ -65,14 +65,14 @@ export const ContactMethod = (props: any) => {
       {add === "add" ? (
         <>
           <Typography variant='h6' id='simple-modal-title'>
-            Add Contact methods
+            Add Contact method
           </Typography>
 
           <AddContactMethodForm selectedContact={selectedContact} methodsState={methodsState}/>
         </>
       ) : add === "edit" ? (
         <>
-          <Typography variant='h6'>Edit Contact methods</Typography>
+          <Typography variant='h6'>Edit Contact method</Typography>
           <EditContactMethodForm
             selectedContact={selectedContact}
             edit={edit}
@@ -82,9 +82,9 @@ export const ContactMethod = (props: any) => {
       ): (
         <>
         <Typography variant='h6'>
-          Delete Contact methods
+          Delete Contact method
         </Typography>
-        <DeleteContactMethod edit={edit} />
+        <DeleteContactMethod edit={edit} methodsState={methodsState} />
       </>
       )}
     </>

@@ -10,6 +10,7 @@ const initialContactsState = {
     success: false
   },
   error: null as any,
+  deleteResponse: null as any
 }
 export const callTypes = {
   list: 'list',
@@ -131,11 +132,41 @@ export const contactMethodsSlice = createSlice({
 
       
     },
+    /*
+    * STATE(answered)
+    * To delete a contact method, the delete will return status and message
+    * we will pass the itm being deleted as a params
+    * filter using lodash, and return all except the itm with the given id
+    * update the state with the new state minus the itm
+    * update message with the delete message
+    * update success to true of false 
+    */
+    contactMethodsDelete: (state, action) => {
+      const { message, success, itm } = action.payload
+      if (success === true) {
+        let newState = [] as any
+        lodash.find(state.contactMethodsTable.entities,function(o: any){
+          if(o.id !== itm){
+            newState.push(o)
+          }
+        })
+        state.listLoading = false
+        state.error = null
+        state.contactMethodsTable.entities= newState
+        state.contactMethodsTable.success = success
+        state.deleteResponse= message
+        
+      }
+       else {
+        state.listLoading = false
+        state.error = null
+        state.contactMethodsTable.success = success
+        state.deleteResponse= message
+        
+      }
 
-
-
-  
-  
+      
+    },
    
   },
 })

@@ -60,3 +60,27 @@ export const updateContactMethods = (data: any, id: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
 }
+
+/*
+* delete a contact method
+* id: this will be contact method is
+* deleteContactMethods to trigger the promise
+* contactMethodsUpdate to update the state
+*/
+export const deleteContactMethods = (id: any) => 
+(dispatch: any) => {
+    dispatch(actions.startCall({ callType: callTypes.list}))
+    let contactId = id
+    return requestFromServer
+      .deleteContactMethod(contactId)
+      .then((response) => {
+        const { data } = response
+        const id = {itm: contactId}
+        const returnedTarget = Object.assign(data, id)
+        dispatch(actions.contactMethodsDelete(returnedTarget))
+      })
+      .catch((error)  => {
+        error.clientMessage = "Can't find contact methods"
+        dispatch(actions.catchError({ error, callType: callTypes.list }))
+      })
+}

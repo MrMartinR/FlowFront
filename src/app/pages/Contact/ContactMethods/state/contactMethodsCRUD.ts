@@ -79,3 +79,20 @@ export function updateContactMethods(data: any, id: any) {
       },
     });
 }
+/*
+
+*/
+export function deleteContactMethod(id: any) {
+  const { auth: { user, client, expiry, token } } = store.getState()
+  return axios.delete(`${CONTACT_METHODS_URL}/${id}`,
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'access-token': token,
+        'token-type': 'Bearer',
+        client,
+        expiry,
+        uid: user.uid,
+      },
+    });
+}
