@@ -1,28 +1,15 @@
 import React, {useEffect, useState} from 'react'
-/* eslint-disable no-restricted-imports*/
-
-import { makeStyles } from "@material-ui/core/styles";
 import { 
-  Grid,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Typography,
-  Button, } from "@material-ui/core";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as contactsActions from "./state/ContactsActions";
-import * as contactMethodsActions from "./ContactMethods/state/ContactMethodsActions";
+  Grid } from "@material-ui/core"
+import { shallowEqual, useDispatch, useSelector } from "react-redux"
+import * as contactsActions from "./state/ContactsActions"
+import * as contactMethodsActions from "./ContactMethods/state/ContactMethodsActions"
 import {ContactMethod} from './ContactMethods/ContactMethods'
-import { ContactsList } from "./ContactList";
-import { ContactDetails } from "./ContactDetails";
-import { RootState } from "../../../redux/rootReducer";
-import AddIcon from '@material-ui/icons/Add'
-import VerticalLinearStepper from './ContactStepper'
-const useStyles = makeStyles((theme) => ({
-  root: {
-   
-  }
-}))
+import { ContactsList } from "./ContactList"
+import { ContactDetails } from "./ContactDetails"
+import { RootState } from "../../../redux/rootReducer"
+
+import ContactAppBar from './ContactAppBar'
 
 export const Contacts = () => {
   const {currentState, methodsState} = useSelector(
@@ -39,9 +26,7 @@ export const Contacts = () => {
   const [listMethods, setListMethods] = useState([] as any);
   const [methodLoading, setMethodLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const classes = useStyles();
-
-
+  
   let selectedContact = {}
 
   if (list && list[selectedItemIndex]) {
@@ -97,31 +82,15 @@ export const Contacts = () => {
       setMethodLoading(methodsState.listLoading);
     }
   }, [methodsState]);
-  // eslint-disable-next-line
-  const [add, setAdd] = React.useState(true)
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = (e: any, value: any, itm = null) => {
-    if (value === 'add') {
-      setAdd(true)
-    }
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-  const body = (
-    <>
-          <Typography variant='h4' id='simple-modal-title'>
-            Add Contact
-          </Typography>
-          <VerticalLinearStepper />
-    </>
-  )
+  
 
 
   return (
-    <Grid  className={classes.root}>
+    <>
+    <ContactAppBar />
+    <br></br>
+  
+    <Grid>
       <Grid item md={12}>
         <Grid container spacing={1} direction="row" justify="space-evenly">
           <Grid
@@ -140,15 +109,7 @@ export const Contacts = () => {
             md={4}
             item
           >
-            <AddIcon id='add' onClick={(e) => handleOpen(e, 'add')}></AddIcon>
-            <Dialog open={open} onClose={handleClose}>
-          <DialogContent>{body}</DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} variant='contained'>
-              Cancel
-            </Button>
-          </DialogActions>
-        </Dialog>
+            
             <ContactDetails selectedContact={selectedContact} />
           </Grid>
           <Grid
@@ -167,5 +128,6 @@ export const Contacts = () => {
         </Grid>
       </Grid>
     </Grid>
+    </>
   )
 }

@@ -15,11 +15,10 @@ export const DeleteContactMethod = (props: any) => {
   let dispatch = useDispatch()
   useEffect(() => {
     if(res === true){
-      // eslint-disable-next-line
       dispatch(contactMethodsActions.deleteContactMethods(edit.id))
-      // eslint-disable-next-line
       setResponse(methodsState.contactMethodsTable.success)
     }
+    // eslint-disable-next-line
   }, [dispatch, res])
 
 
