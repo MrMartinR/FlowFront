@@ -23,15 +23,17 @@ import AssignmentIcon from '@material-ui/icons/Assignment'
 import StarIcon from '@material-ui/icons/Star'
 import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete';
 import AddContactMethodForm from './AddContactMethodForm'
 import EditContactMethodForm from './EditContactMethodForm'
+import DeleteContactMethod from "./DeleteContactMethod"
 
 export const ContactMethod = (props: any) => {
   const { methodLoading, listMethods, selectedContact, methodsState } = props
   const err = 'Not Found'
   const [expanded, setExpanded] = React.useState<string | false>(false)
   const [open, setOpen] = React.useState(false)
-  const [add, setAdd] = React.useState(true)
+  const [add, setAdd] = React.useState("" as string)
   const [edit, setEdit] = React.useState(null)
 
   const handleChange = (panel: string) => (
@@ -42,10 +44,14 @@ export const ContactMethod = (props: any) => {
   }
   const handleOpen = (e: any, value: any, itm = null) => {
     if (value === 'add') {
-      setAdd(true)
+      setAdd("add")
     }
     if (value === 'edit') {
-      setAdd(false)
+      setAdd("edit")
+      setEdit(itm)
+    }
+    if (value === 'delete') {
+      setAdd("delete")
       setEdit(itm)
     }
     setOpen(true)
@@ -56,7 +62,7 @@ export const ContactMethod = (props: any) => {
   }
   const body = (
     <>
-      {add === true ? (
+      {add === "add" ? (
         <>
           <Typography variant='h6' id='simple-modal-title'>
             Add Contact methods
@@ -64,15 +70,22 @@ export const ContactMethod = (props: any) => {
 
           <AddContactMethodForm selectedContact={selectedContact} methodsState={methodsState}/>
         </>
-      ) : (
+      ) : add === "edit" ? (
         <>
-          <h2 id='simple-modal-title'>Edit Contact methods</h2>
+          <Typography variant='h6'>Edit Contact methods</Typography>
           <EditContactMethodForm
             selectedContact={selectedContact}
             edit={edit}
             methodsState={methodsState}
           />
         </>
+      ): (
+        <>
+        <Typography variant='h6'>
+          Delete Contact methods
+        </Typography>
+        <DeleteContactMethod edit={edit} />
+      </>
       )}
     </>
   )
@@ -107,6 +120,7 @@ export const ContactMethod = (props: any) => {
 
               <Typography variant='h6'>{itm.kind || err}</Typography>
                 <EditIcon onClick={(e) => handleOpen(e, 'edit', itm)}> </EditIcon>
+                <DeleteIcon onClick={(e) => handleOpen(e, 'delete', itm)} />
             </AccordionSummary>
             <AccordionDetails>
               <List component='nav'>
