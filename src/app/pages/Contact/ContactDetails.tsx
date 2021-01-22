@@ -14,23 +14,14 @@ import {
   DialogContent,
   Button,
 } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Edit'
-import VerticalLinearStepper from './ContactStepper'
 
 export const ContactDetails = (props: any) => {
   const { selectedContact } = props
   const err = 'Not Found'
   const [open, setOpen] = React.useState(false)
-  const [add, setAdd] = React.useState(true)
 
   const handleOpen = (e: any, value: any) => {
-    if (value === 'add') {
-      setAdd(true)
-    }
-    if (value === 'edit') {
-      setAdd(false)
-    }
     setOpen(true)
   }
 
@@ -39,32 +30,19 @@ export const ContactDetails = (props: any) => {
   }
   const body = (
     <>
-      {add === true ? (
-        <>
-          <Typography variant='h4' id='simple-modal-title'>
-            Add Contact
-          </Typography>
-          <VerticalLinearStepper />
-        </>
-      ) : (
-        <>
           <Typography variant='h4' id='simple-modal-title'>
             Edit Contact
           </Typography>
           <Typography variant='body1' id='simple-modal-description'>
             add and edit contact form
           </Typography>
-        </>
-      )}
     </>
   )
 
   return (
     <>
       <>
-        
-          <AddIcon id='add' onClick={(e) => handleOpen(e, 'add')}> </AddIcon>
-          <EditIcon onClick={(e) => handleOpen(e, 'edit')}></EditIcon>
+          
       
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
@@ -77,6 +55,7 @@ export const ContactDetails = (props: any) => {
       </>
       <Card>
         <CardContent>
+          <EditIcon onClick={(e) => handleOpen(e, 'edit')}></EditIcon>
           <Grid>
             <Grid item md={12}>
               <Grid direction='row' justify='space-evenly' container>
