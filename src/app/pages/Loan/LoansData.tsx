@@ -12,7 +12,6 @@ LicenseInfo.setLicenseKey(
 
 const columns: ColDef[] = [
   // column definition format here
-  { field: 'serial_number', headerName: 'S/n', width: 100 },
   { field: 'name', headerName: 'Name', width: 180 },
   { field: 'air', headerName: 'Air', width: 180 },
   { field: 'country', headerName: 'Country', width: 180 },
@@ -49,9 +48,8 @@ const LoansData = (props: any) => {
 
   const processData = (arr: any) => {
     let data = [] as any
-    arr.forEach((element: any, index: number) => {
+    arr.forEach((element: any) => {
       let dt = {} as any
-      dt["serial_number"] = index + 1
       dt["id"] = element.id
       dt["name"] = element.name
       dt["air"] = element.air
