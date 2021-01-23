@@ -1,4 +1,3 @@
-// TODO: Replace formik for react hook forms https://react-hook-form.com
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
@@ -19,9 +18,12 @@ type ForgotPasswordType = {
   changepassword: any;
 };
 
+/**
+ * User registration component
+ * @param {object} props
+ * @author Zeeshan A
+ */
 function ForgotPasswordAction(props: any) {
-  // var quer = this.props.location.query.__firebase_request_key;
-  // alert('asdfadsf');
   const { location, intl } = props;
   const { search } = location;
   const queryString = require("query-string");
@@ -71,7 +73,6 @@ function ForgotPasswordAction(props: any) {
       expiry
     )
       .then((res) => {
-        // alert('sukses');
         localStorage.setItem("forgot_pwd_notif", res.data.message);
         console.log(res);
         history.push("/dashboard");

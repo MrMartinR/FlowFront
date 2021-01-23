@@ -1,4 +1,3 @@
-// TODO: Replace formik for react hook forms https://react-hook-form.com
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as Yup from "yup";

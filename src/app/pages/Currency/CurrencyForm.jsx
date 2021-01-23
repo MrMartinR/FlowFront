@@ -1,4 +1,3 @@
-// TODO: Replace formik for react hook forms https://react-hook-form.com
 import React from "react";
 /* eslint-disable  no-restricted-imports */
 import { makeStyles } from "@material-ui/core/styles";
