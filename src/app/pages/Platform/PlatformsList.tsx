@@ -7,6 +7,7 @@ import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 
 import { fetchPlatformsList } from "./state/platformsActions";
 
+
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
   );

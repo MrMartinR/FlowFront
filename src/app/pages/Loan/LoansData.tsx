@@ -5,7 +5,6 @@ import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid';
 
 import { fetchLoansData } from "./state/loansActions";
 
-
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
   );
