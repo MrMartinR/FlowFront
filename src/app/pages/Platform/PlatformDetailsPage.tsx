@@ -7,11 +7,13 @@ import { fetchPlatformDetails } from "./state/platformsActions";
 
 const PlatformDetailsPage = (props: any) => {
     const { match: { params } } = props
-    useEffect(() => {
-        props.fetchPlatformDetails(params.id);
-    }, [])
-
+    const { fetchPlatformDetails } = props
     const { platformDetails, loading } = props.platforms
+
+    useEffect(() => {
+        fetchPlatformDetails(params.id);
+    }, [fetchPlatformDetails, params.id])
+
    
 
     if(loading) {

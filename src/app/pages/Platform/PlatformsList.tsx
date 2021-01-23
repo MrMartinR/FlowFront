@@ -12,8 +12,6 @@ LicenseInfo.setLicenseKey(
   );
 
 const columns: ColDef[] = [
-  // { field: 'id', headerName: 'Id', width: 70 },
-  // { field: 'contact_id', headerName: 'Contact Id', width: 70 },
   { field: 'serial_number', headerName: 'S/n', width: 100 },
   { field: 'contact', headerName: 'Contact trade name', width: 200 },
   { field: 'status', headerName: 'Status', width: 100 },
@@ -110,6 +108,7 @@ const PlatformsList = (props: any) => {
                 columns={columns} 
                 onRowClick={handleClick}
                 disableMultipleSelection={true}
+                loading={true}
               />
             </div>
           </CardContent>
