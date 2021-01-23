@@ -81,7 +81,6 @@ const PlatformsList = (props: any) => {
     setData(processData(platformsTable))
   }, [platformsTable])
 
-  
   const linkTo = useHistory();
   const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
 

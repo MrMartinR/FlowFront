@@ -12,7 +12,6 @@ LicenseInfo.setLicenseKey(
 
 const columns: ColDef[] = [
   // column definition format here
-  // { field: 'id', headerName: 'Id', width: 70 },
   { field: 'serial_number', headerName: 'S/n', width: 100 },
   { field: 'contact', headerName: 'Contact trade name', width: 250 },
   { field: 'customer_category', headerName: 'Customer category', width: 250 },
@@ -48,7 +47,6 @@ const OriginatorsList = (props: any) => {
   useEffect(() => {
     setData(processData(originatorsTable))
   }, [originatorsTable])
-
 
   if(loading) {
     return (
