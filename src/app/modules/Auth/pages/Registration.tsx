@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../_redux/authRedux";
-import { registeration } from "../_redux/authCrud";
+import { registration } from "../_redux/authCrud";
 import { useForm } from "react-hook-form";
 import Logo from "../../../../common/media/flow-logo.svg";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -75,7 +75,7 @@ function Registration(props: any) {
   };
   const onSubmit = ({ email, fullname, username, password }: RegisterType) => {
     enableLoading();
-    registeration(email, fullname, username, password)
+    registration(email, fullname, username, password)
       .then((res) => {
         const accessToken = res.headers["access-token"];
         const { uid } = res.headers;
