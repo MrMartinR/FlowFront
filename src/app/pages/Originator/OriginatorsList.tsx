@@ -12,21 +12,41 @@ LicenseInfo.setLicenseKey(
 
 const columns: ColDef[] = [
   // column definition format here
-  { field: 'id', headerName: 'Id', width: 70 },
-  { field: 'contact', headerName: 'Contact', width: 70 },
-  { field: 'customer_category', headerName: 'Customer category', width: 220 },
-  { field: 'product_category_business', headerName: 'Business', width: 180 },
-  { field: 'product_category_consumer', headerName: 'Consumer', width: 240 },
-  { field: 'apr', headerName: 'Apr', width: 70 },
+  { field: 'serial_number', headerName: 'S/n', width: 100 },
+  { field: 'contact', headerName: 'Contact trade name', width: 250 },
+  { field: 'customer_category', headerName: 'Customer category', width: 250 },
+  { field: 'product_category_business', headerName: 'Business', width: 250 },
+  { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
+  { field: 'apr', headerName: 'Apr', width: 100 },
 ] as any;
 
-
 const OriginatorsList = (props: any) => {
+  const {fetchOriginatorsList} = props
   const { originatorsTable = [], loading } = props.originators
-  
+  const [data, setData] = React.useState([] as any)
+  const processData = (arr: any) => {
+    let data = [] as any
+    arr.forEach((element: any, index: number) => {
+      let dt = {} as any
+      dt["id"] = element.id
+      dt["serial_number"] = index + 1
+      dt["customer_category"] = JSON.parse(element.customer_category)
+      dt["product_category_business"] = JSON.parse(element.product_category_business)
+      dt["product_category_consumer"] = JSON.parse(element.product_category_consumer)
+      dt["apr"] = element.apr
+      dt["contact"] = element.contact.trade_name || "Not found"
+      data.push(dt)
+    });
+    return data  
+  }
+
   useEffect(() => {
-    props.fetchOriginatorsList();
-  }, [])
+    fetchOriginatorsList();
+  }, [fetchOriginatorsList])
+
+  useEffect(() => {
+    setData(processData(originatorsTable))
+  }, [originatorsTable])
 
   if(loading) {
     return (
@@ -47,10 +67,11 @@ const OriginatorsList = (props: any) => {
         <Card>
           <CardContent>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid 
-                rows={originatorsTable} 
+            <XGrid 
+                rows={data} 
                 columns={columns} 
                 disableMultipleSelection={true} 
+                loading={true}
               />
             </div>
           </CardContent>
