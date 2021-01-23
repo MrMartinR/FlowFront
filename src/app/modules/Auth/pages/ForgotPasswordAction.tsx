@@ -1,6 +1,5 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
 import React, { useState } from 'react'
-import { useFormik } from 'formik'
 import { connect } from 'react-redux'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -57,7 +56,7 @@ function ForgotPasswordAction(props: any) {
       }),
   })
 
-  const { register, handleSubmit, errors, formState  } = useForm({
+  const { register, handleSubmit, errors, formState } = useForm({
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   });
@@ -89,54 +88,27 @@ function ForgotPasswordAction(props: any) {
         // )
       })
   }
- 
+
   type MyType = {
     [key: string]: string | number | boolean;
   }
   const getInputClasses = (fieldname: any) => {
-    // let test :MyType= formState.touched[fieldname]
-    // console.log(dirtyFields ,'formState: ', test[fieldname]);
-    // if (formik.touched[fieldname] && formik.errors[fieldname]) {
-    //   return 'is-invalid'
-    // }
+    let len = Object.keys(formState.touched).length
 
-    // if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-    //   return 'is-valid'
-    // }
+    if (len) {
+      let touchedIndex = Object.entries(formState.touched).findIndex(([key, value]) => key === fieldname);
+      let errorIndex = Object.entries(formState.errors).findIndex(([key, value]) => key === fieldname);
+
+      if (touchedIndex >= 0 && errorIndex >= 0) {
+        return 'is-invalid'
+      }else{
+        return 'is-valid'
+      }
+    }
+  
 
     return ''
   }
-
-  // const formik = useFormik({
-  //   initialValues,
-  //   validationSchema: ForgotPasswordSchema,
-  //   onSubmit: (values, { setStatus, setSubmitting }) => {
-  //     submitRequestPassword(
-  //       values.password,
-  //       values.changepassword,
-  //       accessToken,
-  //       client,
-  //       uid,
-  //       expiry
-  //     )
-  //       .then((res) => {
-  //         // alert('sukses');
-  //         localStorage.setItem('forgot_pwd_notif', res.data.message)
-  //         console.log(res)
-  //         history.push('/dashboard')
-  //       })
-  //       .catch(() => {
-  //         setIsRequested(false)
-  //         setSubmitting(false)
-  //         setStatus(
-  //           intl.formatMessage(
-  //             { id: 'AUTH.VALIDATION.NOT_FOUND' },
-  //             { name: values.email }
-  //           )
-  //         )
-  //       })
-  //   },
-  // })
 
   return (
     <>
@@ -152,7 +124,7 @@ function ForgotPasswordAction(props: any) {
           <form
             onSubmit={handleSubmit(onSubmit)}
             className='form fv-plugins-bootstrap fv-plugins-framework animated animate__animated animate__backInUp'
-          >         
+          >
             {/* begin: Password */}
             <div className='form-group fv-plugins-icon-container'>
               <input
@@ -163,8 +135,7 @@ function ForgotPasswordAction(props: any) {
                 )}`}
                 name='password'
                 ref={register()}
-              // {...formik.getFieldProps('password')}
-              />              
+              />
             </div>
             <span> {errors.password && errors.password.message}</span>
             {/* end: Password */}
@@ -178,9 +149,8 @@ function ForgotPasswordAction(props: any) {
                   'changepassword'
                 )}`}
                 name='changepassword'
-                // {...formik.getFieldProps('changepassword')}
                 ref={register()}
-              />            
+              />
             </div>
             <span> {errors.changepassword && errors.changepassword.message}</span>
             {/* end: Confirm Password */}
