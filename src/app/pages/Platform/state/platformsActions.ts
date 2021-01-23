@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { any } from 'prop-types';
-import { optionsHeaders, PLATFORMS_URL } from './platformsCrud'
+import { optionsHeaders, API_URL } from '../../../../redux/utils'
 import { platformsSlice } from './platformsSlice'
 
+
 const { actions } = platformsSlice;
+const PLATFORMS_URL = `${API_URL}/api/v1/platforms`
 
 export const fetchPlatformsList = () => (dispatch: any) => {
   dispatch(actions.startCall(any))
