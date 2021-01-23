@@ -14,7 +14,7 @@
 /build
 
 # documentation
-/docs/typedocs
+/docs/typedocs/
 
 # misc
 .DS_Store
