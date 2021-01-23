@@ -62,13 +62,11 @@ function Registration(props: any) {
     ),
   });
 
-  const { register, handleSubmit, watch, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(RegistrationSchema),
     defaultValues: initialValues,
   });
-  const watchAcceptTerms = watch("acceptTerms", false); // you can supply default value as second argument
 
-  // console.log('errors: ', errors);
   const enableLoading = () => {
     setLoading(true);
   };

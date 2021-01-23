@@ -11,7 +11,6 @@ import {
   CardMedia,
   FormControl,
 } from "@material-ui/core";
-import { FormattedMessage } from "react-intl";
 import Logo from "../../../../common/media/flow-logo.svg";
 import * as auth from "../_redux/authRedux";
 import { useForm } from "react-hook-form";

@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, MenuItem } from "@material-ui/core";
 /* eslint-disable no-restricted-imports*/
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Alert from '@material-ui/lab/Alert';
 import * as contactMethodsActions from "./state/contactMethodsActions";
 import { useDispatch } from "react-redux";
 const useStyles = makeStyles(() =>
@@ -11,93 +10,87 @@ const useStyles = makeStyles(() =>
     root: {
       margin: 5,
     },
-    
   })
 );
 const types = [
   {
-    value: 'Twitter',
-    label: 'Twitter',
+    value: "Twitter",
+    label: "Twitter",
   },
   {
-    value: 'Facebook',
-    label: 'Facebook',
+    value: "Facebook",
+    label: "Facebook",
   },
   {
-    value: 'Instagram',
-    label: 'Instagram',
+    value: "Instagram",
+    label: "Instagram",
   },
   {
-    value: 'Linkedin',
-    label: 'Linkedin',
+    value: "Linkedin",
+    label: "Linkedin",
   },
   {
-    value: 'Youtube',
-    label: 'Youtube',
+    value: "Youtube",
+    label: "Youtube",
   },
   {
-    value: 'Pinterest',
-    label: 'Pinterest',
+    value: "Pinterest",
+    label: "Pinterest",
   },
   {
-    value: 'Trustpilot',
-    label: 'Trustpilot',
+    value: "Trustpilot",
+    label: "Trustpilot",
   },
   {
-    value: 'Email',
-    label: 'Email',
+    value: "Email",
+    label: "Email",
   },
   {
-    value: 'Web',
-    label: 'Web',
+    value: "Web",
+    label: "Web",
   },
   {
-    value: 'Phone',
-    label: 'Phone',
+    value: "Phone",
+    label: "Phone",
   },
   {
-    value: 'Address',
-    label: 'Address',
+    value: "Address",
+    label: "Address",
   },
 ];
 
 export const AddContactMethodForm = (props: any) => {
-  const {selectedContact} = props
-  const { register, handleSubmit, errors } = useForm();
+  const { selectedContact } = props;
+  const { register, handleSubmit } = useForm();
   const classes = useStyles();
-  const [type, setType] = React.useState('Email');
+  const [type, setType] = React.useState("Email");
   const [formData, setFormData] = React.useState([] as any);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value);
   };
-  let MethodDispatch = useDispatch()
-    useEffect(() => {
-      var size = Object.keys(formData).length
-      if (size > 0) {
-        MethodDispatch(contactMethodsActions.createContactMethods(formData));
-      }
-         
-    }, [MethodDispatch, formData]);
-
-  
+  let MethodDispatch = useDispatch();
+  useEffect(() => {
+    var size = Object.keys(formData).length;
+    if (size > 0) {
+      MethodDispatch(contactMethodsActions.createContactMethods(formData));
+    }
+  }, [MethodDispatch, formData]);
 
   const onSubmit = (data: any) => {
-    data["kind"] = type
-    data["contact_id"] = selectedContact.id
-    data["visibility"] = selectedContact.visibility
-    setFormData(data)
-  }
-  
-  
+    data["kind"] = type;
+    data["contact_id"] = selectedContact.id;
+    data["visibility"] = selectedContact.visibility;
+    setFormData(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container direction="column" >
-      <TextField
+      <Grid container direction="column">
+        <TextField
           name="contact"
           label="Contact name"
           variant="filled"
-          value={selectedContact.trade_name || selectedContact.name }
+          value={selectedContact.trade_name || selectedContact.name}
           className={classes.root}
         ></TextField>
         <TextField
@@ -108,7 +101,7 @@ export const AddContactMethodForm = (props: any) => {
           className={classes.root}
         ></TextField>
 
-      <TextField
+        <TextField
           select
           name="kind"
           label="Type"
@@ -131,7 +124,7 @@ export const AddContactMethodForm = (props: any) => {
           inputRef={register}
           className={classes.root}
         />
-       
+
         <TextField
           name="notes"
           label="Notes"

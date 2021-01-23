@@ -1,19 +1,18 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
-import React from 'react'
+import React from "react";
 /* eslint-disable  no-restricted-imports */
-import { makeStyles } from '@material-ui/core/styles'
-import clsx from 'clsx'
-// import * as Yup from "yup";
-import { FormControl, TextField } from '@material-ui/core'
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import * as Yup from "yup";
+import { FormControl, TextField } from "@material-ui/core";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 const CurrencyForm = (props) => {
-  // const {formik} = props
-  const { formMethods } = props
-
   const useFormStyles = makeStyles((theme) => ({
     container: {
-      display: 'flex',
-      flexWrap: 'wrap',
+      display: "flex",
+      flexWrap: "wrap",
     },
     formControl: {
       margin: theme.spacing(1),
@@ -31,107 +30,97 @@ const CurrencyForm = (props) => {
     menu: {
       width: 200,
     },
-  }))
+  }));
+  const currencyForm = Yup.object().shape({
+    name: Yup.string().required("Required"),
+    code: Yup.string().required("Required"),
+    symbol: Yup.string().required("Required"),
+    decimal_places: Yup.string().required("Required"),
+    kind: Yup.string().required("Required"),
+  });
 
-  const classes = useFormStyles()
+  const classes = useFormStyles();
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(currencyForm),
+  });
+
+  const onSubmit = (event) => {};
 
   return (
-    <div className='currency_form' id='kt_add_currency_form'>
-      <form className='form fv-plugins-bootstrap fv-plugins-framework'>
+    <div className="currency_form" id="kt_add_currency_form">
+      <form
+        className="form fv-plugins-bootstrap fv-plugins-framework"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-name-dense`}
-            label='Name'
-            type='text'
-            className={clsx(classes.textField, classes.dense)}
-            margin='dense'
-            variant='outlined'
-            name={'name'}
-            inputRef={formMethods.register()}
-          // {...formik.getFieldProps('name')}
-          />
-          <span> {errors.name && errors.name.message}</span>
-          {/* {formik.touched.name && formik.errors.name ? (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>{formik.errors.name}</div>
-            </div>
-          ) : null} */}
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <TextField
-            id={`outlined-code-dense`}
-            label='Code'
-            type='text'
-            className={clsx(classes.textField, classes.dense)}
-            margin='dense'
-            variant='outlined'
-            name='code'
-            inputRef={formMethods.register()}
-          />
-          <span> {errors.code && errors.code.message}</span>
-               </FormControl>
-        <FormControl className={classes.formControl}>
-          <TextField
-            id={`outlined-decimal_places-dense`}
-            label='Decimal Places'
-            type='number'
-            className={clsx(classes.textField, classes.dense)}
-            margin='dense'
-            variant='outlined'
-            name='decimal_places'
-            inputRef={formMethods.register()}
-          />
-          <span> {errors.decimal_places && errors.decimal_places.message}</span>
-         
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <TextField
-            id={`outlined-kind-dense`}
-            label='Type'
-            type='text'
-            className={clsx(classes.textField, classes.dense)}
-            margin='dense'
-            variant='outlined'
-            name='kind'
-            inputRef={formMethods.register()}
-          />
-          <span> {errors.kind && errors.kind.message}</span>
-       
-        </FormControl>
-        {/* <FormControl className={classes.formControl}>
-          <TextField
-            id={`outlined-fx_eur-dense`}
-            label="fx eur"
+            label="Name"
             type="text"
             className={clsx(classes.textField, classes.dense)}
             margin="dense"
             variant="outlined"
-            name="fx_eur"
-            {...formik.getFieldProps("fx_eur")}
+            name={"name"}
+            inputRef={register()}
           />
-          {formik.touched.fx_eur && formik.errors.fx_eur ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.fx_eur}</div>
-            </div>
-          ) : null}
-        </FormControl> */}
+          <span> {errors.name && errors.name.message}</span>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <TextField
+            id={`outlined-code-dense`}
+            label="Code"
+            type="text"
+            className={clsx(classes.textField, classes.dense)}
+            margin="dense"
+            variant="outlined"
+            name="code"
+            inputRef={register()}
+          />
+          <span> {errors.code && errors.code.message}</span>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <TextField
+            id={`outlined-decimal_places-dense`}
+            label="Decimal Places"
+            type="number"
+            className={clsx(classes.textField, classes.dense)}
+            margin="dense"
+            variant="outlined"
+            name="decimal_places"
+            inputRef={register()}
+          />
+          <span> {errors.decimal_places && errors.decimal_places.message}</span>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <TextField
+            id={`outlined-kind-dense`}
+            label="Type"
+            type="text"
+            className={clsx(classes.textField, classes.dense)}
+            margin="dense"
+            variant="outlined"
+            name="kind"
+            inputRef={register()}
+          />
+          <span> {errors.kind && errors.kind.message}</span>
+        </FormControl>
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-symbol-dense`}
-            label='Symbol'
-            type='text'
+            label="Symbol"
+            type="text"
             className={clsx(classes.textField, classes.dense)}
-            margin='dense'
-            variant='outlined'
-            name='symbol'
-            inputRef={formMethods.register()}
+            margin="dense"
+            variant="outlined"
+            name="symbol"
+            inputRef={register()}
           />
-         
+
           <span> {errors.symbol && errors.symbol.message}</span>
         </FormControl>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CurrencyForm
+export default CurrencyForm;

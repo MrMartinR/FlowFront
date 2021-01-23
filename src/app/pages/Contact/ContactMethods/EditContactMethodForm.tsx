@@ -3,81 +3,78 @@ import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, MenuItem } from "@material-ui/core";
 /* eslint-disable no-restricted-imports*/
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       margin: 5,
     },
-    
   })
 );
 const types = [
   {
-    value: 'Twitter',
-    label: 'Twitter',
+    value: "Twitter",
+    label: "Twitter",
   },
   {
-    value: 'Facebook',
-    label: 'Facebook',
+    value: "Facebook",
+    label: "Facebook",
   },
   {
-    value: 'Instagram',
-    label: 'Instagram',
+    value: "Instagram",
+    label: "Instagram",
   },
   {
-    value: 'Linkedin',
-    label: 'Linkedin',
+    value: "Linkedin",
+    label: "Linkedin",
   },
   {
-    value: 'Youtube',
-    label: 'Youtube',
+    value: "Youtube",
+    label: "Youtube",
   },
   {
-    value: 'Pinterest',
-    label: 'Pinterest',
+    value: "Pinterest",
+    label: "Pinterest",
   },
   {
-    value: 'Trustpilot',
-    label: 'Trustpilot',
+    value: "Trustpilot",
+    label: "Trustpilot",
   },
   {
-    value: 'Email',
-    label: 'Email',
+    value: "Email",
+    label: "Email",
   },
   {
-    value: 'Web',
-    label: 'Web',
+    value: "Web",
+    label: "Web",
   },
   {
-    value: 'Phone',
-    label: 'Phone',
+    value: "Phone",
+    label: "Phone",
   },
   {
-    value: 'Address',
-    label: 'Address',
+    value: "Address",
+    label: "Address",
   },
 ];
 
 export const EditContactMethodForm = (props: any) => {
-  const {selectedContact, edit} = props
-  const { register, handleSubmit, errors } = useForm();
+  const { edit } = props;
+  const { register, handleSubmit } = useForm();
   const classes = useStyles();
   const [type, setType] = React.useState(edit.kind);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value);
   };
   const onSubmit = (data: any) => {
-    data["kind"] = type
-    console.log("edit form",data)
+    data["kind"] = type;
+    console.log("edit form", data);
   };
-  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container direction="column" >
-         <TextField
+      <Grid container direction="column">
+        <TextField
           name="visibility"
           label="Visibility"
           variant="filled"
@@ -85,7 +82,7 @@ export const EditContactMethodForm = (props: any) => {
           className={classes.root}
         ></TextField>
 
-      <TextField
+        <TextField
           select
           name="kind"
           label="Type"
@@ -108,7 +105,7 @@ export const EditContactMethodForm = (props: any) => {
           className={classes.root}
           defaultValue={edit.data}
         />
-       
+
         <TextField
           name="notes"
           label="Notes"
