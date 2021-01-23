@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { originatorsSlice } from './originatorsSlice'
-import { optionsHeaders, API_URL } from '../../../../redux/utils'
+import { optionsHeaders } from '../../../../redux/utils'
+import { ORIGINATORS_URL } from './originatorsCrud'
 
-
-const ORIGINATORS_URL = `${API_URL}/api/v1/originators`
 
 const { actions } = originatorsSlice;
 
