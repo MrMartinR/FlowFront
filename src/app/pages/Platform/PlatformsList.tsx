@@ -7,12 +7,12 @@ import { XGrid, LicenseInfo } from '@material-ui/x-grid';
 
 import { fetchPlatformsList } from "./state/platformsActions";
 
+
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
   );
 
 const columns: ColDef[] = [
-  { field: 'serial_number', headerName: 'S/n', width: 100 },
   { field: 'contact', headerName: 'Contact trade name', width: 200 },
   { field: 'status', headerName: 'Status', width: 100 },
   { field: 'liquidity', headerName: 'Liquidity', width: 130 },
@@ -43,11 +43,10 @@ const PlatformsList = (props: any) => {
 
   const processData = (arr: any) => {
     let data = [] as any
-    arr.forEach((element: any, index: number) => {
+    arr.forEach((element: any) => {
       let dt = {} as any 
       dt["id"] = element.id 
       dt["contact_id"] = element.contact_id 
-      dt["serial_number"] = index + 1
       dt["contact"] = element.contact.trade_name 
       dt["status"] = element.status
       dt["liquidity"] = element.liquidity

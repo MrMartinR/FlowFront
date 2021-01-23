@@ -5,14 +5,12 @@ import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid';
 
 import { fetchLoansData } from "./state/loansActions";
 
-
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
   );
 
 const columns: ColDef[] = [
   // column definition format here
-  { field: 'serial_number', headerName: 'S/n', width: 100 },
   { field: 'name', headerName: 'Name', width: 180 },
   { field: 'air', headerName: 'Air', width: 180 },
   { field: 'country', headerName: 'Country', width: 180 },
@@ -49,9 +47,8 @@ const LoansData = (props: any) => {
 
   const processData = (arr: any) => {
     let data = [] as any
-    arr.forEach((element: any, index: number) => {
+    arr.forEach((element: any) => {
       let dt = {} as any
-      dt["serial_number"] = index + 1
       dt["id"] = element.id
       dt["name"] = element.name
       dt["air"] = element.air

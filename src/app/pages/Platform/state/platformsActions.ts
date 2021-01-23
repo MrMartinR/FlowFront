@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { any } from 'prop-types';
-import { optionsHeaders, PLATFORMS_URL } from './platformsCrud'
+
+import { optionsHeaders  } from '../../../../redux/utils'
+import { PLATFORMS_URL } from './platformsCrud'
 import { platformsSlice } from './platformsSlice'
+
 
 const { actions } = platformsSlice;
 

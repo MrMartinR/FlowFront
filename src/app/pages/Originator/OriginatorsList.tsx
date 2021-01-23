@@ -12,7 +12,6 @@ LicenseInfo.setLicenseKey(
 
 const columns: ColDef[] = [
   // column definition format here
-  { field: 'serial_number', headerName: 'S/n', width: 100 },
   { field: 'contact', headerName: 'Contact trade name', width: 250 },
   { field: 'customer_category', headerName: 'Customer category', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
@@ -26,10 +25,9 @@ const OriginatorsList = (props: any) => {
   const [data, setData] = React.useState([] as any)
   const processData = (arr: any) => {
     let data = [] as any
-    arr.forEach((element: any, index: number) => {
+    arr.forEach((element: any) => {
       let dt = {} as any
       dt["id"] = element.id
-      dt["serial_number"] = index + 1
       dt["customer_category"] = JSON.parse(element.customer_category)
       dt["product_category_business"] = JSON.parse(element.product_category_business)
       dt["product_category_consumer"] = JSON.parse(element.product_category_consumer)
