@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { optionsHeaders, ORIGINATORS_URL } from './originatorsCRUD'
+import { optionsHeaders, ORIGINATORS_URL } from './originatorsCrud'
 import { originatorsSlice } from './originatorsSlice'
 
 const { actions } = originatorsSlice;

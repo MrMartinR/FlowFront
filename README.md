@@ -89,7 +89,7 @@ Use the custom tag `@author` in every class, function, file you create.
 ## <img src="https://dev.flowfin.tech/assets/typescript.svg" width="30px" title="TypeScript"> [TypeScript](https://www.typescriptlang.org)
 
  * 📄 [Documentation](https://www.typescriptlang.org/docs)
- * 🚦 [StyleGuide](docs/StyleGuide-React-TypeScript.md)
+ * 🚦 [StyleGuide](https://dev.flowfin.tech/docs-front/docs/StyleGuide-React-TypeScript.md)
  * 🎓 Resources
    - [Conventions](https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md)
 
@@ -108,7 +108,7 @@ Use the custom tag `@author` in every class, function, file you create.
 ## <img src="https://dev.flowfin.tech/assets/react.svg" width="30px" title="React"> [React](https://reactjs.org/docs/getting-started.html)
 
  * 📄 [Documentation](https://reactjs.org/docs/getting-started.html)
- * 🚦 [StyleGuide](docs/StyleGuide-React-TypeScript.md)
+ * 🚦 [StyleGuide](https://dev.flowfin.tech/docs-front/docs/StyleGuide-React-TypeScript.md)
  * 🛠 Tools
    - [Simple React Snippets](https://marketplace.visualstudio.com/items?itemName=burkeholland.simple-react-snippets)  
     - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)  
@@ -141,7 +141,7 @@ Use the custom tag `@author` in every class, function, file you create.
 ## <img src="https://dev.flowfin.tech/assets/sass.svg" width="30px" title="Dart JS SASS"> [Dart JS • SASS](https://sass-lang.com)
 ##### CSS Preprocessor | Syntax SCSS
  * 📄 [Documentation](https://sass-lang.com/documentation)
- * 🚦 [StyleGuide](docs/StyleGuide-React.md)
+ * 🚦 [StyleGuide](https://dev.flowfin.tech/docs-front/docs/StyleGuide-React.md)
 
 <br>
 

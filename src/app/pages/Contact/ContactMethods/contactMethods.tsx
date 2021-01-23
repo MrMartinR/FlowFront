@@ -12,7 +12,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Fab,
   Dialog,
   DialogActions,
   DialogContent,
@@ -24,15 +23,17 @@ import AssignmentIcon from '@material-ui/icons/Assignment'
 import StarIcon from '@material-ui/icons/Star'
 import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Edit'
-import AddContactMethodForm from './AddContactMethodForm'
-import EditContactMethodForm from './EditContactMethodForm'
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddContactMethodForm from './addContactMethodForm'
+import EditContactMethodForm from './editContactMethodForm'
+import DeleteContactMethod from "./deleteContactMethod"
 
 export const ContactMethod = (props: any) => {
   const { methodLoading, listMethods, selectedContact, methodsState } = props
   const err = 'Not Found'
   const [expanded, setExpanded] = React.useState<string | false>(false)
   const [open, setOpen] = React.useState(false)
-  const [add, setAdd] = React.useState(true)
+  const [add, setAdd] = React.useState("" as string)
   const [edit, setEdit] = React.useState(null)
 
   const handleChange = (panel: string) => (
@@ -43,10 +44,14 @@ export const ContactMethod = (props: any) => {
   }
   const handleOpen = (e: any, value: any, itm = null) => {
     if (value === 'add') {
-      setAdd(true)
+      setAdd("add")
     }
     if (value === 'edit') {
-      setAdd(false)
+      setAdd("edit")
+      setEdit(itm)
+    }
+    if (value === 'delete') {
+      setAdd("delete")
       setEdit(itm)
     }
     setOpen(true)
@@ -57,23 +62,30 @@ export const ContactMethod = (props: any) => {
   }
   const body = (
     <>
-      {add === true ? (
+      {add === "add" ? (
         <>
           <Typography variant='h6' id='simple-modal-title'>
-            Add Contact methods
+            Add Contact method
           </Typography>
 
           <AddContactMethodForm selectedContact={selectedContact} methodsState={methodsState}/>
         </>
-      ) : (
+      ) : add === "edit" ? (
         <>
-          <h2 id='simple-modal-title'>Edit Contact methods</h2>
+          <Typography variant='h6'>Edit Contact method</Typography>
           <EditContactMethodForm
             selectedContact={selectedContact}
             edit={edit}
             methodsState={methodsState}
           />
         </>
+      ): (
+        <>
+        <Typography variant='h6'>
+          Delete Contact method
+        </Typography>
+        <DeleteContactMethod edit={edit} methodsState={methodsState} />
+      </>
       )}
     </>
   )
@@ -81,10 +93,7 @@ export const ContactMethod = (props: any) => {
 
   return (
     <Card variant='outlined'>
-      <Fab id='add' onClick={(e) => handleOpen(e, 'add')}>
-        <AddIcon />
-      </Fab>
-
+        <AddIcon id='add' onClick={(e) => handleOpen(e, 'add')}></AddIcon>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>{body}</DialogContent>
         <DialogActions>
@@ -110,9 +119,8 @@ export const ContactMethod = (props: any) => {
               </Avatar>
 
               <Typography variant='h6'>{itm.kind || err}</Typography>
-              <Fab onClick={(e) => handleOpen(e, 'edit', itm)}>
-                <EditIcon />
-              </Fab>
+                <EditIcon onClick={(e) => handleOpen(e, 'edit', itm)}> </EditIcon>
+                <DeleteIcon onClick={(e) => handleOpen(e, 'delete', itm)} />
             </AccordionSummary>
             <AccordionDetails>
               <List component='nav'>
