@@ -4,7 +4,8 @@
     "es6": true,
     "jest": true
   },
-  "parser": "babel-eslint",
+  // "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -12,11 +13,29 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "extends": ["airbnb", "plugin:react/recommended"],
-  "plugins": ["react"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "react"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ],
     "import/no-unresolved": "off",
     "no-shadow": "off",
     "no-console": "off",
@@ -26,17 +45,22 @@
     "no-use-before-define": "off",
     "semi": 0,
     "import/extensions": "off",
-    "linebreak-style":"off",
+    "linebreak-style": "off",
     "max-len": "off"
   },
   "overrides": [
     {
-      "files": ["spec/**/*.js"],
+      "files": [
+        "spec/**/*.js"
+      ],
       "rules": {
-        "no-use-before-define": ["off"],
-        "max-lines-per-function": ["off"]
+        "no-use-before-define": [
+          "off"
+        ],
+        "max-lines-per-function": [
+          "off"
+        ]
       }
     }
   ]
 }
-

@@ -8,7 +8,7 @@ import SignOut from './SignOut'
 
 
 function HeaderWrapper() {
-  
+
   const style = {
     // height: 40,
     // padding: 5, 
@@ -19,38 +19,38 @@ function HeaderWrapper() {
   return (
     // begin::MainContainer
     <AppBar position="sticky">
-          <Grid 
-          container
-          justify='flex-end' 
-          alignItems='center'
-          alignContent='center'
-          direction='row'
-          spacing={2}
-          >
-      {/* logo  */}
-          <Grid item xs={1} >
-            <IconButton href="/dashboard">
-            <CardMedia 
-              src={Logo} 
+      <Grid
+        container
+        justify='flex-end'
+        alignItems='center'
+        alignContent='center'
+        direction='row'
+        spacing={2}
+      >
+        {/* logo  */}
+        <Grid item xs={1} >
+          <IconButton href="/dashboard">
+            <CardMedia
+              src={Logo}
               component="img"
               style={style}
             />
-            </IconButton>
-            
-          </Grid>
+          </IconButton>
 
-      {/* main menu  */}
-          <Grid item xs={10} >
-          <HeaderMenu />
-          </Grid>
-
-      {/* signout button  */}
-          <Grid item xs={1}>
-            <SignOut />
-          </Grid>
-
-          {/* end::MainContainer */}
         </Grid>
+
+        {/* main menu  */}
+        <Grid item xs={10} >
+          <HeaderMenu />
+        </Grid>
+
+        {/* signout button  */}
+        <Grid item xs={1}>
+          <SignOut />
+        </Grid>
+
+        {/* end::MainContainer */}
+      </Grid>
     </AppBar>
   )
 }

@@ -1,15 +1,15 @@
-import React, {Suspense} from 'react'
-import {Route, Redirect, Switch} from 'react-router-dom'
-import {LayoutSplashScreen} from '../common/layout'
+import React, { Suspense } from 'react'
+import { Route, Redirect, Switch } from 'react-router-dom'
+import { LayoutSplashScreen } from '../common/layout'
 import DashboardPage from './pages/Dashboard'
 import SettingPage from './pages/Contact/ContactSettings'
-import {Contacts} from './pages/Contact'
-import {UserAccountsPage} from './pages/UserAccount'
-import {LendingPage} from './pages/LendingPage'
-import {CurrenciesPage} from './pages/Currency/CurrenciesPage'
+import { Contacts } from './pages/Contact'
+import { UserAccountsPage } from './pages/UserAccount'
+import { LendingPage } from './pages/LendingPage'
+import { CurrenciesPage } from './pages/Currency/CurrenciesPage'
 import PlatformsPage from './pages/Platform'
 import OriginatorsPage from './pages/Originator'
-import {LoansPage} from './pages/Loan'
+import { LoansPage } from './pages/Loan'
 
 export default function BasePage() {
   return (

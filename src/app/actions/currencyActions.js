@@ -1,11 +1,11 @@
 import axios from 'axios'
 import * as Yup from 'yup'
-import {API_URL} from '../../redux/utils'
+import { API_URL } from '../../redux/utils'
 
 export const addCurrency = (headerPara, values) =>
   axios.post(
     `${API_URL}/api/v1/currencies`,
-    {currency: values},
+    { currency: values },
     {
       // TODO: WTF are this fullname /client ?? copy/paste from somewhere? replace with naming related to the project
 

@@ -6,8 +6,8 @@ function SignOut() {
   const history = useHistory()
 
   return (
-    <Button 
-    onClick={() => {  history.push('/logout') }}>
+    <Button
+      onClick={() => { history.push('/logout') }}>
       Sign Out
     </Button>
   )
