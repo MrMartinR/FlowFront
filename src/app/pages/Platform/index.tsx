@@ -5,12 +5,12 @@ import PlatformsList from './PlatformsList'
 
 const PlatformsPage = () => {
   return (
-    <Grid container direction="column">
+    <Grid container direction='column'>
       <Card>
-        <Toolbar variant="dense">
-          <InputBase placeholder="Search…" />
+        <Toolbar variant='dense'>
+          <InputBase placeholder='Search…' />
         </Toolbar>
-      </Card>   
+      </Card>
       <Card>
         <CardContent>
           <PlatformsList />
@@ -20,5 +20,4 @@ const PlatformsPage = () => {
   )
 }
 
-export default PlatformsPage;
-
+export default PlatformsPage
