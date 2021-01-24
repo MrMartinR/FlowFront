@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react'
-import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+} from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
-
+import PlatformListToolbar from './PlatformListToolbar'
 import { fetchPlatformsList } from './state/platformsActions'
 
 LicenseInfo.setLicenseKey(
@@ -47,7 +53,7 @@ const PlatformsList = (props: any) => {
       dt['contact'] = element.contact.trade_name
       dt['status'] = element.status
       dt['liquidity'] = element.liquidity
-      dt['account_category'] = element.account_category
+      // dt['account_category'] = element.account_category
       // dt['cashflow_options'] = element.cashflow_options
       dt['category'] = element.category
       dt['cost'] = element.cost
@@ -89,21 +95,17 @@ const PlatformsList = (props: any) => {
   }
   return (
     <>
-      <Typography variant='h3'>Platforms</Typography>
+      <PlatformListToolbar />
       <Grid container direction='column'>
-        <Card>
-          <CardContent>
-            <div style={{ height: 600, width: '100%' }}>
-              <XGrid
-                rows={data}
-                columns={columns}
-                onRowClick={handleClick}
-                disableMultipleSelection={true}
-                loading={true}
-              />
-            </div>
-          </CardContent>
-        </Card>
+        <div style={{ height: 600, width: '100%' }}>
+          <XGrid
+            rows={data}
+            columns={columns}
+            onRowClick={handleClick}
+            disableMultipleSelection={true}
+            loading={true}
+          />
+        </div>
       </Grid>
     </>
   )

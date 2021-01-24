@@ -14,7 +14,7 @@ const UserPlatformsList = () => {
         <CardHeader title='User Platforms'></CardHeader>
         <CardContent>
           <Typography>
-            Here a menu with a list of platforms related to the user
+            Here a list/table/menu with a list of platforms related to the user
             (user_platforms table) Click on a row and load the details in the
             right part.
           </Typography>

@@ -5,7 +5,6 @@ import {
   CardHeader,
   Typography,
   CardContent,
-  Toolbar,
 } from '@material-ui/core'
 
 const UserPlatformsDetail = () => {

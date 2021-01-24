@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
-
 import { fetchOriginatorsList } from './state/originatorsActions'
 
 LicenseInfo.setLicenseKey(
@@ -11,11 +10,11 @@ LicenseInfo.setLicenseKey(
 
 const columns: ColDef[] = [
   // column definition format here
-  { field: 'contact', headerName: 'Contact trade name', width: 250 },
-  { field: 'customer_category', headerName: 'Customer category', width: 250 },
+  { field: 'contact', headerName: 'Name', width: 250 },
+  { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
-  { field: 'apr', headerName: 'Apr', width: 100 },
+  { field: 'apr', headerName: 'APR', width: 100 },
 ] as any
 
 const OriginatorsList = (props: any) => {
