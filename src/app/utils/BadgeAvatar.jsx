@@ -1,37 +1,32 @@
-import React from "react";
-import {Badge} from "@material-ui/core";
-import {Avatar} from "@material-ui/core";
-/* eslint-disable  no-restricted-imports */ 
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import React from 'react'
+import { Badge } from '@material-ui/core'
+import { Avatar } from '@material-ui/core'
+/* eslint-disable  no-restricted-imports */
+import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      display: "flex",
-      "& > *": {
-        margin: theme.spacing(1),
-      },
-    },
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1)
+      }
+    }
   })
-);
+)
 
-export default function BadgeAvatars({
-  src,
-  onFileChange,
-  readOnly,
-  name = "F",
-}) {
-  const classes = useStyles();
+export default function BadgeAvatars({ src, onFileChange, readOnly, name = 'F' }) {
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>
       {readOnly ? (
         <Avatar
           style={{
-            height: "100px",
-            width: "100px",
+            height: '100px',
+            width: '100px',
             //   border: "1px solid #e4dcdc",
-            border: "5px solid #f3f3f3",
+            border: '5px solid #f3f3f3'
           }}
           variant="rounded"
           alt="Travis Howard"
@@ -41,26 +36,21 @@ export default function BadgeAvatars({
         <Badge
           overlap="rectangle"
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: 'top',
+            horizontal: 'right'
           }}
           badgeContent={
             <label className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow">
               <i className="fa fa-pen icon-sm text-muted"></i>
-              <input
-                type="file"
-                onChange={onFileChange}
-                hidden
-                accept=".png, .jpg, .jpeg"
-              />
+              <input type="file" onChange={onFileChange} hidden accept=".png, .jpg, .jpeg" />
             </label>
           }
         >
           <Badge
             overlap="rectangle"
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
+              vertical: 'bottom',
+              horizontal: 'right'
             }}
             badgeContent={
               <span
@@ -73,10 +63,10 @@ export default function BadgeAvatars({
           >
             <Avatar
               style={{
-                height: "100px",
-                width: "100px",
+                height: '100px',
+                width: '100px',
                 //   border: "1px solid #e4dcdc",
-                border: "5px solid #f3f3f3",
+                border: '5px solid #f3f3f3'
               }}
               variant="rounded"
               alt={name}
@@ -86,5 +76,5 @@ export default function BadgeAvatars({
         </Badge>
       )}
     </div>
-  );
+  )
 }

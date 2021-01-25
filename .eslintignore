@@ -1,0 +1,6 @@
+*.md
+dist
+node_modules
+build
+docs
+public

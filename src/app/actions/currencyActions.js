@@ -13,8 +13,8 @@ export const addCurrency = (headerPara, values) =>
         'access-token': headerPara.authToken,
         client: headerPara.client,
         uid: headerPara.user.fullname,
-        expiry: headerPara.expiry,
-      },
+        expiry: headerPara.expiry
+      }
     }
   )
 
@@ -24,23 +24,17 @@ export const getAllCurrencies = (headerPara) =>
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
-      expiry: headerPara.expiry,
-    },
+      expiry: headerPara.expiry
+    }
   })
 
 export const CurrencySchema = Yup.object().shape({
-  code: Yup.string()
-    .min(2, 'Minimum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('This field is required'),
-  name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('This field is required'),
+  code: Yup.string().min(2, 'Minimum 2 symbols').max(50, 'Maximum 50 symbols').required('This field is required'),
+  name: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('This field is required'),
   // fx_eur: Yup.string().required("This field is required"),
   kind: Yup.string().required('This field is required'),
   symbol: Yup.string().required('This field is required'),
-  decimal_places: Yup.string().required('This field is required'),
+  decimal_places: Yup.string().required('This field is required')
 })
 
 export const currencyInitialValues = {
@@ -49,5 +43,5 @@ export const currencyInitialValues = {
   name: '',
   kind: '',
   // fx_eur: "",
-  decimal_places: '',
+  decimal_places: ''
 }

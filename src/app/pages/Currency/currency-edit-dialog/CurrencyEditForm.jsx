@@ -1,10 +1,10 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
-import React, {Fragment} from 'react'
-import {Modal, Container, Row, Col, Image} from 'react-bootstrap'
-import {withFormik} from 'formik'
+import React, { Fragment } from 'react'
+import { Modal, Container, Row, Col, Image } from 'react-bootstrap'
+import { withFormik } from 'formik'
 import * as Yup from 'yup'
-import {MultiSelect} from '../../../sharedComponents/searchSelect'
-import {Input} from '../../../sharedComponents/inputShared'
+import { MultiSelect } from '../../../sharedComponents/searchSelect'
+import { Input } from '../../../sharedComponents/inputShared'
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
     name: Yup.string()
@@ -25,32 +25,30 @@ const formikEnhancer = withFormik({
       .of(
         Yup.object().shape({
           label: Yup.string().required(),
-          value: Yup.string().required(),
+          value: Yup.string().required()
         })
-      ),
+      )
   }),
   enableReinitialize: true,
-  mapPropsToValues: ({
-    currency: {id, name, iso_code, continent, currency_id, flag},
-  }) => ({
+  mapPropsToValues: ({ currency: { id, name, iso_code, continent, currency_id, flag } }) => ({
     id,
     name,
     iso_code,
     continent,
     currency_id: [], //currencyMap
-    flag,
+    flag
   }),
-  handleSubmit: (values, {setSubmitting}) => {
+  handleSubmit: (values, { setSubmitting }) => {
     const payload = {
       ...values,
-      currency_id: [values].contries.map((t) => t.value),
+      currency_id: [values].contries.map((t) => t.value)
     }
     setTimeout(() => {
       alert(JSON.stringify(payload, null, 2))
       setSubmitting(false)
     }, 1000)
   },
-  displayName: 'MyForm',
+  displayName: 'MyForm'
 })
 
 export const CurrencyEditForm = (props) => {
@@ -65,14 +63,14 @@ export const CurrencyEditForm = (props) => {
     setFieldTouched,
     // isSubmitting,
     actionsLoading,
-    onHide,
+    onHide
   } = props
   return (
     <Fragment>
-      <Modal.Body className='overlay overlay-block'>
+      <Modal.Body className="overlay overlay-block">
         {actionsLoading && (
-          <div className='overlay-layer bg-transparent'>
-            <div className='spinner spinner-lg spinner-success' />
+          <div className="overlay-layer bg-transparent">
+            <div className="spinner spinner-lg spinner-success" />
           </div>
         )}
         <form onSubmit={handleSubmit}>
@@ -85,8 +83,8 @@ export const CurrencyEditForm = (props) => {
                   onBlur={setFieldTouched}
                   error={errors.name}
                   touched={touched.name}
-                  name='name'
-                  type='text'
+                  name="name"
+                  type="text"
                   // addClass={["col-md-5", "col-xs-12"]}
                 />
                 <Input
@@ -95,13 +93,13 @@ export const CurrencyEditForm = (props) => {
                   onBlur={setFieldTouched}
                   error={errors.category}
                   touched={touched.category}
-                  name='category'
-                  type='text'
+                  name="category"
+                  type="text"
                   // addClass={["col-md-5", "col-xs-12"]}
                 />
               </Col>
               <Col sm={4}>
-                <Image src='holder.js/171x180' thumbnail />
+                <Image src="holder.js/171x180" thumbnail />
               </Col>
             </Row>
             <Row>
@@ -111,8 +109,8 @@ export const CurrencyEditForm = (props) => {
                 onBlur={setFieldTouched}
                 error={errors.name}
                 touched={touched.name}
-                name='name'
-                type='text'
+                name="name"
+                type="text"
                 addClass={['col-md-5', 'col-xs-12']}
               />
               <Input
@@ -121,8 +119,8 @@ export const CurrencyEditForm = (props) => {
                 onBlur={setFieldTouched}
                 error={errors.category}
                 touched={touched.category}
-                name='category'
-                type='text'
+                name="category"
+                type="text"
                 addClass={['col-md-5', 'col-xs-12']}
               />
               <MultiSelect
@@ -131,7 +129,7 @@ export const CurrencyEditForm = (props) => {
                 onBlur={setFieldTouched}
                 error={errors.contries}
                 touched={touched.contries}
-                name='contries'
+                name="contries"
                 multi={true}
                 addClass={['col-md-5', 'col-xs-12']}
               />
@@ -142,7 +140,7 @@ export const CurrencyEditForm = (props) => {
                 error={errors.currency}
                 touched={touched.currency}
                 multi={true}
-                name='currency'
+                name="currency"
                 addClass={['col-md-5', 'col-xs-12']}
               />
             </Row>
@@ -162,19 +160,11 @@ export const CurrencyEditForm = (props) => {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <button
-          type='button'
-          onClick={onHide}
-          className='btn btn-light btn-elevate'
-        >
+        <button type="button" onClick={onHide} className="btn btn-light btn-elevate">
           Cancel
         </button>
         <> </>
-        <button
-          type='submit'
-          onClick={() => handleSubmit()}
-          className='btn btn-primary btn-elevate'
-        >
+        <button type="submit" onClick={() => handleSubmit()} className="btn btn-primary btn-elevate">
           Save
         </button>
       </Modal.Footer>

@@ -17,9 +17,9 @@ export function Routes() {
   const { isAuthorized } = useSelector(
     // TODO: added type Any on refactor
     ({ auth }: any) => ({
-      isAuthorized: auth.user != null,
+      isAuthorized: auth.user != null
     }),
-    shallowEqual,
+    shallowEqual
   )
 
   return (

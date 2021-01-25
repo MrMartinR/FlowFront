@@ -1,3 +1,4 @@
+/* eslint-disable */
 const connect = require('connect')
 const serveStatic = require('serve-static')
 

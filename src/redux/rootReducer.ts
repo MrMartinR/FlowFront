@@ -22,7 +22,7 @@ export const rootReducer = combineReducers({
   currencies: currenciesSlice.reducer,
   platforms: platformsSlice.reducer,
   originators: originatorsSlice.reducer,
-  icons: iconsSlice.reducer,
+  icons: iconsSlice.reducer
 })
 export type RootState = ReturnType<typeof rootReducer>
 

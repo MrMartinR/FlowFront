@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 /* eslint-disable no-restricted-imports*/
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import {
   Stepper,
   Step,
@@ -11,141 +11,129 @@ import {
   Typography,
   Checkbox,
   FormGroup,
-  FormControlLabel,
-} from "@material-ui/core";
-import ContactAdd from "./ContactAdd";
-import { RootState } from "../../../redux/rootReducer";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as countryActions from "../../../redux/countries/countriesActions";
+  FormControlLabel
+} from '@material-ui/core'
+import ContactAdd from './ContactAdd'
+import { RootState } from '../../../redux/rootReducer'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import * as countryActions from '../../../redux/countries/countriesActions'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: "100%",
-      minWidth: 500,
+      width: '100%',
+      minWidth: 500
     },
     button: {
       marginTop: theme.spacing(1),
-      marginRight: theme.spacing(1),
+      marginRight: theme.spacing(1)
     },
     actionsContainer: {
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(2)
     },
     resetContainer: {
-      padding: theme.spacing(3),
-    },
+      padding: theme.spacing(3)
+    }
   })
-);
+)
 
 function getSteps() {
-  return [
-    "Select Contact Type",
-    "Select Country",
-    "Select Visibility",
-    "Fill in Contact Details",
-  ];
+  return ['Select Contact Type', 'Select Country', 'Select Visibility', 'Fill in Contact Details']
 }
 
 export const VerticalLinearStepper = () => {
-  const {countryState} = useSelector(
+  const { countryState } = useSelector(
     (state: RootState) => ({
-      countryState: state.countries,
-      
+      countryState: state.countries
     }),
     shallowEqual
   )
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
-  const [list, setList] = useState([] as any);
-  const [isLoading, setIsLoading] = useState(true);
-  const [kind, setKind] = React.useState("Individual" as any);
-  const [visibility, setVisibility] = React.useState("Private");
+  const classes = useStyles()
+  const [activeStep, setActiveStep] = React.useState(0)
+  const steps = getSteps()
+  const [list, setList] = useState([] as any)
+  const [isLoading, setIsLoading] = useState(true)
+  const [kind, setKind] = React.useState('Individual' as any)
+  const [visibility, setVisibility] = React.useState('Private')
   const [checkState, setCheckState] = React.useState({
     checkedA: false,
-    checkedB: false,
-  });
+    checkedB: false
+  })
   const [checkVisible, setCheckVisible] = React.useState({
     checkedC: false,
-    checkedD: false,
-  });
+    checkedD: false
+  })
 
   const handleKind = (e: any) => {
-    if (e.target.name === "checkedA") {
+    if (e.target.name === 'checkedA') {
       setCheckState({
         ...checkState,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ["checkedB"]: false,
-      });
+        ['checkedB']: false
+      })
     }
-    if (e.target.name === "checkedB") {
+    if (e.target.name === 'checkedB') {
       setCheckState({
         ...checkState,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ["checkedA"]: false,
-      });
+        ['checkedA']: false
+      })
     }
-    if (e.target.name === "checkedC") {
+    if (e.target.name === 'checkedC') {
       setCheckVisible({
         ...checkVisible,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ["checkedD"]: false,
-      });
+        ['checkedD']: false
+      })
     }
-    if (e.target.name === "checkedD") {
+    if (e.target.name === 'checkedD') {
       setCheckVisible({
         ...checkVisible,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ["checkedC"]: false,
-      });
+        ['checkedC']: false
+      })
     }
-  };
+  }
 
- 
-     // contact Redux state
-     const GetAllCountries = () => {
-      let dispatch = useDispatch()
-      useEffect(() => {
-        if (dispatch) {
-          dispatch(countryActions.fetchAllCountry())
-        }
-      }, [dispatch])
-    }
-    GetAllCountries()
+  // contact Redux state
+  const GetAllCountries = () => {
+    let dispatch = useDispatch()
     useEffect(() => {
-      if (
-        countryState &&
-        countryState.countryTable &&
-        countryState.countryTable.entities
-      ) {
-        setList(countryState.countryTable.entities)
-        setIsLoading(countryState.listLoading)
+      if (dispatch) {
+        dispatch(countryActions.fetchAllCountry())
       }
-    }, [countryState])
-    console.log(list)
-    console.log(isLoading)
-  
+    }, [dispatch])
+  }
+  GetAllCountries()
+  useEffect(() => {
+    if (countryState && countryState.countryTable && countryState.countryTable.entities) {
+      setList(countryState.countryTable.entities)
+      setIsLoading(countryState.listLoading)
+    }
+  }, [countryState])
+  console.log(list)
+  console.log(isLoading)
 
   useEffect(() => {
     if (checkState.checkedA === true) {
-      setKind("Company");
+      setKind('Company')
     }
     if (checkState.checkedB === true) {
-      setKind("Individual");
+      setKind('Individual')
     }
-  }, [checkState]);
+  }, [checkState])
   useEffect(() => {
     if (checkVisible.checkedC === true) {
-      setVisibility("Private");
+      setVisibility('Private')
     }
     if (checkVisible.checkedD === true) {
-      setVisibility("Public");
+      setVisibility('Public')
     }
-  }, [checkVisible]);
+  }, [checkVisible])
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -158,7 +146,7 @@ export const VerticalLinearStepper = () => {
                   checked={checkState.checkedA}
                   name="checkedA"
                   onChange={handleKind}
-                  inputProps={{ "aria-label": "primary" }}
+                  inputProps={{ 'aria-label': 'primary' }}
                 />
               }
               label="Company"
@@ -169,15 +157,15 @@ export const VerticalLinearStepper = () => {
                   checked={checkState.checkedB}
                   onChange={handleKind}
                   name="checkedB"
-                  inputProps={{ "aria-label": "primary" }}
+                  inputProps={{ 'aria-label': 'primary' }}
                 />
               }
               label="Individual"
             />
           </FormGroup>
-        );
+        )
       case 1:
-        return "select country";
+        return 'select country'
       case 2:
         return (
           <FormGroup row>
@@ -187,7 +175,7 @@ export const VerticalLinearStepper = () => {
                   checked={checkVisible.checkedC}
                   name="checkedC"
                   onChange={handleKind}
-                  inputProps={{ "aria-label": "primary" }}
+                  inputProps={{ 'aria-label': 'primary' }}
                 />
               }
               label="Private"
@@ -198,31 +186,31 @@ export const VerticalLinearStepper = () => {
                   checked={checkVisible.checkedD}
                   onChange={handleKind}
                   name="checkedD"
-                  inputProps={{ "aria-label": "primary" }}
+                  inputProps={{ 'aria-label': 'primary' }}
                 />
               }
               label="Public"
             />
           </FormGroup>
-        );
+        )
       case 3:
-        return <ContactAdd kind={kind} visibility={visibility} />;
+        return <ContactAdd kind={kind} visibility={visibility} />
       default:
-        return "Unknown step";
+        return 'Unknown step'
     }
-  };
+  }
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+  }
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+    setActiveStep((prevActiveStep) => prevActiveStep - 1)
+  }
 
   const handleReset = () => {
-    setActiveStep(0);
-  };
+    setActiveStep(0)
+  }
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
@@ -233,20 +221,11 @@ export const VerticalLinearStepper = () => {
               <Typography>{getStepContent(index)}</Typography>
               <div className={classes.actionsContainer}>
                 <>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.button}
-                  >
+                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                     Back
                   </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
+                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>
                 </>
               </div>
@@ -263,6 +242,6 @@ export const VerticalLinearStepper = () => {
         </Paper>
       )}
     </div>
-  );
-};
-export default VerticalLinearStepper;
+  )
+}
+export default VerticalLinearStepper

@@ -2,9 +2,7 @@ import store from '../../../../redux/store'
 
 export const optionsHeaders = () => {
   const {
-    auth: {
-      user, client, expiry, token,
-    },
+    auth: { user, client, expiry, token }
   } = store.getState()
 
   const options = {
@@ -15,18 +13,18 @@ export const optionsHeaders = () => {
       'token-type': 'Bearer',
       client,
       expiry,
-      uid: user.email,
-    },
+      uid: user.email
+    }
   }
   return options
 }
 
 // TODO: define a system to get the right url depending of the environment and place it in a global scope?
-let API_URL;
+let API_URL
 if (process.env.NODE_ENV === 'development') {
   API_URL = 'http://localhost:3001'
-} else if(process.env.NODE_ENV === 'production'){
-  API_URL = "https://api.flowfin.tech";
+} else if (process.env.NODE_ENV === 'production') {
+  API_URL = 'https://api.flowfin.tech'
 }
 
 // let API_URL = "https://api.flowfin.tech";

@@ -3,7 +3,7 @@ import { contactMethodsSlice, callTypes } from './contactMethodsSlice'
 
 const { actions } = contactMethodsSlice
 
-// get a contact  methods 
+// get a contact  methods
 
 export const fetchContactMethods = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
@@ -13,7 +13,7 @@ export const fetchContactMethods = (id: any) => (dispatch: any) => {
       const { data } = response
       dispatch(actions.contactMethodsFetched({ data }))
     })
-    .catch((error)  => {
+    .catch((error) => {
       error.clientMessage = "Can't find contact methods"
       dispatch(actions.catchError({ error, callType: callTypes.list }))
     })

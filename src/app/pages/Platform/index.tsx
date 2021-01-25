@@ -10,7 +10,7 @@ const PlatformsPage = () => {
         <Toolbar variant="dense">
           <InputBase placeholder="Search…" />
         </Toolbar>
-      </Card>   
+      </Card>
       <Card>
         <CardContent>
           <PlatformsList />
@@ -20,5 +20,4 @@ const PlatformsPage = () => {
   )
 }
 
-export default PlatformsPage;
-
+export default PlatformsPage

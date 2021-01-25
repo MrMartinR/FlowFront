@@ -1,5 +1,5 @@
 /* eslint-disable import/export */
-export {Layout} from './components/Layout'
+export { Layout } from './components/Layout'
 
 // core
 export * from './_core/LayoutConfig'

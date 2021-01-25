@@ -17,7 +17,4 @@ class Logout extends Component {
   }
 }
 
-export default connect(
-  ({ auth }) => ({ hasAuthToken: Boolean(auth.authToken) }),
-  auth.actions,
-)(Logout)
+export default connect(({ auth }) => ({ hasAuthToken: Boolean(auth.authToken) }), auth.actions)(Logout)

@@ -1,44 +1,44 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
-import React, {Fragment, useEffect, useState} from 'react'
-import {Modal, Container, Row, Col} from 'react-bootstrap'
-import {withFormik} from 'formik'
+import React, { Fragment, useEffect, useState } from 'react'
+import { Modal, Container, Row, Col } from 'react-bootstrap'
+import { withFormik } from 'formik'
 import * as Yup from 'yup'
-import {MultiSelect} from '../../sharedComponents/searchSelect'
-import {Input} from '../../sharedComponents/inputShared'
-import {Avatar, Button} from '@material-ui/core'
+import { MultiSelect } from '../../sharedComponents/searchSelect'
+import { Input } from '../../sharedComponents/inputShared'
+import { Avatar, Button } from '@material-ui/core'
 /* eslint-disable  no-restricted-imports */
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 // import { StepperTemplate } from "./Stepper";
 
-import {Stepper} from '@material-ui/core'
-import {Step} from '@material-ui/core'
-import {StepLabel} from '@material-ui/core'
-import {Typography} from '@material-ui/core'
+import { Stepper } from '@material-ui/core'
+import { Step } from '@material-ui/core'
+import { StepLabel } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   avatarContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   bigAvatar: {
     margin: 10,
     width: '10rem',
-    height: '10rem',
+    height: '10rem'
   },
   input: {
-    display: 'none',
+    display: 'none'
   },
   root: {
-    width: '90%',
+    width: '90%'
   },
   backButton: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
+    marginBottom: theme.spacing(1)
+  }
 }))
 
 function getSteps() {
@@ -77,10 +77,10 @@ const formikEnhancer = withFormik({
     countries: Yup.array().min(1),
     // .required('Country is required'),
     // .nullable(),
-    createAccountFunc: null,
+    createAccountFunc: null
   }),
   enableReinitialize: true,
-  mapPropsToValues: ({account, saveAccount}) => {
+  mapPropsToValues: ({ account, saveAccount }) => {
     return {
       id: account.id,
       name: account.name,
@@ -88,11 +88,11 @@ const formikEnhancer = withFormik({
       icon: account.icon,
       countries: account.country_id, //countryMap
       currency: account.currency_id, //currencyMap
-      createAccountFunc: saveAccount,
+      createAccountFunc: saveAccount
     }
   },
 
-  handleSubmit: (values, {setSubmitting}) => {
+  handleSubmit: (values, { setSubmitting }) => {
     // const payload = {
     //   ...values,
     //   countries: values.countries.map((t) => t.value),
@@ -104,7 +104,7 @@ const formikEnhancer = withFormik({
         category: values.category,
         icon: values.icon,
         country_id: values.countries,
-        currency_id: values.currency,
+        currency_id: values.currency
       },
       () => {
         alert('New account has been created!')
@@ -119,7 +119,7 @@ const formikEnhancer = withFormik({
     //   currency_id: payload.currency_id,
     // }))
   },
-  displayName: 'MyForm',
+  displayName: 'MyForm'
 })
 
 export const AccountEditForm = (props) => {
@@ -136,7 +136,7 @@ export const AccountEditForm = (props) => {
     // actionsLoading,
     onHide,
     currencyTable,
-    countriesTable,
+    countriesTable
   } = props
 
   const classes = useStyles()
@@ -159,13 +159,13 @@ export const AccountEditForm = (props) => {
     if (currencyTable && countriesTable) {
       let selecData = {
         countries: [],
-        currencies: [],
+        currencies: []
       }
 
       currencyTable.map((data) => {
         selecData.currencies.push({
           value: data.id,
-          label: data.name,
+          label: data.name
         })
         return null
       })
@@ -173,7 +173,7 @@ export const AccountEditForm = (props) => {
       countriesTable.map((data) => {
         selecData.countries.push({
           value: data.id,
-          label: data.name,
+          label: data.name
         })
         return null
       })
@@ -189,7 +189,7 @@ export const AccountEditForm = (props) => {
   // const classes = useStyles();
 
   const getUrlFromSvgString = (string) => {
-    let blob = new Blob([string], {type: 'image/svg+xml'})
+    let blob = new Blob([string], { type: 'image/svg+xml' })
     let url = URL.createObjectURL(blob)
     return url
   }
@@ -219,7 +219,7 @@ export const AccountEditForm = (props) => {
 
   return (
     <Fragment>
-      <Modal.Body className='overlay overlay-block'>
+      <Modal.Body className="overlay overlay-block">
         {/* {actionsLoading && (
           <div className="overlay-layer bg-transparent">
             <div className="spinner spinner-lg spinner-success" />
@@ -247,8 +247,8 @@ export const AccountEditForm = (props) => {
                         onBlur={setFieldTouched}
                         error={errors.name}
                         touched={touched.name}
-                        name='name'
-                        type='text'
+                        name="name"
+                        type="text"
                         // addClass={["col-md-5", "col-xs-12"]}
                       />
                       <Input
@@ -257,30 +257,23 @@ export const AccountEditForm = (props) => {
                         onBlur={setFieldTouched}
                         error={errors.category}
                         touched={touched.category}
-                        name='category'
-                        type='text'
+                        name="category"
+                        type="text"
                         // addClass={["col-md-5", "col-xs-12"]}
                       />
                     </Col>
                     <Col sm={4} className={classes.avatarContainer}>
-                      <Avatar
-                        className={classes.bigAvatar}
-                        src={iconData ? getUrlFromSvgString(iconData) : null}
-                      />
+                      <Avatar className={classes.bigAvatar} src={iconData ? getUrlFromSvgString(iconData) : null} />
                       <input
                         name={'icon'}
-                        accept='image/svg+xml'
+                        accept="image/svg+xml"
                         className={classes.input}
-                        id='contained-button-file'
-                        type='file'
+                        id="contained-button-file"
+                        type="file"
                         onChange={fileUploaded}
                       />
-                      <label htmlFor='contained-button-file'>
-                        <Button
-                          variant='contained'
-                          color='primary'
-                          component='span'
-                        >
+                      <label htmlFor="contained-button-file">
+                        <Button variant="contained" color="primary" component="span">
                           Upload
                         </Button>
                       </label>
@@ -296,7 +289,7 @@ export const AccountEditForm = (props) => {
                       onBlur={setFieldTouched}
                       error={errors.countries}
                       touched={touched.countries}
-                      name='countries'
+                      name="countries"
                       multi={true}
                       addClass={['col-md-8', 'col-xs-12']}
                       list={selectionData ? selectionData.countries : []}
@@ -312,7 +305,7 @@ export const AccountEditForm = (props) => {
                       error={errors.currency}
                       touched={touched.currency}
                       multi={true}
-                      name='currency'
+                      name="currency"
                       addClass={['col-md-8', 'col-xs-12']}
                       list={selectionData ? selectionData.currencies : []}
                     />
@@ -336,29 +329,17 @@ export const AccountEditForm = (props) => {
           <div>
             {activeStep === steps.length ? (
               <div>
-                <Typography className={classes.instructions}>
-                  All steps completed
-                </Typography>
+                <Typography className={classes.instructions}>All steps completed</Typography>
                 <Button onClick={handleReset}>Reset</Button>
               </div>
             ) : (
               <div>
-                <Typography className={classes.instructions}>
-                  {getStepContent(activeStep)}
-                </Typography>
+                <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
                 <div>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.backButton}
-                  >
+                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.backButton}>
                     Back
                   </Button>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={handleNext}
-                  >
+                  <Button variant="contained" color="primary" onClick={handleNext}>
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>
                 </div>
@@ -369,19 +350,11 @@ export const AccountEditForm = (props) => {
       </Modal.Body>
       {activeStep === steps.length && (
         <Modal.Footer>
-          <button
-            type='button'
-            onClick={onHide}
-            className='btn btn-light btn-elevate'
-          >
+          <button type="button" onClick={onHide} className="btn btn-light btn-elevate">
             Cancel
           </button>
           <> </>
-          <button
-            type='submit'
-            onClick={() => handleSubmit()}
-            className='btn btn-primary btn-elevate'
-          >
+          <button type="submit" onClick={() => handleSubmit()} className="btn btn-primary btn-elevate">
             Save
           </button>
         </Modal.Footer>

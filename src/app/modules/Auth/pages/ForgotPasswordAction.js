@@ -1,28 +1,28 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
-import React, {useState} from 'react'
-import {useFormik} from 'formik'
-import {connect} from 'react-redux'
-import {Link, Redirect, useHistory} from 'react-router-dom'
+import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
-import {injectIntl} from 'react-intl'
+import { injectIntl } from 'react-intl'
 import * as auth from '../_redux/authRedux'
-import {submitRequestPassword} from '../_redux/authCrud'
+import { submitRequestPassword } from '../_redux/authCrud'
 
 const initialValues = {
-  email: '',
+  email: ''
 }
 
-function ForgotPasswordAction({location, intl}) {
+function ForgotPasswordAction({ location, intl }) {
   // var quer = this.props.location.query.__firebase_request_key;
   // alert('asdfadsf');
 
-  const {search} = location
+  const { search } = location
   const queryString = require('query-string')
   const parsed = queryString.parse(search)
   const accessToken = parsed['access-token']
-  const {client} = parsed
-  const {uid} = parsed
-  const {expiry} = parsed
+  const { client } = parsed
+  const { uid } = parsed
+  const { expiry } = parsed
   const [isRequested, setIsRequested] = useState(false)
   const history = useHistory()
   const ForgotPasswordSchema = Yup.object().shape({
@@ -31,22 +31,19 @@ function ForgotPasswordAction({location, intl}) {
       .max(50, 'Maximum 50 symbols')
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
         })
       ),
     changepassword: Yup.string()
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
         })
       )
       .when('password', {
         is: (val) => !!(val && val.length > 0),
-        then: Yup.string().oneOf(
-          [Yup.ref('password')],
-          "Password and Confirm Password didn't match"
-        ),
-      }),
+        then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match")
+      })
   })
 
   const getInputClasses = (fieldname) => {
@@ -64,15 +61,8 @@ function ForgotPasswordAction({location, intl}) {
   const formik = useFormik({
     initialValues,
     validationSchema: ForgotPasswordSchema,
-    onSubmit: (values, {setStatus, setSubmitting}) => {
-      submitRequestPassword(
-        values.password,
-        values.changepassword,
-        accessToken,
-        client,
-        uid,
-        expiry
-      )
+    onSubmit: (values, { setStatus, setSubmitting }) => {
+      submitRequestPassword(values.password, values.changepassword, accessToken, client, uid, expiry)
         .then((res) => {
           // alert('sukses');
           localStorage.setItem('forgot_pwd_notif', res.data.message)
@@ -82,92 +72,77 @@ function ForgotPasswordAction({location, intl}) {
         .catch(() => {
           setIsRequested(false)
           setSubmitting(false)
-          setStatus(
-            intl.formatMessage(
-              {id: 'AUTH.VALIDATION.NOT_FOUND'},
-              {name: values.email}
-            )
-          )
+          setStatus(intl.formatMessage({ id: 'AUTH.VALIDATION.NOT_FOUND' }, { name: values.email }))
         })
-    },
+    }
   })
 
   return (
     <>
-      {isRequested && <Redirect to='/auth' />}
+      {isRequested && <Redirect to="/auth" />}
       {!isRequested && (
-        <div className='login-form login-forgot' style={{display: 'block'}}>
-          <div className='text-center mb-10 mb-lg-20'>
-            <h3 className='font-size-h1'>Forgotten Password ?</h3>
-            <div className='text-muted font-weight-bold'>
-              Reset your password
-            </div>
+        <div className="login-form login-forgot" style={{ display: 'block' }}>
+          <div className="text-center mb-10 mb-lg-20">
+            <h3 className="font-size-h1">Forgotten Password ?</h3>
+            <div className="text-muted font-weight-bold">Reset your password</div>
           </div>
           <form
             onSubmit={formik.handleSubmit}
-            className='form fv-plugins-bootstrap fv-plugins-framework animated animate__animated animate__backInUp'
+            className="form fv-plugins-bootstrap fv-plugins-framework animated animate__animated animate__backInUp"
           >
             {formik.status && (
-              <div className='mb-10 alert alert-custom alert-light-danger alert-dismissible'>
-                <div className='alert-text font-weight-bold'>
-                  {formik.status}
-                </div>
+              <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
+                <div className="alert-text font-weight-bold">{formik.status}</div>
               </div>
             )}
 
             {/* begin: Password */}
-            <div className='form-group fv-plugins-icon-container'>
+            <div className="form-group fv-plugins-icon-container">
               <input
-                placeholder='Password'
-                type='password'
-                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-                  'password'
-                )}`}
-                name='password'
+                placeholder="Password"
+                type="password"
+                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses('password')}`}
+                name="password"
                 {...formik.getFieldProps('password')}
               />
               {formik.touched.password && formik.errors.password ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.password}</div>
+                <div className="fv-plugins-message-container">
+                  <div className="fv-help-block">{formik.errors.password}</div>
                 </div>
               ) : null}
             </div>
             {/* end: Password */}
 
             {/* begin: Confirm Password */}
-            <div className='form-group fv-plugins-icon-container'>
+            <div className="form-group fv-plugins-icon-container">
               <input
-                placeholder='Confirm Password'
-                type='password'
-                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-                  'changepassword'
-                )}`}
-                name='changepassword'
+                placeholder="Confirm Password"
+                type="password"
+                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses('changepassword')}`}
+                name="changepassword"
                 {...formik.getFieldProps('changepassword')}
               />
               {formik.touched.changepassword && formik.errors.changepassword ? (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>
-                    {formik.errors.changepassword}
-                  </div>
+                <div className="fv-plugins-message-container">
+                  <div className="fv-help-block">{formik.errors.changepassword}</div>
                 </div>
               ) : null}
             </div>
             {/* end: Confirm Password */}
-            <div className='form-group d-flex flex-wrap flex-center'>
+            <div className="form-group d-flex flex-wrap flex-center">
               <button
-                id='kt_login_forgot_submit'
-                type='submit'
-                className='btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4'
+                id="kt_login_forgot_submit"
+                type="submit"
+                className="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4"
                 disabled={formik.isSubmitting}
               >
                 Submit
               </button>
-              <Link to='/auth'>
+              <Link to="/auth">
                 <button
-                  type='button'
-                  id='kt_login_forgot_cancel'
-                  className='btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4'
+                  type="button"
+                  id="kt_login_forgot_cancel"
+                  className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"
                 >
                   Cancel
                 </button>

@@ -112,8 +112,10 @@
     }
   },
   "lint-staged": {
-    ".{tx, tsx}": [
-      "prettier --single-quote --write"
+    "src/**/*.{ts,tsx}": [
+      "npx eslint . --fix",
+      "npx prettier . --write",
+      "git add ."
     ]
   }
 }

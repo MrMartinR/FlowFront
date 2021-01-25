@@ -1,7 +1,7 @@
 {
   "env": {
     "browser": true,
-    "es10": true,
+    "es6": true,
     "jest": true
   },
   "parser": "@typescript-eslint/parser",
@@ -14,24 +14,18 @@
   },
   "extends": [
     "airbnb",
-    "esnext",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".ts", ".tsx"]
       }
     ],
     "import/no-unresolved": "off",
@@ -48,16 +42,10 @@
   },
   "overrides": [
     {
-      "files": [
-        "spec/**/*.js"
-      ],
+      "files": ["spec/**/*.js"],
       "rules": {
-        "no-use-before-define": [
-          "off"
-        ],
-        "max-lines-per-function": [
-          "off"
-        ]
+        "no-use-before-define": ["off"],
+        "max-lines-per-function": ["off"]
       }
     }
   ]

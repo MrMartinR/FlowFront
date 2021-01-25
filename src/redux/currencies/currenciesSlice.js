@@ -5,14 +5,17 @@ const initialCurrenciesState = {
   listLoading: false,
   actionsLoading: false,
   currencyTable: {
-    entities: null, page: null, pages: null, perPage: null,
+    entities: null,
+    page: null,
+    pages: null,
+    perPage: null
   },
   currencyForEdit: undefined,
-  lastError: null,
+  lastError: null
 }
 export const callTypes = {
   list: 'list',
-  action: 'action',
+  action: 'action'
 }
 
 export const currenciesSlice = createSlice({
@@ -39,9 +42,7 @@ export const currenciesSlice = createSlice({
       const { field, isAsc, entities } = action.payload
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
-        )
+        const entitiesOrdened = [...entities].sort(Util.sortCustom(field, isAsc, (a) => a.toUpperCase()))
         state.currencyTable.entities = entitiesOrdened
       }
     },
@@ -70,44 +71,36 @@ export const currenciesSlice = createSlice({
     currencyUpdated: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.currencyTable.entities = state.currencyTable.entities.map(
-        (entity) => {
-          if (entity.id === action.payload.currency.id) {
-            return action.payload.currency
-          }
-          return entity
-        },
-      )
+      state.currencyTable.entities = state.currencyTable.entities.map((entity) => {
+        if (entity.id === action.payload.currency.id) {
+          return action.payload.currency
+        }
+        return entity
+      })
     },
     // deleteCustomer
     currencyDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.currencyTable.entities = state.currencyTable.entities.filter(
-        (el) => el.id !== action.payload.id,
-      )
+      state.currencyTable.entities = state.currencyTable.entities.filter((el) => el.id !== action.payload.id)
     },
     // deleteCustomers
     currenciesDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.currencyTable.entities = state.currencyTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id),
-      )
+      state.currencyTable.entities = state.currencyTable.entities.filter((el) => !action.payload.ids.includes(el.id))
     },
     // CurrenciesUpdateState
     currenciesStatusUpdated: (state, action) => {
       state.actionsLoading = false
       state.error = null
       const { ids, status } = action.payload
-      state.currencyTable.entities = state.currencyTable.entities.map(
-        (entity) => {
-          if (ids.findIndex((id) => id === entity.id) > -1) {
-            entity.status = status
-          }
-          return entity
-        },
-      )
-    },
-  },
+      state.currencyTable.entities = state.currencyTable.entities.map((entity) => {
+        if (ids.findIndex((id) => id === entity.id) > -1) {
+          entity.status = status
+        }
+        return entity
+      })
+    }
+  }
 })

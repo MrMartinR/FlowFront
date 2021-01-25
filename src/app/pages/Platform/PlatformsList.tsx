@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
-import { Grid, Card, CardContent } from '@material-ui/core/';
-import { connect } from 'react-redux';
-import { ColDef } from '@material-ui/data-grid';
-import { XGrid, LicenseInfo } from '@material-ui/x-grid';
+import React, { useEffect } from 'react'
+import { Grid, Card, CardContent } from '@material-ui/core/'
+import { connect } from 'react-redux'
+/* eslint-disable */
 
-import { fetchPlatformsList } from "./state/platformsActions";
+import { ColDef } from '@material-ui/data-grid'
+import { XGrid, LicenseInfo } from '@material-ui/x-grid'
+
+import { fetchPlatformsList } from './state/platformsActions'
 
 LicenseInfo.setLicenseKey(
-  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
-  );
+  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
+)
 
 const columns: ColDef[] = [
   { field: 'id', headerName: 'Id', width: 70 },
@@ -33,17 +35,17 @@ const columns: ColDef[] = [
   { field: 'structure', headerName: 'Structure', width: 130 },
   { field: 'taxes', headerName: 'Taxes', width: 130 },
   { field: 'term', headerName: 'Term', width: 130 },
-  { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 130 },
-];
+  { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 130 }
+]
 
 const PlatformsList = (props: any) => {
   const { platformsTable = [], loading } = props.platforms
 
   useEffect(() => {
-    props.fetchPlatformsList();
+    props.fetchPlatformsList()
   }, [])
 
-  if(loading) {
+  if (loading) {
     return (
       <div>
         <h1>Loading platforms...</h1>
@@ -64,31 +66,19 @@ const PlatformsList = (props: any) => {
         </Card>
       </Grid>
     </>
-  );
+  )
 }
 
 const mapStateToProps = (state: any) => {
   return {
     platforms: state.platforms
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchPlatformsList: () => dispatch(fetchPlatformsList())
   }
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformsList);
-
-
-
-
-
-
-
-
-
-  
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformsList)

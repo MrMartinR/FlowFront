@@ -3,9 +3,7 @@ import store from '../store'
 
 const optionsHeaders = () => {
   const {
-    auth: {
-      user, client, expiry, token,
-    },
+    auth: { user, client, expiry, token }
   } = store.getState()
 
   const options = {
@@ -16,14 +14,14 @@ const optionsHeaders = () => {
       'token-type': 'Bearer',
       client,
       expiry,
-      uid: user.email,
-    },
+      uid: user.email
+    }
   }
   return options
 }
 
 // const API_URL = 'http://localhost:3001'
-const API_URL = "https://api.flowfin.tech";
+const API_URL = 'https://api.flowfin.tech'
 // const API_URL = process.env.API_URL;
 
 // Works for User Accounts
@@ -54,19 +52,13 @@ export function getUserTransactions() {
 export function findUserAccounts({ page, perPage = 10 }) {
   perPage = 1000
   // return axios.get(`${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`, optionsHeaders());
-  return axios.get(
-    `${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`,
-    optionsHeaders(),
-  )
+  return axios.get(`${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`, optionsHeaders())
 }
 
 // This works similar to findAccounts. The difference is that rather than replacing existing data,
 // its append new data to existing data. Usefull for implementing infinite list where new data is loaded on demand.
 export function findNextUserAccounts({ page, perPage = 10 }) {
-  return axios.get(
-    `${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`,
-    optionsHeaders(),
-  )
+  return axios.get(`${USER_ACCOUNT_URL}?page=${page}&per_page=${perPage}`, optionsHeaders())
 }
 
 // UPDATE => PUT: update the account on the server
@@ -78,7 +70,7 @@ export function updateUserAccount(account) {
 export function updateStatusForUserAccounts(ids, status) {
   return axios.post(`${USER_ACCOUNT_URL}/updateStatusforuseraccounts`, {
     ids,
-    status,
+    status
   })
 }
 

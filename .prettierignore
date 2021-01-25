@@ -1,2 +1,7 @@
 # Ignore all Markdowns files:
 *.md
+dist
+node_modules
+build
+docs
+public

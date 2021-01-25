@@ -27,11 +27,11 @@ export const iconsSlice = createSlice({
       state[uid] = {
         logo,
         icon,
-        createdAt: dateObject.getTime(),
+        createdAt: dateObject.getTime()
       }
-    },
+    }
     // fetchIcon: (params) => (dispatch) => {},
-  },
+  }
 })
 
 export const { actions } = iconsSlice

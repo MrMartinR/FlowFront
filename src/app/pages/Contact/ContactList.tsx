@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 /* eslint-disable no-restricted-imports*/
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 import {
   List,
   ListItem,
@@ -8,78 +8,69 @@ import {
   ListSubheader,
   ListItemIcon,
   CircularProgress,
-  TextField,
-} from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
-import { Autocomplete } from "@material-ui/lab";
+  TextField
+} from '@material-ui/core'
+import FolderIcon from '@material-ui/icons/Folder'
+import { Autocomplete } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
-    position: "relative",
-    overflow: "auto",
+    position: 'relative',
+    overflow: 'auto',
     maxHeight: 650,
-    top: 20,
+    top: 20
   },
   listSection: {
-    backgroundColor: "inherit",
+    backgroundColor: 'inherit'
   },
   ul: {
-    backgroundColor: "inherit",
-    padding: 0,
-  },
-}));
+    backgroundColor: 'inherit',
+    padding: 0
+  }
+}))
 
 export const ContactsList = (props: any) => {
-  const { setSelectedItemIndex, isLoading, list } = props;
-  const [options, setOptions] = useState([] as any);
-  const classes = useStyles();
+  const { setSelectedItemIndex, isLoading, list } = props
+  const [options, setOptions] = useState([] as any)
+  const classes = useStyles()
   const updateSelected = (value: any) => {
-    setSelectedItemIndex(value);
-  };
+    setSelectedItemIndex(value)
+  }
 
   useEffect(() => {
     if (list.length >= 1) {
-      let opt = [] as any;
+      let opt = [] as any
       list.map((option: any) => {
-        if (option.kind === "Company") {
-          opt.push(option.trade_name);
+        if (option.kind === 'Company') {
+          opt.push(option.trade_name)
         }
-        if (option.kind === "Individual") {
-          opt.push(option.name);
+        if (option.kind === 'Individual') {
+          opt.push(option.name)
         }
-        return opt;
-      });
-      setOptions(opt);
+        return opt
+      })
+      setOptions(opt)
     }
-  }, [list]);
+  }, [list])
 
   const handlePick = (e: any, v: any) => {
-    let selected = list.findIndex(
-      (itm: any) => itm.trade_name === v || itm.name === v
-    );
-    setSelectedItemIndex(selected);
-  };
+    let selected = list.findIndex((itm: any) => itm.trade_name === v || itm.name === v)
+    setSelectedItemIndex(selected)
+  }
 
   return (
-    <div style={{ width: "100%", }}>
+    <div style={{ width: '100%' }}>
       {isLoading ? (
         <p>loading ...</p>
       ) : (
-        <div style={{ width: "80%", }}>
+        <div style={{ width: '80%' }}>
           <Autocomplete
             freeSolo
             options={options}
             onChange={handlePick}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Search"
-                margin="normal"
-                variant="outlined"
-              />
-            )}
+            renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
           />
         </div>
       )}
@@ -97,13 +88,13 @@ export const ContactsList = (props: any) => {
                   key={`${item.id}`}
                   button
                   onClick={(e) => {
-                    updateSelected(idx);
+                    updateSelected(idx)
                   }}
                 >
                   <ListItemIcon>
                     <FolderIcon />
                   </ListItemIcon>
-                  {item.kind === "Company" ? (
+                  {item.kind === 'Company' ? (
                     <ListItemText primary={`${item.trade_name}`} />
                   ) : (
                     <ListItemText primary={`${item.name}`} />
@@ -115,5 +106,5 @@ export const ContactsList = (props: any) => {
         </li>
       </List>
     </div>
-  );
-};
+  )
+}

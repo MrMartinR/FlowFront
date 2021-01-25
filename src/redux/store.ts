@@ -10,15 +10,15 @@ const middleware = [
   ...getDefaultMiddleware({
     immutableCheck: false,
     serializableCheck: false,
-    thunk: true,
+    thunk: true
   }),
-  sagaMiddleware,
+  sagaMiddleware
 ]
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['icons'], // only icons will be persisted
+  whitelist: ['icons'] // only icons will be persisted
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -27,12 +27,12 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware,
   devTools: process.env.NODE_ENV !== 'production',
-  enhancers: [reduxBatch],
+  enhancers: [reduxBatch]
 })
 
 /**
  * See {@link https://github.com/rt2zz/redux-persist#persiststorestore-config-callback}
- * 
+ *
  * See {@link https://github.com/rt2zz/redux-persist#persistor-object}
  */
 export const persistor = persistStore(store)

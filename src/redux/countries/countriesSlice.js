@@ -5,14 +5,17 @@ const initialCountriesState = {
   listLoading: false,
   actionsLoading: false,
   countryTable: {
-    entities: null, page: null, pages: null, perPage: null,
+    entities: null,
+    page: null,
+    pages: null,
+    perPage: null
   },
   countryForEdit: undefined,
-  lastError: null,
+  lastError: null
 }
 export const callTypes = {
   list: 'list',
-  action: 'action',
+  action: 'action'
 }
 
 export const countriesSlice = createSlice({
@@ -39,9 +42,7 @@ export const countriesSlice = createSlice({
       const { field, isAsc, entities } = action.payload
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
-        )
+        const entitiesOrdened = [...entities].sort(Util.sortCustom(field, isAsc, (a) => a.toUpperCase()))
         state.countryTable.entities = entitiesOrdened
       }
     },
@@ -69,44 +70,36 @@ export const countriesSlice = createSlice({
     countryUpdated: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.countryTable.entities = state.countryTable.entities.map(
-        (entity) => {
-          if (entity.id === action.payload.country.id) {
-            return action.payload.country
-          }
-          return entity
-        },
-      )
+      state.countryTable.entities = state.countryTable.entities.map((entity) => {
+        if (entity.id === action.payload.country.id) {
+          return action.payload.country
+        }
+        return entity
+      })
     },
     // deleteCustomer
     countryDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.countryTable.entities = state.countryTable.entities.filter(
-        (el) => el.id !== action.payload.id,
-      )
+      state.countryTable.entities = state.countryTable.entities.filter((el) => el.id !== action.payload.id)
     },
     // deleteCustomers
     countriesDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.countryTable.entities = state.countryTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id),
-      )
+      state.countryTable.entities = state.countryTable.entities.filter((el) => !action.payload.ids.includes(el.id))
     },
     // CountriesUpdateState
     countriesStatusUpdated: (state, action) => {
       state.actionsLoading = false
       state.error = null
       const { ids, status } = action.payload
-      state.countryTable.entities = state.countryTable.entities.map(
-        (entity) => {
-          if (ids.findIndex((id) => id === entity.id) > -1) {
-            entity.status = status
-          }
-          return entity
-        },
-      )
-    },
-  },
+      state.countryTable.entities = state.countryTable.entities.map((entity) => {
+        if (ids.findIndex((id) => id === entity.id) > -1) {
+          entity.status = status
+        }
+        return entity
+      })
+    }
+  }
 })

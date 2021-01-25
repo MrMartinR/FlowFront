@@ -7,8 +7,8 @@ function getInitLayoutConfig() {
       enabled: true,
       type: '', // default|spinner-message|spinner-logo
       logo: toAbsoluteUrl('/media/logos/flow-logo.svg'),
-      message: 'Please wait...',
-    },
+      message: 'Please wait...'
+    }
   }
 }
 

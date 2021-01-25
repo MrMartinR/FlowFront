@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API_URL} from '../../redux/utils'
+import { API_URL } from '../../redux/utils'
 
 export const updateProfile = (headerPara, details, fileName = false) => {
   const formData = new FormData()
@@ -18,8 +18,8 @@ export const updateProfile = (headerPara, details, fileName = false) => {
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
-      expiry: headerPara.expiry,
-    },
+      expiry: headerPara.expiry
+    }
   })
 }
 
@@ -29,6 +29,6 @@ export const getUserProfile = (headerPara) =>
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
-      expiry: headerPara.expiry,
-    },
+      expiry: headerPara.expiry
+    }
   })
