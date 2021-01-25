@@ -8,6 +8,7 @@ import { platformsSlice } from './platformsSlice'
 
 const { actions } = platformsSlice;
 
+// Fetches a list of platforms
 export const fetchPlatformsList = () => (dispatch: any) => {
   dispatch(actions.startCall(any))
       axios.get(PLATFORMS_URL, optionsHeaders())
@@ -19,11 +20,26 @@ export const fetchPlatformsList = () => (dispatch: any) => {
       });
 }
 
+// Fetches the details of a single platform
 export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
       axios.get(`${PLATFORMS_URL}/${id}`, optionsHeaders())
       .then(function (response) {
           return dispatch(actions.platformDetailsReceived(response.data));
+      })
+      .catch(function (error) {
+          return dispatch(actions.catchError(error));
+      });
+}
+
+// Fetches a list of originators associated to a particular platform
+export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
+  dispatch(actions.startCall(any))
+      axios.get(`${PLATFORMS_URL}/${id}/originators`, optionsHeaders())
+      .then(function (response) {
+          console.log(response)
+          console.log(response.data)
+          return dispatch(actions.platformOriginatorsReceived(response.data));
       })
       .catch(function (error) {
           return dispatch(actions.catchError(error));
