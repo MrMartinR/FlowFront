@@ -17,7 +17,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  Button
+  Button,
 } from '@material-ui/core'
 import { deepOrange, green } from '@material-ui/core/colors'
 import AddIcon from '@material-ui/icons/Add'
@@ -31,30 +31,30 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       overflow: 'auto',
       height: '100%',
-      top: 20
+      top: 20,
     },
     title: {
-      fontSize: 14
+      fontSize: 14,
     },
     pos: {
-      marginBottom: 12
+      marginBottom: 12,
     },
     list: {
       width: '100%',
       maxWidth: 400,
-      backgroundColor: theme.palette.background.paper
+      backgroundColor: theme.palette.background.paper,
     },
     square: {
       color: theme.palette.getContrastText(deepOrange[500]),
       backgroundColor: deepOrange[500],
       margin: 5,
       width: '100%',
-      height: '45%'
+      height: '45%',
     },
     add: {
       color: theme.palette.getContrastText(green[500]),
-      backgroundColor: green[500]
-    }
+      backgroundColor: green[500],
+    },
   })
 )
 

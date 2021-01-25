@@ -1,9 +1,9 @@
 import React from 'react'
-import { Grid, Card, CardHeader, CardContent, Toolbar, InputBase } from '@material-ui/core'
+import { Grid, Card, CardContent, Toolbar, InputBase } from '@material-ui/core'
 
-import LoansData from './LoansDataTable'
+import LoansData from './LoansData'
 
-export const LoansPage = () => {
+const LoansPage = () => {
   return (
     <Grid container direction="column">
       <Card>
@@ -11,9 +11,7 @@ export const LoansPage = () => {
           <InputBase placeholder="Search…" />
         </Toolbar>
       </Card>
-
       <Card>
-        <CardHeader title="Loans" />
         <CardContent>
           <LoansData />
         </CardContent>
@@ -21,3 +19,5 @@ export const LoansPage = () => {
     </Grid>
   )
 }
+
+export default LoansPage

@@ -9,6 +9,7 @@ import * as _redux from './redux'
 import store, { persistor } from './redux/store'
 import App from './app/App'
 import { LayoutProvider, SplashScreenProvider } from './common/layout'
+import { IntlProvider } from 'react-intl'
 // import 'react-virtualized/styles.css'
 
 /**
@@ -28,7 +29,9 @@ ReactDOM.render(
   <React.StrictMode>
     <LayoutProvider>
       <SplashScreenProvider>
-        <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+        <IntlProvider locale="en">
+          <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+        </IntlProvider>
       </SplashScreenProvider>
     </LayoutProvider>
   </React.StrictMode>,

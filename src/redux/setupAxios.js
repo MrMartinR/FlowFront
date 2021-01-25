@@ -3,7 +3,7 @@ export default function setupAxios(axios, store) {
     (config) => {
       const {
         // auth: { authToken, user, client, expiry, token }
-        auth: { authToken }
+        auth: { authToken },
       } = store.getState()
 
       if (authToken) {

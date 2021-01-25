@@ -17,7 +17,7 @@ export function CurrenciesPage(props) {
     },
     openEditCurrencyDialog: (id) => {
       history.push(`/currencies/${id}/edit`)
-    }
+    },
   }
 
   return (

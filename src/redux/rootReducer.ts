@@ -11,6 +11,7 @@ import { iconsSlice } from './icons/iconsSlice'
 import { contactMethodsSlice } from '../app/pages/Contact/ContactMethods/state/contactMethodsSlice'
 import { platformsSlice } from '../app/pages/Platform/state/platformsSlice'
 import { originatorsSlice } from '../app/pages/Originator/state/originatorsSlice'
+import { loansSlice } from '../app/pages/Loan/state/loansSlice'
 
 export const rootReducer = combineReducers({
   userAccounts: userAccountsSlice.reducer,
@@ -22,7 +23,8 @@ export const rootReducer = combineReducers({
   currencies: currenciesSlice.reducer,
   platforms: platformsSlice.reducer,
   originators: originatorsSlice.reducer,
-  icons: iconsSlice.reducer
+  loans: loansSlice.reducer,
+  icons: iconsSlice.reducer,
 })
 export type RootState = ReturnType<typeof rootReducer>
 

@@ -26,11 +26,11 @@ export class HtmlClassService {
       subheader: [],
       subheader_container: [],
       content: [],
-      content_container: []
+      content_container: [],
     }
 
     this.attributes = {
-      header_menu: {}
+      header_menu: {},
     }
 
     // init base layout

@@ -6,20 +6,20 @@ import { v4 } from 'uuid'
 
 const item = {
   id: v4(),
-  name: 'Use Fragments instead of Div'
+  name: 'Use Fragments instead of Div',
 }
 
 const item2 = {
   id: v4(),
-  name: 'Do not Use Styles or Themes'
+  name: 'Do not Use Styles or Themes',
 }
 const item3 = {
   id: v4(),
-  name: 'Comment the Code'
+  name: 'Comment the Code',
 }
 const item4 = {
   id: v4(),
-  name: '🐛 Fixing Bugs'
+  name: '🐛 Fixing Bugs',
 }
 
 function Kanban1() {
@@ -27,12 +27,12 @@ function Kanban1() {
   const [state, setState]: any = useState({
     todo: {
       title: 'To Do',
-      items: [item, item2, item3]
+      items: [item, item2, item3],
     },
     doing: {
       title: 'Doing',
-      items: [item4]
-    }
+      items: [item4],
+    },
   })
 
   const handleDragEnd = ({ destination, source }: any) => {
@@ -68,11 +68,11 @@ function Kanban1() {
           items: [
             {
               id: v4(),
-              name: text
+              name: text,
             },
-            ...prev.todo.items
-          ]
-        }
+            ...prev.todo.items,
+          ],
+        },
       }
     })
 

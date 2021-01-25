@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react'
-/* eslint-disable no-restricted-imports*/
-
-import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
-import { ContactMethod } from './ContactMethods/ContactMethods'
-import { ContactsList } from './ContactList'
-import { ContactDetails } from './ContactDetails'
+import { ContactMethod } from './ContactMethods/contactMethods'
+import { ContactsList } from './contactList'
+import { ContactDetails } from './contactDetails'
 import { RootState } from '../../../redux/rootReducer'
 
-const useStyles = makeStyles((theme) => ({
-  root: {}
-}))
+import ContactToolBar from './contactToolbar'
 
 export const Contacts = () => {
   const { currentState, methodsState } = useSelector(
     (state: RootState) => ({
       currentState: state.contacts,
-      methodsState: state.contactMethods
+      methodsState: state.contactMethods,
     }),
     shallowEqual
   )
@@ -29,7 +24,6 @@ export const Contacts = () => {
   const [listMethods, setListMethods] = useState([] as any)
   const [methodLoading, setMethodLoading] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
-  const classes = useStyles()
 
   let selectedContact = {}
 
@@ -46,8 +40,6 @@ export const Contacts = () => {
     }, [dispatch])
   }
   GetAllContacts()
-
-  // console.log(methodsState)
 
   useEffect(() => {
     if (
@@ -88,20 +80,30 @@ export const Contacts = () => {
   }, [methodsState])
 
   return (
-    <Grid className={classes.root}>
-      <Grid item md={12}>
-        <Grid container spacing={1} direction="row" justify="space-evenly">
-          <Grid key={1} md={4} item>
-            <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
-          </Grid>
-          <Grid key={2} md={4} item>
-            <ContactDetails selectedContact={selectedContact} />
-          </Grid>
-          <Grid key={3} md={4} item>
-            <ContactMethod listMethods={listMethods} methodLoading={methodLoading} />
+    <>
+      <ContactToolBar />
+      <br></br>
+
+      <Grid>
+        <Grid item md={12}>
+          <Grid container spacing={1} direction="row" justify="space-evenly">
+            <Grid key={1} md={4} item>
+              <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
+            </Grid>
+            <Grid key={2} md={4} item>
+              <ContactDetails selectedContact={selectedContact} />
+            </Grid>
+            <Grid key={3} md={4} item>
+              <ContactMethod
+                listMethods={listMethods}
+                methodLoading={methodLoading}
+                selectedContact={selectedContact}
+                methodsState={methodsState}
+              />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </>
   )
 }

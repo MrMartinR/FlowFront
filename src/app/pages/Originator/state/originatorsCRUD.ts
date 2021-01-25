@@ -2,7 +2,7 @@ import store from '../../../../redux/store'
 
 export const optionsHeaders = () => {
   const {
-    auth: { user, client, expiry, token }
+    auth: { user, client, expiry, token },
   } = store.getState()
 
   const options = {
@@ -13,8 +13,8 @@ export const optionsHeaders = () => {
       'token-type': 'Bearer',
       client,
       expiry,
-      uid: user.email
-    }
+      uid: user.email,
+    },
   }
   return options
 }

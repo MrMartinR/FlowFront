@@ -3,7 +3,7 @@ import store from '../store'
 
 const optionsHeaders = () => {
   const {
-    auth: { user, client, expiry, token }
+    auth: { user, client, expiry, token },
   } = store.getState()
 
   const options = {
@@ -13,8 +13,8 @@ const optionsHeaders = () => {
       'token-type': 'Bearer',
       client,
       expiry,
-      uid: user.email
-    }
+      uid: user.email,
+    },
   }
   return options
 }
@@ -53,7 +53,7 @@ export function updateCountry(country: any) {
 export function updateStatusForCountries({ ids, status }: any) {
   return axios.post(`${COUNTRY_URL}/updateStatusForCountries`, {
     ids,
-    status
+    status,
   })
 }
 

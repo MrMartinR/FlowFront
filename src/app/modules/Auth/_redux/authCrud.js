@@ -15,19 +15,19 @@ export function login(email, password) {
     LOGIN_URL,
     { user: { email, password } },
     {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     }
   )
 }
 
-export function register(email, fullname, username, password) {
+export function registration(email, fullname, username, password) {
   return axios.post(REGISTER_URL, {
     user: {
       email,
       fullname,
       username,
-      password
-    }
+      password,
+    },
   })
 }
 
@@ -50,8 +50,8 @@ export function submitRequestPassword(password, passwordConfirmation, accessToke
         'access-token': accessToken,
         client,
         uid,
-        expiry
-      }
+        expiry,
+      },
     }
   )
 }

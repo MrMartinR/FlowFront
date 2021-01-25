@@ -12,7 +12,7 @@ import {
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses
+  headerSortingClasses,
 } from '../../../../_metronic/_helpers'
 import * as uiHelpers from '../CurrenciesUIHelpers'
 import * as columnFormatters from './column-formatters'
@@ -35,7 +35,7 @@ export function CurrenciesTable() {
       queryParams: currenciesUIContext.queryParams,
       setQueryParams: currenciesUIContext.setQueryParams,
       openEditCurrencyDialog: currenciesUIContext.openEditCurrencyDialog,
-      openDeleteCurrencyDialog: currenciesUIContext.openDeleteCurrencyDialog
+      openDeleteCurrencyDialog: currenciesUIContext.openDeleteCurrencyDialog,
     }
   }, [currenciesUIContext])
 
@@ -43,7 +43,7 @@ export function CurrenciesTable() {
   const { currentState } = useSelector((state) => ({ currentState: state.currencies }), shallowEqual)
   const {
     currencyTable: { entities, page, pages },
-    listLoading
+    listLoading,
   } = currentState
 
   // Currencies Redux state
@@ -62,31 +62,31 @@ export function CurrenciesTable() {
       dataField: 'id',
       text: 'id',
       sort: true,
-      hidden: true
+      hidden: true,
     },
     {
       dataField: 'flag',
       text: 'Flag',
       sort: true,
-      sortCaret: sortCaret
+      sortCaret: sortCaret,
       // headerSortingClasses,
     },
     {
       dataField: 'name',
       text: 'Name',
       sort: true,
-      sortCaret: sortCaret
+      sortCaret: sortCaret,
       // headerSortingClasses,
     },
     {
       dataField: 'iso_code',
-      text: 'ISO Code'
+      text: 'ISO Code',
     },
     {
       dataField: 'continent',
       text: 'Continent',
       sort: true,
-      sortCaret: sortCaret
+      sortCaret: sortCaret,
     },
     // {
     //   dataField: "currency_id",
@@ -101,7 +101,7 @@ export function CurrenciesTable() {
       sort: true,
       sortCaret: sortCaret,
       formatter: columnFormatters.StatusColumnFormatter,
-      headerSortingClasses
+      headerSortingClasses,
     },
     {
       dataField: 'action',
@@ -109,14 +109,14 @@ export function CurrenciesTable() {
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCurrencyDialog: currenciesUIProps.openEditCurrencyDialog,
-        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog
+        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog,
       },
       classes: 'text-right pr-0',
       headerClasses: 'text-right pr-3',
       style: {
-        minWidth: '100px'
-      }
-    }
+        minWidth: '100px',
+      },
+    },
   ]
 
   const sortCustom = (type, { sortField, sortOrder, data }) => {
@@ -154,7 +154,7 @@ export function CurrenciesTable() {
           selectRow={getSelectRow({
             entities,
             ids: currenciesUIProps.ids,
-            setIds: currenciesUIProps.setIds
+            setIds: currenciesUIProps.setIds,
           })}
         >
           <PleaseWaitMessage entities={entities} />
@@ -166,7 +166,7 @@ export function CurrenciesTable() {
           style={{
             justifyContent: 'center',
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
           onChange={pagesChange}
         />

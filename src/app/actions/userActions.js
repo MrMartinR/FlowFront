@@ -18,8 +18,8 @@ export const updateProfile = (headerPara, details, fileName = false) => {
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
-      expiry: headerPara.expiry
-    }
+      expiry: headerPara.expiry,
+    },
   })
 }
 
@@ -29,6 +29,6 @@ export const getUserProfile = (headerPara) =>
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
-      expiry: headerPara.expiry
-    }
+      expiry: headerPara.expiry,
+    },
   })

@@ -9,7 +9,7 @@ import * as auth from '../_redux/authRedux'
 import { submitRequestPassword } from '../_redux/authCrud'
 
 const initialValues = {
-  email: ''
+  email: '',
 }
 
 function ForgotPasswordAction({ location, intl }) {
@@ -31,19 +31,19 @@ function ForgotPasswordAction({ location, intl }) {
       .max(50, 'Maximum 50 symbols')
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
       ),
     changepassword: Yup.string()
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
       )
       .when('password', {
         is: (val) => !!(val && val.length > 0),
-        then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match")
-      })
+        then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
+      }),
   })
 
   const getInputClasses = (fieldname) => {
@@ -74,7 +74,7 @@ function ForgotPasswordAction({ location, intl }) {
           setSubmitting(false)
           setStatus(intl.formatMessage({ id: 'AUTH.VALIDATION.NOT_FOUND' }, { name: values.email }))
         })
-    }
+    },
   })
 
   return (

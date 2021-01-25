@@ -7,7 +7,7 @@ export function CurrencyEditDialogHeader({ id }) {
   const { currencyForEdit, actionsLoading } = useSelector(
     (state) => ({
       currencyForEdit: state.currencies.currencyForEdit,
-      actionsLoading: state.currencies.actionsLoading
+      actionsLoading: state.currencies.actionsLoading,
     }),
     shallowEqual
   )

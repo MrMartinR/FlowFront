@@ -12,7 +12,7 @@ export function CurrencyEditDialog({ id, show, onHide }) {
   const currenciesUIContext = useCurrenciesUIContext()
   const currenciesUIProps = useMemo(() => {
     return {
-      initCurrency: currenciesUIContext.initCurrency
+      initCurrency: currenciesUIContext.initCurrency,
     }
   }, [currenciesUIContext])
 
@@ -21,7 +21,7 @@ export function CurrencyEditDialog({ id, show, onHide }) {
   const { actionsLoading, currencyForEdit } = useSelector(
     (state) => ({
       actionsLoading: state.currencies.actionsLoading,
-      currencyForEdit: state.currencies.currencyForEdit
+      currencyForEdit: state.currencies.currencyForEdit,
     }),
     shallowEqual
   )

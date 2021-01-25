@@ -8,14 +8,14 @@ const initialUserAccountsState = {
     entities: null,
     page: null,
     pages: null,
-    perPage: null
+    perPage: null,
   },
   userAccountForEdit: undefined,
-  lastError: null
+  lastError: null,
 }
 export const callTypes = {
   list: 'list',
-  action: 'action'
+  action: 'action',
 }
 export const userAccountsSlice = createSlice({
   name: 'userAccounts',
@@ -116,6 +116,6 @@ export const userAccountsSlice = createSlice({
       state.actionsLoading = false
       state.userAccountTransactions = action.payload.userAccountTransactions
       state.error = null
-    }
-  }
+    },
+  },
 })

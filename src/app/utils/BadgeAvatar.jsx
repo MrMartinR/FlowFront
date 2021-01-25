@@ -9,9 +9,9 @@ const useStyles = makeStyles((theme) =>
     root: {
       display: 'flex',
       '& > *': {
-        margin: theme.spacing(1)
-      }
-    }
+        margin: theme.spacing(1),
+      },
+    },
   })
 )
 
@@ -26,7 +26,7 @@ export default function BadgeAvatars({ src, onFileChange, readOnly, name = 'F' }
             height: '100px',
             width: '100px',
             //   border: "1px solid #e4dcdc",
-            border: '5px solid #f3f3f3'
+            border: '5px solid #f3f3f3',
           }}
           variant="rounded"
           alt="Travis Howard"
@@ -37,7 +37,7 @@ export default function BadgeAvatars({ src, onFileChange, readOnly, name = 'F' }
           overlap="rectangle"
           anchorOrigin={{
             vertical: 'top',
-            horizontal: 'right'
+            horizontal: 'right',
           }}
           badgeContent={
             <label className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow">
@@ -50,7 +50,7 @@ export default function BadgeAvatars({ src, onFileChange, readOnly, name = 'F' }
             overlap="rectangle"
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'right'
+              horizontal: 'right',
             }}
             badgeContent={
               <span
@@ -66,7 +66,7 @@ export default function BadgeAvatars({ src, onFileChange, readOnly, name = 'F' }
                 height: '100px',
                 width: '100px',
                 //   border: "1px solid #e4dcdc",
-                border: '5px solid #f3f3f3'
+                border: '5px solid #f3f3f3',
               }}
               variant="rounded"
               alt={name}

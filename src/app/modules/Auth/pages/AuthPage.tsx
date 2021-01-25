@@ -1,8 +1,8 @@
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from './Login'
-import Registration from './Registration'
 import ForgotPassword from './ForgotPassword'
 import ForgotPasswordAction from './ForgotPasswordAction'
+import Registration from './Registration'
 
 export function AuthPage() {
   return (

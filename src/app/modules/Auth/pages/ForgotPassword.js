@@ -10,7 +10,7 @@ import * as auth from '../_redux/authRedux'
 import { requestPassword } from '../_redux/authCrud'
 
 const initialValues = {
-  email: ''
+  email: '',
 }
 
 function ForgotPassword(props) {
@@ -23,9 +23,9 @@ function ForgotPassword(props) {
       .max(50, 'Maximum 50 symbols')
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
-      )
+      ),
   })
 
   // const getInputClasses = (fieldname) => {
@@ -55,7 +55,7 @@ function ForgotPassword(props) {
           setSubmitting(false)
           setStatus(intl.formatMessage({ id: 'AUTH.VALIDATION.NOT_FOUND' }, { name: values.email }))
         })
-    }
+    },
   })
 
   return (

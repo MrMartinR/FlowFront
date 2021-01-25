@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialOriginatorsState = {
   loading: false,
   originatorsTable: [],
-  error: null as any
+  error: null as any,
 }
 
 export const originatorsSlice = createSlice({
@@ -20,8 +20,8 @@ export const originatorsSlice = createSlice({
     catchError: (state, action) => {
       state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
-    }
-  }
+    },
+  },
 })
 
 export const { startCall, originatorsReceived, catchError } = originatorsSlice.actions

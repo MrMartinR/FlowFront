@@ -6,28 +6,28 @@ const finalSpaceCharacters = [
   {
     id: '01',
     name: 'Gary Goodspeed',
-    thumb: '/media/svg/icons/dashboard.svg'
+    thumb: '/media/svg/icons/dashboard.svg',
   },
   {
     id: '02',
     name: 'Little Cato',
-    thumb: '/media/svg/icons/dashboard.svg'
+    thumb: '/media/svg/icons/dashboard.svg',
   },
   {
     id: '03',
     name: 'KVN',
-    thumb: '/media/svg/icons/dashboard.svg'
+    thumb: '/media/svg/icons/dashboard.svg',
   },
   {
     id: '04',
     name: 'Mooncake',
-    thumb: '/media/svg/icons/dashboard.svg'
+    thumb: '/media/svg/icons/dashboard.svg',
   },
   {
     id: '05',
     name: 'Quinn Ergon',
-    thumb: '/media/svg/icons/dashboard.svg'
-  }
+    thumb: '/media/svg/icons/dashboard.svg',
+  },
 ]
 
 /**

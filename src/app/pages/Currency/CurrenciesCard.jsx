@@ -1,4 +1,3 @@
-// TODO: Replace formik for react hook forms https://react-hook-form.com
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import { Card, CardHeader } from '@material-ui/core'
@@ -12,36 +11,37 @@ import axios from 'axios'
 import { withStyles, makeStyles } from '@material-ui/styles'
 import { API_URL } from '../../../redux/utils'
 import { addCurrency, CurrencySchema, currencyInitialValues } from '../../actions/currencyActions'
-import { useFormik } from 'formik'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import CurrencyForm from './CurrencyForm'
 import CustomizedSnackbars from '../../utils/snackbar'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.black
+    color: theme.palette.common.black,
   },
   body: {
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 }))(TableCell)
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),
-    overflowX: 'auto'
+    overflowX: 'auto',
   },
   table: {
-    minWidth: 700
-  }
+    minWidth: 700,
+  },
 }))
 const StyledTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default
-    }
-  }
+      backgroundColor: theme.palette.background.default,
+    },
+  },
 }))(TableRow)
 
 export function CurrenciesCard(props) {
@@ -59,8 +59,8 @@ export function CurrenciesCard(props) {
         'access-token': headerPara.authToken,
         client: headerPara.client,
         uid: headerPara.user.fullname,
-        expiry: headerPara.expiry
-      }
+        expiry: headerPara.expiry,
+      },
     })
   }
 
@@ -79,53 +79,55 @@ export function CurrenciesCard(props) {
   }, [])
 
   const [rows, setRows] = useState([])
-  const classes = useStyles()
+  const [submitting, setSubmitting] = useState(false)
 
-  const formik = useFormik({
-    initialValues: currencyInitialValues,
-    validationSchema: CurrencySchema,
-    onSubmit: (values, { setStatus, setSubmitting }) => {
-      setTimeout(() => {
-        var formvalues = {
-          symbol: values.symbol,
-          code: values.code,
-          name: values.name,
-          kind: values.kind,
-          decimal_places: values.decimal_places
-        }
-        addCurrency(props.auth, formvalues)
-          .then((res) => {
-            if (res.status === 200) {
-              getAllCurrencies(props.auth)
-                .then((res) => {
-                  setSnackState({
-                    message: 'Currency Added!',
-                    open: true,
-                    variant: 'success'
-                  })
-                  const resData = res.data
-                  if (resData.success) {
-                    setRows(resData.data)
-                  }
-                })
-                .catch((err) => {
-                  console.log(err)
-                })
-            }
-            setSubmitting(false)
-          })
-          .catch(() => {
-            console.log('error')
-            setSubmitting(false)
-          })
-      }, 1000)
-    }
+  const classes = useStyles()
+  const formMethods = useForm({
+    resolver: yupResolver(CurrencySchema),
+    defaultValues: currencyInitialValues,
   })
+
+  const onSubmit = ({ symbol, code, name, kind, decimal_places }) => {
+    setTimeout(() => {
+      var formvalues = {
+        symbol,
+        code,
+        name,
+        kind,
+        decimal_places,
+      }
+      addCurrency(props.auth, formvalues)
+        .then((res) => {
+          if (res.status === 200) {
+            getAllCurrencies(props.auth)
+              .then((res) => {
+                setSnackState({
+                  message: 'Currency Added!',
+                  open: true,
+                  variant: 'success',
+                })
+                const resData = res.data
+                if (resData.success) {
+                  setRows(resData.data)
+                }
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          }
+          setSubmitting(false)
+        })
+        .catch(() => {
+          console.log('error')
+          setSubmitting(false)
+        })
+    }, 1000)
+  }
 
   const [snackState, _setSnackState] = useState({
     message: '',
     variant: 'success',
-    open: false
+    open: false,
   })
 
   const setSnackState = (newState) => {
@@ -142,10 +144,15 @@ export function CurrenciesCard(props) {
         }}
       />
       <CardHeader title="Currencies list">
-        <button type="button" className="btn btn-primary" onClick={formik.handleSubmit} disabled={formik.isSubmitting}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={formMethods.handleSubmit(onSubmit)}
+          disabled={submitting}
+        >
           New Currency
         </button>
-        <CurrencyForm {...props} formik={formik} initialValues={currencyInitialValues} />
+        <CurrencyForm {...props} formMethods={formMethods} initialValues={currencyInitialValues} />
       </CardHeader>
       <Table className={classes.table}>
         <TableHead>

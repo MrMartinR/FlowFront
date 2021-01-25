@@ -8,14 +8,14 @@ const initialCurrenciesState = {
     entities: null,
     page: null,
     pages: null,
-    perPage: null
+    perPage: null,
   },
   currencyForEdit: undefined,
-  lastError: null
+  lastError: null,
 }
 export const callTypes = {
   list: 'list',
-  action: 'action'
+  action: 'action',
 }
 
 export const currenciesSlice = createSlice({
@@ -101,6 +101,6 @@ export const currenciesSlice = createSlice({
         }
         return entity
       })
-    }
-  }
+    },
+  },
 })

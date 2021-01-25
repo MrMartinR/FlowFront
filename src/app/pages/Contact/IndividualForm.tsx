@@ -8,8 +8,8 @@ import Alert from '@material-ui/lab/Alert'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: 5
-    }
+      margin: 5,
+    },
   })
 )
 

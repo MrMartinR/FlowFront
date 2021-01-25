@@ -44,9 +44,9 @@ export var KTCookie = (function () {
     // To delete a cookie, we can call it with a negative expiration date:
     deleteCookie: function (name) {
       setCookie(name, '', {
-        'max-age': -1
+        'max-age': -1,
       })
-    }
+    },
   }
 })()
 

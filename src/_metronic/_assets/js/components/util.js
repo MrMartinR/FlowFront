@@ -108,7 +108,7 @@ if (!Element.prototype.closest) {
         })
 
         this.insertBefore(docFrag, this.firstChild)
-      }
+      },
     })
   })
 })([Element.prototype, Document.prototype, DocumentFragment.prototype])
@@ -126,7 +126,7 @@ export var KTUtil = (function () {
     sm: 544, // Small screen / phone
     md: 768, // Medium screen / tablet
     lg: 992, // Large screen / desktop
-    xl: 1200 // Extra large screen / wide desktop
+    xl: 1200, // Extra large screen / wide desktop
   }
 
   /**
@@ -262,7 +262,7 @@ export var KTUtil = (function () {
 
       return {
         width: e[a + 'Width'],
-        height: e[a + 'Height']
+        height: e[a + 'Height'],
       }
     },
 
@@ -586,7 +586,7 @@ export var KTUtil = (function () {
       var event
       if (window.CustomEvent) {
         event = new CustomEvent(eventName, {
-          detail: data
+          detail: data,
         })
       } else {
         event = document.createEvent('CustomEvent')
@@ -822,7 +822,7 @@ export var KTUtil = (function () {
           if (el && this.has(name)) {
             delete window.KTUtilElementDataStore[el.customDataTag][name]
           }
-        }
+        },
       }
     },
 
@@ -863,7 +863,7 @@ export var KTUtil = (function () {
 
       return {
         top: rect.top + win.pageYOffset,
-        left: rect.left + win.pageXOffset
+        left: rect.left + win.pageXOffset,
       }
     },
 
@@ -1305,7 +1305,7 @@ export var KTUtil = (function () {
         OAnimation: 'oAnimationEnd',
         MozAnimation: 'mozAnimationEnd',
         WebkitAnimation: 'webkitAnimationEnd',
-        msAnimation: 'msAnimationEnd'
+        msAnimation: 'msAnimationEnd',
       }
 
       for (var t in animations) {
@@ -1332,7 +1332,7 @@ export var KTUtil = (function () {
         OTransition: 'oTransitionEnd',
         MozTransition: 'mozTransitionEnd',
         WebkitTransition: 'webkitTransitionEnd',
-        msTransition: 'msTransitionEnd'
+        msTransition: 'msTransitionEnd',
       }
 
       for (var t in transitions) {
@@ -1351,7 +1351,7 @@ export var KTUtil = (function () {
         OAnimation: 'oAnimationEnd',
         MozAnimation: 'mozAnimationEnd',
         WebkitAnimation: 'webkitAnimationEnd',
-        msAnimation: 'msAnimationEnd'
+        msAnimation: 'msAnimationEnd',
       }
 
       for (var t in animations) {
@@ -1496,7 +1496,7 @@ export var KTUtil = (function () {
         wheelPropagation: false,
         minScrollbarLength: 40,
         maxScrollbarLength: 300,
-        suppressScrollX: true
+        suppressScrollX: true,
       }
 
       options = KTUtil.deepExtend({}, pluginDefOptions, options)
@@ -1852,7 +1852,7 @@ export var KTUtil = (function () {
       }
 
       return false
-    }
+    },
   }
 })()
 

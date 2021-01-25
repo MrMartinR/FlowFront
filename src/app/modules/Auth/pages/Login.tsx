@@ -21,12 +21,12 @@ function Login(props: any) {
       .min(6, 'Minimum 6 characters')
       .max(50, 'Maximum 50 characters')
       .required('Required'),
-    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required')
+    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
   })
 
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(loginSchema)
+    resolver: yupResolver(loginSchema),
   })
 
   const enableLoading = () => {

@@ -7,7 +7,7 @@ export function ErrorPage() {
       <div
         className="error error-6 d-flex flex-row-fluid bgi-size-cover bgi-position-center"
         style={{
-          backgroundImage: `url(${toAbsoluteUrl('/media/error/error.jpg')})`
+          backgroundImage: `url(${toAbsoluteUrl('/media/error/error.jpg')})`,
         }}
       >
         <div className="d-flex flex-column flex-row-fluid text-center">

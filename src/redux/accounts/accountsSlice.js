@@ -8,14 +8,14 @@ const initialAccountsState = {
     entities: null,
     page: null,
     pages: null,
-    perPage: null
+    perPage: null,
   },
   accountForEdit: undefined,
-  lastError: null
+  lastError: null,
 }
 export const callTypes = {
   list: 'list',
-  action: 'action'
+  action: 'action',
 }
 
 export const accountsSlice = createSlice({
@@ -110,6 +110,6 @@ export const accountsSlice = createSlice({
         }
         return entity
       })
-    }
-  }
+    },
+  },
 })

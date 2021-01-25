@@ -12,7 +12,7 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { green } from '@material-ui/core/colors'
@@ -27,17 +27,17 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       overflow: 'auto',
       height: '100%',
-      top: 20
+      top: 20,
     },
     green: {
       color: '#fff',
-      backgroundColor: green[500]
+      backgroundColor: green[500],
     },
     secondaryHeading: {
       fontSize: theme.typography.pxToRem(15),
       color: theme.palette.text.secondary,
-      margin: 'auto'
-    }
+      margin: 'auto',
+    },
   })
 )
 

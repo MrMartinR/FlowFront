@@ -17,33 +17,33 @@ const variantIcon = {
   success: CheckCircleIcon,
   warning: WarningIcon,
   error: ErrorIcon,
-  info: InfoIcon
+  info: InfoIcon,
 }
 
 const useStyles1 = makeStyles((theme) => ({
   success: {
-    backgroundColor: colors.green[600]
+    backgroundColor: colors.green[600],
   },
   error: {
-    backgroundColor: theme.palette.error.dark
+    backgroundColor: theme.palette.error.dark,
   },
   info: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   },
   warning: {
-    backgroundColor: colors.amber[700]
+    backgroundColor: colors.amber[700],
   },
   icon: {
-    fontSize: 20
+    fontSize: 20,
   },
   iconVariant: {
     opacity: 0.9,
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   message: {
     display: 'flex',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 }))
 
 function MySnackbarContentWrapper(props) {
@@ -64,7 +64,7 @@ function MySnackbarContentWrapper(props) {
       action={[
         <IconButton key="close" aria-label="Close" color="inherit" onClick={onClose}>
           <CloseIcon className={classes.icon} />
-        </IconButton>
+        </IconButton>,
       ]}
       {...other}
     />
@@ -75,7 +75,7 @@ MySnackbarContentWrapper.propTypes = {
   className: PropTypes.string.isRequired,
   message: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
 }
 
 /**
@@ -89,7 +89,7 @@ export default function CustomizedSnackbars(props) {
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left'
+          horizontal: 'left',
         }}
         open={open}
         autoHideDuration={1000}

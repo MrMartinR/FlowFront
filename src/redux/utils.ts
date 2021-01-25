@@ -1,28 +1,23 @@
 import store from './store'
 
-/**
- * Asigns the API_URL depending on the environment
- *
- * @remarks
- * Note the localhost is not using SSL
- *
- * @param x - The first input number
- * @param y - The second input number
- * @returns localhost:3001 or api.flowfin.tech
- *
- *
- */
+export const optionsHeaders = () => {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
 
-/**
- * @author Martin
- * Asigns the API_URL depending on the environment
- *
- * @remarks
- * Note the localhost is not using SSL
- *
- * @returns
- * http://localhost:3001 or https://api.flowfin.tech
- */
+  const options = {
+    headers: {
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.email,
+    },
+  }
+  return options
+}
 
 let _API_URL
 let _FORGOT_PASSWORD_CALLBACK
@@ -39,31 +34,3 @@ if (process.env.NODE_ENV === 'production') {
 
 export const API_URL = _API_URL
 export const FORGOT_PASSWORD_CALLBACK = _FORGOT_PASSWORD_CALLBACK
-
-/**
- * @author James
- *
- * Authentication Headers to call the API
- *
- * @remarks
- * here the remarks
- */
-
-export const optionsHeaders = () => {
-  const {
-    auth: { user, client, expiry, token }
-  } = store.getState()
-
-  const options = {
-    headers: {
-      'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.email
-    }
-  }
-  return options
-}

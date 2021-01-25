@@ -11,7 +11,7 @@ export const UserAccountsList = (props) => {
     isLoading,
     list,
     currentPage,
-    totalPages
+    totalPages,
   } = props
 
   return (

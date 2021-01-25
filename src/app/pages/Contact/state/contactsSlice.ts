@@ -6,17 +6,17 @@ const initialContactsState = {
   actionsLoading: false,
   contactsTable: {
     entities: null as any,
-    success: false
+    success: false,
   },
   singleContact: {
-    entry: null as any
+    entry: null as any,
   },
   contactForEdit: undefined,
-  error: null as any
+  error: null as any,
 }
 export const callTypes = {
   list: 'list',
-  action: 'action'
+  action: 'action',
 }
 export const contactsSlice = createSlice({
   name: 'contacts',
@@ -66,6 +66,6 @@ export const contactsSlice = createSlice({
       state.actionsLoading = false
       state.error = null
       state.contactsTable.entities.unshift(data.data)
-    }
-  }
+    },
+  },
 })

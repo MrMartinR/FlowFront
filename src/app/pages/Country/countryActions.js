@@ -12,8 +12,8 @@ export const getAllCountries = (headerPara) =>
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
-      expiry: headerPara.expiry
-    }
+      expiry: headerPara.expiry,
+    },
   })
 
 export const addCountry = (headerPara, values) =>
@@ -25,8 +25,8 @@ export const addCountry = (headerPara, values) =>
         'access-token': headerPara.authToken,
         client: headerPara.client,
         uid: headerPara.user.fullname,
-        expiry: headerPara.expiry
-      }
+        expiry: headerPara.expiry,
+      },
     }
   )
 
@@ -36,5 +36,5 @@ export const CountrySchema = Yup.object().shape({
   flag: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('This field is required'),
   iso_code: Yup.string().required('This field is required'),
   name: Yup.string().required('This field is required'),
-  currency_id: Yup.string().required('This field is required')
+  currency_id: Yup.string().required('This field is required'),
 })

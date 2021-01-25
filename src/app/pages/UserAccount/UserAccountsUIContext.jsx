@@ -19,7 +19,7 @@ export const initAccount = {
   icon: null,
   created_at: '',
   updated_at: '',
-  platform_id: ''
+  platform_id: '',
 }
 
 export const UserAccountsUIProvider = ({ userAccountsUIEvents, children }) => {
@@ -48,7 +48,7 @@ export const UserAccountsUIProvider = ({ userAccountsUIEvents, children }) => {
     setQueryParams,
     initAccount,
     newAccountButtonClick: userAccountsUIEvents.newAccountButtonClick,
-    openEditAccountDialog: userAccountsUIEvents.openEditAccountDialog
+    openEditAccountDialog: userAccountsUIEvents.openEditAccountDialog,
     // openDeleteAccountDialog: userAccountsUIEvents.openDeleteAccountDialog,
     // openDeleteUserAccountsDialog: userAccountsUIEvents.openDeleteUserAccountsDialog,
     // openFetchUserAccountsDialog: userAccountsUIEvents.openFetchUserAccountsDialog,

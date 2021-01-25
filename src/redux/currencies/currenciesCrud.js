@@ -3,7 +3,7 @@ import store from '../store'
 
 const optionsHeaders = () => {
   const {
-    auth: { user, client, expiry, token }
+    auth: { user, client, expiry, token },
   } = store.getState()
 
   const options = {
@@ -14,8 +14,8 @@ const optionsHeaders = () => {
       'token-type': 'Bearer',
       client,
       expiry,
-      uid: user.email
-    }
+      uid: user.email,
+    },
   }
   return options
 }
@@ -53,7 +53,7 @@ export function updateCurrency(currency) {
 export function updateStatusForCurrencies(ids, status) {
   return axios.post(`${CURRENCY_URL}/updateStatusForCurrencies`, {
     ids,
-    status
+    status,
   })
 }
 

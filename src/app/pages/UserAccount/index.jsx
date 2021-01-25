@@ -14,8 +14,8 @@ const AccountsPageStyles = {
     display: 'flex',
     flexDirection: 'row',
     height: '100%',
-    overflowY: 'scroll'
-  }
+    overflowY: 'scroll',
+  },
 }
 
 export const UserAccountsPage = ({ history }) => {
@@ -44,7 +44,7 @@ export const UserAccountsPage = ({ history }) => {
       dispatch(
         userAccountsActions.fetchUserAccounts({
           page: pageNumber,
-          perPage: perPage
+          perPage: perPage,
         })
       )
       dispatch(countriesActions.fetchAllCountry())
@@ -82,7 +82,7 @@ export const UserAccountsPage = ({ history }) => {
     },
     openEditAccountDialog: (id) => {
       history.push(`/user_accounts/${id}/edit`)
-    }
+    },
   }
 
   return (

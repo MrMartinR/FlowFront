@@ -37,7 +37,7 @@ export function CurrenciesUIProvider({ currenciesUIEvents, children }) {
     icon: '',
     created_at: '',
     updated_at: '',
-    platform_id: ''
+    platform_id: '',
   }
 
   const value = {
@@ -48,7 +48,7 @@ export function CurrenciesUIProvider({ currenciesUIEvents, children }) {
     setQueryParams,
     initCurrency,
     newCurrencyButtonClick: currenciesUIEvents.newCurrencyButtonClick,
-    openEditCurrencyDialog: currenciesUIEvents.openEditCurrencyDialog
+    openEditCurrencyDialog: currenciesUIEvents.openEditCurrencyDialog,
     // openDeleteCurrencyDialog: currenciesUIEvents.openDeleteCurrencyDialog,
     // openDeleteCurrenciesDialog: currenciesUIEvents.openDeleteCurrenciesDialog,
     // openFetchCurrenciesDialog: currenciesUIEvents.openFetchCurrenciesDialog,

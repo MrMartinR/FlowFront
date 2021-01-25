@@ -11,7 +11,7 @@ export const UserAccountCreateDialog = ({ id, show, onHide, countriesTable, curr
   // Accounts UI Context
   const accountsUIProps = useMemo(() => {
     return {
-      initAccount
+      initAccount,
     }
   }, [initAccount])
 

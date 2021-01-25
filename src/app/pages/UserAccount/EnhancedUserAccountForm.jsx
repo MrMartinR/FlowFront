@@ -1,44 +1,43 @@
-// TODO: Replace formik for react hook forms https://react-hook-form.com
 import React, { Fragment, useEffect, useState } from 'react'
 import { Modal, Container, Row, Col } from 'react-bootstrap'
-import { withFormik } from 'formik'
 import * as Yup from 'yup'
 import { MultiSelect } from '../../sharedComponents/searchSelect'
 import { Input } from '../../sharedComponents/inputShared'
 import { Avatar, Button } from '@material-ui/core'
 /* eslint-disable  no-restricted-imports */
 import { makeStyles } from '@material-ui/core/styles'
-// import { StepperTemplate } from "./Stepper";
 
 import { Stepper } from '@material-ui/core'
 import { Step } from '@material-ui/core'
 import { StepLabel } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
 
 const useStyles = makeStyles((theme) => ({
   avatarContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   bigAvatar: {
     margin: 10,
     width: '10rem',
-    height: '10rem'
+    height: '10rem',
   },
   input: {
-    display: 'none'
+    display: 'none',
   },
   root: {
-    width: '90%'
+    width: '90%',
   },
   backButton: {
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 }))
 
 function getSteps() {
@@ -58,8 +57,10 @@ function getStepContent(stepIndex) {
   }
 }
 
-const formikEnhancer = withFormik({
-  validationSchema: Yup.object().shape({
+export const AccountEditForm = (props) => {
+  const { values, touched, setFieldValue, setFieldTouched, onHide, currencyTable, countriesTable } = props
+
+  const validationSchema = Yup.object().shape({
     id: Yup.string().nullable(),
     name: Yup.string()
       .min(4, 'Type more than 4 characters')
@@ -70,74 +71,14 @@ const formikEnhancer = withFormik({
       .max(20, 'Type less than 20 characters')
       .required('Category is required'),
     icon: Yup.string().required('An Icon is required'),
-    // .nullable(),
     currency: Yup.array().min(1),
-    // .required('Currency is required'),
-    // .nullable(),
     countries: Yup.array().min(1),
-    // .required('Country is required'),
-    // .nullable(),
-    createAccountFunc: null
-  }),
-  enableReinitialize: true,
-  mapPropsToValues: ({ account, saveAccount }) => {
-    return {
-      id: account.id,
-      name: account.name,
-      category: account.category,
-      icon: account.icon,
-      countries: account.country_id, //countryMap
-      currency: account.currency_id, //currencyMap
-      createAccountFunc: saveAccount
-    }
-  },
+    createAccountFunc: null,
+  })
 
-  handleSubmit: (values, { setSubmitting }) => {
-    // const payload = {
-    //   ...values,
-    //   countries: values.countries.map((t) => t.value),
-    //   currency: values.currency.map((t) => t.value),
-    // };
-    values.createAccountFunc(
-      {
-        name: values.name,
-        category: values.category,
-        icon: values.icon,
-        country_id: values.countries,
-        currency_id: values.currency
-      },
-      () => {
-        alert('New account has been created!')
-        setSubmitting(false)
-      }
-    )
-    // dispatch(AccountActions.createAccount({
-    //   name: payload.name,
-    //   category: payload.category,
-    //   icon: payload.icon,
-    //   country_id: payload.country_id,
-    //   currency_id: payload.currency_id,
-    // }))
-  },
-  displayName: 'MyForm'
-})
-
-export const AccountEditForm = (props) => {
-  const {
-    values,
-    touched,
-    // dirty,
-    errors,
-    handleSubmit,
-    // handleReset,
-    setFieldValue,
-    setFieldTouched,
-    // isSubmitting,
-    // actionsLoading,
-    onHide,
-    currencyTable,
-    countriesTable
-  } = props
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(validationSchema),
+  })
 
   const classes = useStyles()
   const [activeStep, setActiveStep] = React.useState(0)
@@ -159,13 +100,13 @@ export const AccountEditForm = (props) => {
     if (currencyTable && countriesTable) {
       let selecData = {
         countries: [],
-        currencies: []
+        currencies: [],
       }
 
       currencyTable.map((data) => {
         selecData.currencies.push({
           value: data.id,
-          label: data.name
+          label: data.name,
         })
         return null
       })
@@ -173,20 +114,17 @@ export const AccountEditForm = (props) => {
       countriesTable.map((data) => {
         selecData.countries.push({
           value: data.id,
-          label: data.name
+          label: data.name,
         })
         return null
       })
 
-      // console.log("SELECTION DATA: ", selecData);
       setSelectionData(selecData)
     }
   }, [currencyTable, countriesTable])
 
   const [iconData, setIconData] = useState(null)
   const [selectionData, setSelectionData] = useState(null)
-
-  // const classes = useStyles();
 
   const getUrlFromSvgString = (string) => {
     let blob = new Blob([string], { type: 'image/svg+xml' })
@@ -220,13 +158,6 @@ export const AccountEditForm = (props) => {
   return (
     <Fragment>
       <Modal.Body className="overlay overlay-block">
-        {/* {actionsLoading && (
-          <div className="overlay-layer bg-transparent">
-            <div className="spinner spinner-lg spinner-success" />
-          </div>
-        )} */}
-        {/* <form onSubmit={handleSubmit}> */}
-        {/* <StepperTemplate /> */}
         <div className={classes.root}>
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
@@ -249,6 +180,7 @@ export const AccountEditForm = (props) => {
                         touched={touched.name}
                         name="name"
                         type="text"
+                        inputRef={register()}
                         // addClass={["col-md-5", "col-xs-12"]}
                       />
                       <Input
@@ -259,6 +191,7 @@ export const AccountEditForm = (props) => {
                         touched={touched.category}
                         name="category"
                         type="text"
+                        inputRef={register()}
                         // addClass={["col-md-5", "col-xs-12"]}
                       />
                     </Col>
@@ -270,6 +203,7 @@ export const AccountEditForm = (props) => {
                         className={classes.input}
                         id="contained-button-file"
                         type="file"
+                        inputRef={register()}
                         onChange={fileUploaded}
                       />
                       <label htmlFor="contained-button-file">
@@ -277,7 +211,6 @@ export const AccountEditForm = (props) => {
                           Upload
                         </Button>
                       </label>
-                      {/* <Image src="/static/images/avatar/1.jpg" thumbnail /> */}
                     </Col>
                   </Row>
                 )}
@@ -292,6 +225,7 @@ export const AccountEditForm = (props) => {
                       name="countries"
                       multi={true}
                       addClass={['col-md-8', 'col-xs-12']}
+                      inputRef={register()}
                       list={selectionData ? selectionData.countries : []}
                     />
                   </Row>
@@ -306,24 +240,13 @@ export const AccountEditForm = (props) => {
                       touched={touched.currency}
                       multi={true}
                       name="currency"
+                      inputRef={register()}
                       addClass={['col-md-8', 'col-xs-12']}
                       list={selectionData ? selectionData.currencies : []}
                     />
                   </Row>
                 )}
               </Container>
-
-              {/* <button
-                type="button"
-                className="outline"
-                onClick={handleReset}
-                disabled={!dirty || isSubmitting}
-              >
-                Reset
-              </button>
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button> */}
             </form>
           </div>
           <div>
@@ -363,4 +286,4 @@ export const AccountEditForm = (props) => {
   )
 }
 
-export const EnhancedUserAccountForm = formikEnhancer(AccountEditForm)
+export const EnhancedUserAccountForm = AccountEditForm

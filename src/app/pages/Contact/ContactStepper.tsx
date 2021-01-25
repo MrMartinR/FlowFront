@@ -11,7 +11,7 @@ import {
   Typography,
   Checkbox,
   FormGroup,
-  FormControlLabel
+  FormControlLabel,
 } from '@material-ui/core'
 import ContactAdd from './ContactAdd'
 import { RootState } from '../../../redux/rootReducer'
@@ -22,18 +22,18 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      minWidth: 500
+      minWidth: 500,
     },
     button: {
       marginTop: theme.spacing(1),
-      marginRight: theme.spacing(1)
+      marginRight: theme.spacing(1),
     },
     actionsContainer: {
-      marginBottom: theme.spacing(2)
+      marginBottom: theme.spacing(2),
     },
     resetContainer: {
-      padding: theme.spacing(3)
-    }
+      padding: theme.spacing(3),
+    },
   })
 )
 
@@ -44,7 +44,7 @@ function getSteps() {
 export const VerticalLinearStepper = () => {
   const { countryState } = useSelector(
     (state: RootState) => ({
-      countryState: state.countries
+      countryState: state.countries,
     }),
     shallowEqual
   )
@@ -57,11 +57,11 @@ export const VerticalLinearStepper = () => {
   const [visibility, setVisibility] = React.useState('Private')
   const [checkState, setCheckState] = React.useState({
     checkedA: false,
-    checkedB: false
+    checkedB: false,
   })
   const [checkVisible, setCheckVisible] = React.useState({
     checkedC: false,
-    checkedD: false
+    checkedD: false,
   })
 
   const handleKind = (e: any) => {
@@ -70,7 +70,7 @@ export const VerticalLinearStepper = () => {
         ...checkState,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ['checkedB']: false
+        ['checkedB']: false,
       })
     }
     if (e.target.name === 'checkedB') {
@@ -78,7 +78,7 @@ export const VerticalLinearStepper = () => {
         ...checkState,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ['checkedA']: false
+        ['checkedA']: false,
       })
     }
     if (e.target.name === 'checkedC') {
@@ -86,7 +86,7 @@ export const VerticalLinearStepper = () => {
         ...checkVisible,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ['checkedD']: false
+        ['checkedD']: false,
       })
     }
     if (e.target.name === 'checkedD') {
@@ -94,7 +94,7 @@ export const VerticalLinearStepper = () => {
         ...checkVisible,
         [e.target.name]: e.target.checked,
         /* eslint-disable no-useless-computed-key */
-        ['checkedC']: false
+        ['checkedC']: false,
       })
     }
   }

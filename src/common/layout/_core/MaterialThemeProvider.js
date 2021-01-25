@@ -3,36 +3,36 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: ['Poppins'].join(',')
+    fontFamily: ['Poppins'].join(','),
   },
 
   palette: {
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: '#fafafa'
+      main: '#fafafa',
       // dark: will be calculated from palette.primary.main,
       // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
     },
     secondary: {
       // light: will be calculated from palette.primary.main,
-      main: '#f50057'
+      main: '#f50057',
       // dark: will be calculated from palette.primary.main,
       // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
     },
     error: {
       // light: will be calculated from palette.primary.main,
-      main: '#f44336'
+      main: '#f44336',
       // dark: will be calculated from palette.primary.main,
       // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
-    }
+    },
   },
 
   props: {
     // Set default elevation to 1 for popovers.
     MuiPopover: {
-      elevation: 0
-    }
-  }
+      elevation: 0,
+    },
+  },
 })
 
 export function MaterialThemeProvider(props) {

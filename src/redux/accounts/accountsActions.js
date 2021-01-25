@@ -11,7 +11,7 @@ export const accountSort = (queryParams) => (dispatch) => {
       callType: callTypes.action,
       field,
       isAsc,
-      entities
+      entities,
     })
   )
 }

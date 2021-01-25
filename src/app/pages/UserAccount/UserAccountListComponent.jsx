@@ -13,7 +13,7 @@ export default function VirtualizedListComponent({
   /** List height */
   listHeight,
   /** Callback function responsible for loading the next page of items */
-  loadNextPage
+  loadNextPage,
 }) {
   // If there are more items to be loaded then add an extra row to hold a loading indicator.
   const rowCount = hasNextPage ? list.length + 1 : list.length

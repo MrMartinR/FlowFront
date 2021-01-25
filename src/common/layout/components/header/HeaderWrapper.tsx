@@ -8,7 +8,7 @@ function HeaderWrapper() {
   const style = {
     // height: 40,
     // padding: 5,
-    maxWidth: 36
+    maxWidth: 36,
     // paddingLeft: '36%'
   }
 

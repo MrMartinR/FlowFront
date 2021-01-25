@@ -25,9 +25,9 @@ const formikEnhancer = withFormik({
       .of(
         Yup.object().shape({
           label: Yup.string().required(),
-          value: Yup.string().required()
+          value: Yup.string().required(),
         })
-      )
+      ),
   }),
   enableReinitialize: true,
   mapPropsToValues: ({ currency: { id, name, iso_code, continent, currency_id, flag } }) => ({
@@ -36,19 +36,19 @@ const formikEnhancer = withFormik({
     iso_code,
     continent,
     currency_id: [], //currencyMap
-    flag
+    flag,
   }),
   handleSubmit: (values, { setSubmitting }) => {
     const payload = {
       ...values,
-      currency_id: [values].contries.map((t) => t.value)
+      currency_id: [values].contries.map((t) => t.value),
     }
     setTimeout(() => {
       alert(JSON.stringify(payload, null, 2))
       setSubmitting(false)
     }, 1000)
   },
-  displayName: 'MyForm'
+  displayName: 'MyForm',
 })
 
 export const CurrencyEditForm = (props) => {
@@ -63,7 +63,7 @@ export const CurrencyEditForm = (props) => {
     setFieldTouched,
     // isSubmitting,
     actionsLoading,
-    onHide
+    onHide,
   } = props
   return (
     <Fragment>

@@ -8,14 +8,14 @@ const initialCountriesState = {
     entities: null,
     page: null,
     pages: null,
-    perPage: null
+    perPage: null,
   },
   countryForEdit: undefined,
-  lastError: null
+  lastError: null,
 }
 export const callTypes = {
   list: 'list',
-  action: 'action'
+  action: 'action',
 }
 
 export const countriesSlice = createSlice({
@@ -100,6 +100,6 @@ export const countriesSlice = createSlice({
         }
         return entity
       })
-    }
-  }
+    },
+  },
 })

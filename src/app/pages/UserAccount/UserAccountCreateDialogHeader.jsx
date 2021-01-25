@@ -7,7 +7,7 @@ export const UserAccountCreateDialogHeader = ({ id }) => {
   const { userAccountForEdit, actionsLoading } = useSelector(
     (state) => ({
       userAccountForEdit: state.userAccounts.userAccountForEdit,
-      actionsLoading: state.userAccounts.actionsLoading
+      actionsLoading: state.userAccounts.actionsLoading,
     }),
     shallowEqual
   )

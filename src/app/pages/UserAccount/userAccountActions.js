@@ -7,8 +7,8 @@ const getUserAccounts = (headerPara) =>
       'access-token': headerPara.authToken,
       client: headerPara.client,
       uid: headerPara.user.fullname,
-      expiry: headerPara.expiry
-    }
+      expiry: headerPara.expiry,
+    },
   })
 
 export default getUserAccounts

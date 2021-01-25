@@ -16,7 +16,7 @@ const initialValues = {
   username: '',
   password: '',
   changepassword: '',
-  acceptTerms: false
+  acceptTerms: false,
 }
 
 function Registration(props) {
@@ -29,7 +29,7 @@ function Registration(props) {
       .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
       ),
     username: Yup.string()
@@ -37,7 +37,7 @@ function Registration(props) {
       .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
       ),
     password: Yup.string()
@@ -45,10 +45,10 @@ function Registration(props) {
       .max(50, 'Maximum 50 characters')
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
       ),
-    acceptTerms: Yup.bool().required('You must accept the terms and conditions')
+    acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
   })
 
   const enableLoading = () => {
@@ -88,12 +88,12 @@ function Registration(props) {
           // console.log(error.response.data.errors.full_messages);
           setStatus(
             intl.formatMessage({
-              id: error.response.data.errors.full_messages.join('   |   ')
+              id: error.response.data.errors.full_messages.join('   |   '),
             })
           )
           disableLoading()
         })
-    }
+    },
   })
 
   return (

@@ -16,28 +16,28 @@ export const UserAccountsDetails = ({ selectedItemIndex, allTransactions = [], s
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.white,
-      color: theme.palette.common.black
+      color: theme.palette.common.black,
     },
     body: {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   }))(TableCell)
   const StyledTableRow = withStyles((theme) => ({
     root: {
       '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.background.default
-      }
-    }
+        backgroundColor: theme.palette.background.default,
+      },
+    },
   }))(TableRow)
   const classes = makeStyles((theme) => ({
     root: {
       width: '100%',
       marginTop: theme.spacing(3),
-      overflowX: 'auto'
+      overflowX: 'auto',
     },
     table: {
-      minWidth: 700
-    }
+      minWidth: 700,
+    },
   }))()
 
   const [transactions, setTransactions] = useState([])
@@ -59,7 +59,7 @@ export const UserAccountsDetails = ({ selectedItemIndex, allTransactions = [], s
       <span
         style={{
           width: '130px',
-          height: '39px'
+          height: '39px',
         }}
         className={`symbol-label font-size-h6 font-weight-bold ${classes}`}
       >
@@ -80,7 +80,7 @@ export const UserAccountsDetails = ({ selectedItemIndex, allTransactions = [], s
                     <Avatar
                       style={{
                         height: '40px',
-                        width: '40px'
+                        width: '40px',
                       }}
                     ></Avatar>
                   </ListItemAvatar>
@@ -95,7 +95,7 @@ export const UserAccountsDetails = ({ selectedItemIndex, allTransactions = [], s
               className="btn btn-primary"
               style={{
                 height: '39px',
-                width: '49px'
+                width: '49px',
               }}
             >
               refresh

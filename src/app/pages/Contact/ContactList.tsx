@@ -8,7 +8,7 @@ import {
   ListSubheader,
   ListItemIcon,
   CircularProgress,
-  TextField
+  TextField,
 } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
 import { Autocomplete } from '@material-ui/lab'
@@ -20,15 +20,15 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     overflow: 'auto',
     maxHeight: 650,
-    top: 20
+    top: 20,
   },
   listSection: {
-    backgroundColor: 'inherit'
+    backgroundColor: 'inherit',
   },
   ul: {
     backgroundColor: 'inherit',
-    padding: 0
-  }
+    padding: 0,
+  },
 }))
 
 export const ContactsList = (props: any) => {
