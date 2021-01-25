@@ -8,7 +8,6 @@ import {
   ButtonGroup,
   Button,
 } from '@material-ui/core/'
-import { connect } from 'react-redux'
 
 
 const PlatformInfo = (props: any) => {
@@ -30,7 +29,6 @@ const PlatformInfo = (props: any) => {
               <Typography>{platformDetails.category}</Typography>
             </CardContent>
           </Card>
-
           <Card>
             <CardHeader title='Details'> </CardHeader>
             <CardContent>
@@ -55,7 +53,7 @@ const PlatformInfo = (props: any) => {
             <CardHeader title='Accounts'> </CardHeader>
             <CardContent>
               <ButtonGroup>
-                {platformDetails.account_category} /** Based on this field */
+                {platformDetails.account_category}
                 <Button>Personal</Button>
                 <Button>Corporate</Button>
                 <Button>Accredited</Button>
@@ -68,7 +66,7 @@ const PlatformInfo = (props: any) => {
             <CardHeader title='Agreement Structure'> </CardHeader>
             <CardContent>
               <ButtonGroup>
-                {platformDetails.structure} /** Based on this field */
+                {platformDetails.structure}
                 <Button>Indirect</Button>
                 <Button>Direct</Button>
                 <Button>Bilateral</Button>
@@ -81,7 +79,7 @@ const PlatformInfo = (props: any) => {
             <CardHeader title='Protection Scheme'> </CardHeader>
             <CardContent>
               <ButtonGroup>
-                {platformDetails.protection_scheme} /** Based on this field */
+                {platformDetails.protection_scheme}
                 <Button>BuyBack</Button>
                 <Button>Provision Fund</Button>
                 <Button>Personal</Button>
@@ -97,7 +95,7 @@ const PlatformInfo = (props: any) => {
             <CardContent>
               <Typography>Invest Mode: </Typography>
               <ButtonGroup>
-                {platformDetails.invest_mode} /** Based on this field */
+                {platformDetails.invest_mode}
                 <Button>Bid</Button>
                 <Button>Manual</Button>
                 <Button>Preset</Button>

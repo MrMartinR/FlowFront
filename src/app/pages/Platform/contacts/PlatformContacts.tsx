@@ -7,20 +7,21 @@ import {
   Typography,
 } from '@material-ui/core/'
 
-const PlatformLoans = () => {
+
+const PlatformContacts = () => {
   return (
     <Grid xs={12}>
       <Card>
-        <CardHeader title='Platform Loans'></CardHeader>
+        <CardHeader title='Platform Contacts'></CardHeader>
         <CardContent>
-        <Typography variant='h5'>
-            Platform Loans page.
+          <Typography variant='h5'>
+            Platform Contacts page.
 
-            I.e A list of loans related to a particular platform.
+            I.e A list of contacts related to a particular platform.
           </Typography>
         </CardContent>
       </Card>
     </Grid>
   )
 }
-export default PlatformLoans
+export default PlatformContacts

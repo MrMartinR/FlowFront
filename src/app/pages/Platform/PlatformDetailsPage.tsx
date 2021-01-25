@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 
 import { fetchPlatformDetails, fetchPlatformOriginators } from './state/platformsActions';
 import PlatformInfo from './info/PlatformInfo';
+import PlatformContacts from './contacts/PlatformContacts';
+import PlatformOriginators from './originators/PlatformOriginators';
+import PlatformLoans from './loans/PlatformLoans';
 
 
 
@@ -31,12 +34,12 @@ const PlatformDetailsPage = (props: any) => {
   // a function that returns a switch statement of the details, contact, originators and loans tab
   const renderSwitch = (param: any) => {
     switch (param) {
-      case 'Contact':
-        return (<>This is the platform contact page</>)    
+      case 'Contacts':
+        return (<PlatformContacts />)
       case 'Originators':
-        return (<>This is the platform originators page</>)
+        return (<PlatformOriginators />)
       case 'Loans':
-        return (<>This is the platform loans page</>)
+        return (<PlatformLoans />)
       default:
         return (<PlatformInfo platformDetails={platformDetails} />)
     }
@@ -59,7 +62,7 @@ const PlatformDetailsPage = (props: any) => {
             {/* {platformDetails.contact.trade_name} */}
           </Grid>
           <Grid item xs={3}>
-            <input type="button" value="Contact" onClick={handleClick} />
+            <input type="button" value="Contacts" onClick={handleClick} />
             <input type="button" value="Originators" onClick={handleClick} />
             <input type="button" value="Loans" onClick={handleClick} />
           </Grid>

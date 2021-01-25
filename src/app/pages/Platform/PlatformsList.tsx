@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-} from '@material-ui/core/'
+import { Grid, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
