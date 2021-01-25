@@ -6,6 +6,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core/'
+
 const PlatformLoans = () => {
   return (
     <Grid xs={12}>
