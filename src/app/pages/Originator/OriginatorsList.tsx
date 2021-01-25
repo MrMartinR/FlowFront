@@ -1,108 +1,92 @@
-import React, { useEffect } from "react";
-import { Grid, Card, CardContent, Typography } from '@material-ui/core/';
-import { connect } from 'react-redux';
-import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid';
-
-import { fetchOriginatorsList } from "./state/originatorsActions";
-
+import React, { useEffect } from 'react'
+import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
+import { connect } from 'react-redux'
+import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
+import { fetchOriginatorsList } from './state/originatorsActions'
 
 LicenseInfo.setLicenseKey(
-  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x',
-  );
+  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
+)
 
 const columns: ColDef[] = [
   // column definition format here
-  { field: 'serial_number', headerName: 'S/n', width: 100 },
-  { field: 'contact', headerName: 'Contact trade name', width: 250 },
-  { field: 'customer_category', headerName: 'Customer category', width: 250 },
+  { field: 'contact', headerName: 'Name', width: 250 },
+  { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
-  { field: 'apr', headerName: 'Apr', width: 100 },
-] as any;
+  { field: 'apr', headerName: 'APR', width: 100 },
+] as any
 
 const OriginatorsList = (props: any) => {
-  const {fetchOriginatorsList} = props
+  const { fetchOriginatorsList } = props
   const { originatorsTable = [], loading } = props.originators
   const [data, setData] = React.useState([] as any)
   const processData = (arr: any) => {
     let data = [] as any
-    arr.forEach((element: any, index: number) => {
+    arr.forEach((element: any) => {
       let dt = {} as any
-      dt["id"] = element.id
-      dt["serial_number"] = index + 1
-      dt["customer_category"] = JSON.parse(element.customer_category)
-      dt["product_category_business"] = JSON.parse(element.product_category_business)
-      dt["product_category_consumer"] = JSON.parse(element.product_category_consumer)
-      dt["apr"] = element.apr
-      dt["contact"] = element.contact.trade_name || "Not found"
+      dt['id'] = element.id
+      dt['customer_category'] = JSON.parse(element.customer_category)
+      dt['product_category_business'] = JSON.parse(
+        element.product_category_business
+      )
+      dt['product_category_consumer'] = JSON.parse(
+        element.product_category_consumer
+      )
+      dt['apr'] = element.apr
+      dt['contact'] = element.contact.trade_name || 'Not found'
       data.push(dt)
-    });
-    return data  
+    })
+    return data
   }
 
   useEffect(() => {
-    fetchOriginatorsList();
+    fetchOriginatorsList()
   }, [fetchOriginatorsList])
 
   useEffect(() => {
     setData(processData(originatorsTable))
   }, [originatorsTable])
 
-  if(loading) {
+  if (loading) {
     return (
       <>
-        <Typography variant="h5">
-            Loading originators...
-        </Typography>
+        <Typography variant='h5'>Loading originators...</Typography>
       </>
     )
   }
 
   return (
-    <>
-      <Typography variant="h3">
-          Originators 
-      </Typography> 
-      <Grid container direction="column">
+    <Grid container direction='column'>
+      <Typography variant='h4'>Originators</Typography>
+      <Grid container direction='column'>
         <Card>
           <CardContent>
             <div style={{ height: 600, width: '100%' }}>
-            <XGrid 
-                rows={data} 
-                columns={columns} 
-                disableMultipleSelection={true} 
+              <XGrid
+                rows={data}
+                columns={columns}
+                disableMultipleSelection={true}
                 loading={true}
               />
             </div>
           </CardContent>
         </Card>
       </Grid>
-    </>
-  );
+    </Grid>
+  )
 }
 
 const mapStateToProps = (state: any) => {
   return {
-    originators: state.originators
-  };
-};
+    originators: state.originators,
+  }
+}
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchOriginatorsList: () => dispatch(fetchOriginatorsList())
+    fetchOriginatorsList: () => dispatch(fetchOriginatorsList()),
   }
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(OriginatorsList);
-
-
-
-
-
-
-
-
-
-  
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(OriginatorsList)

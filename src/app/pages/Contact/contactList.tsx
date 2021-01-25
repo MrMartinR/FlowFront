@@ -6,7 +6,7 @@ import {
   ListItemText,
   CircularProgress,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core'
 /**
  * @rev this Autocomplete thing... the final result will be search/filter-as-you-type
@@ -66,10 +66,8 @@ export const ContactsList = (props: any) => {
           />
         </>
       )}
-      
 
-      <List subheader={<li />}>
-        {/* TODO: I applied the type any to fix the error TS7006 */}
+      <List>
         {isLoading ? (
           <CircularProgress color='secondary' />
         ) : (
@@ -90,7 +88,6 @@ export const ContactsList = (props: any) => {
           ))
         )}
       </List>
-      
     </>
   )
 }
