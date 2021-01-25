@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNEXT",
     "lib": [
       "dom",
       "dom.iterable",
@@ -28,8 +28,12 @@
     "src"
   ],
   "typedocOptions": {
-    "entryPoints": ["src/index.tsx","src/common/", "src/app/", "src/redux/"],
+    "entryPoints": [
+      "src/index.tsx",
+      "src/common/",
+      "src/app/",
+      "src/redux/"
+    ],
     "out": "docs/typedocs"
   }
 }
-
