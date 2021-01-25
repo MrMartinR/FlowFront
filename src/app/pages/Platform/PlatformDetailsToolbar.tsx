@@ -2,6 +2,10 @@ import React from 'react'
 import { Grid, Button, Typography, Toolbar, Link } from '@material-ui/core/'
 
 const PlatformDetailsToolbar = () => {
+  const handleClick = (e: any) => console.log(e.target.value)
+
+
+
   return (
     <Toolbar>
       <Grid container direction='row' justify='space-between'>
@@ -11,9 +15,9 @@ const PlatformDetailsToolbar = () => {
           </Typography>
         </Grid>
         <Grid item xs={3}>
-          <Button>Contact</Button>
-          <Button>Originators</Button>
-          <Button>Loans</Button>
+          <input type="button" value="Contact" onClick={handleClick} />
+          <input type="button" value="Originators" onClick={handleClick} />
+          <input type="button" value="Loans" onClick={handleClick} />
         </Grid>
       </Grid>
     </Toolbar>

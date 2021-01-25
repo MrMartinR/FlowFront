@@ -35,9 +35,10 @@ export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
 // Fetches a list of originators associated to a particular platform
 export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
-      axios.get(`${PLATFORMS_URL}/${id}/originators`, optionsHeaders())
+      axios.get(`${PLATFORMS_URL}/${id}/platform_originators`, optionsHeaders())
+    //   axios.get(`${PLATFORMS_URL}/platform_originators/${id}`, optionsHeaders())
       .then(function (response) {
-          console.log(response)
+          console.log(id)
           console.log(response.data)
           return dispatch(actions.platformOriginatorsReceived(response.data));
       })
