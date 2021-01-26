@@ -3,12 +3,12 @@ import { Typography, Grid, Toolbar } from '@material-ui/core/'
 import { connect } from 'react-redux'
 
 import PlatformInfo from './info/PlatformInfo';
-import PlatformContacts from './contacts/PlatformContacts';
+import PlatformContact from './contacts/PlatformContact';
 import PlatformOriginators from './originators/PlatformOriginators';
 import PlatformLoans from './loans/PlatformLoans';
 import { fetchPlatformDetails,
          fetchPlatformOriginators, 
-         fetchPlatformContacts, 
+         fetchPlatformContact, 
          fetchPlatformLoans } from './state/platformsActions';
 
 
@@ -17,7 +17,7 @@ const PlatformDetailsPage = (props: any) => {
     match: { params },
   } = props
   const { fetchPlatformDetails, 
-          fetchPlatformContacts,
+          fetchPlatformContact,
           fetchPlatformOriginators,
           fetchPlatformLoans } = props
   const { platformDetails, loading } = props.platforms
@@ -28,16 +28,16 @@ const PlatformDetailsPage = (props: any) => {
   }, [fetchPlatformDetails, params.id])
 
   useEffect(() => {
-    fetchPlatformContacts(params.id)
-  }, [fetchPlatformContacts, params.id])
+    fetchPlatformContact(params.id)
+  }, [fetchPlatformContact, params.id])
 
-  // useEffect(() => {
-  //   fetchPlatformOriginators(params.id)
-  // }, [fetchPlatformOriginators, params.id])
+  useEffect(() => {
+    fetchPlatformOriginators(params.id)
+  }, [fetchPlatformOriginators, params.id])
 
-  // useEffect(() => {
-  //   fetchPlatformLoans(params.id)
-  // }, [fetchPlatformLoans, params.id])
+  useEffect(() => {
+    fetchPlatformLoans(params.id)
+  }, [fetchPlatformLoans, params.id])
 
   // onClick function that sets the state of the currentTab to be displayed
   const handleClick = (e: any) => {
@@ -47,8 +47,8 @@ const PlatformDetailsPage = (props: any) => {
   // a function that returns a switch statement of the details, contact, originators and loans tab
   const renderSwitch = (param: any) => {
     switch (param) {
-      case 'Contacts':
-        return (<PlatformContacts />)
+      case 'Contact':
+        return (<PlatformContact />)
       case 'Originators':
         return (<PlatformOriginators />)
       case 'Loans':
@@ -75,7 +75,7 @@ const PlatformDetailsPage = (props: any) => {
             {/* {platformDetails.contact.trade_name} */}
           </Grid>
           <Grid item xs={3}>
-            <input type="button" value="Contacts" onClick={handleClick} />
+            <input type="button" value="Contact" onClick={handleClick} />
             <input type="button" value="Originators" onClick={handleClick} />
             <input type="button" value="Loans" onClick={handleClick} />
           </Grid>
@@ -98,8 +98,8 @@ const mapDispatchToProps = (dispatch: any) => {
     fetchPlatformDetails: (platformId: any) =>
       dispatch(fetchPlatformDetails(platformId)),
   
-    fetchPlatformContacts: (platformId: any) =>
-      dispatch(fetchPlatformContacts(platformId)),
+    fetchPlatformContact: (platformId: any) =>
+      dispatch(fetchPlatformContact(platformId)),
 
     fetchPlatformOriginators: (platformId: any) =>
       dispatch(fetchPlatformOriginators(platformId)),

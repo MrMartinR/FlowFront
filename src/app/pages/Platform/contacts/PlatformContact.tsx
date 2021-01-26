@@ -8,20 +8,20 @@ import {
 } from '@material-ui/core/'
 
 
-const PlatformContacts = () => {
+const PlatformContact = () => {
   return (
     <Grid xs={12}>
       <Card>
-        <CardHeader title='Platform Contacts'></CardHeader>
+        <CardHeader title='Platform Contact'></CardHeader>
         <CardContent>
           <Typography variant='h5'>
-            Platform Contacts page.
+            Platform Contact page.
 
-            I.e A list of contacts related to a particular platform.
+            I.e The contact related to a particular platform.
           </Typography>
         </CardContent>
       </Card>
     </Grid>
   )
 }
-export default PlatformContacts
+export default PlatformContact
