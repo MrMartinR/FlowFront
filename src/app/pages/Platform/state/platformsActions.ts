@@ -32,21 +32,6 @@ export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
       });
 }
 
-// Fetches the contact associated to a particular platform
-export const fetchPlatformContact = (id: any) => (dispatch: any) => {
-  dispatch(actions.startCall(any))
-      axios.get(`${PLATFORMS_URL}/${id}/platform_contact`, optionsHeaders())
-    //   axios.get(`${PLATFORMS_URL}/platform_contact/${id}`, optionsHeaders())
-      .then(function (response) {
-          console.log(id)
-          console.log(response.data)
-          return dispatch(actions.platformContactReceived(response.data));
-      })
-      .catch(function (error) {
-          return dispatch(actions.catchError(error));
-      });
-}
-
 // Fetches a list of originators associated to a particular platform
 export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
