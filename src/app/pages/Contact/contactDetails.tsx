@@ -42,8 +42,6 @@ export const ContactDetails = (props: any) => {
   return (
     <>
       <>
-          
-      
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
           <DialogActions>
