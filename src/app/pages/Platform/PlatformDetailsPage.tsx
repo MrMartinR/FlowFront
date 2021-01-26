@@ -1,23 +1,17 @@
 import React, { useEffect } from 'react'
-import { Typography, Grid, Toolbar } from '@material-ui/core/'
+import { Typography, Grid, Toolbar, ButtonGroup, Button } from '@material-ui/core/'
 import { connect } from 'react-redux'
 
-import PlatformInfo from './info/PlatformInfo';
-import PlatformContact from './contacts/PlatformContact';
-import PlatformOriginators from './originators/PlatformOriginators';
-import PlatformLoans from './loans/PlatformLoans';
-import { fetchPlatformDetails,
-         fetchPlatformOriginators, 
-         fetchPlatformLoans } from './state/platformsActions';
-
+import PlatformInfo from './info/PlatformInfo'
+import PlatformOriginators from './originators/PlatformOriginators'
+import PlatformLoans from './loans/PlatformLoans'
+import { fetchPlatformDetails, fetchPlatformOriginators, fetchPlatformLoans } from './state/platformsActions'
 
 const PlatformDetailsPage = (props: any) => {
   const {
     match: { params },
   } = props
-  const { fetchPlatformDetails, 
-          fetchPlatformOriginators,
-          fetchPlatformLoans } = props
+  const { fetchPlatformDetails, fetchPlatformOriginators, fetchPlatformLoans } = props
   const { platformDetails, loading } = props.platforms
   const [currentTab, setTab] = React.useState('')
 
@@ -42,17 +36,15 @@ const PlatformDetailsPage = (props: any) => {
   const renderSwitch = (param: any) => {
     switch (param) {
       case 'Contact':
-        return (<PlatformContact platformContact={platformDetails.contact} />)
       case 'Originators':
-        return (<PlatformOriginators />)
+        return <PlatformOriginators />
       case 'Loans':
-        return (<PlatformLoans />)
+        return <PlatformLoans />
       default:
-        return (<PlatformInfo platformDetails={platformDetails} />)
+        return <PlatformInfo platformDetails={platformDetails} />
     }
   }
 
-  
   if (loading) {
     return (
       <>
@@ -65,13 +57,26 @@ const PlatformDetailsPage = (props: any) => {
       <Toolbar>
         <Grid container direction='row' justify='space-between'>
           <Grid item xs={4}>
-            <input type="button" value="[Icon][TradeName]" onClick={handleClick} />
+            <input type='button' value='[Icon][TradeName]' onClick={handleClick} />
             {/* {platformDetails.contact.trade_name} */}
           </Grid>
           <Grid item xs={3}>
-            <input type="button" value="Contact" onClick={handleClick} />
-            <input type="button" value="Originators" onClick={handleClick} />
-            <input type="button" value="Loans" onClick={handleClick} />
+            {/* // change this to a button element */}
+            <Button>
+              Contact
+              <input type='button' value='Contact' onClick={handleClick} />
+            </Button>
+            <ButtonGroup>
+              <Button>Info</Button>
+              <Button>
+                Originators
+                <input type='button' value='Originators' onClick={handleClick} />
+              </Button>
+              <Button>
+                Loans
+                <input type='button' value='Loans' onClick={handleClick} />
+              </Button>
+            </ButtonGroup>
           </Grid>
         </Grid>
       </Toolbar>
@@ -89,15 +94,11 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPlatformDetails: (platformId: any) =>
-      dispatch(fetchPlatformDetails(platformId)),
+    fetchPlatformDetails: (platformId: any) => dispatch(fetchPlatformDetails(platformId)),
 
-    fetchPlatformOriginators: (platformId: any) =>
-      dispatch(fetchPlatformOriginators(platformId)),
+    fetchPlatformOriginators: (platformId: any) => dispatch(fetchPlatformOriginators(platformId)),
 
-    fetchPlatformLoans: (platformId: any) =>
-      dispatch(fetchPlatformLoans(platformId)),
-  
+    fetchPlatformLoans: (platformId: any) => dispatch(fetchPlatformLoans(platformId)),
   }
 }
 
