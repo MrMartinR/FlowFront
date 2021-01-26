@@ -4,7 +4,9 @@ const initialPlatformsState = {
   loading: false,
   platformsTable: [],
   platformDetails: [],
+  platformContacts: [],
   platformOriginators: [],
+  platformLoans: [],
   error: null as any,
 }
 
@@ -27,10 +29,15 @@ export const platformsSlice = createSlice({
       state.loading = false
       state.platformDetails = action.payload.data[0]
     },
+    platformContactsReceived: (state, action) => {
+      state.platformContacts = action.payload.data
+    },
     platformOriginatorsReceived: (state, action) => {
-      state.loading = false
       state.platformOriginators = action.payload.data
-    }
+    },
+    platformLoansReceived: (state, action) => {
+      state.platformLoans = action.payload.data
+    },
   }
 
 })
@@ -39,4 +46,6 @@ export const { startCall,
                platformsReceived,
                catchError,
                platformDetailsReceived,
-               platformOriginatorsReceived } = platformsSlice.actions
+               platformContactsReceived,
+               platformOriginatorsReceived,
+               platformLoansReceived, } = platformsSlice.actions

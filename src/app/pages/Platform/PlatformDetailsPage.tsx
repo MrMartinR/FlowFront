@@ -2,19 +2,24 @@ import React, { useEffect } from 'react'
 import { Typography, Grid, Toolbar } from '@material-ui/core/'
 import { connect } from 'react-redux'
 
-import { fetchPlatformDetails, fetchPlatformOriginators } from './state/platformsActions';
 import PlatformInfo from './info/PlatformInfo';
 import PlatformContacts from './contacts/PlatformContacts';
 import PlatformOriginators from './originators/PlatformOriginators';
 import PlatformLoans from './loans/PlatformLoans';
-
+import { fetchPlatformDetails,
+         fetchPlatformOriginators, 
+         fetchPlatformContacts, 
+         fetchPlatformLoans } from './state/platformsActions';
 
 
 const PlatformDetailsPage = (props: any) => {
   const {
     match: { params },
   } = props
-  const { fetchPlatformDetails, fetchPlatformOriginators } = props
+  const { fetchPlatformDetails, 
+          fetchPlatformContacts,
+          fetchPlatformOriginators,
+          fetchPlatformLoans } = props
   const { platformDetails, loading } = props.platforms
   const [currentTab, setTab] = React.useState('')
 
@@ -23,8 +28,16 @@ const PlatformDetailsPage = (props: any) => {
   }, [fetchPlatformDetails, params.id])
 
   useEffect(() => {
-    fetchPlatformOriginators(params.id)
-  }, [fetchPlatformOriginators, params.id])
+    fetchPlatformContacts(params.id)
+  }, [fetchPlatformContacts, params.id])
+
+  // useEffect(() => {
+  //   fetchPlatformOriginators(params.id)
+  // }, [fetchPlatformOriginators, params.id])
+
+  // useEffect(() => {
+  //   fetchPlatformLoans(params.id)
+  // }, [fetchPlatformLoans, params.id])
 
   // onClick function that sets the state of the currentTab to be displayed
   const handleClick = (e: any) => {
@@ -85,8 +98,14 @@ const mapDispatchToProps = (dispatch: any) => {
     fetchPlatformDetails: (platformId: any) =>
       dispatch(fetchPlatformDetails(platformId)),
   
+    fetchPlatformContacts: (platformId: any) =>
+      dispatch(fetchPlatformContacts(platformId)),
+
     fetchPlatformOriginators: (platformId: any) =>
       dispatch(fetchPlatformOriginators(platformId)),
+
+    fetchPlatformLoans: (platformId: any) =>
+      dispatch(fetchPlatformLoans(platformId)),
   
   }
 }
