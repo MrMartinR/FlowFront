@@ -2,13 +2,10 @@ import React, { useEffect } from 'react'
 import { Typography, Grid, Toolbar } from '@material-ui/core/'
 import { connect } from 'react-redux'
 
-import { fetchPlatformDetails, fetchPlatformOriginators } from './state/platformsActions';
-import PlatformInfo from './info/PlatformInfo';
-import PlatformContacts from './contacts/PlatformContacts';
-import PlatformOriginators from './originators/PlatformOriginators';
-import PlatformLoans from './loans/PlatformLoans';
-
-
+import { fetchPlatformDetails, fetchPlatformOriginators } from './state/platformsActions'
+import PlatformInfo from './info/PlatformInfo'
+import PlatformOriginators from './originators/PlatformOriginators'
+import PlatformLoans from './loans/PlatformLoans'
 
 const PlatformDetailsPage = (props: any) => {
   const {
@@ -35,17 +32,16 @@ const PlatformDetailsPage = (props: any) => {
   const renderSwitch = (param: any) => {
     switch (param) {
       case 'Contacts':
-        return (<PlatformContacts />)
+      // This button go to Contact Details https://app.flowfin.tech/contacts/834719823-23485724-49438593485 <- id of the contact who is the platform
       case 'Originators':
-        return (<PlatformOriginators />)
+        return <PlatformOriginators />
       case 'Loans':
-        return (<PlatformLoans />)
+        return <PlatformLoans />
       default:
-        return (<PlatformInfo platformDetails={platformDetails} />)
+        return <PlatformInfo platformDetails={platformDetails} />
     }
   }
 
-  
   if (loading) {
     return (
       <>
@@ -58,13 +54,13 @@ const PlatformDetailsPage = (props: any) => {
       <Toolbar>
         <Grid container direction='row' justify='space-between'>
           <Grid item xs={4}>
-            <input type="button" value="[Icon][TradeName]" onClick={handleClick} />
+            <input type='button' value='[Icon][TradeName]' onClick={handleClick} />
             {/* {platformDetails.contact.trade_name} */}
           </Grid>
           <Grid item xs={3}>
-            <input type="button" value="Contacts" onClick={handleClick} />
-            <input type="button" value="Originators" onClick={handleClick} />
-            <input type="button" value="Loans" onClick={handleClick} />
+            <input type='button' value='Contacts' onClick={handleClick} />
+            <input type='button' value='Originators' onClick={handleClick} />
+            <input type='button' value='Loans' onClick={handleClick} />
           </Grid>
         </Grid>
       </Toolbar>
@@ -82,12 +78,9 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPlatformDetails: (platformId: any) =>
-      dispatch(fetchPlatformDetails(platformId)),
-  
-    fetchPlatformOriginators: (platformId: any) =>
-      dispatch(fetchPlatformOriginators(platformId)),
-  
+    fetchPlatformDetails: (platformId: any) => dispatch(fetchPlatformDetails(platformId)),
+
+    fetchPlatformOriginators: (platformId: any) => dispatch(fetchPlatformOriginators(platformId)),
   }
 }
 
