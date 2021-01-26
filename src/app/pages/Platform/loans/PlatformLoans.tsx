@@ -6,14 +6,17 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core/'
+
 const PlatformLoans = () => {
   return (
     <Grid xs={12}>
       <Card>
         <CardHeader title='Platform Loans'></CardHeader>
         <CardContent>
-          <Typography>
-            Here a XGrid with a list Loans related to this particular platform.
+        <Typography variant='h5'>
+            Platform Loans page.
+
+            I.e A list of loans related to a particular platform.
           </Typography>
         </CardContent>
       </Card>
