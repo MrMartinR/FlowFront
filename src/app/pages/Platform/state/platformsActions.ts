@@ -35,7 +35,8 @@ export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
 // Fetches a list of originators associated to a particular platform
 export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
-      axios.get(`${PLATFORMS_URL}/${id}/platform_originators`, optionsHeaders())
+    // axios.get(`https://api.flowfin.tech/api/v1/platform_originators`, optionsHeaders())
+  axios.get(`${PLATFORMS_URL}/${id}/platform_originators`, optionsHeaders())
     //   axios.get(`${PLATFORMS_URL}/platform_originators/${id}`, optionsHeaders())
       .then(function (response) {
           console.log(id)

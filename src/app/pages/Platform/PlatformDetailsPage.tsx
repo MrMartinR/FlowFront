@@ -23,9 +23,9 @@ const PlatformDetailsPage = (props: any) => {
     fetchPlatformOriginators(params.id)
   }, [fetchPlatformOriginators, params.id])
 
-  useEffect(() => {
-    fetchPlatformLoans(params.id)
-  }, [fetchPlatformLoans, params.id])
+  // useEffect(() => {
+  //   fetchPlatformLoans(params.id)
+  // }, [fetchPlatformLoans, params.id])
 
   // onClick function that sets the state of the currentTab to be displayed
   const handleClick = (e: any) => {
