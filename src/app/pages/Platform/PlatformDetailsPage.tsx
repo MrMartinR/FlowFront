@@ -8,7 +8,6 @@ import PlatformOriginators from './originators/PlatformOriginators';
 import PlatformLoans from './loans/PlatformLoans';
 import { fetchPlatformDetails,
          fetchPlatformOriginators, 
-         fetchPlatformContact, 
          fetchPlatformLoans } from './state/platformsActions';
 
 
@@ -17,7 +16,6 @@ const PlatformDetailsPage = (props: any) => {
     match: { params },
   } = props
   const { fetchPlatformDetails, 
-          fetchPlatformContact,
           fetchPlatformOriginators,
           fetchPlatformLoans } = props
   const { platformDetails, loading } = props.platforms
@@ -26,10 +24,6 @@ const PlatformDetailsPage = (props: any) => {
   useEffect(() => {
     fetchPlatformDetails(params.id)
   }, [fetchPlatformDetails, params.id])
-
-  useEffect(() => {
-    fetchPlatformContact(params.id)
-  }, [fetchPlatformContact, params.id])
 
   useEffect(() => {
     fetchPlatformOriginators(params.id)
@@ -48,7 +42,7 @@ const PlatformDetailsPage = (props: any) => {
   const renderSwitch = (param: any) => {
     switch (param) {
       case 'Contact':
-        return (<PlatformContact />)
+        return (<PlatformContact platformContact={platformDetails.contact} />)
       case 'Originators':
         return (<PlatformOriginators />)
       case 'Loans':
@@ -97,9 +91,6 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchPlatformDetails: (platformId: any) =>
       dispatch(fetchPlatformDetails(platformId)),
-  
-    fetchPlatformContact: (platformId: any) =>
-      dispatch(fetchPlatformContact(platformId)),
 
     fetchPlatformOriginators: (platformId: any) =>
       dispatch(fetchPlatformOriginators(platformId)),
