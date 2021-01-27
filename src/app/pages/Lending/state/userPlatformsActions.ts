@@ -8,7 +8,7 @@ import { userPlatformsSlice } from './userPlatformsSlice'
 
 const { actions } = userPlatformsSlice;
 
-// Fetches a list of user platforms
+/* Fetches a list of user platforms */
 export const fetchUserPlatformsList = () => (dispatch: any) => {
   dispatch(actions.startCall(any))
       axios.get(USER_PLATFORMS_URL, optionsHeaders())
@@ -20,7 +20,7 @@ export const fetchUserPlatformsList = () => (dispatch: any) => {
       });
 }
 
-// Fetches the details of a single user platform
+/* Fetches the details of a single user platform */
 export const fetchUserPlatformDetails = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
       axios.get(`${USER_PLATFORMS_URL}/${id}`, optionsHeaders())
