@@ -24,14 +24,21 @@ const UserPlatformsDetails = (props: any) => {
     <>
         <CardHeader title='User Platform Performance'></CardHeader>
         <Grid container direction='row' justify='space-between'>
-        <Grid container direction='column' xs={12}>
-          <Card>
-            <CardContent>
-              <Typography>User platform Id: {userPlatformDetails.id} </Typography>
-            </CardContent>
-          </Card>
+          <Grid container direction='column' xs={12}>
+            <Card>
+              <CardContent>
+                  {userPlatformDetails.length < 1 ? (
+                  <Typography>Click a platform to load performance</Typography> ) : (
+                  <>
+                    <Typography>User platform Id: {userPlatformDetails.id}</Typography>
+                    <Typography>User id: {userPlatformDetails.user.id}</Typography>
+                    <Typography>Platform id: {userPlatformDetails.platform.id}</Typography>
+                  </>
+                  )  }
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
     </>
   )
 }

@@ -21,10 +21,10 @@ const UserPlatformsPage = () => {
       </Toolbar>
 
       <Grid container direction='row'>
-        <Grid xs={3}>
+        <Grid xs={2}>
           <UserPlatformsList />
         </Grid>
-        <Grid xs={9}>
+        <Grid xs={10}>
           <UserPlatformDetails />
         </Grid>
       </Grid>
