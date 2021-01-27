@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Toolbar, Typography, Link, Button } from '@material-ui/core'
-import UserPlatformsList from './UserPlatformList'
-import UserPlatformDetail from './UserPlatformDetail'
+import UserPlatformsList from './UserPlatformsList'
+import UserPlatformDetails from './UserPlatformDetails'
 
 const UserPlatformsPage = () => {
   return (
@@ -25,7 +25,7 @@ const UserPlatformsPage = () => {
           <UserPlatformsList />
         </Grid>
         <Grid xs={9}>
-          <UserPlatformDetail />
+          <UserPlatformDetails />
         </Grid>
       </Grid>
     </Grid>
