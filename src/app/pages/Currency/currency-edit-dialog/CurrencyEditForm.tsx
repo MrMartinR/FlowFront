@@ -1,45 +1,33 @@
-import React, { Fragment } from "react";
-import { Modal, Container, Row, Col, Image } from "react-bootstrap";
-import * as Yup from "yup";
-import { MultiSelect } from "../../../sharedComponents/searchSelect";
-import { Input } from "../../../sharedComponents/inputShared";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import React, { Fragment } from 'react'
+import { Modal, Container, Row, Col, Image } from 'react-bootstrap'
+import * as Yup from 'yup'
+import { MultiSelect } from '../../../sharedComponents/searchSelect'
+import { Input } from '../../../sharedComponents/inputShared'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
 
 export const CurrencyEditForm = (props: any) => {
-  const {
-    values,
-    touched,
-    setFieldValue,
-    setFieldTouched,
-    actionsLoading,
-    onHide,
-  } = props;
+  const { values, touched, setFieldValue, setFieldTouched, actionsLoading, onHide } = props
 
   const ValidationSchema = Yup.object().shape({
     username: Yup.string()
-      .email("Wrong email format")
-      .min(3, "Minimum 3 characters")
-      .max(50, "Maximum 50 characters")
-      .required("Required"),
+      .email('Wrong email format')
+      .min(3, 'Minimum 3 characters')
+      .max(50, 'Maximum 50 characters')
+      .required('Required'),
     email: Yup.string()
-      .email("Wrong email format")
-      .min(3, "Minimum 3 characters")
-      .max(50, "Maximum 50 characters")
-      .required("Required"),
-    password: Yup.string()
-      .min(3, "Minimum 3 characters")
-      .max(50, "Maximum 50 characters")
-      .required("Required"),
-    acceptTerms: Yup.bool().required(
-      "You must accept the terms and conditions"
-    ),
-  });
+      .email('Wrong email format')
+      .min(3, 'Minimum 3 characters')
+      .max(50, 'Maximum 50 characters')
+      .required('Required'),
+    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
+    acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
+  })
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(ValidationSchema),
-  });
-  const onSubmit = () => {};
+  })
+  const onSubmit = () => {}
 
   return (
     <Fragment>
@@ -61,7 +49,7 @@ export const CurrencyEditForm = (props: any) => {
                   touched={touched.name}
                   name="name"
                   type="text"
-                  addClass={["col-md-5", "col-xs-12"]}
+                  addClass={['col-md-5', 'col-xs-12']}
                 />
                 <Input
                   value={values.category}
@@ -71,7 +59,7 @@ export const CurrencyEditForm = (props: any) => {
                   touched={touched.category}
                   name="category"
                   type="text"
-                  addClass={["col-md-5", "col-xs-12"]}
+                  addClass={['col-md-5', 'col-xs-12']}
                 />
               </Col>
               <Col sm={4}>
@@ -87,7 +75,7 @@ export const CurrencyEditForm = (props: any) => {
                 touched={touched.name}
                 name="name"
                 type="text"
-                addClass={["col-md-5", "col-xs-12"]}
+                addClass={['col-md-5', 'col-xs-12']}
               />
               <Input
                 value={values.category}
@@ -97,7 +85,7 @@ export const CurrencyEditForm = (props: any) => {
                 touched={touched.category}
                 name="category"
                 type="text"
-                addClass={["col-md-5", "col-xs-12"]}
+                addClass={['col-md-5', 'col-xs-12']}
               />
               <MultiSelect
                 value={values.contries}
@@ -107,7 +95,7 @@ export const CurrencyEditForm = (props: any) => {
                 touched={touched.contries}
                 name="contries"
                 multi={true}
-                addClass={["col-md-5", "col-xs-12"]}
+                addClass={['col-md-5', 'col-xs-12']}
               />
               <MultiSelect
                 value={values.currency}
@@ -117,31 +105,23 @@ export const CurrencyEditForm = (props: any) => {
                 touched={touched.currency}
                 multi={true}
                 name="currency"
-                addClass={["col-md-5", "col-xs-12"]}
+                addClass={['col-md-5', 'col-xs-12']}
               />
             </Row>
           </Container>
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <button
-          type="button"
-          onClick={onHide}
-          className="btn btn-light btn-elevate"
-        >
+        <button type="button" onClick={onHide} className="btn btn-light btn-elevate">
           Cancel
         </button>
         <> </>
-        <button
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
-          className="btn btn-primary btn-elevate"
-        >
+        <button type="submit" onClick={handleSubmit(onSubmit)} className="btn btn-primary btn-elevate">
           Save
         </button>
       </Modal.Footer>
     </Fragment>
-  );
-};
+  )
+}
 
-export const MyEnhancedCurrencyForm = CurrencyEditForm;
+export const MyEnhancedCurrencyForm = CurrencyEditForm

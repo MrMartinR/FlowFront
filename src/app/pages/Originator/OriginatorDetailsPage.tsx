@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-} from '@material-ui/core/'
+import { Grid, Card, CardContent, CardHeader, Typography } from '@material-ui/core/'
 import OriginatorDetailsToolbar from '../Originator/OriginatorDetailsToolbar'
 
 const OriginatorDetailsPage = () => {
@@ -13,11 +7,9 @@ const OriginatorDetailsPage = () => {
     <Grid xs={12}>
       <OriginatorDetailsToolbar />
       <Card>
-        <CardHeader title='Originator Details'></CardHeader>
+        <CardHeader title="Originator Details"></CardHeader>
         <CardContent>
-          <Typography>
-            Here Performance/Statistics about the Originator
-          </Typography>
+          <Typography>Here Performance/Statistics about the Originator</Typography>
         </CardContent>
       </Card>
     </Grid>

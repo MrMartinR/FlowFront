@@ -8,8 +8,11 @@ export const countrySort = (queryParams) => (dispatch) => {
   console.log('field', field)
   dispatch(
     actions.countrySort({
-      callType: callTypes.action, field, isAsc, entities,
-    }),
+      callType: callTypes.action,
+      field,
+      isAsc,
+      entities,
+    })
   )
 }
 export const fetchCountries = (params) => (dispatch) => {

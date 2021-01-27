@@ -86,13 +86,9 @@ export const Contacts = () => {
 
       <Grid>
         <Grid item md={12}>
-          <Grid container spacing={1} direction='row' justify='space-evenly'>
+          <Grid container spacing={1} direction="row" justify="space-evenly">
             <Grid key={1} md={4} item>
-              <ContactsList
-                isLoading={isLoading}
-                list={list}
-                setSelectedItemIndex={setSelectedItemIndex}
-              />
+              <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
             </Grid>
             <Grid key={2} md={4} item>
               <ContactDetails selectedContact={selectedContact} />

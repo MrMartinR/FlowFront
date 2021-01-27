@@ -1,15 +1,6 @@
-import React, {useState} from 'react'
-import {
-  Toolbar,
-  Grid,
-  Card,
-  CardHeader,
-  CardContent,
-  Button,
-  ButtonGroup,
-  List,
-} from '@material-ui/core'
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
+import React, { useState } from 'react'
+import { Toolbar, Grid, Card, CardHeader, CardContent, Button, ButtonGroup, List } from '@material-ui/core'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 const finalSpaceCharacters = [
   {
@@ -60,8 +51,8 @@ function Kanban2() {
   return (
     <Grid item>
       <Card>
-        <CardHeader title='Kanban' />
-        <Toolbar variant='dense'>
+        <CardHeader title="Kanban" />
+        <Toolbar variant="dense">
           <ButtonGroup>
             <Button>+</Button>
           </ButtonGroup>
@@ -70,24 +61,16 @@ function Kanban2() {
       <Card>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <Grid item xs={3}>
-            <Droppable droppableId='characters'>
+            <Droppable droppableId="characters">
               {(provided) => (
-                <List
-                  className='characters'
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {characters.map(({id, name, thumb}, index) => {
+                <List className="characters" {...provided.droppableProps} ref={provided.innerRef}>
+                  {characters.map(({ id, name, thumb }, index) => {
                     return (
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
-                          <Card
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
+                          <Card ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <CardContent>
-                              <img height='20' src={thumb} alt='' /> {name}
+                              <img height="20" src={thumb} alt="" /> {name}
                             </CardContent>
                           </Card>
                         )}

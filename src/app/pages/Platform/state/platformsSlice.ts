@@ -15,7 +15,7 @@ export const platformsSlice = createSlice({
   reducers: {
     startCall: (state, action) => {
       state.loading = true
-    }, 
+    },
     platformsReceived: (state, action) => {
       state.loading = false
       state.platformsTable = action.payload.data
@@ -34,13 +34,14 @@ export const platformsSlice = createSlice({
     platformLoansReceived: (state, action) => {
       state.platformLoans = action.payload.data
     },
-  }
-
+  },
 })
 
-export const { startCall, 
-               platformsReceived,
-               catchError,
-               platformDetailsReceived,
-               platformOriginatorsReceived,
-               platformLoansReceived, } = platformsSlice.actions
+export const {
+  startCall,
+  platformsReceived,
+  catchError,
+  platformDetailsReceived,
+  platformOriginatorsReceived,
+  platformLoansReceived,
+} = platformsSlice.actions

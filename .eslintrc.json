@@ -4,15 +4,21 @@
     "es6": true,
     "jest": true
   },
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "extends": ["airbnb", "plugin:react/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
   "plugins": ["react"],
   "rules": {
     "react/react-in-jsx-scope": "off",
@@ -26,7 +32,7 @@
     "no-use-before-define": "off",
     "semi": 0,
     "import/extensions": "off",
-    "linebreak-style":"off",
+    "linebreak-style": "off",
     "max-len": "off"
   },
   "overrides": [
@@ -39,4 +45,3 @@
     }
   ]
 }
-

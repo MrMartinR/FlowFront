@@ -1,11 +1,11 @@
 import axios from 'axios'
 import * as Yup from 'yup'
-import {API_URL} from '../../redux/utils'
+import { API_URL } from '../../redux/utils'
 
 export const addCurrency = (headerPara, values) =>
   axios.post(
     `${API_URL}/api/v1/currencies`,
-    {currency: values},
+    { currency: values },
     {
       // TODO: WTF are this fullname /client ?? copy/paste from somewhere? replace with naming related to the project
 
@@ -29,14 +29,8 @@ export const getAllCurrencies = (headerPara) =>
   })
 
 export const CurrencySchema = Yup.object().shape({
-  code: Yup.string()
-    .min(2, 'Minimum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('This field is required'),
-  name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('This field is required'),
+  code: Yup.string().min(2, 'Minimum 2 symbols').max(50, 'Maximum 50 symbols').required('This field is required'),
+  name: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('This field is required'),
   // fx_eur: Yup.string().required("This field is required"),
   kind: Yup.string().required('This field is required'),
   symbol: Yup.string().required('This field is required'),

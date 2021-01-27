@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Toolbar,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Typography,
-  Button,
-  Grid,
-  ButtonGroup,
-} from '@material-ui/core'
+import { Toolbar, Dialog, DialogActions, DialogContent, Typography, Button, Grid, ButtonGroup } from '@material-ui/core'
 import VerticalLinearStepper from './contactStepper'
 
 /**
@@ -31,33 +22,29 @@ export const ContactToolBar = () => {
   }
   const body = (
     <>
-      <Typography variant='h4'>Add Contact</Typography>
+      <Typography variant="h4">Add Contact</Typography>
       <VerticalLinearStepper />
     </>
   )
   return (
     <>
-      <Toolbar variant='dense'>
-        <Grid container direction='row' justify='space-evenly'>
+      <Toolbar variant="dense">
+        <Grid container direction="row" justify="space-evenly">
           <Grid item xs={9}>
-            <Typography variant='h6'>Contacts</Typography>
+            <Typography variant="h6">Contacts</Typography>
           </Grid>
           <Grid item xs={3}>
             <ButtonGroup>
               <Button>Platform</Button>
               <Button>Originator</Button>
             </ButtonGroup>
-            <Button
-              variant='outlined'
-              id='add'
-              onClick={(e) => handleOpen(e, 'add')}
-            >
+            <Button variant="outlined" id="add" onClick={(e) => handleOpen(e, 'add')}>
               +
             </Button>
             <Dialog open={open} onClose={handleClose}>
               <DialogContent>{body}</DialogContent>
               <DialogActions>
-                <Button onClick={handleClose} variant='contained'>
+                <Button onClick={handleClose} variant="contained">
                   Cancel
                 </Button>
               </DialogActions>

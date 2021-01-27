@@ -8,8 +8,11 @@ export const accountSort = (queryParams) => (dispatch) => {
   // console.log('fieldXXX', field)
   dispatch(
     actions.accountSort({
-      callType: callTypes.action, field, isAsc, entities,
-    }),
+      callType: callTypes.action,
+      field,
+      isAsc,
+      entities,
+    })
   )
 }
 export const fetchAccounts = (params) => (dispatch) => {

@@ -1,36 +1,27 @@
 import React from 'react'
-import {
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  CardHeader,
-  ButtonGroup,
-  Button,
-} from '@material-ui/core/'
-
+import { Grid, Card, CardContent, Typography, CardHeader, ButtonGroup, Button } from '@material-ui/core/'
 
 const PlatformInfo = (props: any) => {
   const { platformDetails } = props
   return (
     <>
-      <Grid container direction='row' justify='space-between' spacing={2}>
+      <Grid container direction="row" justify="space-between" spacing={2}>
         <Grid xs={1}></Grid>
-        <Grid container direction='column' xs={3}>
+        <Grid container direction="column" xs={3}>
           <Card>
-            <CardHeader title='Status'></CardHeader>
+            <CardHeader title="Status"></CardHeader>
             <CardContent>
               <Typography>{platformDetails.status}</Typography>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader title='Type'> </CardHeader>
+            <CardHeader title="Type"> </CardHeader>
             <CardContent>
               <Typography>{platformDetails.category}</Typography>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader title='Details'> </CardHeader>
+            <CardHeader title="Details"> </CardHeader>
             <CardContent>
               <Typography>Term: {platformDetails.term}</Typography>
               <Typography>AIR: </Typography>
@@ -41,16 +32,16 @@ const PlatformInfo = (props: any) => {
           </Card>
 
           <Card>
-            <CardHeader title='Company'> </CardHeader>
+            <CardHeader title="Company"> </CardHeader>
             <CardContent>
               <Typography>Profitable: {platformDetails.profitable}</Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid container direction='column' xs={4}>
+        <Grid container direction="column" xs={4}>
           <Card>
-            <CardHeader title='Accounts'> </CardHeader>
+            <CardHeader title="Accounts"> </CardHeader>
             <CardContent>
               <ButtonGroup>
                 {platformDetails.account_category}
@@ -63,7 +54,7 @@ const PlatformInfo = (props: any) => {
           </Card>
 
           <Card>
-            <CardHeader title='Agreement Structure'> </CardHeader>
+            <CardHeader title="Agreement Structure"> </CardHeader>
             <CardContent>
               <ButtonGroup>
                 {platformDetails.structure}
@@ -76,7 +67,7 @@ const PlatformInfo = (props: any) => {
           </Card>
 
           <Card>
-            <CardHeader title='Protection Scheme'> </CardHeader>
+            <CardHeader title="Protection Scheme"> </CardHeader>
             <CardContent>
               <ButtonGroup>
                 {platformDetails.protection_scheme}
@@ -89,9 +80,9 @@ const PlatformInfo = (props: any) => {
           </Card>
         </Grid>
 
-        <Grid container direction='column' xs={3}>
+        <Grid container direction="column" xs={3}>
           <Card>
-            <CardHeader title='Investment Details'> </CardHeader>
+            <CardHeader title="Investment Details"> </CardHeader>
             <CardContent>
               <Typography>Invest Mode: </Typography>
               <ButtonGroup>
@@ -101,26 +92,18 @@ const PlatformInfo = (props: any) => {
                 <Button>Preset</Button>
                 <Button>Auto</Button>
               </ButtonGroup>
-              <Typography>
-                Secondary Market: {platformDetails.secondary_market}
-              </Typography>
+              <Typography>Secondary Market: {platformDetails.secondary_market}</Typography>
               <Typography>SM Notes: {platformDetails.sm_notes}</Typography>
               <Typography>Cost: {platformDetails.cost}</Typography>
-              <Typography>
-                Min. Investment: {platformDetails.min_investment}
-              </Typography>
-              <Typography>
-                Cashflow options: {platformDetails.cashflow_options}
-              </Typography>
+              <Typography>Min. Investment: {platformDetails.min_investment}</Typography>
+              <Typography>Cashflow options: {platformDetails.cashflow_options}</Typography>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader title='Promotions'> </CardHeader>
+            <CardHeader title="Promotions"> </CardHeader>
             <CardContent>
-              <Typography>
-                Welcome bonus: {platformDetails.welcome_bonus}
-              </Typography>
+              <Typography>Welcome bonus: {platformDetails.welcome_bonus}</Typography>
               <Typography>Promo: {platformDetails.promo}</Typography>
               <Typography>Promo end: {platformDetails.promo_end}</Typography>
             </CardContent>
@@ -131,6 +114,5 @@ const PlatformInfo = (props: any) => {
     </>
   )
 }
-
 
 export default PlatformInfo

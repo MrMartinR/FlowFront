@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API_URL} from '../../redux/utils'
+import { API_URL } from '../../redux/utils'
 
 export const updateProfile = (headerPara, details, fileName = false) => {
   const formData = new FormData()

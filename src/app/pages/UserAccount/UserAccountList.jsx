@@ -1,10 +1,7 @@
-import React from "react";
-import {
-  Card,
-  CardHeader,
-} from "@material-ui/core";
-import VirtualizedListComponent from "./UserAccountListComponent";
-import { AutoSizer } from "react-virtualized";
+import React from 'react'
+import { Card, CardHeader } from '@material-ui/core'
+import VirtualizedListComponent from './UserAccountListComponent'
+import { AutoSizer } from 'react-virtualized'
 
 export const UserAccountsList = (props) => {
   const {
@@ -15,26 +12,24 @@ export const UserAccountsList = (props) => {
     list,
     currentPage,
     totalPages,
-  } = props;
+  } = props
 
   return (
     <Card
       style={
-        window.minWidth < 600
-          ? { minWidth: "200px", maxWidth: "200px" }
-          : { minWidth: "250px", maxWidth: "250px" }
+        window.minWidth < 600 ? { minWidth: '200px', maxWidth: '200px' } : { minWidth: '250px', maxWidth: '250px' }
       }
     >
       <CardHeader>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={(e) => {
-              newAccountFunc();
-            }}
-          >
-            Create
-          </button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={(e) => {
+            newAccountFunc()
+          }}
+        >
+          Create
+        </button>
       </CardHeader>
       <AutoSizer>
         {({ height, width }) => {
@@ -49,9 +44,9 @@ export const UserAccountsList = (props) => {
                 // loadMore();
               }}
             />
-          );
+          )
         }}
       </AutoSizer>
     </Card>
-  );
-};
+  )
+}

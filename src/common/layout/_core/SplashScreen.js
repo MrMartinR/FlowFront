@@ -1,7 +1,5 @@
 /* eslint-disable consistent-return */
-import React, {
-  createContext, useContext, useState, useEffect,
-} from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const SplashScreenContext = createContext()
 
@@ -34,11 +32,7 @@ export function SplashScreenProvider({ children }) {
     }
   }, [visible])
 
-  return (
-    <SplashScreenContext.Provider value={setCount}>
-      {children}
-    </SplashScreenContext.Provider>
-  )
+  return <SplashScreenContext.Provider value={setCount}>{children}</SplashScreenContext.Provider>
 }
 
 export function LayoutSplashScreen({ visible = true }) {

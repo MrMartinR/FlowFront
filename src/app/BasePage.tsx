@@ -19,24 +19,21 @@ export default function BasePage() {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
-        <Redirect exact from='/' to='/dashboard' />
-        <Route path='/dashboard' component={DashboardPage} />
-        <Route path='/contacts' component={Contacts} />
-        <Route path='/settings' component={SettingPage} />
-        <Route path='/user_accounts' component={UserAccountsPage} />
-        <Route path='/lending' component={LendingPage} />
+        <Redirect exact from="/" to="/dashboard" />
+        <Route path="/dashboard" component={DashboardPage} />
+        <Route path="/contacts" component={Contacts} />
+        <Route path="/settings" component={SettingPage} />
+        <Route path="/user_accounts" component={UserAccountsPage} />
+        <Route path="/lending" component={LendingPage} />
         <Route path={`/platforms/:id`} component={PlatformDetailsPage} />
-        <Route path='/platforms' component={PlatformsPage} />
-        <Route path='/originators' component={OriginatorsPage} />
+        <Route path="/platforms" component={PlatformsPage} />
+        <Route path="/originators" component={OriginatorsPage} />
         <Route path={`/originators/:id`} component={OriginatorDetailsPage} />
-        <Route path='/loans' component={LoansPage} />
-        <Route path='/currencies' component={CurrenciesPage} />
-        <Route path='/user-platform' component={UserPlatformsPage} />
-        <Route
-          path='/user-platform-overall'
-          component={UserPlatformsOverallPage}
-        />
-        <Redirect to='error' />
+        <Route path="/loans" component={LoansPage} />
+        <Route path="/currencies" component={CurrenciesPage} />
+        <Route path="/user-platform" component={UserPlatformsPage} />
+        <Route path="/user-platform-overall" component={UserPlatformsOverallPage} />
+        <Redirect to="error" />
       </Switch>
     </Suspense>
   )

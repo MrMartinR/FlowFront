@@ -17,6 +17,6 @@ export default function setupAxios(axios, store) {
 
       return config
     },
-    (err) => Promise.reject(err),
+    (err) => Promise.reject(err)
   )
 }

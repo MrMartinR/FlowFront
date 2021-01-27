@@ -6,10 +6,10 @@ const initialContactsState = {
   actionsLoading: false,
   contactsTable: {
     entities: null as any,
-    success: false
+    success: false,
   },
-  singleContact:{
-    entry:null as any
+  singleContact: {
+    entry: null as any,
   },
   contactForEdit: undefined,
   error: null as any,
@@ -23,7 +23,7 @@ export const contactsSlice = createSlice({
 
   initialState: initialContactsState,
   reducers: {
-    // when error occurs catch it 
+    // when error occurs catch it
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
       if (action.payload.callType === callTypes.list) {
@@ -67,9 +67,5 @@ export const contactsSlice = createSlice({
       state.error = null
       state.contactsTable.entities.unshift(data.data)
     },
-
-  
-  
-   
   },
 })

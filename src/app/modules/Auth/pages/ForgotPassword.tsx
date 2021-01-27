@@ -1,64 +1,52 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import * as Yup from "yup";
-import { injectIntl } from "react-intl";
-import {
-  TextField,
-  Button,
-  Grid,
-  Typography,
-  CardMedia,
-  FormControl,
-} from "@material-ui/core";
-import Logo from "../../../../common/media/flow-logo.svg";
-import * as auth from "../_redux/authRedux";
-import { useForm } from "react-hook-form";
-import { requestPassword } from "../_redux/authCrud";
-import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
+import * as Yup from 'yup'
+import { injectIntl } from 'react-intl'
+import { TextField, Button, Grid, Typography, CardMedia, FormControl } from '@material-ui/core'
+import Logo from '../../../../common/media/flow-logo.svg'
+import * as auth from '../_redux/authRedux'
+import { useForm } from 'react-hook-form'
+import { requestPassword } from '../_redux/authCrud'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const initialValues = {
-  email: "",
-};
+  email: '',
+}
 
 type PasswordType = {
-  email: String;
-};
+  email: String
+}
 
 function ForgotPassword(props: any) {
-  const [isRequested, setIsRequested] = useState(false);
+  const [isRequested, setIsRequested] = useState(false)
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Wrong email format")
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
-      .required("Required"),
-  });
+      .email('Wrong email format')
+      .min(3, 'Minimum 3 symbols')
+      .max(50, 'Maximum 50 symbols')
+      .required('Required'),
+  })
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
-  });
+  })
 
   const onSubmit = ({ email }: PasswordType) => {
     requestPassword(email)
       .then((res) => {
-        setIsRequested(true);
-        localStorage.setItem("forgot_pwd_notif", res.data.message);
+        setIsRequested(true)
+        localStorage.setItem('forgot_pwd_notif', res.data.message)
       })
       .catch(() => {
-        setIsRequested(false);
-        localStorage.setItem("forgot_pwd_notif", "");
-      });
-  };
+        setIsRequested(false)
+        localStorage.setItem('forgot_pwd_notif', '')
+      })
+  }
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="space-around"
-      alignItems="center"
-    >
+    <Grid container direction="column" justify="space-around" alignItems="center">
       {/* logo */}
       <Grid item xs="auto">
         <CardMedia src={Logo} component="img" />
@@ -71,16 +59,11 @@ function ForgotPassword(props: any) {
       {!isRequested && (
         <Grid item xs="auto">
           <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
-              {(localStorage.getItem("forgot_pwd_notif") === null) === false ? (
-                <div>{localStorage.getItem("forgot_pwd_notif")}</div>
+            <Grid container direction="column" justify="center" alignItems="center">
+              {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
+                <div>{localStorage.getItem('forgot_pwd_notif')}</div>
               ) : (
-                ""
+                ''
               )}
               <FormControl variant="filled">
                 <TextField
@@ -111,7 +94,7 @@ function ForgotPassword(props: any) {
         </Grid>
       )}
     </Grid>
-  );
+  )
 }
 
-export default injectIntl(connect(null, auth.actions)(ForgotPassword));
+export default injectIntl(connect(null, auth.actions)(ForgotPassword))
