@@ -19,7 +19,7 @@ export function Routes() {
     ({ auth }: any) => ({
       isAuthorized: auth.user != null,
     }),
-    shallowEqual,
+    shallowEqual
   )
 
   return (

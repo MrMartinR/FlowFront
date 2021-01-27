@@ -1,15 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "typeRoots": [
-      "./types",
-      "node_modules/@types"
-    ],
+    "target": "ESNEXT",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": ["./types", "node_modules/@types"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -24,12 +17,9 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "typedocOptions": {
-    "entryPoints": ["src/index.tsx","src/common/", "src/app/", "src/redux/"],
+    "entryPoints": ["src/index.tsx", "src/common/", "src/app/", "src/redux/"],
     "out": "typedocs"
   }
 }
-

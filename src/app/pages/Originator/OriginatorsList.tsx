@@ -27,12 +27,8 @@ const OriginatorsList = (props: any) => {
       let dt = {} as any
       dt['id'] = element.id
       dt['customer_category'] = JSON.parse(element.customer_category)
-      dt['product_category_business'] = JSON.parse(
-        element.product_category_business
-      )
-      dt['product_category_consumer'] = JSON.parse(
-        element.product_category_consumer
-      )
+      dt['product_category_business'] = JSON.parse(element.product_category_business)
+      dt['product_category_consumer'] = JSON.parse(element.product_category_consumer)
       dt['apr'] = element.apr
       dt['contact'] = element.contact.trade_name || 'Not found'
       data.push(dt)
@@ -51,24 +47,19 @@ const OriginatorsList = (props: any) => {
   if (loading) {
     return (
       <>
-        <Typography variant='h5'>Loading originators...</Typography>
+        <Typography variant="h5">Loading originators...</Typography>
       </>
     )
   }
 
   return (
-    <Grid container direction='column'>
-      <Typography variant='h4'>Originators</Typography>
-      <Grid container direction='column'>
+    <Grid container direction="column">
+      <Typography variant="h4">Originators</Typography>
+      <Grid container direction="column">
         <Card>
           <CardContent>
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid
-                rows={data}
-                columns={columns}
-                disableMultipleSelection={true}
-                loading={true}
-              />
+              <XGrid rows={data} columns={columns} disableMultipleSelection={true} loading={true} />
             </div>
           </CardContent>
         </Card>

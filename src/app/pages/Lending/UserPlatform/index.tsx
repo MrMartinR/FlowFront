@@ -7,20 +7,20 @@ const UserPlatformsPage = () => {
   return (
     <Grid>
       <Toolbar>
-        <Link href='/lending' color='inherit'>
+        <Link href="/lending" color="inherit">
           Lending
         </Link>
         &gt;
-        <Link href='/user-platforms' color='inherit'>
+        <Link href="/user-platforms" color="inherit">
           Platforms
         </Link>
         <Typography>----Yep, I am the main toolbar----</Typography>
-        <Button variant='outlined' href='/user-platform-overall'>
+        <Button variant="outlined" href="/user-platform-overall">
           Overall Performance
         </Button>
       </Toolbar>
 
-      <Grid container direction='row'>
+      <Grid container direction="row">
         <Grid xs={3}>
           <UserPlatformsList />
         </Grid>

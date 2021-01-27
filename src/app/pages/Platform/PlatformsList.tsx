@@ -83,14 +83,14 @@ const PlatformsList = (props: any) => {
   if (loading) {
     return (
       <>
-        <Typography variant='h5'>Loading platforms...</Typography>
+        <Typography variant="h5">Loading platforms...</Typography>
       </>
     )
   }
   return (
     <>
       <PlatformListToolbar />
-      <Grid container direction='column'>
+      <Grid container direction="column">
         <div style={{ height: 600, width: '100%' }}>
           <XGrid
             rows={data}

@@ -8,8 +8,11 @@ export const currencySort = (queryParams) => (dispatch) => {
   // console.log('field', field)
   dispatch(
     actions.currencySort({
-      callType: callTypes.action, field, isAsc, entities,
-    }),
+      callType: callTypes.action,
+      field,
+      isAsc,
+      entities,
+    })
   )
 }
 export const fetchAllCurrencies = (params) => (dispatch) => {
@@ -19,9 +22,7 @@ export const fetchAllCurrencies = (params) => (dispatch) => {
     .then((response) => {
       // console.log("CURRENCIES: ", response);
       const { data } = response.data
-      dispatch(
-        actions.currenciesFetched({ pages: 200, page: 1, entities: data }),
-      )
+      dispatch(actions.currenciesFetched({ pages: 200, page: 1, entities: data }))
     })
     .catch((error) => {
       error.clientMessage = "Can't find currencies"

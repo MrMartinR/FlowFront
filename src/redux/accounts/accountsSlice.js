@@ -5,7 +5,10 @@ const initialAccountsState = {
   listLoading: true,
   actionsLoading: false,
   accountTable: {
-    entities: null, page: null, pages: null, perPage: null,
+    entities: null,
+    page: null,
+    pages: null,
+    perPage: null,
   },
   accountForEdit: undefined,
   lastError: null,
@@ -39,9 +42,7 @@ export const accountsSlice = createSlice({
       const { field, isAsc, entities } = action.payload
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
-        )
+        const entitiesOrdened = [...entities].sort(Util.sortCustom(field, isAsc, (a) => a.toUpperCase()))
         state.accountTable.entities = entitiesOrdened
       }
     },
@@ -65,10 +66,7 @@ export const accountsSlice = createSlice({
       const { pages, page, entities } = action.payload
       state.listLoading = false
       state.error = null
-      state.accountTable.entities = [
-        ...state.accountTable.entities,
-        ...entities,
-      ]
+      state.accountTable.entities = [...state.accountTable.entities, ...entities]
       state.accountTable.pages = pages
       state.accountTable.page = page
     },
@@ -82,44 +80,36 @@ export const accountsSlice = createSlice({
     accountUpdated: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.accountTable.entities = state.accountTable.entities.map(
-        (entity) => {
-          if (entity.id === action.payload.account.id) {
-            return action.payload.account
-          }
-          return entity
-        },
-      )
+      state.accountTable.entities = state.accountTable.entities.map((entity) => {
+        if (entity.id === action.payload.account.id) {
+          return action.payload.account
+        }
+        return entity
+      })
     },
     // deleteCustomer
     accountDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.accountTable.entities = state.accountTable.entities.filter(
-        (el) => el.id !== action.payload.id,
-      )
+      state.accountTable.entities = state.accountTable.entities.filter((el) => el.id !== action.payload.id)
     },
     // deleteCustomers
     accountsDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.accountTable.entities = state.accountTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id),
-      )
+      state.accountTable.entities = state.accountTable.entities.filter((el) => !action.payload.ids.includes(el.id))
     },
     // accountsUpdateState
     accountsStatusUpdated: (state, action) => {
       state.actionsLoading = false
       state.error = null
       const { ids, status } = action.payload
-      state.accountTable.entities = state.accountTable.entities.map(
-        (entity) => {
-          if (ids.findIndex((id) => id === entity.id) > -1) {
-            entity.status = status
-          }
-          return entity
-        },
-      )
+      state.accountTable.entities = state.accountTable.entities.map((entity) => {
+        if (ids.findIndex((id) => id === entity.id) > -1) {
+          entity.status = status
+        }
+        return entity
+      })
     },
   },
 })

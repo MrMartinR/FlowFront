@@ -12,7 +12,7 @@ export const userAccountSort = (queryParams) => (dispatch) => {
       field,
       isAsc,
       entities,
-    }),
+    })
   )
 }
 export const fetchUserAccounts = (params) => (dispatch) => {
@@ -47,9 +47,7 @@ export const fetchNextUserAccounts = (params) => (dispatch) => {
 
 export const fetchuserAccount = (id) => (dispatch) => {
   if (!id) {
-    return dispatch(
-      actions.userAccountFetched({ userAccountForEdit: undefined }),
-    )
+    return dispatch(actions.userAccountFetched({ userAccountForEdit: undefined }))
   }
 
   dispatch(actions.startCall({ callType: callTypes.action }))

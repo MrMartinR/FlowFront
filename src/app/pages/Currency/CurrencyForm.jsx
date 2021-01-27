@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react'
 /* eslint-disable  no-restricted-imports */
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
-import * as Yup from "yup";
-import { FormControl, TextField } from "@material-ui/core";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
+import * as Yup from 'yup'
+import { FormControl, TextField } from '@material-ui/core'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
 
 const CurrencyForm = (props) => {
   const useFormStyles = makeStyles((theme) => ({
     container: {
-      display: "flex",
-      flexWrap: "wrap",
+      display: 'flex',
+      flexWrap: 'wrap',
     },
     formControl: {
       margin: theme.spacing(1),
@@ -29,28 +29,25 @@ const CurrencyForm = (props) => {
     menu: {
       width: 200,
     },
-  }));
+  }))
   const currencyForm = Yup.object().shape({
-    name: Yup.string().required("Required"),
-    code: Yup.string().required("Required"),
-    symbol: Yup.string().required("Required"),
-    decimal_places: Yup.string().required("Required"),
-    kind: Yup.string().required("Required"),
-  });
+    name: Yup.string().required('Required'),
+    code: Yup.string().required('Required'),
+    symbol: Yup.string().required('Required'),
+    decimal_places: Yup.string().required('Required'),
+    kind: Yup.string().required('Required'),
+  })
 
-  const classes = useFormStyles();
+  const classes = useFormStyles()
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(currencyForm),
-  });
+  })
 
-  const onSubmit = (event) => {};
+  const onSubmit = (event) => {}
 
   return (
     <div className="currency_form" id="kt_add_currency_form">
-      <form
-        className="form fv-plugins-bootstrap fv-plugins-framework"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="form fv-plugins-bootstrap fv-plugins-framework" onSubmit={handleSubmit(onSubmit)}>
         <FormControl className={classes.formControl}>
           <TextField
             id={`outlined-name-dense`}
@@ -59,7 +56,7 @@ const CurrencyForm = (props) => {
             className={clsx(classes.textField, classes.dense)}
             margin="dense"
             variant="outlined"
-            name={"name"}
+            name={'name'}
             inputRef={register()}
           />
           <span> {errors.name && errors.name.message}</span>
@@ -119,7 +116,7 @@ const CurrencyForm = (props) => {
         </FormControl>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default CurrencyForm;
+export default CurrencyForm

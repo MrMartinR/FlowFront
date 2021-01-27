@@ -37,9 +37,7 @@ export function useHtmlClassService() {
 
 export function withHtmlClassService(Component) {
   class WithHtmlClassService extends React.Component {
-    static displayName = `WithHtmlClassService(${
-      Component.displayName || Component.name
-    })`
+    static displayName = `WithHtmlClassService(${Component.displayName || Component.name})`
 
     static contextType = HtmlClassServiceContext
 
@@ -63,9 +61,5 @@ export function LayoutProvider({ children }) {
     return service
   }, [lc])
 
-  return (
-    <HtmlClassServiceContext.Provider value={hcs}>
-      {children}
-    </HtmlClassServiceContext.Provider>
-  )
+  return <HtmlClassServiceContext.Provider value={hcs}>{children}</HtmlClassServiceContext.Provider>
 }

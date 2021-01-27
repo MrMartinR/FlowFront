@@ -1,24 +1,24 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import { CurrenciesLoadingDialog } from "./currencies-loading-dialog/CurrenciesLoadingDialog";
-import { CurrencyEditDialog } from "./currency-edit-dialog/CurrencyEditDialog";
-import { CurrenciesUIProvider } from "./CurrenciesUIContext";
-import { CurrenciesCard } from "./CurrenciesCard";
-import { useSelector } from "react-redux";
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { CurrenciesLoadingDialog } from './currencies-loading-dialog/CurrenciesLoadingDialog'
+import { CurrencyEditDialog } from './currency-edit-dialog/CurrencyEditDialog'
+import { CurrenciesUIProvider } from './CurrenciesUIContext'
+import { CurrenciesCard } from './CurrenciesCard'
+import { useSelector } from 'react-redux'
 
 export function CurrenciesPage(props) {
-  const { history } = props;
+  const { history } = props
 
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth)
 
   const currenciesUIEvents = {
     newCurrencyButtonClick: () => {
-      history.push("/currencies/new");
+      history.push('/currencies/new')
     },
     openEditCurrencyDialog: (id) => {
-      history.push(`/currencies/${id}/edit`);
+      history.push(`/currencies/${id}/edit`)
     },
-  };
+  }
 
   return (
     <CurrenciesUIProvider currenciesUIEvents={currenciesUIEvents}>
@@ -29,7 +29,7 @@ export function CurrenciesPage(props) {
           <CurrenciesCard
             show={match != null}
             onHide={() => {
-              history.push("/currencies");
+              history.push('/currencies')
             }}
             auth={auth}
           />
@@ -40,7 +40,7 @@ export function CurrenciesPage(props) {
           <CurrencyEditDialog
             show={match != null}
             onHide={() => {
-              history.push("/currencies");
+              history.push('/currencies')
             }}
           />
         )}
@@ -51,11 +51,11 @@ export function CurrenciesPage(props) {
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/currencies");
+              history.push('/currencies')
             }}
           />
         )}
       </Route>
     </CurrenciesUIProvider>
-  );
+  )
 }

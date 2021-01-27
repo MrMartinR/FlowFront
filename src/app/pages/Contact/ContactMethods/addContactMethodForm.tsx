@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextField, Button, Grid, MenuItem, Collapse, IconButton } from '@material-ui/core'
-import {Alert, AlertTitle} from '@material-ui/lab'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import CloseIcon from '@material-ui/icons/Close'
 import * as contactMethodsActions from './state/contactMethodsActions'
 import { useDispatch } from 'react-redux'
-
 
 const types = [
   {
@@ -60,7 +59,7 @@ export const AddContactMethodForm = (props: any) => {
   const [type, setType] = React.useState('Email')
   const [formData, setFormData] = React.useState([] as any)
   const [res, setRes] = React.useState(null as any)
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(true)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
@@ -80,107 +79,97 @@ export const AddContactMethodForm = (props: any) => {
     data['visibility'] = selectedContact.visibility
     setFormData(data)
   }
- 
-
 
   return (
     <>
-    <>
-    {res === true ?
-    <Collapse in={open}>
-    <Alert
-    severity="success"
-      action={
-        <IconButton
-         
-          onClick={() => {
-            setOpen(false);
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      }
-    >
-      <AlertTitle>Success</AlertTitle>
-      Data saved
-    </Alert>
-  </Collapse>
-  :res === false ?
-  <Collapse in={open}>
-        <Alert
-        severity="error"
-          action={
-            <IconButton
-          
-              onClick={() => {
-                setOpen(false);
-              }}
+      <>
+        {res === true ? (
+          <Collapse in={open}>
+            <Alert
+              severity="success"
+              action={
+                <IconButton
+                  onClick={() => {
+                    setOpen(false)
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              }
             >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          <AlertTitle>Error</AlertTitle>
-          {methodsState.error}
-        </Alert>
-      </Collapse>
-      :
-      <></>
-    }
-      
-    </>
-    
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container direction='column'>
-        <TextField
-          name='contact'
-          label='Contact name'
-          variant='filled'
-          value={selectedContact.trade_name || selectedContact.name}
-        ></TextField>
-        <TextField
-          name='visibility'
-          label='Visibility'
-          variant='filled'
-          value={selectedContact.visibility}
-        ></TextField>
+              <AlertTitle>Success</AlertTitle>
+              Data saved
+            </Alert>
+          </Collapse>
+        ) : res === false ? (
+          <Collapse in={open}>
+            <Alert
+              severity="error"
+              action={
+                <IconButton
+                  onClick={() => {
+                    setOpen(false)
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+              <AlertTitle>Error</AlertTitle>
+              {methodsState.error}
+            </Alert>
+          </Collapse>
+        ) : (
+          <></>
+        )}
+      </>
 
-        <TextField
-          select
-          name='kind'
-          label='Type'
-          value={type}
-          onChange={handleChange}
-          helperText='Please select contact type'
-          inputRef={register}
-          variant='filled'
-        >
-          {types.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          name='data'
-          label='Data'
-          variant='filled'
-          inputRef={register}
-        />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container direction="column">
+          <TextField
+            name="contact"
+            label="Contact name"
+            variant="filled"
+            value={selectedContact.trade_name || selectedContact.name}
+          ></TextField>
+          <TextField
+            name="visibility"
+            label="Visibility"
+            variant="filled"
+            value={selectedContact.visibility}
+          ></TextField>
 
-        <TextField
-          name='notes'
-          label='Notes'
-          variant='filled'
-          placeholder='Notes'
-          inputRef={register}
-          color='secondary'
-        />
-        <Button type='submit' variant='contained' color='secondary'>
-          Submit
-        </Button>
-      </Grid>
-    </form>
+          <TextField
+            select
+            name="kind"
+            label="Type"
+            value={type}
+            onChange={handleChange}
+            helperText="Please select contact type"
+            inputRef={register}
+            variant="filled"
+          >
+            {types.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField name="data" label="Data" variant="filled" inputRef={register} />
+
+          <TextField
+            name="notes"
+            label="Notes"
+            variant="filled"
+            placeholder="Notes"
+            inputRef={register}
+            color="secondary"
+          />
+          <Button type="submit" variant="contained" color="secondary">
+            Submit
+          </Button>
+        </Grid>
+      </form>
     </>
   )
 }

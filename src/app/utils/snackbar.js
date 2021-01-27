@@ -6,12 +6,12 @@ import ErrorIcon from '@material-ui/icons/Error'
 import InfoIcon from '@material-ui/icons/Info'
 import CloseIcon from '@material-ui/icons/Close'
 import { colors } from '@material-ui/core'
-import {IconButton} from '@material-ui/core'
-import {Snackbar} from '@material-ui/core'
-import {SnackbarContent} from '@material-ui/core'
-import {WarningIcon} from '@material-ui/icons/Warning'
-/* eslint-disable  no-restricted-imports */ 
-import { makeStyles } from '@material-ui/core/styles';
+import { IconButton } from '@material-ui/core'
+import { Snackbar } from '@material-ui/core'
+import { SnackbarContent } from '@material-ui/core'
+import { WarningIcon } from '@material-ui/icons/Warning'
+/* eslint-disable  no-restricted-imports */
+import { makeStyles } from '@material-ui/core/styles'
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -48,28 +48,21 @@ const useStyles1 = makeStyles((theme) => ({
 
 function MySnackbarContentWrapper(props) {
   const classes = useStyles1()
-  const {
-    className, message, onClose, variant, ...other
-  } = props
+  const { className, message, onClose, variant, ...other } = props
   const Icon = variantIcon[variant]
 
   return (
     <SnackbarContent
       className={clsx(classes[variant], className)}
       aria-describedby="client-snackbar"
-      message={(
+      message={
         <span id="client-snackbar" className={classes.message}>
           <Icon className={clsx(classes.icon, classes.iconVariant)} />
           {message}
         </span>
-      )}
+      }
       action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          onClick={onClose}
-        >
+        <IconButton key="close" aria-label="Close" color="inherit" onClick={onClose}>
           <CloseIcon className={classes.icon} />
         </IconButton>,
       ]}
@@ -89,12 +82,7 @@ MySnackbarContentWrapper.propTypes = {
  * variant - success/info/warning/error
  */
 export default function CustomizedSnackbars(props) {
-  const {
-    variant = 'success',
-    message = 'Message not defined',
-    open,
-    handleClose = () => {},
-  } = props
+  const { variant = 'success', message = 'Message not defined', open, handleClose = () => {} } = props
 
   return (
     <div>
@@ -107,11 +95,7 @@ export default function CustomizedSnackbars(props) {
         autoHideDuration={1000}
         onClose={handleClose}
       >
-        <MySnackbarContentWrapper
-          onClose={handleClose}
-          variant={variant}
-          message={message}
-        />
+        <MySnackbarContentWrapper onClose={handleClose} variant={variant} message={message} />
       </Snackbar>
     </div>
   )

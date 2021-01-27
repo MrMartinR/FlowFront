@@ -1,32 +1,32 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { isEqual, isFunction } from "lodash";
-import { initialFilter } from "./CurrenciesUIHelpers";
+import React, { createContext, useContext, useState, useCallback } from 'react'
+import { isEqual, isFunction } from 'lodash'
+import { initialFilter } from './CurrenciesUIHelpers'
 
-const CurrenciesUIContext = createContext();
+const CurrenciesUIContext = createContext()
 
 export function useCurrenciesUIContext() {
-  return useContext(CurrenciesUIContext);
+  return useContext(CurrenciesUIContext)
 }
 
-export const CurrenciesUIConsumer = CurrenciesUIContext.Consumer;
+export const CurrenciesUIConsumer = CurrenciesUIContext.Consumer
 
 export function CurrenciesUIProvider({ currenciesUIEvents, children }) {
-  const [queryParams, setQueryParamsBase] = useState(initialFilter);
-  const [ids, setIds] = useState([]);
+  const [queryParams, setQueryParamsBase] = useState(initialFilter)
+  const [ids, setIds] = useState([])
 
-  const setQueryParams = useCallback(nextQueryParams => {
-    setQueryParamsBase(prevQueryParams => {
+  const setQueryParams = useCallback((nextQueryParams) => {
+    setQueryParamsBase((prevQueryParams) => {
       if (isFunction(nextQueryParams)) {
-        nextQueryParams = nextQueryParams(prevQueryParams);
+        nextQueryParams = nextQueryParams(prevQueryParams)
       }
 
       if (isEqual(prevQueryParams, nextQueryParams)) {
-        return prevQueryParams;
+        return prevQueryParams
       }
 
-      return nextQueryParams;
-    });
-  }, []);
+      return nextQueryParams
+    })
+  }, [])
 
   const initCurrency = {
     id: undefined,
@@ -53,7 +53,7 @@ export function CurrenciesUIProvider({ currenciesUIEvents, children }) {
     // openDeleteCurrenciesDialog: currenciesUIEvents.openDeleteCurrenciesDialog,
     // openFetchCurrenciesDialog: currenciesUIEvents.openFetchCurrenciesDialog,
     // openUpdateCurrenciesStatusDialog: currenciesUIEvents.openUpdateCurrenciesStatusDialog
-  };
+  }
 
-  return <CurrenciesUIContext.Provider value={value}>{children}</CurrenciesUIContext.Provider>;
+  return <CurrenciesUIContext.Provider value={value}>{children}</CurrenciesUIContext.Provider>
 }

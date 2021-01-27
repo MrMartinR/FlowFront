@@ -10,17 +10,7 @@
 /* eslint-disable no-return-assign */
 import React from 'react'
 import { useEffect, useState } from 'react'
-import {
-  Grid,
-  TextField,
-  InputLabel,
-  Button,
-  MenuItem,
-  Card,
-  CardHeader,
-  CardContent,
-  Select,
-} from '@material-ui/core'
+import { Grid, TextField, InputLabel, Button, MenuItem, Card, CardHeader, CardContent, Select } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { getAllCountries } from '../Country/countryActions'
 import { getUserProfile, updateProfile } from '../../actions/userActions'
@@ -164,17 +154,8 @@ const Settings = () => {
   // }
 
   return (
-    <Grid
-      container
-      direction='column'
-      spacing={2}
-      alignContent='space-around'
-      alignItems='stretch'
-    >
-      <CardHeader
-        title='Settings'
-        subheader='Update your account and settings'
-      />
+    <Grid container direction="column" spacing={2} alignContent="space-around" alignItems="stretch">
+      <CardHeader title="Settings" subheader="Update your account and settings" />
 
       <CustomizedSnackbars
         {...snackState}
@@ -187,20 +168,20 @@ const Settings = () => {
       {/* Personal Information */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Personal Information' />
+          <CardHeader title="Personal Information" />
           <CardContent>
             {/* name */}
             <InputLabel>
               Name
               <TextField
-                type='text'
+                type="text"
                 InputLabelProps={{ shrink: false }}
-                label=''
+                label=""
                 variant={variant}
                 onBlur={(e) => handleChange(e, 'name')}
                 onChange={(e) => setState({ name: e.target.value })}
                 value={userProfile.name ? userProfile.name : ''}
-                size='small'
+                size="small"
               />
             </InputLabel>
 
@@ -208,13 +189,13 @@ const Settings = () => {
             <InputLabel>
               Surname
               <TextField
-                type='text'
+                type="text"
                 InputLabelProps={{ shrink: false }}
                 variant={variant}
                 onBlur={(e) => handleChange(e, 'surname')}
                 onChange={(e) => setState({ surname: e.target.value })}
                 value={userProfile.surname ? userProfile.surname : ''}
-                size='small'
+                size="small"
               />
             </InputLabel>
 
@@ -222,17 +203,16 @@ const Settings = () => {
             <InputLabel>
               Date of Birth
               <TextField
-                type='date'
+                type="date"
                 InputLabelProps={{ shrink: false }}
-                label=''
+                label=""
                 variant={variant}
                 value={userProfile.dob ? userProfile.dob : ''}
                 onChange={(e) => setState({ dob: e.target.value })}
                 onBlur={(e) => handleChange(e, 'dob')}
-                size='small'
+                size="small"
               />
-              Date of Birth will not be publicly displayed Will be use to
-              calculate you FI
+              Date of Birth will not be publicly displayed Will be use to calculate you FI
             </InputLabel>
           </CardContent>
         </Card>
@@ -241,19 +221,19 @@ const Settings = () => {
       {/* Account Information */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Account Information' />
+          <CardHeader title="Account Information" />
           <CardContent>
             {/* username */}
             <InputLabel>
               Username
               <TextField
-                label=''
+                label=""
                 value={userProfile.username ? userProfile.username : ''}
                 disabled
                 onChange={(e) => setState({ username: e.target.value })}
                 onBlur={(e) => handleChange(e, 'username')}
                 variant={variant}
-                size='small'
+                size="small"
               />
             </InputLabel>
 
@@ -261,14 +241,14 @@ const Settings = () => {
             <InputLabel>
               Email
               <TextField
-                type='email'
+                type="email"
                 disabled
-                label=''
+                label=""
                 onBlur={(e) => handleChange(e, 'email')}
                 onChange={(e) => setState({ email: e.target.value })}
                 value={userProfile.email ? userProfile.email : ''}
                 variant={variant}
-                size='small'
+                size="small"
               />
               Email will not be publicly displayed
             </InputLabel>
@@ -277,16 +257,12 @@ const Settings = () => {
             <InputLabel>
               Country
               <Select
-                labelId='country-simple-select'
-                id='country-simple-select'
+                labelId="country-simple-select"
+                id="country-simple-select"
                 variant={variant}
                 onChange={(e) => handleChange(e, 'country')}
-                value={
-                  userProfile.country && userProfile.country.name
-                    ? userProfile.country.name
-                    : ''
-                }
-                size='small'
+                value={userProfile.country && userProfile.country.name ? userProfile.country.name : ''}
+                size="small"
               >
                 {countries.map(({ name, id }) => (
                   <MenuItem key={name} id={id} value={name}>
@@ -300,15 +276,11 @@ const Settings = () => {
             <InputLabel>
               Currency
               <Select
-                labelId='currency-simple-select'
-                id='currency-simple-select'
+                labelId="currency-simple-select"
+                id="currency-simple-select"
                 variant={variant}
-                size='small'
-                value={
-                  userProfile.currency && userProfile.currency.code
-                    ? userProfile.currency.code
-                    : ''
-                }
+                size="small"
+                value={userProfile.currency && userProfile.currency.code ? userProfile.currency.code : ''}
                 onChange={(e) => handleChange(e, 'currency')}
               >
                 {currencies.map(({ code, id }) => (
@@ -327,19 +299,19 @@ const Settings = () => {
       {/* @todo: make the change password work, yup validations, password match, etc. */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Change Password' />
+          <CardHeader title="Change Password" />
           <CardContent>
             <InputLabel>
               Current Password
               <TextField
-                type='password'
-                label=''
+                type="password"
+                label=""
                 variant={variant}
                 onChange={(e) => setState({ currentPassword: e.target.value })}
-                size='small'
+                size="small"
               />
               <a
-                href='#'
+                href="#"
                 onClick={(e) => {
                   e.preventDefault()
                 }}
@@ -352,26 +324,26 @@ const Settings = () => {
             <InputLabel>
               New Password
               <TextField
-                type='password'
-                label=''
+                type="password"
+                label=""
                 variant={variant}
                 onChange={(e) => setState({ newPassword: e.target.value })}
-                size='small'
+                size="small"
               />
             </InputLabel>
 
             {/* @todo: disable popup autofill password / trigger the new password suggestion  */}
-            <InputLabel margin='dense'>
+            <InputLabel margin="dense">
               Verify Password
               <TextField
-                type='password'
-                label=''
+                type="password"
+                label=""
                 variant={variant}
                 onChange={(e) => setState({ verifyPassword: e.target.value })}
-                size='small'
+                size="small"
               />
               <Button
-                size='small'
+                size="small"
                 style={{
                   textTransform: 'none',
                 }}

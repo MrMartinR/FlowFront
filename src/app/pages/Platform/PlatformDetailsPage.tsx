@@ -48,33 +48,33 @@ const PlatformDetailsPage = (props: any) => {
   if (loading) {
     return (
       <>
-        <Typography variant='h5'>Loading platform details...</Typography>
+        <Typography variant="h5">Loading platform details...</Typography>
       </>
     )
   }
   return (
     <>
       <Toolbar>
-        <Grid container direction='row' justify='space-between'>
+        <Grid container direction="row" justify="space-between">
           <Grid item xs={4}>
-            <input type='button' value='[Icon][TradeName]' onClick={handleClick} />
+            <input type="button" value="[Icon][TradeName]" onClick={handleClick} />
             {/* {platformDetails.contact.trade_name} */}
           </Grid>
           <Grid item xs={3}>
             {/* // change this to a button element */}
             <Button>
               Contact
-              <input type='button' value='Contact' onClick={handleClick} />
+              <input type="button" value="Contact" onClick={handleClick} />
             </Button>
             <ButtonGroup>
               <Button>Info</Button>
               <Button>
                 Originators
-                <input type='button' value='Originators' onClick={handleClick} />
+                <input type="button" value="Originators" onClick={handleClick} />
               </Button>
               <Button>
                 Loans
-                <input type='button' value='Loans' onClick={handleClick} />
+                <input type="button" value="Loans" onClick={handleClick} />
               </Button>
             </ButtonGroup>
           </Grid>

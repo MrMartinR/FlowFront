@@ -5,7 +5,7 @@ import PlatformsList from './PlatformsList'
 
 const PlatformsPage = () => {
   return (
-    <Grid container direction='column'>
+    <Grid container direction="column">
       <Card></Card>
       <Card>
         <CardContent>

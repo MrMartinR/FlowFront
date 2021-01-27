@@ -13,30 +13,28 @@ export function ActionsColumnFormatter(
   return (
     <>
       <a
-        title='Edit currency'
-        className='btn btn-icon btn-light btn-hover-primary btn-sm mx-3'
+        title="Edit currency"
+        className="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
         onClick={() => openEditCurrencyDialog(row.id)}
         onKeyPress={() => openEditCurrencyDialog(row.id)}
-        role='link'
+        role="link"
         tabIndex={0}
       >
-        <span className='svg-icon svg-icon-md svg-icon-primary'>
-          <SVG
-            src={toAbsoluteUrl('/media/svg/icons/Communication/Write.svg')}
-          />
+        <span className="svg-icon svg-icon-md svg-icon-primary">
+          <SVG src={toAbsoluteUrl('/media/svg/icons/Communication/Write.svg')} />
         </span>
       </a>
       <> </>
 
       <a
-        title='Delete currency'
-        className='btn btn-icon btn-light btn-hover-danger btn-sm'
+        title="Delete currency"
+        className="btn btn-icon btn-light btn-hover-danger btn-sm"
         onClick={() => openDeleteCurrencyDialog(row.id)}
         onKeyPress={() => openDeleteCurrencyDialog(row.id)}
-        role='link'
+        role="link"
         tabIndex={0}
       >
-        <span className='svg-icon svg-icon-md svg-icon-danger'>
+        <span className="svg-icon svg-icon-md svg-icon-danger">
           <SVG src={toAbsoluteUrl('/media/svg/icons/General/Trash.svg')} />
         </span>
       </a>
