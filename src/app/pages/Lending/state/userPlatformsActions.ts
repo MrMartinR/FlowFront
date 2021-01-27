@@ -21,16 +21,16 @@ export const fetchUserPlatformsList = () => (dispatch: any) => {
 }
 
 // Fetches the details of a single user platform
-// export const fetchUserPlatformDetails = (id: any) => (dispatch: any) => {
-//   dispatch(actions.startCall(any))
-//       axios.get(`${USER_PLATFORMS_URL}/${id}`, optionsHeaders())
-//       .then(function (response) {
-//           return dispatch(actions.platformDetailsReceived(response.data));
-//       })
-//       .catch(function (error) {
-//           return dispatch(actions.catchError(error));
-//       });
-// }
+export const fetchUserPlatformDetails = (id: any) => (dispatch: any) => {
+  dispatch(actions.startCall(any))
+      axios.get(`${USER_PLATFORMS_URL}/${id}`, optionsHeaders())
+      .then(function (response) {
+          return dispatch(actions.userPlatformDetailsReceived(response.data));
+      })
+      .catch(function (error) {
+          return dispatch(actions.catchError(error));
+      });
+}
 
 
 

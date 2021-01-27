@@ -1,34 +1,30 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchUserPlatformsList } from '../state/userPlatformsActions'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
+import { Grid, CardHeader, Typography } from '@material-ui/core'
+import { fetchUserPlatformsList, fetchUserPlatformDetails } from '../state/userPlatformsActions'
+// import { fetchPlatformDetails } from '../../Platform/state/platformsActions'
 
-
-import {
-  Grid,
-  Card,
-  CardHeader,
-  Typography,
-  CardContent,
-} from '@material-ui/core'
-
+LicenseInfo.setLicenseKey(
+  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
+)
 
 const columns: ColDef[] = [
   { field: 'id', headerName: 'Id', width: 200 },
 ]
 
 const UserPlatformsList = (props: any) => {
-  const { fetchUserPlatformsList } = props;
-  const { userPlatformsTable = [], loading } = props.userPlatforms
+  const { fetchUserPlatformsList, fetchUserPlatformDetails, fetchPlatformDetails } = props;
+  const { userPlatformsTable = [] } = props.userPlatforms
 
   useEffect(() => {
     fetchUserPlatformsList()
   }, [fetchUserPlatformsList])
 
-
-
-  const handleClick = (e: any) => console.log(e.row.id)
-
+  const handleClick = (e: any) => {
+    fetchUserPlatformDetails(e.row.id)
+    // fetchPlatformDetails(e.row.platform.id)
+  }
 
   return (
     <>
@@ -38,6 +34,7 @@ const UserPlatformsList = (props: any) => {
           <XGrid
             rows={userPlatformsTable}
             columns={columns}
+            // onRowClick={handleClick}
             onRowClick={handleClick}
             disableMultipleSelection={true}
             loading={true}
@@ -57,6 +54,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchUserPlatformsList: () => dispatch(fetchUserPlatformsList()),
+    fetchUserPlatformDetails: (id: any) => dispatch(fetchUserPlatformDetails(id)),
+    // fetchPlatformDetails: (id: any) => dispatch(fetchPlatformDetails(id))
   }
 }
 
