@@ -7,7 +7,7 @@ import { platformsSlice } from './platformsSlice'
 
 const { actions } = platformsSlice
 
-// Fetches a list of platforms
+/* Fetches a list of platforms */
 export const fetchPlatformsList = () => (dispatch: any) => {
   dispatch(actions.startCall(any))
   axios
@@ -20,7 +20,7 @@ export const fetchPlatformsList = () => (dispatch: any) => {
     })
 }
 
-// Fetches the details of a single platform
+/* Fetches the details of a single platform */
 export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
   axios
@@ -33,12 +33,11 @@ export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
     })
 }
 
-// Fetches a list of originators associated to a particular platform
+/* Fetches a list of originators associated to a particular platform */
 export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
   axios
     .get(`${PLATFORMS_URL}/${id}/platform_originators`, optionsHeaders())
-    //   axios.get(`${PLATFORMS_URL}/platform_originators/${id}`, optionsHeaders())
     .then(function (response) {
       console.log(id)
       console.log(response.data)
@@ -49,12 +48,11 @@ export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
     })
 }
 
-// Fetches a list of loans associated to a particular platform
+/* Fetches a list of loans associated to a particular platform */
 export const fetchPlatformLoans = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
   axios
-    .get(`${PLATFORMS_URL}/${id}/platform_loans`, optionsHeaders())
-    //   axios.get(`${PLATFORMS_URL}/platform_loans/${id}`, optionsHeaders())
+    .get(`${PLATFORMS_URL}/platform_loans/${id}`, optionsHeaders())
     .then(function (response) {
       console.log(id)
       console.log(response.data)

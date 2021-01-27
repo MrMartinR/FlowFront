@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Toolbar, Typography, Link, Button } from '@material-ui/core'
-import UserPlatformsList from './UserPlatformList'
-import UserPlatformsDetail from './UserPlatformDetail'
+import UserPlatformsList from './UserPlatformsList'
+import UserPlatformDetails from './UserPlatformDetails'
 
 const UserPlatformsPage = () => {
   return (
@@ -19,13 +19,12 @@ const UserPlatformsPage = () => {
           Overall Performance
         </Button>
       </Toolbar>
-
       <Grid container direction="row">
-        <Grid xs={3}>
+        <Grid xs={2}>
           <UserPlatformsList />
         </Grid>
-        <Grid xs={9}>
-          <UserPlatformsDetail />
+        <Grid xs={10}>
+          <UserPlatformDetails />
         </Grid>
       </Grid>
     </Grid>
