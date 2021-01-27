@@ -8,7 +8,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx eslint . --fix && npx prettier . --write"
+    "lint": "yarn eslint . --fix && yarn prettier . --write"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -114,8 +114,8 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "npx eslint . --fix",
-      "npx prettier . --write",
+      "yarn eslint . --fix",
+      "yarn prettier . --write",
       "git add ."
     ]
   }
