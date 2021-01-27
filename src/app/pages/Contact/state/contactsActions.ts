@@ -3,8 +3,6 @@ import { contactsSlice, callTypes } from './contactsSlice'
 
 const { actions } = contactsSlice
 
-const uche = 'inyama'
-
 // fetch all contacts
 export const fetchContacts = () => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
