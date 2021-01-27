@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
-import { Grid, CardHeader, Typography } from '@material-ui/core'
+import { Grid, CardHeader } from '@material-ui/core'
 import { fetchUserPlatformsList, fetchUserPlatformDetails } from '../state/userPlatformsActions'
-// import { fetchPlatformDetails } from '../../Platform/state/platformsActions'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -14,7 +13,7 @@ const columns: ColDef[] = [
 ]
 
 const UserPlatformsList = (props: any) => {
-  const { fetchUserPlatformsList, fetchUserPlatformDetails, fetchPlatformDetails } = props;
+  const { fetchUserPlatformsList, fetchUserPlatformDetails } = props;
   const { userPlatformsTable = [] } = props.userPlatforms
 
   useEffect(() => {
@@ -23,7 +22,6 @@ const UserPlatformsList = (props: any) => {
 
   const handleClick = (e: any) => {
     fetchUserPlatformDetails(e.row.id)
-    // fetchPlatformDetails(e.row.platform.id)
   }
 
   return (
@@ -34,7 +32,6 @@ const UserPlatformsList = (props: any) => {
           <XGrid
             rows={userPlatformsTable}
             columns={columns}
-            // onRowClick={handleClick}
             onRowClick={handleClick}
             disableMultipleSelection={true}
             loading={true}
@@ -55,7 +52,6 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchUserPlatformsList: () => dispatch(fetchUserPlatformsList()),
     fetchUserPlatformDetails: (id: any) => dispatch(fetchUserPlatformDetails(id)),
-    // fetchPlatformDetails: (id: any) => dispatch(fetchPlatformDetails(id))
   }
 }
 

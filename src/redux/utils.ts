@@ -1,6 +1,5 @@
 import store from './store'
 
-
 export const optionsHeaders = () => {
     const {
       auth: {
@@ -27,10 +26,8 @@ let _API_URL
 let _FORGOT_PASSWORD_CALLBACK
 
 if (process.env.NODE_ENV === 'development') {
-  // _API_URL = 'http://localhost:3000'
-  // _FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
-  _API_URL = 'https://api.flowfin.tech'
-  _FORGOT_PASSWORD_CALLBACK = 'https://app.flowfin.tech'
+  _API_URL = 'http://localhost:3000'
+  _FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
 }
 
 if (process.env.NODE_ENV === 'production') {
