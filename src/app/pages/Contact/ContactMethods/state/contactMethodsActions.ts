@@ -3,8 +3,6 @@ import { contactMethodsSlice, callTypes } from './contactMethodsSlice'
 
 const { actions } = contactMethodsSlice
 
-const uche = 'henry'
-
 /*
  * In a async approach, process the getContactMethods promise
  * pass the promise return data to contactMethodsFetched to populate the state
