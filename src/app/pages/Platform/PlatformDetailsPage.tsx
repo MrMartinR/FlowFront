@@ -14,34 +14,49 @@ const PlatformDetailsPage = (props: any) => {
   const { fetchPlatformDetails, fetchPlatformOriginators, fetchPlatformLoans } = props
   const { platformDetails, loading } = props.platforms
   const [currentTab, setTab] = React.useState('')
+  const [data, setData] = React.useState([] as any)
+
+  const processData = (obj: any) => {
+    let data = {} as any
+    for (const property in obj) {
+      data[`${property}`] = property === 'contact' ? obj[property].trade_name : obj[property]
+    }
+    return data
+  }
 
   useEffect(() => {
     fetchPlatformDetails(params.id)
   }, [fetchPlatformDetails, params.id])
 
   useEffect(() => {
-    fetchPlatformOriginators(params.id)
-  }, [fetchPlatformOriginators, params.id])
+    setData(processData(platformDetails))
+  }, [platformDetails])
+
+  // useEffect(() => {
+  //   fetchPlatformOriginators(params.id)
+  // }, [fetchPlatformOriginators, params.id])
 
   // useEffect(() => {
   //   fetchPlatformLoans(params.id)
   // }, [fetchPlatformLoans, params.id])
 
-  // onClick function that sets the state of the currentTab to be displayed
+  /* onClick function that sets the state of the currentTab to be displayed */
   const handleClick = (e: any) => {
-    setTab(`${e.target.value}`)
+    setTab(`${e.target.innerHTML}`)
   }
 
-  // a function that returns a switch statement of the details, contact, originators and loans tab
+  /* a function that returns a switch statement of the details, contact, originators and loans tab */
   const renderSwitch = (param: any) => {
     switch (param) {
-      case 'Contact':
       case 'Originators':
         return <PlatformOriginators />
       case 'Loans':
         return <PlatformLoans />
+      case 'Info':
+        return <PlatformInfo platformDetails={data} />
+      case 'Contact':
       default:
-        return <PlatformInfo platformDetails={platformDetails} />
+        return <PlatformInfo platformDetails={data} />
     }
   }
 
@@ -57,25 +72,16 @@ const PlatformDetailsPage = (props: any) => {
       <Toolbar>
         <Grid container direction="row" justify="space-between">
           <Grid item xs={4}>
-            <input type="button" value="[Icon][TradeName]" onClick={handleClick} />
-            {/* {platformDetails.contact.trade_name} */}
+            <Typography variant="h4">{data.contact}</Typography>
           </Grid>
           <Grid item xs={3}>
-            {/* // change this to a button element */}
-            <Button>
-              Contact
-              <input type="button" value="Contact" onClick={handleClick} />
-            </Button>
             <ButtonGroup>
-              <Button>Info</Button>
-              <Button>
-                Originators
-                <input type="button" value="Originators" onClick={handleClick} />
+              <Button onClick={handleClick}>Info</Button>
+              <Button onClick={handleClick} disabled>
+                Contact
               </Button>
-              <Button>
-                Loans
-                <input type="button" value="Loans" onClick={handleClick} />
-              </Button>
+              <Button onClick={handleClick}>Originators</Button>
+              <Button onClick={handleClick}>Loans</Button>
             </ButtonGroup>
           </Grid>
         </Grid>
