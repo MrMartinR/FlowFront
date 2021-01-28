@@ -62,14 +62,19 @@ export const reducer = persistReducer(
       default:
         return state
     }
-  },
+  }
 )
 
 export const actions = {
   login: (authToken, uid, client, expiry, token, userData) => ({
     type: actionTypes.Login,
     payload: {
-      authToken, uid, client, expiry, token, userData,
+      authToken,
+      uid,
+      client,
+      expiry,
+      token,
+      userData,
     },
   }),
   register: (authToken) => ({

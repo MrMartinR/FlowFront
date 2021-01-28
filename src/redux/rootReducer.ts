@@ -10,6 +10,7 @@ import { currenciesSlice } from './currencies/currenciesSlice'
 import { iconsSlice } from './icons/iconsSlice'
 import { contactMethodsSlice } from '../app/pages/Contact/ContactMethods/state/contactMethodsSlice'
 import { platformsSlice } from '../app/pages/Platform/state/platformsSlice'
+import { userPlatformsSlice } from '../app/pages/Lending/state/userPlatformsSlice'
 import { originatorsSlice } from '../app/pages/Originator/state/originatorsSlice'
 import { loansSlice } from '../app/pages/Loan/state/loansSlice'
 
@@ -22,6 +23,7 @@ export const rootReducer = combineReducers({
   countries: countriesSlice.reducer,
   currencies: currenciesSlice.reducer,
   platforms: platformsSlice.reducer,
+  userPlatforms: userPlatformsSlice.reducer,
   originators: originatorsSlice.reducer,
   loans: loansSlice.reducer,
   icons: iconsSlice.reducer,

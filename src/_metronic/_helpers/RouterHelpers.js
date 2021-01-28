@@ -4,11 +4,11 @@ const localStorageLastLocationKey = 'metronic-lastLocation'
 
 function acceptLocation(lastLocation) {
   if (
-    lastLocation
-    && lastLocation.pathname
-    && lastLocation.pathname !== '/'
-    && lastLocation.pathname.indexOf('auth') === -1
-    && lastLocation.pathname !== '/logout'
+    lastLocation &&
+    lastLocation.pathname &&
+    lastLocation.pathname !== '/' &&
+    lastLocation.pathname.indexOf('auth') === -1 &&
+    lastLocation.pathname !== '/logout'
   ) {
     return true
   }
@@ -18,11 +18,7 @@ function acceptLocation(lastLocation) {
 
 export function saveLastLocation(lastLocation) {
   if (acceptLocation(lastLocation)) {
-    utils.setStorage(
-      localStorageLastLocationKey,
-      JSON.stringify(lastLocation),
-      120,
-    )
+    utils.setStorage(localStorageLastLocationKey, JSON.stringify(lastLocation), 120)
   }
 }
 

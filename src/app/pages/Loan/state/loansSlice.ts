@@ -12,7 +12,7 @@ export const loansSlice = createSlice({
   reducers: {
     startCall: (state) => {
       state.loading = true
-    }, 
+    },
     loansReceived: (state, action) => {
       state.loading = false
       state.loansData = action.payload.data
@@ -20,9 +20,8 @@ export const loansSlice = createSlice({
     catchError: (state, action) => {
       state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
-    }
-  }
-
+    },
+  },
 })
 
 export const { startCall, loansReceived, catchError } = loansSlice.actions

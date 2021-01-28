@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-} from '@material-ui/core/'
+import { Grid, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
@@ -89,14 +83,14 @@ const PlatformsList = (props: any) => {
   if (loading) {
     return (
       <>
-        <Typography variant='h5'>Loading platforms...</Typography>
+        <Typography variant="h5">Loading platforms...</Typography>
       </>
     )
   }
   return (
     <>
       <PlatformListToolbar />
-      <Grid container direction='column'>
+      <Grid container direction="column">
         <div style={{ height: 600, width: '100%' }}>
           <XGrid
             rows={data}

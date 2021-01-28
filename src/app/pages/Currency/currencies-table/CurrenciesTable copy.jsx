@@ -1,11 +1,11 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo, Fragment } from "react";
-import BootstrapTable from "react-bootstrap-table-next";
-import Pagination from "@material-ui/lab/Pagination";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../../redux/currencies/currenciesActions";
+import React, { useEffect, useMemo, Fragment } from 'react'
+import BootstrapTable from 'react-bootstrap-table-next'
+import Pagination from '@material-ui/lab/Pagination'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import * as actions from '../../../../redux/currencies/currenciesActions'
 import {
   getSelectRow,
   getHandlerTableChange,
@@ -13,14 +13,14 @@ import {
   PleaseWaitMessage,
   sortCaret,
   headerSortingClasses,
-} from "../../../../_metronic/_helpers";
-import * as uiHelpers from "../CurrenciesUIHelpers";
-import * as columnFormatters from "./column-formatters";
-import { useCurrenciesUIContext } from "../CurrenciesUIContext";
+} from '../../../../_metronic/_helpers'
+import * as uiHelpers from '../CurrenciesUIHelpers'
+import * as columnFormatters from './column-formatters'
+import { useCurrenciesUIContext } from '../CurrenciesUIContext'
 
 export function CurrenciesTable() {
   // Currencies UI Context
-  const currenciesUIContext = useCurrenciesUIContext();
+  const currenciesUIContext = useCurrenciesUIContext()
   const currenciesUIProps = useMemo(() => {
     return {
       ids: currenciesUIContext.ids,
@@ -29,58 +29,55 @@ export function CurrenciesTable() {
       setQueryParams: currenciesUIContext.setQueryParams,
       openEditCurrencyDialog: currenciesUIContext.openEditCurrencyDialog,
       openDeleteCurrencyDialog: currenciesUIContext.openDeleteCurrencyDialog,
-    };
-  }, [currenciesUIContext]);
+    }
+  }, [currenciesUIContext])
 
   // Getting curret state of currencies list from store (Redux)
-  const { currentState } = useSelector(
-    (state) => ({ currentState: state.currencies }),
-    shallowEqual
-  );
+  const { currentState } = useSelector((state) => ({ currentState: state.currencies }), shallowEqual)
   const {
     currencyTable: { entities, page, pages },
     listLoading,
-  } = currentState;
+  } = currentState
 
   // Currencies Redux state
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
     // clear selections list
-    currenciesUIProps.setIds([]);
+    currenciesUIProps.setIds([])
     // server call by queryParams
-    const { pageNumber, pageSize } = currenciesUIProps.queryParams;
-    dispatch(actions.fetchCurrencies({ page: pageNumber, perPage: pageSize }));
-  }, []);
+    const { pageNumber, pageSize } = currenciesUIProps.queryParams
+    dispatch(actions.fetchCurrencies({ page: pageNumber, perPage: pageSize }))
+  }, [])
 
   // Table columns
   const columns = [
     {
-      dataField: "id",
-      text: "id",
+      dataField: 'id',
+      text: 'id',
       sort: true,
       hidden: true,
     },
     {
-      dataField: "flag",
-      text: "Flag",
+      dataField: 'flag',
+      text: 'Flag',
       sort: true,
       sortCaret: sortCaret,
       // headerSortingClasses,
     },
     {
-      dataField: "name",
-      text: "Name",
+      dataField: 'name',
+      text: 'Name',
       sort: true,
       sortCaret: sortCaret,
       // headerSortingClasses,
     },
     {
-      dataField: "iso_code",
-      text: "ISO Code",
+      dataField: 'iso_code',
+      text: 'ISO Code',
     },
     {
-      dataField: "continent",
-      text: "Continent",
+      dataField: 'continent',
+      text: 'Continent',
       sort: true,
       sortCaret: sortCaret,
     },
@@ -92,43 +89,41 @@ export function CurrenciesTable() {
     //   // headerSortingClasses,
     // },
     {
-      dataField: "status",
-      text: "Status",
+      dataField: 'status',
+      text: 'Status',
       sort: true,
       sortCaret: sortCaret,
       formatter: columnFormatters.StatusColumnFormatter,
       headerSortingClasses,
     },
     {
-      dataField: "action",
-      text: "Actions",
+      dataField: 'action',
+      text: 'Actions',
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCurrencyDialog: currenciesUIProps.openEditCurrencyDialog,
-        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog
+        openDeleteCurrencyDialog: currenciesUIProps.openDeleteCurrencyDialog,
       },
-      classes: "text-right pr-0",
-      headerClasses: "text-right pr-3",
+      classes: 'text-right pr-0',
+      headerClasses: 'text-right pr-3',
       style: {
-        minWidth: "100px",
+        minWidth: '100px',
       },
     },
-  ];
+  ]
 
   const sortCustom = (type, { sortField, sortOrder, data }) => {
     if (data !== null) {
-      let isAsc = sortOrder === "asc" ? true : false;
-      dispatch(
-        actions.currencySort({ field: sortField, isAsc, entities: data })
-      );
+      let isAsc = sortOrder === 'asc' ? true : false
+      dispatch(actions.currencySort({ field: sortField, isAsc, entities: data }))
     }
-  };
+  }
 
   const pagesChange = (e, value) => {
     // const { pageSize } = currenciesUIProps.queryParams;
     // // currenciesUIProps.setQueryParams((prev) => ({ ...prev, pageNumber: value }))
     // dispatch(actions.fetchCurrencies({ page: value, perPage: pageSize }));
-  };
+  }
 
   return (
     <Fragment>
@@ -156,12 +151,12 @@ export function CurrenciesTable() {
         count={pages}
         page={page}
         style={{
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
+          justifyContent: 'center',
+          display: 'flex',
+          alignItems: 'center',
         }}
         onChange={pagesChange}
       />
     </Fragment>
-  );
+  )
 }

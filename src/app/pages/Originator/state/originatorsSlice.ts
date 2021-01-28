@@ -12,7 +12,7 @@ export const originatorsSlice = createSlice({
   reducers: {
     startCall: (state) => {
       state.loading = true
-    }, 
+    },
     originatorsReceived: (state, action) => {
       state.loading = false
       state.originatorsTable = action.payload.data
@@ -20,9 +20,8 @@ export const originatorsSlice = createSlice({
     catchError: (state, action) => {
       state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
-    }
-  }
-
+    },
+  },
 })
 
 export const { startCall, originatorsReceived, catchError } = originatorsSlice.actions

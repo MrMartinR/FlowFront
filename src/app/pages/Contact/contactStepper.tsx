@@ -18,12 +18,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as countryActions from '../../../redux/countries/countriesActions'
 
 function getSteps() {
-  return [
-    'Select Contact Type',
-    'Select Country',
-    'Select Visibility',
-    'Fill in Contact Details',
-  ]
+  return ['Select Contact Type', 'Select Country', 'Select Visibility', 'Fill in Contact Details']
 }
 
 export const VerticalLinearStepper = () => {
@@ -94,11 +89,7 @@ export const VerticalLinearStepper = () => {
   }
   GetAllCountries()
   useEffect(() => {
-    if (
-      countryState &&
-      countryState.countryTable &&
-      countryState.countryTable.entities
-    ) {
+    if (countryState && countryState.countryTable && countryState.countryTable.entities) {
       setList(countryState.countryTable.entities)
       setIsLoading(countryState.listLoading)
     }
@@ -129,26 +120,12 @@ export const VerticalLinearStepper = () => {
         return (
           <FormGroup row>
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkState.checkedA}
-                  name='checkedA'
-                  onChange={handleKind}
-                  
-                />
-              }
-              label='Company'
+              control={<Checkbox checked={checkState.checkedA} name="checkedA" onChange={handleKind} />}
+              label="Company"
             />
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkState.checkedB}
-                  onChange={handleKind}
-                  name='checkedB'
-                  
-                />
-              }
-              label='Individual'
+              control={<Checkbox checked={checkState.checkedB} onChange={handleKind} name="checkedB" />}
+              label="Individual"
             />
           </FormGroup>
         )
@@ -158,26 +135,12 @@ export const VerticalLinearStepper = () => {
         return (
           <FormGroup row>
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkVisible.checkedC}
-                  name='checkedC'
-                  onChange={handleKind}
-                  
-                />
-              }
-              label='Private'
+              control={<Checkbox checked={checkVisible.checkedC} name="checkedC" onChange={handleKind} />}
+              label="Private"
             />
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkVisible.checkedD}
-                  onChange={handleKind}
-                  name='checkedD'
-                  
-                />
-              }
-              label='Public'
+              control={<Checkbox checked={checkVisible.checkedD} onChange={handleKind} name="checkedD" />}
+              label="Public"
             />
           </FormGroup>
         )
@@ -201,7 +164,7 @@ export const VerticalLinearStepper = () => {
   }
   return (
     <>
-      <Stepper activeStep={activeStep} orientation='vertical'>
+      <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
@@ -211,11 +174,7 @@ export const VerticalLinearStepper = () => {
                 <Button disabled={activeStep === 0} onClick={handleBack}>
                   Back
                 </Button>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={handleNext}
-                >
+                <Button variant="contained" color="primary" onClick={handleNext}>
                   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
               </>

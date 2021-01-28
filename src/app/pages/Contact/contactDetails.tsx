@@ -30,24 +30,22 @@ export const ContactDetails = (props: any) => {
   }
   const body = (
     <>
-          <Typography variant='h4' id='simple-modal-title'>
-            Edit Contact
-          </Typography>
-          <Typography variant='body1' id='simple-modal-description'>
-            add and edit contact form
-          </Typography>
+      <Typography variant="h4" id="simple-modal-title">
+        Edit Contact
+      </Typography>
+      <Typography variant="body1" id="simple-modal-description">
+        add and edit contact form
+      </Typography>
     </>
   )
 
   return (
     <>
       <>
-          
-      
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} variant='contained'>
+            <Button onClick={handleClose} variant="contained">
               Cancel
             </Button>
           </DialogActions>
@@ -58,50 +56,34 @@ export const ContactDetails = (props: any) => {
           <EditIcon onClick={(e) => handleOpen(e, 'edit')}></EditIcon>
           <Grid>
             <Grid item md={12}>
-              <Grid direction='row' justify='space-evenly' container>
+              <Grid direction="row" justify="space-evenly" container>
                 <>
-                  <Avatar variant='square'>ICON</Avatar>
-                  <Avatar variant='square'>FLAG</Avatar>
+                  <Avatar variant="square">ICON</Avatar>
+                  <Avatar variant="square">FLAG</Avatar>
                 </>
                 <>
                   {selectedContact.kind === 'Company' ? (
                     <List>
-                      <Typography variant='h6'>Company</Typography>
-                      <ListItemText
-                        primary={` ${selectedContact.trade_name || err}`}
-                      />
-                      <ListItemText
-                        primary={` ${selectedContact.company_name || err}`}
-                      />
-                      <ListItemText
-                        primary={` ${selectedContact.id_number || err}`}
-                      />
-                      <ListItemText
-                        primary={` ${selectedContact.founded || err}`}
-                      />
+                      <Typography variant="h6">Company</Typography>
+                      <ListItemText primary={` ${selectedContact.trade_name || err}`} />
+                      <ListItemText primary={` ${selectedContact.company_name || err}`} />
+                      <ListItemText primary={` ${selectedContact.id_number || err}`} />
+                      <ListItemText primary={` ${selectedContact.founded || err}`} />
                     </List>
                   ) : (
                     <List>
-                      <Typography variant='h6'>Individual</Typography>
-                      <ListItemText
-                        primary={` ${selectedContact.name || err}`}
-                      />
-                      <ListItemText
-                        primary={` ${selectedContact.surname || err}`}
-                      />
-                      <ListItemText
-                        primary={` ${selectedContact.id_number || err}`}
-                      />
-                      <ListItemText
-                        primary={` ${selectedContact.nick || err}`}
-                      />
+                      <Typography variant="h6">Individual</Typography>
+                      <ListItemText primary={` ${selectedContact.name || err}`} />
+                      <ListItemText primary={` ${selectedContact.surname || err}`} />
+                      <ListItemText primary={` ${selectedContact.id_number || err}`} />
+                      <ListItemText primary={` ${selectedContact.nick || err}`} />
                     </List>
                   )}
                 </>
               </Grid>
             </Grid>
           </Grid>
-          <Typography variant='body2' component='p'>
+          <Typography variant="body2" component="p">
             {`${selectedContact.description || err}`}
           </Typography>
         </CardContent>

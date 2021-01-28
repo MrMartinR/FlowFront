@@ -47,11 +47,10 @@ export class HtmlClassService {
 
   preInit(layoutConfig) {
     const updatedConfig = { ...layoutConfig }
- 
+
     return updatedConfig
   }
 
- 
   getClasses(path, toString) {
     if (path) {
       const classes = objectPath.get(this.classes, path) || ''
@@ -89,15 +88,9 @@ export class HtmlClassService {
     objectPath.push(this.classes, 'header', 'header-fixed')
 
     // Menu
-    const headerMenuSelfDisplay = objectPath.get(
-      this.config,
-      'header.menu.self.display',
-    )
+    const headerMenuSelfDisplay = objectPath.get(this.config, 'header.menu.self.display')
     if (headerMenuSelfDisplay) {
-      const headerMenuSelfLayout = objectPath.get(
-        this.config,
-        'header.menu.self.layout',
-      )
+      const headerMenuSelfLayout = objectPath.get(this.config, 'header.menu.self.layout')
       const headerMenuLayoutCssClass = `header-menu-layout-${headerMenuSelfLayout}`
       objectPath.push(this.classes, 'header_menu', headerMenuLayoutCssClass)
 
@@ -127,10 +120,7 @@ export class HtmlClassService {
 
     // Fixed content head
     const subheaderFixed = objectPath.get(this.config, 'subheader.fixed')
-    const headerSelfFixedDesktop = objectPath.get(
-      this.config,
-      'header.self.fixed.desktop',
-    )
+    const headerSelfFixedDesktop = objectPath.get(this.config, 'header.self.fixed.desktop')
     if (subheaderFixed && headerSelfFixedDesktop) {
       document.body.classList.add('subheader-fixed')
       // Page::setOption('layout', 'subheader/style', 'solid'); => See preInit()
