@@ -71,15 +71,15 @@ const PlatformDetailsPage = (props: any) => {
     <>
       <Toolbar>
         <Grid container direction="row" justify="space-between">
-          <Grid item xs={4}>
+          <Grid item xs={4} direction="row">
             <Typography variant="h4">{data.contact}</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Button href={`/contacts/${data.contact_id}`}>Contact</Button>
           </Grid>
           <Grid item xs={3}>
             <ButtonGroup>
               <Button onClick={handleClick}>Info</Button>
-              <Button onClick={handleClick} disabled>
-                Contact
-              </Button>
               <Button onClick={handleClick}>Originators</Button>
               <Button onClick={handleClick}>Loans</Button>
             </ButtonGroup>
