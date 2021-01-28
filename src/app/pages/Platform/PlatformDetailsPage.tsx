@@ -74,9 +74,6 @@ const PlatformDetailsPage = (props: any) => {
           <Grid item xs={4} direction="row">
             <Typography variant="h4">{data.contact}</Typography>
           </Grid>
-          <Grid item xs={2}>
-            <Button href={`/contacts/${data.contact_id}`}>Contact</Button>
-          </Grid>
           <Grid item xs={3}>
             <ButtonGroup>
               <Button onClick={handleClick}>Info</Button>
@@ -84,6 +81,9 @@ const PlatformDetailsPage = (props: any) => {
               <Button onClick={handleClick}>Loans</Button>
             </ButtonGroup>
           </Grid>
+        </Grid>
+        <Grid item xs={2}>
+          <Button href={`/contacts/${data.contact_id}`}>Contact</Button>
         </Grid>
       </Toolbar>
       {/* render a switch statement passing in the currentTab state as the key */}
