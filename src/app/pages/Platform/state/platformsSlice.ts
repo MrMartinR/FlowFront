@@ -17,16 +17,16 @@ export const platformsSlice = createSlice({
       state.loading = true
     },
     platformsReceived: (state, action) => {
-      state.loading = false
       state.platformsTable = action.payload.data
+      state.loading = false
     },
     catchError: (state, action) => {
-      state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
+      state.loading = false
     },
     platformDetailsReceived: (state, action) => {
-      state.loading = false
       state.platformDetails = action.payload.data[0]
+      state.loading = false
     },
     platformOriginatorsReceived: (state, action) => {
       state.platformOriginators = action.payload.data

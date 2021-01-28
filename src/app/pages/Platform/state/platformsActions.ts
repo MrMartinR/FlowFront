@@ -39,8 +39,6 @@ export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
   axios
     .get(`${PLATFORMS_URL}/${id}/platform_originators`, optionsHeaders())
     .then(function (response) {
-      console.log(id)
-      console.log(response.data)
       return dispatch(actions.platformOriginatorsReceived(response.data))
     })
     .catch(function (error) {
@@ -54,8 +52,6 @@ export const fetchPlatformLoans = (id: any) => (dispatch: any) => {
   axios
     .get(`${PLATFORMS_URL}/platform_loans/${id}`, optionsHeaders())
     .then(function (response) {
-      console.log(id)
-      console.log(response.data)
       return dispatch(actions.platformLoansReceived(response.data))
     })
     .catch(function (error) {
