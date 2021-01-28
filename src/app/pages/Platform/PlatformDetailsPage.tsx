@@ -77,7 +77,9 @@ const PlatformDetailsPage = (props: any) => {
           <Grid item xs={3}>
             <ButtonGroup>
               <Button onClick={handleClick}>Info</Button>
-              <Button onClick={handleClick}>Contact</Button>
+              <Button onClick={handleClick} disabled>
+                Contact
+              </Button>
               <Button onClick={handleClick}>Originators</Button>
               <Button onClick={handleClick}>Loans</Button>
             </ButtonGroup>
