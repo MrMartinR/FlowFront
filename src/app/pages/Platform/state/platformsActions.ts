@@ -39,9 +39,6 @@ export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
   axios
     .get(`${PLATFORMS_URL}/${id}/platform_originators`, optionsHeaders())
     .then(function (response) {
-      console.log(response)
-      console.log(response.data)
-      console.log(response.data.message)
       return dispatch(actions.platformOriginatorsReceived(response.data))
     })
     .catch(function (error) {
