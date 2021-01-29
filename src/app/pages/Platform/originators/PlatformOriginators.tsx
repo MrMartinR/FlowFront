@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Grid, Card, CardHeader, CardContent, Typography } from '@material-ui/core/'
+import React from 'react'
+import { Grid, CardHeader } from '@material-ui/core/'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
 
 LicenseInfo.setLicenseKey(
@@ -18,16 +18,9 @@ const columns: ColDef[] = [
 const PlatformOriginators = (props: any) => {
   return (
     <Grid xs={12}>
-      <CardHeader title="Platform Originators"></CardHeader>
       <Grid container direction="column">
         <div style={{ height: 600, width: '100%' }}>
-          <XGrid
-            rows={props.platformOriginators}
-            columns={columns}
-            // onRowClick={handleClick}
-            disableMultipleSelection={true}
-            loading={true}
-          />
+          <XGrid rows={props.platformOriginators} columns={columns} disableMultipleSelection={true} loading={true} />
         </div>
       </Grid>
     </Grid>

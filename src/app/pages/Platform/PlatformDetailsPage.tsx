@@ -95,7 +95,7 @@ const PlatformDetailsPage = (props: any) => {
       <Toolbar>
         <Grid container direction="row" justify="space-between">
           <Grid item xs={4} direction="row">
-            <Typography variant="h4">{data.contact}</Typography>
+            <Typography variant="h4">{data.contact} originators</Typography>
           </Grid>
           <Grid item xs={3}>
             <ButtonGroup>
