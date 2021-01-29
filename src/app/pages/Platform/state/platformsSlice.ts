@@ -29,7 +29,7 @@ export const platformsSlice = createSlice({
       state.loading = false
     },
     platformOriginatorsReceived: (state, action) => {
-      state.platformOriginators = action.payload.data
+      state.platformOriginators = action.payload.message
     },
     platformLoansReceived: (state, action) => {
       state.platformLoans = action.payload.data
