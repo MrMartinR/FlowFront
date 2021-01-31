@@ -45,8 +45,8 @@ export function getUserAccountById(accountId) {
   return axios.get(`${USER_ACCOUNT_URL}/${accountId}`, optionsHeaders())
 }
 
-export function getUserTransactions() {
-  return axios.get(`${USER_TRANSACTIONS_URL}`, optionsHeaders())
+export function getUserTransactions(id) {
+  return axios.get(`${USER_TRANSACTIONS_URL}/${id}`, optionsHeaders())
 }
 
 // Method from server should return QueryResultsModel(items: any[], totalsCount: number)

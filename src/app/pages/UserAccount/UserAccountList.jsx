@@ -22,18 +22,18 @@ export const UserAccountsList = (props) => {
       style={
         window.minWidth < 600
           ? { minWidth: "200px", maxWidth: "200px" }
-          : { minWidth: "250px", maxWidth: "250px" }
+          : { minWidth: "250px", maxWidth: "250px", minHeight: "140vh" }
       }
     >
       <CardHeader>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={(e) => {
-              newAccountFunc();
-            }}
-          >
-            Create
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={(e) => {
+            newAccountFunc();
+          }}
+        >
+          Create
           </button>
       </CardHeader>
       <AutoSizer>

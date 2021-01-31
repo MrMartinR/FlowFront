@@ -1,7 +1,8 @@
 import React from 'react';
 import { Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import { InfiniteLoader, List } from "react-virtualized"
-
+import { useDispatch } from "react-redux";
+import * as userAccountsActions from "../../../redux/userAccounts/userAccountsActions";
 
 export default function VirtualizedListComponent({
   setSelectedItemIndex,
@@ -21,45 +22,48 @@ export default function VirtualizedListComponent({
 
   // Only load 1 page of items at a time.
   // Pass an empty callback to InfiniteLoader in case it asks us to load more than once.
-  const loadMoreRows = isNextPageLoading ? () => {} : loadNextPage;
+  const loadMoreRows = isNextPageLoading ? () => { } : loadNextPage;
 
   // Every row is loaded except for our loading indicator row.
-  const isRowLoaded = ({index}) => !hasNextPage || index < list.length;
+  const isRowLoaded = ({ index }) => !hasNextPage || index < list.length;
+
+  // Accounts Redux state
+  const dispatch = useDispatch();
 
   const rowSelected = (index) => {
     setSelectedItemIndex(index)
+    dispatch(userAccountsActions.fetchAccountTransaction(list[index].id));
   }
 
-  const rowRenderer = ({index, key, style}) => {
+  const rowRenderer = ({ index, key, style }) => {
 
-    if (!isRowLoaded({index})) {
+    if (!isRowLoaded({ index })) {
       return (
-        <ListItem key={key} className="UserAccountsListItem" style={{...style, justifyContent: "center"}}>
-          <CircularProgress className="splash-screen-spinner"/>
-        </ListItem> 
+        <ListItem key={key} className="UserAccountsListItem" style={{ ...style, justifyContent: "center" }}>
+          <CircularProgress className="splash-screen-spinner" />
+        </ListItem>
       );
     } else {
       return (
-        <ListItem onClick={()=>rowSelected(index)} key={key} className="UserAccountsListItem" style={style}>
+        <ListItem onClick={() => rowSelected(index)} key={key} className="UserAccountsListItem" style={style}>
           <ListItemAvatar>
             <Avatar
               // alt={``}
               // src={`/static/images/avatar/1.jpg`}
               src={''}
-             />
+            />
           </ListItemAvatar>
           <ListItemText id={key} primary={list[index].name} />
-        </ListItem> 
+        </ListItem>
       );
     }
   };
-
   return (
     <InfiniteLoader
       isRowLoaded={isRowLoaded}
       loadMoreRows={loadMoreRows}
       rowCount={rowCount}>
-      {({onRowsRendered, registerChild}) => (
+      {({ onRowsRendered, registerChild }) => (
         <List
           ref={registerChild}
           onRowsRendered={onRowsRendered}

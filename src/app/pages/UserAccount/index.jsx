@@ -44,7 +44,7 @@ export const UserAccountsPage = ({ history }) => {
 
   if (list && list[selectedItemIndex]) {
     selectedUserAccount = list[selectedItemIndex];
-  }
+  }  
   // Accounts Redux state
   const dispatch = useDispatch();
   useEffect(() => {
@@ -57,8 +57,7 @@ export const UserAccountsPage = ({ history }) => {
         })
       );
       dispatch(countriesActions.fetchAllCountry());
-      dispatch(currenciesActions.fetchAllCurrencies());
-      dispatch(userAccountsActions.fetchAccountTransaction());
+      dispatch(currenciesActions.fetchAllCurrencies());    
     }
   }, [dispatch, perPage]);
 
@@ -73,7 +72,7 @@ export const UserAccountsPage = ({ history }) => {
       setList(currentState.userAccountTable.data);
       setCurrentPage(currentState.userAccountTable.page);
       setTotalPages(currentState.userAccountTable.pages);
-      setIsLoading(currentState.listLoading);
+      setIsLoading(currentState.listLoading);   
     }
     if (
       currentState &&
@@ -84,6 +83,13 @@ export const UserAccountsPage = ({ history }) => {
       setAllTransactions(currentState.userAccountTransactions);
     }
   }, [currentState, currenciesState, countriesState]);
+
+  useEffect(() => {
+      if (list && list[selectedItemIndex]) {
+        selectedUserAccount = list[selectedItemIndex];
+        dispatch(userAccountsActions.fetchAccountTransaction(list[selectedItemIndex].id));
+      }
+  },[list])
 
   const userAccountsUIEvents = {
     newAccountButtonClick: () => {
