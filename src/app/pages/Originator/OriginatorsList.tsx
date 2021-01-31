@@ -10,7 +10,8 @@ LicenseInfo.setLicenseKey(
 
 const columns: ColDef[] = [
   // column definition format here
-  { field: 'contact', headerName: 'Name', width: 250 },
+  { field: 'trade_name', headerName: 'Name', width: 250 },
+  // { field: 'contact', headerName: 'Name', width: 250 },
   { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
@@ -30,7 +31,7 @@ const OriginatorsList = (props: any) => {
       dt['product_category_business'] = JSON.parse(element.product_category_business)
       dt['product_category_consumer'] = JSON.parse(element.product_category_consumer)
       dt['apr'] = element.apr
-      dt['contact'] = element.contact.trade_name || 'Not found'
+      dt['trade_name'] = element.trade_name
       data.push(dt)
     })
     return data

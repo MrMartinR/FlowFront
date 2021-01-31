@@ -7,7 +7,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Accordion,
-  CircularProgress,
+  LinearProgress,
   List,
   ListItem,
   ListItemIcon,
@@ -93,7 +93,7 @@ export const ContactMethod = (props: any) => {
         </DialogActions>
       </Dialog>
       {methodLoading === true ? (
-        <CircularProgress color="secondary" />
+        <LinearProgress color="secondary" />
       ) : listMethods.length >= 1 ? (
         listMethods.map((itm: any, idx: any) => (
           <Accordion expanded={expanded === `panel${idx}`} onChange={handleChange(`panel${idx}`)}>
