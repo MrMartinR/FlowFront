@@ -15,7 +15,7 @@ import {
 import ContactAdd from './contactAdd'
 import { RootState } from '../../../redux/rootReducer'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import * as countryActions from '../../../redux/countries/countriesActions'
+import * as countryActions from '../Country/countriesActions'
 
 function getSteps() {
   return ['Select Contact Type', 'Select Country', 'Select Visibility', 'Fill in Contact Details']
