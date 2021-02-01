@@ -22,6 +22,7 @@ export const platformsSlice = createSlice({
     },
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
+      state.platformOriginators = []
       state.loading = false
     },
     platformDetailsReceived: (state, action) => {
