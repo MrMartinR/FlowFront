@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 /* eslint-disable no-restricted-imports*/
-import { List, ListItem, ListItemText, CircularProgress, TextField, Typography } from '@material-ui/core'
+import { LinearProgress, List, ListItem, ListItemText, TextField } from '@material-ui/core'
 /**
  * @rev this Autocomplete thing... the final result will be search/filter-as-you-type
  * the list of contacts will be the one to shrink to accomodate the search terms.
@@ -19,12 +19,13 @@ export const ContactsList = (props: any) => {
     if (list.length >= 1) {
       let opt = [] as any
       list.map((option: any) => {
-        if (option.kind === 'Company') {
-          opt.push(option.trade_name)
-        }
-        if (option.kind === 'Individual') {
-          opt.push(option.name)
-        }
+        opt.push(option.name)
+        // if (option.kind === 'Company') {
+        //   opt.push(option.trade_name)
+        // }
+        // if (option.kind === 'Individual') {
+        //   opt.push(option.name)
+        // }
         return opt
       })
       setOptions(opt)
@@ -38,22 +39,16 @@ export const ContactsList = (props: any) => {
 
   return (
     <>
-      {isLoading ? (
-        <Typography>loading ...</Typography>
-      ) : (
-        <>
-          <Autocomplete
-            freeSolo
-            options={options}
-            onChange={handlePick}
-            renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
-          />
-        </>
-      )}
+      <Autocomplete
+        freeSolo
+        options={options}
+        onChange={handlePick}
+        renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
+      />
 
       <List>
         {isLoading ? (
-          <CircularProgress color="secondary" />
+          <LinearProgress color="secondary" />
         ) : (
           list.map((item: any, idx: any) => (
             <ListItem
