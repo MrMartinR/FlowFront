@@ -1,19 +1,19 @@
 // TODO: Replace formik for react hook forms https://react-hook-form.com
-import React, {Fragment, useEffect, useState} from 'react'
-import {Modal, Container, Row, Col} from 'react-bootstrap'
-import {withFormik} from 'formik'
+import React, { Fragment, useEffect, useState } from 'react'
+import { Modal, Container, Row, Col } from 'react-bootstrap'
+import { withFormik } from 'formik'
 import * as Yup from 'yup'
-import {MultiSelect} from '../../sharedComponents/searchSelect'
-import {Input} from '../../sharedComponents/inputShared'
-import {Avatar, Button} from '@material-ui/core'
+import { MultiSelect } from '../../sharedComponents/searchSelect'
+import { Input } from '../../sharedComponents/inputShared'
+import { Avatar, Button } from '@material-ui/core'
 /* eslint-disable  no-restricted-imports */
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 // import { StepperTemplate } from "./Stepper";
 
-import {Stepper} from '@material-ui/core'
-import {Step} from '@material-ui/core'
-import {StepLabel} from '@material-ui/core'
-import {Typography} from '@material-ui/core'
+import { Stepper } from '@material-ui/core'
+import { Step } from '@material-ui/core'
+import { StepLabel } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   avatarContainer: {
@@ -45,7 +45,7 @@ function getSteps() {
   return ['Select category', 'Select country', 'Select currency']
 }
 
-function getStepContent(stepIndex) {
+function getStepContent(stepIndex: number) {
   switch (stepIndex) {
     case 0:
       return 'Select campaign settings...'
@@ -77,10 +77,10 @@ const formikEnhancer = withFormik({
     countries: Yup.array().min(1),
     // .required('Country is required'),
     // .nullable(),
-    createAccountFunc: null,
+    // createAccountFunc: null,
   }),
   enableReinitialize: true,
-  mapPropsToValues: ({account, saveAccount}) => {
+  mapPropsToValues: ({account, saveAccount}:any) => {
     return {
       id: account.id,
       name: account.name,
@@ -122,7 +122,7 @@ const formikEnhancer = withFormik({
   displayName: 'MyForm',
 })
 
-export const AccountEditForm = (props) => {
+export const AccountEditForm = (props: any) => {
   const {
     values,
     touched,
@@ -157,12 +157,12 @@ export const AccountEditForm = (props) => {
 
   useEffect(() => {
     if (currencyTable && countriesTable) {
-      let selecData = {
+      let selecData: any = {
         countries: [],
         currencies: [],
       }
 
-      currencyTable.map((data) => {
+      currencyTable.map((data: any) => {
         selecData.currencies.push({
           value: data.id,
           label: data.name,
@@ -170,7 +170,7 @@ export const AccountEditForm = (props) => {
         return null
       })
 
-      countriesTable.map((data) => {
+      countriesTable.map((data: any) => {
         selecData.countries.push({
           value: data.id,
           label: data.name,
@@ -183,24 +183,24 @@ export const AccountEditForm = (props) => {
     }
   }, [currencyTable, countriesTable])
 
-  const [iconData, setIconData] = useState(null)
-  const [selectionData, setSelectionData] = useState(null)
+  const [iconData, setIconData]: any = useState(null)
+  const [selectionData, setSelectionData]: any = useState(null)
 
   // const classes = useStyles();
 
-  const getUrlFromSvgString = (string) => {
-    let blob = new Blob([string], {type: 'image/svg+xml'})
+  const getUrlFromSvgString = (string: string) => {
+    let blob = new Blob([string], { type: 'image/svg+xml' })
     let url = URL.createObjectURL(blob)
     return url
   }
 
-  const fileUploaded = (e) => {
+  const fileUploaded = (e: any) => {
     // console.log(e.target.files);
     var fr = new FileReader()
     fr.onload = function () {
       // console.log("INN");
       // console.log(fr.result);
-      let data = fr.result
+      let data: any = fr.result
       let index = data.indexOf('<svg')
       if (index < 0) {
         return
@@ -249,7 +249,7 @@ export const AccountEditForm = (props) => {
                         touched={touched.name}
                         name='name'
                         type='text'
-                        // addClass={["col-md-5", "col-xs-12"]}
+                      // addClass={["col-md-5", "col-xs-12"]}
                       />
                       <Input
                         value={values.category}
@@ -259,13 +259,13 @@ export const AccountEditForm = (props) => {
                         touched={touched.category}
                         name='category'
                         type='text'
-                        // addClass={["col-md-5", "col-xs-12"]}
+                      // addClass={["col-md-5", "col-xs-12"]}
                       />
                     </Col>
                     <Col sm={4} className={classes.avatarContainer}>
                       <Avatar
                         className={classes.bigAvatar}
-                        src={iconData ? getUrlFromSvgString(iconData) : null}
+                        src={iconData ? getUrlFromSvgString(iconData) : ''}
                       />
                       <input
                         name={'icon'}
@@ -342,28 +342,28 @@ export const AccountEditForm = (props) => {
                 <Button onClick={handleReset}>Reset</Button>
               </div>
             ) : (
-              <div>
-                <Typography className={classes.instructions}>
-                  {getStepContent(activeStep)}
-                </Typography>
                 <div>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.backButton}
-                  >
-                    Back
+                  <Typography className={classes.instructions}>
+                    {getStepContent(activeStep)}
+                  </Typography>
+                  <div>
+                    <Button
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.backButton}
+                    >
+                      Back
                   </Button>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                  </Button>
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      onClick={handleNext}
+                    >
+                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </Modal.Body>
@@ -391,3 +391,4 @@ export const AccountEditForm = (props) => {
 }
 
 export const EnhancedUserAccountForm = formikEnhancer(AccountEditForm)
+

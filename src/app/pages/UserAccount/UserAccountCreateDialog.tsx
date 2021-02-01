@@ -7,13 +7,22 @@ import { useDispatch } from "react-redux";
 import * as AccountActions from "../../../redux/accounts/accountsActions";
 import { UserAccountCreateDialogHeader } from "./UserAccountCreateDialogHeader";
 
-export const UserAccountCreateDialog = ({
-  id,
-  show,
-  onHide,
-  countriesTable,
-  currencyTable,
-}) => {
+interface Props {
+  // saveAccount: () => void;
+  countriesTable:any;
+  currencyTable:any;
+  show:boolean;
+  onHide: () => void;
+}
+
+export const UserAccountCreateDialog: React.FC<Props> = (props: any) => {
+  const {
+    id,
+    show,
+    onHide,
+    countriesTable,
+    currencyTable,
+  } = props
   // Accounts UI Context
   const accountsUIProps = useMemo(() => {
     return {
@@ -24,9 +33,11 @@ export const UserAccountCreateDialog = ({
   const dispatch = useDispatch();
 
   // server request for saving account
-  const saveAccount = (account, callback) => {
+  const saveAccount = (account: any, callback: any) => {
     // console.log("ACCOUNT: ", account);
-    dispatch(AccountActions.createAccount(account)).then(() => onHide());
+    dispatch(AccountActions.createAccount(account))
+    onHide()
+    // .then(() => onHide());
   };
 
   return (

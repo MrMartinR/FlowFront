@@ -6,7 +6,7 @@ import {
 import VirtualizedListComponent from "./UserAccountListComponent";
 import { AutoSizer } from "react-virtualized";
 
-export const UserAccountsList = (props) => {
+export const UserAccountsList = (props: any) => {
   const {
     newAccountFunc,
     setSelectedItemIndex,
@@ -20,9 +20,9 @@ export const UserAccountsList = (props) => {
   return (
     <Card
       style={
-        window.minWidth < 600
-          ? { minWidth: "200px", maxWidth: "200px" }
-          : { minWidth: "250px", maxWidth: "250px", minHeight: "140vh" }
+        // window.minWidth < 600
+        //   ? { minWidth: "200px", maxWidth: "200px" }:
+        { minWidth: "250px", maxWidth: "250px", minHeight: "140vh" }
       }
     >
       <CardHeader>

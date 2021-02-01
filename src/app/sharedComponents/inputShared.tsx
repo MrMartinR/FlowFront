@@ -10,9 +10,9 @@ export const Input = ({
   addClass,
   onChange,
   onBlur,
-}) => {
+}:any) => {
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     // this is going to call setFieldValue and manually update values.topcis
     onChange(name, e.target.value);
   };

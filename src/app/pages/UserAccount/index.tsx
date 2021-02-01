@@ -8,28 +8,30 @@ import * as currenciesActions from "../../../redux/currencies/currenciesActions"
 import * as countriesActions from "../../../redux/countries/countriesActions";
 import { UserAccountsList } from "./UserAccountList";
 import { UserAccountsDetails } from "./UserAccountDetails";
+import { RootState } from "../../../redux/rootReducer";
 
 const AccountsPageStyles = {
   main: {
     display: "flex",
-    flexDirection: "row",
+    // flexDirection: "row",
     height: "100%",
-    overflowY: "scroll",
+    // overflowY: "scroll",
   },
 };
 
-export const UserAccountsPage = ({ history }) => {
+export const UserAccountsPage = (props: any) => {
+  const { history } = props;
   // Getting curret state of accounts list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.userAccounts }),
+    (state: RootState) => ({ currentState: state.userAccounts }),
     shallowEqual
   );
   const { currenciesState } = useSelector(
-    (state) => ({ currenciesState: state.currencies }),
+    (state: RootState) => ({ currenciesState: state.currencies }),
     shallowEqual
   );
   const { countriesState } = useSelector(
-    (state) => ({ countriesState: state.countries }),
+    (state: RootState) => ({ countriesState: state.countries }),
     shallowEqual
   );
 
@@ -44,7 +46,7 @@ export const UserAccountsPage = ({ history }) => {
 
   if (list && list[selectedItemIndex]) {
     selectedUserAccount = list[selectedItemIndex];
-  }  
+  }
   // Accounts Redux state
   const dispatch = useDispatch();
   useEffect(() => {
@@ -57,7 +59,7 @@ export const UserAccountsPage = ({ history }) => {
         })
       );
       dispatch(countriesActions.fetchAllCountry());
-      dispatch(currenciesActions.fetchAllCurrencies());    
+      dispatch(currenciesActions.fetchAllCurrencies());
     }
   }, [dispatch, perPage]);
 
@@ -72,7 +74,7 @@ export const UserAccountsPage = ({ history }) => {
       setList(currentState.userAccountTable.data);
       setCurrentPage(currentState.userAccountTable.page);
       setTotalPages(currentState.userAccountTable.pages);
-      setIsLoading(currentState.listLoading);   
+      setIsLoading(currentState.listLoading);
     }
     if (
       currentState &&
@@ -85,17 +87,20 @@ export const UserAccountsPage = ({ history }) => {
   }, [currentState, currenciesState, countriesState]);
 
   useEffect(() => {
-      if (list && list[selectedItemIndex]) {
-        selectedUserAccount = list[selectedItemIndex];
-        dispatch(userAccountsActions.fetchAccountTransaction(list[selectedItemIndex].id));
-      }
-  },[list])
+    if (list && list[selectedItemIndex]) {
+      selectedUserAccount = list[selectedItemIndex];
+      let id = (selectedUserAccount as any)?.id
+      dispatch(userAccountsActions.fetchAccountTransaction(id));
+    }
+ 
+    
+  }, [list])
 
   const userAccountsUIEvents = {
     newAccountButtonClick: () => {
       history.push("/user_accounts/new");
     },
-    openEditAccountDialog: (id) => {
+    openEditAccountDialog: (id:number) => {
       history.push(`/user_accounts/${id}/edit`);
     },
 
