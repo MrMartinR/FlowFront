@@ -50,7 +50,7 @@ export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
 export const fetchPlatformLoans = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall(any))
   axios
-    .get(`${PLATFORMS_URL}/platform_loans/${id}`, optionsHeaders())
+    .get(`${PLATFORMS_URL}/${id}/loans`, optionsHeaders())
     .then(function (response) {
       return dispatch(actions.platformLoansReceived(response.data))
     })

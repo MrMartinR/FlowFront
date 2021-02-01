@@ -33,7 +33,7 @@ export const platformsSlice = createSlice({
       state.platformOriginators = action.payload.message
     },
     platformLoansReceived: (state, action) => {
-      state.platformLoans = action.payload.data
+      state.platformLoans = action.payload.message
     },
   },
 })
