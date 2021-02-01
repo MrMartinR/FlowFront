@@ -11,7 +11,6 @@ LicenseInfo.setLicenseKey(
 const columns: ColDef[] = [
   // column definition format here
   { field: 'trade_name', headerName: 'Name', width: 250 },
-  // { field: 'contact', headerName: 'Name', width: 250 },
   { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
