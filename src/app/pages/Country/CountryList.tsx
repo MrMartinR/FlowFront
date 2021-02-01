@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
-import { fetchAllCountry } from './countriesActions'
+import { XGrid, ColDef } from '@material-ui/x-grid'
+import { fetchAllCountry } from './state/countriesActions'
 
 const columns: ColDef[] = [
-  { field: 'name', headerName: 'Country', width: 200 },
-  { field: 'iso_code', headerName: 'ISO_CODE', width: 200 },
+  { field: 'name', headerName: 'Name', width: 200 },
+  { field: 'iso_code', headerName: 'ISO', width: 200 },
   { field: 'continent', headerName: 'Continent', width: 200 },
-  { field: 'currency_id', headerName: 'Currency Id', width: 200 },
+  { field: 'currency_id', headerName: 'Currency', width: 200 },
   { field: 'flag', headerName: 'Flag', width: 200 },
-  { field: 'fisical_year_start', headerName: 'New Fiscal year', width: 200 },
+  { field: 'fisical_year_start', headerName: 'Fiscal Year', width: 200 },
 ]
 
 const CountriesList = (props: any) => {

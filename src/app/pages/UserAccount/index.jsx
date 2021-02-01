@@ -5,7 +5,7 @@ import { UserAccountsUIProvider } from './UserAccountsUIContext'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as userAccountsActions from '../../../redux/userAccounts/userAccountsActions'
 import * as currenciesActions from '../../../redux/currencies/currenciesActions'
-import * as countriesActions from '../Country/countriesActions'
+import * as countriesActions from '../Country/state/countriesActions'
 import { UserAccountsList } from './UserAccountList'
 import { UserAccountsDetails } from './UserAccountDetails'
 
