@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '../store'
+import store from '../../../redux/store'
 
 const optionsHeaders = () => {
   const {
@@ -19,8 +19,8 @@ const optionsHeaders = () => {
   return options
 }
 
-// const API_URL = 'http://localhost:3001'
-const API_URL = 'https://api.flowfin.tech'
+const API_URL = 'http://localhost:3001'
+// const API_URL = 'https://api.flowfin.tech'
 // const API_URL = process.env.API_URL;
 export const COUNTRY_URL = `${API_URL}/api/v1/countries`
 

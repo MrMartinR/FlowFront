@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Util from '../../app/utils'
+import Util from '../../utils'
 
 const initialCountriesState = {
-  listLoading: false,
+  listLoading: true,
   actionsLoading: false,
   countryTable: {
-    entities: null,
+    entities: [],
     page: null,
     pages: null,
     perPage: null,
