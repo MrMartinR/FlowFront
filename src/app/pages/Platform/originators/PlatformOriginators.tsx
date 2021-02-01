@@ -1,18 +1,30 @@
 import React from 'react'
-import { Grid, Card, CardHeader, CardContent, Typography } from '@material-ui/core/'
+import { Grid, CardHeader } from '@material-ui/core/'
+import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
 
-const PlatformOriginators = () => {
+LicenseInfo.setLicenseKey(
+  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
+)
+
+const columns: ColDef[] = [
+  // column definition format here
+  { field: 'id', headerName: 'Originator Id', width: 250 },
+  { field: 'customer_category', headerName: 'Customer', width: 250 },
+  { field: 'product_category_business', headerName: 'Business', width: 250 },
+  { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
+  { field: 'apr', headerName: 'APR', width: 100 },
+] as any
+
+const PlatformOriginators = (props: any) => {
   return (
     <Grid xs={12}>
-      <Card>
-        <CardHeader title="Platform Originators"></CardHeader>
-        <CardContent>
-          <Typography variant="h5">
-            Platform Originators page. I.e A list of originators related to a particular platform.
-          </Typography>
-        </CardContent>
-      </Card>
+      <Grid container direction="column">
+        <div style={{ height: 600, width: '100%' }}>
+          <XGrid rows={props.platformOriginators} columns={columns} disableMultipleSelection={true} loading={true} />
+        </div>
+      </Grid>
     </Grid>
   )
 }
+
 export default PlatformOriginators
