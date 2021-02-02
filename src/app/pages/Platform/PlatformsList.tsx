@@ -30,41 +30,10 @@ const columns: ColDef[] = [
 const PlatformsList = (props: any) => {
   const { fetchPlatformsList } = props
   const { platformsTable = [], loading } = props.platforms
-  const [data, setData] = React.useState([] as any)
-
-  console.log(platformsTable)
-
-  const processData = (arr: any) => {
-    let data = [] as any
-    arr.forEach((element: any) => {
-      let dt = {} as any
-      dt['id'] = element.id
-      dt['contact_id'] = element.contact_id
-      dt['trade_name'] = element.trade_name
-      dt['status'] = element.status
-      dt['liquidity'] = element.liquidity
-      dt['category'] = element.category
-      dt['cost'] = element.cost
-      dt['invest_mode'] = element.invest_mode
-      dt['min_investment'] = element.min_investment
-      dt['promo'] = element.promo
-      dt['protection_scheme'] = element.protection_scheme
-      dt['secondary_market'] = element.secondary_market
-      dt['structure'] = element.structure
-      dt['term'] = element.term
-      dt['welcome_bonus'] = element.welcome_bonus
-      data.push(dt)
-    })
-    return data
-  }
 
   useEffect(() => {
     fetchPlatformsList()
   }, [fetchPlatformsList])
-
-  useEffect(() => {
-    setData(processData(platformsTable))
-  }, [platformsTable])
 
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
@@ -82,7 +51,7 @@ const PlatformsList = (props: any) => {
       <Grid container direction="column">
         <div style={{ height: 600, width: '100%' }}>
           <XGrid
-            rows={data}
+            rows={platformsTable}
             columns={columns}
             onRowClick={handleClick}
             disableMultipleSelection={true}

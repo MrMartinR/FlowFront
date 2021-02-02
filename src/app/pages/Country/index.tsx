@@ -1,12 +1,15 @@
 import React from 'react'
-import CountriesList from './CountriesList'
+import { Grid } from '@material-ui/core/'
+import CountriesList from './CountryList'
+import CountryToolbar from './CountryToolbar'
 
-function Countries() {
+const CountriesPage = () => {
   return (
-    <div>
+    <Grid container direction="column">
+      <CountryToolbar />
       <CountriesList />
-    </div>
+    </Grid>
   )
 }
 
-export default Countries
+export default CountriesPage

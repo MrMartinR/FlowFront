@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as Yup from 'yup'
-import { API_URL } from '../../../redux/utils'
+import { API_URL } from '../../../../redux/utils'
 
 // TODO: put the headers in a let statement??
 // TODO: fullname prop on headers??

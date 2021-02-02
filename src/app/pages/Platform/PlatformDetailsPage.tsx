@@ -12,7 +12,7 @@ const PlatformDetailsPage = (props: any) => {
     match: { params },
   } = props
   const { fetchPlatformDetails, fetchPlatformOriginators, fetchPlatformLoans } = props
-  const { platformDetails, platformOriginators, loading } = props.platforms
+  const { platformDetails, platformOriginators, platformLoans, loading } = props.platforms
   const [currentTab, setTab] = React.useState('')
   const [data, setData] = React.useState([] as any)
   const [originatorsData, setOriginatorsData] = React.useState([] as any)
@@ -59,9 +59,9 @@ const PlatformDetailsPage = (props: any) => {
     setOriginatorsData(processOriginatorData(platformOriginators))
   }, [platformOriginators])
 
-  // useEffect(() => {
-  //   fetchPlatformLoans(params.id)
-  // }, [fetchPlatformLoans, params.id])
+  useEffect(() => {
+    fetchPlatformLoans(params.id)
+  }, [fetchPlatformLoans, params.id])
 
   /* onClick function that sets the state of the currentTab to be displayed */
   const handleClick = (e: any) => {
@@ -76,7 +76,7 @@ const PlatformDetailsPage = (props: any) => {
       case 'Originators':
         return <PlatformOriginators platformOriginators={originatorsData} />
       case 'Loans':
-        return <PlatformLoans />
+        return <PlatformLoans platformLoans={platformLoans} />
       case 'Contact':
       default:
         return <PlatformInfo platformDetails={data} />
@@ -95,7 +95,7 @@ const PlatformDetailsPage = (props: any) => {
       <Toolbar>
         <Grid container direction="row" justify="space-between">
           <Grid item xs={4} direction="row">
-            <Typography variant="h4">{data.contact} originators</Typography>
+            <Typography variant="h4">{data.contact}</Typography>
           </Grid>
           <Grid item xs={3}>
             <ButtonGroup>

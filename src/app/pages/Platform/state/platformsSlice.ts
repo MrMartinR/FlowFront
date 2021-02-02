@@ -22,6 +22,7 @@ export const platformsSlice = createSlice({
     },
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
+      state.platformOriginators = []
       state.loading = false
     },
     platformDetailsReceived: (state, action) => {
@@ -32,7 +33,7 @@ export const platformsSlice = createSlice({
       state.platformOriginators = action.payload.message
     },
     platformLoansReceived: (state, action) => {
-      state.platformLoans = action.payload.data
+      state.platformLoans = action.payload.message
     },
   },
 })
