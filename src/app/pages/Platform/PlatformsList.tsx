@@ -32,6 +32,8 @@ const PlatformsList = (props: any) => {
   const { platformsTable = [], loading } = props.platforms
   const [data, setData] = React.useState([] as any)
 
+  console.log(platformsTable)
+
   const processData = (arr: any) => {
     let data = [] as any
     arr.forEach((element: any) => {

@@ -1,27 +1,8 @@
 import axios from 'axios'
-import store from '../../../redux/store'
+import store from '../../../../redux/store'
+import { API_URL } from '../../../../redux/utils'
+import { optionsHeaders } from '../../../../redux/utils'
 
-const optionsHeaders = () => {
-  const {
-    auth: { user, client, expiry, token },
-  } = store.getState()
-
-  const options = {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.email,
-    },
-  }
-  return options
-}
-
-const API_URL = 'http://localhost:3001'
-// const API_URL = 'https://api.flowfin.tech'
-// const API_URL = process.env.API_URL;
 export const COUNTRY_URL = `${API_URL}/api/v1/countries`
 
 // CREATE =>  POST: add a new country to the server
