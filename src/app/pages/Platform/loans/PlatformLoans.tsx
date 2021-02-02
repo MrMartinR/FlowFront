@@ -1,6 +1,8 @@
-import React from 'react'
-import { Grid, CardHeader } from '@material-ui/core/'
+import React, { useEffect } from 'react'
+import { Grid, Typography } from '@material-ui/core/'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
+import { connect } from 'react-redux'
+import { fetchPlatformLoans } from '../state/platformsActions'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -26,21 +28,43 @@ const columns: ColDef[] = [
   { field: 'air', headerName: 'Air', width: 100 },
 ] as any
 
-// country_id: "42d74c5e-b608-4d59-9a2f-9d2c46047c0c"
-// created_at: "2019-02-27T19:50:45.000Z"
-// created_by: "499ad3c2-97d2-441f-8d00-77acc2139c70"
-// currency_id: "13fb3c72-4227-4fa2-849a-b597a03d4494"
-
 const PlatformLoans = (props: any) => {
+  const { fetchPlatformLoans } = props
+  const { platformLoans, loading } = props.platforms
+
+  useEffect(() => {
+    fetchPlatformLoans(props.id)
+  }, [fetchPlatformLoans])
+
+  if (loading) {
+    return (
+      <>
+        <Typography variant="h5">Loading platform loans...</Typography>
+      </>
+    )
+  }
+
   return (
     <Grid xs={12}>
       <Grid container direction="column">
         <div style={{ height: 600, width: '100%' }}>
-          <XGrid rows={props.platformLoans} columns={columns} disableMultipleSelection={true} loading={true} />
+          <XGrid rows={platformLoans} columns={columns} disableMultipleSelection={true} loading={true} />
         </div>
       </Grid>
     </Grid>
   )
 }
 
-export default PlatformLoans
+const mapStateToProps = (state: any) => {
+  return {
+    platforms: state.platforms,
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    fetchPlatformLoans: (platformId: any) => dispatch(fetchPlatformLoans(platformId)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformLoans)

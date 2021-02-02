@@ -5,41 +5,22 @@ import { connect } from 'react-redux'
 import PlatformInfo from './info/PlatformInfo'
 import PlatformOriginators from './originators/PlatformOriginators'
 import PlatformLoans from './loans/PlatformLoans'
-import { fetchPlatformDetails, fetchPlatformOriginators, fetchPlatformLoans } from './state/platformsActions'
+import { fetchPlatformDetails } from './state/platformsActions'
 
 const PlatformDetailsPage = (props: any) => {
   const {
     match: { params },
   } = props
-  const { fetchPlatformDetails, fetchPlatformOriginators, fetchPlatformLoans } = props
-  const { platformDetails, platformOriginators, platformLoans, loading } = props.platforms
+  const { fetchPlatformDetails } = props
+  const { platformDetails } = props.platforms
   const [currentTab, setTab] = React.useState('')
   const [data, setData] = React.useState([] as any)
-  const [originatorsData, setOriginatorsData] = React.useState([] as any)
 
   const processData = (obj: any) => {
     let data = {} as any
     for (const property in obj) {
       data[`${property}`] = property === 'contact' ? obj[property].trade_name : obj[property]
     }
-    return data
-  }
-
-  const processOriginatorData = (arr: any) => {
-    let data = [] as any
-    arr.forEach((element: any) => {
-      let dataObj = {} as any
-      for (const property in element) {
-        if (property === 'originator') {
-          dataObj['id'] = element[property].id
-          dataObj['customer_category'] = JSON.parse(element[property].customer_category)
-          dataObj['product_category_business'] = JSON.parse(element[property].product_category_business)
-          dataObj['product_category_consumer'] = JSON.parse(element[property].product_category_consumer)
-          dataObj['apr'] = element[property].apr
-        }
-      }
-      data.push(dataObj)
-    })
     return data
   }
 
@@ -50,18 +31,6 @@ const PlatformDetailsPage = (props: any) => {
   useEffect(() => {
     setData(processData(platformDetails))
   }, [platformDetails])
-
-  useEffect(() => {
-    fetchPlatformOriginators(params.id)
-  }, [fetchPlatformOriginators, params.id])
-
-  useEffect(() => {
-    setOriginatorsData(processOriginatorData(platformOriginators))
-  }, [platformOriginators])
-
-  useEffect(() => {
-    fetchPlatformLoans(params.id)
-  }, [fetchPlatformLoans, params.id])
 
   /* onClick function that sets the state of the currentTab to be displayed */
   const handleClick = (e: any) => {
@@ -74,22 +43,15 @@ const PlatformDetailsPage = (props: any) => {
       case 'Info':
         return <PlatformInfo platformDetails={data} />
       case 'Originators':
-        return <PlatformOriginators platformOriginators={originatorsData} />
+        return <PlatformOriginators id={params.id} />
       case 'Loans':
-        return <PlatformLoans platformLoans={platformLoans} />
+        return <PlatformLoans id={params.id} />
       case 'Contact':
       default:
         return <PlatformInfo platformDetails={data} />
     }
   }
 
-  if (loading) {
-    return (
-      <>
-        <Typography variant="h5">Loading platform details...</Typography>
-      </>
-    )
-  }
   return (
     <>
       <Toolbar>
@@ -126,10 +88,6 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchPlatformDetails: (platformId: any) => dispatch(fetchPlatformDetails(platformId)),
-
-    fetchPlatformOriginators: (platformId: any) => dispatch(fetchPlatformOriginators(platformId)),
-
-    fetchPlatformLoans: (platformId: any) => dispatch(fetchPlatformLoans(platformId)),
   }
 }
 
