@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Util from '../../app/utils'
+import Util from '../../../utils'
 
 const initialAccountsState = {
   listLoading: true,

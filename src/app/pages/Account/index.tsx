@@ -1,77 +1,52 @@
 import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import * as contactsActions from './state/accountsActions'
+import * as accountsActions from './state/accountsActions'
 import { AccountsList } from './AccountList'
 import { AccountDetails } from './AccountDetails'
 import { RootState } from '../../../redux/rootReducer'
 
 import AccountToolBar from './AccountToolbar'
 
-export const Contacts = () => {
-  const { currentState, methodsState } = useSelector(
+export const Accounts = () => {
+  const { currentState } = useSelector(
     (state: RootState) => ({
-      currentState: state.contacts,
-      methodsState: state.contactMethods,
+      currentState: state.accounts,
     }),
     shallowEqual
   )
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0)
   const [list, setList] = useState([] as any)
-  const [listMethods, setListMethods] = useState([] as any)
-  const [methodLoading, setMethodLoading] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
 
-  let selectedContact = {}
+  let selectedAccount = {}
 
   if (list && list[selectedItemIndex]) {
-    selectedContact = list[selectedItemIndex]
+    selectedAccount = list[selectedItemIndex]
   }
-  // contact Redux state
-  const GetAllContacts = () => {
+  // account Redux state
+  const GetAllAccounts = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(contactsActions.fetchContacts())
+        dispatch(accountsActions.fetchAccounts())
       }
     }, [dispatch])
   }
-  GetAllContacts()
+  GetAllAccounts()
 
   useEffect(() => {
     if (
       currentState &&
-      currentState.contactsTable &&
-      currentState.contactsTable.success &&
-      currentState.contactsTable.entities
+      currentState.accountsTable &&
+      currentState.accountsTable.success &&
+      currentState.accountsTable.entities
     ) {
-      setList(currentState.contactsTable.entities)
+      setList(currentState.accountsTable.entities)
       setIsLoading(currentState.listLoading)
     }
   }, [currentState])
-
-  const GetMethods = () => {
-    let MethodDispatch = useDispatch()
-    useEffect(() => {
-      let len = Object.keys(selectedContact)
-
-      // eslint-disable-next-line
-    }, [MethodDispatch, selectedContact])
-  }
-  GetMethods()
-
-  useEffect(() => {
-    if (
-      methodsState &&
-      methodsState.contactMethodsTable &&
-      methodsState.contactMethodsTable.success &&
-      methodsState.contactMethodsTable.entities
-    ) {
-      setListMethods(methodsState.contactMethodsTable.entities)
-      setMethodLoading(methodsState.listLoading)
-    }
-  }, [methodsState])
 
   return (
     <>
@@ -85,7 +60,7 @@ export const Contacts = () => {
               <AccountsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
             </Grid>
             <Grid key={2} md={4} item>
-              <AccountDetails selectedContact={selectedContact} />
+              <AccountDetails selectedContact={selectedAccount} />
             </Grid>
           </Grid>
         </Grid>

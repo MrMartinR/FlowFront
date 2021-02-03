@@ -2,13 +2,10 @@ import React from 'react'
 /* eslint-disable no-restricted-imports*/
 import {
   Typography,
-  ListItemText,
   CardContent,
   Card,
   List,
-  Chip,
   Grid,
-  Avatar,
   Dialog,
   DialogActions,
   DialogContent,
@@ -57,39 +54,19 @@ export const AccountDetails = (props: any) => {
           <Grid>
             <Grid item md={12}>
               <Grid direction="row" justify="space-evenly" container>
+                <></>
                 <>
-                  <Avatar variant="square">ICON</Avatar>
-                  <Avatar variant="square">FLAG</Avatar>
-                </>
-                <>
-                  {selectedContact.kind === 'Company' ? (
-                    <List>
-                      <Typography variant="h6">Company</Typography>
-                      <ListItemText primary={` ${selectedContact.trade_name || err}`} />
-                      <ListItemText primary={` ${selectedContact.company_name || err}`} />
-                      <ListItemText primary={` ${selectedContact.id_number || err}`} />
-                      <ListItemText primary={` ${selectedContact.founded || err}`} />
-                    </List>
-                  ) : (
-                    <List>
-                      <Typography variant="h6">Individual</Typography>
-                      <ListItemText primary={` ${selectedContact.name || err}`} />
-                      <ListItemText primary={` ${selectedContact.surname || err}`} />
-                      <ListItemText primary={` ${selectedContact.id_number || err}`} />
-                      <ListItemText primary={` ${selectedContact.nick || err}`} />
-                    </List>
-                  )}
+                  <List>
+                    <Typography variant="h6">Account Details</Typography>
+                    {/* <ListItemText primary={` ${selectedContact.name}`} />
+                      <ListItemText primary={` ${selectedContact.surname}`} />
+                      <ListItemText primary={` ${selectedContact.id_number}`} />
+                      <ListItemText primary={` ${selectedContact.nick}`} /> */}
+                  </List>
                 </>
               </Grid>
             </Grid>
           </Grid>
-          <Typography variant="body2" component="p">
-            {`${selectedContact.description || err}`}
-          </Typography>
-        </CardContent>
-        <CardContent>
-          <Chip label={`${selectedContact.tags || err}`} />
-          <Chip label={`${selectedContact.tags || err}`} />
         </CardContent>
       </Card>
     </>

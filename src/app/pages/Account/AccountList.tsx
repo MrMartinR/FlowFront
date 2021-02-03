@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 /* eslint-disable no-restricted-imports*/
-import { LinearProgress, List, ListItem, ListItemText, TextField } from '@material-ui/core'
-
-import { Autocomplete } from '@material-ui/lab'
+import { LinearProgress, List, ListItem, ListItemText } from '@material-ui/core'
 
 export const AccountsList = (props: any) => {
   const { setSelectedItemIndex, isLoading, list } = props
@@ -16,12 +14,6 @@ export const AccountsList = (props: any) => {
       let opt = [] as any
       list.map((option: any) => {
         opt.push(option.name)
-        // if (option.kind === 'Company') {
-        //   opt.push(option.trade_name)
-        // }
-        // if (option.kind === 'Individual') {
-        //   opt.push(option.name)
-        // }
         return opt
       })
       setOptions(opt)
@@ -35,13 +27,6 @@ export const AccountsList = (props: any) => {
 
   return (
     <>
-      <Autocomplete
-        freeSolo
-        options={options}
-        onChange={handlePick}
-        renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
-      />
-
       <List>
         {isLoading ? (
           <LinearProgress color="secondary" />

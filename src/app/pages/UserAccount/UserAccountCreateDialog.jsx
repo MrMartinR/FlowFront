@@ -4,7 +4,8 @@ import { Modal } from 'react-bootstrap'
 import { EnhancedUserAccountForm } from './EnhancedUserAccountForm'
 import { initAccount } from './UserAccountsUIContext'
 import { useDispatch } from 'react-redux'
-import * as AccountActions from '../../../redux/accounts/accountsActions'
+// FIX THIS, do not refer to old js files
+import * as AccountActions from '../Account/XXX/accountsActions'
 import { UserAccountCreateDialogHeader } from './UserAccountCreateDialogHeader'
 
 export const UserAccountCreateDialog = ({ id, show, onHide, countriesTable, currencyTable }) => {

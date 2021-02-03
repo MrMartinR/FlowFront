@@ -1,27 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import Util from '../../../utils'
 
-const initialContactsState = {
+const initialAccountsState = {
   listLoading: true,
   actionsLoading: false,
-  contactsTable: {
+  accountsTable: {
     entities: null as any,
     success: false,
   },
-  singleContact: {
+  singleAccount: {
     entry: null as any,
   },
-  contactForEdit: undefined,
+  accountForEdit: undefined,
   error: null as any,
 }
 export const callTypes = {
   list: 'list',
   action: 'action',
 }
-export const contactsSlice = createSlice({
-  name: 'contacts',
+export const accountsSlice = createSlice({
+  name: 'accounts',
 
-  initialState: initialContactsState,
+  initialState: initialAccountsState,
   reducers: {
     // when error occurs catch it
     catchError: (state, action) => {
@@ -42,30 +41,30 @@ export const contactsSlice = createSlice({
       }
     },
 
-    // update the contact state on all fetch
-    contactsFetched: (state, action) => {
+    // update the account state on all fetch
+    accountsFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.contactsTable.entities = data.data
-      state.contactsTable.success = data.success
+      state.accountsTable.entities = data.data
+      state.accountsTable.success = data.success
     },
 
     // update the contact state on fetch a single contact
-    contactFetched: (state, action) => {
+    accountFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.singleContact.entry = data.data
-      state.contactsTable.success = data.success
+      state.singleAccount.entry = data.data
+      state.accountsTable.success = data.success
     },
 
     // on creation a new contact append it to existing contacts
-    newContactCreated: (state, action) => {
-      const { data } = action.payload
-      state.actionsLoading = false
-      state.error = null
-      state.contactsTable.entities.unshift(data.data)
-    },
+    // newContactCreated: (state, action) => {
+    //   const { data } = action.payload
+    //   state.actionsLoading = false
+    //   state.error = null
+    //   state.accountsTable.entities.unshift(data.data)
+    // },
   },
 })

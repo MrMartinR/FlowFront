@@ -1,15 +1,14 @@
 import axios from 'axios'
-import { API_URL } from '../../../../redux/utils'
-import { optionsHeaders } from '../../../../redux/utils'
+import { API_URL, optionsHeaders } from '../../../../redux/utils'
 
 // the API endpoint
-export const CONTACTS_URL = `${API_URL}/api/v1/contacts`
+export const ACCOUNTS_URL = `${API_URL}/api/v1/accounts`
 
 // READ
-export function getAllContacts() {
-  return axios.get(CONTACTS_URL, optionsHeaders())
+export function getAllAccounts() {
+  return axios.get(ACCOUNTS_URL, optionsHeaders())
 }
 
-export function getContactById(contactsId: any) {
-  return axios.get(`${CONTACTS_URL}/${contactsId}`, optionsHeaders())
+export function getAccountById(accountsId: any) {
+  return axios.get(`${ACCOUNTS_URL}/${accountsId}`, optionsHeaders())
 }

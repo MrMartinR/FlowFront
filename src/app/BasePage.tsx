@@ -5,6 +5,7 @@ import DashboardPage from './pages/Dashboard'
 import SettingPage from './pages/Contact/contactSettings'
 import { Contacts } from './pages/Contact'
 import Countries from './pages/Country'
+import { Accounts } from './pages/Account'
 import { UserAccountsPage } from './pages/UserAccount'
 import { LendingPage } from './pages/Lending'
 import { CurrenciesPage } from './pages/Currency/CurrenciesPage'
@@ -23,7 +24,8 @@ export default function BasePage() {
         <Redirect exact from="/" to="/dashboard" />
         <Route path="/dashboard" component={DashboardPage} />
         <Route path="/contacts" component={Contacts} />
-        <Route path="/Countries" component={Countries} />
+        <Route path="/countries" component={Countries} />
+        <Route path="/accounts" component={Accounts} />
         <Route path="/settings" component={SettingPage} />
         <Route path="/user_accounts" component={UserAccountsPage} />
         <Route path="/lending" component={LendingPage} />
