@@ -12,32 +12,27 @@ LicenseInfo.setLicenseKey(
 
 const columns: ColDef[] = [
   // column definition format here
+  { field: 'id', headerName: 'Id', width: 180 },
   { field: 'name', headerName: 'Name', width: 180 },
-  { field: 'air', headerName: 'Air', width: 180 },
-  { field: 'country', headerName: 'Country', width: 180 },
-  { field: 'currency', headerName: 'Currency', width: 180 },
   { field: 'amortization', headerName: 'Amortization', width: 180 },
   { field: 'amount', headerName: 'Amount', width: 180 },
   { field: 'borrower', headerName: 'Borrower', width: 180 },
   { field: 'borrower_type', headerName: 'Borrower type', width: 180 },
   { field: 'category', headerName: 'Category', width: 180 },
-  { field: 'code', headerName: 'Code', width: 180 },
   { field: 'date_issued', headerName: 'Date issued', width: 180 },
   { field: 'date_listed', headerName: 'Date listed', width: 180 },
   { field: 'date_maturity', headerName: 'Maturity date', width: 180 },
-  { field: 'description', headerName: 'Description', width: 180 },
-  { field: 'dti_rating', headerName: 'Dti rating', width: 180 },
+  { field: 'rating', headerName: 'Rating', width: 180 },
   { field: 'gender', headerName: 'Gender', width: 180 },
   { field: 'installment', headerName: 'Installment', width: 180 },
-  { field: 'internal_code', headerName: 'Internal code', width: 180 },
-  { field: 'notes', headerName: 'Notes', width: 180 },
-  { field: 'originator', headerName: 'Originator', width: 180 },
-  { field: 'platform', headerName: 'Platform', width: 180 },
-  { field: 'protection_scheme', headerName: 'Protection scheme', width: 180 },
-  { field: 'rating', headerName: 'Rating', width: 180 },
-  { field: 'security_details', headerName: 'Security details', width: 180 },
   { field: 'status', headerName: 'Status', width: 180 },
   { field: 'xirr', headerName: 'Xirr', width: 180 },
+  { field: 'position', headerName: 'Position', width: 180 },
+  { field: 'investment_amount', headerName: 'Investment amount', width: 180 },
+  { field: 'date_in', headerName: 'Date in', width: 180 },
+  { field: 'date_out', headerName: 'Date out', width: 180 },
+  { field: 'loan_id', headerName: 'Loan Id', width: 180 },
+  { field: 'invest_mode', headerName: 'Invest mode', width: 180 },
 ] as any
 
 const UserLoansList = (props: any) => {
@@ -50,32 +45,27 @@ const UserLoansList = (props: any) => {
     arr.forEach((element: any) => {
       let dt = {} as any
       dt['id'] = element.id
-      dt['name'] = element.name
-      dt['air'] = element.air
-      dt['country'] = element.country.name
-      dt['currency'] = element.currency.name
-      dt['amortization'] = element.amortization
-      dt['amount'] = element.amount
-      dt['borrower'] = element.borrower
-      dt['borrower_type'] = element.borrower_type
-      dt['category'] = element.category
-      dt['code'] = element.code
-      dt['date_issued'] = element.date_issued
-      dt['date_listed'] = element.date_listed
-      dt['date_maturity'] = element.date_maturity
-      dt['description'] = element.description
-      dt['dti_rating'] = element.dti_rating
-      dt['gender'] = element.gender
-      dt['installment'] = element.installment
-      dt['internal_code'] = element.internal_code
-      dt['notes'] = element.notes
-      dt['originator'] = element.originator
-      dt['platform'] = element.platform
-      dt['protection_scheme'] = element.protection_scheme
-      dt['rating'] = element.rating
-      dt['security_details'] = element.security_details
-      dt['status'] = element.status
       dt['xirr'] = element.xirr
+      dt['market'] = element.market
+      dt['invest_mode'] = element.invest_mode
+      dt['position'] = element.position
+      dt['investment_amount'] = element.investment_amount
+      dt['date_in'] = element.date_in
+      dt['date_out'] = element.date_out
+      dt['loan_id'] = element.loan.id
+      dt['name'] = element.loan.name
+      dt['status'] = element.loan.status
+      dt['rating'] = element.loan.rating
+      dt['borrower_type'] = element.loan.borrower_type
+      dt['category'] = element.loan.category
+      dt['amount'] = element.loan.amount
+      dt['borrower'] = element.loan.borrower
+      dt['date_listed'] = element.loan.date_listed
+      dt['date_issued'] = element.loan.date_issued
+      dt['date_maturity'] = element.loan.date_maturity
+      dt['amortization'] = element.loan.amortization
+      dt['installment'] = element.loan.installment
+
       data.push(dt)
     })
     return data

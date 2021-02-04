@@ -16,3 +16,15 @@ export const fetchLoansData = () => (dispatch: any) => {
       return dispatch(actions.catchError(error))
     })
 }
+
+export const fetchLoanDetails = (id: any) => (dispatch: any) => {
+  dispatch(actions.startCall())
+  axios
+    .get(`${LOANS_URL}/${id}`, optionsHeaders())
+    .then(function (response) {
+      return dispatch(actions.loanDetailsReceived(response.data))
+    })
+    .catch(function (error) {
+      return dispatch(actions.catchError(error))
+    })
+}
