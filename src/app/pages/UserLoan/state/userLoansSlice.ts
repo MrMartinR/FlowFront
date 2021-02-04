@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialUserLoansState = {
   loading: false,
-  loansData: [],
+  userLoansData: [],
   error: null as any,
 }
 
@@ -15,7 +15,7 @@ export const userLoansSlice = createSlice({
     },
     userLoansReceived: (state, action) => {
       state.loading = false
-      state.loansData = action.payload.data
+      state.userLoansData = action.payload.data
     },
     catchError: (state, action) => {
       state.loading = false

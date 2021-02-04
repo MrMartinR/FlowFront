@@ -1,10 +1,22 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, Grid, Card, Toolbar, InputBase, CardContent } from '@material-ui/core'
+import UserLoansList from './UserLoansList'
 
 const UserLoansPage = () => {
   return (
     <>
-      <Typography variant="h5">User loans page</Typography>
+      <Grid container direction="column">
+        <Card>
+          <Toolbar variant="dense">
+            <InputBase placeholder="Search…" />
+          </Toolbar>
+        </Card>
+        <Card>
+          <CardContent>
+            <UserLoansList />
+          </CardContent>
+        </Card>
+      </Grid>
     </>
   )
 }

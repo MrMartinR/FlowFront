@@ -10,6 +10,7 @@ export const fetchUserLoansData = () => (dispatch: any) => {
   axios
     .get(USER_LOANS_URL, optionsHeaders())
     .then(function (response) {
+      console.log(response)
       return dispatch(actions.userLoansReceived(response.data))
     })
     .catch(function (error) {
