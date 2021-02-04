@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Grid, Card, CardContent, Typography, LinearProgress } from '@material-ui/core/'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
 
@@ -88,6 +89,9 @@ const UserLoansList = (props: any) => {
     setData(processData(userLoansData))
   }, [userLoansData])
 
+  const linkTo = useHistory()
+  const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
+
   return (
     <>
       {loading ? (
@@ -101,7 +105,13 @@ const UserLoansList = (props: any) => {
             <Card>
               <CardContent>
                 <div style={{ height: 600, width: '100%' }}>
-                  <XGrid rows={data} columns={columns} disableMultipleSelection={true} loading={true} />
+                  <XGrid
+                    rows={data}
+                    columns={columns}
+                    disableMultipleSelection={true}
+                    onRowClick={handleClick}
+                    loading={true}
+                  />
                 </div>
               </CardContent>
             </Card>
