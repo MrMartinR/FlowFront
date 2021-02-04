@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
+import { Grid, Card, CardContent, Typography, LinearProgress } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
 
@@ -39,7 +39,7 @@ const columns: ColDef[] = [
   { field: 'xirr', headerName: 'Xirr', width: 180 },
 ] as any
 
-const LoansData = (props: any) => {
+const LoansList = (props: any) => {
   const { fetchLoansData } = props
   const { loansData = [], loading } = props.loans
   const [data, setData] = React.useState([] as any)
@@ -88,26 +88,26 @@ const LoansData = (props: any) => {
     setData(processData(loansData))
   }, [loansData])
 
-  if (loading) {
-    return (
-      <>
-        <Typography variant="h5">Loading loans...</Typography>
-      </>
-    )
-  }
-
   return (
     <>
-      <Typography variant="h3">Loans</Typography>
-      <Grid container direction="column">
-        <Card>
-          <CardContent>
-            <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={data} columns={columns} disableMultipleSelection={true} loading={true} />
-            </div>
-          </CardContent>
-        </Card>
-      </Grid>
+      {loading ? (
+        <Grid container direction="column">
+          <LinearProgress color="secondary" />
+        </Grid>
+      ) : (
+        <>
+          <Typography variant="h3">Loans</Typography>
+          <Grid container direction="column">
+            <Card>
+              <CardContent>
+                <div style={{ height: 600, width: '100%' }}>
+                  <XGrid rows={data} columns={columns} disableMultipleSelection={true} loading={true} />
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </>
+      )}
     </>
   )
 }
@@ -124,4 +124,4 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoansData)
+export default connect(mapStateToProps, mapDispatchToProps)(LoansList)

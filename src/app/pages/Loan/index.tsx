@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Card, CardContent, Toolbar, InputBase } from '@material-ui/core'
 
-import LoansData from './LoansData'
+import LoansList from './LoansList'
 
 const LoansPage = () => {
   return (
@@ -13,7 +13,7 @@ const LoansPage = () => {
       </Card>
       <Card>
         <CardContent>
-          <LoansData />
+          <LoansList />
         </CardContent>
       </Card>
     </Grid>
