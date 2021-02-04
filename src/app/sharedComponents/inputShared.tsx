@@ -14,13 +14,13 @@ export const Input = ({
 
   const handleChange = (e:any) => {
     // this is going to call setFieldValue and manually update values.topcis
-    onChange(name, e.target.value);
-  };
+    onChange(name, e.target.value)
+  }
 
   const handleBlur = () => {
     // this is going to call setFieldTouched and manually update touched.topcis
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
   return (
     <>
       <Form.Group className={addClass}>
@@ -34,10 +34,8 @@ export const Input = ({
           onChange={(e) => handleChange(e)}
           onBlur={() => handleBlur()}
         />
-        {!!error && touched && (
-          <div style={{ color: "red", marginTop: ".5rem" }}>{error}</div>
-        )}
+        {!!error && touched && <div style={{ color: 'red', marginTop: '.5rem' }}>{error}</div>}
       </Form.Group>
     </>
-  );
+  )
 }

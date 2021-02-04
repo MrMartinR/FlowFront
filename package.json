@@ -8,7 +8,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "yarn eslint . --fix && yarn prettier . --write"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,26 +26,26 @@
       "last 1 edge version"
     ]
   },
+  "notes": {
+    "dependenciesDocumentation": "https://dev.flowfin.tech/docs-front/dependencies.html"
+  },
   "dependencies": {
-    "@date-io/core": "^2.10.6",
     "@formatjs/intl-relativetimeformat": "^8.0.2",
+    "@hookform/resolvers": "^1.3.2",
     "@manaflair/redux-batch": "1.0.0",
     "@material-ui/core": "4.11.2",
-    "@material-ui/data-grid": "^4.0.0-alpha.15",
+    "@material-ui/data-grid": "^4.0.0-alpha.17",
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.57",
     "@material-ui/pickers": "3.2.10",
     "@material-ui/styles": "^4.11.2",
-    "@material-ui/x-grid": "^4.0.0-alpha.15",
-    "@material-ui/x-grid-data-generator": "^4.0.0-alpha.15",
+    "@material-ui/x-grid": "^4.0.0-alpha.17",
     "@reduxjs/toolkit": "1.5.0",
     "@tanem/svg-injector": "8.2.2",
     "axios": "0.21.1",
     "clipboard-copy": "4.0.1",
     "clsx": "1.1.1",
-    "date-fns": "2.16.1",
     "eslint-config-react-app": "^6.0.0",
-    "formik": "2.2.6",
     "lodash": "4.17.20",
     "material-ui-popup-state": "1.7.1",
     "object-path": "0.11.5",
@@ -57,19 +57,17 @@
     "react-bootstrap": "1.4.3",
     "react-bootstrap-table-next": "4.0.3",
     "react-bootstrap-table2-paginator": "2.1.2",
-    "react-datepicker": "3.4.1",
     "react-dom": "17.0.1",
     "react-draggable": "4.4.3",
+    "react-hook-form": "^6.14.1",
     "react-inlinesvg": "2.2.2",
     "react-intl": "5.10.16",
     "react-is": "17.0.1",
     "react-portal": "4.2.1",
     "react-redux": "7.2.2",
-    "react-router": "^5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "^4.0.1",
     "react-select": "3.2.0",
-    "react-trello": "^2.2.9",
     "react-virtualized": "^9.22.2",
     "redux": "4.0.5",
     "redux-persist": "6.0.0",
@@ -77,19 +75,11 @@
     "sass": "^1.32.4",
     "serve-static": "^1.14.1",
     "styled-components": "^5.2.1",
+    "uuid": "^8.3.2",
     "yup": "0.32.8"
   },
-  "dependenciesComments": {
-    "clsx": "A tiny utility for constructing className strings conditionally.",
-    "react-virtualized": "React components for efficiently rendering large lists and tabular data | https://github.com/bvaughn/react-virtualized ",
-    "react-intl": "This library is one of the most popular solutions for i18n in React and it’s now part of Formatjs. Offered by Yahoo is bundled with common locale data like dates, currencies, numbers, and support for over  150+ languages. It builds upon the concepts of the ECMAScript’s ECMAScript’s Internationalization API namespace.",
-    "@material-ui/x-grid": "Premium Data Tables for React",
-    "@material-ui/x-license": "Dependency of @material-ui/x-grid | in order to track the license (I assume)",
-    "esm": "Dependency of @material-ui/x-grid | esm is the world’s most advanced ECMAScript module loader. This fast, production ready, zero dependency loader is all you need to support ECMAScript modules in Node 6+."
-  },
   "devDependencies": {
-    "@types/jest": "^26.0.19",
-    "@types/node": "^14.14.16",
+    "@microsoft/tsdoc": "^0.12.24",
     "@types/object-path": "^0.11.0",
     "@types/react": "^17.0.0",
     "@types/react-beautiful-dnd": "^13.0.0",
@@ -98,21 +88,35 @@
     "@types/react-redux": "^7.1.14",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-virtualized": "^9.21.10",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.17.0",
+    "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-tsdoc": "^0.2.10",
-    "tsdoc": "^0.0.4",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
     "typedoc": "^0.20.14",
-    "typescript": "^4.1.3",
-    "webpack-cli": "4.3.1",
-    "webpack-messages": "2.0.4"
+    "typescript": "^4.1.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "yarn eslint . --fix",
+      "yarn prettier . --write",
+      "git add ."
+    ]
   }
 }

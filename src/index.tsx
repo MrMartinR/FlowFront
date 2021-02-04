@@ -2,17 +2,14 @@
  * Create React App entry point. This and `public/index.html` files can not be
  * changed or moved.
  */
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import * as _redux from './redux'
 import store, { persistor } from './redux/store'
 import App from './app/App'
-import {
-  LayoutProvider,
-  SplashScreenProvider,
-} from './common/layout'
+import { LayoutProvider, SplashScreenProvider } from './common/layout'
+import { IntlProvider } from 'react-intl'
 // import 'react-virtualized/styles.css'
 
 /**
@@ -23,18 +20,20 @@ const { PUBLIC_URL } = process.env
 /**
  * Inject metronic interceptors for axios.
  *
- * @see https://github.com/axios/axios#interceptors
+ * See {@link https://github.com/axios/axios#interceptors}
  */
 _redux.setupAxios(axios, store)
 
 ReactDOM.render(
-  // StrictMode is a tool for highlighting potential problems in an application in development.
+  /** StrictMode is a tool for highlighting potential problems in an application in development. */
   <React.StrictMode>
-      <LayoutProvider>
-          <SplashScreenProvider>
-            <App store={store} persistor={persistor} basename={PUBLIC_URL} />
-          </SplashScreenProvider>
-      </LayoutProvider>
+    <LayoutProvider>
+      <SplashScreenProvider>
+        <IntlProvider locale="en">
+          <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+        </IntlProvider>
+      </SplashScreenProvider>
+    </LayoutProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 )

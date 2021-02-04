@@ -1,31 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios'
+import { API_URL, FORGOT_PASSWORD_CALLBACK } from '../../../../redux/utils'
 
-let _API_URL = 'https://api.flowfin.tech'
-// let _API_URL = 'http://localhost:3001'
-// let _API_URL = 'https://evening-fjord-12692.herokuapp.com'
-let FORGOT_PASSWORD_CALLBACK = 'https://flowfront.herokuapp.com'
-
-if (process.env.NODE_ENV === 'development') {
-  _API_URL = 'https://api.flowfin.tech'
-  // _API_URL = 'http://localhost:3001'
-  // _API_URL = 'https://evening-fjord-12692.herokuapp.com'
-  FORGOT_PASSWORD_CALLBACK = 'http://localhost:3000'
-}
-
-// if (process.env.NODE_ENV === 'production') {
-// _API_URL = 'https://flowappdev.herokuapp.com'
-// _API_URL = 'http://localhost:3001'
-// }
-
-// https://api.flowfin.tech/api/v1/auth/sign_in
- 
-
-export const API_URL = _API_URL
-export const LOGIN_URL = `${_API_URL}/api/v1/auth/sign_in`
-export const REGISTER_URL = `${_API_URL}/api/v1/auth`
-export const REQUEST_PASSWORD_URL = `${_API_URL}/api/v1/auth/password`
-export const SUBMIT_PASSWORD_URL = `${_API_URL}/api/v1/auth/password`
+// export const API_URL = _API_URL
+export const LOGIN_URL = `${API_URL}/api/v1/auth/sign_in`
+export const REGISTER_URL = `${API_URL}/api/v1/auth`
+export const REQUEST_PASSWORD_URL = `${API_URL}/api/v1/auth/password`
+export const SUBMIT_PASSWORD_URL = `${API_URL}/api/v1/auth/password`
 
 export const ME_URL = 'api/me'
 
@@ -35,14 +16,17 @@ export function login(email, password) {
     { user: { email, password } },
     {
       headers: { 'Content-Type': 'application/json' },
-    },
+    }
   )
 }
 
-export function register(email, fullname, username, password) {
+export function registration(email, fullname, username, password) {
   return axios.post(REGISTER_URL, {
     user: {
-      email, fullname, username, password,
+      email,
+      fullname,
+      username,
+      password,
     },
   })
 }
@@ -53,14 +37,7 @@ export function requestPassword(email, redirectUrl) {
   return axios.post(REQUEST_PASSWORD_URL, { email, redirectUrl })
 }
 
-export function submitRequestPassword(
-  password,
-  passwordConfirmation,
-  accessToken,
-  client,
-  uid,
-  expiry,
-) {
+export function submitRequestPassword(password, passwordConfirmation, accessToken, client, uid, expiry) {
   console.log(`submitRequestPassword-- ${accessToken}`)
 
   return axios.put(
@@ -75,7 +52,7 @@ export function submitRequestPassword(
         uid,
         expiry,
       },
-    },
+    }
   )
 }
 

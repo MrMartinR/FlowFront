@@ -8,7 +8,11 @@ const initialUserAccountsState = {
     entities: null, page: 0, pages: 0, perPage: null, success: false, data: []
   },
   userAccountForEdit: {
-    name:''
+    name:'',
+    entities: null,
+    page: null,
+    pages: null,
+    perPage: null,
   },
   lastError: null,
   userAccountTransactions:[]
@@ -41,9 +45,7 @@ export const userAccountsSlice = createSlice({
       const { field, isAsc, entities } = action.payload
       const areEmptyFields = entities.some((i) => i[field])
       if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(
-          Util.sortCustom(field, isAsc, (a) => a.toUpperCase()),
-        )
+        const entitiesOrdened = [...entities].sort(Util.sortCustom(field, isAsc, (a) => a.toUpperCase()))
         state.accountTable.entities = entitiesOrdened
       }
     },
@@ -66,10 +68,7 @@ export const userAccountsSlice = createSlice({
       const { pages, page, entities } = action.payload
       state.listLoading = false
       state.error = null
-      state.userAccountTable.entities = [
-        ...state.userAccountTable.entities,
-        ...entities,
-      ]
+      state.userAccountTable.entities = [...state.userAccountTable.entities, ...entities]
       state.userAccountTable.pages = pages
       state.userAccountTable.page = page
     },
@@ -83,29 +82,25 @@ export const userAccountsSlice = createSlice({
     userAccountUpdated: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.userAccountTable.entities = state.userAccountTable.entities.map(
-        (entity) => {
-          if (entity.id === action.payload.userAccount.id) {
-            return action.payload.userAccount
-          }
-          return entity
-        },
-      )
+      state.userAccountTable.entities = state.userAccountTable.entities.map((entity) => {
+        if (entity.id === action.payload.userAccount.id) {
+          return action.payload.userAccount
+        }
+        return entity
+      })
     },
     // deleteCustomer
     userAccountDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.userAccountTable.entities = state.userAccountTable.entities.filter(
-        (el) => el.id !== action.payload.id,
-      )
+      state.userAccountTable.entities = state.userAccountTable.entities.filter((el) => el.id !== action.payload.id)
     },
     // deleteCustomers
     userAccountsDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
       state.userAccountTable.entities = state.userAccountTable.entities.filter(
-        (el) => !action.payload.ids.includes(el.id),
+        (el) => !action.payload.ids.includes(el.id)
       )
     },
     // userAccountsUpdateState
@@ -113,14 +108,12 @@ export const userAccountsSlice = createSlice({
       state.actionsLoading = false
       state.error = null
       const { ids, status } = action.payload
-      state.userAccountTable.entities = state.userAccountTable.entities.map(
-        (entity) => {
-          if (ids.findIndex((id) => id === entity.id) > -1) {
-            entity.status = status
-          }
-          return entity
-        },
-      )
+      state.userAccountTable.entities = state.userAccountTable.entities.map((entity) => {
+        if (ids.findIndex((id) => id === entity.id) > -1) {
+          entity.status = status
+        }
+        return entity
+      })
     },
     // userAccountTransactions
     userAccountTransactions: (state, action) => {
