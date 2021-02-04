@@ -31,7 +31,6 @@ if (process.env.NODE_ENV === 'production') {
   _API_URL = 'https://api.flowfin.tech'
   _FORGOT_PASSWORD_CALLBACK = 'https://app.flowfin.tech'
 }
-_API_URL = 'https://api.flowfin.tech'
 
 export const API_URL = _API_URL
 export const FORGOT_PASSWORD_CALLBACK = _FORGOT_PASSWORD_CALLBACK
