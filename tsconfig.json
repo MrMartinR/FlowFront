@@ -28,8 +28,9 @@
     "src"
   ],
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": [
+      "src/index.ts"
+    ],
     "out": "docs/typedocs"
   }
 }
-

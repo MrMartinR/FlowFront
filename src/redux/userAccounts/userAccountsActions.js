@@ -132,10 +132,10 @@ export const deleteUserAccounts = (ids) => (dispatch) => {
     })
 }
 
-export const fetchAccountTransaction = () => (dispatch) => {
+export const fetchAccountTransaction = (id) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
-    .getUserTransactions()
+    .getUserTransactions(id)
     .then((response) => {
       const userAccountTransactions = response.data.data
       dispatch(actions.userAccountTransactions({ userAccountTransactions }))
@@ -145,3 +145,4 @@ export const fetchAccountTransaction = () => (dispatch) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
 }
+
