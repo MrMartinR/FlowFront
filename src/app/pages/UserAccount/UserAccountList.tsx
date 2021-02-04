@@ -3,7 +3,7 @@ import { Card, CardHeader } from '@material-ui/core'
 import VirtualizedListComponent from './UserAccountListComponent'
 import { AutoSizer } from 'react-virtualized'
 
-export const UserAccountsList = (props) => {
+export const UserAccountsList = (props: any) => {
   const {
     newAccountFunc,
     setSelectedItemIndex,
@@ -17,7 +17,7 @@ export const UserAccountsList = (props) => {
   return (
     <Card
       style={
-        window.minWidth < 600 ? { minWidth: '200px', maxWidth: '200px' } : { minWidth: '250px', maxWidth: '250px' }
+        window.innerWidth < 600 ? { minWidth: '200px', maxWidth: '200px' } : { minWidth: '250px', maxWidth: '250px' }
       }
     >
       <CardHeader>

@@ -26,7 +26,7 @@ const API_URL = 'https://api.flowfin.tech'
 
 // Works for User Accounts
 export const USER_ACCOUNT_URL = `${API_URL}/api/v1/user_accounts`
-export const USER_TRANSACTIONS_URL = `${API_URL}/api/v1/transactions`
+export const USER_TRANSACTIONS_URL = `${API_URL}/api/v1/user_accounts`
 
 // CREATE =>  POST: add a new account to the server user_accounts
 export function createUserAccount(account) {
@@ -43,8 +43,8 @@ export function getUserAccountById(accountId) {
   return axios.get(`${USER_ACCOUNT_URL}/${accountId}`, optionsHeaders())
 }
 
-export function getUserTransactions() {
-  return axios.get(`${USER_TRANSACTIONS_URL}`, optionsHeaders())
+export function getUserTransactions(id) {
+  return axios.get(`${USER_TRANSACTIONS_URL}/${id}/transactions`, optionsHeaders())
 }
 
 // Method from server should return QueryResultsModel(items: any[], totalsCount: number)
