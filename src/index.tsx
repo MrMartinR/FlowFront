@@ -26,14 +26,14 @@ _redux.setupAxios(axios, store)
 
 ReactDOM.render(
   /** StrictMode is a tool for highlighting potential problems in an application in development. */
-  <React.StrictMode>
-    <LayoutProvider>
-      <SplashScreenProvider>
-        <IntlProvider locale="en">
-          <App store={store} persistor={persistor} basename={PUBLIC_URL} />
-        </IntlProvider>
-      </SplashScreenProvider>
-    </LayoutProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <LayoutProvider>
+    <SplashScreenProvider>
+      <IntlProvider locale="en">
+        <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+      </IntlProvider>
+    </SplashScreenProvider>
+  </LayoutProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 )

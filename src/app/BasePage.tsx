@@ -23,7 +23,7 @@ export default function BasePage() {
         <Redirect exact from="/" to="/dashboard" />
         <Route path="/dashboard" component={DashboardPage} />
         <Route path="/contacts" component={Contacts} />
-        <Route path="/Countries" component={Countries} />
+        <Route path="/countries" component={Countries} />
         <Route path="/settings" component={SettingPage} />
         <Route path="/user_accounts" component={UserAccountsPage} />
         <Route path="/lending" component={LendingPage} />
