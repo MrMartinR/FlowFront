@@ -20,7 +20,7 @@ export const loansSlice = createSlice({
     },
     loanDetailsReceived: (state, action) => {
       state.loading = false
-      state.loanDetails = action.payload.data
+      state.loanDetails = action.payload.data[0]
     },
     catchError: (state, action) => {
       state.loading = false

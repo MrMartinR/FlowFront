@@ -80,7 +80,7 @@ const UserLoansList = (props: any) => {
   }, [userLoansData])
 
   const linkTo = useHistory()
-  const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
+  const handleClick = (e: any) => linkTo.push(`/loans/${e.row.loan_id}`)
 
   return (
     <>

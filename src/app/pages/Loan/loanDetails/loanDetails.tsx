@@ -6,119 +6,214 @@ import { fetchLoanDetails } from '../state/loansActions'
 const LoanDetails = (props: any) => {
   const { fetchLoanDetails, id } = props
   const { loanDetails, loading } = props.loans
+  const [data, setData] = React.useState([] as any)
+
+  const processData = (obj: any) => {
+    let data = {} as any
+    for (const property in obj) {
+      data[`${property}`] = property === 'country' || property === 'currency' ? obj[property].name : obj[property]
+    }
+    // data['id'] = obj.id
+    // data['name'] = obj.name
+    // data['installment'] = obj.installment
+    // data['status'] = obj.status
+    // data['borrower_type'] = obj.borrower_type
+    // data['code'] = obj.code
+    // data['air'] = obj.air
+    // data['category'] = obj.category
+    // data['borrower'] = obj.borrower
+    // // data['age'] = obj.id
+    // data['country'] = obj[country].name
+    // data['rating'] = obj.rating
+    // data['currency'] = obj[currency].name
+    // data['date_issued'] = obj.date_issued
+    // data['amount'] = obj.amount
+    // data['description'] = obj.description
+    // data['date_maturity'] = obj.date_maturity
+    // data['dti_rating'] = obj.dti_rating
+    // data['date_listing'] = obj.date_listed
+    // data['security_details'] = obj.security_details
+    // data['amortization'] = obj.amortization
+    // data['xirr'] = obj.xirr
+    // data['notes'] = obj.notes
+
+    // console.log(data)
+
+    return data
+  }
 
   useEffect(() => {
     fetchLoanDetails(id)
   }, [id])
 
+  useEffect(() => {
+    // console.log(processData(loanDetails))
+    setData(processData(loanDetails))
+  }, [loanDetails])
+
   return (
     <>
-      <Grid container direction="row" justify="space-between" spacing={2}>
-        <Grid xs={1}></Grid>
-        <Grid container direction="column" xs={3}>
-          <Card>
-            <CardHeader title="Status"></CardHeader>
+      <div style={{ width: '100%', display: 'flex' }}>
+        <div style={{ width: '20%' }}></div>
+        <div style={{ width: '60%', textAlign: 'center' }}>
+          <Grid>
             <CardContent>
-              <Typography>{loanDetails.status}</Typography>
+              <Typography>Loan Details</Typography>
             </CardContent>
-          </Card>
-          <Card>
-            <CardHeader title="Type"> </CardHeader>
-            <CardContent>
-              <Typography>{loanDetails.category}</Typography>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader title="Details"> </CardHeader>
-            <CardContent>
-              <Typography>Term: {loanDetails.term}</Typography>
-              <Typography>AIR: </Typography>
-              <Typography>Default: </Typography>
-              <Typography>Loss: </Typography>
-              <Typography>Liquidity: {loanDetails.liquidity}</Typography>
-            </CardContent>
-          </Card>
+          </Grid>
 
-          <Card>
-            <CardHeader title="Company"> </CardHeader>
-            <CardContent>
-              <Typography>Profitable: {loanDetails.profitable}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+          <Grid container direction="row" justify="space-between" spacing={2}>
+            <Grid container direction="column" xs={4}>
+              <Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Name: {data.name}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Borrower type: {data.borrower_type}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Category: {data.category}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Rating: {data.rating}</Typography>
+                  </CardContent>
+                </Card>
+              </Card>
+            </Grid>
 
-        <Grid container direction="column" xs={4}>
-          <Card>
-            <CardHeader title="Accounts"> </CardHeader>
-            <CardContent>
-              <ButtonGroup>
-                {loanDetails.account_category}
-                <Button>Personal</Button>
-                <Button>Corporate</Button>
-                <Button>Accredited</Button>
-              </ButtonGroup>
-              <Typography>IFISA: {loanDetails.ifisa}</Typography>
-            </CardContent>
-          </Card>
+            <Grid container direction="column" xs={4}>
+              <Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Originator Name: </Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Code: {data.code}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Borrower: {data.borrower}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Installment: {data.installment}</Typography>
+                  </CardContent>
+                </Card>
+              </Card>
+            </Grid>
 
-          <Card>
-            <CardHeader title="Agreement Structure"> </CardHeader>
-            <CardContent>
-              <ButtonGroup>
-                {loanDetails.structure}
-                <Button>Indirect</Button>
-                <Button>Direct</Button>
-                <Button>Bilateral</Button>
-              </ButtonGroup>
-              <Typography>Taxes: {loanDetails.taxes}</Typography>
-            </CardContent>
-          </Card>
+            <Grid container direction="column" xs={4}>
+              <Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Status: {data.status}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Air: {data.air}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Country: {data.country}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Amortization: {data.amortization}</Typography>
+                  </CardContent>
+                </Card>
+              </Card>
+            </Grid>
+          </Grid>
 
-          <Card>
-            <CardHeader title="Protection Scheme"> </CardHeader>
-            <CardContent>
-              <ButtonGroup>
-                {loanDetails.protection_scheme}
-                <Button>BuyBack</Button>
-                <Button>Provision Fund</Button>
-                <Button>Personal</Button>
-                <Button>Collateral</Button>
-              </ButtonGroup>
-            </CardContent>
-          </Card>
-        </Grid>
+          <Grid container direction="row" justify="space-between" spacing={2}>
+            <Grid container direction="column" xs={4}>
+              <Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Amount: {data.amount}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>DTI: {data.dti_rating}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Remaining: </Typography>
+                  </CardContent>
+                </Card>
+              </Card>
+            </Grid>
 
-        <Grid container direction="column" xs={3}>
-          <Card>
-            <CardHeader title="Investment Details"> </CardHeader>
-            <CardContent>
-              <Typography>Invest Mode: </Typography>
-              <ButtonGroup>
-                {loanDetails.invest_mode}
-                <Button>Bid</Button>
-                <Button>Manual</Button>
-                <Button>Preset</Button>
-                <Button>Auto</Button>
-              </ButtonGroup>
-              <Typography>Secondary Market: {loanDetails.secondary_market}</Typography>
-              <Typography>SM Notes: {loanDetails.sm_notes}</Typography>
-              <Typography>Cost: {loanDetails.cost}</Typography>
-              <Typography>Min. Investment: {loanDetails.min_investment}</Typography>
-              <Typography>Cashflow options: {loanDetails.cashflow_options}</Typography>
-            </CardContent>
-          </Card>
+            <Grid container direction="column" xs={4}>
+              <Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Currency: {data.currency}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Description: {data.description}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Date listed: {data.date_listed}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>XIRR: {data.xirr}</Typography>
+                  </CardContent>
+                </Card>
+              </Card>
+            </Grid>
 
+            <Grid container direction="column" xs={4}>
+              <Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Date issued: {data.date_issued}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Date maturity: {data.date_maturity}</Typography>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Typography>Security details: {data.security_details}</Typography>
+                  </CardContent>
+                </Card>
+              </Card>
+            </Grid>
+          </Grid>
           <Card>
-            <CardHeader title="Promotions"> </CardHeader>
             <CardContent>
-              <Typography>Welcome bonus: {loanDetails.welcome_bonus}</Typography>
-              <Typography>Promo: {loanDetails.promo}</Typography>
-              <Typography>Promo end: {loanDetails.promo_end}</Typography>
+              <Typography>Notes: {data.notes}</Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid xs={1}></Grid>
-      </Grid>
+        </div>
+
+        <div style={{ width: '20%' }}></div>
+      </div>
     </>
   )
 }
