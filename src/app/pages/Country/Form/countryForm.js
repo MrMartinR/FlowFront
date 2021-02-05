@@ -10,13 +10,10 @@ import { fetchAllCurrencies } from '../../../../redux/currencies/currenciesActio
 
 const CountryForm = (props) => {
   const { handleSubmit, register, errors, control } = useForm()
-
   const { currencies, loadCurrencies, onSubmitClick } = props
   const { listLoading, currencyTable  } = currencies
   // const onSubmit = (data) => onSubmitClick(data)
   const onSubmit = (data) => console.log(data)
-
-
 
   useEffect (() => {
     loadCurrencies()
