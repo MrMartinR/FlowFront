@@ -1,8 +1,9 @@
 import React from 'react'
 import { FormControl, InputLabel, Select as MuiSelect, MenuItem, FormHelperText } from '@material-ui/core'
+import { useForm, Controller } from 'react-hook-form'
 
 export default function Select(props) {
-  const { name, label, value, error = null, onChange } = props
+  const { name, label, error = null} = props
 
   const options = [
     { id: '1', title: 'Development' },
@@ -11,18 +12,30 @@ export default function Select(props) {
     { id: '4', title: 'HR' },
   ]
 
+  const { control } = useForm()
+
   return (
-    <FormControl variant="outlined" {...(error && { error: true })}>
-      <InputLabel>{label}</InputLabel>
-      <MuiSelect label={label} name={name} value={value} onChange={onChange}>
-        <MenuItem value="">None</MenuItem>
-        {options.map((item) => (
-          <MenuItem key={item.id} value={item.id}>
-            {item.title}
-          </MenuItem>
-        ))}
-      </MuiSelect>
-      {error && <FormHelperText>{error}</FormHelperText>}
-    </FormControl>
+    <FormControl>
+      <InputLabel>currency_id</InputLabel>
+        <Controller
+            as={
+              <Select>
+                <MenuItem value="">None</MenuItem>
+                {options.map((item) => (
+                  <MenuItem 
+                    key={item.id} 
+                    value={item.id}
+              >
+                    {item.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            }
+            name="currency_id"
+            rules={{ required: "this is required" }}
+            control={control}
+            defaultValue=""
+          />
+      </FormControl> 
   )
 }

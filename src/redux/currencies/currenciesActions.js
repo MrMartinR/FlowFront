@@ -15,10 +15,10 @@ export const currencySort = (queryParams) => (dispatch) => {
     })
   )
 }
-export const fetchAllCurrencies = (params) => (dispatch) => {
+export const fetchAllCurrencies = () => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
-    .findAllCurrencies(params)
+    .findAllCurrencies()
     .then((response) => {
       // console.log("CURRENCIES: ", response);
       const { data } = response.data

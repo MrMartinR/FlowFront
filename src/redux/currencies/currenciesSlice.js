@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import Util from '../../app/utils'
 
 const initialCurrenciesState = {
-  listLoading: false,
+  listLoading: true,
   actionsLoading: false,
   currencyTable: {
     entities: null,
