@@ -51,18 +51,13 @@ export const Accounts = () => {
   return (
     <>
       <AccountToolBar />
-      <br></br>
 
-      <Grid>
-        <Grid item md={12}>
-          <Grid container spacing={1} direction="row" justify="space-evenly">
-            <Grid key={1} md={4} item>
-              <AccountsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
-            </Grid>
-            <Grid key={2} md={4} item>
-              <AccountDetails selectedContact={selectedAccount} />
-            </Grid>
-          </Grid>
+      <Grid container spacing={1} direction="row" justify="space-evenly">
+        <Grid item key={1} xs={3}>
+          <AccountsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
+        </Grid>
+        <Grid item key={2} xs={9} justify="flex-end">
+          <AccountDetails selectedContact={selectedAccount} />
         </Grid>
       </Grid>
     </>

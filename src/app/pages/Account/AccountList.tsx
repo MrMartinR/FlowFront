@@ -21,7 +21,7 @@ export const AccountsList = (props: any) => {
   }, [list])
 
   const handlePick = (e: any, v: any) => {
-    let selected = list.findIndex((itm: any) => itm.trade_name === v || itm.name === v)
+    let selected = list.findIndex((itm: any) => itm.trade_name === v)
     setSelectedItemIndex(selected)
   }
 
@@ -39,11 +39,7 @@ export const AccountsList = (props: any) => {
                 updateSelected(idx)
               }}
             >
-              {item.kind === 'Company' ? (
-                <ListItemText primary={`${item.trade_name}`} />
-              ) : (
-                <ListItemText primary={`${item.name}`} />
-              )}
+              <ListItemText primary={`${item.trade_name}`} />
             </ListItem>
           ))
         )}

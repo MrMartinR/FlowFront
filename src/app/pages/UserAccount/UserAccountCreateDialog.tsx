@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo } from 'react'
-import { Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap' //  bin
 import { EnhancedUserAccountForm } from './EnhancedUserAccountForm'
-import { initAccount } from './UserAccountsUIContext'
 import { useDispatch } from 'react-redux'
 // FIX THIS, do not refer to old js files
-import * as AccountActions from '../Account/XXX/accountsActions'
-import { UserAccountCreateDialogHeader } from './UserAccountCreateDialogHeader'
+import * as AccountActions from '../Account/state/accountsActions'
 
 interface Props {
   // saveAccount: () => void;
@@ -19,11 +17,11 @@ interface Props {
 export const UserAccountCreateDialog: React.FC<Props> = (props: any) => {
   const { id, show, onHide, countriesTable, currencyTable } = props
   // Accounts UI Context
-  const accountsUIProps = useMemo(() => {
-    return {
-      initAccount,
-    }
-  }, [initAccount])
+  // const accountsUIProps = useMemo(() => {
+  //   return {
+  //     initAccount,
+  //   }
+  // }, [initAccount])
 
   const dispatch = useDispatch()
 
@@ -36,14 +34,14 @@ export const UserAccountCreateDialog: React.FC<Props> = (props: any) => {
   }
 
   return (
-    <Modal size="lg" show={show} onHide={onHide} aria-labelledby="example-modal-sizes-title-lg">
-      <UserAccountCreateDialogHeader id={id} />
+    <Modal size="lg" show={show} onHide={onHide}>
+      {/* <UserAccountCreateDialogHeader id={id} /> */}
       <EnhancedUserAccountForm
         saveAccount={saveAccount}
         countriesTable={countriesTable}
         currencyTable={currencyTable}
         actionsLoading={false}
-        account={accountsUIProps.initAccount}
+        // account={accountsUIProps.initAccount}
         onHide={onHide}
       />
     </Modal>
