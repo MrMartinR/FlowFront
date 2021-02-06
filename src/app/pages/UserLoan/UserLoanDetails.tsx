@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
+import { Grid, Paper, Input, CardContent, Typography, CardHeader, Toolbar, Button } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { fetchUserLoanDetails } from './state/userLoansActions'
 
@@ -44,105 +44,30 @@ const UserLoanDetails = (props: any) => {
 
   return (
     <>
-      <div style={{ width: '100%', display: 'flex' }}>
-        <div style={{ width: '20%' }}></div>
-        <div style={{ width: '60%', textAlign: 'center' }}>
-          <Grid>
-            <CardContent>
-              <Typography variant="h3">User Loan Details</Typography>
-            </CardContent>
-          </Grid>
+      <Grid container>
+        <Toolbar title="Investment">
+          <Typography variant="h6">Investment</Typography>
+          <Button>[ICONAccount]</Button>
+          <Typography variant="h6">[account.contacts.trade_name]</Typography>
+          <Button>+</Button>
+        </Toolbar>
 
-          <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Market: {data.market}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Investment amount: {data.investment_amount}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Slice: {data.slice_name}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Invest mode: {data.invest_mode}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Date in: {data.date_in}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Date out: {data.date_out}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Position: {data.position}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Grid container direction="column" xs={6}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Typography>Xirr: {data.xirr}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Grid>
-        </div>
-        <div style={{ width: '20%' }}></div>
-      </div>
+        <Grid item xs={12}>
+          <Paper variant="outlined">
+            <Typography>Market: {data.market}</Typography>
+            <Typography>Investment amount: {data.investment_amount}</Typography>
+            <Typography>Slice: {data.slice_name}</Typography>
+            <Typography>Invest mode: {data.invest_mode}</Typography>
+            <Typography>Date in: {data.date_in}</Typography>
+            <Typography>Date out: {data.date_out}</Typography>
+            <Typography>Position: {data.position}</Typography>
+            <Typography>XIRR: {data.xirr}</Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">Cashflow</Typography>
+        </Grid>
+      </Grid>
     </>
   )
 }

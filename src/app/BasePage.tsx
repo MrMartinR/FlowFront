@@ -15,7 +15,7 @@ import OriginatorsPage from './pages/Originator'
 import OriginatorDetailsPage from './pages/Originator/OriginatorDetailsPage'
 import UserLoansPage from './pages/UserLoan'
 import LoansPage from './pages/Loan'
-import LoanDetailsPage from './pages/Loan/loanDetails'
+import LoanDetailsPage from './pages/Loan/LoanDetails'
 import UserPlatformsPage from './pages/Lending/UserPlatform'
 import UserPlatformsOverallPage from './pages/Lending/UserPlatformOverall'
 
