@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { Grid, Card, CardContent, Typography, CardHeader, ButtonGroup, Button } from '@material-ui/core/'
+import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { fetchLoanDetails } from '../state/loansActions'
 
 const LoanDetails = (props: any) => {
   const { fetchLoanDetails, id } = props
-  const { loanDetails, loading } = props.loans
+  const { loanDetails } = props.loans
   const [data, setData] = React.useState([] as any)
 
   const processData = (obj: any) => {
@@ -13,32 +13,6 @@ const LoanDetails = (props: any) => {
     for (const property in obj) {
       data[`${property}`] = property === 'country' || property === 'currency' ? obj[property].name : obj[property]
     }
-    // data['id'] = obj.id
-    // data['name'] = obj.name
-    // data['installment'] = obj.installment
-    // data['status'] = obj.status
-    // data['borrower_type'] = obj.borrower_type
-    // data['code'] = obj.code
-    // data['air'] = obj.air
-    // data['category'] = obj.category
-    // data['borrower'] = obj.borrower
-    // // data['age'] = obj.id
-    // data['country'] = obj[country].name
-    // data['rating'] = obj.rating
-    // data['currency'] = obj[currency].name
-    // data['date_issued'] = obj.date_issued
-    // data['amount'] = obj.amount
-    // data['description'] = obj.description
-    // data['date_maturity'] = obj.date_maturity
-    // data['dti_rating'] = obj.dti_rating
-    // data['date_listing'] = obj.date_listed
-    // data['security_details'] = obj.security_details
-    // data['amortization'] = obj.amortization
-    // data['xirr'] = obj.xirr
-    // data['notes'] = obj.notes
-
-    // console.log(data)
-
     return data
   }
 
@@ -47,7 +21,6 @@ const LoanDetails = (props: any) => {
   }, [id])
 
   useEffect(() => {
-    // console.log(processData(loanDetails))
     setData(processData(loanDetails))
   }, [loanDetails])
 
@@ -58,7 +31,7 @@ const LoanDetails = (props: any) => {
         <div style={{ width: '60%', textAlign: 'center' }}>
           <Grid>
             <CardContent>
-              <Typography>Loan Details</Typography>
+              <Typography variant="h3">Loan Details</Typography>
             </CardContent>
           </Grid>
 

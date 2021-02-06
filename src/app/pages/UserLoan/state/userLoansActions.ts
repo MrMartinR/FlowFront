@@ -18,11 +18,12 @@ export const fetchUserLoansData = () => (dispatch: any) => {
     })
 }
 
-export const fetchUserLoanDetails = (id: any) => (dispatch: any) => {
+export const fetchUserLoanDetails = (loan_id: any) => (dispatch: any) => {
   dispatch(actions.startCall())
   axios
-    .get(`${USER_LOANS_URL}/${id}`, optionsHeaders())
+    .get(`${USER_LOANS_URL}/user_loan/${loan_id}`, optionsHeaders())
     .then(function (response) {
+      console.log(response)
       return dispatch(actions.userLoanDetailsReceived(response.data))
     })
     .catch(function (error) {

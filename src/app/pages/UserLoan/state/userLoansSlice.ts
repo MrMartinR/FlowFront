@@ -16,11 +16,11 @@ export const userLoansSlice = createSlice({
     },
     userLoansReceived: (state, action) => {
       state.loading = false
-      state.userLoansData = action.payload.data
+      state.userLoansData = action.payload.message
     },
     userLoanDetailsReceived: (state, action) => {
       state.loading = false
-      state.userLoanDetails = action.payload.data[0]
+      state.userLoanDetails = action.payload.message[0]
     },
     catchError: (state, action) => {
       state.loading = false
