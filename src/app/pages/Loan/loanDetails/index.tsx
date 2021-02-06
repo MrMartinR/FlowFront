@@ -1,5 +1,5 @@
 import React from 'react'
-import LoanDetails from './loanDetails'
+import LoanDetails from './LoanDetails'
 import UserLoanDetails from '../../UserLoan/UserLoanDetails'
 
 const LoanDetailsPage = (props: any) => {

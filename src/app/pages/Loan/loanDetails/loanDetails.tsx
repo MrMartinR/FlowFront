@@ -65,11 +65,6 @@ const LoanDetails = (props: any) => {
               <Card>
                 <Card>
                   <CardContent>
-                    <Typography>Originator Name: </Typography>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent>
                     <Typography>Code: {data.code}</Typography>
                   </CardContent>
                 </Card>
