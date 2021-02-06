@@ -31,6 +31,8 @@ const PlatformsList = (props: any) => {
   const { fetchPlatformsList } = props
   const { platformsTable = [], loading } = props.platforms
 
+  console.log(platformsTable)
+
   useEffect(() => {
     fetchPlatformsList()
   }, [fetchPlatformsList])

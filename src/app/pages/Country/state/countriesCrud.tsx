@@ -7,7 +7,7 @@ export const COUNTRY_URL = `${API_URL}/api/v1/countries`
 
 // CREATE =>  POST: add a new country to the server
 export function createCountry(country: any) {
-  return axios.post(COUNTRY_URL, { country })
+  return axios.post(COUNTRY_URL, { country }, optionsHeaders())
 }
 
 // READ

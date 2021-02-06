@@ -3,7 +3,7 @@ import { FormControl, InputLabel, Select as MuiSelect, MenuItem, FormHelperText 
 import { useForm, Controller } from 'react-hook-form'
 
 export default function Select(props) {
-  const { name, label, error = null} = props
+  const { name, label, error = null } = props
 
   const options = [
     { id: '1', title: 'Development' },
@@ -17,25 +17,22 @@ export default function Select(props) {
   return (
     <FormControl>
       <InputLabel>currency_id</InputLabel>
-        <Controller
-            as={
-              <Select>
-                <MenuItem value="">None</MenuItem>
-                {options.map((item) => (
-                  <MenuItem 
-                    key={item.id} 
-                    value={item.id}
-              >
-                    {item.title}
-                  </MenuItem>
-                ))}
-              </Select>
-            }
-            name="currency_id"
-            rules={{ required: "this is required" }}
-            control={control}
-            defaultValue=""
-          />
-      </FormControl> 
+      <Controller
+        as={
+          <Select>
+            <MenuItem value="">None</MenuItem>
+            {options.map((item) => (
+              <MenuItem key={item.id} value={item.id}>
+                {item.title}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        name="currency_id"
+        rules={{ required: 'this is required' }}
+        control={control}
+        defaultValue=""
+      />
+    </FormControl>
   )
 }
