@@ -1,27 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Util from '../../app/utils'
 
 const initialAccountsState = {
   listLoading: true,
   actionsLoading: false,
-  accountTable: {
-    entities: null,
-    page: null,
-    pages: null,
-    perPage: null,
+  accountsTable: {
+    entities: null as any,
+    success: false,
+  },
+  singleAccount: {
+    entry: null as any,
   },
   accountForEdit: undefined,
-  lastError: null,
+  error: null as any,
 }
 export const callTypes = {
   list: 'list',
   action: 'action',
 }
-
 export const accountsSlice = createSlice({
   name: 'accounts',
+
   initialState: initialAccountsState,
   reducers: {
+    // when error occurs catch it
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
       if (action.payload.callType === callTypes.list) {
@@ -30,6 +31,7 @@ export const accountsSlice = createSlice({
         state.actionsLoading = false
       }
     },
+    // set the state in which the process is in loading or setting the state
     startCall: (state, action) => {
       state.error = null
       if (action.payload.callType === callTypes.list) {
@@ -38,74 +40,65 @@ export const accountsSlice = createSlice({
         state.actionsLoading = true
       }
     },
-    accountSort: (state, action) => {
-      const { field, isAsc, entities } = action.payload
-      const areEmptyFields = entities.some((i) => i[field])
-      if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(Util.sortCustom(field, isAsc, (a) => a.toUpperCase()))
-        state.accountTable.entities = entitiesOrdened
-      }
-    },
-    // getCustomerById
-    accountFetched: (state, action) => {
-      state.actionsLoading = false
-      state.accountForEdit = action.payload.accountForEdit
-      state.error = null
-    },
-    // findCustomers
+
+    // update the account state on all fetch
     accountsFetched: (state, action) => {
-      const { pages, page, entities } = action.payload
+      const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.accountTable.entities = entities
-      state.accountTable.pages = pages
-      state.accountTable.page = page
+      state.accountsTable.entities = data.data
+      state.accountsTable.success = data.success
     },
-    // findNewCustomers
-    accountsAppend: (state, action) => {
-      const { pages, page, entities } = action.payload
+
+    // update the contact state on fetch a single contact
+    accountFetched: (state, action) => {
+      const { data } = action.payload
       state.listLoading = false
       state.error = null
-      state.accountTable.entities = [...state.accountTable.entities, ...entities]
-      state.accountTable.pages = pages
-      state.accountTable.page = page
+      state.singleAccount.entry = data.data
+      state.accountsTable.success = data.success
     },
-    // createCustomer
+
+    // createAccount
     accountCreated: (state, action) => {
       state.actionsLoading = false
       state.error = null
-      state.accountTable.entities.push(action.payload.account)
+      state.accountsTable.entities.push(action.payload.account)
     },
-    // updateCustomer
+
+    // updateAccount
     accountUpdated: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.accountTable.entities = state.accountTable.entities.map((entity) => {
+      state.accountsTable.entities = state.accountsTable.entities.map((entity: any) => {
         if (entity.id === action.payload.account.id) {
           return action.payload.account
         }
         return entity
       })
     },
-    // deleteCustomer
+
+    // deleteAccount
     accountDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.accountTable.entities = state.accountTable.entities.filter((el) => el.id !== action.payload.id)
+      state.accountsTable.entities = state.accountsTable.entities.filter((el: any) => el.id !== action.payload.id)
     },
-    // deleteCustomers
+    // deleteAccount
     accountsDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.accountTable.entities = state.accountTable.entities.filter((el) => !action.payload.ids.includes(el.id))
+      state.accountsTable.entities = state.accountsTable.entities.filter(
+        (el: any) => !action.payload.ids.includes(el.id)
+      )
     },
     // accountsUpdateState
     accountsStatusUpdated: (state, action) => {
       state.actionsLoading = false
       state.error = null
       const { ids, status } = action.payload
-      state.accountTable.entities = state.accountTable.entities.map((entity) => {
-        if (ids.findIndex((id) => id === entity.id) > -1) {
+      state.accountsTable.entities = state.accountsTable.entities.map((entity: any) => {
+        if (ids.findIndex((id: any) => id === entity.id) > -1) {
           entity.status = status
         }
         return entity
@@ -113,3 +106,11 @@ export const accountsSlice = createSlice({
     },
   },
 })
+
+// on creation a new contact append it to existing contacts
+// newContactCreated: (state, action) => {
+//   const { data } = action.payload
+//   state.actionsLoading = false
+//   state.error = null
+//   state.accountsTable.entities.unshift(data.data)
+// },

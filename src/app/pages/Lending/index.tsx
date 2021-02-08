@@ -53,7 +53,7 @@ export const LendingPage = () => {
             <CardHeader title="My Loans" />
             <CardContent>
               <LendingIcon />
-              <Button variant="outlined" href="/user-loan">
+              <Button variant="outlined" href="/user-loans">
                 Loans
               </Button>
             </CardContent>

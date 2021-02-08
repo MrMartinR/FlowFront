@@ -1,3 +1,4 @@
+// TODO: Replace formik for react hook forms https://react-hook-form.com
 import React, { Fragment, useEffect, useState } from 'react'
 import { Modal, Container, Row, Col } from 'react-bootstrap'
 import * as Yup from 'yup'
@@ -6,13 +7,12 @@ import { Input } from '../../sharedComponents/inputShared'
 import { Avatar, Button } from '@material-ui/core'
 /* eslint-disable  no-restricted-imports */
 import { makeStyles } from '@material-ui/core/styles'
+// import { StepperTemplate } from "./Stepper";
 
 import { Stepper } from '@material-ui/core'
 import { Step } from '@material-ui/core'
 import { StepLabel } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
 
 const useStyles = makeStyles((theme) => ({
   avatarContainer: {
@@ -44,7 +44,7 @@ function getSteps() {
   return ['Select category', 'Select country', 'Select currency']
 }
 
-function getStepContent(stepIndex) {
+function getStepContent(stepIndex: number) {
   switch (stepIndex) {
     case 0:
       return 'Select campaign settings...'
@@ -57,28 +57,22 @@ function getStepContent(stepIndex) {
   }
 }
 
-export const AccountEditForm = (props) => {
-  const { values, touched, setFieldValue, setFieldTouched, onHide, currencyTable, countriesTable } = props
-
-  const validationSchema = Yup.object().shape({
-    id: Yup.string().nullable(),
-    name: Yup.string()
-      .min(4, 'Type more than 4 characters')
-      .max(20, 'Type less than 20 characters')
-      .required('Name is required'),
-    category: Yup.string()
-      .min(4, 'Type more than 4 characters')
-      .max(20, 'Type less than 20 characters')
-      .required('Category is required'),
-    icon: Yup.string().required('An Icon is required'),
-    currency: Yup.array().min(1),
-    countries: Yup.array().min(1),
-    createAccountFunc: null,
-  })
-
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(validationSchema),
-  })
+export const AccountEditForm = (props: any) => {
+  const {
+    values,
+    touched,
+    // dirty,
+    errors,
+    handleSubmit,
+    // handleReset,
+    setFieldValue,
+    setFieldTouched,
+    // isSubmitting,
+    // actionsLoading,
+    onHide,
+    currencyTable,
+    countriesTable,
+  } = props
 
   const classes = useStyles()
   const [activeStep, setActiveStep] = React.useState(0)
@@ -98,12 +92,12 @@ export const AccountEditForm = (props) => {
 
   useEffect(() => {
     if (currencyTable && countriesTable) {
-      let selecData = {
+      let selecData: any = {
         countries: [],
         currencies: [],
       }
 
-      currencyTable.map((data) => {
+      currencyTable.map((data: any) => {
         selecData.currencies.push({
           value: data.id,
           label: data.name,
@@ -111,7 +105,7 @@ export const AccountEditForm = (props) => {
         return null
       })
 
-      countriesTable.map((data) => {
+      countriesTable.map((data: any) => {
         selecData.countries.push({
           value: data.id,
           label: data.name,
@@ -119,26 +113,29 @@ export const AccountEditForm = (props) => {
         return null
       })
 
+      // console.log("SELECTION DATA: ", selecData);
       setSelectionData(selecData)
     }
   }, [currencyTable, countriesTable])
 
-  const [iconData, setIconData] = useState(null)
-  const [selectionData, setSelectionData] = useState(null)
+  const [iconData, setIconData]: any = useState(null)
+  const [selectionData, setSelectionData]: any = useState(null)
 
-  const getUrlFromSvgString = (string) => {
+  // const classes = useStyles();
+
+  const getUrlFromSvgString = (string: string) => {
     let blob = new Blob([string], { type: 'image/svg+xml' })
     let url = URL.createObjectURL(blob)
     return url
   }
 
-  const fileUploaded = (e) => {
+  const fileUploaded = (e: any) => {
     // console.log(e.target.files);
     var fr = new FileReader()
     fr.onload = function () {
       // console.log("INN");
       // console.log(fr.result);
-      let data = fr.result
+      let data: any = fr.result
       let index = data.indexOf('<svg')
       if (index < 0) {
         return
@@ -158,6 +155,13 @@ export const AccountEditForm = (props) => {
   return (
     <Fragment>
       <Modal.Body className="overlay overlay-block">
+        {/* {actionsLoading && (
+          <div className="overlay-layer bg-transparent">
+            <div className="spinner spinner-lg spinner-success" />
+          </div>
+        )} */}
+        {/* <form onSubmit={handleSubmit}> */}
+        {/* <StepperTemplate /> */}
         <div className={classes.root}>
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
@@ -180,7 +184,6 @@ export const AccountEditForm = (props) => {
                         touched={touched.name}
                         name="name"
                         type="text"
-                        inputRef={register()}
                         // addClass={["col-md-5", "col-xs-12"]}
                       />
                       <Input
@@ -191,19 +194,17 @@ export const AccountEditForm = (props) => {
                         touched={touched.category}
                         name="category"
                         type="text"
-                        inputRef={register()}
                         // addClass={["col-md-5", "col-xs-12"]}
                       />
                     </Col>
                     <Col sm={4} className={classes.avatarContainer}>
-                      <Avatar className={classes.bigAvatar} src={iconData ? getUrlFromSvgString(iconData) : null} />
+                      <Avatar className={classes.bigAvatar} src={iconData ? getUrlFromSvgString(iconData) : ''} />
                       <input
                         name={'icon'}
                         accept="image/svg+xml"
                         className={classes.input}
                         id="contained-button-file"
                         type="file"
-                        inputRef={register()}
                         onChange={fileUploaded}
                       />
                       <label htmlFor="contained-button-file">
@@ -211,6 +212,7 @@ export const AccountEditForm = (props) => {
                           Upload
                         </Button>
                       </label>
+                      {/* <Image src="/static/images/avatar/1.jpg" thumbnail /> */}
                     </Col>
                   </Row>
                 )}
@@ -225,7 +227,6 @@ export const AccountEditForm = (props) => {
                       name="countries"
                       multi={true}
                       addClass={['col-md-8', 'col-xs-12']}
-                      inputRef={register()}
                       list={selectionData ? selectionData.countries : []}
                     />
                   </Row>
@@ -240,13 +241,24 @@ export const AccountEditForm = (props) => {
                       touched={touched.currency}
                       multi={true}
                       name="currency"
-                      inputRef={register()}
                       addClass={['col-md-8', 'col-xs-12']}
                       list={selectionData ? selectionData.currencies : []}
                     />
                   </Row>
                 )}
               </Container>
+
+              {/* <button
+                type="button"
+                className="outline"
+                onClick={handleReset}
+                disabled={!dirty || isSubmitting}
+              >
+                Reset
+              </button>
+              <button type="submit" disabled={isSubmitting}>
+                Submit
+              </button> */}
             </form>
           </div>
           <div>

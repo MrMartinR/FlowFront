@@ -5,6 +5,7 @@ import DashboardPage from './pages/Dashboard'
 import SettingPage from './pages/Contact/contactSettings'
 import { Contacts } from './pages/Contact'
 import Countries from './pages/Country'
+import { Accounts } from './pages/Account'
 import { UserAccountsPage } from './pages/UserAccount'
 import { LendingPage } from './pages/Lending'
 import { CurrenciesPage } from './pages/Currency/CurrenciesPage'
@@ -12,7 +13,9 @@ import PlatformsPage from './pages/Platform'
 import PlatformDetailsPage from './pages/Platform/PlatformDetailsPage'
 import OriginatorsPage from './pages/Originator'
 import OriginatorDetailsPage from './pages/Originator/OriginatorDetailsPage'
+import UserLoansPage from './pages/UserLoan'
 import LoansPage from './pages/Loan'
+import LoanDetailsPage from './pages/Loan/loanDetails'
 import UserPlatformsPage from './pages/Lending/UserPlatform'
 import UserPlatformsOverallPage from './pages/Lending/UserPlatformOverall'
 
@@ -24,6 +27,7 @@ export default function BasePage() {
         <Route path="/dashboard" component={DashboardPage} />
         <Route path="/contacts" component={Contacts} />
         <Route path="/countries" component={Countries} />
+        <Route path="/accounts" component={Accounts} />
         <Route path="/settings" component={SettingPage} />
         <Route path="/user_accounts" component={UserAccountsPage} />
         <Route path="/lending" component={LendingPage} />
@@ -31,6 +35,8 @@ export default function BasePage() {
         <Route path="/platforms" component={PlatformsPage} />
         <Route path="/originators" component={OriginatorsPage} />
         <Route path={`/originators/:id`} component={OriginatorDetailsPage} />
+        <Route path="/user-loans" component={UserLoansPage} />
+        <Route path={`/loans/:id`} component={LoanDetailsPage} />
         <Route path="/loans" component={LoansPage} />
         <Route path="/currencies" component={CurrenciesPage} />
         <Route path="/user-platform" component={UserPlatformsPage} />

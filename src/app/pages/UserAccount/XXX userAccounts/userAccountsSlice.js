@@ -1,17 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Util from '../../app/utils'
+import Util from '../../../utils'
 
 const initialUserAccountsState = {
   listLoading: true,
   actionsLoading: false,
   userAccountTable: {
     entities: null,
+    page: 0,
+    pages: 0,
+    perPage: null,
+    success: false,
+    data: [],
+  },
+  userAccountForEdit: {
+    name: '',
+    entities: null,
     page: null,
     pages: null,
     perPage: null,
   },
-  userAccountForEdit: undefined,
   lastError: null,
+  userAccountTransactions: [],
 }
 export const callTypes = {
   list: 'list',

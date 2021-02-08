@@ -1,20 +1,24 @@
 import React from 'react'
 import { Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core'
 import { InfiniteLoader, List } from 'react-virtualized'
+import { useDispatch } from 'react-redux'
+import * as userAccountsActions from './state/userAccountsActions'
 
-export default function VirtualizedListComponent({
-  setSelectedItemIndex,
-  /** Are there more items to load? (This information comes from the most recent API request.) */
-  hasNextPage,
-  /** Are we currently loading a page of items? (This may be an in-flight flag in your Redux store for example.) */
-  isNextPageLoading,
-  /** List of items loaded so far */
-  list,
-  /** List height */
-  listHeight,
-  /** Callback function responsible for loading the next page of items */
-  loadNextPage,
-}) {
+export default function VirtualizedListComponent(props: any) {
+  const {
+    setSelectedItemIndex,
+    /** Are there more items to load? (This information comes from the most recent API request.) */
+    hasNextPage,
+    /** Are we currently loading a page of items? (This may be an in-flight flag in your Redux store for example.) */
+    isNextPageLoading,
+    /** List of items loaded so far */
+    list,
+    /** List height */
+    listHeight,
+    /** Callback function responsible for loading the next page of items */
+    loadNextPage,
+  } = props
+
   // If there are more items to be loaded then add an extra row to hold a loading indicator.
   const rowCount = hasNextPage ? list.length + 1 : list.length
 
@@ -23,13 +27,17 @@ export default function VirtualizedListComponent({
   const loadMoreRows = isNextPageLoading ? () => {} : loadNextPage
 
   // Every row is loaded except for our loading indicator row.
-  const isRowLoaded = ({ index }) => !hasNextPage || index < list.length
+  const isRowLoaded = ({ index }: any) => !hasNextPage || index < list.length
 
-  const rowSelected = (index) => {
+  // Accounts Redux state
+  const dispatch = useDispatch()
+
+  const rowSelected = (index: number) => {
     setSelectedItemIndex(index)
+    // dispatch(userAccountsActions.fetchAccountTransaction(list[index].id))
   }
 
-  const rowRenderer = ({ index, key, style }) => {
+  const rowRenderer = ({ index, key, style }: any) => {
     if (!isRowLoaded({ index })) {
       return (
         <ListItem key={key} className="UserAccountsListItem" style={{ ...style, justifyContent: 'center' }}>
@@ -38,7 +46,12 @@ export default function VirtualizedListComponent({
       )
     } else {
       return (
-        <ListItem onClick={() => rowSelected(index)} key={key} className="UserAccountsListItem" style={style}>
+        <ListItem
+          onClick={() => rowSelected(index)}
+          key={key}
+          className="UserAccountsListItem"
+          style={index === 0 ? { ...style, cursor: 'pointer', borderStyle: 'groove' } : { ...style, cursor: 'pointer' }}
+        >
           <ListItemAvatar>
             <Avatar
               // alt={``}
@@ -51,7 +64,6 @@ export default function VirtualizedListComponent({
       )
     }
   }
-
   return (
     <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={loadMoreRows} rowCount={rowCount}>
       {({ onRowsRendered, registerChild }) => (

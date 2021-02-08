@@ -82,7 +82,6 @@ export const Contacts = () => {
   return (
     <>
       <ContactToolBar />
-      <br></br>
 
       <Grid>
         <Grid item md={12}>
