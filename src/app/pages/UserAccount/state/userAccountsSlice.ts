@@ -21,14 +21,7 @@ export const userAccountsSlice = createSlice({
       state.error = `${action.type}: ${action.payload.error}`
       state.loading = false
     },
- 
-
-
   },
 })
 
-export const {
-  startCall,
-  userAccountsReceived,
-  catchError,
-} = userAccountsSlice.actions
+export const { startCall, userAccountsReceived, catchError } = userAccountsSlice.actions

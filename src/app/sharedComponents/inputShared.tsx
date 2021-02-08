@@ -1,18 +1,8 @@
-import React from "react";
-import { Form } from "react-bootstrap";
+import React from 'react'
+import { Form } from 'react-bootstrap'
 
-export const Input = ({
-  type,
-  name,
-  value,
-  error,
-  touched,
-  addClass,
-  onChange,
-  onBlur,
-}:any) => {
-
-  const handleChange = (e:any) => {
+export const Input = ({ type, name, value, error, touched, addClass, onChange, onBlur }: any) => {
+  const handleChange = (e: any) => {
     // this is going to call setFieldValue and manually update values.topcis
     onChange(name, e.target.value)
   }

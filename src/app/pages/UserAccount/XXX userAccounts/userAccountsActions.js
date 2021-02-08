@@ -143,4 +143,3 @@ export const fetchAccountTransaction = (id) => (dispatch) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
 }
-

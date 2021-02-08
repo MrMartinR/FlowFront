@@ -34,8 +34,6 @@ export const fetchUserAccountsList = () => (dispatch: any) => {
 
 // export default getUserAccounts
 
-
-
 // export const userAccountSort = (queryParams) => (dispatch) => {
 //   const { field, isAsc, entities } = queryParams
 //   // console.log('fieldXXX', field)
@@ -176,4 +174,3 @@ export const fetchUserAccountsList = () => (dispatch: any) => {
 //       dispatch(actions.catchError({ error, callType: callTypes.action }))
 //     })
 // }
-

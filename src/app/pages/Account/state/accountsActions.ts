@@ -5,7 +5,7 @@ const { actions } = accountsSlice
 
 /**
  * Fetch all accounts
-*/ 
+ */
 export const fetchAccounts = () => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
@@ -20,16 +20,15 @@ export const fetchAccounts = () => (dispatch: any) => {
     })
 }
 
-
 /**
  * Fetch individual accounts
  * @param id
-*/ 
+ */
 export const fetchAccount = (id: any) => (dispatch: any) => {
-/** 
- * If no pass id as parameter returns an error
- * @return error = "Can't find Account without id"
- * */ 
+  /**
+   * If no pass id as parameter returns an error
+   * @return error = "Can't find Account without id"
+   * */
   if (!id) {
     let error = "Can't find Account without id"
     return dispatch(actions.catchError({ error, callType: callTypes.action }))
@@ -51,7 +50,7 @@ export const fetchAccount = (id: any) => (dispatch: any) => {
 /**
  * Create an account
  * @param accountForCreation
-*/ 
+ */
 export const createAccount = (accountForCreation: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
@@ -69,7 +68,7 @@ export const createAccount = (accountForCreation: any) => (dispatch: any) => {
 /**
  * Update an account
  * @param account
-*/ 
+ */
 export const updateAccount = (account: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
@@ -82,4 +81,3 @@ export const updateAccount = (account: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
 }
-

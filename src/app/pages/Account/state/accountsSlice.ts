@@ -59,14 +59,14 @@ export const accountsSlice = createSlice({
       state.accountsTable.success = data.success
     },
 
-       // createAccount
-       accountCreated: (state, action) => {
-        state.actionsLoading = false
-        state.error = null
-        state.accountsTable.entities.push(action.payload.account)
-      },
+    // createAccount
+    accountCreated: (state, action) => {
+      state.actionsLoading = false
+      state.error = null
+      state.accountsTable.entities.push(action.payload.account)
+    },
 
-         // updateAccount
+    // updateAccount
     accountUpdated: (state, action) => {
       state.error = null
       state.actionsLoading = false
@@ -78,8 +78,6 @@ export const accountsSlice = createSlice({
       })
     },
 
-
-
     // deleteAccount
     accountDeleted: (state, action) => {
       state.error = null
@@ -90,7 +88,9 @@ export const accountsSlice = createSlice({
     accountsDeleted: (state, action) => {
       state.error = null
       state.actionsLoading = false
-      state.accountsTable.entities = state.accountsTable.entities.filter((el: any) => !action.payload.ids.includes(el.id))
+      state.accountsTable.entities = state.accountsTable.entities.filter(
+        (el: any) => !action.payload.ids.includes(el.id)
+      )
     },
     // accountsUpdateState
     accountsStatusUpdated: (state, action) => {
@@ -107,11 +107,10 @@ export const accountsSlice = createSlice({
   },
 })
 
-    // on creation a new contact append it to existing contacts
-    // newContactCreated: (state, action) => {
-    //   const { data } = action.payload
-    //   state.actionsLoading = false
-    //   state.error = null
-    //   state.accountsTable.entities.unshift(data.data)
-    // },
-  
+// on creation a new contact append it to existing contacts
+// newContactCreated: (state, action) => {
+//   const { data } = action.payload
+//   state.actionsLoading = false
+//   state.error = null
+//   state.accountsTable.entities.unshift(data.data)
+// },
