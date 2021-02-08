@@ -1,14 +1,6 @@
 import React, { useState } from 'react'
 import { Toolbar, Dialog, DialogActions, DialogContent, Typography, Button, Grid, ButtonGroup } from '@material-ui/core'
 import CountryForm from './Form/countryForm'
-// import { Paper, makeStyles } from '@material-ui/core';
-
-// const useStyles = makeStyles(theme => ({
-//   pageContent: {
-//       margin: theme.spacing(5),
-//       padding: theme.spacing(3)
-//   }
-// }))
 
 const CountryToolbar = () => {
   const [open, setOpen] = useState(false)
@@ -21,14 +13,10 @@ const CountryToolbar = () => {
     }
   }
 
-  // const classes = useStyles();
-
   const body = (
     <>
       <Typography variant="h4">Add Country</Typography>
-      {/* <Paper className={classes.pageContent}>  */}
       <CountryForm />
-      {/* </Paper> */}
     </>
   )
   return (
