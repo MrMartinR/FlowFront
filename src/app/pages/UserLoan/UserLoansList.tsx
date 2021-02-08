@@ -45,27 +45,27 @@ const UserLoansList = (props: any) => {
     arr.forEach((element: any) => {
       let dt = {} as any
       dt['id'] = element.id
-      dt['xirr'] = element.xirr
-      dt['market'] = element.market
-      dt['invest_mode'] = element.invest_mode
-      dt['position'] = element.position
-      dt['investment_amount'] = element.investment_amount
-      dt['date_in'] = element.date_in
-      dt['date_out'] = element.date_out
+      dt['xirr'] = element.attributes.xirr
+      dt['market'] = element.attributes.market
+      dt['invest_mode'] = element.attributes.invest_mode
+      dt['position'] = element.attributes.position
+      dt['investment_amount'] = element.attributes.investment_amount
+      dt['date_in'] = element.attributes.date_in
+      dt['date_out'] = element.attributes.date_out
 
-      dt['loan_id'] = element.loan_id
-      dt['loan_name'] = element.loan_name
-      dt['loan_status'] = element.loan_status
-      dt['loan_rating'] = element.loan_rating
-      dt['loan_borrower_type'] = element.loan_borrower_type
-      dt['loan_category'] = element.loan_category
-      dt['loan_amount'] = element.loan_amount
-      dt['loan_borrower'] = element.loan_borrower
-      dt['loan_date_listed'] = element.loan_date_listed
-      dt['loan_date_issued'] = element.loan_date_issued
-      dt['loan_date_maturity'] = element.loan_date_maturity
-      dt['loan_amortization'] = element.loan_amortization
-      dt['loan_installment'] = element.loan_installment
+      dt['loan_id'] = element.attributes.loan.id
+      dt['loan_name'] = element.attributes.loan.name
+      dt['loan_status'] = element.attributes.loan.status
+      dt['loan_rating'] = element.attributes.loan.rating
+      dt['loan_borrower_type'] = element.attributes.loan.borrower_type
+      dt['loan_category'] = element.attributes.loan.category
+      dt['loan_amount'] = element.attributes.loan.amount
+      dt['loan_borrower'] = element.attributes.loan.borrower
+      dt['loan_date_listed'] = element.attributes.loan.date_listed
+      dt['loan_date_issued'] = element.attributes.loan.date_issued
+      dt['loan_date_maturity'] = element.attributes.loan.date_maturity
+      dt['loan_amortization'] = element.attributes.loan.amortization
+      dt['loan_installment'] = element.attributes.loan.installment
 
       data.push(dt)
     })
