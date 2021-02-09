@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { Grid, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
+import { Grid, Typography } from '@material-ui/core/'
 import { XGrid, ColDef } from '@material-ui/x-grid'
-import { getAllCountries } from './state/countriesActions'
 
 const columns: ColDef[] = [
   { field: 'name', headerName: 'Name', width: 200 },
@@ -13,12 +12,12 @@ const columns: ColDef[] = [
   { field: 'fisical_year_start', headerName: 'Fiscal Year', width: 200 },
 ]
 
-const CountriesList = (props: any) => {
+const CurrenciesList = (props: any) => {
   const { getAllCountry, countries } = props
   const { listLoading, countryTable } = countries
 
   useEffect(() => {
-    getAllCountries()
+    getAllCountry()
   }, [getAllCountry])
 
   if (listLoading) {
@@ -45,10 +44,11 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    getAllCountry: () => dispatch(getAllCountries()),
-  }
-}
+// const mapDispatchToProps = (dispatch: any) => {
+//   return {
+//     getAllCountry: () => dispatch(getAllCountry()),
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CountriesList)
+// export default connect(mapStateToProps, mapDispatchToProps)(CountriesList)
+export default connect(mapStateToProps)(CurrenciesList)

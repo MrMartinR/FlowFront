@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../../../../../redux/store'
-import { API_URL } from '../../../../../redux/utils'
+import { API_URL } from '../../../../utils'
 
 export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`
 

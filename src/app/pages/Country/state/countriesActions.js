@@ -30,7 +30,7 @@ export const fetchCountries = (params) => (dispatch) => {
     })
 }
 
-export const fetchAllCountry = () => (dispatch) => {
+export const getAllCountries = () => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
     .getAllCountries()

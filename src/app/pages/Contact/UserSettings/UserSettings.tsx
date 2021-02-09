@@ -1,25 +1,21 @@
 /**
  *
- *  Settings displayed on the Contact record
- *
- *   TODO: check if make sense the avatar here, because the contact is linked to the user, so we can use the picture in the contacts
- *   <Form.Group as={Row} controlId="formGridAvatar"> </Form.Group>
+ * Component to render the User Settings in the Contact Record
  *
  */
 
 /* eslint-disable no-return-assign */
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { Grid, TextField, InputLabel, Button, MenuItem, Card, CardHeader, CardContent, Select } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import { getAllCountries } from '../Country/state/countryActions'
-import { getUserProfile, updateProfile } from '../../actions/userActions'
-import { toAbsoluteUrl } from '../../../_metronic/_helpers'
-import { getAllCurrencies } from '../../actions/currencyActions'
-import CustomizedSnackbars from '../../utils/snackbar'
+import { toAbsoluteUrl } from '../../../utils'
+import { getAllCountries } from '../../Country/state/countriesActions'
+import { getAllCurrencies } from '../../Currency/state/currenciesActions'
+import { getUserProfile, updateProfile } from './userSettingsActions'
+import { Grid, TextField, InputLabel, Button, MenuItem, Card, CardHeader, CardContent, Select } from '@material-ui/core'
 
 const Settings = () => {
-  const auth = useSelector((state) => state.auth)
+  const auth = useSelector((state: any) => state.auth)
 
   /** const classes = {
    *  inputRoot: {
@@ -33,7 +29,7 @@ const Settings = () => {
    */
   const [currencies, setCurrencies] = useState([])
   const [countries, setCountries] = useState([])
-  const [userProfile, setUserProfile] = useState({
+  const [userProfile, setUserProfile]: any = useState({
     avatar_url: toAbsoluteUrl('/media/logos/flow-logo.svg'),
   })
 
@@ -43,43 +39,43 @@ const Settings = () => {
     return true
   }
 
-  const setState = (newState) => {
+  const setState = (newState: any) => {
     setUserProfile({ ...userProfile, ...newState })
   }
 
-  useEffect(() => {
-    // Update the document title using the browser API
-    getUserProfile(auth)
-      .then((res) => setUserProfile(res.data.data[0]))
-      .catch((err) => {
-        console.log(err)
-      })
+  // useEffect(() => {
+  //   // Update the document title using the browser API
+  //   getUserProfile(auth)
+  //     .then((res) => setUserProfile(res.data.data[0]))
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
 
-    getAllCountries(auth)
-      .then((res) => setCountries(res.data.data))
-      .catch((err) => {
-        console.log(err)
-      })
+  //   getAllCountries()
+  //     .then((res) => setCountries(res.data.data))
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
 
-    getAllCurrencies(auth)
-      .then((res) => {
-        const currency = res.data.data.sort((a, b) => {
-          if (a.code > b.code) {
-            return 1
-          }
-          if (b.code > a.code) {
-            return -1
-          }
-          return 0
-        })
-        setCurrencies(currency)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [auth])
+  //   getAllCurrencies()
+  //     .then((res) => {
+  //       const currency = res.data.data.sort((a, b) => {
+  //         if (a.code > b.code) {
+  //           return 1
+  //         }
+  //         if (b.code > a.code) {
+  //           return -1
+  //         }
+  //         return 0
+  //       })
+  //       setCurrencies(currency)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  // }, [auth])
 
-  const handleChange = (e, field) => {
+  const handleChange = (e: any, field: any) => {
     let data
     if (['country', 'currency'].includes(field)) {
       const { id } = e.currentTarget
@@ -119,51 +115,43 @@ const Settings = () => {
   // TODO: Create a theme to save the global variables.
   const variant = 'outlined'
 
-  const setSnackState = (newState) => {
+  const setSnackState = (newState: any) => {
     _setSnackState({ ...snackState, ...newState })
   }
 
-  // const onFileChange = (e) => {
-  //   const file = e.target && e.target.files && e.target.files[0] ? e.target.files[0] : ''
-  //   updateProfile(
-  //     auth,
-  //     {
-  //       avatar: file,
-  //     },
-  //     file && file.name ? file.name : false,
-  //   )
-  //     .then((res) => {
-  //       if (res.data && res.data.success) {
-  //         setSnackState({
-  //           message: 'Saved!',
-  //           open: true,
-  //           variant: 'success',
-  //         })
-  //         setState({
-  //           avatar_url: res.data.data[0].avatar_url,
-  //         })
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       setSnackState({
-  //         message: err.message,
-  //         open: true,
-  //         variant: 'error',
-  //       })
-  //     })
-  // }
+  const onFileChange = (e: any) => {
+    const file = e.target && e.target.files && e.target.files[0] ? e.target.files[0] : ''
+    updateProfile(
+      auth,
+      {
+        avatar: file,
+      },
+      file && file.name ? file.name : false
+    )
+      .then((res) => {
+        if (res.data && res.data.success) {
+          setSnackState({
+            message: 'Saved!',
+            open: true,
+            variant: 'success',
+          })
+          setState({
+            avatar_url: res.data.data[0].avatar_url,
+          })
+        }
+      })
+      .catch((err) => {
+        setSnackState({
+          message: err.message,
+          open: true,
+          variant: 'error',
+        })
+      })
+  }
 
   return (
     <Grid container direction="column" spacing={2} alignContent="space-around" alignItems="stretch">
       <CardHeader title="Settings" subheader="Update your account and settings" />
-
-      <CustomizedSnackbars
-        {...snackState}
-        setSnackState={setSnackState}
-        handleClose={() => {
-          setSnackState({ open: false })
-        }}
-      />
 
       {/* Personal Information */}
       <Grid item xs={12}>
@@ -262,7 +250,6 @@ const Settings = () => {
                 variant={variant}
                 onChange={(e) => handleChange(e, 'country')}
                 value={userProfile.country && userProfile.country.name ? userProfile.country.name : ''}
-                size="small"
               >
                 {countries.map(({ name, id }) => (
                   <MenuItem key={name} id={id} value={name}>
@@ -279,7 +266,6 @@ const Settings = () => {
                 labelId="currency-simple-select"
                 id="currency-simple-select"
                 variant={variant}
-                size="small"
                 value={userProfile.currency && userProfile.currency.code ? userProfile.currency.code : ''}
                 onChange={(e) => handleChange(e, 'currency')}
               >

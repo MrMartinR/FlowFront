@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { API_URL } from '../../../../redux/utils'
-import { optionsHeaders } from '../../../../redux/utils'
+import { API_URL, optionsHeaders } from '../../../utils'
 
 // the API endpoint
 export const CONTACTS_URL = `${API_URL}/api/v1/contacts`

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL, optionsHeaders } from '../../../../redux/utils'
+import { API_URL, optionsHeaders } from '../../../utils'
 
 /**
  * This is the main API endpoint for account

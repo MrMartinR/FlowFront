@@ -15,7 +15,7 @@ import {
 import ContactAdd from './contactAdd'
 import { RootState } from '../../../redux/rootReducer'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import * as countryActions from '../Country/state/countriesActions'
+import * as countriesActions from '../Country/state/countriesActions'
 
 function getSteps() {
   return ['Select Contact Type', 'Select Country', 'Select Visibility', 'Fill in Contact Details']
@@ -83,19 +83,19 @@ export const VerticalLinearStepper = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(countryActions.fetchAllCountry())
+        dispatch(countriesActions.getAllCountries())
       }
     }, [dispatch])
   }
   GetAllCountries()
-  useEffect(() => {
-    if (countryState && countryState.countryTable && countryState.countryTable.entities) {
-      setList(countryState.countryTable.entities)
-      setIsLoading(countryState.listLoading)
-    }
-  }, [countryState])
-  console.log(list)
-  console.log(isLoading)
+  // useEffect(() => {
+  //   if (countryState && countryState.countriesTable && countryState.countryTable.entities) {
+  //     setList(countryState.countryTable.entities)
+  //     setIsLoading(countryState.listLoading)
+  //   }
+  // }, [countryState])
+  // console.log(list)
+  // console.log(isLoading)
 
   useEffect(() => {
     if (checkState.checkedA === true) {

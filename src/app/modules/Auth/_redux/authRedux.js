@@ -50,7 +50,7 @@ export const reducer = persistReducer(
       }
 
       case actionTypes.Logout: {
-        // TODO: Change this code. Actions in reducer aren't allowed.
+        // @rev TODO: Change this code. Actions in reducer aren't allowed.
         return initialAuthState
       }
 

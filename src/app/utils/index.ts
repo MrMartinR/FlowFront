@@ -1,4 +1,4 @@
-import store from './store'
+import store from './../../redux/store'
 
 export const optionsHeaders = () => {
   const {
@@ -34,3 +34,5 @@ if (process.env.NODE_ENV === 'production') {
 
 export const API_URL = _API_URL
 export const FORGOT_PASSWORD_CALLBACK = _FORGOT_PASSWORD_CALLBACK
+
+export const toAbsoluteUrl = (pathname: any) => process.env.PUBLIC_URL + pathname

@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { API_URL } from '../../redux/utils'
+import { API_URL } from '../../../utils'
 
-export const updateProfile = (headerPara, details, fileName = false) => {
+export const updateProfile = (headerPara: any, details: any, fileName: any = false) => {
   const formData = new FormData()
   Object.entries(details).forEach(([key, value]) => {
     if (key) {
-      const data = value
+      const data: any = value
       if (fileName) {
         formData.append(`user[${key}]`, data, fileName)
       } else {
@@ -23,7 +23,7 @@ export const updateProfile = (headerPara, details, fileName = false) => {
   })
 }
 
-export const getUserProfile = (headerPara) =>
+export const getUserProfile = (headerPara: any) =>
   axios.get(`${API_URL}/api/v1/user_profile`, {
     headers: {
       'access-token': headerPara.authToken,

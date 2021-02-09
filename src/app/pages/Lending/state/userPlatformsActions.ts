@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { any } from 'prop-types'
 
-import { optionsHeaders } from '../../../../redux/utils'
+import { optionsHeaders } from '../../../utils'
 import { USER_PLATFORMS_URL } from './userPlatformsCrud'
 import { userPlatformsSlice } from './userPlatformsSlice'
 

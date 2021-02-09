@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { userLoansSlice } from './userLoansSlice'
-import { optionsHeaders } from '../../../../redux/utils'
+import { optionsHeaders } from '../../../utils'
 import { USER_LOANS_URL } from './userLoansCrud'
 
 const { actions } = userLoansSlice

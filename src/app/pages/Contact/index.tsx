@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../redux/rootReducer'
 import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
-import { ContactMethod } from './ContactMethods/contactMethods'
+import { ContactMethod } from './ContactMethods/ContactMethods'
 import { ContactsList } from './contactList'
 import { ContactDetails } from './contactDetails'
-import { RootState } from '../../../redux/rootReducer'
 
 import ContactToolBar from './contactToolbar'
 

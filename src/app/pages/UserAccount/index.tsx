@@ -4,7 +4,7 @@ import { UserAccountCreateDialog } from './UserAccountCreateDialog'
 // import { UserAccountsUIProvider } from './UserAccountsUIContext'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as userAccountsActions from './state/userAccountsActions'
-import * as currenciesActions from '../../../redux/currencies/currenciesActions'
+import * as currenciesActions from '../Currency/state/currenciesActions'
 import * as countriesActions from '../Country/state/countriesActions'
 import { UserAccountsList } from './UserAccountList'
 import { UserAccountsDetails } from './UserAccountDetails'
@@ -48,8 +48,8 @@ export const UserAccountsPage = (props: any) => {
   //         perPage: perPage,
   //       })
   //     )
-  //     dispatch(countriesActions.fetchAllCountry())
-  //     dispatch(currenciesActions.fetchAllCurrencies())
+  //     dispatch(countriesActions.getAllCountry())
+  //     dispatch(currenciesActions.getAllCurrencies())
   //   }
   // }, [dispatch, perPage])
 

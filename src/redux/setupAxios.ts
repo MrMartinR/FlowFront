@@ -1,6 +1,6 @@
-export default function setupAxios(axios, store) {
+export default function setupAxios(axios: any, store: any) {
   axios.interceptors.request.use(
-    (config) => {
+    (config: any) => {
       const {
         // auth: { authToken, user, client, expiry, token }
         auth: { authToken },
@@ -17,6 +17,6 @@ export default function setupAxios(axios, store) {
 
       return config
     },
-    (err) => Promise.reject(err)
+    (err: any) => Promise.reject(err)
   )
 }

@@ -4,7 +4,7 @@ import * as requestFromServer from './userAccountsCrud'
 // import { userAccountsSlice, callTypes } from './userAccountsSlice'
 import { userAccountsSlice } from './userAccountsSlice'
 
-import { optionsHeaders } from '../../../../redux/utils'
+import { optionsHeaders } from '../../../utils'
 import { USER_ACCOUNTS_URL } from './userAccountsCrud'
 
 const { actions } = userAccountsSlice

@@ -38,14 +38,7 @@ export const countriesSlice = createSlice({
         state.actionsLoading = true
       }
     },
-    countrySort: (state, action) => {
-      const { field, isAsc, entities } = action.payload
-      const areEmptyFields = entities.some((i) => i[field])
-      if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(Util.sortCustom(field, isAsc, (a) => a.toUpperCase()))
-        state.countryTable.entities = entitiesOrdened
-      }
-    },
+
     // getCustomerById
     countryFetched: (state, action) => {
       console.log('ACTION: ', action)

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios'
-import { API_URL, FORGOT_PASSWORD_CALLBACK } from '../../../../redux/utils'
+import { API_URL, FORGOT_PASSWORD_CALLBACK } from '../../../utils'
 
 // export const API_URL = _API_URL
 export const LOGIN_URL = `${API_URL}/api/v1/auth/sign_in`
@@ -8,6 +8,9 @@ export const REGISTER_URL = `${API_URL}/api/v1/auth`
 export const REQUEST_PASSWORD_URL = `${API_URL}/api/v1/auth/password`
 export const SUBMIT_PASSWORD_URL = `${API_URL}/api/v1/auth/password`
 
+/**
+ * @rev this Global Variable
+ */
 export const ME_URL = 'api/me'
 
 export function login(email, password) {
