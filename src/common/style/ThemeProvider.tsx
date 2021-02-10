@@ -1,4 +1,3 @@
-import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 
 const theme = createMuiTheme({
@@ -28,17 +27,22 @@ const theme = createMuiTheme({
   },
 
   props: {
-    // Set default elevation to 1 for popovers.
+    /* Set default elevation to 1 for popovers */
     MuiPopover: {
       elevation: 0,
+    },
+
+    /* No more ripple, on the whole application */
+    MuiButtonBase: {
+      disableRipple: true,
     },
   },
 })
 
-export function MaterialThemeProvider(props) {
+export function FlowThemeProvider(props: any) {
   const { children } = props
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
 
-export default MaterialThemeProvider
+export default FlowThemeProvider

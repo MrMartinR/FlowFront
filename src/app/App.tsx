@@ -7,8 +7,9 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import Routes from './Routes'
-import { LayoutSplashScreen, MaterialThemeProvider } from '../common/layout'
-// TODO: Added type any to funtion app
+import { LayoutSplashScreen } from '../common/layout'
+import { FlowThemeProvider } from '../common/style/ThemeProvider'
+// @rev: Added type any to funtion app
 export default function App({ store, persistor, basename }: any) {
   return (
     /* Provide Redux store */
@@ -20,10 +21,10 @@ export default function App({ store, persistor, basename }: any) {
           {/* Override `basename` (e.g: `homepage` in `package.json`) */}
           <BrowserRouter basename={basename}>
             {/* This library only returns the location that has been active before the recent location change in the current window lifetime. */}
-            <MaterialThemeProvider>
+            <FlowThemeProvider>
               {/* Render routes with provided `Layout`. */}
               <Routes />
-            </MaterialThemeProvider>
+            </FlowThemeProvider>
           </BrowserRouter>
         </React.Suspense>
       </PersistGate>

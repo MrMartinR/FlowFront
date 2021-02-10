@@ -5,10 +5,10 @@ import { RootState } from '../../../redux/rootReducer'
 import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
 import { ContactMethod } from './ContactMethods/ContactMethods'
-import { ContactsList } from './contactList'
-import { ContactDetails } from './contactDetails'
+import { ContactsList } from './ContactList'
+import { ContactDetails } from './ContactDetails'
 
-import ContactToolBar from './contactToolbar'
+import ContactToolBar from './ContactToolbar'
 
 export const Contacts = () => {
   const { currentState, methodsState } = useSelector(
@@ -84,15 +84,15 @@ export const Contacts = () => {
       <ContactToolBar />
 
       <Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <Grid container spacing={1} direction="row" justify="space-evenly">
-            <Grid key={1} md={4} item>
+            <Grid key={1} xs={3} item>
               <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
             </Grid>
-            <Grid key={2} md={4} item>
+            <Grid key={2} xs={4} item>
               <ContactDetails selectedContact={selectedContact} />
             </Grid>
-            <Grid key={3} md={4} item>
+            <Grid key={3} xs={4} item>
               <ContactMethod
                 listMethods={listMethods}
                 methodLoading={methodLoading}

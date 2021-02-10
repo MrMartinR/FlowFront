@@ -12,7 +12,7 @@ import {
   FormGroup,
   FormControlLabel,
 } from '@material-ui/core'
-import ContactAdd from './contactAdd'
+import ContactAdd from './ContactAdd'
 import { RootState } from '../../../redux/rootReducer'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as countriesActions from '../Country/state/countriesActions'
