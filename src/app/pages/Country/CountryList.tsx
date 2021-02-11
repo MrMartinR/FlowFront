@@ -23,17 +23,17 @@ const CountriesList = (props: any) => {
     arr.forEach((element: any) => {
       let dt = {} as any
       dt['id'] = element.id
-      dt['name'] = element.name
-      dt['iso_code'] = element.iso_code
-      dt['continent'] = element.continent
-      dt['currency_code'] = element.currency.code
+      dt['name'] = element.attributes.name
+      dt['iso_code'] = element.attributes.iso_code
+      dt['continent'] = element.attributes.continent
+      dt['currency_code'] = element.attributes.currency.code
       dt['flag'] = element.flag
       dt['fisical_year_start'] = element.fisical_year_start
       data.push(dt)
     })
     return data
   }
-
+  console.log(countryTable.entities)
   useEffect(() => {
     fetchAllCountry()
   }, [fetchAllCountry])

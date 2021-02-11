@@ -35,6 +35,7 @@ export const fetchAllCountry = () => (dispatch) => {
   return requestFromServer
     .getAllCountries()
     .then((response) => {
+      console.log(response)
       const { data } = response.data
       dispatch(actions.countriesFetched({ entities: data }))
     })
@@ -81,7 +82,7 @@ export const createCountry = (countryForCreation) => (dispatch) => {
   return requestFromServer
     .createCountry(countryForCreation)
     .then((response) => {
-      console.log(response.data.data[0])
+      console.log(response.data)
       const countries = response.data.data
       dispatch(actions.countryCreated({ country: countries[0] }))
     })

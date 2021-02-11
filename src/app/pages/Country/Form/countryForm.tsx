@@ -18,17 +18,6 @@ const schema = yup.object().shape({
   fiscal_year_start: yup.date().required('date is required'),
 })
 
-// interface Props {
-//   currencies: {
-//     listLoading: boolean,
-//     currencyTable: {
-//       entities: any[]
-//     }
-//   },
-//   loadCurrencies: () => any,
-//   onSubmitClick: (data: object) => any
-// }
-
 const CountryForm = (props: any) => {
   const { handleSubmit, register, errors, control } = useForm({
     mode: 'onBlur',
@@ -69,9 +58,8 @@ const CountryForm = (props: any) => {
                 <Select>
                   <MenuItem value="">None</MenuItem>
                   {currencyTable.entities.map((item: any) => (
-                    <MenuItem key={item.name} value={item.id}>
-                      {' '}
-                      {item.name}{' '}
+                    <MenuItem key={item.attributes.name} value={item.attributes.id}>
+                      {item.attributes.name}
                     </MenuItem>
                   ))}
                 </Select>
