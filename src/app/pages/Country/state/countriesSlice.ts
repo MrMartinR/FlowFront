@@ -52,14 +52,14 @@ export const countriesSlice = createSlice({
       }
     },
 
-    // countrySort: (state, action) => {
-    //   const { field, isAsc, entities } = action.payload
-    //   const areEmptyFields = entities.some((i: any) => i[field])
-    //   if (areEmptyFields) {
-    //     const entitiesOrdened = [...entities].sort(sortCustom(field, isAsc, (a: any, b: any) => a.toUpperCase()))
-    //     state.countryTable.entities = entitiesOrdened
-    //   }
-    // },
+    countrySort: (state, action) => {
+      const { field, isAsc, entities } = action.payload
+      const areEmptyFields = entities.some((i: any) => i[field])
+      if (areEmptyFields) {
+        const entitiesOrdened = [...entities].sort(sortCustom(field, isAsc, (a: any, b: any) => a.toUpperCase()))
+        state.countryTable.entities = entitiesOrdened
+      }
+    },
 
     // getCustomerById
     countryFetched: (state, action) => {
