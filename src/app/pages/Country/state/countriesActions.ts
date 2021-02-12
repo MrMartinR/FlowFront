@@ -3,18 +3,18 @@ import { countriesSlice, callTypes } from './countriesSlice'
 
 const { actions } = countriesSlice
 
-export const countrySort = (queryParams: any) => (dispatch: any) => {
-  const { field, isAsc, entities } = queryParams
-  console.log('field', field)
-  dispatch(
-    actions.countrySort({
-      callType: callTypes.action,
-      field,
-      isAsc,
-      entities,
-    })
-  )
-}
+// export const countrySort = (queryParams: any) => (dispatch: any) => {
+//   const { field, isAsc, entities } = queryParams
+//   console.log('field', field)
+//   dispatch(
+//     actions.countrySort({
+//       callType: callTypes.action,
+//       field,
+//       isAsc,
+//       entities,
+//     })
+//   )
+// }
 
 export const fetchCountries = (params: any) => (dispatch: any) => {
   console.log('Called')
