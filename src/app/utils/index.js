@@ -5,6 +5,10 @@ export const sortCustom = (field, isAsc, primer) => {
 
   isAsc = isAsc ? 1 : -1
 
-  return (a, b) => [(a = key(a)), (b = key(b)), isAsc * ((a > b) - (b > a))]
+  return function compareFunction(a, b) {
+    a = key(a)
+    b = key(b)
+    return isAsc * (a > b) - (b > a)
+  }
 }
 export default sortCustom

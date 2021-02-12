@@ -3,7 +3,7 @@ import { countriesSlice, callTypes } from './countriesSlice'
 
 const { actions } = countriesSlice
 
-export const countrySort = (queryParams) => (dispatch) => {
+export const countrySort = (queryParams: any) => (dispatch: any) => {
   const { field, isAsc, entities } = queryParams
   console.log('field', field)
   dispatch(
@@ -15,7 +15,8 @@ export const countrySort = (queryParams) => (dispatch) => {
     })
   )
 }
-export const fetchCountries = (params) => (dispatch) => {
+
+export const fetchCountries = (params: any) => (dispatch: any) => {
   console.log('Called')
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
@@ -30,7 +31,7 @@ export const fetchCountries = (params) => (dispatch) => {
     })
 }
 
-export const fetchAllCountry = () => (dispatch) => {
+export const fetchAllCountry = () => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
     .getAllCountries()
@@ -45,7 +46,7 @@ export const fetchAllCountry = () => (dispatch) => {
     })
 }
 
-export const fetchCountry = (id) => (dispatch) => {
+export const fetchCountry = (id: any) => (dispatch: any) => {
   if (!id) {
     return dispatch(actions.countryFetched({ countryForEdit: undefined }))
   }
@@ -64,7 +65,7 @@ export const fetchCountry = (id) => (dispatch) => {
     })
 }
 
-export const deleteCountry = (id) => (dispatch) => {
+export const deleteCountry = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
     .deleteCountry(id)
@@ -77,7 +78,7 @@ export const deleteCountry = (id) => (dispatch) => {
     })
 }
 
-export const createCountry = (countryForCreation) => (dispatch) => {
+export const createCountry = (countryForCreation: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
     .createCountry(countryForCreation)
@@ -92,7 +93,7 @@ export const createCountry = (countryForCreation) => (dispatch) => {
     })
 }
 
-export const updateCountry = (country) => (dispatch) => {
+export const updateCountry = (country: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
     .updateCountry(country)
@@ -105,10 +106,10 @@ export const updateCountry = (country) => (dispatch) => {
     })
 }
 
-export const updateCountriesStatus = (ids, status) => (dispatch) => {
+export const updateCountriesStatus = (ids: any, status: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
-    .updateStatusForCountries(ids, status)
+    .updateStatusForCountries({ ids, status })
     .then(() => {
       dispatch(actions.countriesStatusUpdated({ ids, status }))
     })
@@ -118,7 +119,7 @@ export const updateCountriesStatus = (ids, status) => (dispatch) => {
     })
 }
 
-export const deleteCountries = (ids) => (dispatch) => {
+export const deleteCountries = (ids: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
     .deleteCountries(ids)

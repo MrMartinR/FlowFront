@@ -1,17 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Util from '../../../utils'
+import sortCustom from '../../../utils'
 
-const initialCountriesState = {
+interface initialState {
+  listLoading: boolean
+  actionsLoading: boolean
+  countryTable: {
+    entities: any[]
+    page: number
+    pages: number
+    perPage: number
+  }
+  countryForEdit: undefined
+  error: string
+}
+
+const initialCountriesState: initialState = {
   listLoading: true,
   actionsLoading: false,
   countryTable: {
     entities: [],
-    page: null,
-    pages: null,
-    perPage: null,
+    page: 0,
+    pages: 0,
+    perPage: 0,
   },
   countryForEdit: undefined,
-  lastError: null,
+  error: '',
 }
 export const callTypes = {
   list: 'list',
@@ -31,46 +44,48 @@ export const countriesSlice = createSlice({
       }
     },
     startCall: (state, action) => {
-      state.error = null
+      state.error = ''
       if (action.payload.callType === callTypes.list) {
         state.listLoading = true
       } else {
         state.actionsLoading = true
       }
     },
+
     countrySort: (state, action) => {
       const { field, isAsc, entities } = action.payload
-      const areEmptyFields = entities.some((i) => i[field])
+      const areEmptyFields = entities.some((i: any) => i[field])
       if (areEmptyFields) {
-        const entitiesOrdened = [...entities].sort(Util.sortCustom(field, isAsc, (a) => a.toUpperCase()))
+        const entitiesOrdened = [...entities].sort(sortCustom(field, isAsc, (a: any, b: any) => a.toUpperCase()))
         state.countryTable.entities = entitiesOrdened
       }
     },
+
     // getCustomerById
     countryFetched: (state, action) => {
       console.log('ACTION: ', action)
       state.actionsLoading = false
       state.countryForEdit = action.payload.countryForEdit
-      state.error = null
+      state.error = ''
     },
     // findCustomers
     countriesFetched: (state, action) => {
       const { entities } = action.payload
       state.listLoading = false
-      state.error = null
+      state.error = ''
       state.countryTable.entities = entities
     },
     // createCustomer
     countryCreated: (state, action) => {
       state.actionsLoading = false
-      state.error = null
+      state.error = ''
       state.countryTable.entities.push(action.payload.country)
     },
     // updateCustomer
     countryUpdated: (state, action) => {
-      state.error = null
+      state.error = ''
       state.actionsLoading = false
-      state.countryTable.entities = state.countryTable.entities.map((entity) => {
+      state.countryTable.entities = state.countryTable.entities.map((entity: any) => {
         if (entity.id === action.payload.country.id) {
           return action.payload.country
         }
@@ -79,23 +94,23 @@ export const countriesSlice = createSlice({
     },
     // deleteCustomer
     countryDeleted: (state, action) => {
-      state.error = null
+      state.error = ''
       state.actionsLoading = false
-      state.countryTable.entities = state.countryTable.entities.filter((el) => el.id !== action.payload.id)
+      state.countryTable.entities = state.countryTable.entities.filter((el: any) => el.id !== action.payload.id)
     },
     // deleteCustomers
     countriesDeleted: (state, action) => {
-      state.error = null
+      state.error = ''
       state.actionsLoading = false
-      state.countryTable.entities = state.countryTable.entities.filter((el) => !action.payload.ids.includes(el.id))
+      state.countryTable.entities = state.countryTable.entities.filter((el: any) => !action.payload.ids.includes(el.id))
     },
     // CountriesUpdateState
     countriesStatusUpdated: (state, action) => {
       state.actionsLoading = false
-      state.error = null
+      state.error = ''
       const { ids, status } = action.payload
-      state.countryTable.entities = state.countryTable.entities.map((entity) => {
-        if (ids.findIndex((id) => id === entity.id) > -1) {
+      state.countryTable.entities = state.countryTable.entities.map((entity: any) => {
+        if (ids.findIndex((id: any) => id === entity.id) > -1) {
           entity.status = status
         }
         return entity

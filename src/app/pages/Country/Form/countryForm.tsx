@@ -28,6 +28,7 @@ const CountryForm = (props: any) => {
   const { listLoading, currencyTable } = currencies
   const onSubmit = (data: any) => onSubmitClick(data)
 
+  console.log()
   useEffect(() => {
     loadCurrencies()
   }, [loadCurrencies])
@@ -58,7 +59,7 @@ const CountryForm = (props: any) => {
                 <Select>
                   <MenuItem value="">None</MenuItem>
                   {currencyTable.entities.map((item: any) => (
-                    <MenuItem key={item.attributes.name} value={item.attributes.id}>
+                    <MenuItem key={item.attributes.name} value={item.id}>
                       {item.attributes.name}
                     </MenuItem>
                   ))}
