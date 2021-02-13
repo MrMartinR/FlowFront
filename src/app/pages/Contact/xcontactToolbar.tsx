@@ -1,6 +1,6 @@
 import React from 'react'
 import { Toolbar, Dialog, DialogActions, DialogContent, Typography, Button, Grid, ButtonGroup } from '@material-ui/core'
-import VerticalLinearStepper from './ContactStepper'
+import VerticalLinearStepper from './xcontactStepper'
 
 /**
  * The contact top bar nav

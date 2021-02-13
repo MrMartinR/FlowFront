@@ -4,11 +4,11 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
-import { ContactMethod } from './ContactMethods/XContactMethods'
-import { ContactsList } from './ContactList'
+import { ContactMethod } from './ContactMethods/ContactMethods'
+import { ContactsList } from './xcontactList'
 import { ContactDetails } from './ContactDetails'
 
-import ContactToolBar from './ContactToolbar'
+import ContactToolBar from './xcontactToolbar'
 
 export const Contacts = () => {
   const { currentState, methodsState } = useSelector(
