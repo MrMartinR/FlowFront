@@ -26,6 +26,8 @@ const CountryForm = (props: any) => {
   const { currencies, loadCurrencies, onSubmitClick } = props
   const { listLoading, currencyTable } = currencies
 
+  // const onSubmit = (data: any) => console.log(data)
+
   const onSubmit = (data: any) => onSubmitClick(data)
 
   console.log()
