@@ -86,8 +86,9 @@ const CountryForm = (props: any) => {
 
           <TextField inputRef={register} name="fiscal_year_start" label="Fiscal year" />
           {errors.fiscal_year_start?.message && <p>Fiscal year is required</p>}
-
-          <Button type="submit">Submit</Button>
+          <div>
+            <Button type="submit">Submit</Button>
+          </div>
         </Grid>
       </Grid>
     </Form>
