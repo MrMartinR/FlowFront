@@ -14,9 +14,9 @@ import {
   Button,
 } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
-import AddContactMethodForm from './xaddContactMethodForm'
-import EditContactMethodForm from './xeditContactMethodForm'
-import DeleteContactMethod from './xdeleteContactMethod'
+import AddContactMethodForm from './AddContactMethodForm'
+import EditContactMethodForm from './EditContactMethodForm'
+import DeleteContactMethod from './DeleteContactMethod'
 
 export const ContactMethod = (props: any) => {
   const { methodLoading, listMethods, selectedContact, methodsState } = props

@@ -32,6 +32,10 @@ const theme = createMuiTheme({
       elevation: 0,
     },
 
+    MuiButton: {
+      disableElevation: true,
+    },
+
     /* No more ripple, on the whole application */
     MuiButtonBase: {
       disableRipple: true,

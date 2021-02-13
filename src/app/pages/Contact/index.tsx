@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
-import { ContactMethod } from './ContactMethods/ContactMethods'
+import { ContactMethod } from './ContactMethods/XContactMethods'
 import { ContactsList } from './ContactList'
 import { ContactDetails } from './ContactDetails'
 
