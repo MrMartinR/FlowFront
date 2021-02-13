@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { FormControl, Typography, InputLabel, Grid, TextField, Button, Select, MenuItem } from '@material-ui/core'
-// import Alert from '@material-ui/lab/Alert'
 import { Form } from './useForms'
 import { connect } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
@@ -14,7 +13,7 @@ const schema = yup.object().shape({
   iso_code: yup.string().required('iso code is required'),
   continent: yup.string().required('continent is required'),
   currency_id: yup.string().required('currency id is required'),
-  flag: yup.string().required('flag is required'),
+  flag: yup.mixed().required('flag is required'),
   fiscal_year_start: yup.date().required('date is required'),
 })
 
@@ -26,6 +25,9 @@ const CountryForm = (props: any) => {
 
   const { currencies, loadCurrencies, onSubmitClick } = props
   const { listLoading, currencyTable } = currencies
+
+  // const onSubmit = (data: any) => console.log(data)
+
   const onSubmit = (data: any) => onSubmitClick(data)
 
   console.log()
@@ -76,7 +78,10 @@ const CountryForm = (props: any) => {
           <TextField inputRef={register} name="continent" label="Continent" />
           {errors.continent?.message && <p>{errors.continent?.message}</p>}
 
-          <TextField inputRef={register} name="flag" label="Flag" />
+          <Button variant="contained" component="label">
+            Upload File
+            <input ref={register} name="flag" type="file" hidden />
+          </Button>
           {errors.flag?.message && <p>{errors.flag?.message}</p>}
 
           <TextField inputRef={register} name="fiscal_year_start" label="Fiscal year" />

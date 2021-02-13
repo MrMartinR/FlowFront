@@ -83,9 +83,9 @@ export const createCountry = (countryForCreation: any) => (dispatch: any) => {
   return requestFromServer
     .createCountry(countryForCreation)
     .then((response) => {
-      console.log(response.data)
-      const countries = response.data.data
-      dispatch(actions.countryCreated({ country: countries[0] }))
+      console.log(response.data.data)
+      const country = response.data.data
+      dispatch(actions.countryCreated({ country: country }))
     })
     .catch((error) => {
       error.clientMessage = "Can't create country"

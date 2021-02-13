@@ -21,13 +21,14 @@ const CountriesList = (props: any) => {
   const processData = (arr: any) => {
     let data = [] as any
     arr.forEach((element: any) => {
+      console.log(element)
       let dt = {} as any
       dt['id'] = element.id
       dt['name'] = element.attributes.name
       dt['iso_code'] = element.attributes.iso_code
       dt['continent'] = element.attributes.continent
       dt['currency_code'] = element.attributes.currency.code
-      dt['flag'] = element.flag
+      dt['flag'] = element.attributes.flag
       dt['fisical_year_start'] = element.fisical_year_start
       data.push(dt)
     })
