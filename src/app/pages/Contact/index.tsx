@@ -5,10 +5,10 @@ import { RootState } from '../../../redux/rootReducer'
 import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
 import { ContactMethod } from './ContactMethods/ContactMethods'
-import { ContactsList } from './xcontactList'
+import { ContactsList } from './ContactList'
 import { ContactDetails } from './ContactDetails'
 
-import ContactToolBar from './xcontactToolbar'
+import ContactToolBar from './ContactToolbar'
 
 export const Contacts = () => {
   const { currentState, methodsState } = useSelector(
