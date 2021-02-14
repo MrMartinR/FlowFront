@@ -22,8 +22,8 @@ export function getAllAccounts() {
  * @param ACCOUNTS_URL, accountsId, optionsHeaders
  * @returns Data about a specific Account
  */
-export function getAccountById(accountsId: any) {
-  return axios.get(`${ACCOUNTS_URL}/${accountsId}`, optionsHeaders())
+export function getAccountById(accountId: any) {
+  return axios.get(`${ACCOUNTS_URL}/${accountId}`, optionsHeaders())
 }
 
 /**
@@ -35,7 +35,7 @@ export function updateAccount(account: any) {
 }
 
 /**
- * POST method to add a new Account to the server
+ * POST method to create a new Account to the server
  * sending the optionsHeader in the call
  * @param ACCOUNTS_URL, account
  */

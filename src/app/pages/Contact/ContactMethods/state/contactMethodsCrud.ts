@@ -8,12 +8,12 @@ export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`
  * promise function to process the axios get given contact id
  * sends header/ authorization
  */
-export function getContactMethods(contactsId: any) {
+export function getContactMethods(contactId: any) {
   const {
     auth: { user, client, expiry, token },
   } = store.getState()
   return axios.get(`${CONTACT_METHODS_URL}`, {
-    params: { contact_id: contactsId },
+    params: { contact_id: contactId },
     headers: {
       // 'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Content-Type': 'application/json; charset=utf-8',
