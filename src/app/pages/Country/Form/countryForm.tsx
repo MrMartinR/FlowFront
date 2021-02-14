@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { FormControl, Typography, InputLabel, Grid, TextField, Button, Select, MenuItem } from '@material-ui/core'
+import { FormControl, Typography, InputLabel, Grid, TextField, Button, MenuItem, Select } from '@material-ui/core'
 import { Form, MyButton } from './useForms'
 import { connect } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
@@ -11,11 +11,14 @@ import { useStyles } from './useForms'
 
 const schema = yup.object().shape({
   name: yup.string().required('name of country is required'),
-  iso_code: yup.string().required('iso code is required'),
-  continent: yup.string().required('continent is required'),
+  iso_code: yup.string().required('iso_code is required').min(2).max(3),
   currency_id: yup.string().required('currency id is required'),
+  continent: yup.string().required('continent is required'),
   flag: yup.mixed().required('flag is required'),
-  fiscal_year_start: yup.date().required('date is required'),
+  fiscal_year_start: yup
+    .string()
+    .matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/, 'format is incorrect'),
+  // yup.date().required('date is required'),
 })
 
 const CountryForm = (props: any) => {
@@ -29,11 +32,11 @@ const CountryForm = (props: any) => {
   const { currencies, loadCurrencies, onSubmitClick } = props
   const { listLoading, currencyTable } = currencies
 
+  const continentArray = ['Europe', 'Asia', 'Africa', 'Australia', 'North America', 'South America']
   // const onSubmit = (data: any) => console.log(data)
 
   const onSubmit = (data: any) => onSubmitClick(data)
 
-  console.log()
   useEffect(() => {
     loadCurrencies()
   }, [loadCurrencies])
@@ -45,6 +48,8 @@ const CountryForm = (props: any) => {
       </>
     )
   }
+
+  console.log(currencyTable.entities)
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -65,7 +70,7 @@ const CountryForm = (props: any) => {
                   <MenuItem value="">None</MenuItem>
                   {currencyTable.entities.map((item: any) => (
                     <MenuItem key={item.attributes.name} value={item.id}>
-                      {item.attributes.name}
+                      {item.attributes.code}
                     </MenuItem>
                   ))}
                 </Select>
@@ -78,17 +83,35 @@ const CountryForm = (props: any) => {
           </FormControl>
           {errors.currency_id?.message && <p className={classes.error}>{errors.currency_id?.message}</p>}
 
-          <TextField inputRef={register} name="continent" label="Continent" />
+          <FormControl>
+            <InputLabel>continent</InputLabel>
+            <Controller
+              as={
+                <Select>
+                  <MenuItem value="">None</MenuItem>
+                  {continentArray.map((item: any, idx: any) => (
+                    <MenuItem key={idx} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              }
+              name="continent"
+              rules={{ required: 'this is required' }}
+              control={control}
+              defaultValue=""
+            />
+          </FormControl>
           {errors.continent?.message && <p className={classes.error}>{errors.continent?.message}</p>}
 
           <Button variant="contained" component="label">
-            Upload File
+            Upload Flag
             <input ref={register} name="flag" type="file" hidden />
           </Button>
           {errors.flag?.message && <p className={classes.error}>{errors.flag?.message}</p>}
 
-          <TextField inputRef={register} name="fiscal_year_start" label="Fiscal year" />
-          {errors.fiscal_year_start?.message && <p className={classes.error}>Fiscal year is required</p>}
+          <TextField inputRef={register} name="fiscal_year_start" label="Fiscal year" placeholder="yyyy-MM-dd" />
+          {errors.fiscal_year_start?.message && <p className={classes.error}>{errors.fiscal_year_start?.message}</p>}
           <div>
             <MyButton type="submit">Submit</MyButton>
           </div>

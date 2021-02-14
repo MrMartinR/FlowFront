@@ -12,7 +12,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { Grid, TextField, InputLabel, Button, MenuItem, Card, CardHeader, CardContent, Select } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import { getAllCountries } from '../Country/state/countryActions'
+import { fetchAllCountry } from '../Country/state/countriesActions'
 import { getUserProfile, updateProfile } from '../../actions/userActions'
 import { toAbsoluteUrl } from '../../../_metronic/_helpers'
 import { getAllCurrencies } from '../../actions/currencyActions'
@@ -55,7 +55,7 @@ const Settings = () => {
         console.log(err)
       })
 
-    getAllCountries(auth)
+    fetchAllCountry(auth)
       .then((res) => setCountries(res.data.data))
       .catch((err) => {
         console.log(err)
