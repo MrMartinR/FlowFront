@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../redux/rootReducer'
 import * as accountsActions from './state/accountsActions'
+import AccountToolBar from './AccountToolbar'
 import { AccountsList } from './AccountList'
 import { AccountDetails } from './AccountDetails'
-import { RootState } from '../../../redux/rootReducer'
-
-import AccountToolBar from './AccountToolbar'
 
 export const Accounts = () => {
   const { currentState } = useSelector(
@@ -56,8 +55,8 @@ export const Accounts = () => {
         <Grid item key={1} xs={3}>
           <AccountsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
         </Grid>
-        <Grid item key={2} xs={9} justify="flex-end">
-          <AccountDetails selectedContact={selectedAccount} />
+        <Grid item key={2} xs={9}>
+          <AccountDetails selectedAccount={selectedAccount} />
         </Grid>
       </Grid>
     </>

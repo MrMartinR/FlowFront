@@ -20,6 +20,7 @@ export const fetchAccounts = () => (dispatch: any) => {
     })
 }
 
+
 /**
  * Fetch individual accounts
  * @param id

@@ -1,8 +1,8 @@
 import { all } from 'redux-saga/effects'
 import { combineReducers } from 'redux'
 
-import { accountsSlice } from '../app/pages/Account/state/accountsSlice'
 import * as auth from '../app/modules/Auth/_redux/authRedux'
+import { accountsSlice } from '../app/pages/Account/state/accountsSlice'
 import { contactsSlice } from '../app/pages/Contact/state/contactsSlice'
 import { contactMethodsSlice } from '../app/pages/Contact/ContactMethods/state/contactMethodsSlice'
 import { countriesSlice } from '../app/pages/Country/state/countriesSlice'
