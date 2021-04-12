@@ -38,7 +38,7 @@ export const Currencies = () => {
     if (
       currentState &&
       currentState.currenciesTable &&
-      currentState.currenciesTable.success &&
+      //currentState.currenciesTable.success &&
       currentState.currenciesTable.entities
     ) {
       setList(currentState.currenciesTable.entities)

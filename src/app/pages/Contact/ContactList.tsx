@@ -28,7 +28,7 @@ export const ContactsList = (props: any) => {
     if (list.length >= 1) {
       let opt = [] as any
       list.map((option: any) => {
-        opt.push(option.name)
+        opt.push(option.attributes.name)
         return opt
       })
       setOptions(opt)
@@ -36,7 +36,7 @@ export const ContactsList = (props: any) => {
   }, [list])
 
   const handlePick = (e: any, v: any) => {
-    let selected = list.findIndex((itm: any) => itm.name === v)
+    let selected = list.findIndex((itm: any) => itm.attributes.name === v)
     setSelectedItemIndex(selected)
   }
 
@@ -67,7 +67,7 @@ export const ContactsList = (props: any) => {
                     <Avatar variant="rounded"></Avatar>
                   </ListItemAvatar>
 
-                  <ListItemText primary={`${item.name}`} />
+                  <ListItemText primary={`${item.attributes.name}`} />
                 </ListItem>
               </Card>
             ))

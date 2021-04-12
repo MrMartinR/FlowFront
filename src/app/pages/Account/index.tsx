@@ -39,7 +39,7 @@ export const Accounts = () => {
     if (
       currentState &&
       currentState.accountsTable &&
-      currentState.accountsTable.success &&
+      //currentState.accountsTable.success &&
       currentState.accountsTable.entities
     ) {
       setList(currentState.accountsTable.entities)

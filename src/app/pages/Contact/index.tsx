@@ -22,14 +22,16 @@ export const Contacts = () => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(0)
   const [list, setList] = useState([] as any)
   const [listMethods, setListMethods] = useState([] as any)
-  const [methodLoading, setMethodLoading] = useState(true)
+  //const [methodLoading, setMethodLoading] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
 
   let selectedContact = {}
+  const [singleContact, setSingleContact] = useState({})
 
   if (list && list[selectedItemIndex]) {
     selectedContact = list[selectedItemIndex]
   }
+
   // contact Redux state
   const GetAllContacts = () => {
     let dispatch = useDispatch()
@@ -39,21 +41,44 @@ export const Contacts = () => {
       }
     }, [dispatch])
   }
-  GetAllContacts()
+  GetAllContacts();
+
+  const GetContact = () => {
+    let ContactDispatch = useDispatch()
+    useEffect(() => {
+      let len = Object.keys(selectedContact)
+      if (len.length >= 1) {
+        let id = (selectedContact as any)?.id
+        ContactDispatch(contactsActions.fetchContact(id))
+      }
+    }, [ContactDispatch, selectedContact])
+  }
+  GetContact();
+
 
   useEffect(() => {
     if (
       currentState &&
       currentState.contactsTable &&
-      currentState.contactsTable.success &&
+      //currentState.contactsTable.success &&
       currentState.contactsTable.entities
     ) {
       setList(currentState.contactsTable.entities)
       setIsLoading(currentState.listLoading)
     }
+    if (
+      currentState &&
+      currentState.singleContact &&
+      currentState.singleContact.entry &&
+      currentState.singleContact.entry.attributes
+    ) {
+      setSingleContact(currentState.singleContact.entry.attributes)
+      setListMethods(currentState.singleContact.entry.attributes.contact_methods);
+    }
   }, [currentState])
 
-  const GetMethods = () => {
+
+  /*const GetMethods = () => {
     let MethodDispatch = useDispatch()
     useEffect(() => {
       let len = Object.keys(selectedContact)
@@ -65,20 +90,21 @@ export const Contacts = () => {
       // eslint-disable-next-line
     }, [MethodDispatch, selectedContact])
   }
-  GetMethods()
+  GetMethods()*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (
       methodsState &&
       methodsState.contactMethodsTable &&
-      methodsState.contactMethodsTable.success &&
+      //methodsState.contactMethodsTable.success &&
       methodsState.contactMethodsTable.entities
     ) {
-      setListMethods(methodsState.contactMethodsTable.entities)
-      setMethodLoading(methodsState.listLoading)
+      setListMethods(methodsState.contactMethodsTable.entities);
+      setMethodLoading(methodsState.listLoading);
     }
-  }, [methodsState])
+  }, [methodsState])*/
 
+ 
   return (
     <>
       <ContactToolBar />
@@ -90,12 +116,13 @@ export const Contacts = () => {
               <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
             </Grid>
             <Grid key={2} xs={4} item>
-              <ContactDetails selectedContact={selectedContact} />
+              <ContactDetails selectedContact={singleContact} />
+
             </Grid>
             <Grid key={3} xs={4} item>
               <ContactMethod
                 listMethods={listMethods}
-                methodLoading={methodLoading}
+                methodLoading={isLoading}
                 selectedContact={selectedContact}
                 methodsState={methodsState}
               />
