@@ -6,7 +6,7 @@ import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
 import { ContactMethod } from './ContactMethods/ContactMethods'
 import { ContactsList } from './ContactList'
-import { ContactDetails } from './ContactDetails'
+import { ContactDetails } from './TEMP_ContactDetails'
 
 import ContactToolBar from './ContactToolbar'
 
@@ -41,7 +41,7 @@ export const Contacts = () => {
       }
     }, [dispatch])
   }
-  GetAllContacts();
+  GetAllContacts()
 
   const GetContact = () => {
     let ContactDispatch = useDispatch()
@@ -53,8 +53,7 @@ export const Contacts = () => {
       }
     }, [ContactDispatch, selectedContact])
   }
-  GetContact();
-
+  GetContact()
 
   useEffect(() => {
     if (
@@ -73,10 +72,9 @@ export const Contacts = () => {
       currentState.singleContact.entry.attributes
     ) {
       setSingleContact(currentState.singleContact.entry.attributes)
-      setListMethods(currentState.singleContact.entry.attributes.contact_methods);
+      setListMethods(currentState.singleContact.entry.attributes.contact_methods)
     }
   }, [currentState])
-
 
   /*const GetMethods = () => {
     let MethodDispatch = useDispatch()
@@ -104,7 +102,6 @@ export const Contacts = () => {
     }
   }, [methodsState])*/
 
- 
   return (
     <>
       <ContactToolBar />
@@ -117,7 +114,6 @@ export const Contacts = () => {
             </Grid>
             <Grid key={2} xs={4} item>
               <ContactDetails selectedContact={singleContact} />
-
             </Grid>
             <Grid key={3} xs={4} item>
               <ContactMethod
