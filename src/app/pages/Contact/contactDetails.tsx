@@ -20,6 +20,7 @@ export const ContactDetails = (props: any) => {
   const { selectedContact } = props
   const err = 'Not Found'
   const [open, setOpen] = React.useState(false)
+  const flag = selectedContact.country?.iso_code;
 
   const handleOpen = (e: any, value: any) => {
     setOpen(true)
@@ -59,10 +60,10 @@ export const ContactDetails = (props: any) => {
               <Grid direction="row" justify="space-evenly" container>
                 <>
                   <Avatar variant="square">ICON</Avatar>
-                  <Avatar variant="square">FLAG</Avatar>
+                  <Avatar variant="square"><img src={'/media/svg/flags/'+flag+'.svg'} alt="" /></Avatar>
                 </>
                 <>
-                  {selectedContact.kind === 'Company' ? (
+                {selectedContact.kind === 'Company' ? (
                     <List>
                       <Typography variant="h6">Company</Typography>
                       <ListItemText primary={` ${selectedContact.trade_name || err}`} />

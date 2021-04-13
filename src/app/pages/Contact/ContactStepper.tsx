@@ -88,15 +88,15 @@ export const VerticalLinearStepper = () => {
     }, [dispatch])
   }
   GetAllCountries()
-  // useEffect(() => {
-  //   if (countryState && countryState.countriesTable && countryState.countryTable.entities) {
-  //     setList(countryState.countryTable.entities)
-  //     setIsLoading(countryState.listLoading)
-  //   }
-  // }, [countryState])
+  useEffect(() => {
+    if (countryState && countryState.countryTable && countryState.countryTable.entities) {
+       setList(countryState.countryTable.entities)
+       setIsLoading(countryState.listLoading)
+     }
+   }, [countryState])
   // console.log(list)
   // console.log(isLoading)
-
+  
   useEffect(() => {
     if (checkState.checkedA === true) {
       setKind('Company')

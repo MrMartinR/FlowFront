@@ -96,16 +96,20 @@ export const ContactMethod = (props: any) => {
             </Button>
           </DialogActions>
         </Dialog>
+        
         {methodLoading === true ? (
           <LinearProgress color="secondary" />
         ) : listMethods.length >= 1 ? (
           listMethods.map((itm: any, idx: any) => (
-            <Grid container direction="row">
+            <Grid container key = { itm.id } direction="row">
               <Grid item xs={1}>
                 <img height="20" src={'/media/svg/icons/dashboard.svg'} alt="" />
               </Grid>
               <Grid item xs={10}>
-                <Typography variant="body1">{itm.data}</Typography>
+                <Typography paragraph={ true } variant="h6">{itm.kind}</Typography>
+                <Typography variant="body2"><img height="20" width="50" src={'/media/svg/icons/currency.svg'} alt="" /> {itm.data}</Typography>
+                <Typography paragraph={ true } variant="body2"><img height="20" width="50" src={'/media/svg/icons/currency.svg'} alt="" /> Visibility: {itm.visibility}</Typography>
+                <Typography paragraph={ true } variant="body2">Notes: { itm.notes? (itm.notes):("No notes found") }</Typography>
               </Grid>
               <Grid item xs={1}>
                 <Button variant="contained" color="primary" onClick={handleClick}>

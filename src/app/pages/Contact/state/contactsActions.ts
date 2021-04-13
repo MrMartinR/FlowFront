@@ -22,18 +22,19 @@ export const fetchContacts = () => (dispatch: any) => {
 export const fetchContact = (id: any) => (dispatch: any) => {
   if (!id) {
     let error = "Can't find Contact without id"
-    return dispatch(actions.catchError({ error, callType: callTypes.action }))
+    return dispatch(actions.catchError({ error, callType: callTypes.list }))
   }
 
-  dispatch(actions.startCall({ callType: callTypes.action }))
+  dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
     .getContactById(id)
     .then((response) => {
-      let contact = response.data
-      dispatch(actions.contactFetched({ contact }))
+      //console.log(JSON.stringify(response.data));
+      const { data } = response
+      dispatch(actions.contactFetched({ data }))
     })
     .catch((error) => {
       error.clientMessage = "Can't find Contact"
-      dispatch(actions.catchError({ error, callType: callTypes.action }))
+      dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
 }
