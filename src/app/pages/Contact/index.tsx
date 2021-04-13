@@ -6,7 +6,7 @@ import * as contactsActions from './state/contactsActions'
 import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
 import { ContactMethod } from './ContactMethods/ContactMethods'
 import { ContactsList } from './ContactList'
-import { ContactDetails } from './TEMP_ContactDetails'
+import { ContactDetails } from './ContactDetails'
 
 import ContactToolBar from './ContactToolbar'
 

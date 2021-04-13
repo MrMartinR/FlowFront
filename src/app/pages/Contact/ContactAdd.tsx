@@ -1,5 +1,5 @@
 import React from 'react'
-import CompanyForm from './TEMP_CompanyForm'
+import CompanyForm from './CompanyForm'
 import IndividualForm from './IndividualForm'
 
 // add country later when the module is implemented
