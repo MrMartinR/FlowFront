@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Card, CardHeader, CardContent, Button, ButtonGroup } from '@material-ui/core'
 import Kanban1 from './Kanban/Kanban1'
-
+import Kanban2 from './Kanban/Kanban2'
 function DashboardPage() {
   return (
     <Grid container spacing={2}>

@@ -79,10 +79,9 @@ export const updateContact = (data: any, id: any) => (dispatch: any) => {
     })
 }
 /*
- * delete a contact method
- * id: this will be contact method is
- * deleteContactMethods to trigger the promise
- * contactMethodsUpdate to update the state
+ * delete a contact
+ * id: this will be contact is
+ * deleteContact to trigger the promise
  */
 export const deleteContact = (id: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
