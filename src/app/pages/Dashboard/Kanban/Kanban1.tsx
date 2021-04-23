@@ -80,7 +80,7 @@ function Kanban1() {
   }
 
   return (
-    <Grid item direction="row" xs={6}>
+    <Grid item  xs={6}>
       <Card>
         <Toolbar variant="dense">
           <TextField
@@ -101,8 +101,8 @@ function Kanban1() {
           <Grid item xs={8}>
             {_.map(state, (data, key) => {
               return (
-                <Grid item>
-                  <Card key={key}>
+                <Grid item key={key}>
+                  <Card >
                     <Typography variant="h5">{data.title}</Typography>
                     <Droppable droppableId={key}>
                       {(provided, snapshot) => {
@@ -113,7 +113,6 @@ function Kanban1() {
                                 return (
                                   <Draggable key={el.id} index={index} draggableId={el.id}>
                                     {(provided, snapshot) => {
-                                      console.log(snapshot)
                                       return (
                                         <Card
                                           ref={provided.innerRef}
