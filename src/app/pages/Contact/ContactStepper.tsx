@@ -11,6 +11,8 @@ import {
   Checkbox,
   FormGroup,
   FormControlLabel,
+  Select,
+  MenuItem
 } from '@material-ui/core'
 import ContactAdd from './ContactAdd'
 import { RootState } from '../../../redux/rootReducer'
@@ -21,7 +23,8 @@ function getSteps() {
   return ['Select Contact Type', 'Select Country', 'Select Visibility', 'Fill in Contact Details']
 }
 
-export const VerticalLinearStepper = () => {
+export const VerticalLinearStepper = (props:any) => {
+  const { selectedContact, edit, setOpen } = props;
   const { countryState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
@@ -30,19 +33,45 @@ export const VerticalLinearStepper = () => {
   )
   const [activeStep, setActiveStep] = React.useState(0)
   const steps = getSteps()
+  const [country, setCountry] = useState('2f517ed5-5d04-4ff6-9070-16a284b6fef3');
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
-  const [kind, setKind] = React.useState('Individual' as any)
-  const [visibility, setVisibility] = React.useState('Private')
-  const [checkState, setCheckState] = React.useState({
+  const [kind, setKind] = useState('Individual')
+  const [visibility, setVisibility] = useState('Private')
+  const [checkState, setCheckState] = useState({
     checkedA: false,
     checkedB: false,
   })
-  const [checkVisible, setCheckVisible] = React.useState({
+  const [checkVisible, setCheckVisible] = useState({
     checkedC: false,
     checkedD: false,
   })
-
+  useEffect(() => {
+    if (edit===true) {
+      if (selectedContact?.attributes.kind==='Company') setCheckState({
+        checkedA: true,
+        checkedB: false
+      })
+      if (selectedContact?.attributes.kind==='Individual') setCheckState({
+        checkedA: false,
+        checkedB: true
+      });
+      setCountry(selectedContact?.attributes.country.id);
+      if (selectedContact?.attributes.visibility==='Private') setCheckVisible({
+        checkedC: true,
+        checkedD: false
+      })
+      if (selectedContact?.attributes.visibility==='Public') setCheckVisible({
+        checkedC: false,
+        checkedD: true
+      });
+    }
+    
+  }, [edit])
+    
+  const handleCountry = (e: any) => {
+    setCountry(e.target.value);
+  }
   const handleKind = (e: any) => {
     if (e.target.name === 'checkedA') {
       setCheckState({
@@ -89,13 +118,14 @@ export const VerticalLinearStepper = () => {
   }
   GetAllCountries()
   useEffect(() => {
-    if (countryState && countryState.countryTable && countryState.countryTable.entities) {
+    if (
+      countryState 
+      && countryState.countryTable 
+      && countryState.countryTable.entities) {
        setList(countryState.countryTable.entities)
        setIsLoading(countryState.listLoading)
      }
    }, [countryState])
-  // console.log(list)
-  // console.log(isLoading)
   
   useEffect(() => {
     if (checkState.checkedA === true) {
@@ -130,7 +160,13 @@ export const VerticalLinearStepper = () => {
           </FormGroup>
         )
       case 1:
-        return 'select country'
+        return (
+          <Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
+            {!isLoading&&list.map((country:any) => (
+              <MenuItem value= { country.id }>{ country.attributes.name }</MenuItem>
+            ))}
+          </Select>
+        )
       case 2:
         return (
           <FormGroup row>
@@ -145,7 +181,13 @@ export const VerticalLinearStepper = () => {
           </FormGroup>
         )
       case 3:
-        return <ContactAdd kind={kind} visibility={visibility} />
+        return <ContactAdd 
+          kind={kind} 
+          country = {country} 
+          selectedContact = { selectedContact }
+          edit = { edit }
+          setOpen = { setOpen }
+          visibility={visibility} />
       default:
         return 'Unknown step'
     }

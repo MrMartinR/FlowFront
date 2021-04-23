@@ -55,9 +55,8 @@ export const ContactsList = (props: any) => {
             <LinearProgress color="secondary" />
           ) : (
             list.map((item: any, idx: any) => (
-              <Card>
+              <Card key = { item.id }>
                 <ListItem
-                  key={`${item.id}`}
                   button
                   onClick={(e) => {
                     updateSelected(idx)
