@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
-import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
+import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
 import { fetchOriginatorsList } from './state/originatorsActions'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
 )
 
-const columns: ColDef[] = [
+const columns: GridColDef[] = [
   // column definition format here
   { field: 'trade_name', headerName: 'Name', width: 250 },
   { field: 'customer_category', headerName: 'Customer', width: 250 },

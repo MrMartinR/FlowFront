@@ -1596,10 +1596,10 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/data-grid@^4.0.0-alpha.20":
-  version "4.0.0-alpha.20"
-  resolved "https://registry.yarnpkg.com/@material-ui/data-grid/-/data-grid-4.0.0-alpha.20.tgz#5fe8df438f5a9718636dc3bfaf268267cc87f17e"
-  integrity sha512-YqTTGs61zf3kT/5LuWWxwfTWwjXXJfP8nR7JiX30cMQXlOeIihQXHqbRrm7IHQRVWYQ5YxI95QLWtLHBIm2h0w==
+"@material-ui/data-grid@^4.0.0-alpha.24":
+  version "4.0.0-alpha.24"
+  resolved "https://registry.yarnpkg.com/@material-ui/data-grid/-/data-grid-4.0.0-alpha.24.tgz#a6449181d343d4f61ec977f68cf8d850a380140d"
+  integrity sha512-XlFpBHwfWxvGYaAOpkWSTbbEAgwdMJap3vu7TMSjtEwm6VOXquY9zUbckQelTt5tuHZdnx2vkhPXeCp/9Z1jRw==
   dependencies:
     "@material-ui/utils" "^5.0.0-alpha.14"
     prop-types "^15.7.2"
@@ -1680,20 +1680,20 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@material-ui/x-grid@^4.0.0-alpha.20":
-  version "4.0.0-alpha.20"
-  resolved "https://registry.yarnpkg.com/@material-ui/x-grid/-/x-grid-4.0.0-alpha.20.tgz#93604cbe5ad823839b8e67813e973cd786588e35"
-  integrity sha512-RU68hjY3oofHV51XwbOwYy++6rEPtAS1rgCVLBegD4npgVbrETXpYfVrHDTXjcrPEapdC4RVMWA8iM7OZCMpYw==
+"@material-ui/x-grid@^4.0.0-alpha.24":
+  version "4.0.0-alpha.24"
+  resolved "https://registry.yarnpkg.com/@material-ui/x-grid/-/x-grid-4.0.0-alpha.24.tgz#349639938a9f24577f4530adecc5665d00bd541d"
+  integrity sha512-3WNqSJGHUqdHi40Lnuzi8Y7donDYhqyRPU8MiiKIIKIVpadn69yO0HEC3Qzah2I6zvP6P5kd3wRglZtCk0maZA==
   dependencies:
     "@material-ui/utils" "^5.0.0-alpha.14"
-    "@material-ui/x-license" "^4.0.0-alpha.20"
+    "@material-ui/x-license" "^4.0.0-alpha.21"
     prop-types "^15.7.2"
     reselect "^4.0.0"
 
-"@material-ui/x-license@^4.0.0-alpha.20":
-  version "4.0.0-alpha.20"
-  resolved "https://registry.yarnpkg.com/@material-ui/x-license/-/x-license-4.0.0-alpha.20.tgz#5aeba7d64a5f4525e573ac05268f99d3cb1135cd"
-  integrity sha512-FgvGWeUxXjmFhk4fhpGu2XwylebBl66JE/ZENEDnsZpTVw9IBvFJbGT8us0CPD77zSqEeymc+zJraqEAdcSrBg==
+"@material-ui/x-license@^4.0.0-alpha.21":
+  version "4.0.0-alpha.21"
+  resolved "https://registry.yarnpkg.com/@material-ui/x-license/-/x-license-4.0.0-alpha.21.tgz#135d274b9e410c617aecf57710033511f125aa89"
+  integrity sha512-n2lBvcuuFAfgkCDihO2i+h1QqRpfM2edFoR+VHyfAPHYQ5WFmIRVK1Zx4djtSOAZEA3Xxomy/qOnXGzbov8c7A==
   dependencies:
     esm "^3.2.25"
     yargs "^16.2.0"

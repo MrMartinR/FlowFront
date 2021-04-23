@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core/'
-import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
+import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
 import { connect } from 'react-redux'
 import { fetchPlatformLoans } from '../state/platformsActions'
 
@@ -8,7 +8,7 @@ LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
 )
 
-const columns: ColDef[] = [
+const columns: GridColDef[] = [
   // column definition format here
   { field: 'id', headerName: 'Loan Id', width: 250 },
   { field: 'name', headerName: 'Name', width: 250 },

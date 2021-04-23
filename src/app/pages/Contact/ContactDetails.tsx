@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import VerticalLinearStepper from './ContactStepper'
-import { useDispatch } from 'react-redux'
-import * as contactsActions from './state/contactsActions'
+import React from 'react'
 /* eslint-disable no-restricted-imports*/
 import {
   Typography,
@@ -9,6 +6,7 @@ import {
   CardContent,
   Card,
   List,
+  Chip,
   Grid,
   Avatar,
   Dialog,
@@ -17,54 +15,29 @@ import {
   Button,
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
 
 export const ContactDetails = (props: any) => {
   const { selectedContact } = props
-  const err = ''
-  const [open, setOpen] = useState(false)
-  const [edit, setEdit] = useState(false)
-  const [res, setres] = useState(false)
-  const flag = selectedContact.attributes?.country?.iso_code;
+  const err = 'Not Found'
+  const [open, setOpen] = React.useState(false)
+  const flag = selectedContact.country?.iso_code;
 
   const handleOpen = (e: any, value: any) => {
-    if (value==='edit') setEdit(true);
-    if (value==='delete') setEdit(false);
     setOpen(true)
   }
 
   const handleClose = () => {
     setOpen(false)
   }
-
-  const handleDelete = () => {
-    setres(true)
-  }
-  let dispatch = useDispatch()
-  useEffect(() => {
-    (async function () {
-      if (res === true) {
-        await dispatch(contactsActions.deleteContact(selectedContact.id))
-        setOpen(false);
-      }
-    })()
-    // eslint-disable-next-line
-  }, [dispatch, res])
   const body = (
-      (edit===true)?(
-        <>
-          <Typography variant="h4" id="simple-modal-title">Edit Contact</Typography>
-          <VerticalLinearStepper selectedContact = { selectedContact } edit = { true } setOpen= { setOpen }/>
-        </>
-      ):(<>
-          <Typography variant="h4" paragraph id="simple-modal-title">Delete Contact</Typography>
-          <Typography variant="body1">Are you sure you want to delete the contact?</Typography>
-          <Button onClick={handleDelete} variant = 'contained' color="secondary" autoFocus>
-          Agree
-        </Button>
-        </>
-      )
-    
+    <>
+      <Typography variant="h4" id="simple-modal-title">
+        Edit Contact
+      </Typography>
+      <Typography variant="body1" id="simple-modal-description">
+        add and edit contact form
+      </Typography>
+    </>
   )
 
   return (
@@ -81,52 +54,44 @@ export const ContactDetails = (props: any) => {
       </>
       <Card>
         <CardContent>
-        <Grid item xs = {12} direction="row" container>
-          <Button variant = 'contained' color = 'primary'>
-            <EditIcon onClick={(e) => handleOpen(e, 'edit')}></EditIcon>
-          </Button>
-          <Button variant = 'contained' color = 'primary'>
-            <DeleteIcon onClick={(e) => handleOpen(e, 'delete')}></DeleteIcon>
-          </Button>
-          </Grid>
-              <Grid item xs = {12} direction="row" container>
-                <Grid item xs = { 4 } direction="column" alignItems='center' container>
-                  <Grid item xs = {6} >
-                    <Avatar variant="square">ICON</Avatar>
-                  </Grid>
-                  <Grid item xs = {6}>
-                    <Avatar variant="square"><img src={'/media/svg/flags/'+flag+'.svg'} alt="" /></Avatar>
-                  </Grid>
-                  
-                </Grid>
-                <Grid item xs = { 8 }>
-                {selectedContact.attributes?.kind === 'Company' ? (
+          <EditIcon onClick={(e) => handleOpen(e, 'edit')}></EditIcon>
+          <Grid>
+            <Grid item md={12}>
+              <Grid direction="row" justify="space-evenly" container>
+                <>
+                  <Avatar variant="square">ICON</Avatar>
+                  <Avatar variant="square"><img src={'/media/svg/flags/'+flag+'.svg'} alt="" /></Avatar>
+                </>
+                <>
+                {selectedContact.kind === 'Company' ? (
                     <List>
                       <Typography variant="h6">Company</Typography>
-                      <ListItemText primary={` ${selectedContact.attributes?.trade_name || err}`} />
-                      <ListItemText primary={` ${selectedContact.attributes?.company_name || err}`} />
-                      <ListItemText primary={` ${selectedContact.attributes?.id_number || err}`} />
-                      <ListItemText primary={` ${selectedContact.attributes?.founded || err}`} />
+                      <ListItemText primary={` ${selectedContact.trade_name || err}`} />
+                      <ListItemText primary={` ${selectedContact.company_name || err}`} />
+                      <ListItemText primary={` ${selectedContact.id_number || err}`} />
+                      <ListItemText primary={` ${selectedContact.founded || err}`} />
                     </List>
                   ) : (
                     <List>
                       <Typography variant="h6">Individual</Typography>
-                      <ListItemText primary={` ${selectedContact.attributes?.name || err}`} />
-                      <ListItemText primary={` ${selectedContact.attributes?.surname || err}`} />
-                      <ListItemText primary={` ${selectedContact.attributes?.nick || err}`} />
-                      <ListItemText primary={` ${selectedContact.attributes?.id_number || err}`} />
+                      <ListItemText primary={` ${selectedContact.name || err}`} />
+                      <ListItemText primary={` ${selectedContact.surname || err}`} />
+                      <ListItemText primary={` ${selectedContact.id_number || err}`} />
+                      <ListItemText primary={` ${selectedContact.nick || err}`} />
                     </List>
                   )}
-                </Grid>
+                </>
+              </Grid>
+            </Grid>
           </Grid>
           <Typography variant="body2" component="p">
-            {`${selectedContact.attributes?.description || err}`}
+            {`${selectedContact.description || err}`}
           </Typography>
         </CardContent>
-       {/*  <CardContent>
-          <Chip label={`${selectedContact.attributes?.tags || err}`} />
-          <Chip label={`${selectedContact.attributes?.tags || err}`} />
-       </CardContent>*/}
+        <CardContent>
+          <Chip label={`${selectedContact.tags || err}`} />
+          <Chip label={`${selectedContact.tags || err}`} />
+        </CardContent>
       </Card>
     </>
   )

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core/'
 import { connect } from 'react-redux'
-import { XGrid, ColDef } from '@material-ui/x-grid'
+import { XGrid, GridColDef } from '@material-ui/x-grid'
 import { getAllCountries } from './state/countriesActions'
 
-const columns: ColDef[] = [
+const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 200 },
   { field: 'iso_code', headerName: 'ISO', width: 200 },
   { field: 'continent', headerName: 'Continent', width: 200 },

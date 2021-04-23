@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
+import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
 import { Grid, CardHeader } from '@material-ui/core'
 import { fetchUserPlatformsList, fetchUserPlatformDetails } from '../state/userPlatformsActions'
 
@@ -8,7 +8,7 @@ LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
 )
 
-const columns: ColDef[] = [{ field: 'id', headerName: 'Id', width: 200 }]
+const columns: GridColDef[] = [{ field: 'id', headerName: 'Id', width: 200 }]
 
 const UserPlatformsList = (props: any) => {
   const { fetchUserPlatformsList, fetchUserPlatformDetails } = props
