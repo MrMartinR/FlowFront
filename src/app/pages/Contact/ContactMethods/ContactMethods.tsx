@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 /* eslint-disable no-restricted-imports*/
 
 import {
@@ -6,6 +6,7 @@ import {
   Card,
   Grid,
   LinearProgress,
+  Link,
   List,
   Popover,
   Dialog,
@@ -19,15 +20,12 @@ import EditContactMethodForm from './EditContactMethodForm'
 import DeleteContactMethod from './DeleteContactMethod'
 
 export const ContactMethod = (props: any) => {
-  const { methodLoading, listMethods, selectedContact, methodsState } = props
-  const [expanded, setExpanded] = React.useState<string | false>(false)
-  const [open, setOpen] = React.useState(false)
-  const [add, setAdd] = React.useState('' as string)
-  const [edit, setEdit] = React.useState(null)
+  const { methodLoading, listMethods, selectedContact } = props
+  const [open, setOpen] = useState(false)
+  const [add, setAdd] = useState('' as string)
+  const [edit, setEdit] = useState(null)
+  const [openedPopoverId, setOpenedPopoverId] = useState(null);
 
-  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false)
-  }
   const handleOpen = (e: any, value: any, itm = null) => {
     if (value === 'add') {
       setAdd('add')
@@ -54,17 +52,17 @@ export const ContactMethod = (props: any) => {
             Add Contact Method
           </Typography>
 
-          <AddContactMethodForm selectedContact={selectedContact} methodsState={methodsState} />
+          <AddContactMethodForm selectedContact={selectedContact} setOpen={setOpen} />
         </>
       ) : add === 'edit' ? (
         <>
           <Typography variant="h6">Edit Contact Method</Typography>
-          <EditContactMethodForm selectedContact={selectedContact} edit={edit} methodsState={methodsState} />
+          <EditContactMethodForm selectedContact={selectedContact} edit={edit} setOpen={setOpen} />
         </>
       ) : (
         <>
           <Typography variant="h6">Delete Contact Method</Typography>
-          <DeleteContactMethod edit={edit} methodsState={methodsState} />
+          <DeleteContactMethod edit={edit} setOpen={setOpen} />
         </>
       )}
     </>
@@ -72,22 +70,34 @@ export const ContactMethod = (props: any) => {
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, popoverid:any) => {
+    setAnchorEl(event.currentTarget);
+    setOpenedPopoverId(popoverid);
   }
 
   // Popover
   const handleClosePopover = () => {
-    setAnchorEl(null)
+    setAnchorEl(null);
+    setOpenedPopoverId(null);
   }
 
-  const openPopover = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
   return (
     <>
       <Card variant="outlined">
-        <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')}></AddIcon>
+        <Grid container key = { 1 } direction="row">
+          <Grid item xs={ 10 }> 
+            <Typography paragraph = { true } variant="h6">Contact Methods</Typography>
+          </Grid>
+          <Grid item xs={ 2 }>
+            <Button variant = 'contained' color = 'primary'>
+              <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')}></AddIcon>
+            </Button>
+          
+          </Grid>
+          
+        </Grid> 
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
           <DialogActions>
@@ -99,25 +109,58 @@ export const ContactMethod = (props: any) => {
         
         {methodLoading === true ? (
           <LinearProgress color="secondary" />
-        ) : listMethods.length >= 1 ? (
+        ) : listMethods?.length >= 1 ? (
           listMethods.map((itm: any, idx: any) => (
             <Grid container key = { itm.id } direction="row">
               <Grid item xs={1}>
-                <img height="20" src={'/media/svg/icons/dashboard.svg'} alt="" />
+                {
+                  (itm.kind==='Address' && <img height="20" src={'/media/svg/icons/address.svg'} alt="" />)
+                  || (itm.kind==='Email' && <img height="20" src={'/media/svg/icons/email.svg'} alt="" />)
+                  || (itm.kind==='Phone' && <img height="20" src={'/media/svg/icons/phone.svg'} alt="" />)
+                  || (itm.kind==='Skype' && <img height="20" src={'/media/svg/icons/skype.svg'} alt="" />)
+                  || (itm.kind==='Telegram' && <img height="20" src={'/media/svg/icons/telegram.svg'} alt="" />)
+                  || (itm.kind==='Instagram' && <img height="20" src={'/media/svg/icons/instagram.svg'} alt="" />)
+                  || (itm.kind==='FB Page' && <img height="20" src={'/media/svg/icons/facebook-page.svg'} alt="" />)
+                  || (itm.kind==='FB Profile' && <img height="20" src={'/media/svg/icons/facebook-profile.svg'} alt="" />)
+                  || (itm.kind==='FB Group' && <img height="20" src={'/media/svg/icons/facebook-group.svg'} alt="" />)
+                  || (itm.kind==='LinkedIn' && <img height="20" src={'/media/svg/icons/linkedin.svg'} alt="" />)
+                  || (itm.kind==='Twitter' && <img height="20" src={'/media/svg/icons/twitter.svg'} alt="" />)
+                  || (itm.kind==='Vimeo' && <img height="20" src={'/media/svg/icons/vimeo.svg'} alt="" />)
+                  || (itm.kind==='YouTube' && <img height="20" src={'/media/svg/icons/youtube.svg'} alt="" />)
+                  || (itm.kind==='Web' && <img height="20" src={'/media/svg/icons/link-1.svg'} alt="" />)
+                  || <img height="20" src={'/media/svg/icons/dashboard.svg'} alt="" />
+                }
               </Grid>
-              <Grid item xs={10}>
-                <Typography paragraph={ true } variant="h6">{itm.kind}</Typography>
-                <Typography variant="body2"><img height="20" width="50" src={'/media/svg/icons/currency.svg'} alt="" /> {itm.data}</Typography>
-                <Typography paragraph={ true } variant="body2"><img height="20" width="50" src={'/media/svg/icons/currency.svg'} alt="" /> Visibility: {itm.visibility}</Typography>
-                <Typography paragraph={ true } variant="body2">Notes: { itm.notes? (itm.notes):("No notes found") }</Typography>
+              <Grid item xs={9}>
+                {
+                  ((itm.kind==='FB Page'
+                  ||itm.kind==='Telegram'
+                  ||itm.kind==='Instagram'
+                  ||itm.kind==='FB Page'
+                  ||itm.kind==='FB Profile'
+                  ||itm.kind==='FB Group'
+                  ||itm.kind==='LinkedIn'
+                  ||itm.kind==='Twitter'
+                  ||itm.kind==='YouTube'
+                  ||itm.kind==='Vimeo'
+                  ||itm.kind==='Web') && <Typography variant="body1"><Link href= { itm.data.trim() } color = 'inherit' target="_blank" rel="noreferrer">{itm.data}</Link></Typography>)
+                  ||(itm.kind==='Phone' && <Typography variant="body1"><Link href= {`tel:${itm.data.trim()}`} color = 'inherit' target="_blank" rel="noreferrer">{itm.data}</Link></Typography>)
+                  ||(itm.kind==='Email' && <Typography variant="body1"><Link href= {`mailto:${itm.data.trim()}`} color = 'inherit' target="_blank" rel="noreferrer">{itm.data}</Link></Typography>)
+                  ||(itm.kind==='Skype' && <Typography variant="body1"><Link href= {`skype:${itm.data.trim()}?userinfo`} color = 'inherit' target="_blank" rel="noreferrer">{itm.data}</Link></Typography>)
+                  ||(itm.kind==='Address' && <Typography variant="body1"><Link href= {`https://www.google.es/maps/place/${encodeURI(itm.data.trim())}`} rel="noreferrer" color = 'inherit' target="_blank">{itm.data}</Link></Typography>)
+                  ||<Typography variant="body1">{itm.data}</Typography>
+                } 
+
+
+                
               </Grid>
-              <Grid item xs={1}>
-                <Button variant="contained" color="primary" onClick={handleClick}>
+              <Grid item xs={2}>
+                <Button aria-describedby={id} variant="contained" color="primary" onClick={(e) => handleClick( e, itm.id )}>
                   •••
                 </Button>
                 <Popover
                   id={id}
-                  open={openPopover}
+                  open={ openedPopoverId === itm.id}
                   anchorEl={anchorEl}
                   onClose={handleClosePopover}
                   anchorOrigin={{
@@ -129,6 +172,7 @@ export const ContactMethod = (props: any) => {
                     horizontal: 'center',
                   }}
                 >
+                  <Typography variant="body2"> { itm.notes? "Notes: "+(itm.notes):("") }</Typography>
                   <Button onClick={(e) => handleOpen(e, 'edit', itm)}> Edit </Button>
                   <Button color="secondary" onClick={(e) => handleOpen(e, 'delete', itm)}>
                     Delete

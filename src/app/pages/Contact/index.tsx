@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import * as contactsActions from './state/contactsActions'
-import * as contactMethodsActions from './ContactMethods/state/contactMethodsActions'
 import { ContactMethod } from './ContactMethods/ContactMethods'
 import { ContactsList } from './ContactList'
 import { ContactDetails } from './ContactDetails'
@@ -11,10 +10,9 @@ import { ContactDetails } from './ContactDetails'
 import ContactToolBar from './ContactToolbar'
 
 export const Contacts = () => {
-  const { currentState, methodsState } = useSelector(
+  const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.contacts,
-      methodsState: state.contactMethods,
     }),
     shallowEqual
   )
@@ -22,8 +20,8 @@ export const Contacts = () => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(0)
   const [list, setList] = useState([] as any)
   const [listMethods, setListMethods] = useState([] as any)
-  //const [methodLoading, setMethodLoading] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
+  const [actionsLoading, setActionsLoading] = useState(true)
 
   let selectedContact = {}
   const [singleContact, setSingleContact] = useState({})
@@ -41,7 +39,7 @@ export const Contacts = () => {
       }
     }, [dispatch])
   }
-  GetAllContacts()
+  GetAllContacts();
 
   const GetContact = () => {
     let ContactDispatch = useDispatch()
@@ -51,76 +49,55 @@ export const Contacts = () => {
         let id = (selectedContact as any)?.id
         ContactDispatch(contactsActions.fetchContact(id))
       }
-    }, [ContactDispatch, selectedContact])
+    }, [ContactDispatch, selectedContact ])
   }
-  GetContact()
+  GetContact();
 
-  useEffect(() => {
-    if (
-      currentState &&
+
+  useEffect(() => { if (
+      currentState&&
       currentState.contactsTable &&
-      //currentState.contactsTable.success &&
       currentState.contactsTable.entities
     ) {
-      setList(currentState.contactsTable.entities)
-      setIsLoading(currentState.listLoading)
+      setList(currentState.contactsTable.entities);
+      setIsLoading(currentState.listLoading);
     }
-    if (
-      currentState &&
+  }, [currentState.contactsTable]);
+
+  useEffect(() => { if (
       currentState.singleContact &&
       currentState.singleContact.entry &&
       currentState.singleContact.entry.attributes
     ) {
-      setSingleContact(currentState.singleContact.entry.attributes)
-      setListMethods(currentState.singleContact.entry.attributes.contact_methods)
+      setSingleContact(currentState.singleContact.entry)
+      setListMethods(currentState.singleContact.entry.attributes.contact_methods);
     }
-  }, [currentState])
+  }, [currentState.singleContact, currentState.singleContact.entry.attributes.contact_methods]);
 
-  /*const GetMethods = () => {
-    let MethodDispatch = useDispatch()
-    useEffect(() => {
-      let len = Object.keys(selectedContact)
-      if (len.length >= 1) {
-        let id = (selectedContact as any)?.id
-
-        MethodDispatch(contactMethodsActions.fetchContactMethods(id))
-      }
-      // eslint-disable-next-line
-    }, [MethodDispatch, selectedContact])
-  }
-  GetMethods()*/
-
-  /*useEffect(() => {
-    if (
-      methodsState &&
-      methodsState.contactMethodsTable &&
-      //methodsState.contactMethodsTable.success &&
-      methodsState.contactMethodsTable.entities
-    ) {
-      setListMethods(methodsState.contactMethodsTable.entities);
-      setMethodLoading(methodsState.listLoading);
-    }
-  }, [methodsState])*/
+  useEffect( () => {
+    setIsLoading(currentState.listLoading);
+    setActionsLoading(currentState.actionsLoading);
+  }, [currentState.listLoading, currentState.actionsLoading]);
 
   return (
     <>
-      <ContactToolBar />
+      <ContactToolBar selectedContact = { singleContact } />
 
       <Grid>
-        <Grid item xs={12}>
+        <Grid key = {0} item xs={12}>
           <Grid container spacing={1} direction="row" justify="space-evenly">
             <Grid key={1} xs={3} item>
               <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
             </Grid>
             <Grid key={2} xs={4} item>
               <ContactDetails selectedContact={singleContact} />
+
             </Grid>
             <Grid key={3} xs={4} item>
               <ContactMethod
                 listMethods={listMethods}
-                methodLoading={isLoading}
-                selectedContact={selectedContact}
-                methodsState={methodsState}
+                methodLoading={actionsLoading}
+                selectedContact={singleContact}
               />
             </Grid>
           </Grid>
