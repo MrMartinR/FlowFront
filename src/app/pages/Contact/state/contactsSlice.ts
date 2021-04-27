@@ -13,6 +13,7 @@ const initialContactsState = {
         contact_methods: null as any,
       },
     },
+    success: false,
   },
   contactForEdit: null as any,
   deleteResponse: null as any,
@@ -52,7 +53,7 @@ export const contactsSlice = createSlice({
       state.listLoading = false
       state.error = null
       state.contactsTable.entities = data.data
-      state.contactsTable.success = data.success
+      state.contactsTable.success = true
     },
 
     // update the contact state on fetch a single contact
@@ -61,26 +62,40 @@ export const contactsSlice = createSlice({
       state.actionsLoading = false
       state.error = null
       state.singleContact.entry = data.data
-      state.contactsTable.success = data.success
+      state.singleContact.success = true
     },
 
     // on creation a new contact append it to existing contacts
     contactCreate: (state, action) => {
       const { data } = action.payload
+      const newContact = {
+        id: data.id,
+        type: data.type,
+        attributes: {
+          name: data.attributes.name?data.attributes.name:data.attributes.trade_name
+        }
+      }
       state.listLoading = false
       state.error = null
-      state.contactsTable.entities.unshift(data.data)
+      state.contactsTable.entities.unshift(newContact)
+      state.contactsTable.success = true
     },
     contactUpdate: (state, action) => {
       const { data } = action.payload
-      let get_id = data[0].id
+      const newContact = {
+        id: data.id,
+        type: data.type,
+        attributes: {
+          name: data.attributes.name?data.attributes.name:data.attributes.trade_name
+        }
+      }
       let newState = []
       lodash.find(state.contactsTable.entities, function (o: any) {
-        if (o.id !== get_id) {
+        if (o.id !== newContact.id) {
           newState.push(o)
         }
       })
-      newState.unshift(data[0])
+      newState.unshift(newContact)
       state.actionsLoading = false
       state.error = null
       state.contactsTable.entities = newState

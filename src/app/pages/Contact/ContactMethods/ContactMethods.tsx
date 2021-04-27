@@ -8,7 +8,6 @@ import {
   LinearProgress,
   Link,
   List,
-  Popover,
   Dialog,
   DialogActions,
   DialogContent,
@@ -24,7 +23,6 @@ export const ContactMethod = (props: any) => {
   const [open, setOpen] = useState(false)
   const [add, setAdd] = useState('' as string)
   const [edit, setEdit] = useState(null)
-  const [openedPopoverId, setOpenedPopoverId] = useState(null);
 
   const handleOpen = (e: any, value: any, itm = null) => {
     if (value === 'add') {
@@ -54,34 +52,21 @@ export const ContactMethod = (props: any) => {
 
           <AddContactMethodForm selectedContact={selectedContact} setOpen={setOpen} />
         </>
-      ) : add === 'edit' ? (
+      ): add === 'edit' ? (
         <>
           <Typography variant="h6">Edit Contact Method</Typography>
           <EditContactMethodForm selectedContact={selectedContact} edit={edit} setOpen={setOpen} />
+          <Button color="secondary" onClick={(e) => handleOpen(e, 'delete', edit )}>Delete</Button>
         </>
-      ) : (
+      ): (
         <>
-          <Typography variant="h6">Delete Contact Method</Typography>
-          <DeleteContactMethod edit={edit} setOpen={setOpen} />
-        </>
-      )}
+        <Typography variant="h6">Delete Contact Method</Typography>
+        <DeleteContactMethod edit={edit} setOpen={setOpen} />
+      </>
+      )
+    }
     </>
   )
-
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, popoverid:any) => {
-    setAnchorEl(event.currentTarget);
-    setOpenedPopoverId(popoverid);
-  }
-
-  // Popover
-  const handleClosePopover = () => {
-    setAnchorEl(null);
-    setOpenedPopoverId(null);
-  }
-
-  const id = open ? 'simple-popover' : undefined
 
   return (
     <>
@@ -155,29 +140,13 @@ export const ContactMethod = (props: any) => {
                 
               </Grid>
               <Grid item xs={2}>
-                <Button aria-describedby={id} variant="contained" color="primary" onClick={(e) => handleClick( e, itm.id )}>
+                <Button  
+                  variant="contained" 
+                  color="primary" 
+                  onClick={(e) => handleOpen(e, 'edit', itm)}>
                   •••
                 </Button>
-                <Popover
-                  id={id}
-                  open={ openedPopoverId === itm.id}
-                  anchorEl={anchorEl}
-                  onClose={handleClosePopover}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                >
-                  <Typography variant="body2"> { itm.notes? "Notes: "+(itm.notes):("") }</Typography>
-                  <Button onClick={(e) => handleOpen(e, 'edit', itm)}> Edit </Button>
-                  <Button color="secondary" onClick={(e) => handleOpen(e, 'delete', itm)}>
-                    Delete
-                  </Button>
-                </Popover>
+                
               </Grid>
             </Grid>
           ))

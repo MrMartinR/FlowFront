@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { TextField, Button, Grid, TextareaAutosize } from '@material-ui/core'
+import { TextField, Button, Grid } from '@material-ui/core'
 /* eslint-disable no-restricted-imports*/
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import * as contactsActions from './state/contactsActions'
@@ -17,19 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const CompanyForm = (props: any) => {
-  const { kind, visibility, edit, selectedContact, country, setOpen } = props
+  const { kind, visibility, country, setOpen } = props
   const { register, handleSubmit, errors } = useForm()
   const [formData, setFormData] = useState({})
-
-  const trade_name = edit? selectedContact.attributes.trade_name: '';
-  const company_name = edit? selectedContact.attributes.company_name: '';
-  const founded = edit? selectedContact.attributes.founded: '';
-  const id_number = edit? selectedContact.attributes.id_number: '';
-  const desc = edit? selectedContact.attributes.description: '';
-  const [description, setDescription] = useState(desc);
-  const handleChange = (e:any) => {
-    setDescription(e.target.value);
-  }
   const {
     auth: { user },
   } = store.getState()
@@ -87,49 +77,10 @@ export const CompanyForm = (props: any) => {
           name="trade_name"
           label="Trade name"
           variant="outlined"
-          defaultValue={ trade_name }
           placeholder="Trade name"
+          autoComplete = 'off'
           inputRef={register({ required: true, minLength: 3 })}
           color="secondary"
-          className={classes.root}
-        />
-        <TextField
-          name="company_name"
-          label="Company name"
-          variant="outlined"
-          defaultValue={ company_name }
-          placeholder="Company name"
-          inputRef={register({ required: false })}
-          color="secondary"
-          className={classes.root}
-        />
-        <TextField
-          name="founded"
-          label="Founded"
-          variant="outlined"
-          defaultValue={ founded }
-          placeholder="Founded"
-          inputRef={register({ required: false })}
-          color="secondary"
-          className={classes.root}
-        />
-        <TextField
-          name="id_number"
-          label="id_number"
-          variant="outlined"
-          defaultValue={ id_number }
-          placeholder="ID Number"
-          color="secondary"
-          inputRef={register({ required: false })}
-          className={classes.root}
-        />
-        <TextareaAutosize
-          name="description"
-          rowsMin= { 5 }
-          defaultValue={ description }
-          placeholder="Description"
-          color="secondary"
-          onChange= { handleChange }
           className={classes.root}
         />
         {errors.trade_name && errors.trade_name.type === 'required' && (

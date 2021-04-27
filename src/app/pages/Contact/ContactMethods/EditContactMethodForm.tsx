@@ -60,18 +60,10 @@ export const EditContactMethodForm = (props: any) => {
           <TextField 
             name="data" 
             label="Data"
+            autoComplete= 'off'
             color="secondary"
             defaultValue={edit.data}
             inputRef={register} />
-
-          <TextField
-            name="notes"
-            label="Notes"
-            placeholder="Notes"
-            inputRef={register}
-            color="secondary"
-            defaultValue={edit.notes}
-          />
           <Button type="submit" variant="contained" color="secondary">
             Submit
           </Button>

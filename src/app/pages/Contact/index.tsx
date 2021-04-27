@@ -59,8 +59,12 @@ export const Contacts = () => {
       currentState.contactsTable &&
       currentState.contactsTable.entities
     ) {
-      setList(currentState.contactsTable.entities);
-      setIsLoading(currentState.listLoading);
+      if (currentState.error===null) {
+        setList(currentState.contactsTable.entities);
+        setIsLoading(currentState.listLoading);
+      } else {
+        alert(currentState.error)
+      }
     }
   }, [currentState.contactsTable]);
 
@@ -69,8 +73,12 @@ export const Contacts = () => {
       currentState.singleContact.entry &&
       currentState.singleContact.entry.attributes
     ) {
-      setSingleContact(currentState.singleContact.entry)
-      setListMethods(currentState.singleContact.entry.attributes.contact_methods);
+      if (currentState.error===null) {
+        setSingleContact(currentState.singleContact.entry)
+        setListMethods(currentState.singleContact.entry.attributes.contact_methods);
+      } else {
+        alert(currentState.error)
+      }   
     }
   }, [currentState.singleContact, currentState.singleContact.entry.attributes.contact_methods]);
 
