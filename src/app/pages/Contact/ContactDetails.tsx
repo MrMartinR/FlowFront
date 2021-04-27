@@ -9,7 +9,6 @@ import {
   CardContent,
   Card,
   List,
-  Chip,
   Grid,
   Avatar,
   Dialog,
@@ -19,6 +18,7 @@ import {
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { ContactEdit } from './ContactEdit'
 
 export const ContactDetails = (props: any) => {
   const { selectedContact } = props
@@ -56,7 +56,7 @@ export const ContactDetails = (props: any) => {
     (edit===true)?(
         <>
           <Typography variant="h4" id="simple-modal-title">Edit Contact</Typography>
-          <VerticalLinearStepper selectedContact = { selectedContact } edit = { true } setOpen= { setOpen }/>
+          <ContactEdit selectedContact = { selectedContact } setOpen= { setOpen }/>
         </>
       ):(<>
           <Typography variant="h4" paragraph id="simple-modal-title">Delete Contact</Typography>
@@ -102,9 +102,8 @@ export const ContactDetails = (props: any) => {
               
             </Grid>
             <Grid item xs = { 8 }>
-              {selectedContact.attributes?.kind === 'Company' ? (
+              {selectedContact.attributes?.kind?.toUpperCase() === 'COMPANY' ? (
                 <List>
-                  <Typography variant="h6">Company</Typography>
                   <ListItemText primary={` ${selectedContact.attributes?.trade_name || err}`} />
                   <ListItemText primary={` ${selectedContact.attributes?.company_name || err}`} />
                   <ListItemText primary={` ${selectedContact.attributes?.id_number || err}`} />
@@ -112,7 +111,6 @@ export const ContactDetails = (props: any) => {
                 </List>
               ) : (
                 <List>
-                  <Typography variant="h6">Individual</Typography>
                   <ListItemText primary={` ${selectedContact.attributes?.name || err}`} />
                   <ListItemText primary={` ${selectedContact.attributes?.surname || err}`} />
                   <ListItemText primary={` ${selectedContact.attributes?.nick || err}`} />
@@ -121,14 +119,10 @@ export const ContactDetails = (props: any) => {
               )}
             </Grid>  
           </Grid>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2">
           {`${selectedContact.attributes?.description || err}`}
           </Typography>
         </CardContent>
-        {/* <CardContent>
-          <Chip label={`${selectedContact.tags || err}`} />
-          <Chip label={`${selectedContact.tags || err}`} />
-        </CardContent> */}
       </Card>
     </>
   )

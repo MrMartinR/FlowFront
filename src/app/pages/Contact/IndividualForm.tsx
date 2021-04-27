@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { TextField, Button, Grid, TextareaAutosize } from '@material-ui/core'
+import { TextField, Button, Grid } from '@material-ui/core'
 /* eslint-disable no-restricted-imports*/
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import * as contactsActions from './state/contactsActions'
@@ -17,31 +17,21 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const IndividualForm = (props: any) => {
-  const { kind, visibility, edit, selectedContact, country, setOpen } = props
+  const { kind, visibility, country, setOpen } = props
   const { register, handleSubmit, errors } = useForm()
   const classes = useStyles()
   const [formData, setFormData] = useState({})
-
-  const name = edit? selectedContact.attributes.name: '';
-  const surname = edit? selectedContact.attributes.surname: '';
-  const nick = edit? selectedContact.attributes.nick: '';
-  const id_number = edit? selectedContact.attributes.id_number: '';
-  const desc = edit? selectedContact.attributes.description: '';
-  const [description, setDescription] = useState(desc);
-  const handleChange = (e:any) => {
-    setDescription(e.target.value);
-  }
   const {
     auth: { user },
   } = store.getState()
   let userId:any;
   visibility==='Public'?userId=null:userId=user.id;
   const onSubmit = (data: any, e:any) => {
-    data = {...data ,
+    data = {
+      ...data ,
       kind: kind,
       country_id: country,
       visibility: visibility,
-      description: description,
     }
     if (userId!==null) {
       data = {
@@ -68,8 +58,8 @@ export const IndividualForm = (props: any) => {
           name="kind"
           label="Kind"
           disabled
+          value = { kind }
           variant="filled"
-          defaultValue={kind}
           inputRef={register}
           className={classes.root}
         />
@@ -77,8 +67,8 @@ export const IndividualForm = (props: any) => {
           name="visibility"
           label="Select"
           variant="filled"
+          value = { visibility }
           disabled
-          defaultValue={visibility}
           inputRef={register}
           className={classes.root}
         ></TextField>
@@ -86,49 +76,10 @@ export const IndividualForm = (props: any) => {
           name="name"
           label="name"
           variant="outlined"
-          defaultValue={ name }
           placeholder="Name"
           color="secondary"
+          autoComplete= 'off'
           inputRef={register({ required: true, minLength: 3 })}
-          className={classes.root}
-        />
-        <TextField
-          name="surname"
-          label="surname"
-          variant="outlined"
-          defaultValue={ surname }
-          placeholder="Surname"
-          color="secondary"
-          inputRef={register({ required: false })}
-          className={classes.root}
-        />
-        <TextField
-          name="nick"
-          label="nick"
-          variant="outlined"
-          defaultValue={ nick }
-          placeholder="Nick"
-          color="secondary"
-          inputRef={register({ required: false })}
-          className={classes.root}
-        />
-        <TextField
-          name="id_number"
-          label="id_number"
-          variant="outlined"
-          defaultValue={ id_number }
-          placeholder="ID Number"
-          color="secondary"
-          inputRef={register({ required: false })}
-          className={classes.root}
-        />
-        <TextareaAutosize
-          name="description"
-          rowsMin= { 5 }
-          defaultValue={ description }
-          placeholder="Description"
-          color="secondary"
-          onChange= { handleChange }
           className={classes.root}
         />
         {errors.name && <Alert severity="error">name is required</Alert>}

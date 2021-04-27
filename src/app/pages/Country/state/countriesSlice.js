@@ -11,7 +11,7 @@ const initialCountriesState = {
     perPage: null,
   },
   countryForEdit: undefined,
-  lastError: null,
+  error: null,
 }
 export const callTypes = {
   list: 'list',

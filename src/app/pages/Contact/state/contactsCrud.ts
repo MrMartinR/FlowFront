@@ -36,7 +36,7 @@ export function createContact(data: any) {
     auth: { user, client, expiry, token },
   } = store.getState()
   const form = {
-    contact_method: data,
+    contact: data,
   }
 
   return axios.post(`${CONTACTS_URL}`, form, {
@@ -60,7 +60,7 @@ export function updateContact(data: any, id: any) {
     auth: { user, client, expiry, token },
   } = store.getState()
   const form = {
-    contact_method: data,
+    contact: data,
   }
 
   return axios.put(`${CONTACTS_URL}/${id}`, form, {

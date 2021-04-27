@@ -125,16 +125,10 @@ export const AddContactMethodForm = (props: any) => {
           <TextField 
             name="data" 
             label="Data"
+            autoComplete= 'off' 
             color="secondary"
             inputRef={register} />
-
-          <TextField
-            name="notes"
-            label="Notes"
-            placeholder="Notes"
-            inputRef={register}
-            color="secondary"
-          />
+            
           <Button type="submit" variant="contained" color="secondary">
             Submit
           </Button>
