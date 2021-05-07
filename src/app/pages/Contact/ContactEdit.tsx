@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   FormGroup,
   Grid,
+  LinearProgress,
   makeStyles,
   MenuItem,
   Select,
@@ -47,7 +48,6 @@ export const ContactEdit = (props: any) => {
     checkedD: false,
   })
   const [description, setDescription] = useState(selectedContact.attributes.description)
-
   useEffect(() => {
     if (selectedContact?.attributes.kind.toUpperCase()==='COMPANY') setCheckState({
       checkedA: true,
@@ -119,13 +119,13 @@ export const ContactEdit = (props: any) => {
     }
   }
   // contact Redux state
+  const dispatch = useDispatch()
   const GetAllCountries = () => {
-    let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
         dispatch(countriesActions.getAllCountries())
       }
-    }, [dispatch])
+    }, [])
   }
   GetAllCountries()
 
@@ -135,14 +135,14 @@ export const ContactEdit = (props: any) => {
       setIsLoading(countryState.listLoading)
       setCountry(selectedContact.attributes.country.id)
     }
-  }, [countryState])
+  }, [countryState, selectedContact.attributes.country.id])
 
   const {
     auth: { user },
   } = store.getState()
   let userId: any
   visibility === 'Public' ? (userId = null) : (userId = user.id)
-  const onSubmit = (data: any, e: any) => {
+  const onSubmit = (data: any, e: any) => { 
     SetParams(selectedContact.id);
     data = { ...data, kind: kind, country_id: country, visibility: visibility, description: description }
     if (userId !== null) {
@@ -151,18 +151,18 @@ export const ContactEdit = (props: any) => {
         user_id: userId,
       }
     }
-    setFormData(data)
+    setFormData(data);
+    setOpen(false);
   }
-  let ContactDispatch = useDispatch()
+  const EditDispatch = useDispatch()
   useEffect(() => {
-    (async function () {
+    if (EditDispatch) {
       var size = Object.keys(formData).length
       if (size > 0) {
-        await ContactDispatch(contactsActions.updateContact(formData, params));
-        setOpen(false);
+        EditDispatch(contactsActions.updateContact(formData, params));
       }
-    })()
-  }, [ContactDispatch, formData]);
+    }
+  }, [formData, EditDispatch]);
 
   useEffect(() => {
     if (checkState.checkedA === true) {
@@ -180,9 +180,9 @@ export const ContactEdit = (props: any) => {
       setVisibility('Public')
     }
   }, [checkVisible])
-
   const classes = useStyles()
   return (
+    <>
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
         <Typography variant='body1'>Select Contact Type</Typography>
@@ -198,13 +198,17 @@ export const ContactEdit = (props: any) => {
         </FormGroup>
         <hr/>
         <Typography variant='body1'>Select Country</Typography>
-        <Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
-            {!isLoading&&list.map((country:any) => (
-              <MenuItem 
-                value= { country.id }
-                key = { country.id }>{ country.attributes.name }</MenuItem>
-            ))}
-          </Select>
+        {
+          !isLoading
+          ?<Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
+              {list.map((country:any) => (
+                <MenuItem 
+                  value= { country.id }
+                  key = { country.id }>{ country.attributes.name }</MenuItem>
+              ))}  
+            </Select>
+          :<LinearProgress color="secondary" />
+        }
           <hr/>
           <Typography variant='body1'>Select Visibility</Typography>
           <FormGroup row>
@@ -324,11 +328,13 @@ export const ContactEdit = (props: any) => {
         )}
 
         <br />
+        
         <Button type="submit" variant="contained" color="secondary">
           Submit
         </Button>
         <br />
       </Grid>
     </form>
+    </>
   )
 }

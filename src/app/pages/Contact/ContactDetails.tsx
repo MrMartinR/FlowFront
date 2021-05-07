@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import VerticalLinearStepper from './ContactStepper'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as contactsActions from './state/contactsActions'
 /* eslint-disable no-restricted-imports*/
@@ -25,32 +24,22 @@ export const ContactDetails = (props: any) => {
   const err = ''
   const [open, setOpen] = useState(false)
   const [edit, setEdit] = useState(false)
-  const [res, setres] = useState(false)
   const flag = selectedContact.attributes?.country?.iso_code;
-
+  const dispatch = useDispatch()
+  
   const handleOpen = (e: any, value: any) => {
     if (value==='edit') setEdit(true);
     if (value==='delete') setEdit(false);
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpen(false)
   }
 
   const handleDelete = () => {
-    setres(true)
+    dispatch(contactsActions.deleteContact(selectedContact.id))
+    handleClose();
   }
-  let dispatch = useDispatch()
-  useEffect(() => {
-    (async function () {
-      if (res === true) {
-        await dispatch(contactsActions.deleteContact(selectedContact.id))
-        setOpen(false);
-      }
-    })()
-    // eslint-disable-next-line
-  }, [dispatch, res])
 
   const body = (
     (edit===true)?(

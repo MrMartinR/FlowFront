@@ -29,12 +29,12 @@ const columns: GridColDef[] = [
 ] as any
 
 const PlatformLoans = (props: any) => {
-  const { fetchPlatformLoans } = props
+  const { fetchPlatformLoans, id } = props
   const { platformLoans, loading } = props.platforms
 
   useEffect(() => {
-    fetchPlatformLoans(props.id)
-  }, [fetchPlatformLoans])
+    fetchPlatformLoans(id)
+  }, [fetchPlatformLoans, id])
 
   if (loading) {
     return (

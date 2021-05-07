@@ -1,54 +1,54 @@
 import React, { useEffect } from 'react'
 import { Typography, Grid, Toolbar, ButtonGroup, Button } from '@material-ui/core/'
-import { connect } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import PlatformInfo from './info/PlatformInfo'
 import PlatformOriginators from './originators/PlatformOriginators'
 import PlatformLoans from './loans/PlatformLoans'
-import { fetchPlatformDetails } from './state/platformsActions'
+import * as platformsActions from './state/platformsActions'
+import { RootState } from '../../../redux/rootReducer'
 
-const PlatformDetailsPage = (props: any) => {
-  const {
-    match: { params },
-  } = props
-  const { fetchPlatformDetails } = props
-  const { platformDetails } = props.platforms
+export const PlatformDetailsPage = (props: any) => {
+  const { params } = props.match;
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.platforms,
+    }),
+    shallowEqual
+  )
   const [currentTab, setTab] = React.useState('')
-  const [data, setData] = React.useState([] as any)
-
-  const processData = (obj: any) => {
-    let data = {} as any
-    for (const property in obj) {
-      data[`${property}`] = property === 'contact' ? obj[property].trade_name : obj[property]
-    }
-    return data
+  const [platformDetails, setPlatformDetails] = React.useState({} as any);
+  const GetPlatform = () => {
+    let dispatch = useDispatch()
+    useEffect(() => {
+      if (dispatch) {
+        dispatch(platformsActions.fetchPlatformDetails(params.id));
+      } 
+    }, [dispatch]);
   }
+  GetPlatform();
 
   useEffect(() => {
-    fetchPlatformDetails(params.id)
-  }, [fetchPlatformDetails, params.id])
-
-  useEffect(() => {
-    setData(processData(platformDetails))
-  }, [platformDetails])
+    currentState.platformDetails &&
+    setPlatformDetails(currentState.platformDetails);
+  }, [currentState.platformDetails])
 
   /* onClick function that sets the state of the currentTab to be displayed */
   const handleClick = (e: any) => {
     setTab(`${e.target.innerHTML}`)
   }
-
+console.log(JSON.stringify(params.id));
   /* a function that returns a switch statement of the details, contact, originators and loans tab */
   const renderSwitch = (param: any) => {
     switch (param) {
       case 'Info':
-        return <PlatformInfo platformDetails={data} />
+        return <PlatformInfo platformDetails={platformDetails} />
       case 'Originators':
         return <PlatformOriginators id={params.id} />
       case 'Loans':
         return <PlatformLoans id={params.id} />
-      case 'Contact':
       default:
-        return <PlatformInfo platformDetails={data} />
+        return <PlatformInfo platformDetails={platformDetails} />
     }
   }
 
@@ -57,7 +57,7 @@ const PlatformDetailsPage = (props: any) => {
       <Toolbar>
         <Grid container direction="row" justify="space-between">
           <Grid item xs={4} direction="row">
-            <Typography variant="h4">{data.contact}</Typography>
+            <Typography variant="h4">{platformDetails.contact}</Typography>
           </Grid>
           <Grid item xs={3}>
             <ButtonGroup>
@@ -68,7 +68,7 @@ const PlatformDetailsPage = (props: any) => {
           </Grid>
         </Grid>
         <Grid item xs={2}>
-          <Button href={`/contacts/${data.contact_id}`} disabled>
+          <Button href={`/contacts/${platformDetails.contact_id}`}>
             Contact
           </Button>
         </Grid>
@@ -78,17 +78,3 @@ const PlatformDetailsPage = (props: any) => {
     </>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    platforms: state.platforms,
-  }
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchPlatformDetails: (platformId: any) => dispatch(fetchPlatformDetails(platformId)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformDetailsPage)

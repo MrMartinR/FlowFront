@@ -29,7 +29,6 @@ export const fetchContact = (id: any) => (dispatch: any) => {
   return requestFromServer
     .getContactById(id)
     .then((response) => {
-      //console.log(JSON.stringify(response.data));
       const { data } = response
       dispatch(actions.contactFetched({ data }))
     })
@@ -162,4 +161,8 @@ export const deleteContactMethods = (id: any) => (dispatch: any) => {
       error.clientMessage = "Can't find contact methods"
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
+}
+
+export const resetSuccessContact = () => (dispatch: any) => {
+  dispatch( actions.contactResetSuccess({ success: null }));
 }

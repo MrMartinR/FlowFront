@@ -9,8 +9,8 @@ import { Accounts } from './pages/Account'
 import { UserAccountsPage } from './pages/UserAccount'
 import { LendingPage } from './pages/Lending'
 import { Currencies } from './pages/Currency'
-import PlatformsPage from './pages/Platform'
-import PlatformDetailsPage from './pages/Platform/PlatformDetailsPage'
+import { PlatformsPage } from './pages/Platform'
+import { PlatformDetailsPage } from './pages/Platform/PlatformDetailsPage'
 import OriginatorsPage from './pages/Originator'
 import OriginatorDetailsPage from './pages/Originator/OriginatorDetailsPage'
 import UserLoansPage from './pages/UserLoan'
@@ -25,14 +25,15 @@ export default function BasePage() {
       <Switch>
         <Redirect exact from="/" to="/dashboard" />
         <Route path="/dashboard" component={DashboardPage} />
+        <Route path={"/contacts/:id"} component={Contacts} />
         <Route path="/contacts" component={Contacts} />
         <Route path="/countries" component={Countries} />
         <Route path="/accounts" component={Accounts} />
         <Route path="/settings" component={SettingPage} />
         <Route path="/user_accounts" component={UserAccountsPage} />
         <Route path="/lending" component={LendingPage} />
-        <Route path="/originators" component={OriginatorsPage} />
         <Route path={`/originators/:id`} component={OriginatorDetailsPage} />
+        <Route path="/originators" component={OriginatorsPage} />
         <Route path={`/platforms/:id`} component={PlatformDetailsPage} />
         <Route path="/platforms" component={PlatformsPage} />
         <Route path="/user-loans" component={UserLoansPage} />

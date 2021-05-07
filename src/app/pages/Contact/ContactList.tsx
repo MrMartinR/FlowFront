@@ -20,9 +20,6 @@ import { Autocomplete } from '@material-ui/lab'
 export const ContactsList = (props: any) => {
   const { setSelectedItemIndex, isLoading, list } = props
   const [options, setOptions] = useState([] as any)
-  const updateSelected = (value: any) => {
-    setSelectedItemIndex(value)
-  }
 
   useEffect(() => {
     if (list.length >= 1) {
@@ -59,7 +56,7 @@ export const ContactsList = (props: any) => {
                 <ListItem
                   button
                   onClick={(e) => {
-                    updateSelected(idx)
+                    setSelectedItemIndex(idx)
                   }}
                 >
                   <ListItemAvatar>
