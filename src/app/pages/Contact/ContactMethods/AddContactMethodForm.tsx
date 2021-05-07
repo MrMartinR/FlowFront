@@ -81,17 +81,9 @@ export const AddContactMethodForm = (props: any) => {
   }
 
   let MethodDispatch = useDispatch()
-  useEffect(() => {
-    (async function () {
-      var size = Object.keys(formData).length
-      if (size > 0) {
-        await MethodDispatch(contactsActions.createContactMethods(formData))
-        setOpen(false)
-      }
-    })()
-  }, [MethodDispatch, formData])
 
   const onSubmit = (data: {}, e: any) => {
+    e.preventDefault();
     data = {...data ,
       kind: type,
       contact_id: selectedContact.id,
@@ -100,11 +92,19 @@ export const AddContactMethodForm = (props: any) => {
       user_id: selectedContact.attributes?.user
     }
     setFormData(data);
+    setOpen(false);
+    
   }
+  useEffect(() => {
+    if (MethodDispatch) {
+      var size = Object.keys(formData).length
+      if (size > 0) {
+        MethodDispatch(contactsActions.createContactMethods(formData));
+      }
+    }
+  }, [formData, MethodDispatch]);
   return (
     <>
-      
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column">
           <TextField

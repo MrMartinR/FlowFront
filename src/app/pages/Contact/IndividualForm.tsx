@@ -40,6 +40,7 @@ export const IndividualForm = (props: any) => {
       }
     }
     setFormData(data);
+    setOpen(false);
   }
   let ContactDispatch = useDispatch()
   useEffect(() => {
@@ -50,7 +51,8 @@ export const IndividualForm = (props: any) => {
         setOpen(false)
       }
     })()
-  }, [ContactDispatch, formData])
+  }, [ContactDispatch, formData, setOpen])
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">

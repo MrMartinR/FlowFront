@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
@@ -8,28 +8,36 @@ import { ContactsList } from './ContactList'
 import { ContactDetails } from './ContactDetails'
 
 import ContactToolBar from './ContactToolbar'
+import { ContactAlert } from './ContactAlert'
 
-export const Contacts = () => {
+export const Contacts = (props: any) => {
+  const { match } = props;
+  const { params } = match;
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.contacts,
     }),
     shallowEqual
   )
-
   const [selectedItemIndex, setSelectedItemIndex] = useState(0)
+  const [isContact, setIsContact] = useState(false);
   const [list, setList] = useState([] as any)
   const [listMethods, setListMethods] = useState([] as any)
-  const [isLoading, setIsLoading] = useState(true)
-  const [actionsLoading, setActionsLoading] = useState(true)
-
-  let selectedContact = {}
+  const [isLoading, setIsLoading] = useState(false)
+  const [actionsLoading, setActionsLoading] = useState(false)
   const [singleContact, setSingleContact] = useState({})
-
-  if (list && list[selectedItemIndex]) {
-    selectedContact = list[selectedItemIndex]
+  let selectedContact = null as any
+  if (list) {
+    if (isContact){
+      let selected = list.findIndex((itm: any) => itm.id === params.id)
+      selected!== -1 && setSelectedItemIndex(selected);
+      setIsContact(false);
+    } 
+    
+    if (list[selectedItemIndex]){
+      selectedContact = list[selectedItemIndex];
+    }
   }
-
   // contact Redux state
   const GetAllContacts = () => {
     let dispatch = useDispatch()
@@ -44,27 +52,23 @@ export const Contacts = () => {
   const GetContact = () => {
     let ContactDispatch = useDispatch()
     useEffect(() => {
-      let len = Object.keys(selectedContact)
-      if (len.length >= 1) {
-        let id = (selectedContact as any)?.id
-        ContactDispatch(contactsActions.fetchContact(id))
+      if (selectedContact) {
+        ContactDispatch(contactsActions.fetchContact(selectedContact.id))
       }
     }, [ContactDispatch, selectedContact ])
   }
   GetContact();
-
-
+  
+  useEffect(() => {
+    if ( params.id ){
+      setIsContact(true);
+    }
+  }, [params.id]);
   useEffect(() => { if (
-      currentState&&
       currentState.contactsTable &&
       currentState.contactsTable.entities
     ) {
-      if (currentState.error===null) {
-        setList(currentState.contactsTable.entities);
-        setIsLoading(currentState.listLoading);
-      } else {
-        alert(currentState.error)
-      }
+      setList(currentState.contactsTable.entities);
     }
   }, [currentState.contactsTable]);
 
@@ -73,12 +77,8 @@ export const Contacts = () => {
       currentState.singleContact.entry &&
       currentState.singleContact.entry.attributes
     ) {
-      if (currentState.error===null) {
-        setSingleContact(currentState.singleContact.entry)
-        setListMethods(currentState.singleContact.entry.attributes.contact_methods);
-      } else {
-        alert(currentState.error)
-      }   
+      setSingleContact(currentState.singleContact.entry)
+      setListMethods(currentState.singleContact.entry.attributes.contact_methods);
     }
   }, [currentState.singleContact, currentState.singleContact.entry.attributes.contact_methods]);
 
@@ -86,11 +86,10 @@ export const Contacts = () => {
     setIsLoading(currentState.listLoading);
     setActionsLoading(currentState.actionsLoading);
   }, [currentState.listLoading, currentState.actionsLoading]);
-
   return (
     <>
       <ContactToolBar selectedContact = { singleContact } />
-
+      <ContactAlert/>
       <Grid>
         <Grid key = {0} item xs={12}>
           <Grid container spacing={1} direction="row" justify="space-evenly">

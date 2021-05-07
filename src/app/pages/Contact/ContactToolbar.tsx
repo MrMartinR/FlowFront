@@ -3,6 +3,7 @@ import { Toolbar, Dialog, Popover, DialogActions, DialogContent, Typography, But
 import VerticalLinearStepper from './ContactStepper'
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import { useHistory } from 'react-router';
 /**
  * The contact top bar nav
  * holder the add contact componet
@@ -12,16 +13,16 @@ export const ContactToolBar = (props: any) => {
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [openedPopoverId, setOpenedPopoverId] = useState(null);
-
+  const linkTo = useHistory()
   const handleOpen = (e: any, value: any, itm = null) => {
     setOpen(true);
   }
   const handleOriginator = () => {
-    console.log(JSON.stringify(selectedContact.attributes?.originator, null, 3));
+    console.log(JSON.stringify(selectedContact?.attributes?.originator, null, 3));
   }
 
   const handlePlatform = () => {
-    console.log(JSON.stringify(selectedContact.attributes?.platform, null, 3));
+    linkTo.push(`/platforms/${selectedContact.attributes.platform.id}`);
   }
   const handleClose = () => {
     setOpen(false);
@@ -59,7 +60,7 @@ export const ContactToolBar = (props: any) => {
               +
             </Button>
             <Button onClick={(e)=>handleClick(e, 1)} aria-describedby={id}>
-            { selectedContact?.attributes?.visibility==='Public'
+            { selectedContact?.attributes?.visibility?.toUpperCase()==='PUBLIC'
               ?<LockOpenIcon fontSize='large'/>
               :<LockIcon fontSize='large'/> }
             </Button>
@@ -77,7 +78,7 @@ export const ContactToolBar = (props: any) => {
                     horizontal: 'center',
                   }}
                 >
-                  { selectedContact?.attributes?.visibility==='Public'
+                  { selectedContact?.attributes?.visibility?.toUpperCase()==='PUBLIC'
                       ?<Typography variant="body1">This contact is public</Typography>
                       :<Typography variant="body1">This contact is private, only you have access</Typography> }
             </Popover>

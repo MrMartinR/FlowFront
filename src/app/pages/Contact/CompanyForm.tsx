@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { TextField, Button, Grid } from '@material-ui/core'
@@ -38,6 +38,7 @@ export const CompanyForm = (props: any) => {
       }
     }
     setFormData(data);
+    setOpen(false);
   }
  let ContactDispatch = useDispatch()
   useEffect(() => {
@@ -45,12 +46,10 @@ export const CompanyForm = (props: any) => {
       var size = Object.keys(formData).length
       if (size > 0) {
         await ContactDispatch(contactsActions.createContact(formData))
-        setOpen(false)
       }
     })()
-  }, [ContactDispatch, formData])
+  }, [ContactDispatch, formData, setOpen])
   const classes = useStyles()
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">

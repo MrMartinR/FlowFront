@@ -22,10 +22,9 @@ export const EditContactMethodForm = (props: any) => {
       var size = Object.keys(formData).length
       if (size > 0) {
         await dispatch(contactsActions.updateContactMethods(formData, params))
-        setOpen(false);
       }
     })()
-  }, [formData])
+  }, [formData, dispatch])
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
@@ -36,10 +35,10 @@ export const EditContactMethodForm = (props: any) => {
       kind: type, 
       updated_by: user.id}
     setFormData(data);
+    setOpen(false)
   }
   return (
     <>
-      
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column">
         <TextField
@@ -64,7 +63,7 @@ export const EditContactMethodForm = (props: any) => {
             color="secondary"
             defaultValue={edit.data}
             inputRef={register} />
-          <Button type="submit" variant="contained" color="secondary">
+          <Button id= 'submit' type="submit" variant="contained" color="secondary">
             Submit
           </Button>
         </Grid>

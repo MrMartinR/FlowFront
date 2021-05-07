@@ -12,7 +12,8 @@ import {
   FormGroup,
   FormControlLabel,
   Select,
-  MenuItem
+  MenuItem,
+  LinearProgress
 } from '@material-ui/core'
 import ContactAdd from './ContactAdd'
 import { RootState } from '../../../redux/rootReducer'
@@ -146,13 +147,15 @@ export const VerticalLinearStepper = (props:any) => {
         )
       case 1:
         return (
-          <Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
-            {!isLoading&&list.map((country:any) => (
-              <MenuItem 
-                value= { country.id }
-                key = { country.id }>{ country.attributes.name }</MenuItem>
-            ))}
-          </Select>
+            !isLoading
+            ?<Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
+                {list.map((country:any) => (
+                  <MenuItem 
+                    value= { country.id }
+                    key = { country.id }>{ country.attributes.name }</MenuItem>
+                ))}  
+              </Select>
+            :<LinearProgress color="secondary" />
         )
       case 2:
         return (

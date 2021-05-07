@@ -13,7 +13,6 @@ export const fetchPlatformsList = () => (dispatch: any) => {
   axios
     .get(PLATFORMS_URL, optionsHeaders())
     .then(function (response) {
-      console.log(response)
       return dispatch(actions.platformsReceived(response.data))
     })
     .catch(function (error) {

@@ -5,7 +5,6 @@ const initialContactsState = {
   actionsLoading: false,
   contactsTable: {
     entities: null as any,
-    success: false,
   },
   singleContact: {
     entry: {
@@ -13,10 +12,9 @@ const initialContactsState = {
         contact_methods: null as any,
       },
     },
-    success: false,
   },
-  contactForEdit: null as any,
-  deleteResponse: null as any,
+  success: null as any,
+  response: null as any,
   error: null as any,
 }
 export const callTypes = {
@@ -31,6 +29,7 @@ export const contactsSlice = createSlice({
     // when error occurs catch it
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
+      state.success = false
       if (action.payload.callType === callTypes.list) {
         state.listLoading = false
       } else {
@@ -40,6 +39,8 @@ export const contactsSlice = createSlice({
     // set the state in which the process is in loading or setting the state
     startCall: (state, action) => {
       state.error = null
+      state.success = null
+      state.response = null
       if (action.payload.callType === callTypes.list) {
         state.listLoading = true
       } else {
@@ -51,18 +52,14 @@ export const contactsSlice = createSlice({
     contactsFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
-      state.error = null
       state.contactsTable.entities = data.data
-      state.contactsTable.success = true
     },
 
     // update the contact state on fetch a single contact
     contactFetched: (state, action) => {
       const { data } = action.payload
       state.actionsLoading = false
-      state.error = null
       state.singleContact.entry = data.data
-      state.singleContact.success = true
     },
 
     // on creation a new contact append it to existing contacts
@@ -72,13 +69,12 @@ export const contactsSlice = createSlice({
         id: data.id,
         type: data.type,
         attributes: {
-          name: data.attributes.name?data.attributes.name:data.attributes.trade_name
+          name: data.attributes.kind.toUpperCase()==='INDIVIDUAL'?data.attributes.name:data.attributes.trade_name
         }
       }
       state.listLoading = false
-      state.error = null
       state.contactsTable.entities.unshift(newContact)
-      state.contactsTable.success = true
+      state.success = true
     },
     contactUpdate: (state, action) => {
       const { data } = action.payload
@@ -86,22 +82,22 @@ export const contactsSlice = createSlice({
         id: data.id,
         type: data.type,
         attributes: {
-          name: data.attributes.name?data.attributes.name:data.attributes.trade_name
+          name: data.attributes.kind.toUpperCase()==='INDIVIDUAL'?data.attributes.name:data.attributes.trade_name
         }
       }
-      let newState = []
+      let newState = [] as any
       lodash.find(state.contactsTable.entities, function (o: any) {
         if (o.id !== newContact.id) {
           newState.push(o)
-        }
+        } else newState.push(newContact)
       })
-      newState.unshift(newContact)
+      
       state.actionsLoading = false
-      state.error = null
       state.contactsTable.entities = newState
+      state.success = true
     },
     contactDelete: (state, action) => {
-      const { itm } = action.payload
+      const { itm, success, message } = action.payload
       let newState = [] as any
       lodash.find(state.contactsTable.entities, function (o: any) {
         if (o.id !== itm) {
@@ -109,8 +105,9 @@ export const contactsSlice = createSlice({
         }
       })
       state.listLoading = false
-      state.error = null
       state.contactsTable.entities = newState
+      state.success = success
+      state.response = message
     },
 
 
@@ -124,7 +121,7 @@ export const contactsSlice = createSlice({
     contactMethodsCreate: (state, action) => {
       const { data } = action.payload
       state.actionsLoading = false
-      state.error = null
+      state.success = true
       const entry = {
         id: data.id,
         ...data.attributes
@@ -158,7 +155,7 @@ export const contactsSlice = createSlice({
       }
       newState.unshift(entry)
       state.actionsLoading = false
-      state.error = null
+      state.success = true
       state.singleContact.entry.attributes.contact_methods = newState
 
     }, 
@@ -172,6 +169,7 @@ export const contactsSlice = createSlice({
      * update success to true of false
      */
     contactMethodsDelete: (state, action) => {
+      console.log(JSON.stringify(action.payload, null, 3));
     const { message, itm } = action.payload
       let newState = [] as any
       lodash.find(state.singleContact.entry.attributes.contact_methods, function (o: any) {
@@ -180,9 +178,14 @@ export const contactsSlice = createSlice({
         }
       })
       state.actionsLoading = false
-      state.error = null
+      state.success = true
       state.singleContact.entry.attributes.contact_methods = newState
-      state.deleteResponse = message
-    } 
+      state.response = message
+    },
+    
+    contactResetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success
+    }
   },
 })
