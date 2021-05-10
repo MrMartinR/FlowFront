@@ -49,20 +49,20 @@ export const ContactEdit = (props: any) => {
   })
   const [description, setDescription] = useState(selectedContact.attributes.description)
   useEffect(() => {
-    if (selectedContact?.attributes.kind.toUpperCase()==='COMPANY') setCheckState({
+    if (selectedContact?.attributes.kind==='Company') setCheckState({
       checkedA: true,
       checkedB: false
     })
-    if (selectedContact?.attributes.kind.toUpperCase()==='INDIVIDUAL') setCheckState({
+    if (selectedContact?.attributes.kind==='Individual') setCheckState({
       checkedA: false,
       checkedB: true
     });
     setCountry(selectedContact?.attributes.country.id);
-    if (selectedContact?.attributes.visibility.toUpperCase()==='PRIVATE') setCheckVisible({
+    if (selectedContact?.attributes.visibility==='Private') setCheckVisible({
       checkedC: true,
       checkedD: false
     })
-    if (selectedContact?.attributes.visibility.toUpperCase()==='PUBLIC') setCheckVisible({
+    if (selectedContact?.attributes.visibility==='Public') setCheckVisible({
       checkedC: false,
       checkedD: true
     });

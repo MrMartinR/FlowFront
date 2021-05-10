@@ -27,9 +27,9 @@ export const Contacts = (props: any) => {
   const [actionsLoading, setActionsLoading] = useState(false)
   const [singleContact, setSingleContact] = useState({})
   let selectedContact = null as any
-  if (list) {
+  if (list.length>1) {
     if (isContact){
-      let selected = list.findIndex((itm: any) => itm.id === params.id)
+      const selected = list.findIndex((itm: any) => itm.id === params.id)
       selected!== -1 && setSelectedItemIndex(selected);
       setIsContact(false);
     } 

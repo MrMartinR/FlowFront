@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { Grid, Typography } from '@material-ui/core/'
+import { useEffect, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { Grid, LinearProgress } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
-import { fetchPlatformOriginators } from '../state/platformsActions'
+import * as platformsActions from '../state/platformsActions'
+import { RootState } from '../../../../redux/rootReducer'
+import { useHistory } from 'react-router'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -17,65 +19,73 @@ const columns: GridColDef[] = [
   { field: 'apr', headerName: 'APR', width: 100 },
 ] as any
 
-const PlatformOriginators = (props: any) => {
-  const { fetchPlatformOriginators } = props
-  const { platformOriginators, loading } = props.platforms
-  const [originatorsData, setOriginatorsData] = React.useState([] as any)
-
-  const processOriginatorData = (arr: any) => {
-    let data = [] as any
-    arr.forEach((element: any) => {
-      let dataObj = {} as any
-      for (const property in element) {
-        if (property === 'originator') {
-          dataObj['id'] = element[property].id
-          dataObj['customer_category'] = JSON.parse(element[property].customer_category)
-          dataObj['product_category_business'] = JSON.parse(element[property].product_category_business)
-          dataObj['product_category_consumer'] = JSON.parse(element[property].product_category_consumer)
-          dataObj['apr'] = element[property].apr
-        }
-      }
-      data.push(dataObj)
-    })
-    return data
+export const PlatformOriginators = (props: any) => {
+  const [list, setList] = useState([] as any)
+  const [isLoading, setIsLoading] = useState(true)
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.platforms,
+    }),
+    shallowEqual
+  )
+  const { id } = props
+  
+  const GetPlatformOriginators = () => {
+    let dispatch = useDispatch()
+    useEffect(() => {
+      if (dispatch) {
+        dispatch(platformsActions.fetchPlatformOriginators(id));
+      } 
+    }, [dispatch]);
   }
+  GetPlatformOriginators();
 
   useEffect(() => {
-    fetchPlatformOriginators(props.id)
-  }, [fetchPlatformOriginators, props.id])
+    currentState.platformOriginators &&
+    setList(currentState.platformOriginators)
+  }, [currentState.platformOriginators])
 
-  useEffect(() => {
-    setOriginatorsData(processOriginatorData(platformOriginators))
-  }, [platformOriginators])
+  const rows = [] as any;
+  if (list.length >0) list.map((item: any) => {
+    const newRow = {
+      id : item.attributes?.originator?.id,
+      customer_category: item.attributes?.originator?.customer_category,
+      product_category_business: item.attributes?.originator?.product_category_business,
+      product_category_consumer: item.attributes?.originator?.product_category_consumer,
+      apr: item.attributes?.originator?.apr,
+    }
+    rows.push(newRow);
+    return rows;
+  })  
+  useEffect( () => {
+    setIsLoading(currentState.loading);
+  }, [currentState.loading]);
 
-  if (loading) {
-    return (
-      <>
-        <Typography variant="h5">Loading platform originators...</Typography>
-      </>
-    )
-  }
+  const linkTo = useHistory()
+  const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`)
   return (
-    <Grid xs={12}>
-      <Grid container direction="column">
-        <div style={{ height: 600, width: '100%' }}>
-          <XGrid rows={originatorsData} columns={columns} disableMultipleSelection={true} loading={true} />
-        </div>
-      </Grid>
-    </Grid>
+    <>
+      {
+        isLoading ? 
+        (
+          <Grid container direction="column">
+            <LinearProgress color="secondary" />
+          </Grid>
+        ) : (
+          <Grid xs={12}>
+            <Grid container direction="column">
+              <div style={{ height: 600, width: '100%' }}>
+                <XGrid 
+                  rows={rows} 
+                  columns={columns} 
+                  disableMultipleSelection={true} 
+                  onRowClick={handleClick}
+                  loading={isLoading} />
+              </div>
+            </Grid>
+          </Grid>
+        )
+      }
+    </>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    platforms: state.platforms,
-  }
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchPlatformOriginators: (platformId: any) => dispatch(fetchPlatformOriginators(platformId)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformOriginators)

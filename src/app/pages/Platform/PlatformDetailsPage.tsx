@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { Typography, Grid, Toolbar, ButtonGroup, Button } from '@material-ui/core/'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
-import PlatformInfo from './info/PlatformInfo'
-import PlatformOriginators from './originators/PlatformOriginators'
-import PlatformLoans from './loans/PlatformLoans'
+import { PlatformInfo } from './info/PlatformInfo'
+import { PlatformOriginators } from './originators/PlatformOriginators'
+import { PlatformLoans } from './loans/PlatformLoans'
 import * as platformsActions from './state/platformsActions'
 import { RootState } from '../../../redux/rootReducer'
 
@@ -37,7 +37,7 @@ export const PlatformDetailsPage = (props: any) => {
   const handleClick = (e: any) => {
     setTab(`${e.target.innerHTML}`)
   }
-console.log(JSON.stringify(params.id));
+
   /* a function that returns a switch statement of the details, contact, originators and loans tab */
   const renderSwitch = (param: any) => {
     switch (param) {
@@ -56,8 +56,8 @@ console.log(JSON.stringify(params.id));
     <>
       <Toolbar>
         <Grid container direction="row" justify="space-between">
-          <Grid item xs={4} direction="row">
-            <Typography variant="h4">{platformDetails.contact}</Typography>
+          <Grid item xs={4}>
+            <Typography variant="h4">{platformDetails.attributes?.contact?.trade_name}</Typography>
           </Grid>
           <Grid item xs={3}>
             <ButtonGroup>
@@ -68,7 +68,7 @@ console.log(JSON.stringify(params.id));
           </Grid>
         </Grid>
         <Grid item xs={2}>
-          <Button href={`/contacts/${platformDetails.contact_id}`}>
+          <Button href={`/contacts/${platformDetails.attributes?.contact?.id}`}>
             Contact
           </Button>
         </Grid>
