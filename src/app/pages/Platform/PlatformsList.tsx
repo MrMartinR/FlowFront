@@ -50,12 +50,12 @@ export const PlatformsList = (props: any) => {
 
   useEffect(() => { if (
     currentState.platformsTable
-  ) {
-    setList(currentState.platformsTable);
-  }
-}, [currentState.platformsTable]);
+    ) {
+      setList(currentState.platformsTable);
+    }
+  }, [currentState.platformsTable]);
   const rows = [] as any;
-  list.map((platform: any) => {
+  if (list.length >1) list.map((platform: any) => {
     const newRow = {
       id : platform.id,
       type: platform.type,

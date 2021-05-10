@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
-import { Grid, Typography } from '@material-ui/core/'
+import React, { useEffect, useState } from 'react'
+import { Grid, LinearProgress } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
-import { connect } from 'react-redux'
-import { fetchPlatformLoans } from '../state/platformsActions'
+import * as platformsActions from '../state/platformsActions'
+import { RootState } from '../../../../redux/rootReducer'
+import { useHistory } from 'react-router'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -28,43 +30,60 @@ const columns: GridColDef[] = [
   { field: 'air', headerName: 'Air', width: 100 },
 ] as any
 
-const PlatformLoans = (props: any) => {
-  const { fetchPlatformLoans, id } = props
-  const { platformLoans, loading } = props.platforms
+export const PlatformLoans = (props: any) => {
+  const { id } = props
+  const [list, setList] = useState([] as any)
+  const [isLoading, setIsLoading] = useState(true)
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.platforms,
+    }),
+    shallowEqual
+  )
+
+  const GetPlatformLoans = () => {
+    let dispatch = useDispatch()
+    useEffect(() => {
+      if (dispatch) {
+        dispatch(platformsActions.fetchPlatformLoans(id));
+      } 
+    }, [dispatch]);
+  }
+  GetPlatformLoans();
 
   useEffect(() => {
-    fetchPlatformLoans(id)
-  }, [fetchPlatformLoans, id])
+    currentState.platformLoans &&
+    setList(currentState.platformLoans)
+  }, [currentState.platformLoans])
+  useEffect( () => {
+    setIsLoading(currentState.loading);
+  }, [currentState.loading]);
 
-  if (loading) {
-    return (
-      <>
-        <Typography variant="h5">Loading platform loans...</Typography>
-      </>
-    )
-  }
-
+  const linkTo = useHistory()
+  const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
   return (
-    <Grid xs={12}>
-      <Grid container direction="column">
-        <div style={{ height: 600, width: '100%' }}>
-          <XGrid rows={platformLoans} columns={columns} disableMultipleSelection={true} loading={true} />
-        </div>
-      </Grid>
-    </Grid>
+    <>
+      {
+        isLoading ? 
+        (
+          <Grid container direction="column">
+            <LinearProgress color="secondary" />
+          </Grid>
+        ) : (
+          <Grid xs={12}>
+            <Grid container direction="column">
+              <div style={{ height: 600, width: '100%' }}>
+                <XGrid 
+                  rows={list} 
+                  columns={columns}
+                  onRowClick={handleClick}
+                  disableMultipleSelection={true} 
+                  loading={isLoading} />
+              </div>
+            </Grid>
+          </Grid>
+        )
+      }
+    </>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    platforms: state.platforms,
-  }
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchPlatformLoans: (platformId: any) => dispatch(fetchPlatformLoans(platformId)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformLoans)

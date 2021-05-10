@@ -91,7 +91,7 @@ export const ContactDetails = (props: any) => {
               
             </Grid>
             <Grid item xs = { 8 }>
-              {selectedContact.attributes?.kind?.toUpperCase() === 'COMPANY' ? (
+              {selectedContact.attributes?.kind === 'Company' ? (
                 <List>
                   <ListItemText primary={` ${selectedContact.attributes?.trade_name || err}`} />
                   <ListItemText primary={` ${selectedContact.attributes?.company_name || err}`} />

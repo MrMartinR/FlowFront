@@ -48,10 +48,10 @@ export const ContactToolBar = (props: any) => {
     <>
       <Toolbar variant="dense">
         <Grid container direction="row" justify="space-evenly">
-          <Grid item xs={9}>
+          <Grid item xs={8}>
             <Typography variant="h6">Contacts</Typography>
           </Grid>
-          <Grid item xs={3} direction="row" container>
+          <Grid item xs={4} direction="row" container>
             <ButtonGroup>
               {(selectedContact?.attributes?.platform !== null)&&<Button variant='outlined' onClick={ handlePlatform }>Platform</Button>}
               {(selectedContact?.attributes?.originator !== null)&&<Button variant='outlined' onClick={ handleOriginator }>Originator</Button>}
@@ -60,7 +60,7 @@ export const ContactToolBar = (props: any) => {
               +
             </Button>
             <Button onClick={(e)=>handleClick(e, 1)} aria-describedby={id}>
-            { selectedContact?.attributes?.visibility?.toUpperCase()==='PUBLIC'
+            { selectedContact?.attributes?.visibility==='Public'
               ?<LockOpenIcon fontSize='large'/>
               :<LockIcon fontSize='large'/> }
             </Button>
@@ -78,7 +78,7 @@ export const ContactToolBar = (props: any) => {
                     horizontal: 'center',
                   }}
                 >
-                  { selectedContact?.attributes?.visibility?.toUpperCase()==='PUBLIC'
+                  { selectedContact?.attributes?.visibility==='Public'
                       ?<Typography variant="body1">This contact is public</Typography>
                       :<Typography variant="body1">This contact is private, only you have access</Typography> }
             </Popover>
