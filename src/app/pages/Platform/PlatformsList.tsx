@@ -59,7 +59,7 @@ export const PlatformsList = (props: any) => {
     const newRow = {
       id : platform.id,
       type: platform.type,
-      trade_name: platform.attributes.contact?.trade_name||platform.attributes.contact?.nick||`${ platform.attributes.contact?.name } ${ platform.attributes.contact?.surname }`,
+      trade_name: platform.attributes.contact?.trade_name||'',
       status: platform.attributes.status,
       liquidity: platform.attributes.liquidity,
       account_category: platform.attributes.account_category,
