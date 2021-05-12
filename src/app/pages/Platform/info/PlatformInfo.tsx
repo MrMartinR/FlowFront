@@ -1,8 +1,29 @@
-import React from 'react'
 import { Grid, Card, CardContent, Typography, CardHeader, ButtonGroup, Button } from '@material-ui/core/'
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+import { useState } from 'react';
 
 export const PlatformInfo = (props: any) => {
   const { platformDetails } = props
+  const [accounts, setAccounts] = useState(() => []);
+  const [agreement, setAgreement] = useState(() => []);
+  const [protection, setProtection] = useState(() => []);
+  const [investment, setInvestment] = useState(() => []);
+  const handleAccounts = (event: React.MouseEvent<HTMLElement>, newAccounts:[]) => {
+    setAccounts(newAccounts);
+    console.log(accounts);
+  };
+  const handleAgreement = (event: React.MouseEvent<HTMLElement>, newAgreement:[]) => {
+    setAgreement(newAgreement);
+    console.log(agreement);
+  };
+  const handleProtection = (event: React.MouseEvent<HTMLElement>, newProtection:[]) => {
+    setProtection(newProtection);
+    console.log(protection);
+  };
+  const handleInvestment = (event: React.MouseEvent<HTMLElement>, newInvestment:[]) => {
+    setInvestment(newInvestment);
+    console.log(investment);
+  };
   return (
     <>
       <Grid container direction="row" justify="space-between" spacing={2}>
@@ -43,12 +64,12 @@ export const PlatformInfo = (props: any) => {
           <Card>
             <CardHeader title="Accounts"> </CardHeader>
             <CardContent>
-              <ButtonGroup>
+              <ToggleButtonGroup value={accounts} onChange={handleAccounts}>
                 {platformDetails.attributes?.account_category}
-                <Button>Personal</Button>
-                <Button>Corporate</Button>
-                <Button>Accredited</Button>
-              </ButtonGroup>
+                <ToggleButton value='Personal'>Personal</ToggleButton>
+                <ToggleButton value='Corporate'>Corporate</ToggleButton>
+                <ToggleButton value='Accredited'>Accredited</ToggleButton>
+              </ToggleButtonGroup>
               <Typography>IFISA: {platformDetails.attributes?.ifisa}</Typography>
             </CardContent>
           </Card>
@@ -56,12 +77,12 @@ export const PlatformInfo = (props: any) => {
           <Card>
             <CardHeader title="Agreement Structure"> </CardHeader>
             <CardContent>
-              <ButtonGroup>
+              <ToggleButtonGroup value={agreement} onChange={handleAgreement}>
                 {platformDetails.attributes?.structure}
-                <Button>Indirect</Button>
-                <Button>Direct</Button>
-                <Button>Bilateral</Button>
-              </ButtonGroup>
+                <ToggleButton value='Indirect'>Indirect</ToggleButton>
+                <ToggleButton value='Direct'>Direct</ToggleButton>
+                <ToggleButton value='Bilateral'>Bilateral</ToggleButton>
+              </ToggleButtonGroup>
               <Typography>Taxes: {platformDetails.attributes?.taxes}</Typography>
             </CardContent>
           </Card>
@@ -69,13 +90,13 @@ export const PlatformInfo = (props: any) => {
           <Card>
             <CardHeader title="Protection Scheme"> </CardHeader>
             <CardContent>
-              <ButtonGroup>
+              <ToggleButtonGroup value={protection} onChange={handleProtection}>
                 {platformDetails.attributes?.protection_scheme}
-                <Button>BuyBack</Button>
-                <Button>Provision Fund</Button>
-                <Button>Personal</Button>
-                <Button>Collateral</Button>
-              </ButtonGroup>
+                <ToggleButton value='Buyback'>BuyBack</ToggleButton>
+                <ToggleButton value='Provision Fund'>Provision Fund</ToggleButton>
+                <ToggleButton value='Personal'>Personal</ToggleButton>
+                <ToggleButton value='Collateral'>Collateral</ToggleButton>
+              </ToggleButtonGroup>
             </CardContent>
           </Card>
         </Grid>
@@ -85,13 +106,13 @@ export const PlatformInfo = (props: any) => {
             <CardHeader title="Investment Details"> </CardHeader>
             <CardContent>
               <Typography>Invest Mode: </Typography>
-              <ButtonGroup>
+              <ToggleButtonGroup value={investment} onChange={handleInvestment}>
                 {platformDetails.attributes?.invest_mode}
-                <Button>Bid</Button>
-                <Button>Manual</Button>
-                <Button>Preset</Button>
-                <Button>Auto</Button>
-              </ButtonGroup>
+                <ToggleButton value='Bid'>Bid</ToggleButton>
+                <ToggleButton value='Manual'>Manual</ToggleButton>
+                <ToggleButton value='Preset'>Preset</ToggleButton>
+                <ToggleButton value='Auto'>Auto</ToggleButton>
+              </ToggleButtonGroup>
               <Typography>Secondary Market: {platformDetails.attributes?.secondary_market}</Typography>
               <Typography>SM Notes: {platformDetails.attributes?.sm_notes}</Typography>
               <Typography>Cost: {platformDetails.attributes?.cost}</Typography>

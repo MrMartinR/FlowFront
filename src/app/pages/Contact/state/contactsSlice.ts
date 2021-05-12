@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-let lodash = require('lodash')
 const initialContactsState = {
   listLoading: true,
   actionsLoading: false,
@@ -86,7 +85,7 @@ export const contactsSlice = createSlice({
         }
       }
       let newState = [] as any
-      lodash.find(state.contactsTable.entities, function (o: any) {
+      state.contactsTable.entities.map((o: any) => {
         if (o.id !== newContact.id) {
           newState.push(o)
         } else newState.push(newContact)
@@ -99,7 +98,7 @@ export const contactsSlice = createSlice({
     contactDelete: (state, action) => {
       const { itm, success, message } = action.payload
       let newState = [] as any
-      lodash.find(state.contactsTable.entities, function (o: any) {
+      state.contactsTable.entities.map((o: any) => {
         if (o.id !== itm) {
           newState.push(o)
         }
@@ -134,7 +133,7 @@ export const contactsSlice = createSlice({
      * get the data from the payload
      * extract the id and find the entry in state.singleContact.entry?.attributes.contact_methods.entities
      * delete it
-     * push the new data in the state.singleContact.entry?.attributes.contact_methods.entities
+     * push the new data in the state.singleContact.entry.attributes.contact_methods
      *
      * approach justification
      * prevent a new fetch of all data and only push the edited data
@@ -143,8 +142,8 @@ export const contactsSlice = createSlice({
     contactMethodsUpdate: (state, action) => {
       const { data } = action.payload
       let get_id = data.id
-      let newState = []
-      lodash.find(state.singleContact.entry.attributes.contact_methods, function (o: any) {
+      let newState = [] as any
+      state.singleContact.entry.attributes.contact_methods.map((o: any) => {
         if (o.id !== get_id) {
           newState.push(o)
         }
@@ -163,7 +162,6 @@ export const contactsSlice = createSlice({
      * STATE(answered)
      * To delete a contact method, the delete will return status and message
      * we will pass the itm being deleted as a params
-     * filter using lodash, and return all except the itm with the given id
      * update the state with the new state minus the itm
      * update message with the delete message
      * update success to true of false
@@ -172,7 +170,7 @@ export const contactsSlice = createSlice({
       console.log(JSON.stringify(action.payload, null, 3));
     const { message, itm } = action.payload
       let newState = [] as any
-      lodash.find(state.singleContact.entry.attributes.contact_methods, function (o: any) {
+      state.singleContact.entry.attributes.contact_methods.map((o: any) => {
         if (o.id !== itm) {
           newState.push(o)
         }
