@@ -68,7 +68,7 @@ export const contactsSlice = createSlice({
         id: data.id,
         type: data.type,
         attributes: {
-          name: data.attributes.kind.toUpperCase()==='INDIVIDUAL'?data.attributes.name:data.attributes.trade_name
+          name: data.attributes.kind==='Individual'?data.attributes.name:data.attributes.trade_name
         }
       }
       state.listLoading = false
@@ -81,7 +81,7 @@ export const contactsSlice = createSlice({
         id: data.id,
         type: data.type,
         attributes: {
-          name: data.attributes.kind.toUpperCase()==='INDIVIDUAL'?data.attributes.name:data.attributes.trade_name
+          name: data.attributes.kind==='Individual'?data.attributes.name:data.attributes.trade_name
         }
       }
       let newState = [] as any

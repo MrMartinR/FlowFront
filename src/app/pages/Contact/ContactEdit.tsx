@@ -222,7 +222,7 @@ export const ContactEdit = (props: any) => {
             />
           </FormGroup>
 
-        {kind.toUpperCase() === 'COMPANY' ? (
+        {kind === 'Company' ? (
           <>
             <TextField
               name="trade_name"
