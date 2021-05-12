@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Toolbar, Grid, Card, Button, Typography, TextField } from '@material-ui/core'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import _ from 'lodash'
 import { v4 } from 'uuid'
 
 const item = {
@@ -24,16 +23,16 @@ const item4 = {
 
 function Kanban1() {
   const [text, setText] = useState('')
-  const [state, setState]: any = useState({
-    todo: {
+  const [state, setState]: any = useState([
+    {
       title: 'To Do',
       items: [item, item2, item3],
     },
-    doing: {
+    {
       title: 'Doing',
       items: [item4],
     },
-  })
+  ])
 
   const handleDragEnd = ({ destination, source }: any) => {
     if (!destination) {
@@ -99,7 +98,7 @@ function Kanban1() {
         </Toolbar>
         <DragDropContext onDragEnd={handleDragEnd}>
           <Grid item xs={8}>
-            {_.map(state, (data, key) => {
+            {state.map((data: any, key:any) => {
               return (
                 <Grid item key={key}>
                   <Card >

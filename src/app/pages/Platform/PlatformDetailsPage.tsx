@@ -7,6 +7,7 @@ import { PlatformOriginators } from './originators/PlatformOriginators'
 import { PlatformLoans } from './loans/PlatformLoans'
 import * as platformsActions from './state/platformsActions'
 import { RootState } from '../../../redux/rootReducer'
+import { PlatformDetailsToolbar } from './PlatformDetailsToolbar'
 
 export const PlatformDetailsPage = (props: any) => {
   const { params } = props.match;
@@ -34,9 +35,7 @@ export const PlatformDetailsPage = (props: any) => {
   }, [currentState.platformDetails])
 
   /* onClick function that sets the state of the currentTab to be displayed */
-  const handleClick = (e: any) => {
-    setTab(`${e.target.innerHTML}`)
-  }
+  
 
   /* a function that returns a switch statement of the details, contact, originators and loans tab */
   const renderSwitch = (param: any) => {
@@ -54,25 +53,11 @@ export const PlatformDetailsPage = (props: any) => {
 
   return (
     <>
-      <Toolbar>
-        <Grid container direction="row" justify="space-between">
-          <Grid item xs={4}>
-            <Typography variant="h4">{platformDetails.attributes?.contact?.trade_name}</Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <ButtonGroup>
-              <Button onClick={handleClick}>Info</Button>
-              <Button onClick={handleClick}>Originators</Button>
-              <Button onClick={handleClick}>Loans</Button>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
-        <Grid item xs={2}>
-          <Button href={`/contacts/${platformDetails.attributes?.contact?.id}`}>
-            Contact
-          </Button>
-        </Grid>
-      </Toolbar>
+      <PlatformDetailsToolbar 
+        id = { platformDetails.attributes?.contact?.id }
+        trade_name = { platformDetails.attributes?.contact.trade_name }
+        setTab = {setTab}
+        />
       {/* render a switch statement passing in the currentTab state as the key */}
       {renderSwitch(currentTab)}
     </>
