@@ -89,7 +89,7 @@ export const AddContactMethodForm = (props: any) => {
       contact_id: selectedContact.id,
       created_by: user.id,
       visibility: selectedContact.attributes?.visibility,
-      user_id: selectedContact.attributes?.user
+      // user_id: selectedContact.attributes?.user
     }
     setFormData(data);
     setOpen(false);

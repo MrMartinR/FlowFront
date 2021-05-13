@@ -6,7 +6,7 @@ export const PlatformDetailsToolbar = (props: any) => {
         setTab(`${e.target.innerHTML}`)
       }
     return (
-        <Toolbar>
+      <Toolbar>
         <Grid container direction="row" justify="space-between">
           <Grid item xs={4}>
             <Typography variant="h4">{trade_name}</Typography>

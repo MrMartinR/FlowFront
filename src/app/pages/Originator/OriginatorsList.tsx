@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react'
-import { Grid, Card, CardContent, Typography } from '@material-ui/core/'
-import { connect } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { Grid, Card, CardContent, LinearProgress } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
-import { fetchOriginatorsList } from './state/originatorsActions'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../redux/rootReducer'
+import { OriginatorsAlert } from './OriginatorsAlert'
+import { OriginatorsListToolbar } from './OriginatorsListToolbar'
+import * as originatorsActions from './state/originatorsActions'
+import { useHistory } from 'react-router'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -17,67 +21,78 @@ const columns: GridColDef[] = [
   { field: 'apr', headerName: 'APR', width: 100 },
 ] as any
 
-const OriginatorsList = (props: any) => {
-  const { fetchOriginatorsList } = props
-  const { originatorsTable = [], loading } = props.originators
-  const [data, setData] = React.useState([] as any)
-  const processData = (arr: any) => {
-    let data = [] as any
-    arr.forEach((element: any) => {
-      let dt = {} as any
-      dt['id'] = element.id
-      dt['customer_category'] = JSON.parse(element.customer_category)
-      dt['product_category_business'] = JSON.parse(element.product_category_business)
-      dt['product_category_consumer'] = JSON.parse(element.product_category_consumer)
-      dt['apr'] = element.apr
-      dt['trade_name'] = element.trade_name
-      data.push(dt)
-    })
-    return data
+export const OriginatorsList = (props: any) => {
+  const [list, setList] = useState([] as any)
+  const [isLoading, setIsLoading] = useState(true)
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.originators,
+    }),
+    shallowEqual
+  )
+  const GetAllOriginators = () => {
+    let dispatch = useDispatch()
+    useEffect(() => {
+      if (dispatch) {
+        dispatch(originatorsActions.fetchOriginatorsList());
+      } 
+    }, [dispatch])
   }
+  GetAllOriginators();
+  useEffect(() => { if (
+    currentState.originatorsTable
+    ) {
+      setList(currentState.originatorsTable);
+    }
+  }, [currentState.originatorsTable]);
 
-  useEffect(() => {
-    fetchOriginatorsList()
-  }, [fetchOriginatorsList])
+  useEffect( () => {
+    setIsLoading(currentState.loading);
+  }, [currentState.loading]);
 
-  useEffect(() => {
-    setData(processData(originatorsTable))
-  }, [originatorsTable])
+  const linkTo = useHistory();
+  const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`);
 
-  if (loading) {
-    return (
-      <>
-        <Typography variant="h5">Loading originators...</Typography>
-      </>
-    )
-  }
+  const rows = [] as any;
+  if (list.length >1) list.map((originator: any) => {
+    const newRow = {
+      id : originator.id,
+      trade_name: originator.attributes.contact?.trade_name,
+      customer_category: originator.attributes.customer_category,
+      product_category_business: originator.attributes.product_category_business,
+      product_category_consumer: originator.attributes.product_category_consumer,
+      apr: originator.attributes.apr,
+    }
+    rows.push(newRow);
+    return rows;
+  })
 
   return (
-    <Grid container direction="column">
-      <Typography variant="h4">Originators</Typography>
-      <Grid container direction="column">
-        <Card>
-          <CardContent>
-            <div style={{ height: 600, width: '100%' }}>
-              <XGrid rows={data} columns={columns} disableMultipleSelection={true} loading={true} />
-            </div>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    <>
+      {isLoading ? (
+        <Grid container direction="column">
+          <LinearProgress color="secondary" />
+        </Grid>
+      ) : (
+        <>
+          <OriginatorsListToolbar list = { rows }/>
+          <OriginatorsAlert />
+          <Grid container direction="column">
+            <Card>
+              <CardContent>
+                <div style={{ height: 600, width: '100%' }}>
+                  <XGrid 
+                    rows={rows} 
+                    columns={columns}
+                    onRowClick={handleClick} 
+                    disableMultipleSelection={true} 
+                    loading={isLoading} />
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </>
+      )}
+    </>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    originators: state.originators,
-  }
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchOriginatorsList: () => dispatch(fetchOriginatorsList()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(OriginatorsList)

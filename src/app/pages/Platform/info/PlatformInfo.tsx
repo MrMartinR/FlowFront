@@ -1,29 +1,21 @@
-import { Grid, Card, CardContent, Typography, CardHeader, ButtonGroup, Button } from '@material-ui/core/'
+import { Grid, Card, CardContent, Typography, CardHeader } from '@material-ui/core/'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const PlatformInfo = (props: any) => {
   const { platformDetails } = props
-  const [accounts, setAccounts] = useState(() => []);
-  const [agreement, setAgreement] = useState(() => []);
-  const [protection, setProtection] = useState(() => []);
-  const [investment, setInvestment] = useState(() => []);
-  const handleAccounts = (event: React.MouseEvent<HTMLElement>, newAccounts:[]) => {
-    setAccounts(newAccounts);
-    console.log(accounts);
-  };
-  const handleAgreement = (event: React.MouseEvent<HTMLElement>, newAgreement:[]) => {
-    setAgreement(newAgreement);
-    console.log(agreement);
-  };
-  const handleProtection = (event: React.MouseEvent<HTMLElement>, newProtection:[]) => {
-    setProtection(newProtection);
-    console.log(protection);
-  };
-  const handleInvestment = (event: React.MouseEvent<HTMLElement>, newInvestment:[]) => {
-    setInvestment(newInvestment);
-    console.log(investment);
-  };
+  const [accounts, setAccounts] = useState();
+  const [agreement, setAgreement] = useState();
+  const [protection, setProtection] = useState();
+  const [investment, setInvestment] = useState();
+  const [cashflow, setCashflow] = useState();
+  useEffect(() => {
+    setAccounts(platformDetails.attributes?.account_category);
+    setAgreement(platformDetails.attributes?.structure);
+    setProtection(platformDetails.attributes?.protection_scheme);
+    setInvestment(platformDetails.attributes?.invest_mode);
+    setCashflow(platformDetails.attributes?.cashflow_options);
+  }, [platformDetails])
   return (
     <>
       <Grid container direction="row" justify="space-between" spacing={2}>
@@ -64,7 +56,7 @@ export const PlatformInfo = (props: any) => {
           <Card>
             <CardHeader title="Accounts"> </CardHeader>
             <CardContent>
-              <ToggleButtonGroup value={accounts} onChange={handleAccounts}>
+              <ToggleButtonGroup value={accounts}>
                 {platformDetails.attributes?.account_category}
                 <ToggleButton value='Personal'>Personal</ToggleButton>
                 <ToggleButton value='Corporate'>Corporate</ToggleButton>
@@ -77,7 +69,7 @@ export const PlatformInfo = (props: any) => {
           <Card>
             <CardHeader title="Agreement Structure"> </CardHeader>
             <CardContent>
-              <ToggleButtonGroup value={agreement} onChange={handleAgreement}>
+              <ToggleButtonGroup value={agreement}>
                 {platformDetails.attributes?.structure}
                 <ToggleButton value='Indirect'>Indirect</ToggleButton>
                 <ToggleButton value='Direct'>Direct</ToggleButton>
@@ -90,7 +82,7 @@ export const PlatformInfo = (props: any) => {
           <Card>
             <CardHeader title="Protection Scheme"> </CardHeader>
             <CardContent>
-              <ToggleButtonGroup value={protection} onChange={handleProtection}>
+              <ToggleButtonGroup value={protection}>
                 {platformDetails.attributes?.protection_scheme}
                 <ToggleButton value='Buyback'>BuyBack</ToggleButton>
                 <ToggleButton value='Provision Fund'>Provision Fund</ToggleButton>
@@ -106,7 +98,7 @@ export const PlatformInfo = (props: any) => {
             <CardHeader title="Investment Details"> </CardHeader>
             <CardContent>
               <Typography>Invest Mode: </Typography>
-              <ToggleButtonGroup value={investment} onChange={handleInvestment}>
+              <ToggleButtonGroup value={investment}>
                 {platformDetails.attributes?.invest_mode}
                 <ToggleButton value='Bid'>Bid</ToggleButton>
                 <ToggleButton value='Manual'>Manual</ToggleButton>
@@ -117,7 +109,13 @@ export const PlatformInfo = (props: any) => {
               <Typography>SM Notes: {platformDetails.attributes?.sm_notes}</Typography>
               <Typography>Cost: {platformDetails.attributes?.cost}</Typography>
               <Typography>Min. Investment: {platformDetails.attributes?.min_investment}</Typography>
-              <Typography>Cashflow options: {platformDetails.attributes?.cashflow_options}</Typography>
+              <Typography>Cashflow options:</Typography>
+              <ToggleButtonGroup value={cashflow}>
+                
+                <ToggleButton value='Bank Transfer'>Bank Transfer</ToggleButton>
+                <ToggleButton value='Revolut'>Revolut</ToggleButton>
+                <ToggleButton value='Debit Card'>Debit Card</ToggleButton>
+              </ToggleButtonGroup>
             </CardContent>
           </Card>
 

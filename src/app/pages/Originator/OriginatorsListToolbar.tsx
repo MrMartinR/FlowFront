@@ -3,7 +3,7 @@ import { Grid, Typography, Toolbar, TextField } from '@material-ui/core/'
 import { Autocomplete } from '@material-ui/lab';
 import { useHistory } from 'react-router';
 
-export const PlatformListToolbar = (props: any) => {
+export const OriginatorsListToolbar = (props: any) => {
   const { list } = props;
   const linkTo = useHistory();
   const [options, setOptions] = useState([] as any)
@@ -21,13 +21,13 @@ export const PlatformListToolbar = (props: any) => {
   }, [list])
   const handlePick = (e: any, v: any) => {
     let selected = list.find((itm: any) => itm.trade_name === v);
-    (selected)&&linkTo.push(`/platforms/${selected.id}`);
+    (selected)&&linkTo.push(`/originators/${selected.id}`);
   }
   return (
     <Toolbar variant="dense">
       <Grid container direction="row" justify="space-between">
         <Grid item xs={4}>
-          <Typography variant="h5">Platforms</Typography>
+          <Typography variant="h5">Originators</Typography>
         </Grid>
         <Grid item xs={2}>
           <Autocomplete

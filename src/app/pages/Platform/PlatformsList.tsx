@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Grid, LinearProgress } from '@material-ui/core/'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
-import PlatformListToolbar from './PlatformListToolbar'
+import { PlatformListToolbar } from './PlatformListToolbar'
 import * as platformsActions from './state/platformsActions'
 import { RootState } from '../../../redux/rootReducer'
+import { PlatformAlert } from './PlatformAlert'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -94,10 +95,10 @@ export const PlatformsList = (props: any) => {
       ) : (
         <>
           <PlatformListToolbar list = { rows }/>
+          <PlatformAlert />
           <Grid container direction="column">
             <div style={{ height: 600, width: '100%' }}>
               <XGrid
-                
                 rows={rows}
                 columns={columns}
                 onRowClick={handleClick}

@@ -1,20 +1,28 @@
-import React from 'react'
-import { Grid, Button, Typography, Toolbar } from '@material-ui/core/'
+import { Grid, Button, ButtonGroup, Typography, Toolbar } from '@material-ui/core/'
 
-const OriginatorDetailsToolbar = () => {
+export const OriginatorDetailsToolbar = (props: any) => {
+  const { setTab, id, trade_name } = props;
+    const handleClick = (e: any) => {
+        setTab(`${e.target.innerHTML}`)
+      }
   return (
     <Toolbar>
-      <Grid container>
+      <Grid container direction="row" justify="space-between">
         <Grid item xs={4}>
-          <Typography variant="h5">Originator Details</Typography>
+          <Typography variant="h5">{trade_name}</Typography>
         </Grid>
-        <Grid item xs={8}>
-          <Button>Contact</Button>
-          <Button>Loans</Button>
+        <Grid item xs={3}>
+          <ButtonGroup>
+            <Button onClick={handleClick}>Info</Button>
+            <Button onClick={handleClick}>Loans</Button>
+          </ButtonGroup>
         </Grid>
       </Grid>
+      <Grid item xs={2}>
+          <Button href={`/contacts/${id}`}>
+            Contact
+          </Button>
+        </Grid>
     </Toolbar>
   )
 }
-
-export default OriginatorDetailsToolbar

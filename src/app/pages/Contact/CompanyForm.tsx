@@ -20,23 +20,23 @@ export const CompanyForm = (props: any) => {
   const { kind, visibility, country, setOpen } = props
   const { register, handleSubmit, errors } = useForm()
   const [formData, setFormData] = useState({})
-  const {
-    auth: { user },
-  } = store.getState()
-  let userId:any;
-  visibility==='Public'?userId=null:userId=user.id;
+  // const {
+  //   auth: { user },
+  // } = store.getState()
+  // let userId:any;
+  // visibility==='Public'?userId=null:userId=user.id;
   const onSubmit = (data: any, e:any) => {
     data = {...data ,
       kind: kind,
       country_id: country,
       visibility: visibility,
     }
-    if (userId!==null) {
-      data = {
-      ...data,
-      user_id: userId,
-      }
-    }
+    // if (userId!==null) {
+    //   data = {
+    //   ...data,
+    //   user_id: userId,
+    //   }
+    // }
     setFormData(data);
     setOpen(false);
   }

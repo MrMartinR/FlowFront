@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Typography, Grid, Toolbar, ButtonGroup, Button } from '@material-ui/core/'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { PlatformInfo } from './info/PlatformInfo'
@@ -8,6 +7,7 @@ import { PlatformLoans } from './loans/PlatformLoans'
 import * as platformsActions from './state/platformsActions'
 import { RootState } from '../../../redux/rootReducer'
 import { PlatformDetailsToolbar } from './PlatformDetailsToolbar'
+import { PlatformAlert } from './PlatformAlert'
 
 export const PlatformDetailsPage = (props: any) => {
   const { params } = props.match;
@@ -55,9 +55,10 @@ export const PlatformDetailsPage = (props: any) => {
     <>
       <PlatformDetailsToolbar 
         id = { platformDetails.attributes?.contact?.id }
-        trade_name = { platformDetails.attributes?.contact.trade_name }
+        trade_name = { platformDetails.attributes?.contact?.trade_name }
         setTab = {setTab}
         />
+      <PlatformAlert />
       {/* render a switch statement passing in the currentTab state as the key */}
       {renderSwitch(currentTab)}
     </>
