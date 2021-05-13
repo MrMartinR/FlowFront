@@ -1,13 +1,11 @@
 import * as requestFromServer from './platformsCrud'
-import { any } from 'prop-types'
-
 import { platformsSlice } from './platformsSlice'
 
 const { actions } = platformsSlice
 
 /* Fetches a list of platforms */
 export const fetchPlatformsList = () => (dispatch: any) => {
-  dispatch(actions.startCall(any))
+  dispatch(actions.startCall())
   return requestFromServer
   .getAllPlatforms()
     .then((response) => {
@@ -25,7 +23,7 @@ export const fetchPlatformDetails = (id: any) => (dispatch: any) => {
     const error = "Can't find Platform without id"
     return dispatch(actions.catchError(error))
   }
-  dispatch(actions.startCall(any))
+  dispatch(actions.startCall())
    return requestFromServer
    .getPlatformById(id)
     .then((response) => {
@@ -44,7 +42,7 @@ export const fetchPlatformOriginators = (id: any) => (dispatch: any) => {
     const error = "Can't find originators associated to a particular platform without platform_id"
     return dispatch(actions.catchError(error))
   }
-  dispatch(actions.startCall(any))
+  dispatch(actions.startCall())
   return requestFromServer
   .getPlatformOriginators(id)
     .then((response) => {
@@ -62,7 +60,7 @@ export const fetchPlatformLoans = (id: any) => (dispatch: any) => {
     const error = "Can't find loans associated to a particular platform without platform_id"
     return dispatch(actions.catchError(error))
   }
-  dispatch(actions.startCall(any))
+  dispatch(actions.startCall())
   requestFromServer
     .getPlatformLoans(id)
     .then((response) => {
@@ -72,4 +70,8 @@ export const fetchPlatformLoans = (id: any) => (dispatch: any) => {
     .catch(function (error) {
       return dispatch(actions.catchError(error))
     })
+}
+
+export const resetSuccessPlatform = () => (dispatch: any) => {
+  dispatch( actions.platformResetSuccess({ success: null }));
 }

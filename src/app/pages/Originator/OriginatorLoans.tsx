@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Avatar, Grid, LinearProgress } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef, GridCellParams } from '@material-ui/x-grid'
-import * as platformsActions from '../state/platformsActions'
-import { RootState } from '../../../../redux/rootReducer'
+import * as platformsActions from './state/originatorsActions'
+import { RootState } from '../../../redux/rootReducer'
 import { useHistory } from 'react-router'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
@@ -36,31 +36,31 @@ const columns: GridColDef[] = [
   { field: 'air', headerName: 'Air', width: 100 },
 ] as any
 
-export const PlatformLoans = (props: any) => {
+export const OriginatorLoans = (props: any) => {
   const { id } = props
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
   const { currentState } = useSelector(
     (state: RootState) => ({
-      currentState: state.platforms,
+      currentState: state.originators,
     }),
     shallowEqual
   )
 
-  const GetPlatformLoans = () => {
+  const GetOriginatorLoans = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(platformsActions.fetchPlatformLoans(id));
+        dispatch(platformsActions.fetchOriginatorLoans(id));
       } 
     }, [dispatch]);
   }
-  GetPlatformLoans();
+  GetOriginatorLoans();
 
   useEffect(() => {
-    currentState.platformLoans &&
-    setList(currentState.platformLoans)
-  }, [currentState.platformLoans])
+    currentState.originatorLoans &&
+    setList(currentState.originatorLoans)
+  }, [currentState.originatorLoans])
   useEffect( () => {
     setIsLoading(currentState.loading);
   }, [currentState.loading]);
@@ -102,17 +102,15 @@ export const PlatformLoans = (props: any) => {
             <LinearProgress color="secondary" />
           </Grid>
         ) : (
-          <Grid xs={12}>
-            <Grid container direction="column">
-              <div style={{ height: 600, width: '100%' }}>
-                <XGrid 
-                  rows={rows} 
-                  columns={columns}
-                  onRowClick={handleClick}
-                  disableMultipleSelection={true} 
-                  loading={isLoading} />
-              </div>
-            </Grid>
+          <Grid container direction="column">
+            <div style={{ height: 600, width: '100%' }}>
+              <XGrid 
+                rows={rows} 
+                columns={columns}
+                onRowClick={handleClick}
+                disableMultipleSelection={true} 
+                loading={isLoading} />
+            </div>
           </Grid>
         )
       }

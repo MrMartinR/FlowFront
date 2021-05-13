@@ -1,18 +1,15 @@
-import React from 'react'
 import { Grid, Card, CardContent } from '@material-ui/core'
 
-import OriginatorsTab from './OriginatorsList'
+import { OriginatorsList } from './OriginatorsList'
 
-const OriginatorsPage = () => {
+export const OriginatorsPage = () => {
   return (
     <Grid container direction="column">
       <Card>
         <CardContent>
-          <OriginatorsTab />
+          <OriginatorsList />
         </CardContent>
       </Card>
     </Grid>
   )
 }
-
-export default OriginatorsPage
