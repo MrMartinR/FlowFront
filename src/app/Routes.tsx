@@ -14,17 +14,16 @@ import { Logout, AuthPage } from './modules/Auth/index'
 import ErrorsPage from './modules/Errors/ErrorsPage'
 import { PublicRoute } from './PublicRoute'
 import { PrivateRoute } from './PrivateRoute'
+import { RootState } from '../redux/rootReducer'
 
 export function Routes() {
-  const { isAuthorized } = useSelector(
-    // TODO: added type Any on refactor
-    ({ auth }: any) => ({
-      isAuthorized: auth.user != null,
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.auth,
     }),
     shallowEqual
   )
- 
-
+  const isAuthorized= currentState.user !== undefined;
   
   return (
     <Switch>

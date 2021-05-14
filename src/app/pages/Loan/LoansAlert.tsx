@@ -2,15 +2,15 @@ import { Snackbar } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { useDispatch } from 'react-redux'
 import store from '../../../redux/store'
-import * as originatorsActions from './state/originatorsActions'
+import * as loansActions from './state/loansActions'
 
-export const OriginatorsAlert = ( props:any ) => {
+export const LoansAlert = ( props:any ) => {
     const {
-        originators: { error, success }
+        loans: { error, success }
       } = store.getState()
     const dispatch = useDispatch();
     const handleClick = () => {
-        dispatch( originatorsActions.resetSuccessOriginators());
+        dispatch( loansActions.resetSuccessLoans());
       }
     return (
         <>

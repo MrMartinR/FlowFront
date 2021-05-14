@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
-import { Grid, Card, CardContent, Typography, LinearProgress } from '@material-ui/core/'
-import { connect } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
-
-import { fetchLoansData } from './state/loansActions'
+import { Grid, Card, CardContent, LinearProgress, Avatar } from '@material-ui/core/'
+import { XGrid, LicenseInfo, GridColDef, GridCellParams } from '@material-ui/x-grid'
+import { RootState } from '../../../redux/rootReducer'
+import { LoansAlert } from './LoansAlert'
+import { LoansListToolbar } from './LoansListToolbar'
+import * as loansActions from './state/loansActions'
+import { shallowEqual, useSelector, useDispatch } from 'react-redux'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -14,7 +16,12 @@ const columns: GridColDef[] = [
   // column definition format here
   { field: 'name', headerName: 'Name', width: 180 },
   { field: 'air', headerName: 'Air', width: 180 },
-  { field: 'country', headerName: 'Country', width: 180 },
+  { field: 'country', headerName: 'Flag', width: 100, renderCell: (params: GridCellParams) => (
+    <strong>
+      <Avatar variant="square"><img src={'/media/svg/flags/'+params.value+'.svg'} alt="" /></Avatar>
+    </strong>
+  ),},
+  { field: 'country_name', headerName: 'Country', width: 180 },
   { field: 'currency', headerName: 'Currency', width: 180 },
   { field: 'amortization', headerName: 'Amortization', width: 180 },
   { field: 'amount', headerName: 'Amount', width: 180 },
@@ -40,77 +47,94 @@ const columns: GridColDef[] = [
   { field: 'xirr', headerName: 'Xirr', width: 180 },
 ] as any
 
-const LoansList = (props: any) => {
-  const { fetchLoansData } = props
-  const { loansData = [], loading } = props.loans
-  const [data, setData] = React.useState([] as any)
-
-  const processData = (arr: any) => {
-    let data = [] as any
-    arr.forEach((element: any) => {
-      let dt = {} as any
-      dt['id'] = element.id
-      dt['name'] = element.name
-      dt['air'] = element.air
-      dt['country'] = element.country.name
-      dt['currency'] = element.currency.name
-      dt['amortization'] = element.amortization
-      dt['amount'] = element.amount
-      dt['borrower'] = element.borrower
-      dt['borrower_type'] = element.borrower_type
-      dt['category'] = element.category
-      dt['code'] = element.code
-      dt['date_issued'] = element.date_issued
-      dt['date_listed'] = element.date_listed
-      dt['date_maturity'] = element.date_maturity
-      dt['description'] = element.description
-      dt['dti_rating'] = element.dti_rating
-      dt['gender'] = element.gender
-      dt['installment'] = element.installment
-      dt['internal_code'] = element.internal_code
-      dt['notes'] = element.notes
-      dt['originator'] = element.originator
-      dt['platform'] = element.platform
-      dt['protection_scheme'] = element.protection_scheme
-      dt['rating'] = element.rating
-      dt['security_details'] = element.security_details
-      dt['status'] = element.status
-      dt['xirr'] = element.xirr
-      data.push(dt)
-    })
-    return data
+export const LoansList = (props: any) => {
+  const [list, setList] = useState([] as any)
+  const [isLoading, setIsLoading] = useState(true)
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.loans,
+    }),
+    shallowEqual
+  )
+  const GetAllLoans = () => {
+    let dispatch = useDispatch()
+    useEffect(() => {
+      if (dispatch) {
+        dispatch(loansActions.fetchLoansData());
+      } 
+    }, [dispatch])
   }
+  GetAllLoans();
+  useEffect(() => { if (
+    currentState.loansData
+    ) {
+      setList(currentState.loansData);
+    }
+  }, [currentState.loansData]);
 
-  useEffect(() => {
-    fetchLoansData()
-  }, [fetchLoansData])
-
-  useEffect(() => {
-    setData(processData(loansData))
-  }, [loansData])
+  useEffect( () => {
+    setIsLoading(currentState.loading);
+  }, [currentState.loading]);
 
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
 
+  const rows = [] as any;
+  if (list.length >1) list.map((loan: any) => {
+    const newRow = {
+      id : loan.id,
+      name: loan.attributes.name,
+      air: loan.attributes.air,
+      country: loan.attributes.country.iso_code,
+      country_name: loan.attributes.country.name,
+      currency: loan.attributes.currency.name,
+      amortization: loan.attributes.amortization,
+      amount: loan.attributes.amount,
+      borrower: loan.attributes.borrower,
+      borrower_type: loan.attributes.borrower_type,
+      category: loan.attributes.category,
+      code: loan.attributes.code,
+      date_issued: loan.attributes.date_issued,
+      date_listed: loan.attributes.date_listed,
+      date_maturity: loan.attributes.date_maturity,
+      description: loan.attributes.description,
+      dti_rating: loan.attributes.dti_rating,
+      gender: loan.attributes.gender,
+      installment: loan.attributes.installment,
+      internal_code: loan.attributes.internal_code,
+      notes: loan.attributes.notes,
+      originator: loan.attributes.originator.id,
+      platform: loan.attributes.platform.id,
+      protection_scheme: loan.attributes.protection_scheme,
+      rating: loan.attributes.rating,
+      security_details: loan.attributes.security_details,
+      status: loan.attributes.status,
+      xirr: loan.attributes.xirr,
+    }
+    rows.push(newRow);
+    return rows;
+  })
+
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Grid container direction="column">
           <LinearProgress color="secondary" />
         </Grid>
       ) : (
         <>
-          <Typography variant="h3">Loans</Typography>
+          <LoansListToolbar list = { rows }/>
+          <LoansAlert />
           <Grid container direction="column">
             <Card>
               <CardContent>
                 <div style={{ height: 600, width: '100%' }}>
                   <XGrid
-                    rows={data}
+                    rows={rows}
                     columns={columns}
                     disableMultipleSelection={true}
                     onRowClick={handleClick}
-                    loading={true}
+                    loading={isLoading}
                   />
                 </div>
               </CardContent>
@@ -121,17 +145,3 @@ const LoansList = (props: any) => {
     </>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    loans: state.loans,
-  }
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchLoansData: () => dispatch(fetchLoansData()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoansList)

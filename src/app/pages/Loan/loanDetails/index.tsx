@@ -1,30 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core/'
 
-import LoanDetails from './LoanDetails'
-import UserLoanDetails from '../../UserLoan/UserLoanDetails'
-import LoanDetailsToolbar from './LoanDetailsToolbar'
+import { LoanDetails } from './LoanDetails'
+import { UserLoanDetails } from '../../UserLoan/UserLoanDetails'
+import { LoanDetailsToolbar } from './LoanDetailsToolbar'
+import { RootState } from '../../../../redux/rootReducer'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import * as loansActions from './../state/loansActions'
+import { LoansAlert } from '../LoansAlert'
 
-const LoanDetailsPage = (props: any) => {
-  const {
-    match: { params },
-  } = props
+export const LoanDetailsPage = (props: any) => {
+  const { params } = props.match;
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.loans,
+    }),
+    shallowEqual
+  )
+  const [loanDetails, setLoanDetails] = useState({} as any);
+  const GetLoan = () => {
+    let dispatch = useDispatch()
+    useEffect(() => {
+      if (dispatch) {
+        dispatch(loansActions.fetchLoanDetails(params.id));
+      } 
+    }, [dispatch]);
+  }
+  GetLoan();
+
+  useEffect(() => {
+    currentState.loanDetails &&
+    setLoanDetails(currentState.loanDetails);
+  }, [currentState.loanDetails])
 
   return (
     <>
-      {/* <Grid container direction="column" xs={12}> */}
-      <LoanDetailsToolbar id={params.id} />
-      <Grid container direction="column">
-        <Grid item xs={12} direction="row">
-          <LoanDetails id={params.id} />
-        </Grid>
-        <Grid item xs={12} direction="row">
-          <UserLoanDetails loan_id={params.id} />
+      <Grid container direction="column" xs={12}>
+        <LoanDetailsToolbar loanDetails={loanDetails} />
+        <LoansAlert />
+        <Grid container direction="column">
+          <Grid item xs={12}>
+            <LoanDetails loanDetails={loanDetails} />
+          </Grid>
+          <Grid item xs={12}>
+            <UserLoanDetails id={params.id} />
+          </Grid>
         </Grid>
       </Grid>
-      {/* </Grid> */}
     </>
   )
 }
-
-export default LoanDetailsPage

@@ -24,7 +24,6 @@ export const OriginatorInfo = (props: any) => {
                         <ToggleButton value='Business'>Business</ToggleButton>
                         <ToggleButton value='Consumer'>Consumer</ToggleButton>
                     </ToggleButtonGroup>
-                    <Typography>{originatorDetails.attributes?.customer_category}</Typography>
                     </CardContent>
                 </Card>
                 
