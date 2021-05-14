@@ -5,6 +5,7 @@ const initialLoansState = {
   loansData: [],
   loanDetails: [],
   error: null as any,
+  success: null as any,
 }
 
 export const loansSlice = createSlice({
@@ -13,6 +14,7 @@ export const loansSlice = createSlice({
   reducers: {
     startCall: (state) => {
       state.loading = true
+      state.success = null
     },
     loansReceived: (state, action) => {
       state.loading = false
@@ -20,13 +22,16 @@ export const loansSlice = createSlice({
     },
     loanDetailsReceived: (state, action) => {
       state.loading = false
-      state.loanDetails = action.payload.data[0]
+      state.loanDetails = action.payload.data
     },
     catchError: (state, action) => {
       state.loading = false
+      state.success = false
       state.error = `${action.type}: ${action.payload.error}`
+    },
+    loansResetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success
     },
   },
 })
-
-export const { startCall, loansReceived, loanDetailsReceived, catchError } = loansSlice.actions

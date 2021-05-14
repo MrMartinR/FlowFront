@@ -1,52 +1,37 @@
-import React, { useEffect } from 'react'
-import { Grid, Button, Typography, Toolbar } from '@material-ui/core/'
-import { connect } from 'react-redux'
-import { fetchLoanDetails } from '../state/loansActions'
+import { Grid, Button, Typography, Toolbar, Avatar, makeStyles } from '@material-ui/core/'
+import { useHistory } from 'react-router'
 
-const LoanDetailsToolbar = (props: any) => {
-  const { loanDetails } = props.loans
-  const [data, setData] = React.useState([] as any)
-
-  const processData = (obj: any) => {
-    let data = {} as any
-    for (const property in obj) {
-      data[`${property}`] = property === 'country' || property === 'currency' ? obj[property].name : obj[property]
+export const LoanDetailsToolbar = (props: any) => {
+  const { loanDetails } = props
+  const linkTo = useHistory()
+  const useStyles = makeStyles({
+    root: {
+      cursor: 'pointer'
     }
-    return data
+  });
+  const classes = useStyles();
+  const handlePlatform = (e: any) => {
+    linkTo.push(`/platforms/${loanDetails.attributes?.platform.id}`)
   }
-
-  useEffect(() => {
-    setData(processData(loanDetails))
-  }, [loanDetails])
-
+  const handleOriginator = (e: any) => {
+    linkTo.push(`/originators/${loanDetails.attributes?.originator.id}`)
+  }
   return (
     <Toolbar>
       <Grid container direction="row" justify="space-between" spacing={2}>
-        <Typography>[PlatformIcon][originator.trade_name]</Typography>
-        <Typography variant="h6">{data.name}</Typography>
-        <Typography>{data.code}</Typography>
-        <Typography>{data.status}</Typography>
-        <Typography>{data.rating}</Typography>
-        <Typography>[CODE]{data.currency}</Typography>
-        <Typography>[FLAG]{data.country}</Typography>
-        <Button href={data.link}>Link</Button>
+        <Typography onClick={handlePlatform} classes={{root:classes.root}}>{loanDetails.attributes?.platform_trade_name}</Typography>
+        <Typography onClick={handleOriginator} classes = {{root:classes.root}}>{loanDetails.attributes?.originator_trade_name}</Typography>
+        <Typography variant="h6">{loanDetails.attributes?.name}</Typography>
+        <Typography>{loanDetails.attributes?.code}</Typography>
+        <Typography>{loanDetails.attributes?.status}</Typography>
+        <Typography>{loanDetails.attributes?.rating}</Typography>
+        <Typography>[{loanDetails.attributes?.currency_code}] {loanDetails.attributes?.currency.name}</Typography>
+        <Avatar variant="square"><img src={'/media/svg/flags/'+loanDetails.attributes?.country_iso_code+'.svg'} alt="" /></Avatar>
+        <Typography>{loanDetails.attributes?.country_name}</Typography>
+        <Button href={loanDetails.attributes?.link} target='_blank'>Link</Button>
         {/* // Only visible to Admin/Contributors */}
         <Button>•••</Button>
       </Grid>
     </Toolbar>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    loans: state.loans,
-  }
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchLoanDetails: (id: any) => dispatch(fetchLoanDetails(id)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoanDetailsToolbar)

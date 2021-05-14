@@ -86,7 +86,8 @@ export const OriginatorsList = (props: any) => {
                     columns={columns}
                     onRowClick={handleClick} 
                     disableMultipleSelection={true} 
-                    loading={isLoading} />
+                    loading={isLoading} 
+                    />
                 </div>
               </CardContent>
             </Card>

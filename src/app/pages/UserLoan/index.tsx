@@ -1,24 +1,14 @@
-import React from 'react'
-import { Typography, Grid, Card, Toolbar, InputBase, CardContent } from '@material-ui/core'
-import UserLoansList from './UserLoansList'
+import { Grid, Card, CardContent } from '@material-ui/core'
+import { UserLoansList } from './UserLoansList'
 
-const UserLoansPage = () => {
+export const UserLoansPage = () => {
   return (
-    <>
-      <Grid container direction="column">
-        <Card>
-          <Toolbar variant="dense">
-            <InputBase placeholder="Search…" />
-          </Toolbar>
-        </Card>
-        <Card>
-          <CardContent>
-            <UserLoansList />
-          </CardContent>
-        </Card>
-      </Grid>
-    </>
+    <Grid container direction="column">
+      <Card>
+        <CardContent>
+          <UserLoansList />
+        </CardContent>
+      </Card>
+    </Grid>
   )
 }
-
-export default UserLoansPage

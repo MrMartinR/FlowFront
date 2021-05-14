@@ -3,8 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialUserLoansState = {
   loading: false,
   userLoansData: [],
-  userLoanDetails: [],
+  userLoanDetails: {},
   error: null as any,
+  success: null as any,
 }
 
 export const userLoansSlice = createSlice({
@@ -13,18 +14,24 @@ export const userLoansSlice = createSlice({
   reducers: {
     startCall: (state) => {
       state.loading = true
+      state.success = null
     },
     userLoansReceived: (state, action) => {
       state.loading = false
-      state.userLoansData = action.payload.message
+      state.userLoansData = action.payload.data
     },
     userLoanDetailsReceived: (state, action) => {
       state.loading = false
-      state.userLoanDetails = action.payload.message[0]
+      state.userLoanDetails = action.payload.data
     },
     catchError: (state, action) => {
       state.loading = false
-      state.error = `${action.type}: ${action.payload.error}`
+      state.success = false
+      state.error = `${action.type}: ${action.payload.message}`
+    },
+    userLoansResetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success
     },
   },
 })
