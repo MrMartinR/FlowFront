@@ -1,27 +1,59 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialUserAccountsState = {
-  loading: false,
+  listLoading: false,
+  actionsLoading: false,
   userAccountsTable: [],
+  userAccountsDetails: {},
+  userAccountsTransactions: [],
   error: null as any,
+  success: null as any,
 }
-
+export const callTypes = {
+  list: 'list',
+  action: 'action',
+}
 export const userAccountsSlice = createSlice({
   name: 'user-accounts',
   initialState: initialUserAccountsState,
   reducers: {
     startCall: (state, action) => {
-      state.loading = true
+      state.success = null
+      state.error = null
+      if (action.payload.callType === callTypes.list) {
+        state.listLoading = true
+      } else {
+        state.actionsLoading = true
+      }
     },
     userAccountsReceived: (state, action) => {
-      state.userAccountsTable = action.payload.data
-      state.loading = false
+      const { data } = action.payload
+      state.userAccountsTable = data
+      state.listLoading = false
     },
+    userAccountReceived: (state, action) => {
+      const { data } = action.payload
+      state.actionsLoading = false
+      state.userAccountsDetails = data
+    },
+
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
-      state.loading = false
+      state.success = false
+      if (action.payload.callType === callTypes.list) {
+        state.listLoading = false
+      } else {
+        state.actionsLoading = false
+      }
     },
+    userAccountsResetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success
+    },
+    userAccountTransactions: (state, action) => {
+      const { data } = action.payload
+      state.actionsLoading = false
+      state.userAccountsTransactions = data
+    }
   },
 })
-
-export const { startCall, userAccountsReceived, catchError } = userAccountsSlice.actions

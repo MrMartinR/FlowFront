@@ -4,7 +4,7 @@ const { actions } = userPlatformsSlice
 
 /* Fetches a list of user platforms */
 export const fetchUserPlatformsList = () => (dispatch: any) => {
-  dispatch(actions.startCall(callTypes.list))
+  dispatch(actions.startCall({ callType: callTypes.list }))
   requestFromServer
     .getAllUserPlatforms()
     .then((response) => {
@@ -18,7 +18,7 @@ export const fetchUserPlatformsList = () => (dispatch: any) => {
 
 /* Fetches the details of a single user platform */
 export const fetchUserPlatformDetails = (id: any) => (dispatch: any) => {
-  dispatch(actions.startCall(callTypes.action))
+  dispatch(actions.startCall({ callType: callTypes.action }))
   requestFromServer
   .getUserPlatformById(id)
     .then((response) => {

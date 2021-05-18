@@ -1,99 +1,39 @@
-import axios from 'axios'
-import { any } from 'prop-types'
 import * as requestFromServer from './userAccountsCrud'
-// import { userAccountsSlice, callTypes } from './userAccountsSlice'
-import { userAccountsSlice } from './userAccountsSlice'
-
-import { optionsHeaders } from '../../../utils'
-import { USER_ACCOUNTS_URL } from './userAccountsCrud'
+import { callTypes, userAccountsSlice } from './userAccountsSlice'
 
 const { actions } = userAccountsSlice
 
 /* Fetches a list of User Accounts */
 export const fetchUserAccountsList = () => (dispatch: any) => {
-  dispatch(actions.startCall(any))
-  axios
-    .get(USER_ACCOUNTS_URL, optionsHeaders())
-    .then(function (response) {
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  requestFromServer
+  .getAllUserAccounts()
+    .then((response) => {
       return dispatch(actions.userAccountsReceived(response.data))
     })
-    .catch(function (error) {
+    .catch((error) => {
       return dispatch(actions.catchError(error))
     })
 }
 
-// const getUserAccounts = (headerPara) =>
-//   axios.get(`${API_URL}/api/v1/user_accounts`, {
-//     headers: {
-//       'access-token': headerPara.authToken,
-//       client: headerPara.client,
-//       uid: headerPara.user.fullname,
-//       expiry: headerPara.expiry,
-//     },
-//   })
+export const fetchuserAccount = (id: any) => (dispatch: any) => {
+  if (!id) {
+    let error = "Can't find User Account without id"
+    return dispatch(actions.catchError({ error, callType: callTypes.action }))
+  }
 
-// export default getUserAccounts
-
-// export const userAccountSort = (queryParams) => (dispatch) => {
-//   const { field, isAsc, entities } = queryParams
-//   // console.log('fieldXXX', field)
-//   dispatch(
-//     actions.userAccountSort({
-//       callType: callTypes.action,
-//       field,
-//       isAsc,
-//       entities,
-//     })
-//   )
-// }
-// export const fetchUserAccounts = (params) => (dispatch) => {
-//   dispatch(actions.startCall({ callType: callTypes.list }))
-//   return requestFromServer
-//     .findUserAccounts(params)
-//     .then((response) => {
-//       const { data } = response
-//       dispatch(actions.userAccountsFetched({ data }))
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't find userAccounts"
-//       dispatch(actions.catchError({ error, callType: callTypes.list }))
-//     })
-// }
-
-// // This works similar to fetchuserAccounts. The difference is that rather than replacing existing data,
-// // its append new data to existing data. Usefull for implementing infinite list where new data is loaded on demand.
-// export const fetchNextUserAccounts = (params) => (dispatch) => {
-//   dispatch(actions.startCall({ callType: callTypes.list }))
-//   return requestFromServer
-//     .findNextUserAccounts(params)
-//     .then((response) => {
-//       const { pages, page, entities } = response.data
-//       dispatch(actions.userAccountsAppend({ pages, page, entities }))
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't find more userAccounts"
-//       dispatch(actions.catchError({ error, callType: callTypes.list }))
-//     })
-// }
-
-// export const fetchuserAccount = (id) => (dispatch) => {
-//   if (!id) {
-//     return dispatch(actions.userAccountFetched({ userAccountForEdit: undefined }))
-//   }
-
-//   dispatch(actions.startCall({ callType: callTypes.action }))
-//   console.log('Looking')
-//   return requestFromServer
-//     .getUserAccountById(id)
-//     .then((response) => {
-//       const userAccount = response.data.data[0]
-//       dispatch(actions.userAccountFetched({ userAccountForEdit: userAccount }))
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't find userAccount"
-//       dispatch(actions.catchError({ error, callType: callTypes.action }))
-//     })
-// }
+  dispatch(actions.startCall({ callType: callTypes.action }))
+  return requestFromServer
+    .getUserAccountById(id)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.userAccountReceived(data))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find userAccount"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+}
 
 // export const deleteUserAccount = (id) => (dispatch) => {
 //   dispatch(actions.startCall({ callType: callTypes.action }))
@@ -161,16 +101,16 @@ export const fetchUserAccountsList = () => (dispatch: any) => {
 //     })
 // }
 
-// export const fetchAccountTransaction = (id) => (dispatch) => {
-//   dispatch(actions.startCall({ callType: callTypes.action }))
-//   return requestFromServer
-//     .getUserTransactions(id)
-//     .then((response) => {
-//       const userAccountTransactions = response.data.data
-//       dispatch(actions.userAccountTransactions({ userAccountTransactions }))
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't find userAccount"
-//       dispatch(actions.catchError({ error, callType: callTypes.action }))
-//     })
-// }
+export const fetchAccountTransaction = (id: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }))
+  return requestFromServer
+    .getUserTransactions(id)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.userAccountTransactions(data))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find userAccount"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+}
