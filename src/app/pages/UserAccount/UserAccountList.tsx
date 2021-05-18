@@ -1,52 +1,56 @@
-import React from 'react'
-import { Card, Button, Toolbar, Grid } from '@material-ui/core'
-import VirtualizedListComponent from './UserAccountListComponent'
-import { AutoSizer } from 'react-virtualized'
-
+import React, { useEffect, useState } from 'react'
+import { Card, TextField, List, LinearProgress, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
 export const UserAccountsList = (props: any) => {
-  const {
-    newAccountFunc,
-    setSelectedItemIndex,
-    // perPage,
-    isLoading,
-    list,
-    currentPage,
-    totalPages,
-  } = props
+  const { setSelectedItemIndex, isLoading, list } = props
+  const [options, setOptions] = useState([] as any)
 
+  useEffect(() => {
+    if (list.length >= 1) {
+      let opt = [] as any
+      list.map((option: any) => {
+        opt.push(option.attributes.name)
+        return opt
+      })
+      setOptions(opt)
+    }
+  }, [list])
+  const handlePick = (e: any, v: any) => {
+    let selected = list.findIndex((itm: any) => itm.attributes.name === v)
+    setSelectedItemIndex(selected)
+  }
   return (
-    <Grid>
-      <Toolbar>
-        <Button
-          onClick={(e) => {
-            newAccountFunc()
-          }}
-        >
-          + New Account
-        </Button>
-      </Toolbar>
-      <Card
-      // style={
-      //   window.innerWidth < 600 ? { minWidth: '200px', maxWidth: '200px' } : { minWidth: '250px', maxWidth: '250px' }
-      // }
-      >
-        <AutoSizer>
-          {({ height, width }) => {
-            return (
-              <VirtualizedListComponent
-                setSelectedItemIndex={setSelectedItemIndex}
-                hasNextPage={currentPage < totalPages}
-                isNextPageLoading={isLoading}
-                list={list}
-                listHeight={height}
-                loadNextPage={() => {
-                  // loadMore();
-                }}
-              />
-            )
-          }}
-        </AutoSizer>
+    <>
+      <Autocomplete
+          freeSolo
+          options={options}
+          onChange={handlePick}
+          renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
+        />
+      <Card>
+        <List>
+          {isLoading ? (
+            <LinearProgress color="secondary" />
+          ) : (
+            list.map((item: any, idx: any) => (
+              <Card key = { item.id }>
+                <ListItem
+                  button
+                  onClick={(e) => {
+                    setSelectedItemIndex(idx)
+                  }}
+                >
+                  <ListItemAvatar>
+                    <Avatar variant="rounded"></Avatar>
+                  </ListItemAvatar>
+
+                  <ListItemText primary={`${item.attributes.name}`} />
+                </ListItem>
+              </Card>
+            ))
+          )}
+        </List>
       </Card>
-    </Grid>
+    </>
   )
 }

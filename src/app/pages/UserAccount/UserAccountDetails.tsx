@@ -1,161 +1,72 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Grid,
   Card,
-  CardHeader,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-  Avatar,
-  ListItemAvatar,
-  ListItemText,
+  Typography,
 } from '@material-ui/core'
-import UserAccountDetailsToolbar from './UserAccountDetailsToolbar'
+import { UserAccountDetailsToolbar } from './UserAccountDetailsToolbar'
 
-/* eslint-disable  no-restricted-imports */
-import { withStyles, makeStyles } from '@material-ui/styles' // bin
-import { Col, Row } from 'react-bootstrap' // bin
-import { hasValue } from './XXX UserAccountsUtils' // bin or move  to userAccountsActions???
-
+import { LicenseInfo } from '@material-ui/x-license'
+import { GridColDef, XGrid } from '@material-ui/x-grid'
+LicenseInfo.setLicenseKey(
+  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
+)
+const columns: GridColDef[] = [
+  { field: 'date', headerName: 'Date', width: 250 },
+  { field: 'category', headerName: 'Category', width: 250 },
+  { field: 'concept', headerName: 'Concept', width: 250 },
+  { field: 'amount', headerName: 'Amount', width: 250 },
+]
 export const UserAccountsDetails = (props: any) => {
-  const { selectedItemIndex, allTransactions = [], selectedUserAccount } = props
-  const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: theme.palette.common.white,
-      color: theme.palette.common.black,
-    },
-    body: {
-      fontSize: 14,
-    },
-  }))(TableCell)
-  const StyledTableRow = withStyles((theme) => ({
-    root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.background.default,
-      },
-    },
-  }))(TableRow)
-  const classes = makeStyles(({ theme }: any) => ({
-    root: {
-      width: '100%',
-      // marginTop: theme.spacing(3),
-      overflowX: 'auto',
-    },
-    table: {
-      minWidth: 700,
-    },
-  }))()
-
-  const [transactions, setTransactions] = useState([])
-  let value = 0
-  let balance = 0
-  transactions
-    .map(({ amount }) => amount)
-    .forEach((amount) => {
-      if (hasValue(amount)) balance = +amount
-    })
-
+  const { actionsLoading, allTransactions, singleAccount } = props
+  const [value, setValue] = useState(0);
+  const [balance, setBalance] = useState(0);
   useEffect(() => {
-    const currTransaction = allTransactions.filter((t: any) => t.user_account_id === selectedUserAccount.id)
-    setTransactions(currTransaction)
-  }, [selectedItemIndex])
+    setBalance(0);
+    setValue(0);
+    let aux = 0;
+    allTransactions
+      .map((transaction: any) => {
+        if (transaction.attributes.amount!== null) aux += transaction.attributes.amount
+        return aux
+      })
+    setBalance(aux);
+  }, [allTransactions]);
 
-  const showValue = ({ value, classes }: any) => (
-    <span className="symbol symbol-light-success">
-      <span
-        style={{
-          width: '130px',
-          height: '39px',
-        }}
-        className={`symbol-label font-size-h6 font-weight-bold ${classes}`}
-      >
-        {value}
-      </span>
-    </span>
-  )
+  const rows = [] as any;
+  if (allTransactions.length >0) allTransactions.map((transaction: any) => {
+    const newRow = {
+      id: transaction.id,
+      date: transaction.attributes.date,
+      category: transaction.attributes.category,
+      concept: transaction.attributes.description,
+      amount: transaction.attributes.amount,
+    }
+    rows.push(newRow);
+    return rows;
+  })
 
   return (
-    <Grid xs={12}>
-      <UserAccountDetailsToolbar />
+    <Grid item xs={12}>
+      <UserAccountDetailsToolbar value = { value } balance = { balance } singleAccount = { singleAccount }/>
       <Card style={{ marginLeft: '1rem', width: '100%', minWidth: '400px' }}>
-        <CardHeader className="pr-0 ">
-          <Row className="w-100">
-            <Col md="4">
-              <Row>
-                {selectedUserAccount.account && (
-                  <>
-                    <ListItemAvatar>
-                      <Avatar
-                        style={{
-                          height: '40px',
-                          width: '40px',
-                        }}
-                      ></Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={selectedUserAccount.name} />
-                  </>
-                )}
-              </Row>
-            </Col>
-            <Col md="1">
-              <button
-                type="button"
-                className="btn btn-primary"
-                style={{
-                  height: '39px',
-                  width: '49px',
-                }}
-              >
-                refresh
-              </button>
-            </Col>
-            <Col md="2">{showValue(`Value: ${value}`)}</Col>
-            <Col md="2">{showValue(`Balance: ${balance}`)}</Col>
-            <Col md="3">
-              <Row>
-                <button type="button" className="btn btn-primary ml-4">
-                  New Transactiion
-                </button>
-              </Row>
-            </Col>
-          </Row>
-        </CardHeader>
+        
 
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="left">Date</StyledTableCell>
-              <StyledTableCell align="left">Category</StyledTableCell>
-              <StyledTableCell align="left">Concept</StyledTableCell>
-              <StyledTableCell align="left">Amount</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {!transactions.length && (
-              <StyledTableRow key={1}>
-                <StyledTableCell></StyledTableCell>
-                <StyledTableCell></StyledTableCell>
-                <StyledTableCell>No transactions found.</StyledTableCell>
-                <StyledTableCell></StyledTableCell>
-              </StyledTableRow>
+            {allTransactions.length===0? (
+                <Typography>No transactions found.</Typography>
+            ):(
+              <Grid container direction="column">
+                <div style={{ height: 600, width: '100%' }}>
+                  <XGrid
+                    rows={rows}
+                    columns={columns}
+                    disableMultipleSelection={true}
+                    loading={actionsLoading}
+                  />
+                </div>
+              </Grid>
             )}
-            {transactions.map(({ row }: any) => (
-              <StyledTableRow key={row.id}>
-                <StyledTableCell align="left">
-                  {row.date}
-                  {row.category === 'Expense' && 'Expense icon'}
-                  {['Out', 'In'].includes(row.category) && 'InOut'}
-                </StyledTableCell>
-                <StyledTableCell align="left">{row.category}</StyledTableCell>
-                <StyledTableCell align="left">{row.description}</StyledTableCell>
-                <StyledTableCell scope="row">{row.amount}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
       </Card>
     </Grid>
   )
