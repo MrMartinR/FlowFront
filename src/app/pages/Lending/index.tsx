@@ -41,7 +41,7 @@ export const LendingPage = () => {
             <CardHeader title="My Originators" />
             <CardContent>
               <OriginatorIcon />
-              <Button variant="outlined" href="/user-originator">
+              <Button variant="outlined" href="/user-originators">
                 Originators
               </Button>
             </CardContent>
@@ -63,5 +63,3 @@ export const LendingPage = () => {
     </Grid>
   )
 }
-
-export default LendingPage

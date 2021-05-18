@@ -1,9 +1,10 @@
-import React from 'react'
 import { Grid, Card, CardHeader, Typography, CardContent } from '@material-ui/core'
+import { UserPlatformOverallToolbar } from './UserPlatformOverallToolbar'
 
-const UserPlatformsOverall = () => {
+export const UserPlatformsOverall = () => {
   return (
     <>
+      <UserPlatformOverallToolbar/>
       <CardHeader title="User Platform Overall Performance"></CardHeader>
       <Grid container direction="row" justify="space-between">
         <Grid container direction="column" xs={12}>
@@ -20,5 +21,3 @@ const UserPlatformsOverall = () => {
     </>
   )
 }
-
-export default UserPlatformsOverall

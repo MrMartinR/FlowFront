@@ -14,10 +14,11 @@ import { PlatformDetailsPage } from './pages/Platform/PlatformDetailsPage'
 import { OriginatorsPage } from './pages/Originator'
 import { OriginatorDetailsPage } from './pages/Originator/OriginatorDetailsPage'
 import { UserLoansPage } from './pages/UserLoan'
+import { UserOriginatorsPage } from './pages/UserOriginator'
 import { LoansPage } from './pages/Loan'
 import { LoanDetailsPage } from './pages/Loan/LoanDetails'
-import UserPlatformsPage from './pages/Lending/UserPlatform'
-import UserPlatformsOverallPage from './pages/Lending/UserPlatformOverall'
+import { UserPlatformsPage } from './pages/Lending/UserPlatform'
+import { UserPlatformsOverallPage } from './pages/Lending/UserPlatformOverall'
 
 export default function BasePage() {
   return (
@@ -42,7 +43,8 @@ export default function BasePage() {
         <Route path="/currencies" component={Currencies} />
         <Route path="/user-platform" component={UserPlatformsPage} />
         <Route path="/user-platform-overall" component={UserPlatformsOverallPage} />
-        <Redirect to="error" />
+        <Route path="/user-originators" component={UserOriginatorsPage} />
+        <Redirect to="/error/error" />
       </Switch>
     </Suspense>
   )
