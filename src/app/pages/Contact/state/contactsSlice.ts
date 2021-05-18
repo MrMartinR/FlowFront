@@ -89,6 +89,7 @@ export const contactsSlice = createSlice({
         if (o.id !== newContact.id) {
           newState.push(o)
         } else newState.push(newContact)
+        return newState;
       })
       
       state.actionsLoading = false
@@ -102,6 +103,7 @@ export const contactsSlice = createSlice({
         if (o.id !== itm) {
           newState.push(o)
         }
+        return newState;
       })
       state.listLoading = false
       state.contactsTable.entities = newState
@@ -147,6 +149,7 @@ export const contactsSlice = createSlice({
         if (o.id !== get_id) {
           newState.push(o)
         }
+        return newState;
       })
       const entry = {
         id: data.id,
@@ -174,6 +177,7 @@ export const contactsSlice = createSlice({
         if (o.id !== itm) {
           newState.push(o)
         }
+        return newState;
       })
       state.actionsLoading = false
       state.success = true

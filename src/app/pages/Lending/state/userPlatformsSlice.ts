@@ -2,31 +2,45 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialUserPlatformsState = {
   loading: false,
+  actionsLoading: false,
   userPlatformsTable: [],
-  userPlatformDetails: [],
+  userPlatformDetails: {},
   error: null as any,
+  success: null as any,
 }
-
+export const callTypes = {
+  list: 'list',
+  action: 'action',
+}
 export const userPlatformsSlice = createSlice({
-  name: 'platforms',
+  name: 'userPlatforms',
   initialState: initialUserPlatformsState,
   reducers: {
     startCall: (state, action) => {
-      state.loading = true
+      state.error = null
+      state.success = null
+      if (action.payload.callType === callTypes.list) {
+        state.loading = true
+      } else {
+        state.actionsLoading = true
+      }
     },
     userPlatformsReceived: (state, action) => {
       state.loading = false
       state.userPlatformsTable = action.payload.data
     },
     catchError: (state, action) => {
-      state.loading = false
       state.error = `${action.type}: ${action.payload.error}`
+      state.success = false
+      if (action.payload.callType === callTypes.list) {
+        state.loading = false
+      } else {
+        state.actionsLoading = false
+      }
     },
     userPlatformDetailsReceived: (state, action) => {
-      state.loading = false
-      state.userPlatformDetails = action.payload.data[0]
+      state.actionsLoading = false
+      state.userPlatformDetails = action.payload.data
     },
   },
 })
-
-export const { startCall, userPlatformsReceived, catchError, userPlatformDetailsReceived } = userPlatformsSlice.actions

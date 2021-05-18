@@ -1,35 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialUserLoansState = {
+const initialUserOriginatorsState = {
   loading: false,
-  userLoansData: [],
-  userLoanDetails: {},
+  userOriginatorsData: [],
+  userOriginatorDetails: {},
   error: null as any,
   success: null as any,
 }
 
-export const userLoansSlice = createSlice({
-  name: 'userLoans',
-  initialState: initialUserLoansState,
+export const userOriginatorsSlice = createSlice({
+  name: 'userOriginators',
+  initialState: initialUserOriginatorsState,
   reducers: {
     startCall: (state) => {
       state.loading = true
       state.success = null
     },
-    userLoansReceived: (state, action) => {
+    userOriginatorsReceived: (state, action) => {
       state.loading = false
-      state.userLoansData = action.payload.data
+      state.userOriginatorsData = action.payload.data
     },
-    userLoanDetailsReceived: (state, action) => {
+    userOriginatorDetailsReceived: (state, action) => {
       state.loading = false
-      state.userLoanDetails = action.payload.data
+      state.userOriginatorDetails = action.payload.data
     },
     catchError: (state, action) => {
       state.loading = false
       state.success = false
       state.error = `${action.type}: ${action.payload.message}`
     },
-    userLoansResetSuccess: (state, action) => {
+    userOriginatorsResetSuccess: (state, action) => {
       const { success } = action.payload
       state.success = success
     },

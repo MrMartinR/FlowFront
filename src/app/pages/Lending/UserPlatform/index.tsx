@@ -1,34 +1,21 @@
 import React from 'react'
-import { Grid, Toolbar, Typography, Link, Button } from '@material-ui/core'
-import UserPlatformsList from './UserPlatformsList'
-import UserPlatformDetails from './UserPlatformDetails'
+import { Grid } from '@material-ui/core'
+import { UserPlatformsList } from './UserPlatformsList'
+import { UserPlatformsDetails } from './UserPlatformDetails'
+import { UserPlatformsToolbar } from './UserPlatformsToolbar'
 
-const UserPlatformsPage = () => {
+export const UserPlatformsPage = () => {
   return (
     <Grid>
-      <Toolbar>
-        <Link href="/lending" color="inherit">
-          Lending
-        </Link>
-        &gt;
-        <Link href="/user-platforms" color="inherit">
-          Platforms
-        </Link>
-        <Typography>----Yep, I am the main toolbar----</Typography>
-        <Button variant="outlined" href="/user-platform-overall">
-          Overall Performance
-        </Button>
-      </Toolbar>
+      <UserPlatformsToolbar />
       <Grid container direction="row">
         <Grid xs={2}>
           <UserPlatformsList />
         </Grid>
         <Grid xs={10}>
-          <UserPlatformDetails />
+          <UserPlatformsDetails />
         </Grid>
       </Grid>
     </Grid>
   )
 }
-
-export default UserPlatformsPage
