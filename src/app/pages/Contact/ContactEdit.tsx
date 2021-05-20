@@ -15,10 +15,9 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import store from '../../../redux/store'
 import * as contactsActions from './state/contactsActions'
 import * as countriesActions from '../Country/state/countriesActions'
 import { RootState } from '../../../redux/rootReducer'
@@ -33,7 +32,7 @@ export const ContactEdit = (props: any) => {
   )
   const { register, handleSubmit, errors } = useForm()
   const [formData, setFormData] = useState({})
-  const [params, SetParams] = React.useState('' as any)
+  const [params, SetParams] = useState('' as any)
   const [visibility, setVisibility] = useState(selectedContact.attributes.visibility)
   const [kind, setKind] = useState(selectedContact.attributes.kind)
   const [country, setCountry] = useState('')
@@ -123,7 +122,7 @@ export const ContactEdit = (props: any) => {
   const GetAllCountries = () => {
     useEffect(() => {
       if (dispatch) {
-        dispatch(countriesActions.getAllCountries())
+        dispatch(countriesActions.fetchCountries())
       }
     }, [])
   }

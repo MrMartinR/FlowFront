@@ -21,4 +21,3 @@ export const AccountToolBar = () => {
     </Toolbar>
   )
 }
-export default AccountToolBar

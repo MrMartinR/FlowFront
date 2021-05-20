@@ -93,7 +93,7 @@ export const VerticalLinearStepper = (props:any) => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(countriesActions.getAllCountries())
+        dispatch(countriesActions.fetchCountries())
       }
     }, [dispatch])
   }

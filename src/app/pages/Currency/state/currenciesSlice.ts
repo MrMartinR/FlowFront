@@ -4,14 +4,12 @@ const initialCurrenciesState = {
   listLoading: true,
   actionsLoading: false,
   currenciesTable: {
-    entities: null as any,
-    success: false,
+    entities: [] as any,
   },
-  singleCurrency: {
-    entry: null as any,
-  },
-  currencyForEdit: undefined,
+  singleCurrency: {} as any,
+  success: null as any,
   error: null as any,
+  response: null as any,
 }
 export const callTypes = {
   list: 'list',
@@ -25,6 +23,7 @@ export const currenciesSlice = createSlice({
     // when error occurs catch it
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
+      state.success = false
       if (action.payload.callType === callTypes.list) {
         state.listLoading = false
       } else {
@@ -34,6 +33,7 @@ export const currenciesSlice = createSlice({
     // set the state in which the process is in loading or setting the state
     startCall: (state, action) => {
       state.error = null
+      state.success = null
       if (action.payload.callType === callTypes.list) {
         state.listLoading = true
       } else {
@@ -45,26 +45,55 @@ export const currenciesSlice = createSlice({
     currenciesFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
-      state.error = null
-      state.currenciesTable.entities = data.data
-      state.currenciesTable.success = data.success
+      state.currenciesTable.entities = data
     },
 
     // update the currency state on fetch a single currency
     currencyFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
-      state.error = null
-      state.singleCurrency.entry = data.data
-      state.currenciesTable.success = data.success
+      state.singleCurrency = data
     },
 
     // on creation a new currency append it to existing currencies
-    newCurrencyCreated: (state, action) => {
+    currencyCreated: (state, action) => {
       const { data } = action.payload
       state.actionsLoading = false
-      state.error = null
-      state.currenciesTable.entities.unshift(data.data)
+      state.success = true
+      state.currenciesTable.entities.unshift(data)
     },
+    // Update Crrency
+    currencyUpdated: (state, action) => {
+      const { data } = action.payload
+      state.actionsLoading = false
+      state.success = true
+      let newState = [] as any
+      state.currenciesTable.entities.map((o: any) => {
+          if (o.id !== data.id) {
+          newState.push(o)
+          } else newState.push(data)
+          return newState;
+      })
+      state.currenciesTable.entities = newState
+    },
+    // Delete Currency
+    currencyDeleted: (state, action) => {
+      const { itm, success, message } = action.payload
+      let newState = [] as any
+      state.currenciesTable.entities.map((o: any) => {
+          if (o.id !== itm) {
+          newState.push(o)
+          }
+          return newState;
+      })
+      state.currenciesTable.entities = newState
+      state.success = success
+      state.response = message
+      state.actionsLoading = false
+    },
+    currencyResetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success
+    }
   },
 })

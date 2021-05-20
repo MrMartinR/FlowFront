@@ -97,4 +97,3 @@ export const ContactToolBar = (props: any) => {
     </>
   )
 }
-export default ContactToolBar

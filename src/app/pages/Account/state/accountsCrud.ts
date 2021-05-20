@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../../../../redux/store'
 import { API_URL, optionsHeaders } from '../../../utils'
 
 /**
@@ -30,8 +31,23 @@ export function getAccountById(accountId: any) {
  * PUT method to update an Account on the server
  * @param ACCOUNTS_URL, account
  */
-export function updateAccount(account: any) {
-  return axios.put(`${ACCOUNTS_URL}/${account.id}`, { account })
+export function updateAccount(data: any, id: any) {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  const form = {
+    account: data,
+  }
+  return axios.put(`${ACCOUNTS_URL}/${id}`, form, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
+  })
 }
 
 /**
@@ -39,6 +55,38 @@ export function updateAccount(account: any) {
  * sending the optionsHeader in the call
  * @param ACCOUNTS_URL, account
  */
-export function createAccount(account: any) {
-  return axios.post(ACCOUNTS_URL, { account })
+export function createAccount(data: any) {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  const form = {
+    account: data,
+  }
+
+  return axios.post(`${ACCOUNTS_URL}`, form, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
+  })
+}
+
+export function deleteAccount(id: any) {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  return axios.delete(`${ACCOUNTS_URL}/${id}`, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
+  })
 }

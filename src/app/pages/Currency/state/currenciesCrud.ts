@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../../../../redux/store'
 import { API_URL, optionsHeaders } from '../../../utils'
 
 /**
@@ -14,7 +15,7 @@ export const CURRENCIES_URL = `${API_URL}/api/v1/currencies`
  * @param CURRENCIES_URL, optionsHeaders
  * @returns List of all the Currencies
  */
-export function getAllCurrencies() {
+export const getAllCurrencies = () => {
   return axios.get(CURRENCIES_URL, optionsHeaders())
 }
 
@@ -23,7 +24,7 @@ export function getAllCurrencies() {
  * @param CURRENCIES_URL, currencyId, optionsHeaders
  * @returns Data about a specific Currency
  */
-export function getCurrencyById(currencyId: any) {
+export const getCurrencyById = (currencyId: any) => {
   return axios.get(`${CURRENCIES_URL}/${currencyId}`, optionsHeaders())
 }
 
@@ -31,22 +32,66 @@ export function getCurrencyById(currencyId: any) {
  * POST method to create a new Currency to the server
  * sending the optionsHeader in the call
  * @param CURRENCIES_URL, currency
- */ export function createCurrency(currency: any) {
-  return axios.post(CURRENCIES_URL, { currency })
+ */ 
+  export const createCurrency = (data: any) => {
+    const {
+      auth: { user, client, expiry, token },
+    } = store.getState()
+    const form = {
+      currency: data,
+    }
+  
+    return axios.post(`${CURRENCIES_URL}`, form, {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'access-token': token,
+        'token-type': 'Bearer',
+        client,
+        expiry,
+        uid: user.uid,
+      },
+    })
 }
 
 /**
  * PUT method to update an currency on the server
  * @param CURRENCIES_URL, currency
  */
-export function updateCurrency(currency: any) {
-  return axios.put(`${CURRENCIES_URL}/${currency.id}`, { currency })
+export function updateCurrency(data: any, id: any) {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  const form = {
+    currency: data,
+  }
+  return axios.put(`${CURRENCIES_URL}/${id}`, form, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
+  })
 }
 
 /**
  * DELETE method to delete individual Currency sending the optionsHeader in the call
  * @param CURRENCIES_URL, currencyId, optionsHeaders
  */
-export function deleteCurrency(currencyId: any) {
-  return axios.delete(`${CURRENCIES_URL}/${currencyId}`)
+export function deleteCurrency(id: any) {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  return axios.delete(`${CURRENCIES_URL}/${id}`, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
+  })
 }

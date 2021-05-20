@@ -20,7 +20,6 @@ import { Autocomplete } from '@material-ui/lab'
 export const ContactsList = (props: any) => {
   const { setSelectedItemIndex, isLoading, list } = props
   const [options, setOptions] = useState([] as any)
-
   useEffect(() => {
     if (list.length >= 1) {
       let opt = [] as any

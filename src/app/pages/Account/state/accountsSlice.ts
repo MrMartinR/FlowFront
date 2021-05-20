@@ -5,12 +5,12 @@ const initialAccountsState = {
   actionsLoading: false,
   accountsTable: {
     entities: null as any,
-    success: false,
   },
   singleAccount: {
     entry: null as any,
   },
-  accountForEdit: undefined,
+  success: null as any,
+  response: null as any,
   error: null as any,
 }
 export const callTypes = {
@@ -25,6 +25,7 @@ export const accountsSlice = createSlice({
     // when error occurs catch it
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`
+      state.success = false
       if (action.payload.callType === callTypes.list) {
         state.listLoading = false
       } else {
@@ -34,6 +35,8 @@ export const accountsSlice = createSlice({
     // set the state in which the process is in loading or setting the state
     startCall: (state, action) => {
       state.error = null
+      state.success = null
+      state.response = null
       if (action.payload.callType === callTypes.list) {
         state.listLoading = true
       } else {
@@ -45,52 +48,54 @@ export const accountsSlice = createSlice({
     accountsFetched: (state, action) => {
       const { data } = action.payload
       state.listLoading = false
-      state.error = null
-      state.accountsTable.entities = data.data
-      state.accountsTable.success = data.success
+      state.accountsTable.entities = data
     },
 
-    // update the contact state on fetch a single contact
+    // update the account state on fetch a single account
     accountFetched: (state, action) => {
       const { data } = action.payload
-      state.listLoading = false
-      state.error = null
-      state.singleAccount.entry = data.data
-      state.accountsTable.success = data.success
+      state.actionsLoading = false
+      state.singleAccount.entry = data
     },
 
     // createAccount
     accountCreated: (state, action) => {
+      const { data } = action.payload
+      state.accountsTable.entities.unshift(data)
+      state.success = true
       state.actionsLoading = false
-      state.error = null
-      state.accountsTable.entities.push(action.payload.account)
     },
 
     // updateAccount
     accountUpdated: (state, action) => {
-      state.error = null
-      state.actionsLoading = false
-      state.accountsTable.entities = state.accountsTable.entities.map((entity: any) => {
-        if (entity.id === action.payload.account.id) {
-          return action.payload.account
-        }
-        return entity
+      const { data } = action.payload
+      let newState = [] as any
+      state.accountsTable.entities.map((o: any) => {
+        if (o.id !== data.id) {
+          newState.push(o)
+        } else newState.push(data)
+        return newState;
       })
+      
+      state.actionsLoading = false
+      state.accountsTable.entities = newState
+      state.success = true
     },
 
     // deleteAccount
     accountDeleted: (state, action) => {
-      state.error = null
+      const { itm, success, message } = action.payload
+      let newState = [] as any
+      state.accountsTable.entities.map((o: any) => {
+        if (o.id !== itm) {
+          newState.push(o)
+        }
+        return newState;
+      })
       state.actionsLoading = false
-      state.accountsTable.entities = state.accountsTable.entities.filter((el: any) => el.id !== action.payload.id)
-    },
-    // deleteAccount
-    accountsDeleted: (state, action) => {
-      state.error = null
-      state.actionsLoading = false
-      state.accountsTable.entities = state.accountsTable.entities.filter(
-        (el: any) => !action.payload.ids.includes(el.id)
-      )
+      state.accountsTable.entities = newState
+      state.success = success
+      state.response = message
     },
     // accountsUpdateState
     accountsStatusUpdated: (state, action) => {
@@ -106,11 +111,3 @@ export const accountsSlice = createSlice({
     },
   },
 })
-
-// on creation a new contact append it to existing contacts
-// newContactCreated: (state, action) => {
-//   const { data } = action.payload
-//   state.actionsLoading = false
-//   state.error = null
-//   state.accountsTable.entities.unshift(data.data)
-// },
