@@ -12,7 +12,7 @@ export const fetchAccounts = () => (dispatch: any) => {
     .getAllAccounts()
     .then((response) => {
       const { data } = response
-      dispatch(actions.accountsFetched({ data }))
+      dispatch(actions.accountsFetched(data))
     })
     .catch((error) => {
       error.clientMessage = "Can't find Accounts"
@@ -39,8 +39,8 @@ export const fetchAccount = (id: any) => (dispatch: any) => {
   return requestFromServer
     .getAccountById(id)
     .then((response) => {
-      let account = response.data
-      dispatch(actions.accountFetched({ account }))
+      const { data } = response
+      dispatch(actions.accountFetched(data))
     })
     .catch((error) => {
       error.clientMessage = "Can't find Account"
@@ -50,15 +50,15 @@ export const fetchAccount = (id: any) => (dispatch: any) => {
 
 /**
  * Create an account
- * @param accountForCreation
+ * @param data
  */
-export const createAccount = (accountForCreation: any) => (dispatch: any) => {
+export const createAccount = (data: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
-    .createAccount(accountForCreation)
+    .createAccount(data)
     .then((response) => {
-      const { account } = response.data
-      dispatch(actions.accountCreated({ account }))
+      const { data } = response
+      dispatch(actions.accountCreated(data))
     })
     .catch((error) => {
       error.clientMessage = "Can't create account"
@@ -68,17 +68,37 @@ export const createAccount = (accountForCreation: any) => (dispatch: any) => {
 
 /**
  * Update an account
- * @param account
+ * @param data
  */
-export const updateAccount = (account: any) => (dispatch: any) => {
+export const updateAccount = (data: any, id: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
-    .updateAccount(account)
-    .then(() => {
-      dispatch(actions.accountUpdated({ account }))
+    .updateAccount(data, id)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.accountUpdated(data))
     })
     .catch((error) => {
       error.clientMessage = "Can't update account"
       dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+}
+/*
+ * delete an account
+ * id: this will be account is
+ * deleteAccount to trigger the promise
+ */
+export const deleteAccount = (id: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  return requestFromServer
+    .deleteAccount(id)
+    .then((response) => {
+      const { data } = response
+      const returnedTarget = {...data, itm:id}
+      dispatch(actions.accountDeleted(returnedTarget))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find country"
+      dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
 }

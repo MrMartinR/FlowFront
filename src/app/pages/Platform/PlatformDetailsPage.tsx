@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { PlatformInfo } from './info/PlatformInfo'
@@ -17,8 +17,8 @@ export const PlatformDetailsPage = (props: any) => {
     }),
     shallowEqual
   )
-  const [currentTab, setTab] = React.useState('')
-  const [platformDetails, setPlatformDetails] = React.useState({} as any);
+  const [currentTab, setTab] = useState('')
+  const [platformDetails, setPlatformDetails] = useState({} as any);
   const GetPlatform = () => {
     let dispatch = useDispatch()
     useEffect(() => {
@@ -33,9 +33,6 @@ export const PlatformDetailsPage = (props: any) => {
     currentState.platformDetails &&
     setPlatformDetails(currentState.platformDetails);
   }, [currentState.platformDetails])
-
-  /* onClick function that sets the state of the currentTab to be displayed */
-  
 
   /* a function that returns a switch statement of the details, contact, originators and loans tab */
   const renderSwitch = (param: any) => {

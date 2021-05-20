@@ -7,7 +7,7 @@ import { ContactMethod } from './ContactMethods/ContactMethods'
 import { ContactsList } from './ContactList'
 import { ContactDetails } from './ContactDetails'
 
-import ContactToolBar from './ContactToolbar'
+import { ContactToolBar } from './ContactToolbar'
 import { ContactAlert } from './ContactAlert'
 
 export const Contacts = (props: any) => {

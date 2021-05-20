@@ -43,7 +43,7 @@ export const LoanDetailsPage = (props: any) => {
             <LoanDetails loanDetails={loanDetails} />
           </Grid>
           <Grid item xs={12}>
-            <UserLoanDetails id={params.id} />
+            <UserLoanDetails id={loanDetails.attributes?.user_loan_id} />
           </Grid>
         </Grid>
       </Grid>

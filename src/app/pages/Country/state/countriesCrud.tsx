@@ -2,65 +2,70 @@ import axios from 'axios'
 import store from '../../../../redux/store'
 import { API_URL, optionsHeaders } from '../../../utils'
 
-// const optionsHeaders = () => {
-//   const {
-//     auth: { user, client, expiry, token },
-//   } = store.getState()
-
-//   const options = {
-//     headers: {
-//       'Content-Type': 'application/json; charset=utf-8',
-//       'access-token': token,
-//       'token-type': 'Bearer',
-//       client,
-//       expiry,
-//       uid: user.email,
-//     },
-//   }
-//   return options
-// }
-
 export const COUNTRY_URL = `${API_URL}/api/v1/countries`
-
-// CREATE =>  POST: add a new country to the server
-export function createCountry(country: any) {
-  return axios.post(COUNTRY_URL, { country })
-}
-
 // READ
-export function getAllCountries() {
+export const getAllCountries = () => {
   return axios.get(COUNTRY_URL, optionsHeaders())
 }
 
-export function getCountryById(countryId: any) {
+export const getCountryById = (countryId: any) => {
   return axios.get(`${COUNTRY_URL}/${countryId}`, optionsHeaders())
 }
 
-// Method from server should return QueryResultsModel(items: any[], totalsCount: number)
-// items => filtered/sorted result
-export function findCountries({ page, perPage = 10 }: any) {
-  return axios.get(`${COUNTRY_URL}?page=${page}&per_page=${perPage}`, optionsHeaders())
+// CREATE =>  POST: add a new country to the server
+export const createCountry = (data: any) => {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  const form = {
+    country: data,
+  }
+
+  return axios.post(`${COUNTRY_URL}`, form, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
+  })
 }
 
 // UPDATE => PUT: update the country on the server
-export function updateCountry(country: any) {
-  return axios.put(`${COUNTRY_URL}/${country.id}`, { country })
-}
-
-// UPDATE Status
-export function updateStatusForCountries({ ids, status }: any) {
-  return axios.post(`${COUNTRY_URL}/updateStatusForCountries`, {
-    ids,
-    status,
+export const updateCountry = (data: any, id: any) => {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  const form = {
+    country: data,
+  }
+  return axios.put(`${COUNTRY_URL}/${id}`, form, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
   })
 }
 
 // DELETE => delete the country from the server
-export function deleteCountry(countryId: any) {
-  return axios.delete(`${COUNTRY_URL}/${countryId}`)
-}
-
-// DELETE Countries by ids
-export function deleteCountries(ids: any) {
-  return axios.post(`${COUNTRY_URL}/deleteCountries`, { ids })
+export const deleteCountry = (id: any) => {
+  const {
+    auth: { user, client, expiry, token },
+  } = store.getState()
+  return axios.delete(`${COUNTRY_URL}/${id}`, {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'access-token': token,
+      'token-type': 'Bearer',
+      client,
+      expiry,
+      uid: user.uid,
+    },
+  })
 }
