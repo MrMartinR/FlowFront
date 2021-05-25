@@ -14,7 +14,7 @@ export const ACCOUNTS_URL = `${API_URL}/api/v1/accounts`
  * @param ACCOUNTS_URL, optionsHeaders
  * @returns List of all the Accounts
  */
-export function getAllAccounts() {
+export const getAllAccounts = () => {
   return axios.get(ACCOUNTS_URL, optionsHeaders())
 }
 
@@ -23,15 +23,15 @@ export function getAllAccounts() {
  * @param ACCOUNTS_URL, accountsId, optionsHeaders
  * @returns Data about a specific Account
  */
-export function getAccountById(accountId: any) {
-  return axios.get(`${ACCOUNTS_URL}/${accountId}`, optionsHeaders())
+export const getAccountById = (id: string) => {
+  return axios.get(`${ACCOUNTS_URL}/${id}`, optionsHeaders())
 }
 
 /**
  * PUT method to update an Account on the server
  * @param ACCOUNTS_URL, account
  */
-export function updateAccount(data: any, id: any) {
+export const updateAccount = (data: any, id: string) => {
   const {
     auth: { user, client, expiry, token },
   } = store.getState()
@@ -55,7 +55,7 @@ export function updateAccount(data: any, id: any) {
  * sending the optionsHeader in the call
  * @param ACCOUNTS_URL, account
  */
-export function createAccount(data: any) {
+export const createAccount = (data: any) => {
   const {
     auth: { user, client, expiry, token },
   } = store.getState()
@@ -75,7 +75,7 @@ export function createAccount(data: any) {
   })
 }
 
-export function deleteAccount(id: any) {
+export const deleteAccount = (id: string) => {
   const {
     auth: { user, client, expiry, token },
   } = store.getState()

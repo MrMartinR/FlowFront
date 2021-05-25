@@ -1,78 +1,66 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as Yup from 'yup'
-import { connect } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { TextField, Button, Grid, Typography, CardMedia } from '@material-ui/core'
-import * as auth from '../_redux/authRedux.js'
-import { login } from '../_redux/authCrud'
+import * as authActions from '../state/authActions'
 import Logo from '../../../../common/media/flow-logo.svg'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormControl } from '@material-ui/core'
-
+import { RootState } from '../../../../redux/rootReducer'
+import { Link } from 'react-router-dom'
+import { AuthAlert } from './AuthAlert'
 /**
  * User login component
- * @param {object} props
  * @author Zeeshan A
  */
-function Login(props: any) {
+export const Login = () => {
   const loginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Wrong email format')
+    username: Yup.string()
       .min(6, 'Minimum 6 characters')
       .max(50, 'Maximum 50 characters')
       .required('Required'),
-    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
+    password: Yup.string()
+      .min(3, 'Minimum 3 characters')
+      .max(50, 'Maximum 50 characters')
+      .required('Required'),
   })
 
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   })
-
-  const enableLoading = () => {
-    setLoading(true)
-  }
-
-  const disableLoading = () => {
-    setLoading(false)
-  }
-
+  const dispatch =  useDispatch();
   type Credentials = {
-    email: String
-    password: String
+    username: string
+    password: string
   }
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.auth,
+    }),
+    shallowEqual
+  )
+  useEffect( () => {
+    setLoading(currentState.loading);
+  }, [currentState.loading]);
 
-  const onSubmit = ({ email, password }: Credentials) => {
+  const onSubmit = ({ username, password }: Credentials) => {
     localStorage.removeItem('forgot_pwd_notif')
-    enableLoading()
-    setTimeout(() => {
-      login(email, password)
-        .then((res) => {
-          disableLoading()
-          const userData = res.data.data
-          const { uid } = userData
-          const { client, expiry, token } = res.data.token
-          const accessToken = token.token
-          props.login(accessToken, uid, client, expiry, token, userData)
-        })
-        .catch(() => {
-          disableLoading()
-        })
-    }, 1000)
+    dispatch(authActions.login(username, password));
   }
-
   return (
     // main Grid
-    <Grid container direction="column" justify="space-around" alignItems="center">
+    <Grid container direction="column" alignItems="center">
       {/* logo */}
-      <Grid item xs="auto">
+      <Grid item>
         <CardMedia src={Logo} component="img" />
         <Typography align="center" variant="h6">
           Hello Flower!
         </Typography>
       </Grid>
       {/* form */}
-      <Grid item xs="auto">
+      <Grid item>
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column" justify="center" alignItems="center">
             {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
@@ -80,18 +68,22 @@ function Login(props: any) {
             ) : (
               ''
             )}
+            {/* begin: Username */}
             <FormControl variant="filled">
               <TextField
-                label="Email"
+                label="Username"
                 margin="normal"
                 variant="outlined"
                 autoComplete="on"
-                type="email"
+                type="text"
                 inputRef={register()}
-                name="email"
+                name="username"
               />
-              <span> {errors.email && errors.email.message}</span>
+              <span> {errors.username && errors.username.message}</span>
             </FormControl>
+            {/* end: Username */}
+
+            {/* begin: Password */}
             <FormControl variant="filled">
               <TextField
                 label="Password"
@@ -103,16 +95,21 @@ function Login(props: any) {
                 name="password"
               />
               <span> {errors.password && errors.password.message}</span>
-              <Button type="submit">
-                Sign In
-                {loading}
+              
+              <Button type="submit" color = 'secondary' variant = 'contained'>
+                  Sign In
+                  {loading && <span className="ml-3 spinner spinner-white" />}
               </Button>
             </FormControl>
+            {/* end: Password */}
           </Grid>
         </form>
+        <Typography variant = 'body2'>
+          <br/>Don't have a flow account yet? <Link rel="noreferrer" to="/auth/registration">
+                 Sign up
+              </Link></Typography>
+        <AuthAlert />
       </Grid>
     </Grid>
   )
 }
-
-export default connect(null, auth.actions)(Login)
