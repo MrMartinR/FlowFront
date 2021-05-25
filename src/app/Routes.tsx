@@ -10,20 +10,21 @@ import { Switch, Route } from 'react-router-dom'
 import { shallowEqual, useSelector } from 'react-redux'
 import { Layout } from '../common/layout'
 import BasePage from './BasePage'
-import { Logout, AuthPage } from './modules/Auth/index'
+import { Logout } from './modules/Auth/pages/Logout'
+import { AuthPage } from './AuthPage'
 import ErrorsPage from './modules/Errors/ErrorsPage'
 import { PublicRoute } from './PublicRoute'
 import { PrivateRoute } from './PrivateRoute'
 import { RootState } from '../redux/rootReducer'
 
-export function Routes() {
+export const Routes = () => {
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.auth,
     }),
     shallowEqual
   )
-  const isAuthorized= currentState.user !== undefined;
+  const isAuthorized= currentState.user !== null;
   
   return (
     <Switch>
@@ -44,26 +45,3 @@ export function Routes() {
     </Switch>
   )
 }
-
-export default Routes
-// {!isAuthorized ? (
-//   /* Render auth page when user at `/auth` and not authorized. */
-//   <Route>
-//     <AuthPage />
-//   </Route>
-// ) : (
-//   /* Otherwise redirect to root page (`/`) */
-//   <Redirect from="/auth" to="/" />
-// )}
-
-// <Route path="/error" component={ErrorsPage} />
-// <Route path="/logout" component={Logout} />
-
-// {!isAuthorized ? (
-//   /* Redirect to `/auth` when user is not authorized */
-//   <Redirect to="/auth/login" />
-// ) : (
-//   <Layout>
-//     <BasePage />
-//   </Layout>
-// )}

@@ -1,24 +1,23 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import * as Yup from 'yup'
-import { injectIntl } from 'react-intl'
+
 import { TextField, Button, Grid, Typography, CardMedia, FormControl } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
-import * as auth from '../_redux/authRedux'
+import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
-import { requestPassword } from '../_redux/authCrud'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useDispatch } from 'react-redux'
 
 const initialValues = {
   email: '',
 }
 
 type PasswordType = {
-  email: String
+  email: string
 }
 
-function ForgotPassword(props: any) {
+export const ForgotPassword = (props: any) => {
   const [isRequested, setIsRequested] = useState(false)
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
@@ -32,17 +31,9 @@ function ForgotPassword(props: any) {
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
-
+  const dispatch =  useDispatch();
   const onSubmit = ({ email }: PasswordType) => {
-    requestPassword(email)
-      .then((res) => {
-        setIsRequested(true)
-        localStorage.setItem('forgot_pwd_notif', res.data.message)
-      })
-      .catch(() => {
-        setIsRequested(false)
-        localStorage.setItem('forgot_pwd_notif', '')
-      })
+    dispatch(authActions.requestUser(email));
   }
 
   return (
@@ -83,7 +74,8 @@ function ForgotPassword(props: any) {
                   <Button
                     type="button"
                     id="kt_login_forgot_cancel"
-                    className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"
+                    variant = 'contained'
+                    color = 'secondary'
                   >
                     Cancel
                   </Button>
@@ -96,5 +88,3 @@ function ForgotPassword(props: any) {
     </Grid>
   )
 }
-
-export default injectIntl(connect(null, auth.actions)(ForgotPassword))

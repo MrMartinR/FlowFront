@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useState } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
-import { injectIntl } from 'react-intl'
-import * as auth from '../_redux/authRedux'
+import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { submitRequestPassword } from '../_redux/authCrud'
+import { submitRequestPassword } from '../state/authCrud'
+import { useDispatch } from 'react-redux'
 
 const initialValues = {
   password: '',
@@ -23,7 +22,7 @@ type ForgotPasswordType = {
  * @param {object} props
  * @author Zeeshan A
  */
-function ForgotPasswordAction(props: any) {
+export const ForgotPasswordAction = (props: any) => {
   const { location, intl } = props
   const { search } = location
   const queryString = require('query-string')
@@ -59,17 +58,9 @@ function ForgotPasswordAction(props: any) {
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
-
+  const dispatch =  useDispatch();
   const onSubmit = ({ password, changepassword }: ForgotPasswordType) => {
-    submitRequestPassword(password, changepassword, accessToken, client, uid, expiry)
-      .then((res) => {
-        localStorage.setItem('forgot_pwd_notif', res.data.message)
-        console.log(res)
-        history.push('/dashboard')
-      })
-      .catch(() => {
-        setIsRequested(false)
-      })
+    dispatch(authActions.requestPassword);
   }
 
   const getInputClasses = (fieldname: any) => {
@@ -152,5 +143,3 @@ function ForgotPasswordAction(props: any) {
     </>
   )
 }
-
-export default injectIntl(connect(null, auth.actions)(ForgotPasswordAction))
