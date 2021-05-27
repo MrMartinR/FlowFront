@@ -1,11 +1,13 @@
-import { useState } from 'react'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import * as Yup from 'yup'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { submitRequestPassword } from '../state/authCrud'
+import Logo from '../../../../common/media/flow-logo.svg'
 import { useDispatch } from 'react-redux'
+import { Button, CardMedia, FormControl, Grid, TextField, Typography } from '@material-ui/core'
+import { AuthAlert } from './AuthAlert'
+import queryString from 'query-string';
 
 const initialValues = {
   password: '',
@@ -18,128 +20,90 @@ type ForgotPasswordType = {
 }
 
 /**
- * User registration component
- * @param {object} props
- * @author Zeeshan A
+ * Forgot Password Action component
  */
 export const ForgotPasswordAction = (props: any) => {
-  const { location, intl } = props
-  const { search } = location
-  const queryString = require('query-string')
-  const parsed = queryString.parse(search)
-  const accessToken = parsed['access-token']
-  const { client } = parsed
-  const { uid } = parsed
-  const { expiry } = parsed
-  const [isRequested, setIsRequested] = useState(false)
-  const history = useHistory()
+  const { search } = useLocation();
+  const { token = ''} = queryString.parse(search);
+  const { client = '' } = queryString.parse(search);
+  const { uid = '' } = queryString.parse(search);
+  const { expiry = '' } = queryString.parse(search);
   const ForgotPasswordSchema = Yup.object().shape({
     password: Yup.string()
       .min(3, 'Minimum 3 symbols')
       .max(50, 'Maximum 50 symbols')
-      .required(
-        intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
-        })
-      ),
+      .required('Required'),
     changepassword: Yup.string()
-      .required(
-        intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
-        })
-      )
+      .min(3, 'Minimum 3 symbols')
+      .max(50, 'Maximum 50 symbols')
+      .required('Required')
       .when('password', {
         is: (val: any) => !!(val && val.length > 0),
         then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
       }),
   })
 
-  const { register, handleSubmit, errors, formState } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
   const dispatch =  useDispatch();
   const onSubmit = ({ password, changepassword }: ForgotPasswordType) => {
-    dispatch(authActions.requestPassword);
-  }
-
-  const getInputClasses = (fieldname: any) => {
-    let len = Object.keys(formState.touched).length
-
-    if (len) {
-      let touchedIndex = Object.entries(formState.touched).findIndex(([key, value]) => key === fieldname)
-      let errorIndex = Object.entries(formState.errors).findIndex(([key, value]) => key === fieldname)
-
-      if (touchedIndex >= 0 && errorIndex >= 0) {
-        return 'is-invalid'
-      } else {
-        return 'is-valid'
-      }
-    }
-
-    return ''
+    dispatch(authActions.changePassword(password, changepassword, token, client, uid, expiry));
   }
 
   return (
-    <>
-      {isRequested && <Redirect to="/auth" />}
-      {!isRequested && (
-        <div className="login-form login-forgot" style={{ display: 'block' }}>
-          <div className="text-center mb-10 mb-lg-20">
-            <h3 className="font-size-h1">Forgotten Password ?</h3>
-            <div className="text-muted font-weight-bold">Reset your password</div>
-          </div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="form fv-plugins-bootstrap fv-plugins-framework animated animate__animated animate__backInUp"
-          >
-            {/* begin: Password */}
-            <div className="form-group fv-plugins-icon-container">
-              <input
-                placeholder="Password"
+    <Grid container direction="column" justify="space-around" alignItems="center">
+        <AuthAlert />
+      {/* logo */}
+      <Grid item xs="auto">
+        <CardMedia src={Logo} component="img" />
+        <Typography align="center" variant="h6">
+          Forgotten Password ?
+        </Typography>
+      </Grid>
+      {/* form */}
+      <Grid item xs="auto">
+        <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container direction="column" justify="center" alignItems="center">
+          {/* begin: Password */}
+          <FormControl variant="filled">
+              <TextField
+                label="Password"
+                margin="normal"
+                variant="outlined"
+                autoComplete="off"
                 type="password"
-                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses('password')}`}
+                inputRef={register()}
                 name="password"
-                ref={register()}
               />
-            </div>
-            <span> {errors.password && errors.password.message}</span>
+              <span> {errors.password && errors.password.message}</span>
+            </FormControl>
             {/* end: Password */}
 
             {/* begin: Confirm Password */}
-            <div className="form-group fv-plugins-icon-container">
-              <input
-                placeholder="Confirm Password"
+            <FormControl variant="filled">
+              <TextField
+                label="Confirm Password"
+                margin='normal'
+                variant = 'outlined'
+                autoComplete='off'
                 type="password"
-                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses('changepassword')}`}
                 name="changepassword"
-                ref={register()}
+                inputRef={register()}
               />
-            </div>
             <span> {errors.changepassword && errors.changepassword.message}</span>
             {/* end: Confirm Password */}
-            <div className="form-group d-flex flex-wrap flex-center">
-              <button
-                id="kt_login_forgot_submit"
-                type="submit"
-                className="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4"
-                disabled={formState.isSubmitting}
-              >
-                Submit
-              </button>
-              <Link to="/auth">
-                <button
-                  type="button"
-                  id="kt_login_forgot_cancel"
-                  className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"
-                >
-                  Cancel
-                </button>
-              </Link>
-            </div>
+            <Button type="submit" variant = 'contained' color = 'secondary'>Submit</Button>
+                <Typography variant = 'body2' align = 'center'>
+                <Link rel="noreferrer" to="/auth/login">
+                  Sign in
+                </Link>
+                </Typography>
+            </FormControl>
+            </Grid>
           </form>
-        </div>
-      )}
-    </>
+        </Grid>
+    </Grid>
   )
 }

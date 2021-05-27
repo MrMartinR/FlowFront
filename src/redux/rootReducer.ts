@@ -1,7 +1,5 @@
-import { all } from 'redux-saga/effects'
 import { combineReducers } from 'redux'
 
-// import * as auth from '../app/modules/Auth/state/authRedux'
 import { authSlice } from '../app/modules/Auth/state/authSlice'
 import { accountsSlice } from '../app/pages/Account/state/accountsSlice'
 import { contactsSlice } from '../app/pages/Contact/state/contactsSlice'
@@ -14,6 +12,7 @@ import { userAccountsSlice } from '../app/pages/UserAccount/state/userAccountsSl
 import { userLoansSlice } from '../app/pages/UserLoan/state/userLoansSlice'
 import { userOriginatorsSlice } from '../app/pages/UserOriginator/state/userOriginatorsSlice'
 import { userPlatformsSlice } from '../app/pages/Lending/state/userPlatformsSlice'
+import { userSettingsSlice } from '../app/pages/Contact/UserSettings/state/userSettingsSlice'
 
 export const rootReducer = combineReducers({
   accounts: accountsSlice.reducer,
@@ -28,9 +27,6 @@ export const rootReducer = combineReducers({
   userLoans: userLoansSlice.reducer,
   userOriginators: userOriginatorsSlice.reducer,
   userPlatforms: userPlatformsSlice.reducer,
+  userSettings: userSettingsSlice.reducer,
 })
 export type RootState = ReturnType<typeof rootReducer>
-
-// export function* rootSaga() {
-//   yield all([authSlice.saga()])
-// }

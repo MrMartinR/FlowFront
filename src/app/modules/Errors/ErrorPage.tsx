@@ -2,7 +2,7 @@ import React from 'react'
 // import { toAbsoluteUrl } from '../../utils'
 import { Grid, Typography } from '@material-ui/core'
 
-export function ErrorPage() {
+export const ErrorPage = () => {
   return (
     <Grid>
       {/* <div
@@ -21,5 +21,3 @@ export function ErrorPage() {
     </Grid>
   )
 }
-
-export default ErrorPage

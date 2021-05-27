@@ -89,7 +89,13 @@ export const AddContactMethodForm = (props: any) => {
       contact_id: selectedContact.id,
       created_by: user.id,
       visibility: selectedContact.attributes?.visibility,
-      // user_id: selectedContact.attributes?.user
+      //user_id: selectedContact.attributes?.user
+    }
+    if (selectedContact.attributes?.visibility === 'Private') {
+      data = {
+        ...data,
+        user_id: user.id,
+      }
     }
     setFormData(data);
     setOpen(false);

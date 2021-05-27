@@ -6,7 +6,7 @@ import * as authActions from './../state/authActions'
 
 export const AuthAlert = () => {
     const {
-        auth: { error, success }
+        auth: { error, success, message }
       } = store.getState()
     const dispatch = useDispatch();
     const handleClick = () => {
@@ -21,7 +21,7 @@ export const AuthAlert = () => {
               onClose={ handleClick }
             >
                 <AlertTitle>Success</AlertTitle>
-                
+                { message }
             </Alert>
           </Snackbar>
         ) : success === false ? (

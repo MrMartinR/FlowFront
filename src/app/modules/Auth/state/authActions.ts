@@ -4,7 +4,7 @@ import { authSlice } from './authSlice'
 
 const { actions } = authSlice
 
-export const login = (email:any, password:any) => (dispatch: any) => {
+export const login = (email:string, password:string) => (dispatch: any) => {
     dispatch(actions.startCall())
     return requestFromServer
     .login(email, password)
@@ -44,21 +44,7 @@ export const registration = (email: string, name: string, username:string, passw
     })
 }
 
-export const requestUser = (token: any) => (dispatch: any) => {
-    dispatch(actions.startCall())
-    return requestFromServer
-    .getUserByToken(token)
-    .then((response) => {
-        const { data } = response
-        console.log(JSON.stringify(response), null, 3);
-        dispatch(actions.userLoaded(data));
-    })
-    .catch((error) => {
-        dispatch(actions.catchError({ error }));
-    })
-}
-
-export const requestPassword = (email: any) => (dispatch: any) => {
+export const requestPassword = (email: string) => (dispatch: any) => {
     dispatch(actions.startCall())
     return requestFromServer
     .requestPassword(email)
@@ -73,13 +59,13 @@ export const requestPassword = (email: any) => (dispatch: any) => {
     })
 }
 
-export const changePassword = (password: any, passwordConfirmation: any) => (dispatch: any) => {
+export const changePassword = (password: string, password_confirmation: string, token: any, client:any, uid:any, expiry:any) => (dispatch: any) => {
     dispatch(actions.startCall())
     return requestFromServer
-    .submitRequestPassword(password, passwordConfirmation)
+    .submitRequestPassword(password, password_confirmation, token, client, uid, expiry)
     .then((response) => {
         const { data } = response
-        console.log(JSON.stringify(response), null, 3);
+        console.log(JSON.stringify(response, null, 3));
         dispatch(actions.passwordChanged(data));
     })
     .catch((error) => {

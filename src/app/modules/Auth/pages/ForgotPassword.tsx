@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { TextField, Button, Grid, Typography, CardMedia, FormControl } from '@material-ui/core'
@@ -8,6 +7,7 @@ import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
+import { AuthAlert } from './AuthAlert'
 
 const initialValues = {
   email: '',
@@ -17,12 +17,11 @@ type PasswordType = {
   email: string
 }
 
-export const ForgotPassword = (props: any) => {
-  const [isRequested, setIsRequested] = useState(false)
+export const ForgotPassword = () => {
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .email('Wrong email format')
-      .min(3, 'Minimum 3 symbols')
+      .min(6, 'Minimum 6 symbols')
       .max(50, 'Maximum 50 symbols')
       .required('Required'),
   })
@@ -33,11 +32,13 @@ export const ForgotPassword = (props: any) => {
   })
   const dispatch =  useDispatch();
   const onSubmit = ({ email }: PasswordType) => {
-    dispatch(authActions.requestUser(email));
+    dispatch(authActions.requestPassword(email));
   }
 
   return (
+    
     <Grid container direction="column" justify="space-around" alignItems="center">
+      <AuthAlert />
       {/* logo */}
       <Grid item xs="auto">
         <CardMedia src={Logo} component="img" />
@@ -46,16 +47,9 @@ export const ForgotPassword = (props: any) => {
         </Typography>
       </Grid>
       {/* form */}
-      {isRequested && <Redirect to="/auth" />}
-      {!isRequested && (
         <Grid item xs="auto">
           <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
             <Grid container direction="column" justify="center" alignItems="center">
-              {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
-                <div>{localStorage.getItem('forgot_pwd_notif')}</div>
-              ) : (
-                ''
-              )}
               <FormControl variant="filled">
                 <TextField
                   label="Email"
@@ -67,24 +61,16 @@ export const ForgotPassword = (props: any) => {
                   name="email"
                 />
                 <span> {errors.email && errors.email.message}</span>
-              </FormControl>
-              <FormControl variant="filled">
-                <Button type="submit">Submit</Button>
-                <Link to="/auth">
-                  <Button
-                    type="button"
-                    id="kt_login_forgot_cancel"
-                    variant = 'contained'
-                    color = 'secondary'
-                  >
-                    Cancel
-                  </Button>
+                <Button type="submit" variant = 'contained' color = 'secondary'>Submit</Button>
+                <Typography variant = 'body2' align = 'center'>
+                <Link rel="noreferrer" to="/auth/login">
+                  Sign in
                 </Link>
+                </Typography>
               </FormControl>
             </Grid>
           </form>
         </Grid>
-      )}
     </Grid>
   )
 }

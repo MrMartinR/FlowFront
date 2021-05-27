@@ -2,10 +2,10 @@ import React, { useMemo } from 'react'
 import objectPath from 'object-path'
 import { useHtmlClassService } from '../_core/MetronicLayout'
 import { Grid } from '@material-ui/core'
-import HeaderWrapper from './header/HeaderWrapper'
+import { HeaderWrapper } from './header/HeaderWrapper'
 
 // TODO: adding type any to children
-export function Layout({ children }: any) {
+export const Layout = ({ children }: any) => {
   const uiService = useHtmlClassService()
   const layoutProps = useMemo(
     () => ({

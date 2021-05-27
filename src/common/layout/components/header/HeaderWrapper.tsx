@@ -2,9 +2,9 @@ import React from 'react'
 import { HeaderMenu } from './HeaderMenu'
 import { Grid, CardMedia, AppBar, IconButton } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
-import SignOut from './SignOut'
+import { SignOut } from './SignOut'
 
-function HeaderWrapper() {
+export const HeaderWrapper = () => {
   const style = {
     // height: 40,
     // padding: 5,
@@ -38,5 +38,3 @@ function HeaderWrapper() {
     </AppBar>
   )
 }
-
-export default HeaderWrapper
