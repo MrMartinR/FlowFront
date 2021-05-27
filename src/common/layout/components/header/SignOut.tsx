@@ -1,19 +1,16 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
 import { Button } from '@material-ui/core'
-
-function SignOut() {
-  const history = useHistory()
-
+import { useDispatch } from 'react-redux'
+import * as authActions from '../../../../app/modules/Auth/state/authActions'
+export const SignOut = () => {
+  const dispatch = useDispatch()
+  const handleClick = () => {
+    dispatch(authActions.logout())
+  }
   return (
-    <Button
-      onClick={() => {
-        history.push('/logout')
-      }}
+    <Button 
+      onClick = { handleClick }
     >
       Sign Out
     </Button>
   )
 }
-
-export default SignOut

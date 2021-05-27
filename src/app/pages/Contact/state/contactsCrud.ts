@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from '../../../../redux/store'
 import { API_URL, optionsHeaders } from '../../../utils'
 
 /**
@@ -14,7 +13,7 @@ export const CONTACT_METHODS_URL = `${API_URL}/api/v1/contact_methods`
  * @param CONTACTS_URL, optionsHeaders
  * @returns List of all the Contacts
  */
-export function getAllContacts() {
+export const getAllContacts = () => {
   return axios.get(CONTACTS_URL, optionsHeaders())
 }
 
@@ -23,7 +22,7 @@ export function getAllContacts() {
  * @param CONTACTS_URL, contactsId, optionsHeaders
  * @returns Data about a specific Contact
  */
-export function getContactById(contactId: any) {
+export const getContactById = (contactId: any) => {
   return axios.get(`${CONTACTS_URL}/${contactId}`, optionsHeaders())
 }
 
@@ -31,66 +30,30 @@ export function getContactById(contactId: any) {
  * promise function to process the axios post given data
  * sends header/ authorization
  */
-export function createContact(data: any) {
-  const {
-    auth: { user, client, expiry, token },
-  } = store.getState()
+export const createContact = (data: any) => {
   const form = {
     contact: data,
   }
 
-  return axios.post(`${CONTACTS_URL}`, form, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.uid,
-    },
-  })
+  return axios.post(`${CONTACTS_URL}`, form, optionsHeaders())
 }
 
 /*
  * promise function to process the axios puts given data
  * sends header/ authorization
  */
-export function updateContact(data: any, id: any) {
-  const {
-    auth: { user, client, expiry, token },
-  } = store.getState()
+export const updateContact = (data: any, id: any) => {
   const form = {
     contact: data,
   }
 
-  return axios.put(`${CONTACTS_URL}/${id}`, form, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.uid,
-    },
-  })
+  return axios.put(`${CONTACTS_URL}/${id}`, form, optionsHeaders())
 }
 /*
 
 */
-export function deleteContact(id: any) {
-  const {
-    auth: { user, client, expiry, token },
-  } = store.getState()
-  return axios.delete(`${CONTACTS_URL}/${id}`, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.uid,
-    },
-  })
+export const deleteContact = (id: any) => {
+  return axios.delete(`${CONTACTS_URL}/${id}`, optionsHeaders())
 }
 
 
@@ -98,63 +61,27 @@ export function deleteContact(id: any) {
  * promise function to process the axios post given data
  * sends header/ authorization
  */
-export function createContactMethods(data: any) {
-  const {
-    auth: { user, client, expiry, token },
-  } = store.getState()
+export const createContactMethods = (data: any) => {
   const form = {
     contact_method: data,
   }
 
-  return axios.post(`${CONTACT_METHODS_URL}`, form, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.uid,
-    },
-  })
+  return axios.post(`${CONTACT_METHODS_URL}`, form, optionsHeaders())
 }
 /*
  * promise function to process the axios puts given data
  * sends header/ authorization
  */
-export function updateContactMethods(data: any, id: any) {
-  const {
-    auth: { user, client, expiry, token },
-  } = store.getState()
+export const updateContactMethods = (data: any, id: any) => {
   const form = {
     contact_method: data,
   }
 
-  return axios.put(`${CONTACT_METHODS_URL}/${id}`, form, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.uid,
-    },
-  })
+  return axios.put(`${CONTACT_METHODS_URL}/${id}`, form, optionsHeaders())
 }
 /*
 
 */
-export function deleteContactMethod(id: any) {
-  const {
-    auth: { user, client, expiry, token },
-  } = store.getState()
-  return axios.delete(`${CONTACT_METHODS_URL}/${id}`, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'access-token': token,
-      'token-type': 'Bearer',
-      client,
-      expiry,
-      uid: user.uid,
-    },
-  })
+export const deleteContactMethod = (id: any) => {
+  return axios.delete(`${CONTACT_METHODS_URL}/${id}`, optionsHeaders())
 }

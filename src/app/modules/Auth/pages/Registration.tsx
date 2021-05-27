@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
 import * as authActions from '../state/authActions'
@@ -6,12 +6,10 @@ import { useForm } from 'react-hook-form'
 import Logo from '../../../../common/media/flow-logo.svg'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TextField, Button, Grid, Typography, CardMedia, FormControl, Select, MenuItem, Modal, Card } from '@material-ui/core'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../../redux/rootReducer'
-import { countriesList } from '../data/Countries'
+import { useDispatch } from 'react-redux'
+import { countriesList } from '../data/countries'
 import { terms, terms2, terms3, terms4, terms5, terms6 } from '../data/terms'
 const initialValues = {
-  fullname: '',
   email: '',
   username: '',
   name: '',
@@ -22,7 +20,6 @@ const initialValues = {
 
 type RegisterType = {
   email: string
-  fullname: string
   username: string
   password: string
   name: string
@@ -33,7 +30,6 @@ type RegisterType = {
  * @author Zeeshan A
  */
 export const Registration = () => {
-  const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
   const RegistrationSchema = Yup.object().shape({
     username: Yup.string()
@@ -42,7 +38,7 @@ export const Registration = () => {
       .required('Required'),
     email: Yup.string()
       .email('Wrong email format')
-      .min(3, 'Minimum 3 characters')
+      .min(6, 'Minimum 6 characters')
       .max(50, 'Maximum 50 characters')
       .required('Required'),
     password: Yup.string()
@@ -53,7 +49,8 @@ export const Registration = () => {
       .min(3, 'Minimum 3 characters')
       .max(50, 'Maximum 50 characters')
       .required('Required'),
-    acceptTerms: Yup.bool()
+    acceptTerms: Yup.boolean()
+      .oneOf([true], 'You must accept the terms and conditions')
       .required('You must accept the terms and conditions'),
   })
 
@@ -62,20 +59,11 @@ export const Registration = () => {
     defaultValues: initialValues,
   })
   const dispatch =  useDispatch();
-  const { currentState } = useSelector(
-    (state: RootState) => ({
-      currentState: state.auth,
-    }),
-    shallowEqual
-  )
   const [country, setCountry] = useState('61c2888b-8b6a-4536-830f-3a14e86a9cd5');
   const handleCountry = (e: any) => {
     setCountry(e.target.value);
   }
 
-  useEffect( () => {
-    setLoading(currentState.loading);
-  }, [currentState.loading]);
   const onSubmit = ({ email, username, password, name }: RegisterType) => {
     dispatch(authActions.registration(email, name, username, password, country));
   }
@@ -113,55 +101,6 @@ export const Registration = () => {
       <Grid item xs="auto">
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column" justify="center" alignItems="center">
-            {/* begin: Email */}
-            <FormControl variant="filled" style = {{ width: '100%' }}>
-              <TextField
-                id="outlined-uncontrolled"
-                label="Email"
-                margin="normal"
-                variant="outlined"
-                autoComplete="true"
-                type="email"
-                name="email"
-                inputRef={register()}
-              />
-              <span> {errors.email && errors.email.message}</span>
-            </FormControl>
-            {/* end: Email */}
-
-            {/* begin: Password */}
-            <FormControl variant="filled" style = {{ width: '100%' }}>
-              <TextField
-                id="outlined-uncontrolled"
-                label="Password"
-                margin="normal"
-                variant="outlined"
-                autoComplete="true"
-                type="password"
-                name="password"
-                inputRef={register()}
-              />
-              <span> {errors.password && errors.password.message}</span>
-            </FormControl>
-
-            {/* end: Password */}
-
-            {/* begin: Username */}
-            <FormControl variant="filled" style = {{ width: '100%' }}>
-              <TextField
-                id="outlined-uncontrolled"
-                label="Username"
-                margin="normal"
-                variant="outlined"
-                autoComplete="true"
-                type="text"
-                name="username"
-                inputRef={register()}
-              />
-              <span> {errors.username && errors.username.message}</span>
-            </FormControl>
-            {/* end: Username */}
-
             {/* begin: Country */}
             <FormControl variant = "outlined" margin = 'normal' style = {{ width: '100%' }}>
               <Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
@@ -186,19 +125,78 @@ export const Registration = () => {
                 name="name"
                 inputRef={register()}
               />
+              <span> {errors.name && errors.name.message}</span>
+            </FormControl>
+            {/* end: Name */}
+            
+            {/* begin: Email */}
+            <FormControl variant="filled" style = {{ width: '100%' }}>
+              <TextField
+                id="outlined-uncontrolled"
+                label="Email"
+                margin="normal"
+                variant="outlined"
+                autoComplete="true"
+                type="email"
+                name="email"
+                inputRef={register()}
+              />
+              <span> {errors.email && errors.email.message}</span>
+            </FormControl>
+            {/* end: Email */}
+
+            {/* begin: Username */}
+            <FormControl variant="filled" style = {{ width: '100%' }}>
+              <TextField
+                id="outlined-uncontrolled"
+                label="Username"
+                margin="normal"
+                variant="outlined"
+                autoComplete="true"
+                type="text"
+                name="username"
+                inputRef={register()}
+              />
               <span> {errors.username && errors.username.message}</span>
             </FormControl>
             {/* end: Username */}
 
+            {/* begin: Password */}
+            <FormControl variant="filled" style = {{ width: '100%' }}>
+              <TextField
+                id="outlined-uncontrolled"
+                label="Password"
+                margin="normal"
+                variant="outlined"
+                autoComplete="true"
+                type="password"
+                name="password"
+                inputRef={register()}
+              />
+              <span> {errors.password && errors.password.message}</span>
+            </FormControl>
+            {/* end: Password */}
+
             {/* begin: Terms and Conditions */}
             <FormControl variant="filled">
               <label htmlFor="acceptTerms" className="checkbox">
-                <input type="checkbox" name="acceptTerms" id="acceptTerms" ref={register()} />{' '}
-                <Button variant='text' onClick = { handleOpen }>
-                  I accept the Terms & Conditions.
-                </Button>
+              <Typography variant = 'body2'>
+                <input type="checkbox" name="acceptTerms" id="acceptTerms" ref={register()} />
+                I accept the 
+                  <span style = {{ color: 'blue', textDecoration : 'underline', cursor: 'pointer' }} onClick = { handleOpen }>
+                    Terms & Conditions.
+                  </span>
+                </Typography>
               </label>
-              <span> {errors.acceptTerms && errors.acceptTerms.message}</span>
+              <span> {errors.acceptTerms && errors.acceptTerms.message}</span><br/>
+              <Button type="submit" variant = 'contained' color = 'secondary'>
+                <span>Sign Up</span>
+              </Button>
+              <Typography variant = 'body2' align='center'>
+              Already registered? <Link rel="noreferrer" to="/auth/login">
+                  Sign in
+                </Link>
+              </Typography>
             </FormControl>
             <Modal
               open={open}
@@ -207,15 +205,6 @@ export const Registration = () => {
               {body}
           </Modal>
             {/* end: Terms and Conditions */}
-            <FormControl variant="filled" margin = 'normal'>
-              <Button type="submit" variant = 'contained' color = 'secondary'>
-                <span>Sign Up</span>
-                {loading && <span className="ml-3 spinner spinner-white" />}
-              </Button>
-              <Button href = "/auth/login" type="button" variant = 'text'>
-                Cancel
-              </Button>
-            </FormControl>
           </Grid>
         </form>
       </Grid>

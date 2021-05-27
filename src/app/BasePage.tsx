@@ -16,14 +16,14 @@ import { OriginatorsPage } from './pages/Originator'
 import { OriginatorDetailsPage } from './pages/Originator/OriginatorDetailsPage'
 import { PlatformsPage } from './pages/Platform'
 import { PlatformDetailsPage } from './pages/Platform/PlatformDetailsPage'
-import SettingPage from './pages/Contact/UserSettings/UserSettings'
+import { UserSettings } from './pages/Contact/UserSettings/UserSettings'
 import { UserAccountsPage } from './pages/UserAccount'
 import { UserLoansPage } from './pages/UserLoan'
 import { UserOriginatorsPage } from './pages/UserOriginator'
 import { UserPlatformsPage } from './pages/Lending/UserPlatform'
 import { UserPlatformsOverallPage } from './pages/Lending/UserPlatformOverall'
-
-export default function BasePage() {
+import { ErrorPage } from './modules/Errors/ErrorPage'
+export const BasePage = () => {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
@@ -34,7 +34,7 @@ export default function BasePage() {
         <Route path={"/countries/:id"} component={CountryDetails} />
         <Route path="/countries" component={CountriesPage} />
         <Route path="/accounts" component={Accounts} />
-        <Route path="/settings" component={SettingPage} />
+        <Route path="/settings" component={UserSettings} />
         <Route path="/user_accounts" component={UserAccountsPage} />
         <Route path="/lending" component={LendingPage} />
         <Route path={`/originators/:id`} component={OriginatorDetailsPage} />
@@ -49,6 +49,7 @@ export default function BasePage() {
         <Route path="/user-platform" component={UserPlatformsPage} />
         <Route path="/user-platform-overall" component={UserPlatformsOverallPage} />
         <Route path="/user-originators" component={UserOriginatorsPage} />
+        <Route path="/error/error" component={ErrorPage} />
         <Redirect to="/error/error" />
       </Switch>
     </Suspense>

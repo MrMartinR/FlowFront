@@ -1,7 +1,6 @@
-import React from 'react'
 import { Grid, ButtonGroup, Button } from '@material-ui/core'
 
-export function HeaderMenu() {
+export const HeaderMenu = () => {
   return (
     <Grid container direction="row" spacing={2}>
       {/* begin::Dashboard */}
@@ -18,5 +17,3 @@ export function HeaderMenu() {
     </Grid>
   )
 }
-
-export default HeaderMenu

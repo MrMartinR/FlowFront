@@ -63,11 +63,6 @@ export const Login = () => {
       <Grid item>
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column" justify="center" alignItems="center">
-            {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
-              <div>{localStorage.getItem('forgot_pwd_notif')}</div>
-            ) : (
-              ''
-            )}
             {/* begin: Username */}
             <FormControl variant="filled">
               <TextField
@@ -96,18 +91,23 @@ export const Login = () => {
               />
               <span> {errors.password && errors.password.message}</span>
               
-              <Button type="submit" color = 'secondary' variant = 'contained'>
+              <Button disabled = { loading } type="submit" color = 'secondary' variant = 'contained'>
                   Sign In
-                  {loading && <span className="ml-3 spinner spinner-white" />}
               </Button>
             </FormControl>
             {/* end: Password */}
           </Grid>
         </form>
+        <Typography variant = 'body2' paragraph>
+          Don't have a flow account yet? <Link rel="noreferrer" to="/auth/registration">
+            Sign up
+          </Link>
+        </Typography>
         <Typography variant = 'body2'>
-          <br/>Don't have a flow account yet? <Link rel="noreferrer" to="/auth/registration">
-                 Sign up
-              </Link></Typography>
+          Forgot your <Link rel="noreferrer" to="/auth/forgot-password">
+            password?
+          </Link>
+        </Typography>
         <AuthAlert />
       </Grid>
     </Grid>

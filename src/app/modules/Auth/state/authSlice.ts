@@ -4,6 +4,7 @@ const initialAuthState = {
     loading: false,
     error: null as any,
     success: null as any,
+    message: null as any,
     user: null as any,
     client: null as any,
     expiry: null as any,
@@ -19,12 +20,14 @@ export const authSlice = createSlice({
             state.error = `${action.type}: ${action.payload.error}`
             state.loading = false;
             state.success = false;
+            state.message = null;
         },
         // set the state in which the process is in loading or setting the state
         startCall: (state) => {
             state.error = null;
             state.loading = true;
             state.success = null;
+            state.message = null;
         },
   
         login: (state, action) => {
@@ -35,11 +38,17 @@ export const authSlice = createSlice({
             state.token = token.token;
             state.expiry = token.expiry;
             state.role = role;
-            state.user = { ...data, fullname: data.uid };
+            state.user = { ...data };
         },
         register: (state, action) => {
-            state.success = true;
+            const { data, token, success } = action.payload;
+            state.success = success;
             state.loading = false;
+            state.client = token.client;
+            state.token = token.token;
+            state.expiry = token.expiry;
+            state.role = 'user';
+            state.user = { ...data };
         },
         logout: (state, action) => {
             state.loading = false;
@@ -50,21 +59,22 @@ export const authSlice = createSlice({
             state.role = null;
             state.user = null;
         },
-        userLoaded: (state, action) => {
-            const { user } = action.payload
-            state = { ...state, user, success : true, loading : false}
-        },
         resetSuccess: (state, action) => {
             const { success } = action.payload
-            state.success = success
+            state.success = success;
+            state.message = null;
         },
         passwordRequested: (state, action) => {
-            const { data } = action.payload
-            state.user = data;
+            const { message, success } = action.payload
+            state.loading = false;
+            state.success = success;
+            state.message = message;
         },
         passwordChanged: (state, action) => {
-            const { data } = action.payload
-            state.user = data;
+            const { success, message } = action.payload
+            state.loading = false;
+            state.success = success;
+            state.message = message;
         },
     },
 });

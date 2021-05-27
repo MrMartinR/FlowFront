@@ -6,13 +6,11 @@
  */
 
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import { shallowEqual, useSelector } from 'react-redux'
 import { Layout } from '../common/layout'
-import BasePage from './BasePage'
-import { Logout } from './modules/Auth/pages/Logout'
+import { BasePage } from './BasePage'
 import { AuthPage } from './AuthPage'
-import ErrorsPage from './modules/Errors/ErrorsPage'
 import { PublicRoute } from './PublicRoute'
 import { PrivateRoute } from './PrivateRoute'
 import { RootState } from '../redux/rootReducer'
@@ -24,13 +22,10 @@ export const Routes = () => {
     }),
     shallowEqual
   )
-  const isAuthorized= currentState.user !== null;
+  const isAuthorized= (currentState.user !== null && currentState.user !== undefined);
   
   return (
     <Switch>
-      <Route exact path="/error/error" component={ErrorsPage} />
-      <Route exact path="/logout" component={Logout} />
-      
       <PublicRoute 
         isAuth = { isAuthorized }
         path='/auth' 
@@ -40,8 +35,7 @@ export const Routes = () => {
           isAuth = { isAuthorized }
           path='/' 
           component={ BasePage } />
-      </Layout>
-      
+      </Layout>     
     </Switch>
   )
 }

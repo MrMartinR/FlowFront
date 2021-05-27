@@ -11,7 +11,7 @@ export const AuthPage = () => {
         <Route path="/auth/login" component={Login} />
         <Route path="/auth/registration" component={Registration} />
         <Route path="/auth/forgot-password" component={ForgotPassword} />
-        <Route path="/auth/forgot-password-actions" component={ForgotPasswordAction} />
+        <Route path="/auth/forgot-password-actions/" component={ForgotPasswordAction} />
         <Redirect from="/auth" exact to="/auth/login" />
         <Redirect to="/auth/login" />
       </Switch>      
