@@ -9,13 +9,15 @@ import { ContactDetails } from './ContactDetails'
 
 import { ContactToolBar } from './ContactToolbar'
 import { ContactAlert } from './ContactAlert'
+import { UserSettings } from './UserSettings/UserSettings'
 
 export const Contacts = (props: any) => {
   const { match } = props;
   const { params } = match;
-  const { currentState } = useSelector(
+  const { currentState, authState } = useSelector(
     (state: RootState) => ({
       currentState: state.contacts,
+      authState: state.auth,
     }),
     shallowEqual
   )
@@ -25,7 +27,7 @@ export const Contacts = (props: any) => {
   const [listMethods, setListMethods] = useState([] as any)
   const [isLoading, setIsLoading] = useState(false)
   const [actionsLoading, setActionsLoading] = useState(false)
-  const [singleContact, setSingleContact] = useState({})
+  const [singleContact, setSingleContact] = useState({} as any)
   let selectedContact = null as any
   if (list.length>1) {
     if (isContact){
@@ -87,20 +89,20 @@ export const Contacts = (props: any) => {
     setActionsLoading(currentState.actionsLoading);
   }, [currentState.listLoading, currentState.actionsLoading]);
   return (
-    <>
+    <Grid container direction = 'column' spacing={2}>
       <ContactToolBar selectedContact = { singleContact } />
       <ContactAlert/>
-      <Grid>
-        <Grid key = {0} item xs={12}>
-          <Grid container spacing={1} direction="row" justify="space-evenly">
-            <Grid key={1} xs={3} item>
-              <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
-            </Grid>
-            <Grid key={2} xs={4} item>
+      <Grid container direction='row' justify= 'space-around'>
+        <Grid xs={3} item>
+          <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
+        </Grid>
+        <Grid item xs={9} container direction='column' spacing= {2}>
+          <Grid item container direction='row' justify='space-around'>
+            <Grid xs={5} item>
               <ContactDetails selectedContact={singleContact} />
 
             </Grid>
-            <Grid key={3} xs={4} item>
+            <Grid xs={5} item>
               <ContactMethod
                 listMethods={listMethods}
                 methodLoading={actionsLoading}
@@ -108,8 +110,13 @@ export const Contacts = (props: any) => {
               />
             </Grid>
           </Grid>
+          <Grid item container direction='row' justify='space-around'>
+            <Grid item xs={11}>
+              {(authState.user.contact_id === singleContact.id) && <UserSettings />}
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
-    </>
+    </Grid>
   )
 }

@@ -45,7 +45,7 @@ export const ContactsList = (props: any) => {
         renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
       />
 
-      <Card>
+      <Card raised>
         <List>
           {isLoading ? (
             <LinearProgress color="secondary" />

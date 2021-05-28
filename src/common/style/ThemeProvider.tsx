@@ -47,10 +47,8 @@ const theme = createMuiTheme({
   },
 })
 
-export function FlowThemeProvider(props: any) {
+export const FlowThemeProvider = (props: any) => {
   const { children } = props
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
-
-export default FlowThemeProvider

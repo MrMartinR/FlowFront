@@ -4,7 +4,7 @@ import Kanban1 from './Kanban/Kanban1'
 import Kanban2 from './Kanban/Kanban2'
 function DashboardPage() {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       {/* begin::navigation */}
       <Grid item>
         <Card>
@@ -27,7 +27,7 @@ function DashboardPage() {
         </Card>
       </Grid>
 
-      <Grid item xs={10}>
+      <Grid item xs={9}>
         <Kanban1 />
       </Grid>
     </Grid>
