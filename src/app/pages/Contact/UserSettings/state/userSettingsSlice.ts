@@ -2,12 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialUserSettingsState = {
     listLoading: true,
     actionsLoading: false,
-    users: {
-    },
+    users: [],
     userProfile: {
     },
     userSettings: {
-
     },
     success: null as any,
     response: null as any,

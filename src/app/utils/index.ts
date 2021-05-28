@@ -13,7 +13,7 @@ export const optionsHeaders = () => {
       'token-type': 'Bearer',
       client,
       expiry,
-      uid: user.email,
+      uid: user.uid,
     },
   }
   return options

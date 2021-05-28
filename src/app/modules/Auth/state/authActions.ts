@@ -27,6 +27,7 @@ export const logout = () => (dispatch: any) => {
         dispatch(actions.logout(data));
     })
     .catch((error) => {
+        dispatch(actions.logout({ success:true}));
         dispatch(actions.catchError({ error }));
     })
 }

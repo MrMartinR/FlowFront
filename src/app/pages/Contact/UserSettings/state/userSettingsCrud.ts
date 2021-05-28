@@ -22,7 +22,7 @@ export const getUserSettings = () => {
  * @returns User Profile Data
  */
 export const getUserProfile = () => {
-  return axios.get(USER_PROFILE_URL, optionsHeaders())
+  return axios.get(USER_PROFILE_URL,  optionsHeaders())
 }
 
 /**

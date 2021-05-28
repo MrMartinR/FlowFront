@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
 
 import { Accounts } from './pages/Account'
@@ -8,7 +7,6 @@ import { CountriesPage } from './pages/Country'
 import { Currencies } from './pages/Currency'
 import { CurrencyDetails } from './pages/Currency/CurrencyDetails'
 import DashboardPage from './pages/Dashboard'
-import { LayoutSplashScreen } from '../common/layout'
 import { LendingPage } from './pages/Lending'
 import { LoanDetailsPage } from './pages/Loan/LoanDetails'
 import { LoansPage } from './pages/Loan'
@@ -25,7 +23,6 @@ import { UserPlatformsOverallPage } from './pages/Lending/UserPlatformOverall'
 import { ErrorPage } from './modules/Errors/ErrorPage'
 export const BasePage = () => {
   return (
-    <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
         <Redirect exact from="/" to="/dashboard" />
         <Route path="/dashboard" component={DashboardPage} />
@@ -52,6 +49,5 @@ export const BasePage = () => {
         <Route path="/error/error" component={ErrorPage} />
         <Redirect to="/error/error" />
       </Switch>
-    </Suspense>
   )
 }

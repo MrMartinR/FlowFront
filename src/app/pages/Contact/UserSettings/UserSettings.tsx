@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { Grid, Card, CardHeader, CardContent } from '@material-ui/core'
+import { Grid, Card, CardHeader, CardContent, TextField, Typography } from '@material-ui/core'
 
 import * as userSettingsActions from './state/userSettingsActions'
 import { RootState } from '../../../../redux/rootReducer'
-import { PersonalInformation } from './PersonalInformation'
-import { AccountInformation } from './AccountInformation'
-import { ChangePassword } from './ChangePassword'
+import { useForm } from 'react-hook-form'
 
 
 export const UserSettings = () => {
@@ -16,24 +14,10 @@ export const UserSettings = () => {
     }),
     shallowEqual,
   )
-  const [settings, setSettings] = useState({})
-  const [profile, setProfile] = useState({})
+  const { register, handleSubmit, errors } = useForm();
+  const [profile, setProfile] = useState({} as any)
   // contact Redux state
   const dispatch = useDispatch()
-  const GetUserSettings = () => {
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(userSettingsActions.fetchUserSettings())
-      }
-    }, [])
-  }
-  GetUserSettings();
-
-  useEffect(() => {
-    if (userSettingsState.userSettings) {
-      setSettings(userSettingsState.userSettings)
-    }
-  }, [userSettingsState.userSettings])
 
   const GetUserProfile = () => {
     useEffect(() => {
@@ -49,41 +33,59 @@ export const UserSettings = () => {
       setProfile(userSettingsState.userProfile)
     }
   }, [userSettingsState.userProfile])
-  
+  const onSubmit = (data: any, e: any) => { 
+    const formData = new FormData();
+    formData.append("user[username]", data.username);
+    formData.append("user[email]", data.email);
+    formData.append("user[password]", data.password);
+    dispatch(userSettingsActions.updateProfile(formData));
+  }
+  console.log(profile.attributes?.username)
   return (
     <Card> 
       <CardHeader title="Settings" subheader="Update your account and settings" align = 'center'/>
       <CardContent>
-        <Grid  container direction="row" justify="space-around">
-        {/* Personal Information */}
-          <Grid item xs={4}>
-            <Card raised style={{ height:'100%' }}>
-              <CardHeader title="Personal Information" />
-              <CardContent>
-                <PersonalInformation />
-              </CardContent>
-            </Card>
-          </Grid>
-            {/* Account Information */}
-            <Grid item xs={4}>
-              <Card raised style={{ height:'100%' }}>
-                <CardHeader title="Account Information" />
-                <CardContent>
-                  <AccountInformation />
-                </CardContent>
-              </Card>
-            </Grid>
-            {/* Change Password */}
-            <Grid item xs={3}>
-              <Card raised style={{ height:'100%' }}>
-                <CardHeader title="Change Password" />
-                <CardContent>
-                  <ChangePassword />  
-                </CardContent>
-              </Card>
-            </Grid>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container direction='column'>
+            {/* username */}
+              <TextField
+                margin="normal"
+                variant="outlined"
+                defaultValue = { profile.attributes?.username }
+                autoComplete="true"
+                type="text"
+                name="username"
+                inputRef={register()}
+              />
+
+            {/* email */}
+              <TextField
+                label="Email"
+                margin="normal"
+                defaultValue = { profile.attributes?.email }
+                variant="outlined"
+                autoComplete="true"
+                type="email"
+                name="email"
+                inputRef={register()}
+              />
+              <Typography variant='body2'>
+                Email will not be publicly displayed
+              </Typography>
+
+            {/* Password */}
+              <TextField
+              label="Password"
+              margin="normal"
+              variant="outlined"
+              autoComplete="off"
+              type="password"
+              inputRef={register()}
+              name="password"
+          />
         </Grid>
-      </CardContent>
-    </Card>
+      </form>
+    </CardContent>
+  </Card>
   )
 }
