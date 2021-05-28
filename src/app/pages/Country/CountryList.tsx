@@ -11,16 +11,23 @@ LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
 )
 const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 200 },
-  { field: 'iso_code', headerName: 'ISO', width: 200 },
   { field: 'continent', headerName: 'Continent', width: 200 },
-  { field: 'currency', headerName: 'Currency', width: 200 },
-  { field: 'flag', headerName: 'Flag', width: 100, renderCell: (params: GridCellParams) => (
-    <strong>
-      <Avatar variant="square"><img src={'/media/svg/flags/'+params.value+'.svg'} alt="" /></Avatar>
-    </strong>
-  ),},
-  { field: 'fiscal_year_start', headerName: 'Fiscal Year', width: 200 },
+  {
+    field: 'flag',
+    headerName: 'Flag',
+    width: 100,
+    renderCell: (params: GridCellParams) => (
+      <strong>
+        <Avatar variant="square">
+          <img src={'/media/svg/flags/' + params.value + '.svg'} alt="" />
+        </Avatar>
+      </strong>
+    ),
+  },
+  { field: 'iso_code', headerName: 'ISO', width: 100 },
+  { field: 'name', headerName: 'Name', width: 200 },
+  { field: 'currency', headerName: 'Currency', width: 120 },
+  { field: 'fiscal_year_start', headerName: 'Fiscal Year', width: 140 },
 ]
 
 export const CountriesList = (props: any) => {
@@ -36,38 +43,38 @@ export const CountriesList = (props: any) => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(countriesActions.fetchCountries());
-      } 
+        dispatch(countriesActions.fetchCountries())
+      }
     }, [dispatch])
   }
-  GetAllCountries();
-  useEffect(() => { if (
-    currentState.countryTable
-    ) {
-      setList(currentState.countryTable.entities);
+  GetAllCountries()
+  useEffect(() => {
+    if (currentState.countryTable) {
+      setList(currentState.countryTable.entities)
     }
-  }, [currentState.countryTable]);
+  }, [currentState.countryTable])
 
-  const rows = [] as any;
-  if (list.length >1) list.map((country: any) => {
-    const newRow = {
-      id : country.id,
-      type: country.type,
-      name: country.attributes.name,
-      iso_code: country.attributes.iso_code,
-      continent: country.attributes.continent,
-      currency: `${country.attributes.currency.name} [${country.attributes.currency.code}]`,
-      flag: country.attributes.iso_code,
-      fiscal_year_start: country.attributes.fiscal_year_start,
-    }
-    rows.push(newRow);
-    return rows;
-  })
+  const rows = [] as any
+  if (list.length > 1)
+    list.map((country: any) => {
+      const newRow = {
+        id: country.id,
+        type: country.type,
+        name: country.attributes.name,
+        iso_code: country.attributes.iso_code,
+        continent: country.attributes.continent,
+        currency: `${country.attributes.currency.code}`,
+        flag: country.attributes.iso_code,
+        fiscal_year_start: country.attributes.fiscal_year_start,
+      }
+      rows.push(newRow)
+      return rows
+    })
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/countries/${e.row.id}`)
-  useEffect( () => {
-    setIsLoading(currentState.listLoading);
-  }, [currentState.listLoading]);
+  useEffect(() => {
+    setIsLoading(currentState.listLoading)
+  }, [currentState.listLoading])
   return (
     <>
       {isLoading ? (
@@ -76,16 +83,17 @@ export const CountriesList = (props: any) => {
         </Grid>
       ) : (
         <>
-          <CountryToolbar list = { rows }/>
+          <CountryToolbar list={rows} />
           <CountryAlert />
           <Grid container direction="column">
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid 
-                rows={rows} 
+              <XGrid
+                rows={rows}
                 columns={columns}
                 onRowClick={handleClick}
-                disableMultipleSelection={true} 
-                loading={isLoading} />
+                disableMultipleSelection={true}
+                loading={isLoading}
+              />
             </div>
           </Grid>
         </>
