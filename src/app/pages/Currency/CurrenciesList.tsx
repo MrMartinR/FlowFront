@@ -11,20 +11,19 @@ LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
 )
 const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 200 },
-  { field: 'symbol', headerName: 'Symbol', width: 200 },
-  { field: 'code', headerName: 'Code', width: 200 },
-  { field: 'kind', headerName: 'Kind', width: 200 },
-  { field: 'fx_eur', headerName: 'fx_eur', width: 200 },
-  { field: 'decimal_places', headerName: 'Decimal Places', width: 200 },
-
+  { field: 'kind', headerName: 'Type', width: 120 },
+  { field: 'code', headerName: 'Code', width: 100 },
+  { field: 'name', headerName: 'Name', width: 300 },
+  { field: 'symbol', headerName: 'Symbol', width: 120 },
+  { field: 'decimal_places', headerName: 'Decimals', width: 120 },
+  { field: 'fx_eur', headerName: 'FX EUR', width: 120 },
 ]
 
 export const CurrenciesList = (props: any) => {
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
   const { currentState } = useSelector(
-    (state: RootState )=> ({
+    (state: RootState) => ({
       currentState: state.currencies,
     }),
     shallowEqual
@@ -33,38 +32,38 @@ export const CurrenciesList = (props: any) => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(currenciesActions.getAllCurrencies());
-      } 
+        dispatch(currenciesActions.getAllCurrencies())
+      }
     }, [dispatch])
   }
-  GetAllCurrencies();
-  useEffect(() => { if (
-    currentState.currenciesTable
-    ) {
-      setList(currentState.currenciesTable.entities);
+  GetAllCurrencies()
+  useEffect(() => {
+    if (currentState.currenciesTable) {
+      setList(currentState.currenciesTable.entities)
     }
-  }, [currentState.currenciesTable]);
+  }, [currentState.currenciesTable])
 
-  const rows = [] as any;
-  if (list.length >1) list.map((currency: any) => {
-    const newRow = {
-      id : currency.id,
-      type: currency.type,
-      name: currency.attributes.name,
-      code: currency.attributes.code,
-      symbol: currency.attributes.symbol,
-      kind: currency.attributes.kind,
-      fx_eur: currency.attributes.fx_eur,
-      decimal_places: currency.attributes.decimal_places,
-    }
-    rows.push(newRow);
-    return rows;
-  })
+  const rows = [] as any
+  if (list.length > 1)
+    list.map((currency: any) => {
+      const newRow = {
+        id: currency.id,
+        type: currency.type,
+        name: currency.attributes.name,
+        code: currency.attributes.code,
+        symbol: currency.attributes.symbol,
+        kind: currency.attributes.kind,
+        fx_eur: currency.attributes.fx_eur,
+        decimal_places: currency.attributes.decimal_places,
+      }
+      rows.push(newRow)
+      return rows
+    })
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/currencies/${e.row.id}`)
-  useEffect( () => {
-    setIsLoading(currentState.listLoading);
-  }, [currentState.listLoading]);
+  useEffect(() => {
+    setIsLoading(currentState.listLoading)
+  }, [currentState.listLoading])
   return (
     <>
       {isLoading ? (
@@ -73,16 +72,17 @@ export const CurrenciesList = (props: any) => {
         </Grid>
       ) : (
         <>
-          <CurrencyToolBar list = { rows }/>
+          <CurrencyToolBar list={rows} />
           <CurrencyAlert />
           <Grid container direction="column">
             <div style={{ height: 600, width: '100%' }}>
-              <XGrid 
-                rows={rows} 
+              <XGrid
+                rows={rows}
                 columns={columns}
                 onRowClick={handleClick}
-                disableMultipleSelection={true} 
-                loading={isLoading} />
+                disableMultipleSelection={true}
+                loading={isLoading}
+              />
             </div>
           </Grid>
         </>
