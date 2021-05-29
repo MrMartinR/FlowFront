@@ -222,10 +222,7 @@ export const Registration = () => {
                 <span>Sign Up</span>
               </Button>
               <Typography variant="body2" align="center">
-                Already registered?{' '}
-                <Link rel="noreferrer" to="/auth/login">
-                  Sign in
-                </Link>
+                Already registered? <Link to="/auth/login">Sign in</Link>
               </Typography>
             </FormControl>
             <Modal open={open} onClose={handleClose}>

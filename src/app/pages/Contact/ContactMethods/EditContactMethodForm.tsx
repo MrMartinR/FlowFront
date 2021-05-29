@@ -5,7 +5,7 @@ import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
 import { types } from './AddContactMethodForm'
 import store from './../../../../redux/store'
- 
+
 export const EditContactMethodForm = (props: any) => {
   const { edit, setOpen } = props
   const { register, handleSubmit } = useForm()
@@ -17,8 +17,7 @@ export const EditContactMethodForm = (props: any) => {
   } = store.getState()
   let dispatch = useDispatch()
   useEffect(() => {
-    
-    (async function () {
+    ;(async function () {
       var size = Object.keys(formData).length
       if (size > 0) {
         await dispatch(contactsActions.updateContactMethods(formData, params))
@@ -29,19 +28,20 @@ export const EditContactMethodForm = (props: any) => {
     setType(event.target.value)
   }
   const onSubmit = (data: any, e: any) => {
-    SetParams(edit.id);
-    data = { 
-      ...data, 
-      kind: type, 
-      updated_by: user.id}
-    setFormData(data);
+    SetParams(edit.id)
+    data = {
+      ...data,
+      kind: type,
+      updated_by: user.id,
+    }
+    setFormData(data)
     setOpen(false)
   }
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column">
-        <TextField
+          <TextField
             select
             name="kind"
             label="Type"
@@ -56,15 +56,16 @@ export const EditContactMethodForm = (props: any) => {
               </MenuItem>
             ))}
           </TextField>
-          <TextField 
-            name="data" 
+          <TextField
+            name="data"
             label="Data"
-            autoComplete= 'off'
+            autoComplete="off"
             color="secondary"
             defaultValue={edit.data}
-            inputRef={register} />
-          <Button id= 'submit' type="submit" variant="contained" color="secondary">
-            Submit
+            inputRef={register}
+          />
+          <Button id="submit" type="submit" variant="contained" color="secondary">
+            Save
           </Button>
         </Grid>
       </form>

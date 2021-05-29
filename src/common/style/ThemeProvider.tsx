@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
 
 const theme = createMuiTheme({
   typography: {
@@ -9,9 +9,15 @@ const theme = createMuiTheme({
     // values 'dark', 'light' (default)
     type: 'light',
 
+    background: {
+      paper: '#fff',
+      default: '#f4f4f4',
+    },
+
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: '#fafafa',
+      main: '#f4f4f4',
+      // main: '#343434',
       // dark: will be calculated from palette.primary.main,
       // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
     },
@@ -50,5 +56,10 @@ const theme = createMuiTheme({
 export const FlowThemeProvider = (props: any) => {
   const { children } = props
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  )
 }

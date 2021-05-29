@@ -1,4 +1,3 @@
-import React from 'react'
 import { HeaderMenu } from './HeaderMenu'
 import { Grid, CardMedia, AppBar, IconButton } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
@@ -9,12 +8,13 @@ export const HeaderWrapper = () => {
     // height: 40,
     // padding: 5,
     maxWidth: 36,
+
     // paddingLeft: '36%'
   }
 
   return (
     // begin::MainContainer
-    <AppBar position="sticky">
+    <AppBar position="sticky" elevation={0}>
       <Grid container justify="flex-end" alignItems="center" alignContent="center" direction="row" spacing={2}>
         {/* logo  */}
         <Grid item xs={1}>

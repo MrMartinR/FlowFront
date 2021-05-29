@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Card, TextField, List, LinearProgress, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core'
+import {
+  Card,
+  TextField,
+  List,
+  LinearProgress,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+} from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 export const UserAccountsList = (props: any) => {
   const { setSelectedItemIndex, isLoading, list } = props
@@ -22,18 +31,18 @@ export const UserAccountsList = (props: any) => {
   return (
     <>
       <Autocomplete
-          freeSolo
-          options={options}
-          onChange={handlePick}
-          renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
-        />
+        freeSolo
+        options={options}
+        onChange={handlePick}
+        renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
+      />
       <Card>
         <List>
           {isLoading ? (
             <LinearProgress color="secondary" />
           ) : (
             list.map((item: any, idx: any) => (
-              <Card key = { item.id }>
+              <Card key={item.id} style={{ backgroundColor: '#676767' }}>
                 <ListItem
                   button
                   onClick={(e) => {

@@ -16,21 +16,15 @@ import { AuthAlert } from './AuthAlert'
  */
 export const Login = () => {
   const loginSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(6, 'Minimum 6 characters')
-      .max(50, 'Maximum 50 characters')
-      .required('Required'),
-    password: Yup.string()
-      .min(3, 'Minimum 3 characters')
-      .max(50, 'Maximum 50 characters')
-      .required('Required'),
+    username: Yup.string().min(6, 'Minimum 6 characters').max(50, 'Maximum 50 characters').required('Required'),
+    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
   })
 
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   })
-  const dispatch =  useDispatch();
+  const dispatch = useDispatch()
   type Credentials = {
     username: string
     password: string
@@ -41,13 +35,13 @@ export const Login = () => {
     }),
     shallowEqual
   )
-  useEffect( () => {
-    setLoading(currentState.loading);
-  }, [currentState.loading]);
+  useEffect(() => {
+    setLoading(currentState.loading)
+  }, [currentState.loading])
 
   const onSubmit = ({ username, password }: Credentials) => {
     localStorage.removeItem('forgot_pwd_notif')
-    dispatch(authActions.login(username, password));
+    dispatch(authActions.login(username, password))
   }
   return (
     // main Grid
@@ -90,23 +84,19 @@ export const Login = () => {
                 name="password"
               />
               <span> {errors.password && errors.password.message}</span>
-              
-              <Button disabled = { loading } type="submit" color = 'secondary' variant = 'contained'>
-                  Sign In
+
+              <Button disabled={loading} type="submit" color="secondary" variant="contained">
+                Sign In
               </Button>
             </FormControl>
             {/* end: Password */}
           </Grid>
         </form>
-        <Typography variant = 'body2' paragraph>
-          Don't have a flow account yet? <Link rel="noreferrer" to="/auth/registration">
-            Sign up
-          </Link>
+        <Typography variant="body2" paragraph>
+          Don't have a flow account yet? <Link to="/auth/registration">Sign up</Link>
         </Typography>
-        <Typography variant = 'body2'>
-          Forgot your <Link rel="noreferrer" to="/auth/forgot-password">
-            password?
-          </Link>
+        <Typography variant="body2">
+          Forgot your <Link to="/auth/forgot-password">password?</Link>
         </Typography>
         <AuthAlert />
       </Grid>

@@ -30,13 +30,12 @@ export const ForgotPassword = () => {
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
-  const dispatch =  useDispatch();
+  const dispatch = useDispatch()
   const onSubmit = ({ email }: PasswordType) => {
-    dispatch(authActions.requestPassword(email));
+    dispatch(authActions.requestPassword(email))
   }
 
   return (
-    
     <Grid container direction="column" justify="space-around" alignItems="center">
       <AuthAlert />
       {/* logo */}
@@ -47,30 +46,30 @@ export const ForgotPassword = () => {
         </Typography>
       </Grid>
       {/* form */}
-        <Grid item xs="auto">
-          <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
-            <Grid container direction="column" justify="center" alignItems="center">
-              <FormControl variant="filled">
-                <TextField
-                  label="Email"
-                  margin="normal"
-                  variant="outlined"
-                  autoComplete="on"
-                  type="email"
-                  inputRef={register()}
-                  name="email"
-                />
-                <span> {errors.email && errors.email.message}</span>
-                <Button type="submit" variant = 'contained' color = 'secondary'>Submit</Button>
-                <Typography variant = 'body2' align = 'center'>
-                <Link rel="noreferrer" to="/auth/login">
-                  Sign in
-                </Link>
-                </Typography>
-              </FormControl>
-            </Grid>
-          </form>
-        </Grid>
+      <Grid item xs="auto">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
+          <Grid container direction="column" justify="center" alignItems="center">
+            <FormControl variant="filled">
+              <TextField
+                label="Email"
+                margin="normal"
+                variant="outlined"
+                autoComplete="on"
+                type="email"
+                inputRef={register()}
+                name="email"
+              />
+              <span> {errors.email && errors.email.message}</span>
+              <Button type="submit" variant="contained" color="secondary">
+                Submit
+              </Button>
+              <Typography variant="body2" align="center">
+                <Link to="/auth/login">Sign in</Link>
+              </Typography>
+            </FormControl>
+          </Grid>
+        </form>
+      </Grid>
     </Grid>
   )
 }

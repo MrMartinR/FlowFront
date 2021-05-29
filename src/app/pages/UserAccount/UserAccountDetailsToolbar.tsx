@@ -10,12 +10,13 @@ export const UserAccountDetailsToolbar = (props: any) => {
           <Typography variant="body1">{singleAccount.attributes?.name}</Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography variant="h6">Value: { value }</Typography>
-          <Typography variant="h6">Balance: { balance }</Typography>
+          <Typography variant="h6">Value {value}</Typography>
+          <Typography variant="h6">Balance {balance}</Typography>
         </Grid>
         <Grid item xs={5}>
-          <Button>+ New Transfer</Button>
-          <Button>+ New Transaction</Button>
+          <Button>Add Transfer</Button>
+          <Button>Add Transaction</Button>
+          <Button>Import</Button>
           <Button>•••</Button>
         </Grid>
       </Grid>

@@ -5,7 +5,6 @@
  * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
  */
 
-import React from 'react'
 import { Switch } from 'react-router-dom'
 import { shallowEqual, useSelector } from 'react-redux'
 import { Layout } from '../common/layout'
@@ -22,20 +21,14 @@ export const Routes = () => {
     }),
     shallowEqual
   )
-  const isAuthorized= (currentState.user !== null && currentState.user !== undefined);
-  
+  const isAuthorized = currentState.user !== null && currentState.user !== undefined
+
   return (
     <Switch>
-      <PublicRoute 
-        isAuth = { isAuthorized }
-        path='/auth' 
-        component={AuthPage} />  
+      <PublicRoute isAuth={isAuthorized} path="/auth" component={AuthPage} />
       <Layout>
-        <PrivateRoute 
-          isAuth = { isAuthorized }
-          path='/' 
-          component={ BasePage } />
-      </Layout>     
+        <PrivateRoute isAuth={isAuthorized} path="/" component={BasePage} />
+      </Layout>
     </Switch>
   )
 }
