@@ -7,6 +7,9 @@ import { types } from './AddContactMethodForm'
 import store from './../../../../redux/store'
 
 export const EditContactMethodForm = (props: any) => {
+  const handleClose = () => {
+    setOpen(false)
+  }
   const { edit, setOpen } = props
   const { register, handleSubmit } = useForm()
   const [formData, setFormData] = React.useState([] as any)
@@ -64,9 +67,15 @@ export const EditContactMethodForm = (props: any) => {
             defaultValue={edit.data}
             inputRef={register}
           />
-          <Button id="submit" type="submit" variant="contained" color="secondary">
-            Save
-          </Button>
+          <Grid container direction="row">
+            <Button color="secondary">Delete</Button>
+            <Button onClick={handleClose} variant="contained">
+              Cancel
+            </Button>
+            <Button id="submit" type="submit" variant="contained" color="secondary">
+              Save
+            </Button>
+          </Grid>
         </Grid>
       </form>
     </>

@@ -2,8 +2,11 @@ import { useState } from 'react'
 /* eslint-disable no-restricted-imports*/
 
 import {
+  makeStyles,
   Typography,
   Card,
+  CardHeader,
+  CardActions,
   Grid,
   LinearProgress,
   Link,
@@ -18,7 +21,16 @@ import AddContactMethodForm from './AddContactMethodForm'
 import EditContactMethodForm from './EditContactMethodForm'
 import DeleteContactMethod from './DeleteContactMethod'
 
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    margin: 24,
+  },
+})
+
 export const ContactMethod = (props: any) => {
+  /* styles */
+  const classes = useStyles()
   const { methodLoading, listMethods, selectedContact } = props
   const [open, setOpen] = useState(false)
   const [add, setAdd] = useState('' as string)
@@ -56,6 +68,7 @@ export const ContactMethod = (props: any) => {
         <>
           <Typography variant="h6">Edit Contact Method</Typography>
           <EditContactMethodForm selectedContact={selectedContact} edit={edit} setOpen={setOpen} />
+          {/* [ToDo] Move this button inside the EditContactMethodForm */}
           <Button color="secondary" onClick={(e) => handleOpen(e, 'delete', edit)}>
             Delete
           </Button>
@@ -71,27 +84,25 @@ export const ContactMethod = (props: any) => {
 
   return (
     <>
-      <Card variant="outlined">
+      <Card className={classes.root}>
         <Grid container key={1} direction="row">
-          <Grid item xs={10}>
-            <Typography variant="h6">Contact Methods</Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <Button variant="contained" color="primary">
-              <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')}></AddIcon>
-            </Button>
+          <Grid item xs={12}>
+            <CardHeader
+              title="Contact Methods"
+              action={
+                <Button>
+                  <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')} />
+                </Button>
+              }
+            />
           </Grid>
         </Grid>
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
           <DialogActions>
-            <Button color="secondary">Delete</Button>
-            <Button onClick={handleClose} variant="contained">
+            {/* <Button onClick={handleClose} variant="contained">
               Cancel
-            </Button>
-            <Button variant="contained" color="secondary">
-              Save
-            </Button>
+            </Button> */}
           </DialogActions>
         </Dialog>
 
@@ -99,86 +110,86 @@ export const ContactMethod = (props: any) => {
           <LinearProgress color="secondary" />
         ) : listMethods?.length >= 1 ? (
           listMethods.map((itm: any, idx: any) => (
-            <Grid container key={itm.id} direction="row">
-              <Grid item xs={1}>
-                {(itm.kind === 'Address' && <img height="20" src={'/media/svg/icons/address.svg'} alt="" />) ||
-                  (itm.kind === 'Email' && <img height="20" src={'/media/svg/icons/email.svg'} alt="" />) ||
-                  (itm.kind === 'Phone' && <img height="20" src={'/media/svg/icons/phone.svg'} alt="" />) ||
-                  (itm.kind === 'Skype' && <img height="20" src={'/media/svg/icons/skype.svg'} alt="" />) ||
-                  (itm.kind === 'Telegram' && <img height="20" src={'/media/svg/icons/telegram.svg'} alt="" />) ||
-                  (itm.kind === 'Instagram' && <img height="20" src={'/media/svg/icons/instagram.svg'} alt="" />) ||
-                  (itm.kind === 'FB Page' && <img height="20" src={'/media/svg/icons/facebook-page.svg'} alt="" />) ||
-                  (itm.kind === 'FB Profile' && (
-                    <img height="20" src={'/media/svg/icons/facebook-profile.svg'} alt="" />
+            <CardActions>
+              <Grid container key={itm.id} direction="row">
+                <Grid item xs={1}>
+                  {(itm.kind === 'Address' && <img height="20" src={'/media/svg/icons/address.svg'} />) ||
+                    (itm.kind === 'Email' && <img height="20" src={'/media/svg/icons/email.svg'} />) ||
+                    (itm.kind === 'Phone' && <img height="20" src={'/media/svg/icons/phone.svg'} />) ||
+                    (itm.kind === 'Skype' && <img height="20" src={'/media/svg/icons/skype.svg'} />) ||
+                    (itm.kind === 'Telegram' && <img height="20" src={'/media/svg/icons/telegram.svg'} />) ||
+                    (itm.kind === 'Instagram' && <img height="20" src={'/media/svg/icons/instagram.svg'} />) ||
+                    (itm.kind === 'FB Page' && <img height="20" src={'/media/svg/icons/facebook-page.svg'} />) ||
+                    (itm.kind === 'FB Profile' && <img height="20" src={'/media/svg/icons/facebook-profile.svg'} />) ||
+                    (itm.kind === 'FB Group' && <img height="20" src={'/media/svg/icons/facebook-group.svg'} />) ||
+                    (itm.kind === 'LinkedIn' && <img height="20" src={'/media/svg/icons/linkedin.svg'} />) ||
+                    (itm.kind === 'Twitter' && <img height="20" src={'/media/svg/icons/twitter.svg'} />) ||
+                    (itm.kind === 'Vimeo' && <img height="20" src={'/media/svg/icons/vimeo.svg'} />) ||
+                    (itm.kind === 'YouTube' && <img height="20" src={'/media/svg/icons/youtube.svg'} />) ||
+                    (itm.kind === 'Web' && <img height="20" src={'/media/svg/icons/link-1.svg'} />) || (
+                      <img height="20" src={'/media/svg/icons/dashboard.svg'} />
+                    )}
+                </Grid>
+                <Grid item xs={9}>
+                  {((itm.kind === 'FB Page' ||
+                    itm.kind === 'Telegram' ||
+                    itm.kind === 'Instagram' ||
+                    itm.kind === 'FB Page' ||
+                    itm.kind === 'FB Profile' ||
+                    itm.kind === 'FB Group' ||
+                    itm.kind === 'LinkedIn' ||
+                    itm.kind === 'Twitter' ||
+                    itm.kind === 'YouTube' ||
+                    itm.kind === 'Vimeo' ||
+                    itm.kind === 'Web') && (
+                    <Typography noWrap variant="body1">
+                      <Link href={itm.data.trim()} color="inherit" target="_blank">
+                        {itm.data}
+                      </Link>
+                    </Typography>
                   )) ||
-                  (itm.kind === 'FB Group' && <img height="20" src={'/media/svg/icons/facebook-group.svg'} alt="" />) ||
-                  (itm.kind === 'LinkedIn' && <img height="20" src={'/media/svg/icons/linkedin.svg'} alt="" />) ||
-                  (itm.kind === 'Twitter' && <img height="20" src={'/media/svg/icons/twitter.svg'} alt="" />) ||
-                  (itm.kind === 'Vimeo' && <img height="20" src={'/media/svg/icons/vimeo.svg'} alt="" />) ||
-                  (itm.kind === 'YouTube' && <img height="20" src={'/media/svg/icons/youtube.svg'} alt="" />) ||
-                  (itm.kind === 'Web' && <img height="20" src={'/media/svg/icons/link-1.svg'} alt="" />) || (
-                    <img height="20" src={'/media/svg/icons/dashboard.svg'} alt="" />
-                  )}
+                    (itm.kind === 'Phone' && (
+                      <Typography noWrap variant="body1">
+                        <Link href={`tel:${itm.data.trim()}`} color="inherit" target="_blank">
+                          {itm.data}
+                        </Link>
+                      </Typography>
+                    )) ||
+                    (itm.kind === 'Email' && (
+                      <Typography noWrap variant="body1">
+                        <Link href={`mailto:${itm.data.trim()}`} color="inherit" target="_blank">
+                          {itm.data}
+                        </Link>
+                      </Typography>
+                    )) ||
+                    (itm.kind === 'Skype' && (
+                      <Typography noWrap variant="body1">
+                        <Link href={`skype:${itm.data.trim()}?userinfo`} color="inherit" target="_blank">
+                          {itm.data}
+                        </Link>
+                      </Typography>
+                    )) ||
+                    (itm.kind === 'Address' && (
+                      <Typography noWrap variant="body1">
+                        <Link
+                          href={`https://www.google.es/maps/place/${encodeURI(itm.data.trim())}`}
+                          color="inherit"
+                          target="_blank"
+                        >
+                          {itm.data}
+                        </Link>
+                      </Typography>
+                    )) || (
+                      <Typography noWrap variant="body1">
+                        {itm.data}
+                      </Typography>
+                    )}
+                </Grid>
+                <Grid item xs={1}>
+                  <Button onClick={(e) => handleOpen(e, 'edit', itm)}>•••</Button>
+                </Grid>
               </Grid>
-              <Grid item xs={9}>
-                {((itm.kind === 'FB Page' ||
-                  itm.kind === 'Telegram' ||
-                  itm.kind === 'Instagram' ||
-                  itm.kind === 'FB Page' ||
-                  itm.kind === 'FB Profile' ||
-                  itm.kind === 'FB Group' ||
-                  itm.kind === 'LinkedIn' ||
-                  itm.kind === 'Twitter' ||
-                  itm.kind === 'YouTube' ||
-                  itm.kind === 'Vimeo' ||
-                  itm.kind === 'Web') && (
-                  <Typography noWrap variant="body1">
-                    <Link href={itm.data.trim()} color="inherit" target="_blank">
-                      {itm.data}
-                    </Link>
-                  </Typography>
-                )) ||
-                  (itm.kind === 'Phone' && (
-                    <Typography noWrap variant="body1">
-                      <Link href={`tel:${itm.data.trim()}`} color="inherit" target="_blank">
-                        {itm.data}
-                      </Link>
-                    </Typography>
-                  )) ||
-                  (itm.kind === 'Email' && (
-                    <Typography noWrap variant="body1">
-                      <Link href={`mailto:${itm.data.trim()}`} color="inherit" target="_blank">
-                        {itm.data}
-                      </Link>
-                    </Typography>
-                  )) ||
-                  (itm.kind === 'Skype' && (
-                    <Typography noWrap variant="body1">
-                      <Link href={`skype:${itm.data.trim()}?userinfo`} color="inherit" target="_blank">
-                        {itm.data}
-                      </Link>
-                    </Typography>
-                  )) ||
-                  (itm.kind === 'Address' && (
-                    <Typography noWrap variant="body1">
-                      <Link
-                        href={`https://www.google.es/maps/place/${encodeURI(itm.data.trim())}`}
-                        color="inherit"
-                        target="_blank"
-                      >
-                        {itm.data}
-                      </Link>
-                    </Typography>
-                  )) || (
-                    <Typography noWrap variant="body1">
-                      {itm.data}
-                    </Typography>
-                  )}
-              </Grid>
-              <Grid item xs={1}>
-                <Button onClick={(e) => handleOpen(e, 'edit', itm)}>•••</Button>
-              </Grid>
-            </Grid>
+            </CardActions>
           ))
         ) : (
           <List subheader={<li />}></List>

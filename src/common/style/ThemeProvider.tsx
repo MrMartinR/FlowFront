@@ -37,8 +37,13 @@ const theme = createMuiTheme({
   },
 
   props: {
-    /* Set default elevation to 1 for popovers */
+    /* Set default elevation to 0 for popovers */
     MuiPopover: {
+      elevation: 0,
+    },
+
+    /* Set default elevation to 0 for cards */
+    MuiCard: {
       elevation: 0,
     },
 

@@ -1,35 +1,46 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as contactsActions from './state/contactsActions'
 /* eslint-disable no-restricted-imports*/
 import {
+  makeStyles,
+  Grid,
   Typography,
   ListItemText,
-  CardContent,
   Card,
+  CardHeader,
+  CardContent,
   List,
-  Grid,
   Avatar,
   Dialog,
   DialogActions,
   DialogContent,
   Button,
+  ButtonGroup,
 } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { ContactEdit } from './ContactEdit'
 
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    margin: 24,
+  },
+})
+
 export const ContactDetails = (props: any) => {
+  /* styles */
+  const classes = useStyles()
   const { selectedContact } = props
   const err = ''
   const [open, setOpen] = useState(false)
   const [edit, setEdit] = useState(false)
-  const flag = selectedContact.attributes?.country?.iso_code;
+  const flag = selectedContact.attributes?.country?.iso_code
   const dispatch = useDispatch()
-  
+
   const handleOpen = (e: any, value: any) => {
-    if (value==='edit') setEdit(true);
-    if (value==='delete') setEdit(false);
+    if (value === 'edit') setEdit(true)
+    if (value === 'delete') setEdit(false)
     setOpen(true)
   }
   const handleClose = () => {
@@ -38,28 +49,30 @@ export const ContactDetails = (props: any) => {
 
   const handleDelete = () => {
     dispatch(contactsActions.deleteContact(selectedContact.id))
-    handleClose();
+    handleClose()
   }
 
-  const body = (
-    (edit===true)?(
-        <>
-          <Typography variant="h4" id="simple-modal-title">Edit Contact</Typography>
-          <ContactEdit selectedContact = { selectedContact } setOpen= { setOpen }/>
-        </>
-      ):(<>
-          <Typography variant="h4" paragraph id="simple-modal-title">Delete Contact</Typography>
-          <Typography variant="body1">Are you sure you want to delete the contact?</Typography>
-          <Button onClick={handleDelete} variant = 'contained' color="secondary" autoFocus>
+  const body =
+    edit === true ? (
+      <>
+        <Typography variant="h4">Edit Contact</Typography>
+        <ContactEdit selectedContact={selectedContact} setOpen={setOpen} />
+      </>
+    ) : (
+      <>
+        <Typography variant="h4" paragraph>
+          Delete Contact
+        </Typography>
+        <Typography variant="body1">Are you sure you want to delete the contact?</Typography>
+        <Button onClick={handleDelete} variant="contained" color="secondary" autoFocus>
           Agree
         </Button>
-        </>
-      )
-    
-  )
+      </>
+    )
 
   return (
     <>
+      {/* edit contact dialog */}
       <>
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
@@ -70,27 +83,32 @@ export const ContactDetails = (props: any) => {
           </DialogActions>
         </Dialog>
       </>
-      <Card>
-        <CardContent>
-        <Grid item xs = {12} direction="row" container>
-          <Button variant = 'contained' color = 'primary'>
-            <EditIcon onClick={(e) => handleOpen(e, 'edit')}></EditIcon>
-          </Button>
-          <Button variant = 'contained' color = 'primary'>
-            <DeleteIcon onClick={(e) => handleOpen(e, 'delete')}></DeleteIcon>
-          </Button>
+      {/* contact details */}
+      <Card className={classes.root}>
+        <Grid container>
+          <Grid item xs={12}>
+            <CardHeader
+              title="Details"
+              action={
+                <ButtonGroup>
+                  <Button onClick={(e) => handleOpen(e, 'edit')}>•••</Button>
+                  <Button onClick={(e) => handleOpen(e, 'delete')}>
+                    <DeleteIcon onClick={(e) => handleOpen(e, 'delete')}></DeleteIcon>
+                  </Button>
+                </ButtonGroup>
+              }
+            />
           </Grid>
-          <Grid item xs = {12} direction="row" container>
-            <Grid item xs = { 4 } direction="column" alignItems='center' container>
-              <Grid item xs = {6} >
-                <Avatar variant="square">ICON</Avatar>
-              </Grid>
-              <Grid item xs = {6}>
-                <Avatar variant="square"><img src={'/media/svg/flags/'+flag+'.svg'} alt="" /></Avatar>
-              </Grid>
-              
+        </Grid>
+        <CardContent>
+          <Grid container direction="row">
+            <Grid item xs={4}>
+              {/* [ToDo] change this for the actual icon  */}
+              <Avatar variant="square" src={'/media/svg/flags/' + flag + '.svg'}>
+                ICON
+              </Avatar>
             </Grid>
-            <Grid item xs = { 8 }>
+            <Grid item xs={6}>
               {selectedContact.attributes?.kind === 'Company' ? (
                 <List>
                   <ListItemText primary={` ${selectedContact.attributes?.trade_name || err}`} />
@@ -106,11 +124,12 @@ export const ContactDetails = (props: any) => {
                   <ListItemText primary={` ${selectedContact.attributes?.id_number || err}`} />
                 </List>
               )}
-            </Grid>  
+            </Grid>
+            <Grid item xs={2}>
+              <Avatar src={'/media/svg/flags/' + flag + '.svg'}></Avatar>
+            </Grid>
           </Grid>
-          <Typography variant="body2">
-          {`${selectedContact.attributes?.description || err}`}
-          </Typography>
+          <Typography variant="body2">{`${selectedContact.attributes?.description || err}`}</Typography>
         </CardContent>
       </Card>
     </>

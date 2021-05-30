@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import Logo from '../../../../common/media/flow-logo.svg'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
+  makeStyles,
   TextField,
   Button,
   Grid,
@@ -20,6 +21,8 @@ import {
 import { useDispatch } from 'react-redux'
 import { countriesList } from '../data/countries'
 import { terms, terms2, terms3, terms4, terms5, terms6 } from '../data/terms'
+
+/* initializing values */
 const initialValues = {
   email: '',
   username: '',
@@ -29,6 +32,7 @@ const initialValues = {
   acceptTerms: false,
 }
 
+/* types */
 type RegisterType = {
   email: string
   username: string
@@ -36,11 +40,23 @@ type RegisterType = {
   name: string
 }
 
-/**
- * User registration component
- * @author Zeeshan A
- */
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #f2f2f2 25%, #ccc 90%)',
+    minWidth: '100%',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
+
+/* User registration component */
 export const Registration = () => {
+  const classes = useStyles()
+
   const [open, setOpen] = useState(false)
   const RegistrationSchema = Yup.object().shape({
     username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
@@ -118,12 +134,12 @@ export const Registration = () => {
     </Card>
   )
   return (
-    <Grid container direction="column" justify="space-around" alignItems="center">
+    <Grid container className={classes.root}>
       {/* logo */}
       <Grid item xs="auto">
         <CardMedia src={Logo} component="img" />
         <Typography align="center" variant="h6">
-          Flow Registration
+          Registration
         </Typography>
       </Grid>
       {/* form */}
@@ -145,13 +161,14 @@ export const Registration = () => {
             {/* begin: Name */}
             <FormControl variant="filled" style={{ width: '100%' }}>
               <TextField
-                id="outlined-uncontrolled"
+                id="name"
                 label="Name"
                 margin="normal"
                 variant="outlined"
                 autoComplete="true"
                 type="text"
                 name="name"
+                required
                 inputRef={register()}
               />
               <span> {errors.name && errors.name.message}</span>
@@ -161,13 +178,14 @@ export const Registration = () => {
             {/* begin: Email */}
             <FormControl variant="filled" style={{ width: '100%' }}>
               <TextField
-                id="outlined-uncontrolled"
+                id="email"
                 label="Email"
                 margin="normal"
                 variant="outlined"
                 autoComplete="true"
                 type="email"
                 name="email"
+                required
                 inputRef={register()}
               />
               <span> {errors.email && errors.email.message}</span>
@@ -177,13 +195,14 @@ export const Registration = () => {
             {/* begin: Username */}
             <FormControl variant="filled" style={{ width: '100%' }}>
               <TextField
-                id="outlined-uncontrolled"
+                id="username"
                 label="Username"
                 margin="normal"
                 variant="outlined"
                 autoComplete="true"
                 type="text"
                 name="username"
+                required
                 inputRef={register()}
               />
               <span> {errors.username && errors.username.message}</span>
@@ -193,13 +212,14 @@ export const Registration = () => {
             {/* begin: Password */}
             <FormControl variant="filled" style={{ width: '100%' }}>
               <TextField
-                id="outlined-uncontrolled"
+                id="password"
                 label="Password"
                 margin="normal"
                 variant="outlined"
                 autoComplete="false"
                 type="password"
                 name="password"
+                required
                 inputRef={register()}
               />
               <span> {errors.password && errors.password.message}</span>

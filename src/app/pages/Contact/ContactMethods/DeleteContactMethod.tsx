@@ -6,18 +6,18 @@ export const DeleteContactMethod = (props: any) => {
   let dispatch = useDispatch()
   const handleStatus = () => {
     dispatch(contactsActions.deleteContactMethods(edit.id))
-    setOpen(false);
+    setOpen(false)
   }
-  
+
   return (
     <>
-      
       <DialogContent>
-        <DialogContentText>Are you sure you want to delete the contact methods?</DialogContentText>
+        <DialogContentText>Are you sure you want to delete this contact method?</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleStatus} variant = 'contained' color="secondary" autoFocus>
-          Agree
+        <Button autoFocus>Cancel</Button>
+        <Button onClick={handleStatus} variant="contained" color="secondary">
+          Yes
         </Button>
       </DialogActions>
     </>
