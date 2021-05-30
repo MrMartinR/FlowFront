@@ -21,7 +21,6 @@ import { useHistory } from 'react-router'
 const useStyles = makeStyles({
   root: {
     background: '#f1f1f1',
-    maxWidth: '100%',
   },
   cardHeaderAction: {
     margin: 'auto',

@@ -3,6 +3,9 @@ import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
 const theme = createMuiTheme({
   typography: {
     fontFamily: ['Poppins'].join(','),
+    button: {
+      textTransform: 'none',
+    },
   },
 
   palette: {

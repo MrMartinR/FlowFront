@@ -1,29 +1,48 @@
-import { Button, ButtonGroup, Grid, Toolbar, Typography } from '@material-ui/core'
+import { makeStyles, Container, Toolbar, Grid, CardHeader, Avatar, Button, ButtonGroup } from '@material-ui/core'
+
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    padding: 0,
+  },
+  cardHeaderAction: {
+    margin: 'auto' /* adds margin on top of the elements */,
+  },
+})
 
 export const PlatformDetailsToolbar = (props: any) => {
-    const { setTab, id, trade_name } = props;
-    const handleClick = (e: any) => {
-        setTab(`${e.target.innerHTML}`)
-      }
-    return (
-      <Toolbar>
-        <Grid container direction="row" justify="space-between">
-          <Grid item xs={4}>
-            <Typography variant="h4">{trade_name}</Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <ButtonGroup>
-              <Button onClick={handleClick}>Info</Button>
-              <Button onClick={handleClick}>Originators</Button>
-              <Button onClick={handleClick}>Loans</Button>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
-        <Grid item xs={2}>
-          <Button href={`/contacts/${id}`}>
-            Contact
-          </Button>
+  /* styles */
+  const classes = useStyles()
+
+  const { setTab, id, trade_name, company_name } = props
+  const handleClick = (e: any) => {
+    setTab(`${e.target.innerHTML}`)
+  }
+  return (
+    <Container>
+      <Toolbar variant="dense" className={classes.root}>
+        <Grid item xs={12} alignContent="center" alignItems="center" className={classes.root}>
+          <CardHeader
+            avatar={<Avatar variant="square"></Avatar>}
+            title={trade_name}
+            subheader={company_name}
+            action={
+              <>
+                <ButtonGroup>
+                  <Button onClick={handleClick}>Info</Button>
+                  <Button onClick={handleClick}>Originators</Button>
+                  <Button onClick={handleClick}>Loans</Button>
+                </ButtonGroup>
+                <Button href={`/contacts/${id}`}>Contact</Button>
+              </>
+            }
+            classes={{
+              action: classes.cardHeaderAction,
+            }}
+          />
         </Grid>
       </Toolbar>
-    )
+    </Container>
+  )
 }

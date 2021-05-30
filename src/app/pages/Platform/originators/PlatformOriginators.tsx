@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { Grid, LinearProgress } from '@material-ui/core/'
-import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
 import * as platformsActions from '../state/platformsActions'
 import { RootState } from '../../../../redux/rootReducer'
 import { useHistory } from 'react-router'
+import { makeStyles, Container, Grid, LinearProgress } from '@material-ui/core/'
+import { XGrid, GridColDef } from '@material-ui/x-grid'
 
-LicenseInfo.setLicenseKey(
-  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
-)
+/* styles */
+const useStyles = makeStyles({
+  table: {
+    background: '#ffffff',
+    height: 700,
+    minWidth: 400,
+    overflow: 'auto',
+    position: 'relative',
+  },
+})
 
+/* define the columns for the table */
 const columns: GridColDef[] = [
-  // column definition format here
-  { field: 'id', headerName: 'Originator Id', width: 250 },
+  { field: 'id', headerName: 'Originator', width: 250 },
   { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
@@ -20,6 +27,8 @@ const columns: GridColDef[] = [
 ] as any
 
 export const PlatformOriginators = (props: any) => {
+  /* styles */
+  const classes = useStyles()
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
   const { currentState } = useSelector(
@@ -29,63 +38,59 @@ export const PlatformOriginators = (props: any) => {
     shallowEqual
   )
   const { id } = props
-  
+
   const GetPlatformOriginators = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(platformsActions.fetchPlatformOriginators(id));
-      } 
-    }, [dispatch]);
+        dispatch(platformsActions.fetchPlatformOriginators(id))
+      }
+    }, [dispatch])
   }
-  GetPlatformOriginators();
+  GetPlatformOriginators()
 
   useEffect(() => {
-    currentState.platformOriginators &&
-    setList(currentState.platformOriginators)
+    currentState.platformOriginators && setList(currentState.platformOriginators)
   }, [currentState.platformOriginators])
 
-  const rows = [] as any;
-  if (list.length >0) list.map((item: any) => {
-    const newRow = {
-      id : item.attributes?.originator?.id,
-      customer_category: item.attributes?.originator?.customer_category,
-      product_category_business: item.attributes?.originator?.product_category_business,
-      product_category_consumer: item.attributes?.originator?.product_category_consumer,
-      apr: item.attributes?.originator?.apr,
-    }
-    rows.push(newRow);
-    return rows;
-  })  
-  useEffect( () => {
-    setIsLoading(currentState.loading);
-  }, [currentState.loading]);
+  const rows = [] as any
+  if (list.length > 0)
+    list.map((item: any) => {
+      const newRow = {
+        id: item.attributes?.originator?.id,
+        customer_category: item.attributes?.originator?.customer_category,
+        product_category_business: item.attributes?.originator?.product_category_business,
+        product_category_consumer: item.attributes?.originator?.product_category_consumer,
+        apr: item.attributes?.originator?.apr,
+      }
+      rows.push(newRow)
+      return rows
+    })
+  useEffect(() => {
+    setIsLoading(currentState.loading)
+  }, [currentState.loading])
 
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`)
   return (
     <>
-      {
-        isLoading ? 
-        (
-          <Grid container direction="column">
+      <Container>
+        <Grid xs={12} container>
+          {isLoading ? (
             <LinearProgress color="secondary" />
-          </Grid>
-        ) : (
-          <Grid xs={12}>
-            <Grid container direction="column">
-              <div style={{ height: 600, width: '100%' }}>
-                <XGrid 
-                  rows={rows} 
-                  columns={columns} 
-                  disableMultipleSelection={true} 
-                  onRowClick={handleClick}
-                  loading={isLoading} />
-              </div>
-            </Grid>
-          </Grid>
-        )
-      }
+          ) : (
+            <XGrid
+              className={classes.table}
+              rows={rows}
+              columns={columns}
+              hideFooterSelectedRowCount={true}
+              disableMultipleSelection={true}
+              onRowClick={handleClick}
+              loading={isLoading}
+            />
+          )}
+        </Grid>
+      </Container>
     </>
   )
 }

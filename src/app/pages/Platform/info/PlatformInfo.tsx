@@ -1,40 +1,62 @@
-import { Grid, Card, CardContent, Typography, CardHeader } from '@material-ui/core/'
+import { useEffect, useState } from 'react'
+import { makeStyles, Grid, Card, CardHeader, CardContent, Typography, Container } from '@material-ui/core/'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
-import { useEffect, useState } from 'react';
+
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    padding: 0,
+  },
+  card: {
+    minWidth: '100%',
+    margin: 6,
+  },
+})
 
 export const PlatformInfo = (props: any) => {
+  /* styles */
+  const classes = useStyles()
+
   const { platformDetails } = props
-  const [accounts, setAccounts] = useState();
-  const [agreement, setAgreement] = useState();
-  const [protection, setProtection] = useState();
-  const [investment, setInvestment] = useState();
-  const [cashflow, setCashflow] = useState();
+  const [accounts, setAccounts] = useState()
+  const [agreement, setAgreement] = useState()
+  const [protection, setProtection] = useState()
+  const [investment, setInvestment] = useState()
+  const [cashflow, setCashflow] = useState()
   useEffect(() => {
-    setAccounts(platformDetails.attributes?.account_category);
-    setAgreement(platformDetails.attributes?.structure);
-    setProtection(platformDetails.attributes?.protection_scheme);
-    setInvestment(platformDetails.attributes?.invest_mode);
-    setCashflow(platformDetails.attributes?.cashflow_options);
+    setAccounts(platformDetails.attributes?.account_category)
+    setAgreement(platformDetails.attributes?.structure)
+    setProtection(platformDetails.attributes?.protection_scheme)
+    setInvestment(platformDetails.attributes?.invest_mode)
+    setCashflow(platformDetails.attributes?.cashflow_options)
   }, [platformDetails])
   return (
-    <>
-      <Grid container direction="row" justify="space-between" spacing={2}>
-        <Grid item xs={1}></Grid>
-        <Grid container direction="column" item xs={3}>
-          <Card>
-            <CardHeader title="Status"></CardHeader>
+    <Container>
+      <Grid container justify="space-between">
+        <Grid item xs={3} container direction="column">
+          {/*
+           * Block 1
+           * */}
+          {/* status */}
+          <Card className={classes.card}>
+            <CardHeader title="Status" />
             <CardContent>
               <Typography>{platformDetails.attributes?.status}</Typography>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader title="Type"> </CardHeader>
+
+          {/* type */}
+          <Card className={classes.card}>
+            <CardHeader title="Type" />
             <CardContent>
               <Typography>{platformDetails.attributes?.category}</Typography>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader title="Details"> </CardHeader>
+
+          {/* details */}
+          <Card className={classes.card}>
+            <CardHeader title="Details" />
             <CardContent>
               <Typography>Term: {platformDetails.attributes?.term}</Typography>
               <Typography>AIR: </Typography>
@@ -44,83 +66,96 @@ export const PlatformInfo = (props: any) => {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader title="Company"> </CardHeader>
+          {/* company */}
+          <Card className={classes.card}>
+            <CardHeader title="Company" />
             <CardContent>
               <Typography>Profitable: {platformDetails.attributes?.profitable}</Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid container direction="column" item xs={4}>
-          <Card>
-            <CardHeader title="Accounts"> </CardHeader>
+        {/*
+         * Block 2
+         * */}
+
+        <Grid item xs={4} container direction="column">
+          {/* accounts */}
+          <Card className={classes.card}>
+            <CardHeader title="Accounts" />
             <CardContent>
-              <ToggleButtonGroup value={accounts}>
+              <ToggleButtonGroup value={accounts} size="small">
                 {platformDetails.attributes?.account_category}
-                <ToggleButton value='Personal'>Personal</ToggleButton>
-                <ToggleButton value='Corporate'>Corporate</ToggleButton>
-                <ToggleButton value='Accredited'>Accredited</ToggleButton>
+                <ToggleButton value="Personal">Personal</ToggleButton>
+                <ToggleButton value="Corporate">Corporate</ToggleButton>
+                <ToggleButton value="Accredited">Accredited</ToggleButton>
               </ToggleButtonGroup>
               <Typography>IFISA: {platformDetails.attributes?.ifisa}</Typography>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader title="Agreement Structure"> </CardHeader>
+          {/* agreement structure */}
+          <Card className={classes.card}>
+            <CardHeader title="Agreement Structure" />
             <CardContent>
-              <ToggleButtonGroup value={agreement}>
+              <ToggleButtonGroup value={agreement} size="small">
                 {platformDetails.attributes?.structure}
-                <ToggleButton value='Indirect'>Indirect</ToggleButton>
-                <ToggleButton value='Direct'>Direct</ToggleButton>
-                <ToggleButton value='Bilateral'>Bilateral</ToggleButton>
+                <ToggleButton value="Indirect">Indirect</ToggleButton>
+                <ToggleButton value="Direct">Direct</ToggleButton>
+                <ToggleButton value="Bilateral">Bilateral</ToggleButton>
               </ToggleButtonGroup>
               <Typography>Taxes: {platformDetails.attributes?.taxes}</Typography>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader title="Protection Scheme"> </CardHeader>
+          {/* protection scheme */}
+          <Card className={classes.card}>
+            <CardHeader title="Protection Scheme" />
             <CardContent>
-              <ToggleButtonGroup value={protection}>
+              <ToggleButtonGroup value={protection} size="small">
                 {platformDetails.attributes?.protection_scheme}
-                <ToggleButton value='Buyback'>BuyBack</ToggleButton>
-                <ToggleButton value='Provision Fund'>Provision Fund</ToggleButton>
-                <ToggleButton value='Personal'>Personal</ToggleButton>
-                <ToggleButton value='Collateral'>Collateral</ToggleButton>
+                <ToggleButton value="Buyback">BuyBack</ToggleButton>
+                <ToggleButton value="Provision Fund">Provision Fund</ToggleButton>
+                <ToggleButton value="Personal">Personal</ToggleButton>
+                <ToggleButton value="Collateral">Collateral</ToggleButton>
               </ToggleButtonGroup>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid container direction="column" item xs={3}>
-          <Card>
+        {/*
+         * Block 3
+         * */}
+
+        <Grid container direction="column" item xs={4}>
+          {/* investment details */}
+          <Card className={classes.card}>
             <CardHeader title="Investment Details"> </CardHeader>
             <CardContent>
               <Typography>Invest Mode: </Typography>
-              <ToggleButtonGroup value={investment}>
+              <ToggleButtonGroup value={investment} size="small">
                 {platformDetails.attributes?.invest_mode}
-                <ToggleButton value='Bid'>Bid</ToggleButton>
-                <ToggleButton value='Manual'>Manual</ToggleButton>
-                <ToggleButton value='Preset'>Preset</ToggleButton>
-                <ToggleButton value='Auto'>Auto</ToggleButton>
+                <ToggleButton value="Bid">Bid</ToggleButton>
+                <ToggleButton value="Manual">Manual</ToggleButton>
+                <ToggleButton value="Preset">Preset</ToggleButton>
+                <ToggleButton value="Auto">Auto</ToggleButton>
               </ToggleButtonGroup>
               <Typography>Secondary Market: {platformDetails.attributes?.secondary_market}</Typography>
               <Typography>SM Notes: {platformDetails.attributes?.sm_notes}</Typography>
               <Typography>Cost: {platformDetails.attributes?.cost}</Typography>
               <Typography>Min. Investment: {platformDetails.attributes?.min_investment}</Typography>
               <Typography>Cashflow options:</Typography>
-              <ToggleButtonGroup value={cashflow}>
-                
-                <ToggleButton value='Bank Transfer'>Bank Transfer</ToggleButton>
-                <ToggleButton value='Revolut'>Revolut</ToggleButton>
-                <ToggleButton value='Debit Card'>Debit Card</ToggleButton>
+              <ToggleButtonGroup value={cashflow} size="small">
+                <ToggleButton value="Bank Transfer">Bank Transfer</ToggleButton>
+                <ToggleButton value="Revolut">Revolut</ToggleButton>
+                <ToggleButton value="Debit Card">Debit Card</ToggleButton>
               </ToggleButtonGroup>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader title="Promotions"> </CardHeader>
+          {/* promotions */}
+          <Card className={classes.card}>
+            <CardHeader title="Promotions" />
             <CardContent>
               <Typography>Welcome bonus: {platformDetails.attributes?.welcome_bonus}</Typography>
               <Typography>Promo: {platformDetails.attributes?.promo}</Typography>
@@ -128,8 +163,7 @@ export const PlatformInfo = (props: any) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={1}></Grid>
       </Grid>
-    </>
+    </Container>
   )
 }

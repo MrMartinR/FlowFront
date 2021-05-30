@@ -22,14 +22,14 @@ const useStyles = makeStyles({
 
 /* define the columns for the table */
 const columns: GridColDef[] = [
-  { field: 'date', headerName: 'Date', width: 120 },
+  { field: 'date', headerName: 'Date', width: 120, headerAlign: 'right', align: 'right' },
   /*
    * @ToDo Replace this kind for icons
    */
   { field: 'kind', headerName: 'Type', width: 120 },
   { field: 'category', headerName: 'Category', width: 120 },
   { field: 'description', headerName: 'Description', width: 360 },
-  { field: 'amount', headerName: 'Amount', width: 120 },
+  { field: 'amount', headerName: 'Amount', width: 120, headerAlign: 'right', align: 'right' },
 ]
 
 export const UserAccountsDetails = (props: any) => {
