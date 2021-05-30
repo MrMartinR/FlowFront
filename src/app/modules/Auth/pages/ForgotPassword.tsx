@@ -1,13 +1,36 @@
 import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { TextField, Button, Grid, Typography, CardMedia, FormControl } from '@material-ui/core'
+import {
+  makeStyles,
+  Grid,
+  FormLabel,
+  OutlinedInput,
+  FormHelperText,
+  Button,
+  Typography,
+  CardMedia,
+  FormControl,
+} from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
 import { AuthAlert } from './AuthAlert'
+
+/* Styles */
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #f2f2f2 25%, #ccc 90%)',
+    minWidth: '100%',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 
 const initialValues = {
   email: '',
@@ -18,6 +41,10 @@ type PasswordType = {
 }
 
 export const ForgotPassword = () => {
+  /* styles */
+  const classes = useStyles()
+
+  /* yup schema */
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .email('Wrong email format')
@@ -36,40 +63,47 @@ export const ForgotPassword = () => {
   }
 
   return (
-    <Grid container direction="column" justify="space-around" alignItems="center">
-      <AuthAlert />
+    <Grid container direction="column" justify="space-around" alignItems="center" className={classes.root}>
       {/* logo */}
-      <Grid item xs="auto">
+      <Grid item xs={12}>
         <CardMedia src={Logo} component="img" />
         <Typography align="center" variant="h6">
-          Forgotten Password ?
+          Password Recovery
         </Typography>
       </Grid>
       {/* form */}
       <Grid item xs="auto">
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column" justify="center" alignItems="center">
-            <FormControl variant="filled">
-              <TextField
-                label="Email"
-                margin="normal"
-                variant="outlined"
-                autoComplete="on"
-                type="email"
-                inputRef={register()}
+            {/* begin: Email */}
+            <FormControl required fullWidth size="small">
+              <FormLabel>Email</FormLabel>
+              <OutlinedInput
+                id="email"
                 name="email"
+                type="email"
+                required
+                autoComplete="on"
+                inputRef={register()}
+                fullWidth
               />
-              <span> {errors.email && errors.email.message}</span>
-              <Button type="submit" variant="contained" color="secondary">
-                Submit
-              </Button>
-              <Typography variant="body2" align="center">
-                <Link to="/auth/login">Sign in</Link>
-              </Typography>
+              <FormHelperText>
+                Enter your linked Flow email to receive instructions to set a new password
+              </FormHelperText>
+              <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
             </FormControl>
+            {/* end: Email */}
+
+            <Button type="submit">Request new Password</Button>
+            <Typography variant="body2" align="center">
+              Already registered? <Link to="/auth/login">Sign in</Link>
+            </Typography>
+            {/* </FormControl> */}
           </Grid>
         </form>
       </Grid>
+      {/* Alert */}
+      <AuthAlert />
     </Grid>
   )
 }

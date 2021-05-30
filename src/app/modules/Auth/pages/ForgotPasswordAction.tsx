@@ -56,7 +56,7 @@ export const ForgotPasswordAction = (props: any) => {
       <Grid item xs="auto">
         <CardMedia src={Logo} component="img" />
         <Typography align="center" variant="h6">
-          Forgotten Password ?
+          Forgot your password?
         </Typography>
       </Grid>
       {/* form */}

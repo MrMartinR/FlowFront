@@ -39,7 +39,7 @@ export const Login = () => {
   const classes = useStyles()
 
   const loginSchema = Yup.object().shape({
-    username: Yup.string().min(6, 'Minimum 6 characters').max(50, 'Maximum 50 characters').required('Required'),
+    username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
     password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
   })
 
@@ -48,6 +48,8 @@ export const Login = () => {
     resolver: yupResolver(loginSchema),
   })
   const dispatch = useDispatch()
+
+  /* set the types */
   type Credentials = {
     username: string
     password: string
@@ -78,31 +80,32 @@ export const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column">
             {/* begin: Username */}
-            <FormControl size="small" fullWidth required>
+            <FormControl required fullWidth size="small">
               <FormLabel>Username</FormLabel>
               <OutlinedInput
                 id="username"
-                autoComplete="on"
-                type="text"
-                inputRef={register()}
                 name="username"
-                fullWidth
+                type="text"
                 required
+                autoComplete="on"
+                inputRef={register()}
+                fullWidth
               />
               <span> {errors.username && errors.username.message}</span>
             </FormControl>
             {/* end: Username */}
 
             {/* begin: Password */}
-            <FormControl size="small" fullWidth required>
+            <FormControl required fullWidth size="small">
               <FormLabel>Password</FormLabel>
               <OutlinedInput
-                label="Password"
-                autoComplete="on"
-                type="password"
-                inputRef={register()}
+                id="password"
                 name="password"
+                type="password"
                 required
+                autoComplete="on"
+                inputRef={register()}
+                fullWidth
               />
               <span> {errors.password && errors.password.message}</span>
             </FormControl>
