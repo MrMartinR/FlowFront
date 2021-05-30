@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
+  makeStyles,
+  Container,
   Card,
-  TextField,
   List,
   LinearProgress,
   ListItem,
@@ -10,7 +11,37 @@ import {
   ListItemText,
 } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
+
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+    maxHeight: 700,
+    minWidth: 260,
+    position: 'relative',
+    overflow: 'auto',
+  },
+  search: {
+    minWidth: '100%',
+    margin: 6,
+  },
+  card: {
+    background: '#fff', // #707070
+    margin: 6,
+  },
+  avatar: {
+    background: '#e6e6e6',
+    color: '#fff',
+  },
+  text: {
+    color: '#787878',
+  },
+})
+
 export const UserAccountsList = (props: any) => {
+  /* styles */
+  const classes = useStyles()
+
   const { setSelectedItemIndex, isLoading, list } = props
   const [options, setOptions] = useState([] as any)
 
@@ -30,19 +61,20 @@ export const UserAccountsList = (props: any) => {
   }
   return (
     <>
-      <Autocomplete
+      {/* <Autocomplete
         freeSolo
         options={options}
         onChange={handlePick}
         renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
-      />
-      <Card>
+      /> */}
+
+      <Container className={classes.root}>
         <List>
           {isLoading ? (
             <LinearProgress color="secondary" />
           ) : (
             list.map((item: any, idx: any) => (
-              <Card key={item.id} style={{ backgroundColor: '#676767' }}>
+              <Card key={item.id} className={classes.card}>
                 <ListItem
                   button
                   onClick={(e) => {
@@ -50,16 +82,19 @@ export const UserAccountsList = (props: any) => {
                   }}
                 >
                   <ListItemAvatar>
-                    <Avatar variant="rounded"></Avatar>
+                    <Avatar variant="rounded" className={classes.avatar}></Avatar>
                   </ListItemAvatar>
 
-                  <ListItemText primary={`${item.attributes.name}`} />
+                  <ListItemText primary={`${item.attributes.name}`} className={classes.text} />
+                  {/* @ToDo add the value and balance in the right part of the card */}
+                  {/* <ListItemText secondary={`${item.attributes.value}`} />
+                  <ListItemText secondary={`${item.attributes.balance}`} /> */}
                 </ListItem>
               </Card>
             ))
           )}
         </List>
-      </Card>
+      </Container>
     </>
   )
 }

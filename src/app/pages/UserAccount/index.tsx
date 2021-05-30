@@ -4,10 +4,22 @@ import * as userAccountsActions from './state/userAccountsActions'
 import { UserAccountsList } from './UserAccountList'
 import { UserAccountsDetails } from './UserAccountDetails'
 import { RootState } from '../../../redux/rootReducer'
-import { Grid } from '@material-ui/core/'
+import { makeStyles, Grid } from '@material-ui/core/'
+
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+    // position: 'relative',
+    // overflow: 'auto',
+  },
+})
 
 export const UserAccountsPage = (props: any) => {
-  // Getting curret state of accounts list from store (Redux)
+  /* styles */
+  const classes = useStyles()
+
+  /* Getting curret state of accounts list from store (Redux) */
   const { currentState } = useSelector((state: RootState) => ({ currentState: state.userAccounts }), shallowEqual)
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(0)
@@ -18,73 +30,60 @@ export const UserAccountsPage = (props: any) => {
   const [singleAccount, setSingleAccount] = useState({})
   let selectedUserAccount = null as any
 
-  if (list.length>0 && list[selectedItemIndex]) {
+  if (list.length > 0 && list[selectedItemIndex]) {
     selectedUserAccount = list[selectedItemIndex]
   }
   const GetAllAccounts = () => {
     const dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(
-          userAccountsActions.fetchUserAccountsList()
-        )
+        dispatch(userAccountsActions.fetchUserAccountsList())
       }
     }, [dispatch])
   }
-  GetAllAccounts();
+  GetAllAccounts()
   const GetAccount = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (selectedUserAccount) {
         dispatch(userAccountsActions.fetchuserAccount(selectedUserAccount?.id))
       }
-    }, [dispatch, selectedUserAccount ])
+    }, [dispatch, selectedUserAccount])
   }
-  GetAccount();
+  GetAccount()
   const GetAllTransactions = () => {
     const dispatch = useDispatch()
     useEffect(() => {
       if (selectedUserAccount) {
-        dispatch(
-          userAccountsActions.fetchAccountTransaction(selectedUserAccount?.id)
-        )
+        dispatch(userAccountsActions.fetchAccountTransaction(selectedUserAccount?.id))
       }
-    }, [dispatch, selectedUserAccount ])
+    }, [dispatch, selectedUserAccount])
   }
-  GetAllTransactions();
+  GetAllTransactions()
   useEffect(() => {
-    if (
-      currentState.userAccountsTable
-    ) {
+    if (currentState.userAccountsTable) {
       setList(currentState.userAccountsTable)
     }
-  }, [currentState.userAccountsTable]);
+  }, [currentState.userAccountsTable])
   useEffect(() => {
-    if (
-      currentState.userAccountsTransactions
-    ) {
+    if (currentState.userAccountsTransactions) {
       setAllTransactions(currentState.userAccountsTransactions)
     }
-  }, [currentState.userAccountsTransactions]);
+  }, [currentState.userAccountsTransactions])
   useEffect(() => {
-    setIsLoading(currentState.listLoading);
-    setActionsLoading(currentState.actionsLoading);
-  }, [currentState.listLoading, currentState.actionsLoading]);
-  useEffect(() => { if (
-    currentState.userAccountsDetails
-  ) {
-    setSingleAccount(currentState.userAccountsDetails)
-  }
-}, [currentState.userAccountsDetails]);
+    setIsLoading(currentState.listLoading)
+    setActionsLoading(currentState.actionsLoading)
+  }, [currentState.listLoading, currentState.actionsLoading])
+  useEffect(() => {
+    if (currentState.userAccountsDetails) {
+      setSingleAccount(currentState.userAccountsDetails)
+    }
+  }, [currentState.userAccountsDetails])
 
   return (
-    <Grid container direction='row' item xs={12}>
+    <Grid container direction="row" item xs={12} className={classes.root}>
       <Grid item xs={3}>
-        <UserAccountsList
-          isLoading={isLoading}
-          list={list}
-          setSelectedItemIndex={setSelectedItemIndex}
-        />
+        <UserAccountsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
       </Grid>
       <Grid item xs={9}>
         <UserAccountsDetails

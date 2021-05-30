@@ -1,24 +1,36 @@
-import { Grid, Button, Typography, Toolbar } from '@material-ui/core/'
+import { makeStyles, Toolbar, Grid, Card, CardHeader, Button, Typography, Avatar } from '@material-ui/core/'
+
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    // background: '#f1f1f1',
+    maxWidth: '100%',
+    position: 'relative',
+    overflow: 'auto',
+  },
+})
 
 export const UserAccountDetailsToolbar = (props: any) => {
+  /* styles */
+  const classes = useStyles()
+
   const { value, balance, singleAccount } = props
   return (
-    <Toolbar variant="dense">
-      <Grid container direction="row" justify="space-between">
-        <Grid item xs={4}>
-          <Typography variant="body1">[ICON]</Typography>
-          <Typography variant="body1">{singleAccount.attributes?.name}</Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6">Value {value}</Typography>
-          <Typography variant="h6">Balance {balance}</Typography>
-        </Grid>
-        <Grid item xs={5}>
-          <Button>Add Transfer</Button>
-          <Button>Add Transaction</Button>
-          <Button>Import</Button>
-          <Button>•••</Button>
-        </Grid>
+    <Toolbar variant="dense" className={classes.root}>
+      <Grid item xs={12}>
+        <CardHeader
+          avatar={<Avatar variant="square"></Avatar>}
+          title={singleAccount.attributes?.name}
+          subheader={'Value ' + value + ' ' + 'Balance ' + balance}
+          action={
+            <>
+              <Button>Add Transfer</Button>
+              <Button>Add Transaction</Button>
+              <Button>Import</Button>
+              <Button>•••</Button>
+            </>
+          }
+        ></CardHeader>
       </Grid>
     </Toolbar>
   )

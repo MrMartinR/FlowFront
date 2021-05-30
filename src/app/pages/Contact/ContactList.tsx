@@ -19,7 +19,6 @@ import {
 /**
  * @rev this Autocomplete thing... the final result will be search/filter-as-you-type
  * the list of contacts will be the one to shrink to accomodate the search terms.
- * More Lab!!
  */
 
 import { Autocomplete } from '@material-ui/lab'
