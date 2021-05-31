@@ -44,7 +44,7 @@ export const ContactToolBar = (props: any) => {
     setOpen(true)
   }
   const handleOriginator = () => {
-    console.log(JSON.stringify(selectedContact?.attributes?.originator, null, 3))
+    linkTo.push(`/originators/${selectedContact.attributes.originator.id}`)
   }
 
   const handlePlatform = () => {

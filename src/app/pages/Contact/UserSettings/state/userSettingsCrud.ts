@@ -39,16 +39,11 @@ export const getUsers = () => {
  * @param UPDATE_PROFILE_URL, optionsHeaders
  * @returns User Settings Data
  */
-export const updateProfile = (data: any) => {
+export const updateProfile = (username:string, email:string, password:string) => {
     const formData = new FormData()
-    formData.append("user[username]", data.username);
-    formData.append("user[email]", data.email);
-    formData.append("user[password]", data.password);
-    formData.append("user[currency_id]", data.currency_id);
-    formData.append("user[country_id]", data.country_id);
-    formData.append("user[dob]", data.dob);
-    formData.append("user[name]", data.name);
-    formData.append("user[surname]", data.surname);
+    formData.append("user[username]", username);
+    formData.append("user[email]", email);
+    formData.append("user[password]", password);
     return axios.post(UPDATE_PROFILE_URL, formData, optionsHeaders())
 }
 

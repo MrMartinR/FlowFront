@@ -1,10 +1,20 @@
-import { Grid, Paper, CardContent, Typography, Toolbar, Button, Card, LinearProgress } from '@material-ui/core/'
+import { Grid, CardContent, Typography, Button, Card, LinearProgress, Container, makeStyles, CardHeader } from '@material-ui/core/'
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import * as userLoansActions from './../UserLoan/state/userLoansActions'
-
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    padding: 0,
+  },
+  cardHeaderAction: {
+    margin: 'auto' /* adds margin on top of the elements */,
+  },
+})
 export const UserLoanDetails = (props: any) => {
+  const classes = useStyles()
   const { id } = props
   const { currentState } = useSelector(
     (state: RootState) => ({
@@ -38,35 +48,38 @@ export const UserLoanDetails = (props: any) => {
     <>
       {isLoading && <LinearProgress />}
       {userLoanDetails ? (
-        <Grid container>
-          <Toolbar>
-            <Typography variant="h6">Investment</Typography>
-            <Button>[ICONAccount]</Button>
-            <Typography variant="h6">{userLoanDetails.attributes?.user_account?.name}</Typography>
-            <Button>+</Button>
-          </Toolbar>
-
-          <Grid item xs={12}>
-            <Paper variant="outlined">
-              <Typography>Market: {userLoanDetails.attributes?.market}</Typography>
-              <Typography>Investment amount: {userLoanDetails.attributes?.investment_amount}</Typography>
-              <Typography>Slice: {userLoanDetails.attributes?.slice_name}</Typography>
-              <Typography>Invest mode: {userLoanDetails.attributes?.invest_mode}</Typography>
-              <Typography>Date in: {userLoanDetails.attributes?.date_in}</Typography>
-              <Typography>Date out: {userLoanDetails.attributes?.date_out}</Typography>
-              <Typography>Position: {userLoanDetails.attributes?.position}</Typography>
-              <Typography>XIRR: {userLoanDetails.attributes?.xirr}</Typography>
-            </Paper>
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Card>
+                <CardHeader title={'Investment ' /*userLoanDetails.attributes?.user_account?.name*/} action={<span><Button>[ICONAccount]</Button><Button>+</Button></span>} fullwidth />
+                <CardContent>
+                  <Typography>Market: {userLoanDetails.attributes?.market}</Typography>
+                  <Typography>Investment amount: {userLoanDetails.attributes?.investment_amount}</Typography>
+                  <Typography>Slice: {userLoanDetails.attributes?.slice_name}</Typography>
+                  <Typography>Invest mode: {userLoanDetails.attributes?.invest_mode}</Typography>
+                  <Typography>Date in: {userLoanDetails.attributes?.date_in}</Typography>
+                  <Typography>Date out: {userLoanDetails.attributes?.date_out}</Typography>
+                  <Typography>Position: {userLoanDetails.attributes?.position}</Typography>
+                  <Typography>XIRR: {userLoanDetails.attributes?.xirr}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={6}>
+              <Card>
+                <CardHeader title="Cashflow" action={<Button>•••</Button>} fullwidth />
+                <CardContent>
+                  
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6">Cashflow</Typography>
-          </Grid>
-        </Grid>
+        </Container>
       ) : (
         <Card>
           <CardContent>
             <Typography variant="h5">You are not invested in this loan</Typography>
-            <button>Create an account</button>
+            <Button>Create an account</Button>
           </CardContent>
         </Card>
       )}

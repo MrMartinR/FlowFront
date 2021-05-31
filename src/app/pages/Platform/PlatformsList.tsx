@@ -1,12 +1,6 @@
-import { useEffect, useState } from 'react'
 import { makeStyles, Grid, LinearProgress } from '@material-ui/core/'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
-import { PlatformListToolbar } from './PlatformListToolbar'
-import * as platformsActions from './state/platformsActions'
-import { RootState } from '../../../redux/rootReducer'
-import { PlatformAlert } from './PlatformAlert'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -47,70 +41,15 @@ const columns: GridColDef[] = [
 export const PlatformsList = (props: any) => {
   /* styles */
   const classes = useStyles()
-
-  const [list, setList] = useState([] as any)
-  const [isLoading, setIsLoading] = useState(true)
-  const { currentState } = useSelector(
-    (state: RootState) => ({
-      currentState: state.platforms,
-    }),
-    shallowEqual
-  )
-  const GetAllPlatforms = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(platformsActions.fetchPlatformsList())
-      }
-    }, [dispatch])
-  }
-  GetAllPlatforms()
-
-  useEffect(() => {
-    if (currentState.platformsTable) {
-      setList(currentState.platformsTable)
-    }
-  }, [currentState.platformsTable])
-  const rows = [] as any
-  if (list.length > 1)
-    list.map((platform: any) => {
-      const newRow = {
-        id: platform.id,
-        type: platform.type,
-        trade_name: platform.attributes.contact?.trade_name || '',
-        status: platform.attributes.status,
-        liquidity: platform.attributes.liquidity,
-        account_category: platform.attributes.account_category,
-        category: platform.attributes.category,
-        cost: platform.attributes.cost,
-        invest_mode: platform.attributes.invest_mode,
-        min_investment: platform.attributes.min_investment,
-        protection_scheme: platform.attributes.protection_scheme,
-        secondary_market: platform.attributes.secondary_market,
-        structure: platform.attributes.structure,
-        term: platform.attributes.term,
-        promo: platform.attributes.promo,
-        welcome_bonus: platform.attributes.welcome_bonus,
-        taxes: platform.attributes.taxes,
-      }
-      rows.push(newRow)
-      return rows
-    })
+  const { isLoading, rows } = props
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
-
-  useEffect(() => {
-    setIsLoading(currentState.loading)
-  }, [currentState.loading])
-
+  
   return (
     <Grid container direction="column" className={classes.root}>
       {isLoading ? (
         <LinearProgress color="secondary" />
       ) : (
-        <>
-          <PlatformListToolbar list={rows} />
-          <PlatformAlert />
           <Grid className={classes.table}>
             <XGrid
               loading={isLoading}
@@ -121,7 +60,6 @@ export const PlatformsList = (props: any) => {
               onRowClick={handleClick}
             />
           </Grid>
-        </>
       )}
     </Grid>
   )

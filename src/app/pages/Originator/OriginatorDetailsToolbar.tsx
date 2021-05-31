@@ -1,28 +1,46 @@
-import { Grid, Button, ButtonGroup, Typography, Toolbar } from '@material-ui/core/'
+import { Grid, Button, ButtonGroup, Typography, Toolbar, makeStyles, Container, CardHeader, Avatar } from '@material-ui/core/'
+
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    padding: 0,
+  },
+  cardHeaderAction: {
+    margin: 'auto' /* adds margin on top of the elements */,
+  },
+})
 
 export const OriginatorDetailsToolbar = (props: any) => {
-  const { setTab, id, trade_name } = props;
+  /* styles */
+  const classes = useStyles()
+  const { setTab, id, trade_name, company_name } = props;
     const handleClick = (e: any) => {
         setTab(`${e.target.innerHTML}`)
       }
   return (
-    <Toolbar>
-      <Grid container direction="row" justify="space-between">
-        <Grid item xs={4}>
-          <Typography variant="h5">{trade_name}</Typography>
+    <Container>
+      <Toolbar variant="dense" className={classes.root}>
+        <Grid item xs={12} className={classes.root}>
+        <CardHeader
+            avatar={<Avatar variant="square" src={'/media/svg/contact/icons/' + id + '.svg'} alt={trade_name}/>}
+            title={trade_name}
+            subheader={company_name}
+            action={
+              <>
+                <ButtonGroup>
+                  <Button onClick={handleClick}>Info</Button>
+                  <Button onClick={handleClick}>Loans</Button>
+                </ButtonGroup>
+                <Button href={`/contacts/${id}`}>Contact</Button>
+              </>
+            }
+            classes={{
+              action: classes.cardHeaderAction,
+            }}
+          />
         </Grid>
-        <Grid item xs={3}>
-          <ButtonGroup>
-            <Button onClick={handleClick}>Info</Button>
-            <Button onClick={handleClick}>Loans</Button>
-          </ButtonGroup>
-        </Grid>
-      </Grid>
-      <Grid item xs={2}>
-          <Button href={`/contacts/${id}`}>
-            Contact
-          </Button>
-        </Grid>
-    </Toolbar>
+      </Toolbar>
+    </Container>
   )
 }

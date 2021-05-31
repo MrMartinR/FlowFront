@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Avatar, Grid, LinearProgress } from '@material-ui/core/'
+import { Avatar, Container, Grid, LinearProgress, makeStyles } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef, GridCellParams } from '@material-ui/x-grid'
 import * as platformsActions from './state/originatorsActions'
 import { RootState } from '../../../redux/rootReducer'
@@ -9,7 +9,16 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
 )
-
+/* styles */
+const useStyles = makeStyles({
+  table: {
+    background: '#ffffff',
+    height: 700,
+    minWidth: 400,
+    overflow: 'auto',
+    position: 'relative',
+  },
+})
 const columns: GridColDef[] = [
   // column definition format here
   { field: 'country', headerName: 'Flag', width: 100, renderCell: (params: GridCellParams) => (
@@ -37,6 +46,8 @@ const columns: GridColDef[] = [
 ] as any
 
 export const OriginatorLoans = (props: any) => {
+  /* styles */
+  const classes = useStyles()
   const { id } = props
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
@@ -94,26 +105,23 @@ export const OriginatorLoans = (props: any) => {
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
   return (
-    <>
-      {
-        isLoading ? 
-        (
-          <Grid container direction="column">
-            <LinearProgress color="secondary" />
-          </Grid>
-        ) : (
-          <Grid container direction="column">
-            <div style={{ height: 600, width: '100%' }}>
-              <XGrid 
-                rows={rows} 
-                columns={columns}
-                onRowClick={handleClick}
-                disableMultipleSelection={true} 
-                loading={isLoading} />
-            </div>
-          </Grid>
-        )
-      }
-    </>
+    <Container>
+      <Grid xs={12} container>
+
+      </Grid>
+      { isLoading ? (
+        <LinearProgress color="secondary" />
+      ) : (
+        <Grid container direction="column">
+            <XGrid
+              className={classes.table}
+              rows={rows} 
+              columns={columns}
+              onRowClick={handleClick}
+              disableMultipleSelection={true} 
+              loading={isLoading} />
+        </Grid>
+      )}
+    </Container>
   )
 }

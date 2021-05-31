@@ -8,6 +8,7 @@ import axios from 'axios'
 import * as _redux from './redux'
 import store, { persistor } from './redux/store'
 import App from './app/App'
+import { LayoutProvider, SplashScreenProvider } from './common/layout'
 import { IntlProvider } from 'react-intl'
 // import 'react-virtualized/styles.css'
 
@@ -25,10 +26,12 @@ _redux.setupAxios(axios, store)
 
 ReactDOM.render(
   /** StrictMode is a tool for highlighting potential problems in an application in development. */
-  <React.StrictMode>
-    <IntlProvider locale="en">
-      <App store={store} persistor={persistor} basename={PUBLIC_URL} />
-    </IntlProvider>
-  </React.StrictMode>,
+  <LayoutProvider>
+      <SplashScreenProvider>
+        <IntlProvider locale="en">
+          <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+        </IntlProvider>
+      </SplashScreenProvider>
+    </LayoutProvider>,
   document.getElementById('root')
 )

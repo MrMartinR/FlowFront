@@ -111,23 +111,21 @@ export const PlatformLoans = (props: any) => {
   const linkTo = useHistory()
   const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
   return (
-    <>
-      <Container>
-        <Grid xs={12} container>
-          {isLoading ? (
-            <LinearProgress color="secondary" />
-          ) : (
-            <XGrid
-              className={classes.table}
-              rows={rows}
-              columns={columns}
-              onRowClick={handleClick}
-              disableMultipleSelection={true}
-              loading={isLoading}
-            />
-          )}
-        </Grid>
-      </Container>
-    </>
+    <Container>
+      <Grid xs={12} container>
+        {isLoading ? (
+          <LinearProgress color="secondary" />
+        ) : (
+          <XGrid
+            className={classes.table}
+            rows={rows}
+            columns={columns}
+            onRowClick={handleClick}
+            disableMultipleSelection={true}
+            loading={isLoading}
+          />
+        )}
+      </Grid>
+    </Container>
   )
 }
