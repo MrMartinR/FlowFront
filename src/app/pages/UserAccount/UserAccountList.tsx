@@ -75,6 +75,23 @@ export const UserAccountsList = (props: any) => {
           ) : (
             list.map((item: any, idx: any) => (
               <Card key={item.id} className={classes.card}>
+                {/* alternative way to show the card */}
+                {/* <ListItem
+                  button
+                  onClick={(e) => {
+                    setSelectedItemIndex(idx)
+                  }}
+                >
+                  <CardHeader
+                    avatar={
+                      <Avatar variant="square" className={classes.avatar}>
+                        {item.attributes.name[0]}
+                      </Avatar>
+                    }
+                    title={item.attributes.name}
+                    subheader={'Value ' + ' ' + 'Balance '}
+                  ></CardHeader>
+                 </ListItem> */}
                 <ListItem
                   button
                   onClick={(e) => {
@@ -82,13 +99,14 @@ export const UserAccountsList = (props: any) => {
                   }}
                 >
                   <ListItemAvatar>
-                    <Avatar variant="rounded" className={classes.avatar}></Avatar>
+                    <Avatar variant="rounded" className={classes.avatar}>
+                      {item.attributes.name[0]}
+                    </Avatar>
                   </ListItemAvatar>
-
                   <ListItemText primary={`${item.attributes.name}`} className={classes.text} />
                   {/* @ToDo add the value and balance in the right part of the card */}
                   {/* <ListItemText secondary={`${item.attributes.value}`} />
-                  <ListItemText secondary={`${item.attributes.balance}`} /> */}
+                   <ListItemText secondary={`${item.attributes.balance}`} /> */}
                 </ListItem>
               </Card>
             ))

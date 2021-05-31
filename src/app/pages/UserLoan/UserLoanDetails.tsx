@@ -1,51 +1,48 @@
 import { Grid, Paper, CardContent, Typography, Toolbar, Button, Card, LinearProgress } from '@material-ui/core/'
-import { useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../redux/rootReducer';
+import { useEffect, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../redux/rootReducer'
 import * as userLoansActions from './../UserLoan/state/userLoansActions'
 
 export const UserLoanDetails = (props: any) => {
-  const { id } = props;
+  const { id } = props
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.userLoans,
     }),
     shallowEqual
   )
-  console.log(id);
-  const [isLoading, setIsLoading] = useState(false);
-  const [userLoanDetails, setUserLoanDetails] = useState(null as any);
+  console.log(id)
+  const [isLoading, setIsLoading] = useState(false)
+  const [userLoanDetails, setUserLoanDetails] = useState(null as any)
   const GetUserLoan = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
         if (id) {
-          const user_loan_id=id[0];
-          dispatch(userLoansActions.fetchUserLoanDetails(user_loan_id));
+          const user_loan_id = id[0]
+          dispatch(userLoansActions.fetchUserLoanDetails(user_loan_id))
         }
-      } 
-    }, [dispatch, id]);
+      }
+    }, [dispatch, id])
   }
-  GetUserLoan();
+  GetUserLoan()
   useEffect(() => {
-    currentState.userLoanDetails &&
-    setUserLoanDetails(currentState.userLoanDetails);
+    currentState.userLoanDetails && setUserLoanDetails(currentState.userLoanDetails)
   }, [currentState.userLoanDetails])
   useEffect(() => {
-    setIsLoading(currentState.loading);
-  }, [currentState.loading]);
+    setIsLoading(currentState.loading)
+  }, [currentState.loading])
 
   return (
     <>
-    {isLoading && <LinearProgress/>}
-    {
-      userLoanDetails?
-      (
+      {isLoading && <LinearProgress />}
+      {userLoanDetails ? (
         <Grid container>
-          <Toolbar title="Investment">
+          <Toolbar>
             <Typography variant="h6">Investment</Typography>
             <Button>[ICONAccount]</Button>
-            <Typography variant="h6">{ userLoanDetails.attributes?.user_account?.name }</Typography>
+            <Typography variant="h6">{userLoanDetails.attributes?.user_account?.name}</Typography>
             <Button>+</Button>
           </Toolbar>
 
@@ -65,15 +62,14 @@ export const UserLoanDetails = (props: any) => {
             <Typography variant="h6">Cashflow</Typography>
           </Grid>
         </Grid>
-      ):(
+      ) : (
         <Card>
           <CardContent>
             <Typography variant="h5">You are not invested in this loan</Typography>
             <button>Create an account</button>
           </CardContent>
         </Card>
-      )
-    }
+      )}
     </>
   )
 }

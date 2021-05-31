@@ -1,34 +1,46 @@
-import { Grid, Card, CardHeader, CardContent, Typography } from '@material-ui/core/'
+import { Container, Grid, Card, CardHeader, CardContent, Button, Typography } from '@material-ui/core/'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 export const LoanDetails = (props: any) => {
   const { loanDetails } = props
-  const [security, setSecurity] = useState();
+  const [security, setSecurity] = useState()
   useEffect(() => {
-    setSecurity(loanDetails.attributes?.protection_scheme);
+    setSecurity(loanDetails.attributes?.protection_scheme)
   }, [loanDetails])
   return (
-    <>
-      <Grid container direction="row">
-        <Grid container direction="column" item xs={6}>
-          <Grid container direction="row">
+    <Container>
+      <Grid container spacing={2}>
+        {/* block 1 */}
+        <Grid container direction="column" item xs={6} spacing={2}>
+          {/* borrower */}
+          <Grid item>
             <Card>
-              <CardHeader title="Description"></CardHeader>
+              <CardHeader title="Borrower" action={<Button>•••</Button>} fullwidth />
               <CardContent>
-                <Typography>Borrower Type: {loanDetails.attributes?.borrower_type}</Typography>
-                <Typography>{loanDetails.attributes?.borrower}</Typography>
+                <Typography variant="h6"> {loanDetails.attributes?.borrower}</Typography>
+                <Typography>Type: {loanDetails.attributes?.borrower_type}</Typography>
                 <Typography>Category: {loanDetails.attributes?.category}</Typography>
-                <Typography>Description: {loanDetails.attributes?.description}</Typography>
                 {/* Only show if Borrower = Consumer */}
-                {(loanDetails.attributes?.borrower_type==='Consumer')
-                  &&<Typography>DTI: {loanDetails.attributes?.dti_rating}</Typography>}
+                {loanDetails.attributes?.borrower_type === 'Consumer' && (
+                  <Typography>DTI: {loanDetails.attributes?.dti_rating}</Typography>
+                )}
               </CardContent>
             </Card>
           </Grid>
-          <Grid container direction="row">
+          {/* description */}
+          <Grid item>
             <Card>
-              <CardHeader title="Notes"></CardHeader>
+              <CardHeader title="Description" action={<Button>•••</Button>} fullwidth />
+              <CardContent>
+                <Typography>Description: {loanDetails.attributes?.description}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          {/* notes */}
+          <Grid item>
+            <Card>
+              <CardHeader title="Notes" action={<Button>•••</Button>} fullwidth />
               <CardContent>
                 <Typography>{loanDetails.attributes?.notes}</Typography>
               </CardContent>
@@ -36,10 +48,12 @@ export const LoanDetails = (props: any) => {
           </Grid>
         </Grid>
 
-        <Grid container direction="column" item xs={6}>
-          <Grid container direction="row">
+        {/* block 2 */}
+        <Grid container direction="column" item xs={6} spacing={2}>
+          {/* details */}
+          <Grid item>
             <Card>
-              <CardHeader title="Details"></CardHeader>
+              <CardHeader title="Details" action={<Button>•••</Button>} fullwidth />
               <CardContent>
                 <Typography>Amortization: {loanDetails.attributes?.amortization}</Typography>
                 <Typography>Installment: {loanDetails.attributes?.installment}</Typography>
@@ -55,21 +69,23 @@ export const LoanDetails = (props: any) => {
             </Card>
           </Grid>
 
-          <Grid container direction="row">
+          {/* security */}
+          <Grid item>
             <Card>
-              <CardHeader title="Security"></CardHeader>
+              <CardHeader title="Security" action={<Button>•••</Button>} fullwidth />
               <CardContent>
-                <ToggleButtonGroup value={security}>
-                    <ToggleButton value='Buyback'>Buyback</ToggleButton>
-                    <ToggleButton value='Personal Guarantee'>Personal Guarantee</ToggleButton>
-                    <ToggleButton value='Collateral'>Collateral</ToggleButton>
+                <ToggleButtonGroup value={security} size="small">
+                  {loanDetails.attributes?.protection_scheme}
+                  <ToggleButton value="Buyback">Buyback</ToggleButton>
+                  <ToggleButton value="Personal Guarantee">Personal Guarantee</ToggleButton>
+                  <ToggleButton value="Collateral">Collateral</ToggleButton>
                 </ToggleButtonGroup>
-                <Typography>Security details: {loanDetails.attributes?.security_details}</Typography>
+                <Typography>{loanDetails.attributes?.security_details}</Typography>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </Container>
   )
 }

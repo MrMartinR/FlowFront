@@ -109,7 +109,9 @@ export const ContactsList = (props: any) => {
                   }}
                 >
                   <ListItemAvatar>
-                    <Avatar variant="rounded" className={classes.avatar}></Avatar>
+                    <Avatar variant="rounded" className={classes.avatar}>
+                      {item.attributes.name[0]}
+                    </Avatar>
                   </ListItemAvatar>
 
                   <ListItemText primary={`${item.attributes.name}`} className={classes.text} />

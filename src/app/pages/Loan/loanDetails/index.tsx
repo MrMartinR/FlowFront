@@ -1,36 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { Grid } from '@material-ui/core/'
-
+import { useEffect, useState } from 'react'
+import { RootState } from '../../../../redux/rootReducer'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { LoanDetails } from './LoanDetails'
 import { UserLoanDetails } from '../../UserLoan/UserLoanDetails'
 import { LoanDetailsToolbar } from './LoanDetailsToolbar'
-import { RootState } from '../../../../redux/rootReducer'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as loansActions from './../state/loansActions'
 import { LoansAlert } from '../LoansAlert'
+import { Grid } from '@material-ui/core/'
 
 export const LoanDetailsPage = (props: any) => {
-  const { params } = props.match;
+  const { params } = props.match
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.loans,
     }),
     shallowEqual
   )
-  const [loanDetails, setLoanDetails] = useState({} as any);
+  const [loanDetails, setLoanDetails] = useState({} as any)
   const GetLoan = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(loansActions.fetchLoanDetails(params.id));
-      } 
-    }, [dispatch]);
+        dispatch(loansActions.fetchLoanDetails(params.id))
+      }
+    }, [dispatch])
   }
-  GetLoan();
+  GetLoan()
 
   useEffect(() => {
-    currentState.loanDetails &&
-    setLoanDetails(currentState.loanDetails);
+    currentState.loanDetails && setLoanDetails(currentState.loanDetails)
   }, [currentState.loanDetails])
 
   return (
