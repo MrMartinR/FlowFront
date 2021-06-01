@@ -22,7 +22,7 @@ import {
 } from '@material-ui/core'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
-import { countriesList } from '../data/countries'
+import { countriesList } from '../data/countriesList'
 
 /* initializing values */
 const initialValues = {

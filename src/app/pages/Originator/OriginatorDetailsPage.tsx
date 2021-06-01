@@ -49,6 +49,7 @@ export const OriginatorDetailsPage = (props: any) => {
       <OriginatorDetailsToolbar 
         id = { originatorDetails.attributes?.contact?.id }
         trade_name = { originatorDetails.attributes?.contact?.trade_name }
+        company_name = { originatorDetails.attributes?.contact?.company_name }
         setTab = {setTab}
       />
       <OriginatorsAlert />

@@ -32,11 +32,10 @@ export const LoanDetailsPage = (props: any) => {
   }, [currentState.loanDetails])
 
   return (
-    <>
-      <Grid container direction="column" xs={12}>
+      <Grid container direction="column" >
         <LoanDetailsToolbar loanDetails={loanDetails} />
         <LoansAlert />
-        <Grid container direction="column">
+        <Grid container direction="column" spacing={2}>
           <Grid item xs={12}>
             <LoanDetails loanDetails={loanDetails} />
           </Grid>
@@ -45,6 +44,5 @@ export const LoanDetailsPage = (props: any) => {
           </Grid>
         </Grid>
       </Grid>
-    </>
   )
 }

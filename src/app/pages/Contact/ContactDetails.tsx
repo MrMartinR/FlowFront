@@ -104,7 +104,7 @@ export const ContactDetails = (props: any) => {
           <Grid container direction="row">
             <Grid item xs={4}>
               {/* [ToDo] change this for the actual icon  */}
-              <Avatar variant="square" src={'/media/svg/flags/' + flag + '.svg'}>
+              <Avatar variant="square" src={'/media/svg/contact/icons/' + selectedContact.id + '.svg'}>
                 ICON
               </Avatar>
             </Grid>

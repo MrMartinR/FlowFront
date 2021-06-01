@@ -48,13 +48,14 @@ export const fetchUserProfile = () => (dispatch: any) => {
     })
 }
 
-export const updateProfile = (data: any) => (dispatch: any) =>{
+export const updateProfile = (username:string, email:string, password:string) => (dispatch: any) =>{
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
-  .updateProfile(data)
+  .updateProfile(username, email, password)
   .then((response) => {
-    const { data } = response;
-    dispatch(actions.profileUpdated(response))
+    const { data } = response
+    console.log(response)
+    //dispatch(actions.profileUpdated(response))
   })
   .catch((error) => {
     error.clientMessage = "Can't find user profile"

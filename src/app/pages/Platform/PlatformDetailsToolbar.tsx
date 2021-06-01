@@ -22,9 +22,9 @@ export const PlatformDetailsToolbar = (props: any) => {
   return (
     <Container>
       <Toolbar variant="dense" className={classes.root}>
-        <Grid item xs={12} alignContent="center" alignItems="center" className={classes.root}>
+        <Grid item xs={12} className={classes.root}>
           <CardHeader
-            avatar={<Avatar variant="square"></Avatar>}
+            avatar={<Avatar variant="square" src={'/media/svg/contact/icons/' + id + '.svg'} alt={trade_name} />}
             title={trade_name}
             subheader={company_name}
             action={

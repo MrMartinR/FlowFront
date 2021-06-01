@@ -1,9 +1,22 @@
 import { useEffect, useState } from 'react'
-import { Grid, Typography, Toolbar, TextField } from '@material-ui/core/'
+import { Grid, Typography, Toolbar, TextField, makeStyles } from '@material-ui/core/'
 import { Autocomplete } from '@material-ui/lab';
 import { useHistory } from 'react-router';
 
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+    maxWidth: '100%',
+  },
+  search: {
+    minWidth: '100%',
+    margin: 6,
+  },
+})
 export const LoansListToolbar = (props: any) => {
+  /* styles */
+  const classes = useStyles()
   const { list } = props;
   const linkTo = useHistory();
   const [options, setOptions] = useState([] as any)
@@ -24,8 +37,8 @@ export const LoansListToolbar = (props: any) => {
     (selected)&&linkTo.push(`/loans/${selected.id}`);
   }
   return (
-    <Toolbar variant="dense">
-      <Grid container direction="row" justify="space-between">
+    <Toolbar variant="dense" className={classes.root}>
+      <Grid container alignItems="center" justify="space-between">
         <Grid item xs={4}>
           <Typography variant="h5">Loans</Typography>
         </Grid>
@@ -34,7 +47,7 @@ export const LoansListToolbar = (props: any) => {
             freeSolo
             options={options}
             onChange={handlePick}
-            renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Search" size="small" margin="normal" variant="outlined" />}
           />
         </Grid>
       </Grid>

@@ -1,7 +1,8 @@
 import { Grid, Card, CardHeader, CardContent, Button, ButtonGroup } from '@material-ui/core'
 import Kanban1 from './Kanban/Kanban1'
 import Kanban2 from './Kanban/Kanban2'
-function DashboardPage() {
+export const DashboardPage = () => {
+  
   return (
     <Grid container spacing={1}>
       {/* begin::navigation */}
@@ -20,7 +21,6 @@ function DashboardPage() {
               <Button href="/originators">Originators</Button>
               <Button href="/loans">Loans</Button>
               <Button href="/property">Property</Button>
-              <Button href="/settings">Settings</Button>
             </ButtonGroup>
           </CardContent>
         </Card>
@@ -32,5 +32,3 @@ function DashboardPage() {
     </Grid>
   )
 }
-
-export default DashboardPage
