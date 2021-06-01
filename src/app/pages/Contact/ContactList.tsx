@@ -12,7 +12,6 @@ import {
   Avatar,
   ListItemText,
   TextField,
-  ButtonGroup,
   Button,
 } from '@material-ui/core'
 
@@ -41,8 +40,8 @@ const useStyles = makeStyles({
     margin: 6,
   },
   avatar: {
-    background: '#e6e6e6',
-    color: '#fff',
+    background: 'transparent',
+    color: '#e6e6e6',
   },
   text: {
     color: '#787878',
@@ -109,7 +108,11 @@ export const ContactsList = (props: any) => {
                   }}
                 >
                   <ListItemAvatar>
-                    <Avatar variant="rounded" className={classes.avatar}>
+                    <Avatar
+                      src={'/media/svg/contact/icons/' + item.id + '.svg'}
+                      variant="square"
+                      className={classes.avatar}
+                    >
                       {item.attributes.name[0]}
                     </Avatar>
                   </ListItemAvatar>

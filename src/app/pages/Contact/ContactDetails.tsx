@@ -5,11 +5,13 @@ import * as contactsActions from './state/contactsActions'
 import {
   makeStyles,
   Grid,
+  Box,
   Typography,
   ListItemText,
   Card,
   CardHeader,
   CardContent,
+  CardMedia,
   List,
   Avatar,
   Dialog,
@@ -25,6 +27,12 @@ import { ContactEdit } from './ContactEdit'
 const useStyles = makeStyles({
   root: {
     margin: 24,
+  },
+  avatar: {
+    background: 'transparent',
+    color: '#e6e6e6',
+    width: '6em',
+    height: '6em',
   },
 })
 
@@ -101,12 +109,13 @@ export const ContactDetails = (props: any) => {
           </Grid>
         </Grid>
         <CardContent>
-          <Grid container direction="row">
+          <Grid container>
             <Grid item xs={4}>
-              {/* [ToDo] change this for the actual icon  */}
-              <Avatar variant="square" src={'/media/svg/contact/icons/' + selectedContact.id + '.svg'}>
-                ICON
-              </Avatar>
+              <Avatar
+                variant="square"
+                src={'/media/svg/contact/icons/' + selectedContact.id + '.svg'}
+                className={classes.avatar}
+              />
             </Grid>
             <Grid item xs={6}>
               {selectedContact.attributes?.kind === 'Company' ? (
