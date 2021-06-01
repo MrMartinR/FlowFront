@@ -19,9 +19,17 @@ export const UserAccountDetailsToolbar = (props: any) => {
     <Toolbar variant="dense" className={classes.root}>
       <Grid item xs={12}>
         <CardHeader
-          avatar={<Avatar variant="square">{singleAccount.attributes?.name[0]}</Avatar>}
+          avatar={
+            <Avatar
+              src={'/media/svg/contact/icons/' + singleAccount.attributes.account.contact_id + '.svg'}
+              alt={singleAccount.attributes.name}
+              variant="square"
+            >
+              {singleAccount.attributes?.name[0]}
+            </Avatar>
+          }
           title={singleAccount.attributes?.name}
-          subheader={'Value ' + value + ' ' + 'Balance ' + balance}
+          subheader={'Value ' + value + ' ' + 'Balance ' + balance.toFixed(2)}
           action={
             <>
               <Button>Add Transfer</Button>

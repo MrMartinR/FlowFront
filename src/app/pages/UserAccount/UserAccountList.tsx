@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     margin: 6,
   },
   avatar: {
-    background: '#e6e6e6',
+    background: 'transparent',
     color: '#fff',
   },
   text: {
@@ -99,7 +99,12 @@ export const UserAccountsList = (props: any) => {
                   }}
                 >
                   <ListItemAvatar>
-                    <Avatar variant="rounded" className={classes.avatar}>
+                    <Avatar
+                      src={'/media/svg/contact/icons/' + item.attributes.account.contact_id + '.svg'}
+                      alt={item.attributes.name}
+                      variant="square"
+                      className={classes.avatar}
+                    >
                       {item.attributes.name[0]}
                     </Avatar>
                   </ListItemAvatar>

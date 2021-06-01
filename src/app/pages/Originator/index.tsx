@@ -32,44 +32,45 @@ export const OriginatorsPage = () => {
     let dispatch = useDispatch()
     useEffect(() => {
       if (dispatch) {
-        dispatch(originatorsActions.fetchOriginatorsList());
-      } 
+        dispatch(originatorsActions.fetchOriginatorsList())
+      }
     }, [dispatch])
   }
-  GetAllOriginators();
-  useEffect(() => { if (
-    currentState.originatorsTable
-    ) {
-      setList(currentState.originatorsTable);
+  GetAllOriginators()
+  useEffect(() => {
+    if (currentState.originatorsTable) {
+      setList(currentState.originatorsTable)
     }
-  }, [currentState.originatorsTable]);
+  }, [currentState.originatorsTable])
 
-  useEffect( () => {
-    setIsLoading(currentState.loading);
-  }, [currentState.loading]);
+  useEffect(() => {
+    setIsLoading(currentState.loading)
+  }, [currentState.loading])
 
-const rows = [] as any;
-  if (list.length >1) list.map((originator: any) => {
-    const newRow = {
-      id : originator.id,
-      trade_name: originator.attributes.contact?.trade_name,
-      customer_category: originator.attributes.customer_category,
-      product_category_business: originator.attributes.product_category_business,
-      product_category_consumer: originator.attributes.product_category_consumer,
-      apr: originator.attributes.apr,
-    }
-    rows.push(newRow);
-    return rows;
-  })
+  const rows = [] as any
+  if (list.length > 1)
+    list.map((originator: any) => {
+      const newRow = {
+        id: originator.id,
+        contact_id: originator.attributes.contact?.id,
+        trade_name: originator.attributes.contact?.trade_name,
+        customer_category: originator.attributes.customer_category,
+        product_category_business: originator.attributes.product_category_business,
+        product_category_consumer: originator.attributes.product_category_consumer,
+        apr: originator.attributes.apr,
+      }
+      rows.push(newRow)
+      return rows
+    })
   return (
     <Container className={classes.root}>
       <Grid container direction="column" spacing={1}>
         {/* toolbar */}
-        <OriginatorsListToolbar list = { rows }/>
+        <OriginatorsListToolbar list={rows} />
         <OriginatorsAlert />
         {/* table */}
         <Grid item xs={12}>
-          <OriginatorsList isLoading={isLoading} rows={rows}/>
+          <OriginatorsList isLoading={isLoading} rows={rows} />
         </Grid>
       </Grid>
     </Container>

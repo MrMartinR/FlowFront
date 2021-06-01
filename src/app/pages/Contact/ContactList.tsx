@@ -110,11 +110,10 @@ export const ContactsList = (props: any) => {
                   <ListItemAvatar>
                     <Avatar
                       src={'/media/svg/contact/icons/' + item.id + '.svg'}
+                      alt={item.attributes.name}
                       variant="square"
                       className={classes.avatar}
-                    >
-                      {item.attributes.name[0]}
-                    </Avatar>
+                    />
                   </ListItemAvatar>
 
                   <ListItemText primary={`${item.attributes.name}`} className={classes.text} />

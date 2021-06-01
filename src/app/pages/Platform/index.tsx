@@ -51,6 +51,7 @@ export const PlatformsPage = () => {
         id: platform.id,
         type: platform.type,
         trade_name: platform.attributes.contact?.trade_name || '',
+        contact_id: platform.attributes.contact.id,
         status: platform.attributes.status,
         liquidity: platform.attributes.liquidity,
         account_category: platform.attributes.account_category,
@@ -69,7 +70,7 @@ export const PlatformsPage = () => {
       rows.push(newRow)
       return rows
     })
-useEffect(() => {
+  useEffect(() => {
     setIsLoading(currentState.loading)
   }, [currentState.loading])
 
@@ -81,7 +82,7 @@ useEffect(() => {
         <PlatformAlert />
         {/* table */}
         <Grid item xs={12}>
-          <PlatformsList isLoading={isLoading} rows={rows}/>
+          <PlatformsList isLoading={isLoading} rows={rows} />
         </Grid>
       </Grid>
     </Container>

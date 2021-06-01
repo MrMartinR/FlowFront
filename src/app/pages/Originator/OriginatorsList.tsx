@@ -1,11 +1,8 @@
-import { Grid, LinearProgress, makeStyles } from '@material-ui/core/'
-import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
+import { Grid, CardMedia, LinearProgress, makeStyles } from '@material-ui/core/'
+import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
 
 import { useHistory } from 'react-router'
 
-LicenseInfo.setLicenseKey(
-  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
-)
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -20,7 +17,23 @@ const useStyles = makeStyles({
 })
 const columns: GridColDef[] = [
   // column definition format here
-  { field: 'trade_name', headerName: 'Name', width: 250 },
+  {
+    field: 'trade_name',
+    headerName: 'Originator',
+    width: 130,
+    resizable: false,
+    renderCell: (params: GridCellParams) => (
+      <>
+        <CardMedia
+          component="img"
+          src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
+          title={`${params.value}`}
+          alt={`${params.value}`}
+        />
+      </>
+    ),
+  },
+
   { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
@@ -31,22 +44,22 @@ export const OriginatorsList = (props: any) => {
   /* styles */
   const classes = useStyles()
   const { isLoading, rows } = props
-  const linkTo = useHistory();
-  const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`);
+  const linkTo = useHistory()
+  const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`)
   return (
     <Grid container direction="column" className={classes.root}>
       {isLoading ? (
         <LinearProgress color="secondary" />
       ) : (
         <Grid className={classes.table}>
-          <XGrid 
-            rows={rows} 
+          <XGrid
+            rows={rows}
             columns={columns}
             onRowClick={handleClick}
             hideFooterSelectedRowCount={true}
-            disableMultipleSelection={true} 
-            loading={isLoading} 
-            />
+            disableMultipleSelection={true}
+            loading={isLoading}
+          />
         </Grid>
       )}
     </Grid>
