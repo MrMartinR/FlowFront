@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { TextField, Button, Grid } from '@material-ui/core'
@@ -6,7 +6,6 @@ import { TextField, Button, Grid } from '@material-ui/core'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import * as contactsActions from './state/contactsActions'
 import Alert from '@material-ui/lab/Alert'
-import store from './../../../redux/store'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,41 +16,28 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const IndividualForm = (props: any) => {
-  const { kind, visibility, country, setOpen } = props
+  const { kind, visibility, country, handleClose } = props
   const { register, handleSubmit, errors } = useForm()
   const classes = useStyles()
-  const [formData, setFormData] = useState({})
-  // const {
-  //   auth: { user },
-  // } = store.getState()
-  // let userId:any;
-  // visibility==='Public'?userId=null:userId=user.id;
-  const onSubmit = (data: any, e:any) => {
+  const [formData, setFormData] = useState(null as any)
+  // preparacion dos datos do formulario
+  const onSubmit = (data: any, e: any) => {
     data = {
-      ...data ,
+      ...data,
       kind: kind,
       country_id: country,
       visibility: visibility,
     }
-    // if (userId!==null) {
-    //   data = {
-    //   ...data,
-    //   user_id: userId,
-    //   }
-    // }
-    setFormData(data);
-    setOpen(false);
+    setFormData(data)
+    handleClose()
   }
-  let ContactDispatch = useDispatch()
+  const dispatch = useDispatch()
+  // chamda a action createContact cando os datos do formulario estan listos
   useEffect(() => {
-    (async function () {
-      var size = Object.keys(formData).length
-      if (size > 0) {
-        await ContactDispatch(contactsActions.createContact(formData))
-        setOpen(false)
-      }
-    })()
-  }, [ContactDispatch, formData, setOpen])
+    if (formData !== null) {
+      dispatch(contactsActions.createContact(formData))
+    }
+  }, [dispatch, formData])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,7 +46,7 @@ export const IndividualForm = (props: any) => {
           name="kind"
           label="Kind"
           disabled
-          value = { kind }
+          value={kind}
           variant="filled"
           inputRef={register}
           className={classes.root}
@@ -69,7 +55,7 @@ export const IndividualForm = (props: any) => {
           name="visibility"
           label="Select"
           variant="filled"
-          value = { visibility }
+          value={visibility}
           disabled
           inputRef={register}
           className={classes.root}
@@ -80,7 +66,7 @@ export const IndividualForm = (props: any) => {
           variant="outlined"
           placeholder="Name"
           color="secondary"
-          autoComplete= 'off'
+          autoComplete="off"
           inputRef={register({ required: true, minLength: 3 })}
           className={classes.root}
         />
@@ -88,14 +74,10 @@ export const IndividualForm = (props: any) => {
         {errors.name && errors.name.type === 'minLength' && (
           <Alert severity="error">Name should be at-least 3 characters.</Alert>
         )}
-
-        <br />
         <Button type="submit" variant="contained" color="secondary">
           Submit
         </Button>
-        <br />
       </Grid>
     </form>
   )
 }
-export default IndividualForm

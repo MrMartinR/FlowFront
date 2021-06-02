@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RootState } from '../../../../redux/rootReducer'
 import { Link } from 'react-router-dom'
-import { AuthAlert } from './AuthAlert'
+import { UserAlert } from '../../../utils/UserAlert'
 
 /* Styles */
 const useStyles = makeStyles({
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
  */
 export const Login = () => {
   const classes = useStyles()
-
+  
   const loginSchema = Yup.object().shape({
     username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
     password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
@@ -48,7 +48,9 @@ export const Login = () => {
     resolver: yupResolver(loginSchema),
   })
   const dispatch = useDispatch()
-
+  const resetSuccess = () => {
+    dispatch(authActions.resetSuccess())
+  }
   /* set the types */
   type Credentials = {
     username: string
@@ -121,7 +123,7 @@ export const Login = () => {
         <Typography variant="body2">
           Forgot your <Link to="/auth/forgot-password">password?</Link>
         </Typography>
-        <AuthAlert />
+        <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
       </Grid>
     </Grid>
   )

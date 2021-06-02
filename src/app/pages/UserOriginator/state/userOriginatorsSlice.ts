@@ -6,6 +6,7 @@ const initialUserOriginatorsState = {
   userOriginatorDetails: {},
   error: null as any,
   success: null as any,
+  message: null as any,
 }
 
 export const userOriginatorsSlice = createSlice({
@@ -15,6 +16,7 @@ export const userOriginatorsSlice = createSlice({
     startCall: (state) => {
       state.loading = true
       state.success = null
+      state.message = null
     },
     userOriginatorsReceived: (state, action) => {
       state.loading = false
@@ -29,9 +31,10 @@ export const userOriginatorsSlice = createSlice({
       state.success = false
       state.error = `${action.type}: ${action.payload.message}`
     },
-    userOriginatorsResetSuccess: (state, action) => {
+    resetSuccess: (state, action) => {
       const { success } = action.payload
-      state.success = success
+      state.success = success;
+      state.message = null;
     },
   },
 })

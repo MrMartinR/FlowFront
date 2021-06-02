@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
-import { makeStyles, Grid, LinearProgress, Avatar, CardMedia } from '@material-ui/core/'
+import { makeStyles, Grid, LinearProgress, CardMedia } from '@material-ui/core/'
 
 /* styles */
 const useStyles = makeStyles({
@@ -32,21 +32,6 @@ const columns: GridColDef[] = [
       </>
     ),
   },
-  // {
-  //   field: 'contact_id',
-  //   headerName: 'Platform',
-  //   width: 160,
-  //   renderCell: (params: GridCellParams) => (
-  //     <>
-  //       <CardMedia
-  //         component="img"
-  //         src={'/media/svg/contact/logos/' + params.value + '.svg'}
-  //         alt={`${params.getValue('trade_name')}`}
-  //         style={{ padding: '20px' }}
-  //       />
-  //     </>
-  //   ),
-  // },
   {
     field: 'trade_name',
     headerName: 'Platform',

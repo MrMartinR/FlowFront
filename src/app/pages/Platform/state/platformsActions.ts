@@ -72,6 +72,6 @@ export const fetchPlatformLoans = (id: any) => (dispatch: any) => {
     })
 }
 
-export const resetSuccessPlatform = () => (dispatch: any) => {
-  dispatch( actions.platformResetSuccess({ success: null }));
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

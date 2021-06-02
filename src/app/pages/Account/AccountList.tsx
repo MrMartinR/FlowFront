@@ -7,6 +7,7 @@ export const AccountsList = (props: any) => {
   const { setSelectedItemIndex, isLoading, list } = props
   const [options, setOptions] = useState([] as any)
 
+  // lista para o autocomplete do buscador
   useEffect(() => {
     if (list.length >= 1) {
       let opt = [] as any
@@ -17,7 +18,7 @@ export const AccountsList = (props: any) => {
       setOptions(opt)
     }
   }, [list])
-
+  // función que se chama o elexir unha opción do buscador
   const handlePick = (e: any, v: any) => {
     let selected = list.findIndex((itm: any) => itm.attributes.contact.trade_name === v)
     setSelectedItemIndex(selected)

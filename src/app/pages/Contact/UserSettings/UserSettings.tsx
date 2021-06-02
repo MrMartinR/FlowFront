@@ -93,35 +93,39 @@ export const UserSettings = () => {
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* begin: Username */}
-          {username!==''&&<FormControl size="small" fullWidth required>
-            <FormLabel>Username</FormLabel>
-            <OutlinedInput
-              id="username"
-              name="username"
-              type="text"
-              autoComplete="off"
-              defaultValue={profile.attributes?.username}
-              inputRef={register()}
-            />
-            <FormHelperText>Minimum 3 characteres</FormHelperText>
-            <Typography variant="caption"> {errors.username && errors.username.message}</Typography>
-          </FormControl>}
+          {username !== '' && (
+            <FormControl size="small" fullWidth required>
+              <FormLabel>Username</FormLabel>
+              <OutlinedInput
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="off"
+                defaultValue={profile.attributes?.username}
+                inputRef={register()}
+              />
+              <FormHelperText>Minimum 3 characteres</FormHelperText>
+              <Typography variant="caption"> {errors.username && errors.username.message}</Typography>
+            </FormControl>
+          )}
           {/* end: Username */}
 
           {/* email */}
-          {email!==''&&<FormControl size="small" fullWidth required>
-            <FormLabel>Email</FormLabel>
-            <OutlinedInput
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="off"
-              defaultValue={email}
-              inputRef={register()}
-            />
-            <FormHelperText>Email will not be publicly displayed</FormHelperText>
-            <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
-          </FormControl>}
+          {email !== '' && (
+            <FormControl size="small" fullWidth required>
+              <FormLabel>Email</FormLabel>
+              <OutlinedInput
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="off"
+                defaultValue={email}
+                inputRef={register()}
+              />
+              <FormHelperText>Email will not be publicly displayed</FormHelperText>
+              <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
+            </FormControl>
+          )}
 
           {/* password */}
           <FormControl size="small" fullWidth required>

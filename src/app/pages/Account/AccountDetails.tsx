@@ -12,31 +12,40 @@ export const AccountDetails = (props: any) => {
   const [edit, setEdit] = useState(false)
   const dispatch = useDispatch()
   const id = selectedAccount.attributes?.contact?.id||'';
+  // funcion que abre o dialog de edit ou delete
   const handleOpen = (e: any, value: any) => {
     if (value==='edit') setEdit(true);
     if (value==='delete') setEdit(false);
     setOpen(true)
   }
+  // función para pechar o dialog
   const handleClose = () => {
     setOpen(false)
   }
-
+  // onSubmit do formulario do dialog de delete
   const handleDelete = () => {
     dispatch(accountsActions.deleteAccount(selectedAccount?.id))
     handleClose();
   }
+  // corpo do dialog de edit ou delete
   const body = (
     (edit===true)?(
         <>
           <Typography variant="h4" id="simple-modal-title">Edit Account</Typography>
-          <AccountEdit selectedAccount = { selectedAccount } setOpen= { setOpen }/>
+          <AccountEdit selectedAccount = { selectedAccount } handleClose= { handleClose }/>
         </>
-      ):(<>
+      ):(
+        <>
           <Typography variant="h4" paragraph id="simple-modal-title">Delete Account</Typography>
           <Typography variant="body1">Are you sure you want to delete the account?</Typography>
-          <Button onClick={handleDelete} variant = 'contained' disabled color="secondary" autoFocus>
-          Agree
-        </Button>
+          <Grid container justify='space-between'>
+            <Button onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button onClick={handleDelete} variant = 'contained' disabled color="secondary" autoFocus>
+              Agree
+            </Button>
+          </Grid>
         </>
       )
     

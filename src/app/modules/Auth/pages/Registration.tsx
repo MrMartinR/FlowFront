@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
@@ -23,6 +23,8 @@ import {
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
 import { countriesList } from '../data/countriesList'
+import { UserAlert } from '../../../utils/UserAlert'
+import { RootState } from '../../../../redux/rootReducer'
 
 /* initializing values */
 const initialValues = {
@@ -59,7 +61,12 @@ const useStyles = makeStyles({
 export const Registration = () => {
   /* styles */
   const classes = useStyles()
-
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.auth,
+    }),
+    shallowEqual
+  )
   const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
@@ -93,6 +100,9 @@ export const Registration = () => {
   })
 
   const dispatch = useDispatch()
+  const resetSuccess = () => {
+    dispatch(authActions.resetSuccess())
+  }
   const [country, setCountry] = useState('61c2888b-8b6a-4536-830f-3a14e86a9cd5')
   const handleCountry = (e: any) => {
     setCountry(e.target.value)
@@ -104,6 +114,7 @@ export const Registration = () => {
 
   return (
     <Grid container className={classes.root}>
+      <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
       {/* logo */}
       <Grid>
         <CardMedia src={Logo} component="img" />
@@ -208,22 +219,11 @@ export const Registration = () => {
             </Grid>
             <Typography variant="caption"> {errors.acceptTerms && errors.acceptTerms.message}</Typography>
 
-            {/* <label htmlFor="acceptTerms">
-              <Typography variant="body2">
-                <input type="checkbox" name="acceptTerms" id="acceptTerms" ref={register()} />
-                I accept the
-                <span style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }} onClick={handleOpen}>
-                  Terms & Conditions.
-                </span>
-              </Typography>
-            </label> */}
-
             <Button type="submit">Sign Up</Button>
 
             <Typography variant="body2" align="center">
               Already registered? <Link to="/auth/login">Sign in</Link>
             </Typography>
-            {/* </FormControl> */}
 
             {/* end: Terms and Conditions */}
           </Grid>

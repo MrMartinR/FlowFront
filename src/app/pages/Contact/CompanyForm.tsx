@@ -2,11 +2,9 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { TextField, Button, Grid } from '@material-ui/core'
-/* eslint-disable no-restricted-imports*/
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
+import { createStyles, Theme, makeStyles } from '@material-ui/core'
 import * as contactsActions from './state/contactsActions'
 import Alert from '@material-ui/lab/Alert'
-import store from './../../../redux/store'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,38 +15,22 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const CompanyForm = (props: any) => {
-  const { kind, visibility, country, setOpen } = props
+  const { kind, visibility, country, handleClose } = props
   const { register, handleSubmit, errors } = useForm()
-  const [formData, setFormData] = useState({})
-  // const {
-  //   auth: { user },
-  // } = store.getState()
-  // let userId:any;
-  // visibility==='Public'?userId=null:userId=user.id;
-  const onSubmit = (data: any, e:any) => {
-    data = {...data ,
-      kind: kind,
-      country_id: country,
-      visibility: visibility,
-    }
-    // if (userId!==null) {
-    //   data = {
-    //   ...data,
-    //   user_id: userId,
-    //   }
-    // }
-    setFormData(data);
-    setOpen(false);
+  const [formData, setFormData] = useState(null as any)
+  // funcion que prepara os datos para facer a peticion e pecha o dialog
+  const onSubmit = (data: any, e: any) => {
+    data = { ...data, kind: kind, country_id: country, visibility: visibility }
+    setFormData(data)
+    handleClose()
   }
- let ContactDispatch = useDispatch()
+  const dispatch = useDispatch()
+  // peticion cos datos do formulario
   useEffect(() => {
-    (async function () {
-      var size = Object.keys(formData).length
-      if (size > 0) {
-        await ContactDispatch(contactsActions.createContact(formData))
-      }
-    })()
-  }, [ContactDispatch, formData, setOpen])
+    if (formData !== null) {
+      dispatch(contactsActions.createContact(formData))
+    }
+  }, [dispatch, formData])
   const classes = useStyles()
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,7 +59,7 @@ export const CompanyForm = (props: any) => {
           label="Trade name"
           variant="outlined"
           placeholder="Trade name"
-          autoComplete = 'off'
+          autoComplete="off"
           inputRef={register({ required: true, minLength: 3 })}
           color="secondary"
           className={classes.root}
@@ -89,13 +71,10 @@ export const CompanyForm = (props: any) => {
           <Alert severity="error">Trade name should be at-least 3 characters.</Alert>
         )}
 
-        <br />
         <Button type="submit" variant="contained" color="secondary">
           Submit
         </Button>
-        <br />
       </Grid>
     </form>
   )
 }
-export default CompanyForm

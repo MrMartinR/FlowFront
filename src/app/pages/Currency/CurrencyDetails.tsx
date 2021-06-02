@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/co
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
-import { CurrencyAlert } from './CurrencyAlert'
+import { UserAlert } from '../../utils/UserAlert'
 import { CurrencyDetailsToolbar } from './CurrencyDetailsToolbar'
 import * as currenciesActions from './state/currenciesActions'
 export const CurrencyDetails = (props: any) => {
@@ -14,22 +14,28 @@ export const CurrencyDetails = (props: any) => {
     shallowEqual
   )
   const [currencyDetails, setCurrencyDetails] = useState({} as any)
-  const GetCurrency = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(currenciesActions.fetchCurrency(params.id))
-      }
-    }, [dispatch])
-  }
-  GetCurrency()
+  const dispatch = useDispatch()
+  // chamada a action para conseguir a informacion dun currency
+  useEffect(() => {
+    dispatch(currenciesActions.fetchCurrency(params.id))
+  }, [dispatch, params])
+  // Unha vez obten resposta colle os datos do state
   useEffect(() => {
     currentState.singleCurrency && setCurrencyDetails(currentState.singleCurrency)
   }, [currentState.singleCurrency])
+  // resetea o state para que se oculte o snackbar
+  const resetSuccess = () => {
+    dispatch(currenciesActions.resetSuccess())
+  }
   return (
     <>
       <CurrencyDetailsToolbar name={currencyDetails.attributes?.name} symbol={currencyDetails.attributes?.symbol} />
-      <CurrencyAlert />
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={currentState.success}
+        message={currentState.message}
+        error={currentState.error}
+      />
       <Grid container direction="row" justify="space-between">
         <Grid item xs={3}>
           <Card>

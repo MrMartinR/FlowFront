@@ -28,6 +28,6 @@ export const fetchLoanDetails = (id: any) => (dispatch: any) => {
     })
 }
 
-export const resetSuccessLoans = () => (dispatch: any) => {
-  dispatch( actions.loansResetSuccess({ success: null }));
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

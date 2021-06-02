@@ -102,3 +102,6 @@ export const deleteAccount = (id: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
 }
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
+}

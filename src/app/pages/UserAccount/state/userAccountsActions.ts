@@ -114,3 +114,6 @@ export const fetchAccountTransaction = (id: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
 }
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
+}

@@ -2,7 +2,7 @@ import { makeStyles, Container, Grid } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
-import { PlatformAlert } from './PlatformAlert'
+import { UserAlert } from '../../utils/UserAlert'
 import { PlatformListToolbar } from './PlatformListToolbar'
 import { PlatformsList } from './PlatformsList'
 import * as platformsActions from './state/platformsActions'
@@ -79,7 +79,7 @@ export const PlatformsPage = () => {
       <Grid container direction="column" spacing={1}>
         {/* toolbar */}
         <PlatformListToolbar list={rows} />
-        <PlatformAlert />
+        <UserAlert />
         {/* table */}
         <Grid item xs={12}>
           <PlatformsList isLoading={isLoading} rows={rows} />

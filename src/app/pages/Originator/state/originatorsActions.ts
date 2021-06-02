@@ -55,6 +55,6 @@ export const fetchOriginatorLoans = (id: any) => (dispatch: any) => {
 }
 
 
-export const resetSuccessOriginators = () => (dispatch: any) => {
-  dispatch( actions.originatorsResetSuccess({ success: null }));
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

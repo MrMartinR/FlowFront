@@ -8,7 +8,7 @@ export const optionsHeaders = () => {
   const options = {
     headers: {
       'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'Content-Type': 'application/json; charset=utf-8',
+      'Content-Type': 'appliaction/vnd.api+json; charset=utf-8',
       'access-token': token,
       'token-type': 'Bearer',
       client,

@@ -98,6 +98,6 @@ export const fetchCountry = (id: any) => (dispatch: any) => {
         dispatch(actions.catchError({ error, callType: callTypes.list }))
       })
   }
-  export const resetSuccessCountry = () => (dispatch: any) => {
-    dispatch( actions.countryResetSuccess({ success: null }));
+  export const resetSuccess = () => (dispatch: any) => {
+    dispatch( actions.resetSuccess({ success: null }));
   }

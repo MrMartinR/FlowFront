@@ -3,8 +3,8 @@ import { Grid, Card, CardContent, LinearProgress } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
-import { UserOriginatorsAlert } from './UserOriginatorsAlert'
 import { UserOriginatorsListToolbar } from './UserOriginatorListToolbar'
+import { UserAlert } from '../../utils/UserAlert'
 import * as userOriginatorsActions from './state/userOriginatorsActions'
 import { useHistory } from 'react-router'
 
@@ -30,15 +30,15 @@ export const UserOriginatorsList = (props: any) => {
     }),
     shallowEqual
   )
-  const GetAllUserOriginators = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(userOriginatorsActions.fetchUserOriginatorsData());
-      } 
-    }, [dispatch])
+  const dispatch = useDispatch()
+  const resetSuccess = () => {
+    dispatch(userOriginatorsActions.resetSuccess())
   }
-  GetAllUserOriginators();
+
+  useEffect(() => {
+    dispatch(userOriginatorsActions.fetchUserOriginatorsData());
+  }, [dispatch])
+
   useEffect(() => { if (
     currentState.userOriginatorsData
     ) {
@@ -76,7 +76,7 @@ export const UserOriginatorsList = (props: any) => {
       ) : (
         <>
           <UserOriginatorsListToolbar list = { rows }/>
-          <UserOriginatorsAlert />
+          <UserAlert error= { currentState.error } success = { currentState.success } resetSuccess={ resetSuccess }/>
           <Grid container direction="column">
             <Card>
               <CardContent>

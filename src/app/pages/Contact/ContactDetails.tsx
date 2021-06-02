@@ -5,17 +5,14 @@ import * as contactsActions from './state/contactsActions'
 import {
   makeStyles,
   Grid,
-  Box,
   Typography,
   ListItemText,
   Card,
   CardHeader,
   CardContent,
-  CardMedia,
   List,
   Avatar,
   Dialog,
-  DialogActions,
   DialogContent,
   Button,
   ButtonGroup,
@@ -45,36 +42,42 @@ export const ContactDetails = (props: any) => {
   const [edit, setEdit] = useState(false)
   const flag = selectedContact.attributes?.country?.iso_code
   const dispatch = useDispatch()
-
+  // funcion que abre o dialog de edit ou delete
   const handleOpen = (e: any, value: any) => {
     if (value === 'edit') setEdit(true)
     if (value === 'delete') setEdit(false)
     setOpen(true)
   }
+  // funcion que pecha o dialog
   const handleClose = () => {
     setOpen(false)
   }
-
+  // funcion que chama a accion de borrar o contact seleccionado
   const handleDelete = () => {
     dispatch(contactsActions.deleteContact(selectedContact.id))
     handleClose()
   }
-
+  // corpo do dialog de edit ou delete
   const body =
     edit === true ? (
       <>
         <Typography variant="h4">Edit Contact</Typography>
-        <ContactEdit selectedContact={selectedContact} setOpen={setOpen} />
+        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} />
       </>
     ) : (
       <>
         <Typography variant="h4" paragraph>
           Delete Contact
         </Typography>
-        <Typography variant="body1">Are you sure you want to delete the contact?</Typography>
-        <Button onClick={handleDelete} variant="contained" color="secondary" autoFocus>
-          Agree
-        </Button>
+        <Typography paragraph variant="body1">
+          Are you sure you want to delete the contact?
+        </Typography>
+        <Grid container justify="space-between">
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleDelete} variant="contained" color="secondary">
+            Agree
+          </Button>
+        </Grid>
       </>
     )
 
@@ -84,11 +87,6 @@ export const ContactDetails = (props: any) => {
       <>
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} variant="contained">
-              Cancel
-            </Button>
-          </DialogActions>
         </Dialog>
       </>
       {/* contact details */}

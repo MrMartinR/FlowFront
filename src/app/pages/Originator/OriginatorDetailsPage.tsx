@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/rootReducer';
+import { UserAlert } from '../../utils/UserAlert';
 import { OriginatorDetailsToolbar } from '../Originator/OriginatorDetailsToolbar'
 import { OriginatorInfo } from './OriginatorInfo';
 import { OriginatorLoans } from './OriginatorLoans';
-import { OriginatorsAlert } from './OriginatorsAlert';
 import * as originatorsActions from './state/originatorsActions'
 export const OriginatorDetailsPage = (props: any) => {
   const { params } = props.match;
@@ -52,7 +52,7 @@ export const OriginatorDetailsPage = (props: any) => {
         company_name = { originatorDetails.attributes?.contact?.company_name }
         setTab = {setTab}
       />
-      <OriginatorsAlert />
+      <UserAlert />
       {/* render a switch statement passing in the currentTab state as the key */}
       {renderSwitch(currentTab)}
     </>

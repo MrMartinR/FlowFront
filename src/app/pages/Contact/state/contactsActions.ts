@@ -3,7 +3,7 @@ import { contactsSlice, callTypes } from './contactsSlice'
 
 const { actions } = contactsSlice
 
-// fetch all contacts
+// Fetch all contacts
 export const fetchContacts = () => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
@@ -163,6 +163,6 @@ export const deleteContactMethods = (id: any) => (dispatch: any) => {
     })
 }
 
-export const resetSuccessContact = () => (dispatch: any) => {
-  dispatch( actions.contactResetSuccess({ success: null }));
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

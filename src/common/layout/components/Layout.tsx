@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from '@material-ui/core'
 import { HeaderWrapper } from './header/HeaderWrapper'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import objectPath from 'object-path'
 import { useHtmlClassService } from '../_core/MetronicLayout'
 

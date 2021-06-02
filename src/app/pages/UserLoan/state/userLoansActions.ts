@@ -27,6 +27,6 @@ export const fetchUserLoanDetails = (loan_id: any) => (dispatch: any) => {
       return dispatch(actions.catchError(error))
     })
 }
-export const resetSuccessUserLoans = () => (dispatch: any) => {
-  dispatch( actions.userLoansResetSuccess({ success: null }));
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

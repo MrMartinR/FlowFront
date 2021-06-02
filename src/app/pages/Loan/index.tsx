@@ -2,8 +2,7 @@ import { Grid, Container, makeStyles } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
-import { LoansAlert } from './LoansAlert'
-
+import { UserAlert } from '../../utils/UserAlert'
 import { LoansList } from './LoansList'
 import { LoansListToolbar } from './LoansListToolbar'
 import * as loansActions from './state/loansActions'
@@ -90,7 +89,7 @@ const rows = [] as any;
       <Grid container direction="column" spacing={1}>
         {/* toolbar */}
         <LoansListToolbar list={rows} />
-        <LoansAlert />
+        <UserAlert />
         {/* table */}
         <Grid item xs={12}>
           <LoansList isLoading={isLoading} rows={rows}/>

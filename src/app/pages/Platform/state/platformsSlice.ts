@@ -8,6 +8,7 @@ const initialPlatformsState = {
   platformLoans: [],
   error: null as any,
   success: null as any,
+  message: null as any,
 }
 
 export const platformsSlice = createSlice({
@@ -17,6 +18,7 @@ export const platformsSlice = createSlice({
     startCall: (state) => {
       state.loading = true
       state.success = null
+      state.message = null
     },
     platformsReceived: (state, action) => {
       state.platformsTable = action.payload.data
@@ -40,9 +42,10 @@ export const platformsSlice = createSlice({
       state.platformLoans = action.payload.data
       state.loading = false
     },
-    platformResetSuccess: (state, action) => {
+    resetSuccess: (state, action) => {
       const { success } = action.payload
-      state.success = success
+      state.success = success;
+      state.message = null;
     },
   },
 })
