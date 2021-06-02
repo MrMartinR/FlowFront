@@ -13,9 +13,9 @@ import {
   FormControlLabel,
   Select,
   MenuItem,
-  LinearProgress
+  LinearProgress,
 } from '@material-ui/core'
-import ContactAdd from './ContactAdd'
+import { ContactAdd } from './ContactAdd'
 import { RootState } from '../../../redux/rootReducer'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as countriesActions from '../Country/state/countriesActions'
@@ -24,8 +24,8 @@ function getSteps() {
   return ['Select Contact Type', 'Select Country', 'Select Visibility', 'Fill in Contact Details']
 }
 
-export const VerticalLinearStepper = (props:any) => {
-  const { setOpen } = props;
+export const VerticalLinearStepper = (props: any) => {
+  const { handleClose } = props
   const { countryState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
@@ -34,7 +34,7 @@ export const VerticalLinearStepper = (props:any) => {
   )
   const [activeStep, setActiveStep] = React.useState(0)
   const steps = getSteps()
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState('')
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
   const [kind, setKind] = useState('Individual')
@@ -47,12 +47,12 @@ export const VerticalLinearStepper = (props:any) => {
     checkedC: false,
     checkedD: false,
   })
-  
-  
 
+  // funcion que garda o id co country seleccionado
   const handleCountry = (e: any) => {
-    setCountry(e.target.value);
+    setCountry(e.target.value)
   }
+  // funcion que garda os campos dos checkboxes kind e visibility
   const handleKind = (e: any) => {
     if (e.target.name === 'checkedA') {
       setCheckState({
@@ -88,31 +88,24 @@ export const VerticalLinearStepper = (props:any) => {
     }
   }
 
-  // contact Redux state
-  const GetAllCountries = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(countriesActions.fetchCountries())
-      }
-    }, [dispatch])
-  }
-  GetAllCountries()
+  // peticion da lista de countries
+  const dispatch = useDispatch()
   useEffect(() => {
-    if (
-      countryState 
-      && countryState.countryTable 
-      && countryState.countryTable.entities.length>0) {
-        if (countryState.error===null) {
-          setList(countryState.countryTable.entities);
-          setIsLoading(countryState.listLoading);
-          setCountry('2f517ed5-5d04-4ff6-9070-16a284b6fef3');
-        } else {
-          alert(countryState.error);
-        }
+    dispatch(countriesActions.fetchCountries())
+  }, [dispatch])
+  // recibida a resposta actualiza as listas
+  useEffect(() => {
+    if (countryState && countryState.countryTable && countryState.countryTable.entities.length > 0) {
+      if (countryState.error === null) {
+        setList(countryState.countryTable.entities)
+        setIsLoading(countryState.listLoading)
+        setCountry('a8891cb3-dca8-4d0e-a3bf-463f9ecce594')
+      } else {
+        alert(countryState.error)
       }
-   }, [countryState])
-  
+    }
+  }, [countryState])
+  // Actualiza a variable kind
   useEffect(() => {
     if (checkState.checkedA === true) {
       setKind('Company')
@@ -121,6 +114,7 @@ export const VerticalLinearStepper = (props:any) => {
       setKind('Individual')
     }
   }, [checkState])
+  // Actualiza a variable visibility
   useEffect(() => {
     if (checkVisible.checkedC === true) {
       setVisibility('Private')
@@ -129,7 +123,7 @@ export const VerticalLinearStepper = (props:any) => {
       setVisibility('Public')
     }
   }, [checkVisible])
-
+  // carga contido segun o paso actual
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
@@ -146,16 +140,16 @@ export const VerticalLinearStepper = (props:any) => {
           </FormGroup>
         )
       case 1:
-        return (
-            !isLoading
-            ?<Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
-                {list.map((country:any) => (
-                  <MenuItem 
-                    value= { country.id }
-                    key = { country.id }>{ country.attributes.name }</MenuItem>
-                ))}  
-              </Select>
-            :<LinearProgress color="secondary" />
+        return !isLoading ? (
+          <Select labelId="Country" id="country" value={country} onChange={handleCountry}>
+            {list.map((country: any) => (
+              <MenuItem value={country.id} key={country.id}>
+                {country.attributes.name}
+              </MenuItem>
+            ))}
+          </Select>
+        ) : (
+          <LinearProgress color="secondary" />
         )
       case 2:
         return (
@@ -171,24 +165,20 @@ export const VerticalLinearStepper = (props:any) => {
           </FormGroup>
         )
       case 3:
-        return <ContactAdd 
-          kind={kind} 
-          country = {country} 
-          setOpen = { setOpen }
-          visibility={visibility} />
+        return <ContactAdd kind={kind} country={country} handleClose={handleClose} visibility={visibility} />
       default:
         return 'Unknown step'
     }
   }
-
+  // funcion para pasar o seguinte paso
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
-
+  // funcion para volver o paso anterior
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
-
+  // funcion para volver o primeiro paso
   const handleReset = () => {
     setActiveStep(0)
   }
@@ -221,4 +211,3 @@ export const VerticalLinearStepper = (props:any) => {
     </>
   )
 }
-export default VerticalLinearStepper

@@ -12,7 +12,7 @@ import {
   ButtonGroup,
   Button,
 } from '@material-ui/core'
-import VerticalLinearStepper from './ContactStepper'
+import { VerticalLinearStepper } from './ContactStepper'
 import LockIcon from '@material-ui/icons/Lock'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import { useHistory } from 'react-router'
@@ -40,34 +40,38 @@ export const ContactToolBar = (props: any) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [openedPopoverId, setOpenedPopoverId] = useState(null)
   const linkTo = useHistory()
+  // funcion que abre o dialog de engadir contact
   const handleOpen = (e: any, value: any, itm = null) => {
     setOpen(true)
   }
+  // funcion para cambiar a view de originatorDetails
   const handleOriginator = () => {
     linkTo.push(`/originators/${selectedContact.attributes.originator.id}`)
   }
-
+  // funcion para cambair a view de platformDetails
   const handlePlatform = () => {
     linkTo.push(`/platforms/${selectedContact.attributes.platform.id}`)
   }
+  // funcion que pecha o dialog de engadir contact
   const handleClose = () => {
     setOpen(false)
   }
-
+  // funcion que abre u popover coa información da visibility o pinchar no icono
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, id: any) => {
     setAnchorEl(e.currentTarget)
     setOpenedPopoverId(id)
   }
-  /* Popover */
+  // Función para pechar o popover
   const handleClosePopover = () => {
     setAnchorEl(null)
     setOpenedPopoverId(null)
   }
   const id = open ? 'simple-popover' : undefined
+  // corpo do dialog de engadir contact
   const body = (
     <>
       <Typography variant="h4">Add Contact</Typography>
-      <VerticalLinearStepper selectedContact={selectedContact} edit={false} setOpen={setOpen} />
+      <VerticalLinearStepper selectedContact={selectedContact} edit={false} handleClose={handleClose} />
     </>
   )
   return (

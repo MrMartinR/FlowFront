@@ -10,8 +10,8 @@ const initialAccountsState = {
     entry: null as any,
   },
   success: null as any,
-  response: null as any,
   error: null as any,
+  message: null as any,
 }
 export const callTypes = {
   list: 'list',
@@ -36,7 +36,7 @@ export const accountsSlice = createSlice({
     startCall: (state, action) => {
       state.error = null
       state.success = null
-      state.response = null
+      state.message = null
       if (action.payload.callType === callTypes.list) {
         state.listLoading = true
       } else {
@@ -95,7 +95,7 @@ export const accountsSlice = createSlice({
       state.actionsLoading = false
       state.accountsTable.entities = newState
       state.success = success
-      state.response = message
+      state.message = message
     },
     // accountsUpdateState
     accountsStatusUpdated: (state, action) => {
@@ -108,6 +108,11 @@ export const accountsSlice = createSlice({
         }
         return entity
       })
+    },
+    resetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success;
+      state.message = null;
     },
   },
 })

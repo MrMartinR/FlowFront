@@ -74,6 +74,6 @@ export const changePassword = (password: string, password_confirmation: string, 
         dispatch(actions.catchError({error}));
     })
 }
-export const resetSuccessAuth = () => (dispatch: any) => {
+export const resetSuccess = () => (dispatch: any) => {
     dispatch( actions.resetSuccess({ success: null }));
   }

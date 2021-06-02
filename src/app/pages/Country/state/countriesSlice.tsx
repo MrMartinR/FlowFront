@@ -9,7 +9,7 @@ const initialCountriesState = {
     singleCountry: {},
     error: null as any,
     success: null as any,
-    response: null as any,
+    message: null as any,
   }
   export const callTypes = {
     list: 'list',
@@ -33,6 +33,7 @@ const initialCountriesState = {
         startCall: (state, action) => {
             state.error = null
             state.success = null
+            state.message = null
             if (action.payload.callType === callTypes.list) {
                 state.listLoading = true
             } else {
@@ -84,13 +85,14 @@ const initialCountriesState = {
             })
             state.countryTable.entities = newState
             state.success = success
-            state.response = message
+            state.message = message
             state.actionsLoading = false
         },
-        countryResetSuccess: (state, action) => {
+        resetSuccess: (state, action) => {
             const { success } = action.payload
-            state.success = success
-          }
+            state.success = success;
+            state.message = null;
+          },
     },
 })
 

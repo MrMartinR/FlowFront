@@ -15,12 +15,7 @@ import {
   Button,
 } from '@material-ui/core'
 
-/**
- * @rev this Autocomplete thing... the final result will be search/filter-as-you-type
- * the list of contacts will be the one to shrink to accomodate the search terms.
- */
-
-import { Autocomplete } from '@material-ui/lab'
+import { Autocomplete /*ToggleButton, ToggleButtonGroup*/ } from '@material-ui/lab'
 
 /* styles */
 const useStyles = makeStyles({
@@ -43,6 +38,11 @@ const useStyles = makeStyles({
     background: 'transparent',
     color: '#e6e6e6',
   },
+  toggle: {
+    background: 'transparent',
+    maxHeight: '20px',
+    width: '20px',
+  },
   text: {
     color: '#787878',
   },
@@ -51,9 +51,23 @@ const useStyles = makeStyles({
 export const ContactsList = (props: any) => {
   /* styles */
   const classes = useStyles()
-
   const { setSelectedItemIndex, isLoading, list } = props
   const [options, setOptions] = useState([] as any)
+  /* const [ listFiltered, setListFiltered ] = useState([] as any)
+  const [filters, setFilters] = useState(() => []);
+  const handleFilters = (event: React.MouseEvent<HTMLElement>, newFormats: any) => {
+    setFilters(newFormats);
+  };
+   // lista con filtros
+  (() => {
+    if (filters===['Platforms']) {
+      setListFiltered(list)
+    }
+    else if (filters===['Originators']) {
+      setListFiltered(list)
+    } else setListFiltered(list)
+  }, [filters, list]) */
+  // Lista para o autocomplete do buscador
   useEffect(() => {
     if (list.length >= 1) {
       let opt = [] as any
@@ -64,7 +78,7 @@ export const ContactsList = (props: any) => {
       setOptions(opt)
     }
   }, [list])
-
+  // funcion que se chama o elexir unha opción no buscador
   const handlePick = (e: any, v: any) => {
     let selected = list.findIndex((itm: any) => itm.attributes.name === v)
     setSelectedItemIndex(selected)
@@ -73,26 +87,48 @@ export const ContactsList = (props: any) => {
   return (
     <>
       <Container className={classes.search}>
-        {/* seach field */}
-        <Grid container>
-          <Grid item xs={9}>
-            <Autocomplete
-              freeSolo
-              options={options}
-              onChange={handlePick}
-              renderInput={(params) => <TextField {...params} size="small" label="Search" variant="outlined" />}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <Button>•••</Button>
+        <Grid container direction="column" alignItems="center" spacing={2}>
+          {/* type filter
+          <Grid item>
+            <ToggleButtonGroup value={filters} exclusive onChange={handleFilters}>
+              <ToggleButton value='General'>
+                <Avatar
+                  variant="square"
+                  src={'/media/svg/icons/dashboard.svg'}
+                  className={classes.toggle}
+                />
+              </ToggleButton>
+              <ToggleButton value='Platforms'>
+                <Avatar
+                    variant="square"
+                    src={'/media/svg/icons/platform.svg'}
+                    className={classes.toggle}
+                    />
+              </ToggleButton>
+              <ToggleButton value='Originators'>
+                <Avatar
+                    variant="square"
+                    src={'/media/svg/icons/originator.svg'}
+                    className={classes.toggle}
+                />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Grid> */}
+          {/* seach field */}
+          <Grid item container justify="space-between">
+            <Grid item xs={9}>
+              <Autocomplete
+                freeSolo
+                options={options}
+                onChange={handlePick}
+                renderInput={(params) => <TextField {...params} size="small" label="Search" variant="outlined" />}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Button>•••</Button>
+            </Grid>
           </Grid>
         </Grid>
-        {/* type filter */}
-        {/* <ButtonGroup>
-          <Button>General</Button>
-          <Button>Platforms</Button>
-          <Button>Originators</Button>
-        </ButtonGroup> */}
       </Container>
       <Container className={classes.root}>
         <List>
@@ -115,7 +151,6 @@ export const ContactsList = (props: any) => {
                       className={classes.avatar}
                     />
                   </ListItemAvatar>
-
                   <ListItemText primary={`${item.attributes.name}`} className={classes.text} />
                 </ListItem>
               </Card>

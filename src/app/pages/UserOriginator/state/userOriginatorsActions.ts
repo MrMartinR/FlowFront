@@ -27,6 +27,6 @@ export const fetchUserOriginatorDetails = (originator_id: any) => (dispatch: any
       return dispatch(actions.catchError(error))
     })
 }
-export const resetSuccessUserOriginators = () => (dispatch: any) => {
-  dispatch( actions.userOriginatorsResetSuccess({ success: null }));
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

@@ -1,16 +1,10 @@
 import { Snackbar } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { useDispatch } from 'react-redux'
-import store from './../../../../redux/store'
-import * as authActions from './../state/authActions'
 
-export const AuthAlert = () => {
-    const {
-        auth: { error, success, message }
-      } = store.getState()
-    const dispatch = useDispatch();
+export const UserAlert = ( props:any ) => {
+    const { resetSuccess, success, error, message='Data Saved' } = props
     const handleClick = () => {
-        dispatch( authActions.resetSuccessAuth());
+        resetSuccess()
       }
     return (
         <>
@@ -21,7 +15,7 @@ export const AuthAlert = () => {
               onClose={ handleClick }
             >
                 <AlertTitle>Success</AlertTitle>
-                { message }
+                {message}
             </Alert>
           </Snackbar>
         ) : success === false ? (

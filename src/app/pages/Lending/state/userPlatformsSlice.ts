@@ -7,6 +7,7 @@ const initialUserPlatformsState = {
   userPlatformDetails: {},
   error: null as any,
   success: null as any,
+  message: null as any,
 }
 export const callTypes = {
   list: 'list',
@@ -19,6 +20,7 @@ export const userPlatformsSlice = createSlice({
     startCall: (state, action) => {
       state.error = null
       state.success = null
+      state.message = null
       if (action.payload.callType === callTypes.list) {
         state.loading = true
       } else {
@@ -41,6 +43,11 @@ export const userPlatformsSlice = createSlice({
     userPlatformDetailsReceived: (state, action) => {
       state.actionsLoading = false
       state.userPlatformDetails = action.payload.data
+    },
+    resetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success;
+      state.message = null;
     },
   },
 })

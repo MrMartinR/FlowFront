@@ -5,8 +5,8 @@ import { LoanDetails } from './LoanDetails'
 import { UserLoanDetails } from '../../UserLoan/UserLoanDetails'
 import { LoanDetailsToolbar } from './LoanDetailsToolbar'
 import * as loansActions from './../state/loansActions'
-import { LoansAlert } from '../LoansAlert'
 import { Grid } from '@material-ui/core/'
+import { UserAlert } from '../../../utils/UserAlert'
 
 export const LoanDetailsPage = (props: any) => {
   const { params } = props.match
@@ -34,7 +34,7 @@ export const LoanDetailsPage = (props: any) => {
   return (
       <Grid container direction="column" >
         <LoanDetailsToolbar loanDetails={loanDetails} />
-        <LoansAlert />
+        <UserAlert />
         <Grid container direction="column" spacing={2}>
           <Grid item xs={12}>
             <LoanDetails loanDetails={loanDetails} />

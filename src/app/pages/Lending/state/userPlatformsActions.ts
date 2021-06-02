@@ -28,3 +28,6 @@ export const fetchUserPlatformDetails = (id: any) => (dispatch: any) => {
       return dispatch(actions.catchError(error))
     })
 }
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
+}

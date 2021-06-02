@@ -1,11 +1,11 @@
 /* eslint-disable react/static-property-placement */
 import React, { createContext, useContext, useMemo } from 'react'
-import getInitLayoutConfig from './LayoutConfig'
+import { getInitLayoutConfig } from './LayoutConfig'
 import { HtmlClassService } from './HTMLClassService'
 
 const LAYOUT_CONFIG_KEY = process.env.REACT_APP_LAYOUT_CONFIG_KEY || 'LayoutConfig'
 
-function getConfig() {
+const getConfig = () => {
   const ls = localStorage.getItem(LAYOUT_CONFIG_KEY)
   if (ls) {
     try {
@@ -18,7 +18,7 @@ function getConfig() {
 }
 
 // Side effect
-export function setLayoutConfig(config) {
+export const setLayoutConfig = (config) => {
   localStorage.setItem(LAYOUT_CONFIG_KEY, JSON.stringify(config))
   window.location.reload()
 }
@@ -31,11 +31,11 @@ const HtmlClassServiceContext = createContext()
  * @export
  * @returns Layout context from 'localStorage'
  */
-export function useHtmlClassService() {
+export const useHtmlClassService = () => {
   return useContext(HtmlClassServiceContext)
 }
 
-export function withHtmlClassService(Component) {
+export const withHtmlClassService = (Component) => {
   class WithHtmlClassService extends React.Component {
     static displayName = `WithHtmlClassService(${Component.displayName || Component.name})`
 
@@ -51,7 +51,7 @@ export function withHtmlClassService(Component) {
 
 export const HtmlClassServiceConsumer = HtmlClassServiceContext.Consumer
 
-export function LayoutProvider({ children }) {
+export const LayoutProvider = ({ children }) => {
   const lc = useMemo(getConfig, [])
   const hcs = useMemo(() => {
     const service = new HtmlClassService()

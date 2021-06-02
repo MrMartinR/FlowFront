@@ -5,7 +5,7 @@ import { RootState } from '../../../redux/rootReducer'
 import * as originatorsActions from './state/originatorsActions'
 import { OriginatorsList } from './OriginatorsList'
 import { OriginatorsListToolbar } from './OriginatorsListToolbar'
-import { OriginatorsAlert } from './OriginatorsAlert'
+import { UserAlert } from '../../utils/UserAlert'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -67,7 +67,7 @@ export const OriginatorsPage = () => {
       <Grid container direction="column" spacing={1}>
         {/* toolbar */}
         <OriginatorsListToolbar list={rows} />
-        <OriginatorsAlert />
+        <UserAlert />
         {/* table */}
         <Grid item xs={12}>
           <OriginatorsList isLoading={isLoading} rows={rows} />

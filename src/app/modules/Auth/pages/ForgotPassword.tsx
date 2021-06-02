@@ -16,8 +16,9 @@ import Logo from '../../../../common/media/flow-logo.svg'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useDispatch } from 'react-redux'
-import { AuthAlert } from './AuthAlert'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { UserAlert } from '../../../utils/UserAlert'
+import { RootState } from '../../../../redux/rootReducer'
 
 /* Styles */
 const useStyles = makeStyles({
@@ -61,7 +62,15 @@ export const ForgotPassword = () => {
   const onSubmit = ({ email }: PasswordType) => {
     dispatch(authActions.requestPassword(email))
   }
-
+  const resetSuccess = () => {
+    dispatch(authActions.resetSuccess())
+  }
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.auth,
+    }),
+    shallowEqual
+  )
   return (
     <Grid container direction="column" justify="space-around" alignItems="center" className={classes.root}>
       {/* logo */}
@@ -103,7 +112,8 @@ export const ForgotPassword = () => {
         </form>
       </Grid>
       {/* Alert */}
-      <AuthAlert />
+      <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
+
     </Grid>
   )
 }

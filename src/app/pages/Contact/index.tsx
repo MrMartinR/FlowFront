@@ -6,10 +6,9 @@ import * as contactsActions from './state/contactsActions'
 import { ContactMethod } from './ContactMethods/ContactMethods'
 import { ContactsList } from './ContactList'
 import { ContactDetails } from './ContactDetails'
-
 import { ContactToolBar } from './ContactToolbar'
-import { ContactAlert } from './ContactAlert'
 import { UserSettings } from './UserSettings/UserSettings'
+import { UserAlert } from '../../utils/UserAlert'
 
 /* styles */
 const useStyles = makeStyles({
@@ -44,60 +43,59 @@ export const Contacts = (props: any) => {
   const [actionsLoading, setActionsLoading] = useState(false)
   const [singleContact, setSingleContact] = useState({} as any)
   let selectedContact = null as any
-  if (list.length > 1) {
-    if (isContact) {
-      const selected = list.findIndex((itm: any) => itm.id === params.id)
-      selected !== -1 && setSelectedItemIndex(selected)
-      setIsContact(false)
-    }
-
-    if (list[selectedItemIndex]) {
-      selectedContact = list[selectedItemIndex]
-    }
-  }
-  /* contact Redux state */
-  const GetAllContacts = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(contactsActions.fetchContacts())
-      }
-    }, [dispatch])
-  }
-  GetAllContacts()
-
-  const GetContact = () => {
-    let ContactDispatch = useDispatch()
-    useEffect(() => {
-      if (selectedContact) {
-        ContactDispatch(contactsActions.fetchContact(selectedContact.id))
-      }
-    }, [ContactDispatch, selectedContact])
-  }
-  GetContact()
-
+  // actualización do flag que indica se se pasou un id pola barra de direccions ou non
   useEffect(() => {
     if (params.id) {
       setIsContact(true)
     }
   }, [params.id])
+
+  if (list.length > 1) {
+    // se flag e true, o contact por defecto e o da barra de direccion, posición 0 en caso contrario
+    if (isContact) {
+      const selected = list.findIndex((itm: any) => itm.id === params.id)
+      selected !== -1 && setSelectedItemIndex(selected)
+      setIsContact(false)
+    }
+    // actualizacion de selected contact segundo o contact seleccionado na lista
+    if (list[selectedItemIndex]) {
+      selectedContact = list[selectedItemIndex]
+    }
+  }
+  const dispatch = useDispatch()
+  // Petición a API da lista de contacts
+  useEffect(() => {
+    dispatch(contactsActions.fetchContacts())
+  }, [dispatch])
+  // Recibida a resposta actualizase o state
   useEffect(() => {
     if (currentState.contactsTable && currentState.contactsTable.entities) {
       setList(currentState.contactsTable.entities)
     }
   }, [currentState.contactsTable])
 
+  // Unha vez seleccionado un contact, petición a API dos details de ese contact
+  useEffect(() => {
+    if (selectedContact) {
+      dispatch(contactsActions.fetchContact(selectedContact.id))
+    }
+  }, [dispatch, selectedContact])
+  // recibida a resposta, actualizase o state
   useEffect(() => {
     if (currentState.singleContact && currentState.singleContact.entry && currentState.singleContact.entry.attributes) {
       setSingleContact(currentState.singleContact.entry)
       setListMethods(currentState.singleContact.entry.attributes.contact_methods)
     }
   }, [currentState.singleContact, currentState.singleContact.entry.attributes.contact_methods])
-
+  // actualizacion dos flags de loading
   useEffect(() => {
     setIsLoading(currentState.listLoading)
     setActionsLoading(currentState.actionsLoading)
   }, [currentState.listLoading, currentState.actionsLoading])
+  // resetea o state para que se oculte o snackbar
+  const resetSuccess = () => {
+    dispatch(contactsActions.resetSuccess())
+  }
   return (
     <Container className={classes.root}>
       <Grid container direction="column" spacing={1}>
@@ -110,26 +108,25 @@ export const Contacts = (props: any) => {
             <ContactsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
           </Grid>
           {/* contactdetails */}
-          <Grid item container xs={9} justify="space-around">
-            <Grid item xs={6}>
+          <Grid item xs={5} container direction="column" spacing={1}>
+            <Grid item>
               <ContactDetails selectedContact={singleContact} />
             </Grid>
-            {/* contactmethods */}
-            <Grid item xs={6}>
-              <ContactMethod listMethods={listMethods} methodLoading={actionsLoading} selectedContact={singleContact} />
-            </Grid>
-
-            {/* begin: user settings */}
-            <Grid item container>
-              <Grid item xs={6}>
-                {authState.user.contact_id === singleContact.id && <UserSettings />}
-              </Grid>
-            </Grid>
-            {/* end: user settings */}
+            {/* user settings */}
+            <Grid item>{authState.user.contact_id === singleContact.id && <UserSettings />}</Grid>
+          </Grid>
+          {/* contactmethods */}
+          <Grid item xs={4}>
+            <ContactMethod listMethods={listMethods} methodLoading={actionsLoading} selectedContact={singleContact} />
           </Grid>
         </Grid>
         {/* Alert */}
-        <ContactAlert />
+        <UserAlert
+          resetSuccess={resetSuccess}
+          success={currentState.success}
+          message={currentState.message}
+          error={currentState.error}
+        />
       </Grid>
     </Container>
   )

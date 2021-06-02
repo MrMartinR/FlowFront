@@ -3,10 +3,10 @@ import { useHistory } from 'react-router-dom'
 import { Grid, Card, CardContent, LinearProgress, Avatar } from '@material-ui/core/'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
 import { RootState } from '../../../redux/rootReducer'
-import { UserLoansAlert } from './UserLoansAlert'
 import { UserLoansListToolbar } from './UserLoansListToolbar'
 import * as userLoansActions from './state/userLoansActions'
 import { shallowEqual, useSelector, useDispatch } from 'react-redux'
+import { UserAlert } from '../../utils/UserAlert'
 
 const columns: GridColDef[] = [
   // column definition format here
@@ -143,7 +143,7 @@ export const UserLoansList = (props: any) => {
       ) : (
         <>
           <UserLoansListToolbar list={rows} />
-          <UserLoansAlert />
+          <UserAlert />
           <Grid container direction="column">
             <Card>
               <CardContent>

@@ -4,10 +4,11 @@ import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Logo from '../../../../common/media/flow-logo.svg'
-import { useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Button, CardMedia, FormControl, Grid, TextField, Typography } from '@material-ui/core'
-import { AuthAlert } from './AuthAlert'
 import queryString from 'query-string'
+import { RootState } from '../../../../redux/rootReducer'
+import { UserAlert } from '../../../utils/UserAlert'
 
 const initialValues = {
   password: '',
@@ -48,10 +49,19 @@ export const ForgotPasswordAction = (props: any) => {
   const onSubmit = ({ password, changepassword }: ForgotPasswordType) => {
     dispatch(authActions.changePassword(password, changepassword, token, client, uid, expiry))
   }
-
+  const resetSuccess = () => {
+    dispatch(authActions.resetSuccess())
+  }
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.auth,
+    }),
+    shallowEqual
+  )
   return (
     <Grid container direction="column" justify="space-around" alignItems="center">
-      <AuthAlert />
+      <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
+
       {/* logo */}
       <Grid item xs="auto">
         <CardMedia src={Logo} component="img" />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextField, Button, Grid, MenuItem } from '@material-ui/core'
 import * as contactsActions from './../state/contactsActions'
@@ -65,50 +65,41 @@ export const types = [
     value: 'Other',
     label: 'Other',
   },
-
 ]
 
 export const AddContactMethodForm = (props: any) => {
-  const { selectedContact, setOpen } = props
+  const { selectedContact, handleClose } = props
   const { register, handleSubmit } = useForm()
-  const [type, setType] = React.useState('Address')
-  const [formData, setFormData] = React.useState({})
+  const [type, setType] = useState('Address')
+  const [formData, setFormData] = useState(null as any)
   const {
     auth: { user },
   } = store.getState()
+  // garda o tipo de contact method seleccionado na lista
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
 
-  let MethodDispatch = useDispatch()
-
+  const dispatch = useDispatch()
+  // Prepara os datos para enviar e pecha o dialog
   const onSubmit = (data: {}, e: any) => {
-    e.preventDefault();
-    data = {...data ,
+    e.preventDefault()
+    data = {
+      ...data,
       kind: type,
       contact_id: selectedContact.id,
       created_by: user.id,
       visibility: selectedContact.attributes?.visibility,
-      //user_id: selectedContact.attributes?.user
     }
-    if (selectedContact.attributes?.visibility === 'Private') {
-      data = {
-        ...data,
-        user_id: user.id,
-      }
-    }
-    setFormData(data);
-    setOpen(false);
-    
+    setFormData(data)
+    handleClose()
   }
+  // Chama a action createCOntactMethod cos datos do formulario
   useEffect(() => {
-    if (MethodDispatch) {
-      var size = Object.keys(formData).length
-      if (size > 0) {
-        MethodDispatch(contactsActions.createContactMethods(formData));
-      }
+    if (formData !== null) {
+      dispatch(contactsActions.createContactMethods(formData))
     }
-  }, [formData, MethodDispatch]);
+  }, [formData, dispatch])
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -117,6 +108,7 @@ export const AddContactMethodForm = (props: any) => {
             select
             name="kind"
             label="Type"
+            margin="normal"
             color="secondary"
             value={type}
             onChange={handleChange}
@@ -128,19 +120,22 @@ export const AddContactMethodForm = (props: any) => {
               </MenuItem>
             ))}
           </TextField>
-          <TextField 
-            name="data" 
+          <TextField
+            name="data"
             label="Data"
-            autoComplete= 'off' 
+            margin="normal"
+            autoComplete="off"
             color="secondary"
-            inputRef={register} />
-            
-          <Button type="submit" variant="contained" color="secondary">
-            Submit
-          </Button>
+            inputRef={register}
+          />
+          <Grid container justify="space-between">
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit" variant="contained" color="secondary">
+              Submit
+            </Button>
+          </Grid>
         </Grid>
       </form>
     </>
   )
 }
-export default AddContactMethodForm

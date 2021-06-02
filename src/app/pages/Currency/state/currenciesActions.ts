@@ -91,6 +91,6 @@ export const deleteCurrency = (id: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
 }
-export const resetSuccessCurrency = () => (dispatch: any) => {
-  dispatch( actions.currencyResetSuccess({ success: null }));
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

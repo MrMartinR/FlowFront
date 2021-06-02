@@ -6,7 +6,7 @@ import { PlatformLoans } from './loans/PlatformLoans'
 import * as platformsActions from './state/platformsActions'
 import { RootState } from '../../../redux/rootReducer'
 import { PlatformDetailsToolbar } from './PlatformDetailsToolbar'
-import { PlatformAlert } from './PlatformAlert'
+import { UserAlert } from '../../utils/UserAlert'
 
 export const PlatformDetailsPage = (props: any) => {
   const { params } = props.match
@@ -55,7 +55,7 @@ export const PlatformDetailsPage = (props: any) => {
         setTab={setTab}
       />
 
-      <PlatformAlert />
+      <UserAlert />
       {/* render a switch statement passing in the currentTab state as the key */}
       {renderSwitch(currentTab)}
     </>

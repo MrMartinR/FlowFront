@@ -6,6 +6,7 @@ const initialLoansState = {
   loanDetails: [],
   error: null as any,
   success: null as any,
+  message: null as any,
 }
 
 export const loansSlice = createSlice({
@@ -15,6 +16,7 @@ export const loansSlice = createSlice({
     startCall: (state) => {
       state.loading = true
       state.success = null
+      state.message = null
     },
     loansReceived: (state, action) => {
       state.loading = false
@@ -29,9 +31,10 @@ export const loansSlice = createSlice({
       state.success = false
       state.error = `${action.type}: ${action.payload.error}`
     },
-    loansResetSuccess: (state, action) => {
+    resetSuccess: (state, action) => {
       const { success } = action.payload
-      state.success = success
+      state.success = success;
+      state.message = null;
     },
   },
 })

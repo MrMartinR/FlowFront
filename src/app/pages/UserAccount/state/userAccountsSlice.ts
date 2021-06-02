@@ -8,6 +8,7 @@ const initialUserAccountsState = {
   userAccountsTransactions: [],
   error: null as any,
   success: null as any,
+  message: null as any,
 }
 export const callTypes = {
   list: 'list',
@@ -20,6 +21,7 @@ export const userAccountsSlice = createSlice({
     startCall: (state, action) => {
       state.success = null
       state.error = null
+      state.message = null
       if (action.payload.callType === callTypes.list) {
         state.listLoading = true
       } else {
@@ -54,6 +56,11 @@ export const userAccountsSlice = createSlice({
       const { data } = action.payload
       state.actionsLoading = false
       state.userAccountsTransactions = data
-    }
+    },
+    resetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success;
+      state.message = null;
+    },
   },
 })

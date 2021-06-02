@@ -1,4 +1,3 @@
-import React from 'react'
 import { Toolbar, Typography, Button, Grid } from '@material-ui/core'
 
 /**

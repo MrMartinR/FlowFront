@@ -7,6 +7,7 @@ const initialOriginatorsState = {
   originatorLoans: [],
   error: null as any,
   success: null as any,
+  message: null as any,
 }
 
 export const originatorsSlice = createSlice({
@@ -16,6 +17,7 @@ export const originatorsSlice = createSlice({
     startCall: (state) => {
       state.loading = true
       state.success = null
+      state.message = null
     },
     originatorsReceived: (state, action) => {
       state.loading = false
@@ -30,9 +32,10 @@ export const originatorsSlice = createSlice({
       state.success = false
       state.error = `${action.type}: ${action.payload.error}`
     },
-    originatorsResetSuccess: (state, action) => {
+    resetSuccess: (state, action) => {
       const { success } = action.payload
-      state.success = success
+      state.success = success;
+      state.message = null;
     },
     originatorLoansReceived: (state, action) => {
       state.originatorLoans = action.payload.data

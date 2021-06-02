@@ -1,19 +1,20 @@
-import { Button, LinearProgress, MenuItem, Select, Typography } from '@material-ui/core'
+import { Button, Grid, LinearProgress, MenuItem, Select, Typography } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import * as countriesActions from '../Country/state/countriesActions'
 import * as accountsActions from './state/accountsActions'
+
 export const AccountEdit = (props:any) => {
-    const { selectedAccount, setOpen } = props
-    const { countryState } = useSelector(
-        (state: RootState) => ({
-        countryState: state.countries,
-        }),
-        shallowEqual
-    )
-    const { register, handleSubmit, errors } = useForm()
+  const { selectedAccount, handleClose } = props
+  const { countryState } = useSelector(
+      (state: RootState) => ({
+      countryState: state.countries,
+      }),
+      shallowEqual
+  )
+  const { register, handleSubmit, errors } = useForm()
   const [formData, setFormData] = useState({})
   const [params, SetParams] = useState('' as any)
   const [country, setCountry] = useState('')
@@ -23,43 +24,40 @@ export const AccountEdit = (props:any) => {
     setCountry(e.target.value)
   }
   const dispatch = useDispatch()
-  const GetAllCountries = () => {
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(countriesActions.fetchCountries())
-      }
-    }, [])
-  }
-  GetAllCountries()
+  // Petición a API da lista de countries
+  useEffect(() => {
+    if (dispatch) {
+      dispatch(countriesActions.fetchCountries())
+    }
+  }, [dispatch])
+  // Recibida resposta actualiza o state
   useEffect(() => {
     if (countryState && countryState.countryTable && countryState.countryTable.entities.length > 0) {
       setList(countryState.countryTable.entities)
       setIsLoading(countryState.listLoading)
     }
   }, [countryState])
-
+  // mostra na lista o country da account seleccionada
   useEffect(() => {
     setCountry(selectedAccount?.attributes?.contact.country_id);
   }, [selectedAccount]);
-console.log(JSON.stringify(selectedAccount));
-  const onSubmit = (data: any, e: any) => { 
+  // onSubmit metense os datos do formulario en formData
+  const onSubmit = (data: any, e: any) => {
+    e.preventDefault()
     SetParams(selectedAccount.id);
     data = { ...data, country_id: country }
-    setFormData(data);
-    setOpen(false);
+    setFormData(data)
+    handleClose()
   }
-  const EditDispatch = useDispatch()
+  // Chamada a accion cos datos do formulario
   useEffect(() => {
-    if (EditDispatch) {
-      var size = Object.keys(formData).length
-      if (size > 0) {
-        EditDispatch(accountsActions.updateAccount(formData, params));
-      }
+    if (formData !== {}) {
+      dispatch(accountsActions.updateAccount(formData, params));
     }
-  }, [formData, EditDispatch]);
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant='body1'>Select Country</Typography>
+  }, [formData, dispatch, params]);
+  return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+          <Typography variant='body1'>Select Country</Typography>
         {
           !isLoading
           ?<Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
@@ -71,10 +69,14 @@ console.log(JSON.stringify(selectedAccount));
             </Select>
           :<LinearProgress color="secondary" />
         }
-        <br/><br/>
-        <Button type="submit" disabled variant="contained" color="secondary">
-          Submit
-        </Button>
-        </form>
-    )
+        <Grid container justify='space-between'>
+            <Button onClick={handleClose}>
+              Cancel
+            </Button>
+          <Button type="submit" disabled variant="contained" color="secondary">
+            Submit
+          </Button>
+        </Grid>
+      </form>
+  )
 }

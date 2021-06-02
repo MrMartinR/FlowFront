@@ -1,4 +1,4 @@
-import { makeStyles, Toolbar, Grid, Card, CardHeader, Button, Typography, Avatar } from '@material-ui/core/'
+import { makeStyles, Toolbar, Grid, CardHeader, Button, Avatar } from '@material-ui/core/'
 
 /* styles */
 const useStyles = makeStyles({
@@ -21,15 +21,15 @@ export const UserAccountDetailsToolbar = (props: any) => {
         <CardHeader
           avatar={
             <Avatar
-              src={'/media/svg/contact/icons/' + singleAccount.attributes.account.contact_id + '.svg'}
-              alt={singleAccount.attributes.name}
+              src={'/media/svg/contact/icons/' + singleAccount.attributes?.account?.contact_id + '.svg'}
+              alt={singleAccount.attributes?.name}
               variant="square"
             >
               {singleAccount.attributes?.name[0]}
             </Avatar>
           }
           title={singleAccount.attributes?.name}
-          subheader={'Value ' + value + ' ' + 'Balance ' + balance.toFixed(2)}
+          subheader={'Value ' + value + ' Balance ' + balance.toFixed(2)}
           action={
             <>
               <Button>Add Transfer</Button>

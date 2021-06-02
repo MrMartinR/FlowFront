@@ -1,8 +1,6 @@
 import { useHistory } from 'react-router-dom'
-import { Grid, Card, CardContent, LinearProgress, Avatar, makeStyles } from '@material-ui/core/'
+import { Grid, LinearProgress, Avatar, makeStyles } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef, GridCellParams } from '@material-ui/x-grid'
-import { LoansAlert } from './LoansAlert'
-import { LoansListToolbar } from './LoansListToolbar'
 
 
 LicenseInfo.setLicenseKey(

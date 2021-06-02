@@ -13,7 +13,7 @@ const initialContactsState = {
     },
   },
   success: null as any,
-  response: null as any,
+  message: null as any,
   error: null as any,
 }
 export const callTypes = {
@@ -39,7 +39,7 @@ export const contactsSlice = createSlice({
     startCall: (state, action) => {
       state.error = null
       state.success = null
-      state.response = null
+      state.message = null
       if (action.payload.callType === callTypes.list) {
         state.listLoading = true
       } else {
@@ -64,24 +64,54 @@ export const contactsSlice = createSlice({
     // on creation a new contact append it to existing contacts
     contactCreate: (state, action) => {
       const { data } = action.payload
+      let name=''
+      if (data.attributes.kind==='Individual') {
+          name = data.attributes.name
+        } else name = data.attributes.trade_name
       const newContact = {
         id: data.id,
         type: data.type,
         attributes: {
-          name: data.attributes.kind==='Individual'?data.attributes.name:data.attributes.trade_name
+          name
         }
       }
+      const newState = state.contactsTable.entities
+      newState.unshift(newContact)
+      // array temporal para ordear alfabeticamente
+      const mapped = newState.map(function(el: any, i: any) {
+        return { index: i, value: el.attributes.name.toLowerCase() };
+      })
+      // ordeando o array mapeado
+      mapped.sort(function(a: any, b: any) {
+        if (a.value > b.value) {
+          return 1;
+        }
+        if (a.value < b.value) {
+          return -1;
+        }
+        return 0;
+      });
+      // contenedor para o array ordeado
+      const result = mapped.map(function(el:any){
+        return newState[el.index];
+      });
       state.listLoading = false
-      state.contactsTable.entities.unshift(newContact)
+      state.contactsTable.entities = result
       state.success = true
     },
     contactUpdate: (state, action) => {
       const { data } = action.payload
+      let name=''
+      if (data.attributes.kind==='Individual') {
+        if (data.attributes.nick !== null) {
+          name = data.attributes.nick
+        } else name = data.attributes.name
+      } else name = data.attributes.trade_name
       const newContact = {
         id: data.id,
         type: data.type,
         attributes: {
-          name: data.attributes.kind==='Individual'?data.attributes.name:data.attributes.trade_name
+          name
         }
       }
       let newState = [] as any
@@ -108,7 +138,7 @@ export const contactsSlice = createSlice({
       state.listLoading = false
       state.contactsTable.entities = newState
       state.success = success
-      state.response = message
+      state.message = message
     },
 
 
@@ -182,12 +212,13 @@ export const contactsSlice = createSlice({
       state.actionsLoading = false
       state.success = true
       state.singleContact.entry.attributes.contact_methods = newState
-      state.response = message
+      state.message = message
     },
     
-    contactResetSuccess: (state, action) => {
+    resetSuccess: (state, action) => {
       const { success } = action.payload
-      state.success = success
-    }
+      state.success = success;
+      state.message = null;
+    },
   },
 })
