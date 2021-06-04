@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialUserLoansState = {
   loading: false,
   userLoansData: [],
-  userLoanDetails: {},
+  userLoanDetails: null as any,
   error: null as any,
   success: null as any,
   message: null as any,

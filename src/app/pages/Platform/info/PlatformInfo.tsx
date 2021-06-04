@@ -17,13 +17,13 @@ const useStyles = makeStyles({
 export const PlatformInfo = (props: any) => {
   /* styles */
   const classes = useStyles()
-
   const { platformDetails } = props
   const [accounts, setAccounts] = useState()
   const [agreement, setAgreement] = useState()
   const [protection, setProtection] = useState()
   const [investment, setInvestment] = useState()
   const [cashflow, setCashflow] = useState()
+  // actualizaciond e variables para os toggleButtons
   useEffect(() => {
     setAccounts(platformDetails.attributes?.account_category)
     setAgreement(platformDetails.attributes?.structure)
@@ -85,7 +85,6 @@ export const PlatformInfo = (props: any) => {
             <CardHeader title="Accounts" />
             <CardContent>
               <ToggleButtonGroup value={accounts} size="small">
-                {platformDetails.attributes?.account_category}
                 <ToggleButton value="Personal">Personal</ToggleButton>
                 <ToggleButton value="Corporate">Corporate</ToggleButton>
                 <ToggleButton value="Accredited">Accredited</ToggleButton>
@@ -99,7 +98,6 @@ export const PlatformInfo = (props: any) => {
             <CardHeader title="Agreement Structure" />
             <CardContent>
               <ToggleButtonGroup value={agreement} size="small">
-                {platformDetails.attributes?.structure}
                 <ToggleButton value="Indirect">Indirect</ToggleButton>
                 <ToggleButton value="Direct">Direct</ToggleButton>
                 <ToggleButton value="Bilateral">Bilateral</ToggleButton>
@@ -113,7 +111,6 @@ export const PlatformInfo = (props: any) => {
             <CardHeader title="Protection Scheme" />
             <CardContent>
               <ToggleButtonGroup value={protection} size="small">
-                {platformDetails.attributes?.protection_scheme}
                 <ToggleButton value="Buyback">BuyBack</ToggleButton>
                 <ToggleButton value="Provision Fund">Provision Fund</ToggleButton>
                 <ToggleButton value="Personal">Personal</ToggleButton>
@@ -134,7 +131,6 @@ export const PlatformInfo = (props: any) => {
             <CardContent>
               <Typography>Invest Mode: </Typography>
               <ToggleButtonGroup value={investment} size="small">
-                {platformDetails.attributes?.invest_mode}
                 <ToggleButton value="Bid">Bid</ToggleButton>
                 <ToggleButton value="Manual">Manual</ToggleButton>
                 <ToggleButton value="Preset">Preset</ToggleButton>

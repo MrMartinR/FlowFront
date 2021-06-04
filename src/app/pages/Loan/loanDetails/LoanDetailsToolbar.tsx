@@ -2,7 +2,6 @@ import { Grid, Button, ButtonBase, Typography, Toolbar, Avatar, makeStyles, Cont
 import { useHistory } from 'react-router'
 
 /* styles */
-/* styles */
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -18,10 +17,11 @@ export const LoanDetailsToolbar = (props: any) => {
 
   const { loanDetails } = props
   const linkTo = useHistory()
-
+  // Se premes no icono do platform leva a paxina dos details do platform
   const handlePlatform = (e: any) => {
     linkTo.push(`/platforms/${loanDetails.attributes?.platform.id}`)
   }
+  // Se premes no icono de originator leva a paxina dos details do originator
   const handleOriginator = (e: any) => {
     linkTo.push(`/originators/${loanDetails.attributes?.originator.id}`)
   }
@@ -29,7 +29,7 @@ export const LoanDetailsToolbar = (props: any) => {
     <Container>
       <Toolbar variant="dense" className={classes.root}>
         {/* <Grid container> */}
-        <Grid container >
+        <Grid container>
           {/* block 1 */}
           <Grid item xs={8} container alignItems="center" spacing={1} className={classes.root}>
             <Grid item>
@@ -39,8 +39,7 @@ export const LoanDetailsToolbar = (props: any) => {
                 src={'/media/svg/contact/icons/' + loanDetails.attributes?.platform_contact_id + '.svg'}
                 alt={loanDetails.attributes?.platform.trade_name}
                 variant="square"
-              >
-              </Avatar>
+              ></Avatar>
             </Grid>
             <Grid item>
               <Avatar
@@ -49,8 +48,7 @@ export const LoanDetailsToolbar = (props: any) => {
                 src={'/media/svg/contact/icons/' + loanDetails.attributes?.originator_contact_id + '.svg'}
                 alt={loanDetails.attributes?.originator_trade_name}
                 variant="square"
-              >
-              </Avatar>
+              ></Avatar>
             </Grid>
             <Grid item xs={8}>
               <Typography variant="h6">{loanDetails.attributes?.name}</Typography>

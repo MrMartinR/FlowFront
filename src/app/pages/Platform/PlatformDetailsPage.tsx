@@ -10,24 +10,20 @@ import { UserAlert } from '../../utils/UserAlert'
 
 export const PlatformDetailsPage = (props: any) => {
   const { params } = props.match
+  const [currentTab, setTab] = useState('')
+  const [platformDetails, setPlatformDetails] = useState({} as any)
+  const dispatch = useDispatch()
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.platforms,
     }),
     shallowEqual
   )
-  const [currentTab, setTab] = useState('')
-  const [platformDetails, setPlatformDetails] = useState({} as any)
-  const GetPlatform = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(platformsActions.fetchPlatformDetails(params.id))
-      }
-    }, [dispatch])
-  }
-  GetPlatform()
-
+  // peticion dos details do platform
+  useEffect(() => {
+    dispatch(platformsActions.fetchPlatformDetails(params.id))
+  }, [dispatch, params.id])
+  // recibida resposta carganse os datos do state
   useEffect(() => {
     currentState.platformDetails && setPlatformDetails(currentState.platformDetails)
   }, [currentState.platformDetails])
@@ -45,7 +41,10 @@ export const PlatformDetailsPage = (props: any) => {
         return <PlatformInfo platformDetails={platformDetails} />
     }
   }
-
+  // funcion que se pasa como parametro o snackbar para resetear a mensaxe
+  const resetSuccess = () => {
+    dispatch(platformsActions.resetSuccess())
+  }
   return (
     <>
       <PlatformDetailsToolbar
@@ -54,8 +53,12 @@ export const PlatformDetailsPage = (props: any) => {
         company_name={platformDetails.attributes?.contact?.company_name}
         setTab={setTab}
       />
-
-      <UserAlert />
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={currentState.success}
+        message={currentState.message}
+        error={currentState.error}
+      />
       {/* render a switch statement passing in the currentTab state as the key */}
       {renderSwitch(currentTab)}
     </>

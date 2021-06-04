@@ -37,7 +37,7 @@ const useStyles = makeStyles({
  */
 export const Login = () => {
   const classes = useStyles()
-  
+
   const loginSchema = Yup.object().shape({
     username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
     password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
@@ -123,7 +123,12 @@ export const Login = () => {
         <Typography variant="body2">
           Forgot your <Link to="/auth/forgot-password">password?</Link>
         </Typography>
-        <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
+        <UserAlert
+          resetSuccess={resetSuccess}
+          success={currentState.success}
+          message={currentState.message}
+          error={currentState.error}
+        />
       </Grid>
     </Grid>
   )

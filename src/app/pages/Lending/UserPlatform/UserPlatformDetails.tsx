@@ -1,19 +1,26 @@
-import { Grid, Card, CardHeader, Typography, CardContent } from '@material-ui/core'
+import { Grid, Card, CardHeader, Typography, CardContent, CardMedia, makeStyles } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/rootReducer'
-
+const useStyles = makeStyles({
+  root: {
+    width: '60vh',
+    margin: 'auto',
+  },
+})
 export const UserPlatformsDetails = (props: any) => {
+  /* styles */
+  const classes = useStyles()
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.userPlatforms,
     }),
     shallowEqual
   )
-  const [platformDetails, setPlatformDetails] = useState({} as any);
+  const [platformDetails, setPlatformDetails] = useState(null as any)
+  // cando o state ten os datos dos details cargaos na variable
   useEffect(() => {
-    currentState.userPlatformDetails &&
-    setPlatformDetails(currentState.userPlatformDetails);
+    currentState.userPlatformDetails && setPlatformDetails(currentState.userPlatformDetails)
   }, [currentState.userPlatformDetails])
   return (
     <>
@@ -26,9 +33,13 @@ export const UserPlatformsDetails = (props: any) => {
                 <Typography>Click a platform to load performance</Typography>
               ) : (
                 <>
-                  <Typography>User platform Id: {platformDetails.id}</Typography>
-                  <Typography>User id: {platformDetails.attributes?.user?.id}</Typography>
-                  <Typography>Platform id: {platformDetails.attributes?.platform?.id}</Typography>
+                  <CardMedia
+                    className={classes.root}
+                    component="img"
+                    src={'/media/svg/contact/logos/' + platformDetails.attributes?.platform.contact_id + '.svg'}
+                    alt={`${platformDetails.id}`}
+                  />
+                  <Typography>Login User: {platformDetails.attributes?.login_user}</Typography>
                   <Typography>Strategy: {platformDetails.attributes?.strategy}</Typography>
                 </>
               )}

@@ -25,7 +25,7 @@ export const fetchUserSettings = () => (dispatch: any) => {
     .getUserSettings()
     .then((response) => {
       const { data } = response
-      dispatch(actions.userSettingsFetched(response))
+      dispatch(actions.userSettingsFetched(data))
     })
     .catch((error) => {
       error.clientMessage = "Can't find User Settings"
@@ -54,7 +54,7 @@ export const updateProfile = (username:string, email:string, password:string) =>
   .updateProfile(username, email, password)
   .then((response) => {
     const { data } = response
-    console.log(response)
+    console.log(data)
     //dispatch(actions.profileUpdated(response))
   })
   .catch((error) => {
@@ -75,4 +75,7 @@ export const createSettings = (data: any) => (dispatch: any) =>{
     error.clientMessage = "Can't create user settings"
     dispatch(actions.catchError({ error, calltype: callTypes.action }))
   })
+}
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

@@ -6,16 +6,16 @@ import { RootState } from '../../../redux/rootReducer'
 import * as countriesActions from '../Country/state/countriesActions'
 import * as accountsActions from './state/accountsActions'
 
-export const AccountEdit = (props:any) => {
+export const AccountEdit = (props: any) => {
   const { selectedAccount, handleClose } = props
   const { countryState } = useSelector(
-      (state: RootState) => ({
+    (state: RootState) => ({
       countryState: state.countries,
-      }),
-      shallowEqual
+    }),
+    shallowEqual
   )
-  const { register, handleSubmit, errors } = useForm()
-  const [formData, setFormData] = useState({})
+  const { handleSubmit } = useForm()
+  const [formData, setFormData] = useState(null as any)
   const [params, SetParams] = useState('' as any)
   const [country, setCountry] = useState('')
   const [list, setList] = useState([] as any)
@@ -39,44 +39,42 @@ export const AccountEdit = (props:any) => {
   }, [countryState])
   // mostra na lista o country da account seleccionada
   useEffect(() => {
-    setCountry(selectedAccount?.attributes?.contact.country_id);
-  }, [selectedAccount]);
+    setCountry(selectedAccount?.attributes?.contact.country_id)
+  }, [selectedAccount])
   // onSubmit metense os datos do formulario en formData
   const onSubmit = (data: any, e: any) => {
     e.preventDefault()
-    SetParams(selectedAccount.id);
+    SetParams(selectedAccount.id)
     data = { ...data, country_id: country }
     setFormData(data)
     handleClose()
   }
   // Chamada a accion cos datos do formulario
   useEffect(() => {
-    if (formData !== {}) {
-      dispatch(accountsActions.updateAccount(formData, params));
+    if (formData !== null) {
+      dispatch(accountsActions.updateAccount(formData, params))
     }
-  }, [formData, dispatch, params]);
+  }, [formData, dispatch, params])
   return (
-      <form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant='body1'>Select Country</Typography>
-        {
-          !isLoading
-          ?<Select labelId="Country" id="country" value = { country } onChange = { handleCountry }>
-              {list.map((country:any) => (
-                <MenuItem 
-                  value= { country.id }
-                  key = { country.id }>{ country.attributes.name }</MenuItem>
-              ))}  
-            </Select>
-          :<LinearProgress color="secondary" />
-        }
-        <Grid container justify='space-between'>
-            <Button onClick={handleClose}>
-              Cancel
-            </Button>
-          <Button type="submit" disabled variant="contained" color="secondary">
-            Submit
-          </Button>
-        </Grid>
-      </form>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Typography variant="body1">Select Country</Typography>
+      {!isLoading ? (
+        <Select labelId="Country" id="country" value={country} onChange={handleCountry}>
+          {list.map((country: any) => (
+            <MenuItem value={country.id} key={country.id}>
+              {country.attributes.name}
+            </MenuItem>
+          ))}
+        </Select>
+      ) : (
+        <LinearProgress color="secondary" />
+      )}
+      <Grid container justify="space-between">
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button type="submit" disabled variant="contained" color="secondary">
+          Submit
+        </Button>
+      </Grid>
+    </form>
   )
 }

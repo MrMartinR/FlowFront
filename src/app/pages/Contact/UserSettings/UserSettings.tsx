@@ -18,6 +18,7 @@ import * as userSettingsActions from './state/userSettingsActions'
 import { RootState } from '../../../../redux/rootReducer'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { UserAlert } from '../../../utils/UserAlert'
 
 /* styles */
 const useStyles = makeStyles({
@@ -63,29 +64,30 @@ export const UserSettings = () => {
   const [email, setEmail] = useState('')
   // contact Redux state
   const dispatch = useDispatch()
-
-  const GetUserProfile = () => {
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(userSettingsActions.fetchUserProfile())
-      }
-    }, [])
-  }
-  GetUserProfile()
-
+  // petición do profile do user
+  useEffect(() => {
+    dispatch(userSettingsActions.fetchUserProfile())
+  }, [dispatch])
+  // Recibido o profile carga os datos do state
   useEffect(() => {
     if (userSettingsState.userProfile) {
       setProfile(userSettingsState.userProfile)
     }
   }, [userSettingsState.userProfile])
+  // Unha vez cargados os datos meteos nas variables para uqe os mostre no form
   useEffect(() => {
     if (profile.attributes) {
       setEmail(profile.attributes.email)
       setUsername(profile.attributes.username)
     }
   }, [profile])
+  // onSubmit envía o formulario
   const onSubmit = ({ email, username, password }: SettingsType) => {
     dispatch(userSettingsActions.updateProfile(username, email, password))
+  }
+  // resetea o state para que se oculte o snackbar
+  const resetSuccess = () => {
+    dispatch(userSettingsActions.resetSuccess())
   }
   return (
     <Card className={classes.root}>
@@ -139,6 +141,12 @@ export const UserSettings = () => {
           </CardActions>
         </form>
       </CardContent>
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={userSettingsState.success}
+        message={userSettingsState.message}
+        error={userSettingsState.error}
+      />
     </Card>
   )
 }

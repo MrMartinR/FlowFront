@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Avatar, Container, Grid, LinearProgress, makeStyles } from '@material-ui/core/'
+import { Avatar, Grid, LinearProgress, makeStyles } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef, GridCellParams } from '@material-ui/x-grid'
 import * as platformsActions from './state/originatorsActions'
 import { RootState } from '../../../redux/rootReducer'
@@ -11,21 +11,29 @@ LicenseInfo.setLicenseKey(
 )
 /* styles */
 const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+  },
   table: {
     background: '#ffffff',
-    height: 700,
-    minWidth: 400,
-    overflow: 'auto',
-    position: 'relative',
+    height: 600,
+    width: '100%',
   },
 })
 const columns: GridColDef[] = [
   // column definition format here
-  { field: 'country', headerName: 'Flag', width: 100, renderCell: (params: GridCellParams) => (
-    <strong>
-      <Avatar variant="square"><img src={'/media/svg/flags/'+params.value+'.svg'} alt="" /></Avatar>
-    </strong>
-  ),},
+  {
+    field: 'country',
+    headerName: 'Flag',
+    width: 100,
+    renderCell: (params: GridCellParams) => (
+      <strong>
+        <Avatar variant="square">
+          <img src={'/media/svg/flags/' + params.value + '.svg'} alt="" />
+        </Avatar>
+      </strong>
+    ),
+  },
   { field: 'country_name', headerName: 'Country Name', width: 180 },
   { field: 'id', headerName: 'Loan Id', width: 250 },
   { field: 'name', headerName: 'Name', width: 250 },
@@ -51,77 +59,73 @@ export const OriginatorLoans = (props: any) => {
   const { id } = props
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
+  const dispatch = useDispatch()
+  const linkTo = useHistory()
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.originators,
     }),
     shallowEqual
   )
-
-  const GetOriginatorLoans = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(platformsActions.fetchOriginatorLoans(id));
-      } 
-    }, [dispatch]);
-  }
-  GetOriginatorLoans();
-
+  // peticion da lista de originatorLoans
   useEffect(() => {
-    currentState.originatorLoans &&
-    setList(currentState.originatorLoans)
+    dispatch(platformsActions.fetchOriginatorLoans(id))
+  }, [dispatch, id])
+  // recibida a lista carganse os datos do state
+  useEffect(() => {
+    currentState.originatorLoans && setList(currentState.originatorLoans)
   }, [currentState.originatorLoans])
-  useEffect( () => {
-    setIsLoading(currentState.loading);
-  }, [currentState.loading]);
-
-  const rows = [] as any;
-  if (list.length >0) list.map((item: any) => {
-    const newRow = {
-      country: item.attributes.country_iso_code,
-      country_name: item.attributes.country_name,
-      id : item.id,
-      name: item.attributes?.name,
-      borrower: item.attributes?.borrower,
-      status: item.attributes?.status,
-      amount: item.attributes?.amount,
-      category: item.attributes?.category,
-      borrower_type: item.attributes?.borrower_type,
-      gender: item.attributes?.gender,
-      date_issued: item.attributes?.date_issued,
-      date_listed: item.attributes?.date_listed,
-      date_maturity: item.attributes?.date_maturity,
-      amortization: item.attributes?.amortization,
-      installment: item.attributes?.installment,
-      code: item.attributes?.code,
-      xirr: item.attributes?.xirr,
-      air: item.attributes?.air,
-    }
-    rows.push(newRow);
-    return rows;
-  })  
-
-  const linkTo = useHistory()
+  // con eses datos preparanse as filas da tabla
+  const rows = [] as any
+  if (list.length > 0)
+    list.map((item: any) => {
+      const newRow = {
+        country: item.attributes.country_iso_code,
+        country_name: item.attributes.country_name,
+        id: item.id,
+        name: item.attributes?.name,
+        borrower: item.attributes?.borrower,
+        status: item.attributes?.status,
+        amount: item.attributes?.amount,
+        category: item.attributes?.category,
+        borrower_type: item.attributes?.borrower_type,
+        gender: item.attributes?.gender,
+        date_issued: item.attributes?.date_issued,
+        date_listed: item.attributes?.date_listed,
+        date_maturity: item.attributes?.date_maturity,
+        amortization: item.attributes?.amortization,
+        installment: item.attributes?.installment,
+        code: item.attributes?.code,
+        xirr: item.attributes?.xirr,
+        air: item.attributes?.air,
+      }
+      rows.push(newRow)
+      return rows
+    })
+  // acrtualizanse os flags cos datos do state
+  useEffect(() => {
+    setIsLoading(currentState.loading)
+  }, [currentState.loading])
+  // Se premes nunha fila carga a paxina de details do loan correspondente
   const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
   return (
-    <Container>
-      <Grid xs={12} container>
-
-      </Grid>
-      { isLoading ? (
+    <Grid container direction="column" className={classes.root}>
+      {isLoading ? (
         <LinearProgress color="secondary" />
       ) : (
-        <Grid container direction="column">
-            <XGrid
-              className={classes.table}
-              rows={rows} 
-              columns={columns}
-              onRowClick={handleClick}
-              disableMultipleSelection={true} 
-              loading={isLoading} />
+        <Grid className={classes.table}>
+          <XGrid
+            loading={isLoading}
+            rows={rows}
+            columns={columns}
+            hideFooterSelectedRowCount={true}
+            disableMultipleSelection={true}
+            disableColumnReorder={true}
+            // disableColumnResize={true}
+            onRowClick={handleClick}
+          />
         </Grid>
       )}
-    </Container>
+    </Grid>
   )
 }

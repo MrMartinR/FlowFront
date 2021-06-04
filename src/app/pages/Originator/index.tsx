@@ -22,33 +22,26 @@ export const OriginatorsPage = () => {
   const classes = useStyles()
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
+  const dispatch = useDispatch()
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.originators,
     }),
     shallowEqual
   )
-  const GetAllOriginators = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(originatorsActions.fetchOriginatorsList())
-      }
-    }, [dispatch])
-  }
-  GetAllOriginators()
+  // PEticion da lista de originators
+  useEffect(() => {
+    dispatch(originatorsActions.fetchOriginatorsList())
+  }, [dispatch])
+  // recibida resposta carga os datos do state
   useEffect(() => {
     if (currentState.originatorsTable) {
       setList(currentState.originatorsTable)
     }
   }, [currentState.originatorsTable])
-
-  useEffect(() => {
-    setIsLoading(currentState.loading)
-  }, [currentState.loading])
-
+  // con eses datos prepara as filas da tabla
   const rows = [] as any
-  if (list.length > 1)
+  if (list.length > 0)
     list.map((originator: any) => {
       const newRow = {
         id: originator.id,
@@ -62,12 +55,25 @@ export const OriginatorsPage = () => {
       rows.push(newRow)
       return rows
     })
+  // actualizacion dos flags cos datos do state
+  useEffect(() => {
+    setIsLoading(currentState.loading)
+  }, [currentState.loading])
+  // funcion que se pasa como parametro o snackbar para resetear a mensaxe
+  const resetSuccess = () => {
+    dispatch(originatorsActions.resetSuccess())
+  }
   return (
     <Container className={classes.root}>
       <Grid container direction="column" spacing={1}>
         {/* toolbar */}
         <OriginatorsListToolbar list={rows} />
-        <UserAlert />
+        <UserAlert
+          resetSuccess={resetSuccess}
+          success={currentState.success}
+          message={currentState.message}
+          error={currentState.error}
+        />
         {/* table */}
         <Grid item xs={12}>
           <OriginatorsList isLoading={isLoading} rows={rows} />

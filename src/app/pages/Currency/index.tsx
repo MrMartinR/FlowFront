@@ -62,7 +62,7 @@ export const Currencies = () => {
   useEffect(() => {
     setIsLoading(currentState.listLoading)
   }, [currentState.listLoading])
-  // resetea o state para que se oculte o snackbar
+  // funcion que se pasa como parametro o snackbar para resetear a mensaxe
   const resetSuccess = () => {
     dispatch(currenciesActions.resetSuccess())
   }
