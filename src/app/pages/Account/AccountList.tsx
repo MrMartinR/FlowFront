@@ -1,9 +1,33 @@
 import { useEffect, useState } from 'react'
-import { Avatar, Card, LinearProgress, List, ListItem, ListItemAvatar, ListItemText, TextField } from '@material-ui/core'
+import {
+  Avatar,
+  Card,
+  LinearProgress,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  makeStyles,
+  TextField,
+} from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+    maxHeight: 600,
+    position: 'relative',
+    overflow: 'auto',
+  },
+  avatar: {
+    background: 'transparent',
+    color: '#e6e6e6',
+  },
+})
 
 export const AccountsList = (props: any) => {
-
+  /* styles */
+  const classes = useStyles()
   const { setSelectedItemIndex, isLoading, list } = props
   const [options, setOptions] = useState([] as any)
 
@@ -32,13 +56,13 @@ export const AccountsList = (props: any) => {
         onChange={handlePick}
         renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
       />
-      <Card>
+      <Card className={classes.root}>
         <List>
           {isLoading ? (
             <LinearProgress color="secondary" />
           ) : (
             list.map((item: any, idx: any) => (
-              <Card key = { item.id }>
+              <Card key={item.id}>
                 <ListItem
                   button
                   onClick={(e) => {
@@ -46,7 +70,12 @@ export const AccountsList = (props: any) => {
                   }}
                 >
                   <ListItemAvatar>
-                    <Avatar variant="rounded"></Avatar>
+                    <Avatar
+                      src={'/media/svg/contact/icons/' + item.attributes.contact.id + '.svg'}
+                      alt={item.attributes.contact.trade_name}
+                      variant="square"
+                      className={classes.avatar}
+                    />
                   </ListItemAvatar>
                   <ListItemText primary={`${item.attributes.contact.trade_name}`} />
                 </ListItem>

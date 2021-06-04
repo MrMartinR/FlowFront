@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import { makeStyles, Container, Grid, Card, Typography } from '@material-ui/core'
+import { makeStyles, Container, Grid, Card } from '@material-ui/core'
 import { UserAccountDetailsToolbar } from './UserAccountDetailsToolbar'
 
 import { LicenseInfo } from '@material-ui/x-license'

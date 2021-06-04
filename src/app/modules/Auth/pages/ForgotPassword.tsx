@@ -112,8 +112,12 @@ export const ForgotPassword = () => {
         </form>
       </Grid>
       {/* Alert */}
-      <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
-
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={currentState.success}
+        message={currentState.message}
+        error={currentState.error}
+      />
     </Grid>
   )
 }

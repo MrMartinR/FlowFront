@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Grid, Typography, Toolbar, TextField, makeStyles } from '@material-ui/core/'
-import { Autocomplete } from '@material-ui/lab';
-import { useHistory } from 'react-router';
+import { Autocomplete } from '@material-ui/lab'
+import { useHistory } from 'react-router'
 
 /* styles */
 const useStyles = makeStyles({
@@ -21,21 +21,23 @@ export const OriginatorsListToolbar = (props: any) => {
   const { list } = props
   const linkTo = useHistory()
   const [options, setOptions] = useState([] as any)
+  // preparase a lista de opcions para o autocomplete
   useEffect(() => {
     if (list.length >= 1) {
       let opt = [] as any
       list.map((option: any) => {
-        if (option.trade_name!==undefined){
-          opt.push(option.trade_name);
+        if (option.trade_name !== undefined) {
+          opt.push(option.trade_name)
         }
-        return opt;
+        return opt
       })
-      setOptions(opt);
+      setOptions(opt)
     }
   }, [list])
+  // seleccionada unha opcion carga a paxina dos details de ese originator
   const handlePick = (e: any, v: any) => {
-    let selected = list.find((itm: any) => itm.trade_name === v);
-    (selected)&&linkTo.push(`/originators/${selected.id}`);
+    let selected = list.find((itm: any) => itm.trade_name === v)
+    selected && linkTo.push(`/originators/${selected.id}`)
   }
   return (
     <Toolbar variant="dense" className={classes.root}>
@@ -48,7 +50,9 @@ export const OriginatorsListToolbar = (props: any) => {
             freeSolo
             options={options}
             onChange={handlePick}
-            renderInput={(params) => <TextField {...params} label="Search" size="small" margin="normal" variant="outlined" />}
+            renderInput={(params) => (
+              <TextField {...params} label="Search" size="small" margin="normal" variant="outlined" />
+            )}
           />
         </Grid>
       </Grid>

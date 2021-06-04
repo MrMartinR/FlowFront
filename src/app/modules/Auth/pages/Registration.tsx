@@ -114,7 +114,12 @@ export const Registration = () => {
 
   return (
     <Grid container className={classes.root}>
-      <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={currentState.success}
+        message={currentState.message}
+        error={currentState.error}
+      />
       {/* logo */}
       <Grid>
         <CardMedia src={Logo} component="img" />

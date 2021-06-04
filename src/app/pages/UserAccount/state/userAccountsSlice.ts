@@ -5,7 +5,7 @@ const initialUserAccountsState = {
   actionsLoading: false,
   userAccountsTable: [],
   userAccountsDetails: {},
-  userAccountsTransactions: [],
+  userAccountsTransactions: null as any,
   error: null as any,
   success: null as any,
   message: null as any,
@@ -61,6 +61,12 @@ export const userAccountsSlice = createSlice({
       const { success } = action.payload
       state.success = success;
       state.message = null;
+    },
+    transactionCreate: (state, action) => {
+      const { data } = action.payload
+      state.listLoading=false
+      const newState = state.userAccountsTransactions
+      newState.unshift(data)
     },
   },
 })

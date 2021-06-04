@@ -21,6 +21,7 @@ export const PlatformListToolbar = (props: any) => {
   const { list } = props
   const linkTo = useHistory()
   const [options, setOptions] = useState([] as any)
+  // preparase a lista de opcions para o autocomplete
   useEffect(() => {
     if (list.length >= 1) {
       let opt = [] as any
@@ -33,6 +34,7 @@ export const PlatformListToolbar = (props: any) => {
       setOptions(opt)
     }
   }, [list])
+  // seleccionada unha opcion carga a paxina dos details de ese platform
   const handlePick = (e: any, v: any) => {
     let selected = list.find((itm: any) => itm.trade_name === v)
     selected && linkTo.push(`/platforms/${selected.id}`)

@@ -8,7 +8,6 @@ const useStyles = makeStyles({
   root: {
     background: '#f1f1f1',
   },
-
   table: {
     background: '#ffffff',
     height: 600,
@@ -23,17 +22,14 @@ const columns: GridColDef[] = [
     width: 130,
     resizable: false,
     renderCell: (params: GridCellParams) => (
-      <>
-        <CardMedia
-          component="img"
-          src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
-          title={`${params.value}`}
-          alt={`${params.value}`}
-        />
-      </>
+      <CardMedia
+        component="img"
+        src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
+        title={`${params.value}`}
+        alt={`${params.value}`}
+      />
     ),
   },
-
   { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
@@ -45,6 +41,7 @@ export const OriginatorsList = (props: any) => {
   const classes = useStyles()
   const { isLoading, rows } = props
   const linkTo = useHistory()
+  // se premes nunha fila carga a paxina de details do originator correpondente
   const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`)
   return (
     <Grid container direction="column" className={classes.root}>
@@ -53,12 +50,14 @@ export const OriginatorsList = (props: any) => {
       ) : (
         <Grid className={classes.table}>
           <XGrid
+            loading={isLoading}
             rows={rows}
             columns={columns}
-            onRowClick={handleClick}
             hideFooterSelectedRowCount={true}
             disableMultipleSelection={true}
-            loading={isLoading}
+            disableColumnReorder={true}
+            // disableColumnResize={true}
+            onRowClick={handleClick}
           />
         </Grid>
       )}

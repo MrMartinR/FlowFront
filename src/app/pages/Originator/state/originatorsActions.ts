@@ -45,7 +45,6 @@ export const fetchOriginatorLoans = (id: any) => (dispatch: any) => {
   requestFromServer
     .getPlatformLoans(id)
     .then((response) => {
-      console.log(JSON.stringify(response))
       const { data } = response
       return dispatch(actions.originatorLoansReceived(data))
     })

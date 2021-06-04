@@ -60,7 +60,12 @@ export const ForgotPasswordAction = (props: any) => {
   )
   return (
     <Grid container direction="column" justify="space-around" alignItems="center">
-      <UserAlert resetSuccess = {resetSuccess} success={currentState.success} message = {currentState.message} error = {currentState.error} />
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={currentState.success}
+        message={currentState.message}
+        error={currentState.error}
+      />
 
       {/* logo */}
       <Grid item xs="auto">

@@ -9,6 +9,7 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  TextField,
 } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 
@@ -60,64 +61,61 @@ export const UserAccountsList = (props: any) => {
     setSelectedItemIndex(selected)
   }
   return (
-    <>
-      {/* <Autocomplete
+    <Container className={classes.root}>
+      <Autocomplete
         freeSolo
         options={options}
         onChange={handlePick}
-        renderInput={(params) => <TextField {...params} label="Search" margin="normal" variant="outlined" />}
-      /> */}
-
-      <Container className={classes.root}>
-        <List>
-          {isLoading ? (
-            <LinearProgress color="secondary" />
-          ) : (
-            list.map((item: any, idx: any) => (
-              <Card key={item.id} className={classes.card}>
-                {/* alternative way to show the card */}
-                {/* <ListItem
-                  button
-                  onClick={(e) => {
-                    setSelectedItemIndex(idx)
-                  }}
-                >
-                  <CardHeader
-                    avatar={
-                      <Avatar variant="square" className={classes.avatar}>
-                        {item.attributes.name[0]}
-                      </Avatar>
-                    }
-                    title={item.attributes.name}
-                    subheader={'Value ' + ' ' + 'Balance '}
-                  ></CardHeader>
-                 </ListItem> */}
-                <ListItem
-                  button
-                  onClick={(e) => {
-                    setSelectedItemIndex(idx)
-                  }}
-                >
-                  <ListItemAvatar>
-                    <Avatar
-                      src={'/media/svg/contact/icons/' + item.attributes.account.contact_id + '.svg'}
-                      alt={item.attributes.name}
-                      variant="square"
-                      className={classes.avatar}
-                    >
+        renderInput={(params: any) => (
+          <TextField {...params} size="small" label="Search" margin="normal" variant="outlined" />
+        )}
+      />
+      <List>
+        {isLoading ? (
+          <LinearProgress color="secondary" />
+        ) : (
+          list.map((item: any, idx: any) => (
+            <Card key={item.id} className={classes.card}>
+              {/* alternative way to show the card */}
+              {/* <ListItem
+                button
+                onClick={(e) => {
+                  setSelectedItemIndex(idx)
+                }}
+              >
+                <CardHeader
+                  avatar={
+                    <Avatar variant="square" className={classes.avatar}>
                       {item.attributes.name[0]}
                     </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={`${item.attributes.name}`} className={classes.text} />
-                  {/* @ToDo add the value and balance in the right part of the card */}
-                  {/* <ListItemText secondary={`${item.attributes.value}`} />
-                   <ListItemText secondary={`${item.attributes.balance}`} /> */}
-                </ListItem>
-              </Card>
-            ))
-          )}
-        </List>
-      </Container>
-    </>
+                  }
+                  title={item.attributes.name}
+                  subheader={'Value ' + ' ' + 'Balance '}
+                ></CardHeader>
+                </ListItem> */}
+              <ListItem
+                button
+                onClick={(e) => {
+                  setSelectedItemIndex(idx)
+                }}
+              >
+                <ListItemAvatar>
+                  <Avatar
+                    src={'/media/svg/contact/icons/' + item.attributes.account.contact_id + '.svg'}
+                    alt={item.attributes.name}
+                    variant="square"
+                    className={classes.avatar}
+                  />
+                </ListItemAvatar>
+                <ListItemText primary={`${item.attributes.name}`} className={classes.text} />
+                {/* @ToDo add the value and balance in the right part of the card */}
+                {/* <ListItemText secondary={`${item.attributes.value}`} />
+                  <ListItemText secondary={`${item.attributes.balance}`} /> */}
+              </ListItem>
+            </Card>
+          ))
+        )}
+      </List>
+    </Container>
   )
 }

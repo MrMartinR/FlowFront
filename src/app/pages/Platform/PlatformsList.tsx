@@ -41,7 +41,7 @@ const columns: GridColDef[] = [
       <>
         <CardMedia
           component="img"
-          src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
+          src={'/media/svg/contact/logos/' + params.row.contact_id + '.svg'}
           title={`${params.value}`}
           alt={`${params.value}`}
         />
@@ -66,6 +66,7 @@ export const PlatformsList = (props: any) => {
   const classes = useStyles()
   const { isLoading, rows } = props
   const linkTo = useHistory()
+  // se premes nunha fila redirixe a paxina dos details de ese platform
   const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
 
   return (

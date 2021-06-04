@@ -1,11 +1,10 @@
-import React from 'react'
-/* eslint-disable  no-restricted-imports */
 import * as Yup from 'yup'
 import { Grid, FormGroup, FormControl, TextField } from '@material-ui/core'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-
-const CurrencyForm = (props: any) => {
+import { useDispatch } from 'react-redux'
+import * as currenciesActions from './state/currenciesActions'
+export const CurrencyForm = (props: any) => {
   const currencyForm = Yup.object().shape({
     name: Yup.string().required('Required'),
     code: Yup.string().required('Required'),
@@ -17,37 +16,22 @@ const CurrencyForm = (props: any) => {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(currencyForm),
   })
-
-  const onSubmit = (event: any) => {}
+  const dispatch = useDispatch()
+  const onSubmit = (data: any, e: any) => {
+    dispatch(currenciesActions.createCurrency(data))
+  }
 
   return (
-    <Grid id="kt_add_currency_form">
+    <Grid container direction="column" spacing={2}>
       <FormGroup onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
-          <TextField
-            id={`outlined-name-dense`}
-            label="Name"
-            type="text"
-            margin="dense"
-            variant="outlined"
-            name={'name'}
-            inputRef={register()}
-          />
+          <TextField label="Name" type="text" margin="dense" variant="outlined" name="name" inputRef={register()} />
+        </FormControl>
+        <FormControl>
+          <TextField label="Code" type="text" margin="dense" variant="outlined" name="code" inputRef={register()} />
         </FormControl>
         <FormControl>
           <TextField
-            id={`outlined-code-dense`}
-            label="Code"
-            type="text"
-            margin="dense"
-            variant="outlined"
-            name="code"
-            inputRef={register()}
-          />
-        </FormControl>
-        <FormControl>
-          <TextField
-            id={`outlined-decimal_places-dense`}
             label="Decimal Places"
             type="number"
             margin="dense"
@@ -57,30 +41,15 @@ const CurrencyForm = (props: any) => {
           />
         </FormControl>
         <FormControl>
-          <TextField
-            id={`outlined-kind-dense`}
-            label="Type"
-            type="text"
-            margin="dense"
-            variant="outlined"
-            name="kind"
-            inputRef={register()}
-          />
+          <TextField label="Type" type="text" margin="dense" variant="outlined" name="kind" inputRef={register()} />
         </FormControl>
         <FormControl>
-          <TextField
-            id={`outlined-symbol-dense`}
-            label="Symbol"
-            type="text"
-            margin="dense"
-            variant="outlined"
-            name="symbol"
-            inputRef={register()}
-          />
+          <TextField label="Symbol" type="text" margin="dense" variant="outlined" name="symbol" inputRef={register()} />
+        </FormControl>
+        <FormControl>
+          <TextField label="Fx_eur" type="text" margin="dense" variant="outlined" name="fx_eur" inputRef={register()} />
         </FormControl>
       </FormGroup>
     </Grid>
   )
 }
-
-export default CurrencyForm

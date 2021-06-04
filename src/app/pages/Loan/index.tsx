@@ -22,77 +22,82 @@ export const LoansPage = () => {
   const classes = useStyles()
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
+  const dispatch = useDispatch()
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.loans,
     }),
     shallowEqual
   )
-  const GetAllLoans = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(loansActions.fetchLoansData());
-      } 
-    }, [dispatch])
+  // peticion da lista de loans
+  useEffect(() => {
+    dispatch(loansActions.fetchLoansData())
+  }, [dispatch])
+  // recibida resposta carga os datos do state
+  useEffect(() => {
+    if (currentState.loansData) {
+      setList(currentState.loansData)
+    }
+  }, [currentState.loansData])
+  // con ese datos cubre as filas da tabla
+  const rows = [] as any
+  if (list.length > 0)
+    list.map((loan: any) => {
+      const newRow = {
+        id: loan.id,
+        name: loan.attributes.name,
+        air: loan.attributes.air,
+        country: loan.attributes.country.iso_code,
+        country_name: loan.attributes.country.name,
+        currency: loan.attributes.currency.name,
+        amortization: loan.attributes.amortization,
+        amount: loan.attributes.amount,
+        borrower: loan.attributes.borrower,
+        borrower_type: loan.attributes.borrower_type,
+        category: loan.attributes.category,
+        code: loan.attributes.code,
+        date_issued: loan.attributes.date_issued,
+        date_listed: loan.attributes.date_listed,
+        date_maturity: loan.attributes.date_maturity,
+        description: loan.attributes.description,
+        dti_rating: loan.attributes.dti_rating,
+        gender: loan.attributes.gender,
+        installment: loan.attributes.installment,
+        internal_code: loan.attributes.internal_code,
+        notes: loan.attributes.notes,
+        originator: loan.attributes.originator.contact_id,
+        platform: loan.attributes.platform.contact_id,
+        protection_scheme: loan.attributes.protection_scheme,
+        rating: loan.attributes.rating,
+        security_details: loan.attributes.security_details,
+        status: loan.attributes.status,
+        xirr: loan.attributes.xirr,
+      }
+      rows.push(newRow)
+      return rows
+    })
+  // actualizanse os flags de loading cos datos do state
+  useEffect(() => {
+    setIsLoading(currentState.loading)
+  }, [currentState.loading])
+  // funcion que se pasa como parametro o snackbar para resetear a mensaxe
+  const resetSuccess = () => {
+    dispatch(loansActions.resetSuccess())
   }
-  GetAllLoans();
-  useEffect(() => { if (
-    currentState.loansData
-    ) {
-      setList(currentState.loansData);
-    }
-  }, [currentState.loansData]);
-
-  useEffect( () => {
-    setIsLoading(currentState.loading);
-  }, [currentState.loading]);
-
-const rows = [] as any;
-  if (list.length >1) list.map((loan: any) => {
-    const newRow = {
-      id : loan.id,
-      name: loan.attributes.name,
-      air: loan.attributes.air,
-      country: loan.attributes.country.iso_code,
-      country_name: loan.attributes.country.name,
-      currency: loan.attributes.currency.name,
-      amortization: loan.attributes.amortization,
-      amount: loan.attributes.amount,
-      borrower: loan.attributes.borrower,
-      borrower_type: loan.attributes.borrower_type,
-      category: loan.attributes.category,
-      code: loan.attributes.code,
-      date_issued: loan.attributes.date_issued,
-      date_listed: loan.attributes.date_listed,
-      date_maturity: loan.attributes.date_maturity,
-      description: loan.attributes.description,
-      dti_rating: loan.attributes.dti_rating,
-      gender: loan.attributes.gender,
-      installment: loan.attributes.installment,
-      internal_code: loan.attributes.internal_code,
-      notes: loan.attributes.notes,
-      originator: loan.attributes.originator.id,
-      platform: loan.attributes.platform.id,
-      protection_scheme: loan.attributes.protection_scheme,
-      rating: loan.attributes.rating,
-      security_details: loan.attributes.security_details,
-      status: loan.attributes.status,
-      xirr: loan.attributes.xirr,
-    }
-    rows.push(newRow);
-    return rows;
-  })
-
   return (
     <Container className={classes.root}>
       <Grid container direction="column" spacing={1}>
         {/* toolbar */}
         <LoansListToolbar list={rows} />
-        <UserAlert />
+        <UserAlert
+          resetSuccess={resetSuccess}
+          success={currentState.success}
+          message={currentState.message}
+          error={currentState.error}
+        />
         {/* table */}
         <Grid item xs={12}>
-          <LoansList isLoading={isLoading} rows={rows}/>
+          <LoansList isLoading={isLoading} rows={rows} />
         </Grid>
       </Grid>
     </Container>

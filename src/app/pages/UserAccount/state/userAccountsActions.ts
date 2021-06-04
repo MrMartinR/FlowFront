@@ -117,3 +117,18 @@ export const fetchAccountTransaction = (id: any) => (dispatch: any) => {
 export const resetSuccess = () => (dispatch: any) => {
   dispatch( actions.resetSuccess({ success: null }));
 }
+
+export const createTransaction = (data: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  return requestFromServer
+    .createTransaction(data)
+    .then((response) => {
+      const { data } = response
+      console.log(response)
+      dispatch(actions.transactionCreate(data))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find contact"
+      dispatch(actions.catchError({ error, callType: callTypes.list }))
+    })
+}

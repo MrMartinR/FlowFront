@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router-dom'
-import { Grid, LinearProgress, Avatar, makeStyles } from '@material-ui/core/'
+import { Grid, LinearProgress, makeStyles, CardMedia } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef, GridCellParams } from '@material-ui/x-grid'
-
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
@@ -22,11 +21,21 @@ const columns: GridColDef[] = [
   // column definition format here
   { field: 'name', headerName: 'Name', width: 180 },
   { field: 'air', headerName: 'Air', width: 180 },
-  { field: 'country', headerName: 'Flag', width: 100, renderCell: (params: GridCellParams) => (
-    <strong>
-      <Avatar variant="square"><img src={'/media/svg/flags/'+params.value+'.svg'} alt="" /></Avatar>
-    </strong>
-  ),},
+  {
+    field: 'country',
+    headerName: 'Flag',
+    width: 100,
+    resizable: false,
+    renderCell: (params: GridCellParams) => (
+      <CardMedia
+        component="img"
+        src={'/media/svg/flags/' + params.value + '.svg'}
+        title={`${params.value}`}
+        alt={`${params.value}`}
+        style={{ padding: '18px' }}
+      />
+    ),
+  },
   { field: 'country_name', headerName: 'Country', width: 180 },
   { field: 'currency', headerName: 'Currency', width: 180 },
   { field: 'amortization', headerName: 'Amortization', width: 180 },
@@ -44,8 +53,36 @@ const columns: GridColDef[] = [
   { field: 'installment', headerName: 'Installment', width: 180 },
   { field: 'internal_code', headerName: 'Internal code', width: 180 },
   { field: 'notes', headerName: 'Notes', width: 180 },
-  { field: 'originator', headerName: 'Originator', width: 180 },
-  { field: 'platform', headerName: 'Platform', width: 180 },
+  {
+    field: 'originator',
+    headerName: 'Originator',
+    width: 130,
+    resizable: false,
+    renderCell: (params: GridCellParams) => (
+      <>
+        <CardMedia
+          component="img"
+          src={'/media/svg/contact/logos/' + params.value + '.svg'}
+          title={`${params.value}`}
+          alt={`${params.value}`}
+        />
+      </>
+    ),
+  },
+  {
+    field: 'platform',
+    headerName: 'Platform',
+    width: 120,
+    resizable: false,
+    renderCell: (params: GridCellParams) => (
+      <CardMedia
+        component="img"
+        src={'/media/svg/contact/logos/' + params.value + '.svg'}
+        title={`${params.value}`}
+        alt={`${params.value}`}
+      />
+    ),
+  },
   { field: 'protection_scheme', headerName: 'Protection scheme', width: 180 },
   { field: 'rating', headerName: 'Rating', width: 180 },
   { field: 'security_details', headerName: 'Security details', width: 180 },
@@ -58,23 +95,25 @@ export const LoansList = (props: any) => {
   const classes = useStyles()
   const { isLoading, rows } = props
   const linkTo = useHistory()
+  // se premes nunha fila carga o loan correspondente
   const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
-
   return (
     <Grid container direction="column" className={classes.root}>
       {isLoading ? (
         <LinearProgress color="secondary" />
       ) : (
-          <Grid className={classes.table}>
-            <XGrid
-              loading={isLoading}
-              rows={rows}
-              columns={columns}
-              hideFooterSelectedRowCount={true}
-              disableMultipleSelection={true}
-              onRowClick={handleClick}
-            />
-          </Grid>
+        <Grid className={classes.table}>
+          <XGrid
+            loading={isLoading}
+            rows={rows}
+            columns={columns}
+            hideFooterSelectedRowCount={true}
+            disableMultipleSelection={true}
+            disableColumnReorder={true}
+            // disableColumnResize={true}
+            onRowClick={handleClick}
+          />
+        </Grid>
       )}
     </Grid>
   )

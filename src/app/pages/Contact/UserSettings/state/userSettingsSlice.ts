@@ -8,7 +8,7 @@ const initialUserSettingsState = {
     userSettings: {
     },
     success: null as any,
-    response: null as any,
+    message: null as any,
     error: null as any,
   }
   export const callTypes = {
@@ -34,7 +34,7 @@ const initialUserSettingsState = {
         startCall: (state, action) => {
             state.error = null
             state.success = null
-            state.response = null
+            state.message = null
             if (action.payload.callType === callTypes.list) {
                 state.listLoading = true
             } else {
@@ -68,6 +68,11 @@ const initialUserSettingsState = {
             const { data } = action.payload
             state.actionsLoading = false
             state.userSettings = data
-        }
+        },
+        resetSuccess: (state, action) => {
+            const { success } = action.payload
+            state.success = success;
+            state.message = null;
+        },
     },
   })
