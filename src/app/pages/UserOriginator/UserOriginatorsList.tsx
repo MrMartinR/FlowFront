@@ -1,17 +1,22 @@
-import { useEffect, useState } from 'react'
-import { Grid, Card, CardContent, LinearProgress } from '@material-ui/core/'
+import { Grid, LinearProgress, makeStyles } from '@material-ui/core/'
 import { XGrid, LicenseInfo, GridColDef } from '@material-ui/x-grid'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../redux/rootReducer'
-import { UserOriginatorsListToolbar } from './UserOriginatorListToolbar'
-import { UserAlert } from '../../utils/UserAlert'
-import * as userOriginatorsActions from './state/userOriginatorsActions'
+
 import { useHistory } from 'react-router'
 
 LicenseInfo.setLicenseKey(
   'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
 )
-
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+  },
+  table: {
+    background: '#ffffff',
+    height: 600,
+    width: '100%',
+  },
+})
 const columns: GridColDef[] = [
   // column definition format here
   { field: 'trade_name', headerName: 'Name', width: 250 },
@@ -22,78 +27,31 @@ const columns: GridColDef[] = [
 ] as any
 
 export const UserOriginatorsList = (props: any) => {
-  const [list, setList] = useState([] as any)
-  const [isLoading, setIsLoading] = useState(true)
-  const { currentState } = useSelector(
-    (state: RootState) => ({
-      currentState: state.userOriginators,
-    }),
-    shallowEqual
-  )
-  const dispatch = useDispatch()
-  const resetSuccess = () => {
-    dispatch(userOriginatorsActions.resetSuccess())
-  }
+  /* styles */
+  const classes = useStyles()
+  const { isLoading, rows } = props
 
-  useEffect(() => {
-    dispatch(userOriginatorsActions.fetchUserOriginatorsData());
-  }, [dispatch])
-
-  useEffect(() => { if (
-    currentState.userOriginatorsData
-    ) {
-      setList(currentState.userOriginatorsData);
-    }
-  }, [currentState.userOriginatorsData]);
-
-  useEffect( () => {
-    setIsLoading(currentState.loading);
-  }, [currentState.loading]);
-
-  const linkTo = useHistory();
-  const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`);
-
-  const rows = [] as any;
-  if (list.length >1) list.map((originator: any) => {
-    const newRow = {
-      id : originator.id,
-      trade_name: originator.attributes.contact?.trade_name,
-      customer_category: originator.attributes.customer_category,
-      product_category_business: originator.attributes.product_category_business,
-      product_category_consumer: originator.attributes.product_category_consumer,
-      apr: originator.attributes.apr,
-    }
-    rows.push(newRow);
-    return rows;
-  })
-
+  const linkTo = useHistory()
+  // cando premes nunha fila cargase a paxina dese orixinator
+  const handleClick = (e: any) => linkTo.push(`/originators/${e.row.id}`)
   return (
-    <>
+    <Grid container direction="column" className={classes.root}>
       {isLoading ? (
-        <Grid container direction="column">
-          <LinearProgress color="secondary" />
-        </Grid>
+        <LinearProgress color="secondary" />
       ) : (
-        <>
-          <UserOriginatorsListToolbar list = { rows }/>
-          <UserAlert error= { currentState.error } success = { currentState.success } resetSuccess={ resetSuccess }/>
-          <Grid container direction="column">
-            <Card>
-              <CardContent>
-                <div style={{ height: 600, width: '100%' }}>
-                  <XGrid 
-                    rows={rows} 
-                    columns={columns}
-                    onRowClick={handleClick} 
-                    disableMultipleSelection={true} 
-                    loading={isLoading} 
-                    />
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        </>
+        <Grid className={classes.table}>
+          <XGrid
+            loading={isLoading}
+            rows={rows}
+            columns={columns}
+            hideFooterSelectedRowCount={true}
+            disableMultipleSelection={true}
+            disableColumnReorder={true}
+            // disableColumnResize={true}
+            onRowClick={handleClick}
+          />
+        </Grid>
       )}
-    </>
+    </Grid>
   )
 }

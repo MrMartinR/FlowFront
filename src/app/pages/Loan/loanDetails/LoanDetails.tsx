@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 export const LoanDetails = (props: any) => {
   const { loanDetails } = props
   const [security, setSecurity] = useState()
+  // carga os datos do togglebutton
   useEffect(() => {
     setSecurity(loanDetails.attributes?.protection_scheme)
   }, [loanDetails])

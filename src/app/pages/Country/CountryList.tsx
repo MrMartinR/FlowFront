@@ -24,7 +24,13 @@ const columns: GridColDef[] = [
     headerName: 'Flag',
     width: 100,
     renderCell: (params: GridCellParams) => (
-      <CardMedia component="img" src={'/media/svg/flags/' + params.value + '.svg'} alt={`${params.getValue('name')}`} />
+      <CardMedia
+        style={{ padding: '18px' }}
+        component="img"
+        src={'/media/svg/flags/' + params.value + '.svg'}
+        alt={`${params.getValue('name')}`}
+        title={`${params.getValue('name')}`}
+      />
     ),
   },
   { field: 'iso_code', headerName: 'ISO', width: 100 },

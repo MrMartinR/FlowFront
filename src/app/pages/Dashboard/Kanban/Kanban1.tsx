@@ -1,23 +1,22 @@
 import { useState } from 'react'
 import { Toolbar, Grid, Card, Button, Typography, TextField } from '@material-ui/core'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { v4 } from 'uuid'
 
 const item = {
-  id: v4(),
+  id: '1',
   name: 'Use Fragments instead of Div',
 }
 
 const item2 = {
-  id: v4(),
+  id: '2',
   name: 'Do not Use Styles or Themes',
 }
 const item3 = {
-  id: v4(),
+  id: '3',
   name: 'Comment the Code',
 }
 const item4 = {
-  id: v4(),
+  id: '4',
   name: '🐛 Fixing Bugs',
 }
 
@@ -66,7 +65,7 @@ function Kanban1() {
           title: 'To Do',
           items: [
             {
-              id: v4(),
+              id: '5',
               name: text,
             },
             ...prev.todo.items,

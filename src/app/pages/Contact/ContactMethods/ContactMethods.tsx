@@ -57,9 +57,7 @@ export const ContactMethod = (props: any) => {
     <>
       {add === 'add' ? (
         <>
-          <Typography variant="h6" id="simple-modal-title">
-            Add Contact Method
-          </Typography>
+          <Typography variant="h6">Add Contact Method</Typography>
 
           <AddContactMethodForm selectedContact={selectedContact} handleClose={handleClose} />
         </>
@@ -105,8 +103,8 @@ export const ContactMethod = (props: any) => {
           <LinearProgress color="secondary" />
         ) : listMethods?.length >= 1 ? (
           listMethods.map((itm: any, idx: any) => (
-            <CardActions>
-              <Grid container key={itm.id}>
+            <CardActions key={itm.id}>
+              <Grid container alignItems="center">
                 <Grid item xs={2}>
                   {(itm.kind === 'Address' && (
                     <Avatar variant="square" src={'/media/svg/icons/address.svg'} alt="Address" />
@@ -206,7 +204,7 @@ export const ContactMethod = (props: any) => {
                       </Typography>
                     )}
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={2}>
                   <Button onClick={(e) => handleOpen(e, 'edit', itm)}>•••</Button>
                 </Grid>
               </Grid>

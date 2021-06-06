@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialUserPlatformsState = {
   loading: false,
   actionsLoading: false,
-  userPlatformsTable: [],
-  userPlatformDetails: {},
+  userPlatformsTable: null as any,
+  userPlatformDetails: null as any,
   error: null as any,
   success: null as any,
   message: null as any,

@@ -3,17 +3,18 @@ import { RootState } from '../../../../redux/rootReducer'
 import { useHistory } from 'react-router'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
-import { Container, Grid, makeStyles, Avatar, LinearProgress } from '@material-ui/core/'
+import { Grid, makeStyles, Avatar, LinearProgress } from '@material-ui/core/'
 import * as platformsActions from '../state/platformsActions'
 
-/* styles */
+//* styles */
 const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+  },
   table: {
     background: '#ffffff',
-    height: 700,
-    minWidth: 400,
-    overflow: 'auto',
-    position: 'relative',
+    height: 600,
+    width: '100%',
   },
 })
 
@@ -57,30 +58,22 @@ export const PlatformLoans = (props: any) => {
   const { id } = props
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
+  const dispatch = useDispatch()
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.platforms,
     }),
     shallowEqual
   )
-
-  const GetPlatformLoans = () => {
-    let dispatch = useDispatch()
-    useEffect(() => {
-      if (dispatch) {
-        dispatch(platformsActions.fetchPlatformLoans(id))
-      }
-    }, [dispatch])
-  }
-  GetPlatformLoans()
-
+  // peticion da lista de platformloans
+  useEffect(() => {
+    dispatch(platformsActions.fetchPlatformLoans(id))
+  }, [dispatch, id])
+  // recibida resposta carganse os datos do state
   useEffect(() => {
     currentState.platformLoans && setList(currentState.platformLoans)
   }, [currentState.platformLoans])
-  useEffect(() => {
-    setIsLoading(currentState.loading)
-  }, [currentState.loading])
-
+  // con eses datos enchense as filas da tabla
   const rows = [] as any
   if (list.length > 0)
     list.map((item: any) => {
@@ -107,25 +100,31 @@ export const PlatformLoans = (props: any) => {
       rows.push(newRow)
       return rows
     })
-
+  // actualizase os falgs de loadings cos datos do state
+  useEffect(() => {
+    setIsLoading(currentState.loading)
+  }, [currentState.loading])
   const linkTo = useHistory()
+  // se preme nunha fila carga a paxina correspondente a ese loan
   const handleClick = (e: any) => linkTo.push(`/loans/${e.row.id}`)
   return (
-    <Container>
-      <Grid xs={12} container>
-        {isLoading ? (
-          <LinearProgress color="secondary" />
-        ) : (
+    <Grid container direction="column" className={classes.root}>
+      {isLoading ? (
+        <LinearProgress color="secondary" />
+      ) : (
+        <Grid className={classes.table}>
           <XGrid
-            className={classes.table}
+            loading={isLoading}
             rows={rows}
             columns={columns}
-            onRowClick={handleClick}
+            hideFooterSelectedRowCount={true}
             disableMultipleSelection={true}
-            loading={isLoading}
+            disableColumnReorder={true}
+            // disableColumnResize={true}
+            onRowClick={handleClick}
           />
-        )}
-      </Grid>
-    </Container>
+        </Grid>
+      )}
+    </Grid>
   )
 }

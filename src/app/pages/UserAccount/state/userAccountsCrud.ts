@@ -7,6 +7,7 @@ import { API_URL, optionsHeaders } from '../../../utils'
  * http://localhost:3000/api/v1/user_accounts
  */
 export const USER_ACCOUNTS_URL = `${API_URL}/api/v1/user_accounts`
+export const TRANSACTIONS_URL = `${API_URL}/api/v1/transactions`
 /**
  * GET method to fetch all the User Accounts sending the optionsHeader in the call
  * @param USER_ACCOUNTS_URL, optionsHeaders
@@ -21,10 +22,17 @@ export const USER_ACCOUNTS_URL = `${API_URL}/api/v1/user_accounts`
  * @param USER_ACCOUNTS_URL, contactsId, optionsHeaders
  * @returns Data about a specific User Account
  */
-export function getUserAccountById(id: any) {
+export const getUserAccountById = (id: any) => {
     return axios.get(`${USER_ACCOUNTS_URL}/${id}`, optionsHeaders())
   }
 
-export function getUserTransactions(id:any) {
+export const getUserTransactions = (id:any) => {
     return axios.get(`${USER_ACCOUNTS_URL}/${id}/transactions`, optionsHeaders());
 }
+export const createTransaction = (data: any) => {
+    const form = {
+      transaction: data,
+    }
+  
+    return axios.post(`${TRANSACTIONS_URL}`, form, optionsHeaders())
+  }
