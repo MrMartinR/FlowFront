@@ -1,120 +1,92 @@
-import React, { useEffect } from 'react'
-import { Grid, Typography } from '@material-ui/core/'
-import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { XGrid, LicenseInfo, ColDef } from '@material-ui/x-grid'
-import PlatformListToolbar from './PlatformListToolbar'
-import { fetchPlatformsList } from './state/platformsActions'
+import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
+import { makeStyles, Grid, LinearProgress, CardMedia } from '@material-ui/core/'
 
-LicenseInfo.setLicenseKey(
-  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
-)
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+  },
+  table: {
+    background: '#ffffff',
+    height: 600,
+    width: '100%',
+  },
+})
 
-const columns: ColDef[] = [
-  { field: 'contact', headerName: 'Platform', width: 200 },
-  { field: 'status', headerName: 'Status', width: 100 },
-  { field: 'liquidity', headerName: 'Liquidity', width: 130 },
-  { field: 'account_category', headerName: 'Account Category', width: 130 },
-  // { field: 'cashflow_options', headerName: 'Cashflow Options', width: 130 },
-  { field: 'category', headerName: 'Category', width: 130 },
-  { field: 'cost', headerName: 'Cost', width: 130 },
-  // { field: 'ifisa', headerName: 'Ifisa', width: 130 },
+/* define the columns for the table */
+const columns: GridColDef[] = [
+  {
+    field: 'status',
+    headerName: 'Status',
+    description: 'Status',
+    width: 100,
+    renderCell: (params: GridCellParams) => (
+      <>
+        <CardMedia
+          component="img"
+          src={'/media/svg/platform-status/' + `${params.value}`.toLowerCase() + '.svg'}
+          alt={`${params.value}`}
+          style={{ padding: '18px' }}
+        />
+      </>
+    ),
+  },
+  {
+    field: 'trade_name',
+    headerName: 'Platform',
+    width: 120,
+    resizable: false,
+    renderCell: (params: GridCellParams) => (
+      <>
+        <CardMedia
+          component="img"
+          src={'/media/svg/contact/logos/' + params.row.contact_id + '.svg'}
+          title={`${params.value}`}
+          alt={`${params.value}`}
+        />
+      </>
+    ),
+  },
+  { field: 'category', headerName: 'Category', width: 130, resizable: false },
+  { field: 'account_category', headerName: 'Investors', width: 130 },
   { field: 'invest_mode', headerName: 'Invest Mode', width: 130 },
   { field: 'min_investment', headerName: 'Min Investment', width: 130 },
-  // { field: 'profitable', headerName: 'Profitable', width: 130 },
-  // { field: 'promo_end', headerName: 'Promo End', width: 130 },
   { field: 'protection_scheme', headerName: 'Protection Scheme', width: 130 },
-  { field: 'secondary_market', headerName: 'Secondary Market', width: 130 },
-  // { field: 'sm_notes', headerName: 'SM Notes', width: 130 },
+  { field: 'secondary_market', type: 'boolean', headerName: 'SM', description: 'Secondary Market', width: 80 },
   { field: 'structure', headerName: 'Structure', width: 130 },
-  // { field: 'taxes', headerName: 'Taxes', width: 130 },
   { field: 'term', headerName: 'Term', width: 130 },
+  { field: 'liquidity', headerName: 'Liquidity', width: 130 },
   { field: 'promo', headerName: 'Promo', width: 130 },
   { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 130 },
 ]
 
-const PlatformsList = (props: any) => {
-  const { fetchPlatformsList } = props
-  const { platformsTable = [], loading } = props.platforms
-  const [data, setData] = React.useState([] as any)
-
-  const processData = (arr: any) => {
-    let data = [] as any
-    arr.forEach((element: any) => {
-      let dt = {} as any
-      dt['id'] = element.id
-      dt['contact_id'] = element.contact_id
-      dt['contact'] = element.contact.trade_name
-      dt['status'] = element.status
-      dt['liquidity'] = element.liquidity
-      // dt['account_category'] = element.account_category
-      // dt['cashflow_options'] = element.cashflow_options
-      dt['category'] = element.category
-      dt['cost'] = element.cost
-      // dt['ifisa'] = element.ifisa
-      dt['invest_mode'] = element.invest_mode
-      dt['min_investment'] = element.min_investment
-      // dt['profitable'] = element.profitable
-      dt['promo'] = element.promo
-      // dt['promo_end'] = element.promo_end
-      dt['protection_scheme'] = element.protection_scheme
-      dt['secondary_market'] = element.secondary_market
-      // dt['sm_notes'] = element.sm_notes
-      dt['structure'] = element.structure
-      // dt['taxes'] = element.taxes
-      dt['term'] = element.term
-      dt['welcome_bonus'] = element.welcome_bonus
-      data.push(dt)
-    })
-    return data
-  }
-
-  useEffect(() => {
-    fetchPlatformsList()
-  }, [fetchPlatformsList])
-
-  useEffect(() => {
-    setData(processData(platformsTable))
-  }, [platformsTable])
-
+export const PlatformsList = (props: any) => {
+  /* styles */
+  const classes = useStyles()
+  const { isLoading, rows } = props
   const linkTo = useHistory()
+  // se premes nunha fila redirixe a paxina dos details de ese platform
   const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
 
-  if (loading) {
-    return (
-      <>
-        <Typography variant="h5">Loading platforms...</Typography>
-      </>
-    )
-  }
   return (
-    <>
-      <PlatformListToolbar />
-      <Grid container direction="column">
-        <div style={{ height: 600, width: '100%' }}>
+    <Grid container direction="column" className={classes.root}>
+      {isLoading ? (
+        <LinearProgress color="secondary" />
+      ) : (
+        <Grid className={classes.table}>
           <XGrid
-            rows={data}
+            loading={isLoading}
+            rows={rows}
             columns={columns}
-            onRowClick={handleClick}
+            hideFooterSelectedRowCount={true}
             disableMultipleSelection={true}
-            loading={true}
+            disableColumnReorder={true}
+            // disableColumnResize={true}
+            onRowClick={handleClick}
           />
-        </div>
-      </Grid>
-    </>
+        </Grid>
+      )}
+    </Grid>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    platforms: state.platforms,
-  }
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchPlatformsList: () => dispatch(fetchPlatformsList()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformsList)

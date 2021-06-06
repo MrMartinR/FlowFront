@@ -1,29 +1,55 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
-import { injectIntl } from 'react-intl'
-import { TextField, Button, Grid, Typography, CardMedia, FormControl } from '@material-ui/core'
+
+import {
+  makeStyles,
+  Grid,
+  FormLabel,
+  OutlinedInput,
+  FormHelperText,
+  Button,
+  Typography,
+  CardMedia,
+  FormControl,
+} from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
-import * as auth from '../_redux/authRedux'
+import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
-import { requestPassword } from '../_redux/authCrud'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { UserAlert } from '../../../utils/UserAlert'
+import { RootState } from '../../../../redux/rootReducer'
+
+/* Styles */
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #f2f2f2 25%, #ccc 90%)',
+    minWidth: '100%',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 
 const initialValues = {
   email: '',
 }
 
 type PasswordType = {
-  email: String
+  email: string
 }
 
-function ForgotPassword(props: any) {
-  const [isRequested, setIsRequested] = useState(false)
+export const ForgotPassword = () => {
+  /* styles */
+  const classes = useStyles()
+
+  /* yup schema */
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .email('Wrong email format')
-      .min(3, 'Minimum 3 symbols')
+      .min(6, 'Minimum 6 symbols')
       .max(50, 'Maximum 50 symbols')
       .required('Required'),
   })
@@ -32,69 +58,66 @@ function ForgotPassword(props: any) {
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
-
+  const dispatch = useDispatch()
   const onSubmit = ({ email }: PasswordType) => {
-    requestPassword(email)
-      .then((res) => {
-        setIsRequested(true)
-        localStorage.setItem('forgot_pwd_notif', res.data.message)
-      })
-      .catch(() => {
-        setIsRequested(false)
-        localStorage.setItem('forgot_pwd_notif', '')
-      })
+    dispatch(authActions.requestPassword(email))
   }
-
+  const resetSuccess = () => {
+    dispatch(authActions.resetSuccess())
+  }
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.auth,
+    }),
+    shallowEqual
+  )
   return (
-    <Grid container direction="column" justify="space-around" alignItems="center">
+    <Grid container direction="column" justify="space-around" alignItems="center" className={classes.root}>
       {/* logo */}
-      <Grid item xs="auto">
+      <Grid item xs={12}>
         <CardMedia src={Logo} component="img" />
         <Typography align="center" variant="h6">
-          Forgotten Password ?
+          Password Recovery
         </Typography>
       </Grid>
       {/* form */}
-      {isRequested && <Redirect to="/auth" />}
-      {!isRequested && (
-        <Grid item xs="auto">
-          <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
-            <Grid container direction="column" justify="center" alignItems="center">
-              {(localStorage.getItem('forgot_pwd_notif') === null) === false ? (
-                <div>{localStorage.getItem('forgot_pwd_notif')}</div>
-              ) : (
-                ''
-              )}
-              <FormControl variant="filled">
-                <TextField
-                  label="Email"
-                  margin="normal"
-                  variant="outlined"
-                  autoComplete="on"
-                  type="email"
-                  inputRef={register()}
-                  name="email"
-                />
-                <span> {errors.email && errors.email.message}</span>
-              </FormControl>
-              <FormControl variant="filled">
-                <Button type="submit">Submit</Button>
-                <Link to="/auth">
-                  <Button
-                    type="button"
-                    id="kt_login_forgot_cancel"
-                    className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"
-                  >
-                    Cancel
-                  </Button>
-                </Link>
-              </FormControl>
-            </Grid>
-          </form>
-        </Grid>
-      )}
+      <Grid item xs="auto">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
+          <Grid container direction="column" justify="center" alignItems="center">
+            {/* begin: Email */}
+            <FormControl required fullWidth size="small">
+              <FormLabel>Email</FormLabel>
+              <OutlinedInput
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoComplete="on"
+                inputRef={register()}
+                fullWidth
+              />
+              <FormHelperText>
+                Enter your linked Flow email to receive instructions to set a new password
+              </FormHelperText>
+              <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
+            </FormControl>
+            {/* end: Email */}
+
+            <Button type="submit">Request new Password</Button>
+            <Typography variant="body2" align="center">
+              Already registered? <Link to="/auth/login">Sign in</Link>
+            </Typography>
+            {/* </FormControl> */}
+          </Grid>
+        </form>
+      </Grid>
+      {/* Alert */}
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={currentState.success}
+        message={currentState.message}
+        error={currentState.error}
+      />
     </Grid>
   )
 }
-
-export default injectIntl(connect(null, auth.actions)(ForgotPassword))

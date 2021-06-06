@@ -1,67 +1,33 @@
-import React from 'react'
-import { Toolbar, Grid, Card, CardHeader, CardContent, Button, Typography } from '@material-ui/core'
-import { ReactComponent as PlatformIcon } from '../../../common/media/svg/icons/platform.svg'
-import { ReactComponent as LendingIcon } from '../../../common/media/svg/icons/lending.svg'
-import { ReactComponent as OriginatorIcon } from '../../../common/media/svg/icons/originator.svg'
+import { Grid, Container, makeStyles } from '@material-ui/core'
+import { LendingDetails } from './LendingDetails'
 
+import { LendingToolbar } from './LendingToolbar'
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+    minWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 export const LendingPage = () => {
+  /* styles */
+  const classes = useStyles()
   return (
-    <Grid container xs={12}>
-      <Grid item>
-        <Typography variant="h4">Lending</Typography>
-      </Grid>
-      <Grid item>
-        <Toolbar>
-          <Button variant="outlined" href="/platforms">
-            All Platforms
-          </Button>
-          <Button variant="outlined" href="/originators">
-            All Originators
-          </Button>
-          <Button variant="outlined" href="/loans">
-            All Loans
-          </Button>
-        </Toolbar>
-      </Grid>
-      <Grid container alignItems="center" spacing={2} justify="space-evenly" alignContent="center">
-        <Grid item xs={2} style={{ textAlign: 'center' }}>
-          <Card>
-            <CardHeader title="My Platforms" />
-            <CardContent>
-              <PlatformIcon />
-              <Button variant="outlined" href="/user-platform-overall">
-                Platforms
-              </Button>
-            </CardContent>
-          </Card>
+    <Container className={classes.root}>
+      <Grid container direction="column" spacing={1}>
+        {/* toolbar */}
+        <Grid item>
+          <LendingToolbar />
         </Grid>
-
-        <Grid item xs={2} style={{ textAlign: 'center' }}>
-          <Card>
-            <CardHeader title="My Originators" />
-            <CardContent>
-              <OriginatorIcon />
-              <Button variant="outlined" href="/user-originator">
-                Originators
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={2} style={{ textAlign: 'center' }}>
-          <Card>
-            <CardHeader title="My Loans" />
-            <CardContent>
-              <LendingIcon />
-              <Button variant="outlined" href="/user-loan">
-                Loans
-              </Button>
-            </CardContent>
-          </Card>
+        {/* Menu */}
+        <Grid item>
+          <LendingDetails />
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   )
 }
-
-export default LendingPage

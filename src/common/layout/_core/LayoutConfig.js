@@ -1,6 +1,6 @@
-import { toAbsoluteUrl } from '../../../_metronic/_helpers'
+import { toAbsoluteUrl } from '../../../app/utils'
 
-function getInitLayoutConfig() {
+export const getInitLayoutConfig = () => {
   return {
     // == Page Splash Screen loading
     loader: {
@@ -11,5 +11,3 @@ function getInitLayoutConfig() {
     },
   }
 }
-
-export default getInitLayoutConfig

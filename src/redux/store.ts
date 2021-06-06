@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga'
 import { reduxBatch } from '@manaflair/redux-batch'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { rootReducer, rootSaga } from './rootReducer'
+import { rootReducer } from './rootReducer'
 
 const sagaMiddleware = createSagaMiddleware()
 const middleware = [
@@ -14,11 +14,10 @@ const middleware = [
   }),
   sagaMiddleware,
 ]
-
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['icons'], // only icons will be persisted
+  whitelist: ['icons', 'auth'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -36,7 +35,5 @@ const store = configureStore({
  * See {@link https://github.com/rt2zz/redux-persist#persistor-object}
  */
 export const persistor = persistStore(store)
-
-sagaMiddleware.run(rootSaga)
 
 export default store

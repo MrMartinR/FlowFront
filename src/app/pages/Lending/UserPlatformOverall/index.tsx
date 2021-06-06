@@ -1,29 +1,53 @@
-import React from 'react'
-import { Grid, Toolbar, Typography, Link, Button } from '@material-ui/core'
-import UserPlatformsOverall from './UserPlatformOverall'
-
-const UserPlatformsOverallPage = () => {
+import { Container, Grid, makeStyles } from '@material-ui/core'
+import { UserAlert } from '../../../utils/UserAlert'
+import { UserPlatformsOverall } from './UserPlatformOverall'
+import { UserPlatformOverallToolbar } from './UserPlatformOverallToolbar'
+import * as userPlatformsActions from './../state/userPlatformsActions'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../../redux/rootReducer'
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+    minWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
+export const UserPlatformsOverallPage = () => {
+  /* styles */
+  const classes = useStyles()
+  const dispatch = useDispatch()
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.userPlatforms,
+    }),
+    shallowEqual
+  )
+  // funcion que se pasa como parametro o snackbar para resetear a mensaxe
+  const resetSuccess = () => {
+    dispatch(userPlatformsActions.resetSuccess())
+  }
   return (
-    <Grid>
-      <Toolbar>
-        <Link href="/lending" color="inherit">
-          Lending
-        </Link>
-        &gt;
-        <Link href="/user-platforms-overall" color="inherit">
-          Platforms Overall
-        </Link>
-        <Typography>----Yep, I am the main toolbar-----</Typography>
-        <Button variant="outlined" href="/user-platform">
-          Individual Performance
-        </Button>
-      </Toolbar>
-
-      <Grid container direction="row">
-        <UserPlatformsOverall />
+    <Container className={classes.root}>
+      <Grid container direction="column" spacing={1}>
+        {/* toolbar */}
+        <Grid item>
+          <UserPlatformOverallToolbar />
+        </Grid>
+        <UserAlert
+          resetSuccess={resetSuccess}
+          success={currentState.success}
+          message={currentState.message}
+          error={currentState.error}
+        />
+        {/* Details */}
+        <Grid item>
+          <UserPlatformsOverall />
+        </Grid>
       </Grid>
-    </Grid>
+    </Container>
   )
 }
-
-export default UserPlatformsOverallPage

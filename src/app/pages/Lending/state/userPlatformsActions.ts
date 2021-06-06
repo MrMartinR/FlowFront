@@ -1,34 +1,33 @@
-import axios from 'axios'
-import { any } from 'prop-types'
-
-import { optionsHeaders } from '../../../../redux/utils'
-import { USER_PLATFORMS_URL } from './userPlatformsCrud'
-import { userPlatformsSlice } from './userPlatformsSlice'
-
+import { userPlatformsSlice, callTypes } from './userPlatformsSlice'
+import * as requestFromServer from './userPlatformsCrud'
 const { actions } = userPlatformsSlice
 
 /* Fetches a list of user platforms */
 export const fetchUserPlatformsList = () => (dispatch: any) => {
-  dispatch(actions.startCall(any))
-  axios
-    .get(USER_PLATFORMS_URL, optionsHeaders())
-    .then(function (response) {
-      return dispatch(actions.userPlatformsReceived(response.data))
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  requestFromServer
+    .getAllUserPlatforms()
+    .then((response) => {
+      const { data } = response;
+      return dispatch(actions.userPlatformsReceived(data))
     })
-    .catch(function (error) {
+    .catch((error) => {
       return dispatch(actions.catchError(error))
     })
 }
 
 /* Fetches the details of a single user platform */
 export const fetchUserPlatformDetails = (id: any) => (dispatch: any) => {
-  dispatch(actions.startCall(any))
-  axios
-    .get(`${USER_PLATFORMS_URL}/${id}`, optionsHeaders())
-    .then(function (response) {
+  dispatch(actions.startCall({ callType: callTypes.action }))
+  requestFromServer
+  .getUserPlatformById(id)
+    .then((response) => {
       return dispatch(actions.userPlatformDetailsReceived(response.data))
     })
-    .catch(function (error) {
+    .catch((error) => {
       return dispatch(actions.catchError(error))
     })
+}
+export const resetSuccess = () => (dispatch: any) => {
+  dispatch( actions.resetSuccess({ success: null }));
 }

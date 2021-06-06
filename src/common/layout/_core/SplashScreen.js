@@ -1,9 +1,9 @@
 /* eslint-disable consistent-return */
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 
 const SplashScreenContext = createContext()
 
-export function SplashScreenProvider({ children }) {
+export const SplashScreenProvider = ({ children }) => {
   const [count, setCount] = useState(0)
   const visible = count > 0
 
@@ -35,7 +35,7 @@ export function SplashScreenProvider({ children }) {
   return <SplashScreenContext.Provider value={setCount}>{children}</SplashScreenContext.Provider>
 }
 
-export function LayoutSplashScreen({ visible = true }) {
+export const LayoutSplashScreen = ({ visible = true }) => {
   // Everything is ready - remove splashscreen
   const setCount = useContext(SplashScreenContext)
 

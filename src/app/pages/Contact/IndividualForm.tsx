@@ -1,8 +1,10 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { TextField, Button, Grid } from '@material-ui/core'
 /* eslint-disable no-restricted-imports*/
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
+import * as contactsActions from './state/contactsActions'
 import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -14,10 +16,28 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const IndividualForm = (props: any) => {
-  const { kind, visibility } = props
+  const { kind, visibility, country, handleClose } = props
   const { register, handleSubmit, errors } = useForm()
-  const onSubmit = (data: any) => console.log(data)
   const classes = useStyles()
+  const [formData, setFormData] = useState(null as any)
+  // preparacion dos datos do formulario
+  const onSubmit = (data: any, e: any) => {
+    data = {
+      ...data,
+      kind: kind,
+      country_id: country,
+      visibility: visibility,
+    }
+    setFormData(data)
+    handleClose()
+  }
+  const dispatch = useDispatch()
+  // chamda a action createContact cando os datos do formulario estan listos
+  useEffect(() => {
+    if (formData !== null) {
+      dispatch(contactsActions.createContact(formData))
+    }
+  }, [dispatch, formData])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -25,8 +45,9 @@ export const IndividualForm = (props: any) => {
         <TextField
           name="kind"
           label="Kind"
-          variant="filled"
+          disabled
           value={kind}
+          variant="filled"
           inputRef={register}
           className={classes.root}
         />
@@ -35,6 +56,7 @@ export const IndividualForm = (props: any) => {
           label="Select"
           variant="filled"
           value={visibility}
+          disabled
           inputRef={register}
           className={classes.root}
         ></TextField>
@@ -44,6 +66,7 @@ export const IndividualForm = (props: any) => {
           variant="outlined"
           placeholder="Name"
           color="secondary"
+          autoComplete="off"
           inputRef={register({ required: true, minLength: 3 })}
           className={classes.root}
         />
@@ -51,14 +74,10 @@ export const IndividualForm = (props: any) => {
         {errors.name && errors.name.type === 'minLength' && (
           <Alert severity="error">Name should be at-least 3 characters.</Alert>
         )}
-
-        <br />
         <Button type="submit" variant="contained" color="secondary">
           Submit
         </Button>
-        <br />
       </Grid>
     </form>
   )
 }
-export default IndividualForm

@@ -3,7 +3,10 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialLoansState = {
   loading: false,
   loansData: [],
+  loanDetails: [],
   error: null as any,
+  success: null as any,
+  message: null as any,
 }
 
 export const loansSlice = createSlice({
@@ -12,16 +15,26 @@ export const loansSlice = createSlice({
   reducers: {
     startCall: (state) => {
       state.loading = true
+      state.success = null
+      state.message = null
     },
     loansReceived: (state, action) => {
       state.loading = false
       state.loansData = action.payload.data
     },
+    loanDetailsReceived: (state, action) => {
+      state.loading = false
+      state.loanDetails = action.payload.data
+    },
     catchError: (state, action) => {
       state.loading = false
+      state.success = false
       state.error = `${action.type}: ${action.payload.error}`
+    },
+    resetSuccess: (state, action) => {
+      const { success } = action.payload
+      state.success = success;
+      state.message = null;
     },
   },
 })
-
-export const { startCall, loansReceived, catchError } = loansSlice.actions

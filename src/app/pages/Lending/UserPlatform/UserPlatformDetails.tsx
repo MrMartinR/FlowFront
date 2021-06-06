@@ -1,19 +1,27 @@
-import React from 'react'
-import { connect } from 'react-redux'
-
-import { Grid, Card, CardHeader, Typography, CardContent } from '@material-ui/core'
-
-const UserPlatformsDetails = (props: any) => {
-  const { userPlatformDetails, loading } = props.userPlatforms
-
-  if (loading) {
-    return (
-      <>
-        <CardHeader title="Loading user platform..."></CardHeader>
-      </>
-    )
-  }
-
+import { Grid, Card, CardHeader, Typography, CardContent, CardMedia, makeStyles } from '@material-ui/core'
+import { useEffect, useState } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
+import { RootState } from '../../../../redux/rootReducer'
+const useStyles = makeStyles({
+  root: {
+    width: '60vh',
+    margin: 'auto',
+  },
+})
+export const UserPlatformsDetails = (props: any) => {
+  /* styles */
+  const classes = useStyles()
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.userPlatforms,
+    }),
+    shallowEqual
+  )
+  const [platformDetails, setPlatformDetails] = useState(null as any)
+  // cando o state ten os datos dos details cargaos na variable
+  useEffect(() => {
+    currentState.userPlatformDetails && setPlatformDetails(currentState.userPlatformDetails)
+  }, [currentState.userPlatformDetails])
   return (
     <>
       <CardHeader title="User Platform Performance"></CardHeader>
@@ -21,13 +29,18 @@ const UserPlatformsDetails = (props: any) => {
         <Grid container direction="column" xs={12}>
           <Card>
             <CardContent>
-              {userPlatformDetails.length < 1 ? (
+              {!platformDetails ? (
                 <Typography>Click a platform to load performance</Typography>
               ) : (
                 <>
-                  <Typography>User platform Id: {userPlatformDetails.id}</Typography>
-                  <Typography>User id: {userPlatformDetails.user.id}</Typography>
-                  <Typography>Platform id: {userPlatformDetails.platform.id}</Typography>
+                  <CardMedia
+                    className={classes.root}
+                    component="img"
+                    src={'/media/svg/contact/logos/' + platformDetails.attributes?.platform.contact_id + '.svg'}
+                    alt={`${platformDetails.id}`}
+                  />
+                  <Typography>Login User: {platformDetails.attributes?.login_user}</Typography>
+                  <Typography>Strategy: {platformDetails.attributes?.strategy}</Typography>
                 </>
               )}
             </CardContent>
@@ -37,11 +50,3 @@ const UserPlatformsDetails = (props: any) => {
     </>
   )
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    userPlatforms: state.userPlatforms,
-  }
-}
-
-export default connect(mapStateToProps)(UserPlatformsDetails)

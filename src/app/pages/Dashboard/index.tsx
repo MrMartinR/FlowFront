@@ -1,10 +1,22 @@
-import React from 'react'
 import { Grid, Card, CardHeader, CardContent, Button, ButtonGroup } from '@material-ui/core'
+import { useEffect, useState } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
+import { RootState } from '../../../redux/rootReducer'
 import Kanban1 from './Kanban/Kanban1'
-
-function DashboardPage() {
+// import Kanban2 from './Kanban/Kanban2'
+export const DashboardPage = () => {
+  const [role, setRole] = useState('')
+  const { authState } = useSelector(
+    (state: RootState) => ({
+      authState: state.auth,
+    }),
+    shallowEqual
+  )
+  useEffect(() => {
+    setRole(authState.role)
+  }, [authState.role]) 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       {/* begin::navigation */}
       <Grid item>
         <Card>
@@ -13,7 +25,7 @@ function DashboardPage() {
           <CardContent>
             {/* begin::buttonbar */}
             <ButtonGroup orientation="vertical">
-              <Button href="/accounts">Accounts(Admin)</Button>
+              {role==='admin'&&<Button href="/accounts">Accounts(Admin)</Button>}
               <Button href="/countries">Countries(Admin)</Button>
               <Button href="/currencies">Currencies(Admin)</Button>
               <Button href="/lending">Lending</Button>
@@ -21,17 +33,14 @@ function DashboardPage() {
               <Button href="/originators">Originators</Button>
               <Button href="/loans">Loans</Button>
               <Button href="/property">Property</Button>
-              <Button href="/settings">Settings</Button>
             </ButtonGroup>
           </CardContent>
         </Card>
       </Grid>
 
-      <Grid item xs={10}>
+      <Grid item xs={9}>
         <Kanban1 />
       </Grid>
     </Grid>
   )
 }
-
-export default DashboardPage

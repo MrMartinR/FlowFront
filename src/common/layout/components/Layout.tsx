@@ -1,11 +1,18 @@
-import React, { useMemo } from 'react'
+import { Grid, makeStyles } from '@material-ui/core'
+import { HeaderWrapper } from './header/HeaderWrapper'
+import { useMemo } from 'react'
 import objectPath from 'object-path'
 import { useHtmlClassService } from '../_core/MetronicLayout'
-import { Grid } from '@material-ui/core'
-import HeaderWrapper from './header/HeaderWrapper'
 
-// TODO: adding type any to children
-export function Layout({ children }: any) {
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    width: '99%',
+  },
+})
+export const Layout = ({ children }: any) => {
+  /* styles */
+  const classes = useStyles()
   const uiService = useHtmlClassService()
   const layoutProps = useMemo(
     () => ({
@@ -21,18 +28,14 @@ export function Layout({ children }: any) {
 
   return layoutProps.selfLayout !== 'blank' ? (
     <div className="wrapper">
-      <Grid container direction="column">
-        <Grid item>
-          <HeaderWrapper />
-        </Grid>
-
-        <Grid item>{children}</Grid>
+      <Grid container direction="column" className={classes.root} >
+        <HeaderWrapper />
       </Grid>
+
+      <Grid item>{children}</Grid>
     </div>
-  ) : (
-    // BLANK LAYOUT
-    <div>{children}</div>
+    ) : (
+      // BLANK LAYOUT
+      <div>{children}</div>
   )
 }
-
-export default Layout

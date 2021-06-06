@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import * as Yup from 'yup'
-import { injectIntl } from 'react-intl'
-import * as auth from '../_redux/authRedux'
+import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { submitRequestPassword } from '../_redux/authCrud'
+import Logo from '../../../../common/media/flow-logo.svg'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { Button, CardMedia, FormControl, Grid, TextField, Typography } from '@material-ui/core'
+import queryString from 'query-string'
+import { RootState } from '../../../../redux/rootReducer'
+import { UserAlert } from '../../../utils/UserAlert'
 
 const initialValues = {
   password: '',
@@ -19,138 +21,101 @@ type ForgotPasswordType = {
 }
 
 /**
- * User registration component
- * @param {object} props
- * @author Zeeshan A
+ * Forgot Password Action component
  */
-function ForgotPasswordAction(props: any) {
-  const { location, intl } = props
-  const { search } = location
-  const queryString = require('query-string')
-  const parsed = queryString.parse(search)
-  const accessToken = parsed['access-token']
-  const { client } = parsed
-  const { uid } = parsed
-  const { expiry } = parsed
-  const [isRequested, setIsRequested] = useState(false)
-  const history = useHistory()
+export const ForgotPasswordAction = (props: any) => {
+  const { search } = useLocation()
+  const { token = '' } = queryString.parse(search)
+  const { client = '' } = queryString.parse(search)
+  const { uid = '' } = queryString.parse(search)
+  const { expiry = '' } = queryString.parse(search)
   const ForgotPasswordSchema = Yup.object().shape({
-    password: Yup.string()
+    password: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Required'),
+    changepassword: Yup.string()
       .min(3, 'Minimum 3 symbols')
       .max(50, 'Maximum 50 symbols')
-      .required(
-        intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
-        })
-      ),
-    changepassword: Yup.string()
-      .required(
-        intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
-        })
-      )
+      .required('Required')
       .when('password', {
         is: (val: any) => !!(val && val.length > 0),
         then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
       }),
   })
 
-  const { register, handleSubmit, errors, formState } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
-
+  const dispatch = useDispatch()
   const onSubmit = ({ password, changepassword }: ForgotPasswordType) => {
-    submitRequestPassword(password, changepassword, accessToken, client, uid, expiry)
-      .then((res) => {
-        localStorage.setItem('forgot_pwd_notif', res.data.message)
-        console.log(res)
-        history.push('/dashboard')
-      })
-      .catch(() => {
-        setIsRequested(false)
-      })
+    dispatch(authActions.changePassword(password, changepassword, token, client, uid, expiry))
   }
-
-  const getInputClasses = (fieldname: any) => {
-    let len = Object.keys(formState.touched).length
-
-    if (len) {
-      let touchedIndex = Object.entries(formState.touched).findIndex(([key, value]) => key === fieldname)
-      let errorIndex = Object.entries(formState.errors).findIndex(([key, value]) => key === fieldname)
-
-      if (touchedIndex >= 0 && errorIndex >= 0) {
-        return 'is-invalid'
-      } else {
-        return 'is-valid'
-      }
-    }
-
-    return ''
+  const resetSuccess = () => {
+    dispatch(authActions.resetSuccess())
   }
-
+  const { currentState } = useSelector(
+    (state: RootState) => ({
+      currentState: state.auth,
+    }),
+    shallowEqual
+  )
   return (
-    <>
-      {isRequested && <Redirect to="/auth" />}
-      {!isRequested && (
-        <div className="login-form login-forgot" style={{ display: 'block' }}>
-          <div className="text-center mb-10 mb-lg-20">
-            <h3 className="font-size-h1">Forgotten Password ?</h3>
-            <div className="text-muted font-weight-bold">Reset your password</div>
-          </div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="form fv-plugins-bootstrap fv-plugins-framework animated animate__animated animate__backInUp"
-          >
+    <Grid container direction="column" justify="space-around" alignItems="center">
+      <UserAlert
+        resetSuccess={resetSuccess}
+        success={currentState.success}
+        message={currentState.message}
+        error={currentState.error}
+      />
+
+      {/* logo */}
+      <Grid item xs="auto">
+        <CardMedia src={Logo} component="img" />
+        <Typography align="center" variant="h6">
+          Forgot your password?
+        </Typography>
+      </Grid>
+      {/* form */}
+      <Grid item xs="auto">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container direction="column" justify="center" alignItems="center">
             {/* begin: Password */}
-            <div className="form-group fv-plugins-icon-container">
-              <input
-                placeholder="Password"
+            <FormControl variant="filled">
+              <TextField
+                label="Password"
+                margin="normal"
+                variant="outlined"
+                autoComplete="off"
                 type="password"
-                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses('password')}`}
+                inputRef={register()}
                 name="password"
-                ref={register()}
               />
-            </div>
-            <span> {errors.password && errors.password.message}</span>
+              <span> {errors.password && errors.password.message}</span>
+            </FormControl>
             {/* end: Password */}
 
             {/* begin: Confirm Password */}
-            <div className="form-group fv-plugins-icon-container">
-              <input
-                placeholder="Confirm Password"
+            <FormControl variant="filled">
+              <TextField
+                label="Confirm Password"
+                margin="normal"
+                variant="outlined"
+                autoComplete="off"
                 type="password"
-                className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses('changepassword')}`}
                 name="changepassword"
-                ref={register()}
+                inputRef={register()}
               />
-            </div>
-            <span> {errors.changepassword && errors.changepassword.message}</span>
-            {/* end: Confirm Password */}
-            <div className="form-group d-flex flex-wrap flex-center">
-              <button
-                id="kt_login_forgot_submit"
-                type="submit"
-                className="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4"
-                disabled={formState.isSubmitting}
-              >
+              <span> {errors.changepassword && errors.changepassword.message}</span>
+              {/* end: Confirm Password */}
+              <Button type="submit" variant="contained" color="secondary">
                 Submit
-              </button>
-              <Link to="/auth">
-                <button
-                  type="button"
-                  id="kt_login_forgot_cancel"
-                  className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"
-                >
-                  Cancel
-                </button>
-              </Link>
-            </div>
-          </form>
-        </div>
-      )}
-    </>
+              </Button>
+              <Typography variant="body2" align="center">
+                <Link to="/auth/login">Sign in</Link>
+              </Typography>
+            </FormControl>
+          </Grid>
+        </form>
+      </Grid>
+    </Grid>
   )
 }
-
-export default injectIntl(connect(null, auth.actions)(ForgotPasswordAction))

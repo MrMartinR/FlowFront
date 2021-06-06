@@ -1,25 +1,30 @@
-import React from 'react'
 import { HeaderMenu } from './HeaderMenu'
-import { Grid, CardMedia, AppBar, IconButton } from '@material-ui/core'
+import { makeStyles, Grid, CardMedia, AppBar, IconButton } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
-import SignOut from './SignOut'
+import { SignOut } from './SignOut'
 
-function HeaderWrapper() {
-  const style = {
-    // height: 40,
-    // padding: 5,
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    background: '#f1f1f1',
+  },
+  cardMedia: {
     maxWidth: 36,
-    // paddingLeft: '36%'
-  }
+  },
+})
+
+export const HeaderWrapper = () => {
+  /* styles */
+  const classes = useStyles()
 
   return (
     // begin::MainContainer
-    <AppBar position="sticky">
-      <Grid container justify="flex-end" alignItems="center" alignContent="center" direction="row" spacing={2}>
+    <AppBar position="sticky" elevation={0} className={classes.root}>
+      <Grid container justify="flex-end" alignItems="center" alignContent="center" spacing={2}>
         {/* logo  */}
         <Grid item xs={1}>
           <IconButton href="/dashboard">
-            <CardMedia src={Logo} component="img" style={style} />
+            <CardMedia src={Logo} component="img" className={classes.cardMedia} />
           </IconButton>
         </Grid>
 
@@ -38,5 +43,3 @@ function HeaderWrapper() {
     </AppBar>
   )
 }
-
-export default HeaderWrapper
