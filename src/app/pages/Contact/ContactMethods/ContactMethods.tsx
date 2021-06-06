@@ -22,7 +22,12 @@ import { DeleteContactMethod } from './DeleteContactMethod'
 /* styles */
 const useStyles = makeStyles({
   root: {
-    margin: 24,
+    margin: 8,
+    padding: 12,
+  },
+  avatar: {
+    height: '2vh',
+    width: '2vh',
   },
 })
 
@@ -33,6 +38,7 @@ export const ContactMethod = (props: any) => {
   const [open, setOpen] = useState(false)
   const [add, setAdd] = useState('' as string)
   const [edit, setEdit] = useState(null)
+
   // funcion que abre o dialog de add, edit ou delete method
   const handleOpen = (e: any, value: any, itm = null) => {
     if (value === 'add') {
@@ -63,7 +69,7 @@ export const ContactMethod = (props: any) => {
         </>
       ) : add === 'edit' ? (
         <>
-          <Typography variant="h6">Edit Contact Method</Typography>
+          {/* <Typography variant="h6">Edit Contact Method</Typography> */}
           <EditContactMethodForm
             selectedContact={selectedContact}
             edit={edit}
@@ -102,54 +108,134 @@ export const ContactMethod = (props: any) => {
         {methodLoading === true ? (
           <LinearProgress color="secondary" />
         ) : listMethods?.length >= 1 ? (
-          listMethods.map((itm: any, idx: any) => (
+          listMethods.map((
+            itm: any,
+            idx: any // @rev: que pinta este idx ??
+          ) => (
             <CardActions key={itm.id}>
               <Grid container alignItems="center">
-                <Grid item xs={2}>
+                <Grid item xs={1}>
                   {(itm.kind === 'Address' && (
-                    <Avatar variant="square" src={'/media/svg/icons/address.svg'} alt="Address" />
+                    <Avatar
+                      src={'/media/svg/icons/address.svg'}
+                      alt="Address"
+                      variant="square"
+                      className={classes.avatar}
+                    />
                   )) ||
                     (itm.kind === 'Email' && (
-                      <Avatar variant="square" src={'/media/svg/icons/email.svg'} alt="Email" />
+                      <Avatar
+                        src={'/media/svg/icons/email.svg'}
+                        alt="Email"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'Phone' && (
-                      <Avatar variant="square" src={'/media/svg/icons/phone.svg'} alt="Phone" />
+                      <Avatar
+                        src={'/media/svg/icons/phone.svg'}
+                        alt="Phone"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'Skype' && (
-                      <Avatar variant="square" src={'/media/svg/icons/skype.svg'} alt="Skype" />
+                      <Avatar
+                        src={'/media/svg/icons/skype.svg'}
+                        alt="Skype"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'Telegram' && (
-                      <Avatar variant="square" src={'/media/svg/icons/telegram.svg'} alt="Telegram" />
+                      <Avatar
+                        src={'/media/svg/icons/telegram.svg'}
+                        alt="Telegram"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'Instagram' && (
-                      <Avatar variant="square" src={'/media/svg/icons/instagram.svg'} alt="Instagram" />
+                      <Avatar
+                        src={'/media/svg/icons/instagram.svg'}
+                        alt="Instagram"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'FB Page' && (
-                      <Avatar variant="square" src={'/media/svg/icons/facebook-page.svg'} alt="FB Page" />
+                      <Avatar
+                        src={'/media/svg/icons/facebook-page.svg'}
+                        alt="FB Page"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'FB Profile' && (
-                      <Avatar variant="square" src={'/media/svg/icons/facebook-profile.svg'} alt="FB Profile" />
+                      <Avatar
+                        src={'/media/svg/icons/facebook-profile.svg'}
+                        alt="FB Profile"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'FB Group' && (
-                      <Avatar variant="square" src={'/media/svg/icons/facebook-group.svg'} alt="FB Group" />
+                      <Avatar
+                        src={'/media/svg/icons/facebook-group.svg'}
+                        alt="FB Group"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'LinkedIn' && (
-                      <Avatar variant="square" src={'/media/svg/icons/linkedin.svg'} alt="LinkedIn" />
+                      <Avatar
+                        src={'/media/svg/icons/linkedin.svg'}
+                        alt="LinkedIn"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'Twitter' && (
-                      <Avatar variant="square" src={'/media/svg/icons/twitter.svg'} alt="Twitter" />
+                      <Avatar
+                        src={'/media/svg/icons/twitter.svg'}
+                        alt="Twitter"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'Vimeo' && (
-                      <Avatar variant="square" src={'/media/svg/icons/vimeo.svg'} alt="Vimeo" />
+                      <Avatar
+                        src={'/media/svg/icons/vimeo.svg'}
+                        alt="Vimeo"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'YouTube' && (
-                      <Avatar variant="square" src={'/media/svg/icons/youtube.svg'} alt="YouTube" />
+                      <Avatar
+                        src={'/media/svg/icons/youtube.svg'}
+                        alt="YouTube"
+                        variant="square"
+                        className={classes.avatar}
+                      />
                     )) ||
                     (itm.kind === 'Web' && (
-                      <Avatar variant="square" src={'/media/svg/icons/link-1.svg'} alt="Web" />
-                    )) || <Avatar variant="square" src={'/media/svg/icons/dashboard.svg'} alt="Other" />}
+                      <Avatar
+                        src={'/media/svg/icons/link-1.svg'}
+                        alt="Web"
+                        variant="square"
+                        className={classes.avatar}
+                      />
+                    )) || (
+                      <Avatar
+                        src={'/media/svg/icons/dashboard.svg'}
+                        alt="Other"
+                        variant="square"
+                        className={classes.avatar}
+                      />
+                    )}
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={10}>
                   {((itm.kind === 'FB Page' ||
                     itm.kind === 'Telegram' ||
                     itm.kind === 'Instagram' ||
@@ -191,7 +277,7 @@ export const ContactMethod = (props: any) => {
                     (itm.kind === 'Address' && (
                       <Typography noWrap variant="body1">
                         <Link
-                          href={`https://www.google.es/maps/place/${encodeURI(itm.data.trim())}`}
+                          href={`https://www.google.com/maps/place/${encodeURI(itm.data.trim())}`}
                           color="inherit"
                           target="_blank"
                         >
@@ -204,7 +290,7 @@ export const ContactMethod = (props: any) => {
                       </Typography>
                     )}
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1}>
                   <Button onClick={(e) => handleOpen(e, 'edit', itm)}>•••</Button>
                 </Grid>
               </Grid>

@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     maxHeight: 600,
     position: 'relative',
     overflow: 'auto',
+    padding: 12,
   },
   search: {
     minWidth: '100%',

@@ -23,7 +23,8 @@ import { ContactEdit } from './ContactEdit'
 /* styles */
 const useStyles = makeStyles({
   root: {
-    margin: 24,
+    margin: 8,
+    padding: 12,
   },
   avatar: {
     background: 'transparent',
@@ -75,7 +76,7 @@ export const ContactDetails = (props: any) => {
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleDelete} variant="contained" color="secondary">
-            Agree
+            Delete
           </Button>
         </Grid>
       </>

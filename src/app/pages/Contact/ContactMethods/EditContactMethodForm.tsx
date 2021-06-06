@@ -1,12 +1,38 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { TextField, Button, Grid, MenuItem } from '@material-ui/core'
+import {
+  TextField,
+  Button,
+  Grid,
+  MenuItem,
+  FormControl,
+  FormLabel,
+  OutlinedInput,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  makeStyles,
+} from '@material-ui/core'
 import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
 import { types } from './AddContactMethodForm'
 import store from './../../../../redux/store'
 
+/* styles */
+const useStyles = makeStyles({
+  root: {
+    width: '400px',
+  },
+  type: {
+    width: '140px',
+    marginBottom: '12px',
+  },
+})
+
 export const EditContactMethodForm = (props: any) => {
+  /* styles */
+  const classes = useStyles()
   const { edit, handleClose, handleOpen } = props
   const { register, handleSubmit } = useForm()
   const [formData, setFormData] = useState(null as any)
@@ -37,47 +63,71 @@ export const EditContactMethodForm = (props: any) => {
     setType(event.target.value)
   }
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container direction="column">
-          <TextField
-            select
-            name="kind"
-            label="Type"
-            margin="normal"
-            color="secondary"
-            value={type}
-            onChange={handleChange}
-            inputRef={register}
-          >
-            {types.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            name="data"
-            label="Data"
-            autoComplete="off"
-            margin="normal"
-            color="secondary"
-            defaultValue={edit.data}
-            inputRef={register}
-          />
-          <Grid container>
-            <Button color="secondary" onClick={(e) => handleOpen(e, 'delete', edit)}>
-              Delete
-            </Button>
-            <Button onClick={handleClose} variant="contained">
-              Cancel
-            </Button>
-            <Button id="submit" type="submit" variant="contained" color="secondary">
-              Save
-            </Button>
+    // <>
+
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container direction="column">
+        <Card className={classes.root}>
+          <Grid item xs={12}>
+            <CardHeader title="Edit Contact Method" />
+            <CardContent>
+              {/* type */}
+              <FormControl required fullWidth size="small">
+                <FormLabel>Type</FormLabel>
+                <TextField
+                  value={type}
+                  onChange={handleChange}
+                  inputRef={register}
+                  select
+                  name="type"
+                  // label="Type"
+                  variant="outlined"
+                  size="small"
+                  className={classes.type}
+                >
+                  {types.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                {/* data */}
+                <FormLabel>Data</FormLabel>
+                <OutlinedInput
+                  multiline
+                  name="data"
+                  // label="Data"
+                  autoComplete="off"
+                  defaultValue={edit.data}
+                  inputRef={register}
+                />
+              </FormControl>
+            </CardContent>
           </Grid>
-        </Grid>
-      </form>
-    </>
+
+          <CardActions>
+            <Grid container>
+              <Grid item xs={3}>
+                {/* delete */}
+                <Button color="secondary" onClick={(e) => handleOpen(e, 'delete', edit)}>
+                  Delete
+                </Button>
+              </Grid>
+              <Grid container xs={9} justify="flex-end">
+                {/* cancel */}
+                <Button id="cancel" onClick={handleClose}>
+                  Cancel
+                </Button>
+                {/* save */}
+                <Button id="submit" type="submit">
+                  Save
+                </Button>
+              </Grid>
+            </Grid>
+          </CardActions>
+        </Card>
+      </Grid>
+    </form>
+    // </>
   )
 }
