@@ -72,7 +72,7 @@ export const ContactsList = (props: any) => {
     if (list.length >= 1) {
       let opt = [] as any
       list.map((option: any) => {
-        opt.push(option.attributes.name)
+        opt.push(option.attributes.name_header)
         return opt
       })
       setOptions(opt)
@@ -80,7 +80,7 @@ export const ContactsList = (props: any) => {
   }, [list])
   // funcion que se chama o elexir unha opción no buscador
   const handlePick = (e: any, v: any) => {
-    let selected = list.findIndex((itm: any) => itm.attributes.name === v)
+    let selected = list.findIndex((itm: any) => itm.attributes.name_header === v)
     setSelectedItemIndex(selected)
   }
 
@@ -146,12 +146,12 @@ export const ContactsList = (props: any) => {
                   <ListItemAvatar>
                     <Avatar
                       src={'/media/svg/contact/icons/' + item.id + '.svg'}
-                      alt={item.attributes.name}
+                      alt={item.attributes.name_header}
                       variant="square"
                       className={classes.avatar}
                     />
                   </ListItemAvatar>
-                  <ListItemText primary={`${item.attributes.name}`} className={classes.text} />
+                  <ListItemText primary={`${item.attributes.name_header}`} className={classes.text} />
                 </ListItem>
               </Card>
             ))
