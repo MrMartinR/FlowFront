@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { TextField, Button, Grid, MenuItem } from '@material-ui/core'
+import { Grid, TextField, Button, CardHeader, MenuItem } from '@material-ui/core'
 import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
 import store from './../../../../redux/store'
+
+/* define the types */
 export const types = [
   {
     value: 'Address',
@@ -100,16 +102,18 @@ export const AddContactMethodForm = (props: any) => {
       dispatch(contactsActions.createContactMethods(formData))
     }
   }, [formData, dispatch])
+
+  /* render the content */
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column">
+          <CardHeader title="Add Contact Method" />
           <TextField
             select
             name="kind"
             label="Type"
             margin="normal"
-            color="secondary"
             value={type}
             onChange={handleChange}
             inputRef={register}
