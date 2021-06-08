@@ -72,7 +72,7 @@ export const UserAccountsList = (props: any) => {
       />
       <List>
         {isLoading ? (
-          <LinearProgress color="secondary" />
+          <LinearProgress />
         ) : (
           list.map((item: any, idx: any) => (
             <Card key={item.id} className={classes.card}>

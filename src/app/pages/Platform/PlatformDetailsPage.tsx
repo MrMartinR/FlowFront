@@ -48,9 +48,9 @@ export const PlatformDetailsPage = (props: any) => {
   return (
     <>
       <PlatformDetailsToolbar
-        id={platformDetails.attributes?.contact?.id}
-        trade_name={platformDetails.attributes?.contact?.trade_name}
-        company_name={platformDetails.attributes?.contact?.company_name}
+        id={platformDetails.relationships?.contact?.data.id}
+        trade_name={platformDetails.relationships?.contact?.data.attributes?.trade_name}
+        company_name={platformDetails.relationships?.contact?.data.attributes?.company_name}
         setTab={setTab}
       />
       <UserAlert

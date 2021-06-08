@@ -4,6 +4,7 @@ import {
   createStyles,
   FormControlLabel,
   FormGroup,
+  FormLabel,
   Grid,
   LinearProgress,
   makeStyles,
@@ -14,6 +15,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
+
 import { Alert } from '@material-ui/lab'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -219,7 +221,6 @@ export const ContactEdit = (props: any) => {
                 placeholder="Trade name"
                 autoComplete="off"
                 inputRef={register({ required: true, minLength: 3 })}
-                color="secondary"
                 className={classes.root}
               />
               <TextField
@@ -229,18 +230,16 @@ export const ContactEdit = (props: any) => {
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.company_name}
                 placeholder="Company name"
-                color="secondary"
                 inputRef={register({ required: false })}
                 className={classes.root}
               />
+              <FormLabel>Founded</FormLabel>
               <TextField
                 name="founded"
-                label="Founded"
+                type='date'
                 variant="outlined"
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.founded}
-                placeholder="founded"
-                color="secondary"
                 inputRef={register({ required: false })}
                 className={classes.root}
               />
@@ -255,7 +254,6 @@ export const ContactEdit = (props: any) => {
                 defaultValue={selectedContact.attributes.name}
                 autoComplete="off"
                 inputRef={register({ required: true, minLength: 3 })}
-                color="secondary"
                 className={classes.root}
               />
               <TextField
@@ -265,7 +263,6 @@ export const ContactEdit = (props: any) => {
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.surname}
                 placeholder="Surname"
-                color="secondary"
                 inputRef={register({ required: false })}
                 className={classes.root}
               />
@@ -276,7 +273,6 @@ export const ContactEdit = (props: any) => {
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.nick}
                 placeholder="Nick"
-                color="secondary"
                 inputRef={register({ required: false })}
                 className={classes.root}
               />
@@ -288,7 +284,6 @@ export const ContactEdit = (props: any) => {
             variant="outlined"
             defaultValue={selectedContact.attributes.id_number}
             placeholder="ID Number"
-            color="secondary"
             inputRef={register({ required: false })}
             className={classes.root}
           />
@@ -297,7 +292,6 @@ export const ContactEdit = (props: any) => {
             rowsMin={5}
             value={description}
             placeholder="Description"
-            color="secondary"
             onChange={handleChange}
             className={classes.root}
           />
@@ -312,14 +306,12 @@ export const ContactEdit = (props: any) => {
             <Alert severity="error">Name should be at-least 3 characters.</Alert>
           )}
 
-          <br />
           <Grid container justify="space-between">
             <Button onClick={handleClose}>Cancel</Button>
             <Button type="submit" variant="contained" color="secondary">
               Submit
             </Button>
           </Grid>
-          <br />
         </Grid>
       </form>
     </>

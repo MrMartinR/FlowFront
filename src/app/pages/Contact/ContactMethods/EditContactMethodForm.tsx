@@ -63,8 +63,6 @@ export const EditContactMethodForm = (props: any) => {
     setType(event.target.value)
   }
   return (
-    // <>
-
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
         <Card className={classes.root}>
@@ -113,21 +111,22 @@ export const EditContactMethodForm = (props: any) => {
                   Delete
                 </Button>
               </Grid>
-              <Grid container xs={9} justify="flex-end">
-                {/* cancel */}
-                <Button id="cancel" onClick={handleClose}>
-                  Cancel
-                </Button>
-                {/* save */}
-                <Button id="submit" type="submit">
-                  Save
-                </Button>
+              <Grid item xs={9}>
+                <Grid container justify='flex-end'>
+                  {/* cancel */}
+                  <Button id="cancel" onClick={handleClose}>
+                    Cancel
+                  </Button>
+                  {/* save */}
+                  <Button id="submit" type="submit">
+                    Save
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
           </CardActions>
         </Card>
       </Grid>
     </form>
-    // </>
   )
 }

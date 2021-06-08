@@ -26,9 +26,10 @@ function getSteps() {
 
 export const VerticalLinearStepper = (props: any) => {
   const { handleClose } = props
-  const { countryState } = useSelector(
+  const { countryState, authState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
+      authState: state.auth,
     }),
     shallowEqual
   )
@@ -38,6 +39,7 @@ export const VerticalLinearStepper = (props: any) => {
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
   const [kind, setKind] = useState('Individual')
+  const [canPublic, setCanPublic] = useState(false)
   const [visibility, setVisibility] = useState('Private')
   const [checkState, setCheckState] = useState({
     checkedA: false,
@@ -47,7 +49,7 @@ export const VerticalLinearStepper = (props: any) => {
     checkedC: false,
     checkedD: false,
   })
-
+  
   // funcion que garda o id co country seleccionado
   const handleCountry = (e: any) => {
     setCountry(e.target.value)
@@ -87,7 +89,12 @@ export const VerticalLinearStepper = (props: any) => {
       })
     }
   }
-
+  // funcion que garda un boolean que indica se o user actual pode editar ou borrar o contact actual
+  useEffect(() => {
+    if (authState.role !== 'user') {
+      setCanPublic(true)
+    } else setCanPublic(false)
+  }, [authState])
   // peticion da lista de countries
   const dispatch = useDispatch()
   useEffect(() => {
@@ -155,11 +162,11 @@ export const VerticalLinearStepper = (props: any) => {
         return (
           <FormGroup row>
             <FormControlLabel
-              control={<Checkbox checked={checkVisible.checkedC} name="checkedC" onChange={handleKind} />}
+              control={<Checkbox disabled = {!canPublic} checked={checkVisible.checkedC} name="checkedC" onChange={handleKind} />}
               label="Private"
             />
             <FormControlLabel
-              control={<Checkbox checked={checkVisible.checkedD} onChange={handleKind} name="checkedD" />}
+              control={<Checkbox disabled = {!canPublic} checked={checkVisible.checkedD} onChange={handleKind} name="checkedD" />}
               label="Public"
             />
           </FormGroup>
