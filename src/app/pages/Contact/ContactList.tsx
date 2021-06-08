@@ -134,7 +134,7 @@ export const ContactsList = (props: any) => {
       <Container className={classes.root}>
         <List>
           {isLoading ? (
-            <LinearProgress color="secondary" />
+            <LinearProgress />
           ) : (
             list.map((item: any, idx: any) => (
               <Card key={item.id} className={classes.card}>

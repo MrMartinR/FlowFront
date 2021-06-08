@@ -105,41 +105,39 @@ export const AddContactMethodForm = (props: any) => {
 
   /* render the content */
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container direction="column">
-          <CardHeader title="Add Contact Method" />
-          <TextField
-            select
-            name="kind"
-            label="Type"
-            margin="normal"
-            value={type}
-            onChange={handleChange}
-            inputRef={register}
-          >
-            {types.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            name="data"
-            label="Data"
-            margin="normal"
-            autoComplete="off"
-            color="secondary"
-            inputRef={register}
-          />
-          <Grid container justify="space-between">
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" variant="contained" color="secondary">
-              Submit
-            </Button>
-          </Grid>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container direction="column">
+        <CardHeader title="Add Contact Method" />
+        <TextField
+          select
+          name="kind"
+          label="Type"
+          margin="normal"
+          value={type}
+          onChange={handleChange}
+          inputRef={register}
+        >
+          {types.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          name="data"
+          label="Data"
+          margin="normal"
+          autoComplete="off"
+          color="secondary"
+          inputRef={register}
+        />
+        <Grid container justify="space-between">
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button type="submit" variant="contained" color="secondary">
+            Submit
+          </Button>
         </Grid>
-      </form>
-    </>
+      </Grid>
+    </form>
   )
 }

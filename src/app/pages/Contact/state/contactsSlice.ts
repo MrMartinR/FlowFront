@@ -64,66 +64,50 @@ export const contactsSlice = createSlice({
     // on creation a new contact append it to existing contacts
     contactCreate: (state, action) => {
       const { data } = action.payload
-      let name=''
-      if (data.attributes.kind==='Individual') {
-          name = data.attributes.name
-        } else name = data.attributes.trade_name
+      // crease a variable para gardar o novo contact
       const newContact = {
         id: data.id,
         type: data.type,
         attributes: {
-          name
+          name_header: data.attributes.name_header,
+        },
+        links: {
+          self: `https://api.flowfin.tech/contacts/${data.id}`
         }
       }
+      // metese o novo contact na lista
       const newState = state.contactsTable.entities
       newState.unshift(newContact)
-      // array temporal para ordear alfabeticamente
-      const mapped = newState.map(function(el: any, i: any) {
-        return { index: i, value: el.attributes.name.toLowerCase() };
-      })
-      // ordeando o array mapeado
-      mapped.sort(function(a: any, b: any) {
-        if (a.value > b.value) {
-          return 1;
-        }
-        if (a.value < b.value) {
-          return -1;
-        }
-        return 0;
-      });
-      // contenedor para o array ordeado
-      const result = mapped.map(function(el:any){
-        return newState[el.index];
-      });
+      // ordease a lista
+      const result = sort(newState)
+      // actualizase o state
       state.listLoading = false
       state.contactsTable.entities = result
       state.success = true
     },
     contactUpdate: (state, action) => {
       const { data } = action.payload
-      let name=''
-      if (data.attributes.kind==='Individual') {
-        if (data.attributes.nick !== null) {
-          name = data.attributes.nick
-        } else name = data.attributes.name
-      } else name = data.attributes.trade_name
+      // crease a variable para gardar os datos do contact a editar
       const newContact = {
         id: data.id,
         type: data.type,
         attributes: {
-          name
+          name_header: data.attributes.name_header,
         }
       }
-      let newState = [] as any
+      // crease unha nova lista sustituindo o contact a editar
+      const newState = [] as any
       state.contactsTable.entities.map((o: any) => {
         if (o.id !== newContact.id) {
           newState.push(o)
         } else newState.push(newContact)
         return newState;
       })
-      
+      // ordease a lista
+      const result = sort(newState)
+      // actualizase o state
       state.actionsLoading = false
-      state.contactsTable.entities = newState
+      state.contactsTable.entities = result
       state.success = true
     },
     contactDelete: (state, action) => {
@@ -200,7 +184,6 @@ export const contactsSlice = createSlice({
      * update success to true of false
      */
     contactMethodsDelete: (state, action) => {
-      console.log(JSON.stringify(action.payload, null, 3));
     const { message, itm } = action.payload
       let newState = [] as any
       state.singleContact.entry.attributes.contact_methods.map((o: any) => {
@@ -222,3 +205,26 @@ export const contactsSlice = createSlice({
     },
   },
 })
+
+const sort = (list: any) => {
+  // array temporal para ordear alfabeticamente
+  const mapped = list.map(function(el: any, i: any) {
+    return { index: i, value: el.attributes.name_header.toLowerCase() };
+  })
+  // ordeando o array mapeado
+  mapped.sort(function(a: any, b: any) {
+    if (a.value > b.value) {
+      return 1
+    }
+    if (a.value < b.value) {
+      return -1
+    }
+    return 0
+  })
+  // contenedor para o array ordeado
+  const result = mapped.map(function(el:any){
+    return list[el.index];
+  })
+  // devolvese o array ordeado
+  return result
+}

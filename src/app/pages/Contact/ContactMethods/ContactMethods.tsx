@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   makeStyles,
   Typography,
@@ -7,11 +7,8 @@ import {
   CardActions,
   Grid,
   LinearProgress,
-  Link,
-  List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
   Dialog,
   DialogContent,
   Button,
@@ -21,6 +18,8 @@ import AddIcon from '@material-ui/icons/Add'
 import { AddContactMethodForm } from './AddContactMethodForm'
 import { EditContactMethodForm } from './EditContactMethodForm'
 import { DeleteContactMethod } from './DeleteContactMethod'
+import { shallowEqual, useSelector } from 'react-redux'
+import { RootState } from '../../../../redux/rootReducer'
 
 /* styles */
 const useStyles = makeStyles({
@@ -41,7 +40,13 @@ export const ContactMethod = (props: any) => {
   const [open, setOpen] = useState(false)
   const [add, setAdd] = useState('' as string)
   const [edit, setEdit] = useState(null)
-
+  const [canEdit, setCanEdit] = useState(false)
+  const { authState } = useSelector(
+    (state: RootState) => ({
+      authState: state.auth,
+    }),
+    shallowEqual
+  )
   /* function open the dialog window */
   const handleOpen = (e: any, value: any, itm = null) => {
     if (value === 'add') {
@@ -62,7 +67,18 @@ export const ContactMethod = (props: any) => {
   const handleClose = () => {
     setOpen(false)
   }
-
+  // funcion que garda un boolean que indica se o user actual pode engadir, editar ou borrar methods no contact actual
+  useEffect(() => {
+    if (selectedContact.attributes?.visibility === 'Public') {
+      if (authState.role !== 'user') {
+        setCanEdit(true)
+      } else setCanEdit(false)
+    } else {
+      if (selectedContact.attributes?.user?.id === authState.user?.id) {
+        setCanEdit(true)
+      } else setCanEdit(false)
+    }
+  }, [selectedContact, authState])
   /* add, edit, delete content */
   const body = (
     <>
@@ -89,9 +105,11 @@ export const ContactMethod = (props: any) => {
             <CardHeader
               title="Contact Methods"
               action={
-                <Button>
-                  <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')} />
-                </Button>
+                canEdit && (
+                  <Button>
+                    <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')} />
+                  </Button>
+                )
               }
             />
           </Grid>
@@ -150,9 +168,11 @@ export const ContactMethod = (props: any) => {
                   </ListItem>
                 </Grid>
                 {/* the options button */}
-                <Grid item xs={1}>
-                  <Button onClick={(e) => handleOpen(e, 'edit', itm)}>•••</Button>
-                </Grid>
+                {canEdit && (
+                  <Grid item xs={1}>
+                    <Button onClick={(e) => handleOpen(e, 'edit', itm)}>•••</Button>
+                  </Grid>
+                )}
               </Grid>
             </CardActions>
           ))
