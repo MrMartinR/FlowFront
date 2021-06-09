@@ -1,5 +1,4 @@
 import { Route, Redirect, Switch } from 'react-router-dom'
-import { Suspense } from 'react'
 import { Accounts } from './pages/Account'
 import { Contacts } from './pages/Contact'
 import { CountryDetails } from './pages/Country/CountryDetails'
@@ -20,10 +19,8 @@ import { UserOriginatorsPage } from './pages/UserOriginator'
 import { UserPlatformsPage } from './pages/Lending/UserPlatform'
 import { UserPlatformsOverallPage } from './pages/Lending/UserPlatformOverall'
 import { ErrorPage } from './modules/Errors/ErrorPage'
-import { LayoutSplashScreen } from '../common/layout'
 export const BasePage = () => {
   return (
-    <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
         <Redirect exact from="/" to="/dashboard" />
         <Route path="/dashboard" component={DashboardPage} />
@@ -49,6 +46,5 @@ export const BasePage = () => {
         <Route path="/error/error" component={ErrorPage} />
         <Redirect to="/error/error" />
       </Switch>
-    </Suspense>
   )
 }

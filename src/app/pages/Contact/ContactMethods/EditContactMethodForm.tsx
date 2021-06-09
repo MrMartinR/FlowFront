@@ -17,7 +17,7 @@ import {
 import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
 import { types } from './AddContactMethodForm'
-import store from './../../../../redux/store'
+import { Alert } from '@material-ui/lab'
 
 /* styles */
 const useStyles = makeStyles({
@@ -29,28 +29,28 @@ const useStyles = makeStyles({
     marginBottom: '12px',
   },
 })
-
+/* types */
+type EditContactMethodType = {
+  kind: string,
+  data: string,
+}
 export const EditContactMethodForm = (props: any) => {
   /* styles */
   const classes = useStyles()
   const { edit, handleClose, handleOpen } = props
-  const { register, handleSubmit } = useForm()
   const [formData, setFormData] = useState(null as any)
   const [params, SetParams] = useState('' as any)
   const [type, setType] = useState(edit.kind)
-  const {
-    auth: { user },
-  } = store.getState()
   const dispatch = useDispatch()
+  const { register, handleSubmit, errors } = useForm()
   // funcion que prepara os datos do formulario para o envio
-  const onSubmit = (data: any, e: any) => {
+  const onSubmit = ({ kind, data }: EditContactMethodType) => {
     SetParams(edit.id)
-    data = {
-      ...data,
-      kind: type,
-      updated_by: user.id,
+    const form = {
+      data,
+      kind,
     }
-    setFormData(data)
+    setFormData(form)
     handleClose()
   }
   // chamada a action updateContactMethods cos datos do formulario
@@ -59,6 +59,7 @@ export const EditContactMethodForm = (props: any) => {
       dispatch(contactsActions.updateContactMethods(formData, params))
     }
   }, [formData, dispatch, params])
+  // funcion que se chama o elexir unha opcion no select
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
@@ -77,7 +78,7 @@ export const EditContactMethodForm = (props: any) => {
                   onChange={handleChange}
                   inputRef={register}
                   select
-                  name="type"
+                  name="kind"
                   // label="Type"
                   variant="outlined"
                   size="small"
@@ -92,13 +93,18 @@ export const EditContactMethodForm = (props: any) => {
                 {/* data */}
                 <FormLabel>Data</FormLabel>
                 <OutlinedInput
-                  multiline
                   name="data"
-                  // label="Data"
+                  label="Data"
                   autoComplete="off"
                   defaultValue={edit.data}
-                  inputRef={register}
+                  inputRef={register({ required: true, minLength: 3 })}
                 />
+                {errors.data && errors.data.type === 'required' && (
+                    <Alert severity="error">Data is required</Alert>
+                  )}
+                {errors.data && errors.data.type === 'minLength' && (
+                    <Alert severity="error">Data should be at-least 3 characters.</Alert>
+                  )}
               </FormControl>
             </CardContent>
           </Grid>

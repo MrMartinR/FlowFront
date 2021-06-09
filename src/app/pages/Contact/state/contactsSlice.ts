@@ -208,11 +208,11 @@ export const contactsSlice = createSlice({
 
 const sort = (list: any) => {
   // array temporal para ordear alfabeticamente
-  const mapped = list.map(function(el: any, i: any) {
+  const mapped = list.map((el: any, i: any) => {
     return { index: i, value: el.attributes.name_header.toLowerCase() };
   })
   // ordeando o array mapeado
-  mapped.sort(function(a: any, b: any) {
+  mapped.sort((a: any, b: any) => {
     if (a.value > b.value) {
       return 1
     }
@@ -222,7 +222,7 @@ const sort = (list: any) => {
     return 0
   })
   // contenedor para o array ordeado
-  const result = mapped.map(function(el:any){
+  const result = mapped.map((el:any) => {
     return list[el.index];
   })
   // devolvese o array ordeado

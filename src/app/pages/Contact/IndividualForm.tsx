@@ -65,17 +65,16 @@ export const IndividualForm = (props: any) => {
           label="name"
           variant="outlined"
           placeholder="Name"
-          color="secondary"
           autoComplete="off"
           inputRef={register({ required: true, minLength: 3 })}
           className={classes.root}
         />
-        {errors.name && <Alert severity="error">name is required</Alert>}
-        {errors.name && errors.name.type === 'minLength' && (
-          <Alert severity="error">Name should be at-least 3 characters.</Alert>
-        )}
-        <Button type="submit" variant="contained" color="secondary">
-          Submit
+          {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
+          {errors.name && errors.name.type === 'minLength' && (
+            <Alert severity="error">Name should be at-least 3 characters.</Alert>
+          )}
+        <Button type="submit" variant="contained">
+          Save
         </Button>
       </Grid>
     </form>

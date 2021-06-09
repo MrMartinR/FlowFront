@@ -4,21 +4,19 @@ import {
   makeStyles,
   Card,
   CardHeader,
-  CardContent,
-  CardActions,
-  FormControl,
   FormLabel,
   FormHelperText,
   OutlinedInput,
   Button,
-  Typography,
+  Grid,
+  CardContent,
+  CardActions,
 } from '@material-ui/core'
-import * as Yup from 'yup'
 import * as userSettingsActions from './state/userSettingsActions'
 import { RootState } from '../../../../redux/rootReducer'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { UserAlert } from '../../../utils/UserAlert'
+import { Alert } from '@material-ui/lab'
 
 /* styles */
 const useStyles = makeStyles({
@@ -44,21 +42,7 @@ export const UserSettings = () => {
     }),
     shallowEqual
   )
-  /*
-   * schema for yup validation
-   */
-  const SettingsSchema = Yup.object().shape({
-    username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    email: Yup.string()
-      .email('Wrong email format')
-      .min(6, 'Minimum 6 characters')
-      .max(50, 'Maximum 50 characters')
-      .required('Required'),
-    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-  })
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(SettingsSchema),
-  })
+  const { register, handleSubmit, errors } = useForm()
   const [profile, setProfile] = useState({} as any)
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -90,55 +74,82 @@ export const UserSettings = () => {
     dispatch(userSettingsActions.resetSuccess())
   }
   return (
+    <>
     <Card className={classes.root}>
       <CardHeader title="Settings" subheader="Update your account and settings" />
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* begin: Username */}
-          {username !== '' && (
-            <FormControl size="small" fullWidth required>
-              <FormLabel>Username</FormLabel>
+          <Grid container direction="column">
+            {/* begin: Username */}
+            {username !== '' && (
+              <>
+                <FormLabel>Username</FormLabel>
+                <OutlinedInput
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="off"
+                  defaultValue={username}
+                  inputRef={register({ required: true, minLength: 3 })}
+                />
+                <FormHelperText>Minimum 3 characteres</FormHelperText>
+                {errors.username && errors.username.type === 'required' && (
+                  <Alert severity="error">Username is required</Alert>
+                )}
+                {errors.username && errors.username.type === 'minLength' && (
+                  <Alert severity="error">Username should be at-least 3 characters.</Alert>
+                )}
+              </>
+            )}
+            {/* end: Username */}
+
+            {/* email */}
+            {email !== '' && (
+              <>
+                <FormLabel>Email</FormLabel>
+                <OutlinedInput
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="off"
+                  defaultValue={email}
+                  inputRef={register({ required: true, pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: "Entered value does not match email format"
+                  }})}
+                />
+                <FormHelperText>Email will not be publicly displayed</FormHelperText>
+                {errors.email && errors.email.type === 'required' && (
+                  <Alert severity="error">Email is required</Alert>
+                )}
+                {errors.email && errors.email.type === 'pattern' && (
+                  <Alert severity="error">{errors.email.message}</Alert>
+                )}
+              </>
+            )}
+
+            {/* password */}
+            <>
+              <FormLabel>Password</FormLabel>
               <OutlinedInput
-                id="username"
-                name="username"
-                type="text"
+                id="password"
+                name="password"
+                type="password"
                 autoComplete="off"
-                defaultValue={profile.attributes?.username}
-                inputRef={register()}
+                inputRef={register({ required: true, minLength: 3 })}
               />
               <FormHelperText>Minimum 3 characteres</FormHelperText>
-              <Typography variant="caption"> {errors.username && errors.username.message}</Typography>
-            </FormControl>
-          )}
-          {/* end: Username */}
-
-          {/* email */}
-          {email !== '' && (
-            <FormControl size="small" fullWidth required>
-              <FormLabel>Email</FormLabel>
-              <OutlinedInput
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="off"
-                defaultValue={email}
-                inputRef={register()}
-              />
-              <FormHelperText>Email will not be publicly displayed</FormHelperText>
-              <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
-            </FormControl>
-          )}
-
-          {/* password */}
-          <FormControl size="small" fullWidth required>
-            <FormLabel>Password</FormLabel>
-            <OutlinedInput id="password" name="password" type="password" autoComplete="off" inputRef={register()} />
-            <FormHelperText>Minimum 3 characteres</FormHelperText>
-            <Typography variant="caption"> {errors.password && errors.password.message}</Typography>
-          </FormControl>
-          <CardActions>
-            <Button type="submit">Save</Button>
-          </CardActions>
+              {errors.password && errors.password.type === 'required' && (
+                <Alert severity="error">Password is required</Alert>
+              )}
+              {errors.password && errors.password.type === 'minLength' && (
+                <Alert severity="error">Password should be at-least 3 characters.</Alert>
+              )}
+            </>
+            <CardActions>
+              <Button type="submit" variant='contained'>Save</Button>
+            </CardActions>
+          </Grid>
         </form>
       </CardContent>
       <UserAlert
@@ -148,5 +159,6 @@ export const UserSettings = () => {
         error={userSettingsState.error}
       />
     </Card>
+    </>
   )
 }
