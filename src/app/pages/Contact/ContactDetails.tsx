@@ -17,7 +17,6 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { ContactEdit } from './ContactEdit'
 import { RootState } from '../../../redux/rootReducer'
 
@@ -83,7 +82,7 @@ export const ContactDetails = (props: any) => {
     edit === true ? (
       <>
         <Typography variant="h4">Edit Contact</Typography>
-        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} />
+        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} handleOpen={handleOpen}/>
       </>
     ) : (
       <>
@@ -120,9 +119,6 @@ export const ContactDetails = (props: any) => {
                 canEdit && (
                   <ButtonGroup>
                     <Button onClick={(e) => handleOpen(e, 'edit')}>•••</Button>
-                    <Button onClick={(e) => handleOpen(e, 'delete')}>
-                      <DeleteIcon onClick={(e) => handleOpen(e, 'delete')}></DeleteIcon>
-                    </Button>
                   </ButtonGroup>
                 )
               }

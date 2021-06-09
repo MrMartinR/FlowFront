@@ -40,6 +40,7 @@ export const ContactMethod = (props: any) => {
   const [open, setOpen] = useState(false)
   const [add, setAdd] = useState('' as string)
   const [edit, setEdit] = useState(null)
+  const [list, setList] = useState(null as any)
   const [canEdit, setCanEdit] = useState(false)
   const { authState } = useSelector(
     (state: RootState) => ({
@@ -62,6 +63,35 @@ export const ContactMethod = (props: any) => {
     }
     setOpen(true)
   }
+  // funcion para ordear o array de methods
+  const sort = (list: any) => {
+    // array temporal para ordear alfabeticamente
+    const mapped = list.map((el: any, i: any) => {
+      return { index: i, value: el.kind.toLowerCase() }
+    })
+    // ordeando o array mapeado
+    mapped.sort((a: any, b: any) => {
+      if (a.value > b.value) {
+        return 1
+      }
+      if (a.value < b.value) {
+        return -1
+      }
+      return 0
+    })
+    // contenedor para o array ordeado
+    const result = mapped.map((el: any) => {
+      return list[el.index]
+    })
+    // devolvese o array ordeado
+    return result
+  }
+
+  useEffect(() => {
+    if (listMethods?.length >0) {
+      setList(sort(listMethods))
+    } else setList(listMethods)
+  }, [listMethods])
 
   /* function close dialog window */
   const handleClose = () => {
@@ -85,12 +115,7 @@ export const ContactMethod = (props: any) => {
       {add === 'add' ? (
         <AddContactMethodForm selectedContact={selectedContact} handleClose={handleClose} />
       ) : add === 'edit' ? (
-        <EditContactMethodForm
-          selectedContact={selectedContact}
-          edit={edit}
-          handleClose={handleClose}
-          handleOpen={handleOpen}
-        />
+        <EditContactMethodForm edit={edit} handleClose={handleClose} handleOpen={handleOpen} />
       ) : (
         <DeleteContactMethod edit={edit} handleClose={handleClose} />
       )}
@@ -123,11 +148,8 @@ export const ContactMethod = (props: any) => {
         {/* shows a progress bar on loading, a dummy row or the list of contacts methods */}
         {methodLoading === true ? (
           <LinearProgress />
-        ) : listMethods?.length >= 1 ? (
-          listMethods.map((
-            itm: any,
-            idx: any // @rev: que pinta este idx ??
-          ) => (
+        ) : list?.length >= 1 ? (
+          list?.map((itm: any) => (
             <CardActions key={itm.id}>
               <Grid container alignItems="center">
                 {/* renders the icon and data */}
