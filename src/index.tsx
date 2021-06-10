@@ -17,14 +17,14 @@ import { IntlProvider } from 'react-intl'
 const { PUBLIC_URL } = process.env
 
 /**
- * Inject metronic interceptors for axios.
+ * Inject interceptors for axios.
  *
  * See {@link https://github.com/axios/axios#interceptors}
  */
 _redux.setupAxios(axios, store)
 
 ReactDOM.render(
-  /** StrictMode is a tool for highlighting potential problems in an application in development. */
+  /* StrictMode is a tool for highlighting potential problems in an application in development. */
   <React.StrictMode>
     <IntlProvider locale="en">
       <App store={store} persistor={persistor} basename={PUBLIC_URL} />

@@ -31,8 +31,8 @@ const useStyles = makeStyles({
 })
 /* types */
 type EditContactMethodType = {
-  kind: string,
-  data: string,
+  kind: string
+  data: string
 }
 export const EditContactMethodForm = (props: any) => {
   /* styles */
@@ -99,12 +99,10 @@ export const EditContactMethodForm = (props: any) => {
                   defaultValue={edit.data}
                   inputRef={register({ required: true, minLength: 3 })}
                 />
-                {errors.data && errors.data.type === 'required' && (
-                    <Alert severity="error">Data is required</Alert>
-                  )}
+                {errors.data && errors.data.type === 'required' && <Alert severity="error">Data is required</Alert>}
                 {errors.data && errors.data.type === 'minLength' && (
-                    <Alert severity="error">Data should be at-least 3 characters.</Alert>
-                  )}
+                  <Alert severity="error">Data should be at-least 3 characters.</Alert>
+                )}
               </FormControl>
             </CardContent>
           </Grid>
@@ -113,12 +111,12 @@ export const EditContactMethodForm = (props: any) => {
             <Grid container>
               <Grid item xs={3}>
                 {/* delete */}
-                <Button color="secondary" onClick={(e) => handleOpen(e, 'delete', edit)}>
+                <Button onClick={(e) => handleOpen(e, 'delete', edit)} color="secondary">
                   Delete
                 </Button>
               </Grid>
               <Grid item xs={9}>
-                <Grid container justify='flex-end'>
+                <Grid container justify="flex-end">
                   {/* cancel */}
                   <Button id="cancel" onClick={handleClose}>
                     Cancel

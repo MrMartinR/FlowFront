@@ -6,7 +6,7 @@ export const AccountAdd = (props: any) => {
     <form>
       <Grid container justify="space-between">
         <Button onClick={handleClose}>Cancel</Button>
-        <Button type="submit" disabled variant="contained" color="secondary">
+        <Button type="submit" disabled variant="contained">
           Submit
         </Button>
       </Grid>
