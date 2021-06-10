@@ -219,7 +219,7 @@ export const Registration = () => {
 
             {/* begin: Terms and Conditions */}
             <Grid>
-              <FormControlLabel control={<Checkbox name="acceptTerms" id="acceptTerms" />} label="I accept the" />
+              <FormControlLabel control={<Checkbox name="acceptTerms" id="acceptTerms" inputRef={register()}/>} label="I accept the" />
               <Button onClick={handleOpen}>Terms & Conditions.</Button>
             </Grid>
             <Typography variant="caption"> {errors.acceptTerms && errors.acceptTerms.message}</Typography>

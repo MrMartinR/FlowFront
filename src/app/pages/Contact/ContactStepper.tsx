@@ -6,14 +6,15 @@ import {
   StepLabel,
   StepContent,
   Button,
-  Paper,
   Typography,
-  Checkbox,
-  FormGroup,
   FormControlLabel,
   Select,
   MenuItem,
   LinearProgress,
+  FormControl,
+  Grid,
+  Radio,
+  RadioGroup,
 } from '@material-ui/core'
 import { ContactAdd } from './ContactAdd'
 import { RootState } from '../../../redux/rootReducer'
@@ -26,9 +27,10 @@ function getSteps() {
 
 export const VerticalLinearStepper = (props: any) => {
   const { handleClose } = props
-  const { countryState } = useSelector(
+  const { countryState, authState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
+      authState: state.auth,
     }),
     shallowEqual
   )
@@ -38,56 +40,19 @@ export const VerticalLinearStepper = (props: any) => {
   const [list, setList] = useState([] as any)
   const [isLoading, setIsLoading] = useState(true)
   const [kind, setKind] = useState('Individual')
+  const [canPublic, setCanPublic] = useState(false)
   const [visibility, setVisibility] = useState('Private')
-  const [checkState, setCheckState] = useState({
-    checkedA: false,
-    checkedB: false,
-  })
-  const [checkVisible, setCheckVisible] = useState({
-    checkedC: false,
-    checkedD: false,
-  })
-
+  
   // funcion que garda o id co country seleccionado
   const handleCountry = (e: any) => {
     setCountry(e.target.value)
   }
-  // funcion que garda os campos dos checkboxes kind e visibility
-  const handleKind = (e: any) => {
-    if (e.target.name === 'checkedA') {
-      setCheckState({
-        ...checkState,
-        [e.target.name]: e.target.checked,
-        /* eslint-disable no-useless-computed-key */
-        ['checkedB']: false,
-      })
-    }
-    if (e.target.name === 'checkedB') {
-      setCheckState({
-        ...checkState,
-        [e.target.name]: e.target.checked,
-        /* eslint-disable no-useless-computed-key */
-        ['checkedA']: false,
-      })
-    }
-    if (e.target.name === 'checkedC') {
-      setCheckVisible({
-        ...checkVisible,
-        [e.target.name]: e.target.checked,
-        /* eslint-disable no-useless-computed-key */
-        ['checkedD']: false,
-      })
-    }
-    if (e.target.name === 'checkedD') {
-      setCheckVisible({
-        ...checkVisible,
-        [e.target.name]: e.target.checked,
-        /* eslint-disable no-useless-computed-key */
-        ['checkedC']: false,
-      })
-    }
-  }
-
+  // funcion que garda un boolean que indica se o user actual pode editar ou borrar o contact actual
+  useEffect(() => {
+    if (authState.role !== 'user') {
+      setCanPublic(true)
+    } else setCanPublic(false)
+  }, [authState])
   // peticion da lista de countries
   const dispatch = useDispatch()
   useEffect(() => {
@@ -105,64 +70,52 @@ export const VerticalLinearStepper = (props: any) => {
       }
     }
   }, [countryState])
-  // Actualiza a variable kind
-  useEffect(() => {
-    if (checkState.checkedA === true) {
-      setKind('Company')
-    }
-    if (checkState.checkedB === true) {
-      setKind('Individual')
-    }
-  }, [checkState])
-  // Actualiza a variable visibility
-  useEffect(() => {
-    if (checkVisible.checkedC === true) {
-      setVisibility('Private')
-    }
-    if (checkVisible.checkedD === true) {
-      setVisibility('Public')
-    }
-  }, [checkVisible])
+  const handleKind = (e:any) => {
+    setKind(e.target.value)
+  }
+  const handleVisibility = (e:any) => {
+    setVisibility(e.target.value)
+  }
   // carga contido segun o paso actual
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
         return (
-          <FormGroup row>
-            <FormControlLabel
-              control={<Checkbox checked={checkState.checkedA} name="checkedA" onChange={handleKind} />}
-              label="Company"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={checkState.checkedB} onChange={handleKind} name="checkedB" />}
-              label="Individual"
-            />
-          </FormGroup>
+          <FormControl margin='normal'>
+            <RadioGroup name="kind" value={kind} onChange={handleKind}>
+              <Grid container>
+                <FormControlLabel value="Company" control={<Radio />} label="Company" />
+                <FormControlLabel value="Individual" control={<Radio />} label="Individual" />
+              </Grid>
+            </RadioGroup>
+          </FormControl>
         )
       case 1:
-        return !isLoading ? (
-          <Select labelId="Country" id="country" value={country} onChange={handleCountry}>
-            {list.map((country: any) => (
-              <MenuItem value={country.id} key={country.id}>
-                {country.attributes.name}
-              </MenuItem>
-            ))}
-          </Select>
-        ) : (
-          <LinearProgress color="secondary" />
+        return (
+          <FormControl margin='normal'>
+            {!isLoading ? (
+              <Select labelId="Country" id="country" value={country} onChange={handleCountry}>
+                {list.map((country: any) => (
+                  <MenuItem value={country.id} key={country.id}>
+                    {country.attributes.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            ) : (
+              <LinearProgress />
+            )}
+          </FormControl>
         )
       case 2:
         return (
-          <FormGroup row>
-            <FormControlLabel
-              control={<Checkbox checked={checkVisible.checkedC} name="checkedC" onChange={handleKind} />}
-              label="Private"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={checkVisible.checkedD} onChange={handleKind} name="checkedD" />}
-              label="Public"
-            />
-          </FormGroup>
+          <FormControl margin='normal'>
+            <RadioGroup name="visibility" value={visibility} onChange={handleVisibility}>
+              <Grid container>
+                <FormControlLabel disabled = {!canPublic} value="Public" control={<Radio />} label="Public" />
+                <FormControlLabel value="Private" control={<Radio />} label="Private" />
+              </Grid>
+            </RadioGroup>
+          </FormControl>
         )
       case 3:
         return <ContactAdd kind={kind} country={country} handleClose={handleClose} visibility={visibility} />
@@ -178,10 +131,6 @@ export const VerticalLinearStepper = (props: any) => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
-  // funcion para volver o primeiro paso
-  const handleReset = () => {
-    setActiveStep(0)
-  }
   return (
     <>
       <Stepper activeStep={activeStep} orientation="vertical">
@@ -194,20 +143,14 @@ export const VerticalLinearStepper = (props: any) => {
                 <Button disabled={activeStep === 0} onClick={handleBack}>
                   Back
                 </Button>
-                <Button variant="contained" color="primary" onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                <Button variant="contained" color="primary" disabled={activeStep === steps.length - 1} onClick={handleNext}>
+                  Next
                 </Button>
               </>
             </StepContent>
           </Step>
         ))}
       </Stepper>
-      {activeStep === steps.length && (
-        <Paper square elevation={0}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset}>Reset</Button>
-        </Paper>
-      )}
     </>
   )
 }

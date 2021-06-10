@@ -1,4 +1,4 @@
-import { DialogContent, DialogActions, DialogContentText, Button } from '@material-ui/core'
+import { DialogTitle, DialogContent, DialogActions, DialogContentText, Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import * as contactsActions from './../state/contactsActions'
 export const DeleteContactMethod = (props: any) => {
@@ -11,18 +11,17 @@ export const DeleteContactMethod = (props: any) => {
   }
 
   return (
-    <>
-      <DialogContent>
-        <DialogContentText>Are you sure you want to delete this contact method?</DialogContentText>
-      </DialogContent>
+    <DialogContent>
+      <DialogTitle>Delete Contact Method</DialogTitle>
+      <DialogContentText>Are you sure you want to delete this contact method?</DialogContentText>
       <DialogActions>
         <Button autoFocus onClick={handleClose}>
           Cancel
         </Button>
-        <Button onClick={handleStatus} variant="contained" color="secondary">
-          Yes
+        <Button onClick={handleStatus} color="secondary">
+          Delete Contact Method
         </Button>
       </DialogActions>
-    </>
+    </DialogContent>
   )
 }

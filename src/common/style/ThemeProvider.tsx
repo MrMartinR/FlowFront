@@ -1,5 +1,7 @@
-import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
+import { colors, createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
+// import { blueGrey } from '@material-ui/core/colors'
 
+/* See Documentation @link {https://material-ui.com/customization/theming/} */
 const theme = createMuiTheme({
   typography: {
     fontFamily: ['Poppins'].join(','),
@@ -19,15 +21,15 @@ const theme = createMuiTheme({
 
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: '#f4f4f4',
-      // main: '#343434',
+      // main: '#f4f4f4',
+      main: colors.blueGrey[500],
       // dark: will be calculated from palette.primary.main,
       // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
     },
 
     secondary: {
       // light: will be calculated from palette.primary.main,
-      main: '#f50057',
+      main: colors.deepOrange[500],
       // dark: will be calculated from palette.primary.main,
       // contrastText: "#fff" //will be calculated to contrast with palette.primary.main
     },

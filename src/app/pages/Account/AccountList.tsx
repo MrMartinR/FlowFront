@@ -59,7 +59,7 @@ export const AccountsList = (props: any) => {
       <Card className={classes.root}>
         <List>
           {isLoading ? (
-            <LinearProgress color="secondary" />
+            <LinearProgress />
           ) : (
             list.map((item: any, idx: any) => (
               <Card key={item.id}>

@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     maxHeight: 600,
     position: 'relative',
     overflow: 'auto',
+    padding: 12,
   },
   search: {
     minWidth: '100%',
@@ -133,7 +134,7 @@ export const ContactsList = (props: any) => {
       <Container className={classes.root}>
         <List>
           {isLoading ? (
-            <LinearProgress color="secondary" />
+            <LinearProgress />
           ) : (
             list.map((item: any, idx: any) => (
               <Card key={item.id} className={classes.card}>

@@ -59,9 +59,7 @@ export const UserAccountDetailsToolbar = (props: any) => {
               src={'/media/svg/contact/icons/' + singleAccount.attributes?.account?.contact_id + '.svg'}
               alt={singleAccount.attributes?.name}
               variant="square"
-            >
-              {singleAccount.attributes?.name[0]}
-            </Avatar>
+            />
           }
           title={singleAccount.attributes?.name}
           subheader={'Value ' + value + ' Balance ' + balance.toFixed(2)}

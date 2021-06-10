@@ -61,7 +61,6 @@ export const CompanyForm = (props: any) => {
           placeholder="Trade name"
           autoComplete="off"
           inputRef={register({ required: true, minLength: 3 })}
-          color="secondary"
           className={classes.root}
         />
         {errors.trade_name && errors.trade_name.type === 'required' && (
@@ -70,9 +69,8 @@ export const CompanyForm = (props: any) => {
         {errors.trade_name && errors.trade_name.type === 'minLength' && (
           <Alert severity="error">Trade name should be at-least 3 characters.</Alert>
         )}
-
-        <Button type="submit" variant="contained" color="secondary">
-          Submit
+        <Button type="submit" variant="contained">
+          Save
         </Button>
       </Grid>
     </form>

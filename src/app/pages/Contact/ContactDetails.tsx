@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as contactsActions from './state/contactsActions'
 /* eslint-disable no-restricted-imports*/
 import {
@@ -17,13 +17,14 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { ContactEdit } from './ContactEdit'
+import { RootState } from '../../../redux/rootReducer'
 
 /* styles */
 const useStyles = makeStyles({
   root: {
-    margin: 24,
+    margin: 8,
+    padding: 12,
   },
   avatar: {
     background: 'transparent',
@@ -40,8 +41,15 @@ export const ContactDetails = (props: any) => {
   const err = ''
   const [open, setOpen] = useState(false)
   const [edit, setEdit] = useState(false)
+  const [canEdit, setCanEdit] = useState(false)
   const flag = selectedContact.attributes?.country?.iso_code
   const dispatch = useDispatch()
+  const { authState } = useSelector(
+    (state: RootState) => ({
+      authState: state.auth,
+    }),
+    shallowEqual
+  )
   // funcion que abre o dialog de edit ou delete
   const handleOpen = (e: any, value: any) => {
     if (value === 'edit') setEdit(true)
@@ -57,12 +65,24 @@ export const ContactDetails = (props: any) => {
     dispatch(contactsActions.deleteContact(selectedContact.id))
     handleClose()
   }
+  // funcion que garda un boolean que indica se o user actual pode editar ou borrar o contact actual
+  useEffect(() => {
+    if (selectedContact.attributes?.visibility === 'Public') {
+      if (authState.role !== 'user') {
+        setCanEdit(true)
+      } else setCanEdit(false)
+    } else {
+      if (selectedContact.attributes?.user?.id === authState.user?.id) {
+        setCanEdit(true)
+      } else setCanEdit(false)
+    }
+  }, [selectedContact, authState])
   // corpo do dialog de edit ou delete
   const body =
     edit === true ? (
       <>
         <Typography variant="h4">Edit Contact</Typography>
-        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} />
+        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} handleOpen={handleOpen}/>
       </>
     ) : (
       <>
@@ -75,7 +95,7 @@ export const ContactDetails = (props: any) => {
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleDelete} variant="contained" color="secondary">
-            Agree
+            Delete
           </Button>
         </Grid>
       </>
@@ -96,12 +116,11 @@ export const ContactDetails = (props: any) => {
             <CardHeader
               title="Details"
               action={
-                <ButtonGroup>
-                  <Button onClick={(e) => handleOpen(e, 'edit')}>•••</Button>
-                  <Button onClick={(e) => handleOpen(e, 'delete')}>
-                    <DeleteIcon onClick={(e) => handleOpen(e, 'delete')}></DeleteIcon>
-                  </Button>
-                </ButtonGroup>
+                canEdit && (
+                  <ButtonGroup>
+                    <Button onClick={(e) => handleOpen(e, 'edit')}>•••</Button>
+                  </ButtonGroup>
+                )
               }
             />
           </Grid>

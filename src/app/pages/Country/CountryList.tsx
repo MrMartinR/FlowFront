@@ -50,7 +50,7 @@ export const CountriesList = (props: any) => {
   return (
     <Grid container direction="column" className={classes.root}>
       {isLoading ? (
-        <LinearProgress color="secondary" />
+        <LinearProgress />
       ) : (
         <Grid className={classes.table}>
           <XGrid

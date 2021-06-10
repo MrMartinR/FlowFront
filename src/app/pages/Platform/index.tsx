@@ -49,8 +49,8 @@ export const PlatformsPage = () => {
       const newRow = {
         id: platform.id,
         type: platform.type,
-        trade_name: platform.attributes.contact?.trade_name || '',
-        contact_id: platform.attributes.contact.id,
+        trade_name: platform.relationships.contact.data.attributes?.trade_name || '',
+        contact_id: platform.relationships.contact.data.id,
         status: platform.attributes.status,
         liquidity: platform.attributes.liquidity,
         account_category: platform.attributes.account_category,

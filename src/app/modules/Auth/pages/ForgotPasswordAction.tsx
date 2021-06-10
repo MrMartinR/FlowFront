@@ -106,7 +106,7 @@ export const ForgotPasswordAction = (props: any) => {
               />
               <span> {errors.changepassword && errors.changepassword.message}</span>
               {/* end: Confirm Password */}
-              <Button type="submit" variant="contained" color="secondary">
+              <Button type="submit" variant="contained">
                 Submit
               </Button>
               <Typography variant="body2" align="center">

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { TextField, Button, Grid, MenuItem } from '@material-ui/core'
+import { Grid, TextField, Button, CardHeader, MenuItem } from '@material-ui/core'
 import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
-import store from './../../../../redux/store'
+import { Alert } from '@material-ui/lab'
+/* define the types */
 export const types = [
   {
     value: 'Address',
@@ -66,32 +67,30 @@ export const types = [
     label: 'Other',
   },
 ]
-
+/* types */
+type AddContactMethodType = {
+  data: string,
+}
 export const AddContactMethodForm = (props: any) => {
   const { selectedContact, handleClose } = props
-  const { register, handleSubmit } = useForm()
   const [type, setType] = useState('Address')
   const [formData, setFormData] = useState(null as any)
-  const {
-    auth: { user },
-  } = store.getState()
   // garda o tipo de contact method seleccionado na lista
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
-
+  const { register, handleSubmit, errors } = useForm()
   const dispatch = useDispatch()
+
   // Prepara os datos para enviar e pecha o dialog
-  const onSubmit = (data: {}, e: any) => {
-    e.preventDefault()
-    data = {
-      ...data,
+  const onSubmit = ({ data }: AddContactMethodType) => {
+    const form = {
+      data,
       kind: type,
       contact_id: selectedContact.id,
-      created_by: user.id,
       visibility: selectedContact.attributes?.visibility,
     }
-    setFormData(data)
+    setFormData(form)
     handleClose()
   }
   // Chama a action createCOntactMethod cos datos do formulario
@@ -100,42 +99,47 @@ export const AddContactMethodForm = (props: any) => {
       dispatch(contactsActions.createContactMethods(formData))
     }
   }, [formData, dispatch])
+
+  /* render the content */
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container direction="column">
-          <TextField
-            select
-            name="kind"
-            label="Type"
-            margin="normal"
-            color="secondary"
-            value={type}
-            onChange={handleChange}
-            inputRef={register}
-          >
-            {types.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            name="data"
-            label="Data"
-            margin="normal"
-            autoComplete="off"
-            color="secondary"
-            inputRef={register}
-          />
-          <Grid container justify="space-between">
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" variant="contained" color="secondary">
-              Submit
-            </Button>
-          </Grid>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container direction="column">
+        <CardHeader title="Add Contact Method" />
+        <TextField
+          select
+          name="kind"
+          label="Type"
+          margin="normal"
+          value={type}
+          onChange={handleChange}
+          inputRef={register}
+        >
+          {types.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          name="data"
+          label="Data"
+          margin="normal"
+          autoComplete="off"
+          inputRef={register({ required: true, minLength: 3 })}
+        />
+        {errors.data && errors.data.type === 'required' && (
+            <Alert severity="error">Data is required</Alert>
+          )}
+        {errors.data && errors.data.type === 'minLength' && (
+            <Alert severity="error">Data should be at-least 3 characters.</Alert>
+          )}
+        <Grid container justify="space-between">
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button type="submit" variant="contained">
+            Save
+          </Button>
         </Grid>
-      </form>
-    </>
+      </Grid>
+    </form>
   )
 }

@@ -8,7 +8,6 @@ import axios from 'axios'
 import * as _redux from './redux'
 import store, { persistor } from './redux/store'
 import App from './app/App'
-import { LayoutProvider, SplashScreenProvider } from './common/layout'
 import { IntlProvider } from 'react-intl'
 // import 'react-virtualized/styles.css'
 
@@ -18,22 +17,18 @@ import { IntlProvider } from 'react-intl'
 const { PUBLIC_URL } = process.env
 
 /**
- * Inject metronic interceptors for axios.
+ * Inject interceptors for axios.
  *
  * See {@link https://github.com/axios/axios#interceptors}
  */
 _redux.setupAxios(axios, store)
 
 ReactDOM.render(
-  /** StrictMode is a tool for highlighting potential problems in an application in development. */
+  /* StrictMode is a tool for highlighting potential problems in an application in development. */
   <React.StrictMode>
-    <LayoutProvider>
-        <SplashScreenProvider>
-          <IntlProvider locale="en">
-            <App store={store} persistor={persistor} basename={PUBLIC_URL} />
-          </IntlProvider>
-        </SplashScreenProvider>
-      </LayoutProvider>
+    <IntlProvider locale="en">
+      <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+    </IntlProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
