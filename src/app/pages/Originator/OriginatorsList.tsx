@@ -24,11 +24,7 @@ const columns: GridColDef[] = [
     renderCell: (params: GridCellParams) => (
       <CardMedia
         component="img"
-<<<<<<< Updated upstream
-        src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
-=======
         src={'/media/svg/contact/logos/' + params.row.contact_id + '.svg'}
->>>>>>> Stashed changes
         title={`${params.value}`}
         alt={`${params.value}`}
       />

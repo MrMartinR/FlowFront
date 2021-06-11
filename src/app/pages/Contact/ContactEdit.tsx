@@ -10,7 +10,6 @@ import {
   MenuItem,
   Radio,
   RadioGroup,
-  Select,
   TextField,
   Theme,
 } from '@material-ui/core'
@@ -57,6 +56,10 @@ export const ContactEdit = (props: any) => {
     createStyles({
       root: {
         margin: 5,
+        width: '420px',
+      },
+      datePicker: {
+        width: '200px',
       },
     })
   )
@@ -64,7 +67,7 @@ export const ContactEdit = (props: any) => {
   const handleCountry = (e: any) => {
     setCountry(e.target.value)
   }
-  
+
   // peticion da lista de countries
   const dispatch = useDispatch()
   useEffect(() => {
@@ -97,20 +100,17 @@ export const ContactEdit = (props: any) => {
     }
   }, [formData, dispatch, params])
   // garda na variable kind o radiobutton marcado
-  const handleKind = (e:any) => {
+  const handleKind = (e: any) => {
     setKind(e.target.value)
   }
   // garda na variable visibility o radiobutton marcado
-  const handleVisibility = (e:any) => {
+  const handleVisibility = (e: any) => {
     setVisibility(e.target.value)
   }
   const classes = useStyles()
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={classes.root}>
       <Grid container direction="column">
-<<<<<<< Updated upstream
-        <FormControl margin='normal'>
-=======
         {
           canPublic&&(
             <FormControl margin="normal">
@@ -127,123 +127,46 @@ export const ContactEdit = (props: any) => {
 
         {/* contact type */}
         <FormControl margin="normal">
->>>>>>> Stashed changes
           <FormLabel>Select Contact Type</FormLabel>
           <RadioGroup name="kind" value={kind} onChange={handleKind}>
             <Grid container>
-              <FormControlLabel value="Company" control={<Radio />} label="Company" />
-              <FormControlLabel value="Individual" control={<Radio />} label="Individual" />
+              <FormControlLabel value="Company" control={<Radio color="default" />} label="Company" />
+              <FormControlLabel value="Individual" control={<Radio color="default" />} label="Individual" />
             </Grid>
           </RadioGroup>
         </FormControl>
-        <FormControl margin='normal'>
+
+        {/* country */}
+        <FormControl margin="normal">
           <FormLabel>Select Country</FormLabel>
           {!isLoading ? (
-            <Select labelId="Country" id="country" value={country} onChange={handleCountry}>
+            <TextField
+              value={country}
+              onChange={handleCountry}
+              inputRef={register}
+              select
+              name="Country"
+              variant="outlined"
+              size="small"
+            >
               {list.map((country: any) => (
                 <MenuItem value={country.id} key={country.id}>
                   {country.attributes.name}
                 </MenuItem>
               ))}
-            </Select>
+            </TextField>
           ) : (
             <LinearProgress />
           )}
-
-        </FormControl>
-        <FormControl margin='normal'>
-          <FormLabel>Select Visibility</FormLabel>
-          <RadioGroup name="visibility" value={visibility} onChange={handleVisibility}>
-            <Grid container>
-              <FormControlLabel value="Public" control={<Radio />} label="Public" />
-              <FormControlLabel value="Private" control={<Radio />} label="Private" />
-            </Grid>
-          </RadioGroup>
         </FormControl>
 
         {kind === 'Company' ? (
-          <>
-<<<<<<< Updated upstream
-            <TextField
-              name="trade_name"
-              label="Trade_name"
-              variant="outlined"
-              defaultValue={selectedContact.attributes.trade_name}
-              placeholder="Trade name"
-              autoComplete="off"
-              inputRef={register({ required: true, minLength: 3 })}
-              className={classes.root}
-            />
-            {errors.trade_name && errors.trade_name.type === 'required' && (
-              <Alert severity="error">Trade name is required</Alert>
-            )}
-            {errors.trade_name && errors.trade_name.type === 'minLength' && (
-              <Alert severity="error">Trade name should be at-least 3 characters.</Alert>
-            )}
-            <TextField
-              name="company_name"
-              label="Company name"
-              variant="outlined"
-              autoComplete="off"
-              defaultValue={selectedContact.attributes.company_name}
-              placeholder="Company name"
-              inputRef={register({ required: false })}
-              className={classes.root}
-            />
-            <FormLabel>Founded</FormLabel>
-            <TextField
-              name="founded"
-              type="date"
-              variant="outlined"
-              autoComplete="off"
-              defaultValue={selectedContact.attributes.founded}
-              inputRef={register({ required: false })}
-              className={classes.root}
-            />
-          </>
-        ) : (
-          <>
-            <TextField
-              name="name"
-              label="Name"
-              variant="outlined"
-              placeholder="Name"
-              defaultValue={selectedContact.attributes.name}
-              autoComplete="off"
-              inputRef={register({ required: true, minLength: 3 })}
-              className={classes.root}
-            />
-            {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
-            {errors.name && errors.name.type === 'minLength' && (
-              <Alert severity="error">Name should be at-least 3 characters.</Alert>
-            )}
-            <TextField
-              name="surname"
-              label="surname"
-              variant="outlined"
-              autoComplete="off"
-              defaultValue={selectedContact.attributes.surname}
-              placeholder="Surname"
-              inputRef={register({ required: false })}
-              className={classes.root}
-            />
-            <TextField
-              name="nick"
-              label="nick"
-              variant="outlined"
-              autoComplete="off"
-              defaultValue={selectedContact.attributes.nick}
-              placeholder="Nick"
-              inputRef={register({ required: false })}
-              className={classes.root}
-            />
-=======
+         <>
             {/* trade name */}
             <FormControl margin="dense">
               <FormLabel>Trade Name</FormLabel>
               <TextField
                 name="trade_name"
-                id='trade_name'
                 defaultValue={selectedContact.attributes.trade_name}
                 placeholder="Trade name"
                 autoComplete="off"
@@ -264,7 +187,6 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Company Name</FormLabel>
               <TextField
                 name="company_name"
-                id='company_name'
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.company_name}
                 placeholder="Company name"
@@ -279,7 +201,6 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Company Number</FormLabel>
               <TextField
                 name="id_number"
-                id='id_number'
                 variant="outlined"
                 defaultValue={selectedContact.attributes.id_number}
                 placeholder="Company Number"
@@ -310,7 +231,6 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Name</FormLabel>
               <TextField
                 name="name"
-                id='name'
                 variant="outlined"
                 placeholder="Name"
                 defaultValue={selectedContact.attributes.name}
@@ -328,7 +248,6 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Surname</FormLabel>
               <TextField
                 name="surname"
-                id='surname'
                 // label="Surname"
                 variant="outlined"
                 autoComplete="off"
@@ -343,7 +262,6 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Nick</FormLabel>
               <TextField
                 name="nick"
-                id='nick'
                 // label="Nick"
                 variant="outlined"
                 autoComplete="off"
@@ -358,7 +276,6 @@ export const ContactEdit = (props: any) => {
               <FormLabel>ID Number</FormLabel>
               <TextField
                 name="id_number"
-                id='id_number'
                 // label="ID Number"
                 variant="outlined"
                 defaultValue={selectedContact.attributes.id_number}
@@ -381,44 +298,34 @@ export const ContactEdit = (props: any) => {
                 className={classes.datePicker}
               />
             </FormControl>
->>>>>>> Stashed changes
           </>
         )}
-        <TextField
-          name="id_number"
-          label="id_number"
-          variant="outlined"
-          defaultValue={selectedContact.attributes.id_number}
-          placeholder="ID Number"
-          inputRef={register({ required: false })}
-          className={classes.root}
-        />
-        <TextField
-          name="description"
-          label='description'
-          variant="outlined"
-          defaultValue={selectedContact.attributes.description}
-          multiline
-          placeholder="Description"
-          inputRef={register({ required: false })}
-          className={classes.root}
-        />
+
+        {/* description */}
+        <FormControl margin="dense">
+          <FormLabel>Description</FormLabel>
+          <TextField
+            inputRef={register({ required: false })}
+            defaultValue={selectedContact.attributes.description}
+            name="description"
+            // label="description"
+            multiline
+            placeholder="Description"
+            variant="outlined"
+            size="small"
+          />
+        </FormControl>
 
         <Grid container justify="space-between">
           <Grid item>
-            <Button color="secondary" onClick={(e) => handleOpen(e, 'delete')}>
+            <Button onClick={(e) => handleOpen(e, 'delete')} color="secondary">
               Delete
             </Button>
           </Grid>
           <Grid item>
             <Button onClick={handleClose}>Cancel</Button>
-<<<<<<< Updated upstream
-            <Button type="submit" variant='contained'>
-              Save
-            </Button>
-=======
             <Button type="submit" color='primary'>Save</Button>
->>>>>>> Stashed changes
+
           </Grid>
         </Grid>
       </Grid>

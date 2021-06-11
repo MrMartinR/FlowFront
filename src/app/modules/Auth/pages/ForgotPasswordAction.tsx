@@ -112,11 +112,8 @@ export const ForgotPasswordAction = (props: any) => {
                   <Alert severity="error">Password and Confirm Password didn't match</Alert>
                 )}
               {/* end: Confirm Password */}
-<<<<<<< Updated upstream
-              <Button type="submit" variant="contained" color="secondary">
-=======
-              <Button type="submit" color='primary'>
->>>>>>> Stashed changes
+
+              <Button type="submit" variant="contained">
                 Submit
               </Button>
               <Typography variant="body2" align="center">

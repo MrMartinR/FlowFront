@@ -67,18 +67,13 @@ export const AccountEdit = (props: any) => {
           ))}
         </Select>
       ) : (
-        <LinearProgress color="secondary" />
+        <LinearProgress />
       )}
       <Grid container justify="space-between">
         <Button onClick={(e) => handleOpen(e, 'delete')} color='secondary'>Delete</Button>
         <Button onClick={handleClose}>Cancel</Button>
-<<<<<<< Updated upstream
-        <Button type="submit" disabled variant="contained" color="secondary">
-          Submit
-=======
         <Button type="submit" color='primary'>
           Save
->>>>>>> Stashed changes
         </Button>
       </Grid>
     </form>

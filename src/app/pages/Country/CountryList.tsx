@@ -28,13 +28,8 @@ const columns: GridColDef[] = [
         style={{ padding: '18px' }}
         component="img"
         src={'/media/svg/flags/' + params.value + '.svg'}
-<<<<<<< Updated upstream
-        alt={`${params.getValue('name')}`}
-        title={`${params.getValue('name')}`}
-=======
         alt={`${params.row.name}`}
         title={`${params.row.name}`}
->>>>>>> Stashed changes
       />
     ),
   },
