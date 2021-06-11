@@ -24,7 +24,8 @@ const columns: GridColDef[] = [
     renderCell: (params: GridCellParams) => (
       <CardMedia
         component="img"
-        src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
+        // @TODO: al actualizar la X-Grid ahora pide un id
+        // src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
         title={`${params.value}`}
         alt={`${params.value}`}
       />

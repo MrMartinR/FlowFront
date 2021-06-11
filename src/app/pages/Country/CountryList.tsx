@@ -28,8 +28,9 @@ const columns: GridColDef[] = [
         style={{ padding: '18px' }}
         component="img"
         src={'/media/svg/flags/' + params.value + '.svg'}
-        alt={`${params.getValue('name')}`}
-        title={`${params.getValue('name')}`}
+        // @TODO: al actualizar la X-Grid ahora pide un id
+        // alt={`${params.getValue('name')}`}
+        // title={`${params.getValue('name')}`}
       />
     ),
   },
