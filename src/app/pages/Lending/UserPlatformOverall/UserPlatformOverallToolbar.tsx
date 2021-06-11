@@ -16,9 +16,7 @@ export const UserPlatformOverallToolbar = (props: any) => {
           <Typography variant="h4">User Platforms</Typography>
         </Grid>
         <Grid item xs={4}>
-          <Button variant="outlined" href="/user-platform">
-            Individual Performance
-          </Button>
+          <Button href="/user-platform">Individual Performance</Button>
         </Grid>
       </Grid>
     </Toolbar>

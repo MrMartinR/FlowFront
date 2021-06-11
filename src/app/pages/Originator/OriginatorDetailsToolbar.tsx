@@ -1,4 +1,4 @@
-import { Grid, Button, ButtonGroup, Toolbar, makeStyles, Container, CardHeader, Avatar } from '@material-ui/core/'
+import { Grid, Button, Toolbar, makeStyles, Container, CardHeader, Avatar } from '@material-ui/core/'
 
 /* styles */
 const useStyles = makeStyles({
@@ -29,10 +29,8 @@ export const OriginatorDetailsToolbar = (props: any) => {
             subheader={company_name}
             action={
               <>
-                <ButtonGroup>
-                  <Button onClick={handleClick}>Info</Button>
-                  <Button onClick={handleClick}>Loans</Button>
-                </ButtonGroup>
+                <Button onClick={handleClick}>Info</Button>
+                <Button onClick={handleClick}>Loans</Button>
                 <Button href={`/contacts/${id}`}>Contact</Button>
               </>
             }

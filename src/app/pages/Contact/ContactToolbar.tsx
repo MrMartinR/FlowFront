@@ -9,7 +9,6 @@ import {
   DialogActions,
   DialogContent,
   Typography,
-  ButtonGroup,
   Button,
 } from '@material-ui/core'
 import { VerticalLinearStepper } from './ContactStepper'
@@ -46,11 +45,11 @@ export const ContactToolBar = (props: any) => {
   }
   // funcion para cambiar a view de originatorDetails
   const handleOriginator = () => {
-    linkTo.push(`/originators/${selectedContact.attributes.originator.id}`)
+    linkTo.push(`/originators/${selectedContact.relationships.originator.data.id}`)
   }
   // funcion para cambair a view de platformDetails
   const handlePlatform = () => {
-    linkTo.push(`/platforms/${selectedContact.attributes.platform.id}`)
+    linkTo.push(`/platforms/${selectedContact.relationships.platform.data.id}`)
   }
   // funcion que pecha o dialog de engadir contact
   const handleClose = () => {
@@ -83,18 +82,16 @@ export const ContactToolBar = (props: any) => {
             subheader="Public and Private contacts"
             action={
               <>
-                <ButtonGroup>
-                  {selectedContact?.attributes?.platform !== null && (
-                    <Button variant="outlined" onClick={handlePlatform}>
-                      Platform
-                    </Button>
-                  )}
-                  {selectedContact?.attributes?.originator !== null && (
-                    <Button variant="outlined" onClick={handleOriginator}>
-                      Originator
-                    </Button>
-                  )}
-                </ButtonGroup>
+                {selectedContact?.relationships?.platform.data !== null && (
+                  <Button onClick={handlePlatform}>
+                    Platform
+                  </Button>
+                )}
+                {selectedContact?.relationships?.originator.data !== null && (
+                  <Button onClick={handleOriginator}>
+                    Originator
+                  </Button>
+                )}
                 <Button id="add" onClick={(e) => handleOpen(e, 'add')}>
                   +
                 </Button>
@@ -132,7 +129,7 @@ export const ContactToolBar = (props: any) => {
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} variant="contained">
+            <Button onClick={handleClose}>
               Cancel
             </Button>
           </DialogActions>

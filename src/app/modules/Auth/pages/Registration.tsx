@@ -1,10 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
-import * as Yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import {
   makeStyles,
   Button,
@@ -25,6 +23,7 @@ import Logo from '../../../../common/media/flow-logo.svg'
 import { countriesList } from '../data/countriesList'
 import { UserAlert } from '../../../utils/UserAlert'
 import { RootState } from '../../../../redux/rootReducer'
+import { Alert } from '@material-ui/lab'
 
 /* initializing values */
 const initialValues = {
@@ -61,6 +60,7 @@ const useStyles = makeStyles({
 export const Registration = () => {
   /* styles */
   const classes = useStyles()
+  const [loading, setLoading] = useState(false)
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.auth,
@@ -77,25 +77,7 @@ export const Registration = () => {
     setOpen(false)
   }
 
-  /*
-   * schema for yup validation
-   */
-  const RegistrationSchema = Yup.object().shape({
-    username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    email: Yup.string()
-      .email('Wrong email format')
-      .min(6, 'Minimum 6 characters')
-      .max(50, 'Maximum 50 characters')
-      .required('Required'),
-    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    name: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    acceptTerms: Yup.boolean()
-      .oneOf([true], 'You must accept the terms and conditions')
-      .required('You must accept the terms and conditions'),
-  })
-
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(RegistrationSchema),
     defaultValues: initialValues,
   })
 
@@ -111,7 +93,9 @@ export const Registration = () => {
   const onSubmit = ({ email, username, password, name }: RegisterType) => {
     dispatch(authActions.registration(email, name, username, password, country))
   }
-
+  useEffect(() => {
+    setLoading(currentState.loading)
+  }, [currentState.loading])
   return (
     <Grid container className={classes.root}>
       <UserAlert
@@ -132,17 +116,9 @@ export const Registration = () => {
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column" justify="center" alignItems="center">
             {/* begin: Country */}
-            <FormControl required fullWidth variant="outlined" size="small">
+            <FormControl fullWidth variant="outlined" size="small">
               <FormLabel>Country</FormLabel>
-              <Select
-                labelId="Country"
-                id="country"
-                name="country"
-                value={country}
-                required
-                onChange={handleCountry}
-                fullWidth
-              >
+              <Select labelId="Country" id="country" name="country" value={country} onChange={handleCountry} fullWidth>
                 {countriesList.map((country: any) => (
                   <MenuItem value={country.id} key={country.id}>
                     {country.name}
@@ -153,78 +129,120 @@ export const Registration = () => {
             </FormControl>
             {/* end: Country */}
             {/* begin: Name */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Name</FormLabel>
               <OutlinedInput
-                id="name"
                 name="name"
                 type="text"
-                required
                 autoComplete="on"
-                inputRef={register()}
+                inputRef={register({ required: true, minLength: 3, maxLength: 50 })}
                 fullWidth
               />
               <FormHelperText>Type your name</FormHelperText>
-              <Typography variant="caption"> {errors.name && errors.name.message}</Typography>
+              {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
+              {errors.name && errors.name.type === 'minLength' && (
+                <Alert severity="error">Name should be at-least 3 characters.</Alert>
+              )}
+              {errors.name && errors.name.type === 'maxLength' && (
+                <Alert severity="error">Name should be less than 50 characters.</Alert>
+              )}
             </FormControl>
             {/* end: Name */}
             {/* begin: Email */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Email</FormLabel>
               <OutlinedInput
-                id="email"
                 name="email"
                 type="email"
-                required
                 autoComplete="on"
-                inputRef={register()}
+                inputRef={register({
+                  required: true,
+                  minLength: 3,
+                  maxLength: 50,
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Entered value does not match email format',
+                  },
+                })}
                 fullWidth
               />
               <FormHelperText>Type your email</FormHelperText>
-              <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
+              {errors.email && errors.email.type === 'required' && <Alert severity="error">Email is required</Alert>}
+              {errors.email && errors.email.type === 'minLength' && (
+                <Alert severity="error">Email should be at-least 3 characters.</Alert>
+              )}
+              {errors.email && errors.email.type === 'maxLength' && (
+                <Alert severity="error">Email should be less than 50 characters.</Alert>
+              )}
+              {errors.email && errors.email.type === 'pattern' && (
+                <Alert severity="error">{errors.email.message}</Alert>
+              )}
             </FormControl>
             {/* end: Email */}
             {/* begin: Username */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Username</FormLabel>
               <OutlinedInput
-                id="username"
                 name="username"
                 type="text"
-                required
                 autoComplete="on"
-                inputRef={register()}
+                inputRef={register({ required: true, minLength: 3, maxLength: 50 })}
                 fullWidth
               />
               <FormHelperText>Choose a username</FormHelperText>
-              <Typography variant="caption"> {errors.username && errors.username.message}</Typography>
+              {errors.username && errors.username.type === 'required' && <Alert severity="error">Username is required</Alert>}
+              {errors.username && errors.username.type === 'minLength' && (
+                <Alert severity="error">Username should be at-least 3 characters.</Alert>
+              )}
+              {errors.username && errors.username.type === 'maxLength' && (
+                <Alert severity="error">Username should be less than 50 characters.</Alert>
+              )}
             </FormControl>
             {/* end: Username */}
             {/* begin: Password */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Password</FormLabel>
               <OutlinedInput
-                id="password"
                 name="password"
                 type="password"
-                required
                 autoComplete="on"
-                inputRef={register()}
+                inputRef={register({
+                  required: true,
+                  minLength: 3,
+                  maxLength: 50,
+                })}
                 fullWidth
               />
               <FormHelperText>Choose a password</FormHelperText>
-              <Typography variant="caption"> {errors.password && errors.password.message}</Typography>
+              {errors.password && errors.password.type === 'required' && <Alert severity="error">Password is required</Alert>}
+              {errors.password && errors.password.type === 'minLength' && (
+                <Alert severity="error">Password should be at-least 3 characters.</Alert>
+              )}
+              {errors.password && errors.password.type === 'maxLength' && (
+                <Alert severity="error">Password should be less than 50 characters.</Alert>
+              )}
             </FormControl>
             {/* end: Password */}
 
             {/* begin: Terms and Conditions */}
             <Grid>
-              <FormControlLabel control={<Checkbox name="acceptTerms" id="acceptTerms" inputRef={register()}/>} label="I accept the" />
+              <FormControlLabel
+                control={
+                  <Checkbox name="acceptTerms" inputRef={register({ required: true })} />
+                }
+                label="I accept the"
+              />
               <Button onClick={handleOpen}>Terms & Conditions.</Button>
             </Grid>
-            <Typography variant="caption"> {errors.acceptTerms && errors.acceptTerms.message}</Typography>
+            {errors.acceptTerms && errors.acceptTerms.type === 'required' && <Alert severity="error">
+              You must accept terms and conditions
+            </Alert>}
 
-            <Button type="submit">Sign Up</Button>
+            <FormControl fullWidth size="small">
+              <Button disabled={loading} type="submit" color="primary">
+                Sign Up
+              </Button>
+            </FormControl>
 
             <Typography variant="body2" align="center">
               Already registered? <Link to="/auth/login">Sign in</Link>
@@ -306,7 +324,7 @@ export const Registration = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose} color='primary'>Close</Button>
         </DialogActions>
       </Dialog>
     </Grid>

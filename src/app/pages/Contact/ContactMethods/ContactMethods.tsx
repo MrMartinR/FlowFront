@@ -3,21 +3,15 @@ import {
   makeStyles,
   Typography,
   Card,
-  CardHeader,
-  CardActions,
-  Grid,
   LinearProgress,
-  ListItem,
-  ListItemAvatar,
   Dialog,
   DialogContent,
-  Button,
-  Avatar,
 } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
 import { AddContactMethodForm } from './AddContactMethodForm'
 import { EditContactMethodForm } from './EditContactMethodForm'
 import { DeleteContactMethod } from './DeleteContactMethod'
+import { ContactMethodsItem } from './ContactMethodsItem'
+import { ContactMethodsToolbar } from './ContactMethodsToolbar'
 import { shallowEqual, useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/rootReducer'
 
@@ -125,21 +119,8 @@ export const ContactMethod = (props: any) => {
   return (
     <>
       <Card className={classes.root}>
-        <Grid container>
-          <Grid item xs={12}>
-            <CardHeader
-              title="Contact Methods"
-              action={
-                canEdit && (
-                  <Button>
-                    <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')} />
-                  </Button>
-                )
-              }
-            />
-          </Grid>
-        </Grid>
-
+        
+        <ContactMethodsToolbar handleOpen={handleOpen} canEdit={canEdit}/>
         {/* invoke the add edit delete window */}
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
@@ -150,53 +131,7 @@ export const ContactMethod = (props: any) => {
           <LinearProgress />
         ) : list?.length >= 1 ? (
           list?.map((itm: any) => (
-            <CardActions key={itm.id}>
-              <Grid container alignItems="center">
-                {/* renders the icon and data */}
-                <Grid item xs={11}>
-                  <ListItem
-                    button
-                    component="a"
-                    href={
-                      ((itm.kind === 'FB Page' ||
-                        itm.kind === 'Telegram' ||
-                        itm.kind === 'Instagram' ||
-                        itm.kind === 'FB Profile' ||
-                        itm.kind === 'FB Group' ||
-                        itm.kind === 'LinkedIn' ||
-                        itm.kind === 'Twitter' ||
-                        itm.kind === 'YouTube' ||
-                        itm.kind === 'Vimeo' ||
-                        itm.kind === 'Web') &&
-                        itm.data.trim()) ||
-                      (itm.kind === 'Phone' && `tel:${itm.data.trim()}`) ||
-                      (itm.kind === 'Email' && `mailto:${itm.data.trim()}`) ||
-                      (itm.kind === 'Skype' && `skype:${itm.data.trim()}?userinfo`) ||
-                      (itm.kind === 'Address' && `https://www.google.com/maps/place/${encodeURI(itm.data.trim())}`) ||
-                      itm.data
-                    }
-                  >
-                    <ListItemAvatar>
-                      <Avatar
-                        src={'/media/svg/icons/' + itm.kind + '.svg'}
-                        alt={itm.data}
-                        variant="square"
-                        className={classes.avatar}
-                      />
-                    </ListItemAvatar>
-                    <Typography noWrap variant="body1">
-                      {itm.data}
-                    </Typography>
-                  </ListItem>
-                </Grid>
-                {/* the options button */}
-                {canEdit && (
-                  <Grid item xs={1}>
-                    <Button onClick={(e) => handleOpen(e, 'edit', itm)}>•••</Button>
-                  </Grid>
-                )}
-              </Grid>
-            </CardActions>
+            <ContactMethodsItem key = {itm.id} itm={itm} handleOpen={handleOpen} canEdit={canEdit}/>
           ))
         ) : (
           /* dummy row */

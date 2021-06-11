@@ -3,9 +3,10 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialUserAccountsState = {
   listLoading: false,
   actionsLoading: false,
-  userAccountsTable: [],
-  userAccountsDetails: {},
+  userAccountsTable: null as any,
+  userAccountsDetails: null as any,
   userAccountsTransactions: null as any,
+  userAccountsTransactionDetails: null,
   error: null as any,
   success: null as any,
   message: null as any,
@@ -48,14 +49,15 @@ export const userAccountsSlice = createSlice({
         state.actionsLoading = false
       }
     },
-    userAccountsResetSuccess: (state, action) => {
-      const { success } = action.payload
-      state.success = success
-    },
     userAccountTransactions: (state, action) => {
       const { data } = action.payload
       state.actionsLoading = false
       state.userAccountsTransactions = data
+    },
+    userAccountTransaction: (state, action) => {
+      const { data } = action.payload
+      state.actionsLoading = false
+      state.userAccountsTransactionDetails = data
     },
     resetSuccess: (state, action) => {
       const { success } = action.payload
@@ -64,9 +66,75 @@ export const userAccountsSlice = createSlice({
     },
     transactionCreate: (state, action) => {
       const { data } = action.payload
-      state.listLoading=false
+      state.actionsLoading=false
       const newState = state.userAccountsTransactions
       newState.unshift(data)
+      state.userAccountsTransactions = newState
     },
+    transactionUpdate: (state, action) => {
+      const { data } = action.payload
+      // crease unha nova lista sustituindo a transaction a editar
+      const newState = [] as any
+      state.userAccountsTransactions.map((o: any) => {
+        if (o.id !== data.id) {
+          newState.push(o)
+        } else newState.push(data)
+        return newState;
+      })
+      // actualizase o state
+      state.actionsLoading = false
+      state.userAccountsTransactions = newState
+      state.success = true
+    },
+    transactionDelete: (state, action) => {
+      const { itm, success, message } = action.payload
+      let newState = [] as any
+      state.userAccountsTransactions.map((o: any) => {
+        if (o.id !== itm) {
+          newState.push(o)
+        }
+        return newState;
+      })
+      state.userAccountsTransactions = newState
+      state.success = success
+      state.message = message
+      state.actionsLoading = false
+    },
+    userAccountUpdate: (state, action) => {
+      const { data } = action.payload
+      // crease unha nova lista sustituindo a user_account a editar
+      const newState = [] as any
+      state.userAccountsTable.map((o: any) => {
+        if (o.id !== data.id) {
+          newState.push(o)
+        } else newState.push(data)
+        return newState;
+      })
+      // actualizase o state
+      state.actionsLoading = false
+      state.userAccountsTable = newState
+      state.success = true
+    },
+    userAccountDelete: (state, action) => {
+      const { itm, success, message } = action.payload
+      let newState = [] as any
+      state.userAccountsTable.map((o: any) => {
+        if (o.id !== itm) {
+          newState.push(o)
+        }
+        return newState;
+      })
+      state.listLoading = false
+      state.userAccountsTable = newState
+      state.success = success
+      state.message = message
+    },
+    userAccountCreate: (state, action) => {
+      const { data } = action.payload
+      state.listLoading=false
+      const newState = state.userAccountsTable
+      newState.unshift(data)
+      state.userAccountsTable = newState
+    }
   },
 })

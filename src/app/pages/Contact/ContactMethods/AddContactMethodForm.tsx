@@ -135,7 +135,7 @@ export const AddContactMethodForm = (props: any) => {
           )}
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" variant="contained">
+          <Button type="submit" color='primary'>
             Save
           </Button>
         </Grid>

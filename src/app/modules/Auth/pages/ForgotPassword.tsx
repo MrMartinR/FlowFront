@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom'
-import * as Yup from 'yup'
-
 import {
   makeStyles,
   Grid,
@@ -15,10 +13,11 @@ import {
 import Logo from '../../../../common/media/flow-logo.svg'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { UserAlert } from '../../../utils/UserAlert'
 import { RootState } from '../../../../redux/rootReducer'
+import { useEffect, useState } from 'react'
+import { Alert } from '@material-ui/lab'
 
 /* Styles */
 const useStyles = makeStyles({
@@ -44,18 +43,9 @@ type PasswordType = {
 export const ForgotPassword = () => {
   /* styles */
   const classes = useStyles()
-
-  /* yup schema */
-  const ForgotPasswordSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Wrong email format')
-      .min(6, 'Minimum 6 symbols')
-      .max(50, 'Maximum 50 symbols')
-      .required('Required'),
-  })
-
+  const [loading, setLoading] = useState(false)
+  
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
   const dispatch = useDispatch()
@@ -71,6 +61,9 @@ export const ForgotPassword = () => {
     }),
     shallowEqual
   )
+  useEffect(() => {
+    setLoading(currentState.loading)
+  }, [currentState.loading])
   return (
     <Grid container direction="column" justify="space-around" alignItems="center" className={classes.root}>
       {/* logo */}
@@ -85,29 +78,43 @@ export const ForgotPassword = () => {
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column" justify="center" alignItems="center">
             {/* begin: Email */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Email</FormLabel>
               <OutlinedInput
-                id="email"
                 name="email"
                 type="email"
-                required
                 autoComplete="on"
-                inputRef={register()}
+                inputRef={register({
+                  required: true,
+                  minLength: 3,
+                  maxLength: 50,
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Entered value does not match email format',
+                  },
+                })}
                 fullWidth
               />
               <FormHelperText>
                 Enter your linked Flow email to receive instructions to set a new password
               </FormHelperText>
-              <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
+              {errors.email && errors.email.type === 'required' && <Alert severity="error">Email is required</Alert>}
+              {errors.email && errors.email.type === 'minLength' && (
+                <Alert severity="error">Email should be at-least 3 characters.</Alert>
+              )}
+              {errors.email && errors.email.type === 'maxLength' && (
+                <Alert severity="error">Email should be less than 50 characters.</Alert>
+              )}
+              {errors.email && errors.email.type === 'pattern' && (
+                <Alert severity="error">{errors.email.message}</Alert>
+              )}
             </FormControl>
             {/* end: Email */}
 
-            <Button type="submit">Request new Password</Button>
+            <Button disabled={loading} type="submit" color='primary'>Request new Password</Button>
             <Typography variant="body2" align="center">
               Already registered? <Link to="/auth/login">Sign in</Link>
             </Typography>
-            {/* </FormControl> */}
           </Grid>
         </form>
       </Grid>

@@ -85,7 +85,6 @@ export const UserSettings = () => {
               <>
                 <FormLabel>Username</FormLabel>
                 <OutlinedInput
-                  id="username"
                   name="username"
                   type="text"
                   autoComplete="off"
@@ -108,7 +107,6 @@ export const UserSettings = () => {
               <>
                 <FormLabel>Email</FormLabel>
                 <OutlinedInput
-                  id="email"
                   name="email"
                   type="email"
                   autoComplete="off"
@@ -132,7 +130,6 @@ export const UserSettings = () => {
             <>
               <FormLabel>Password</FormLabel>
               <OutlinedInput
-                id="password"
                 name="password"
                 type="password"
                 autoComplete="off"
@@ -147,7 +144,7 @@ export const UserSettings = () => {
               )}
             </>
             <CardActions>
-              <Button type="submit" variant='contained'>Save</Button>
+              <Button type="submit" color='primary'>Save</Button>
             </CardActions>
           </Grid>
         </form>

@@ -25,9 +25,10 @@ import { RootState } from '../../../redux/rootReducer'
 
 export const ContactEdit = (props: any) => {
   const { selectedContact, handleClose, handleOpen } = props
-  const { countryState } = useSelector(
+  const { countryState, authState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
+      authState: state.auth,
     }),
     shallowEqual
   )
@@ -38,6 +39,7 @@ export const ContactEdit = (props: any) => {
   const [kind, setKind] = useState(selectedContact.attributes.kind)
   const [country, setCountry] = useState('')
   const [list, setList] = useState([] as any)
+  const [canPublic, setCanPublic] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   // funcion que enche os formularios cos datos a editar
   useEffect(() => {
@@ -45,7 +47,12 @@ export const ContactEdit = (props: any) => {
     setCountry(selectedContact?.attributes.country.id)
     setVisibility(selectedContact?.attributes.visibility)
   }, [selectedContact])
-
+  // funcion que garda un boolean que indica se o user actual pode editar ou borrar o contact actual
+  useEffect(() => {
+    if (authState.role !== 'user') {
+      setCanPublic(true)
+    } else setCanPublic(false)
+  }, [authState])
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -75,6 +82,11 @@ export const ContactEdit = (props: any) => {
   const onSubmit = (data: any, e: any) => {
     SetParams(selectedContact.id)
     data = { ...data, kind: kind, country_id: country, visibility: visibility }
+    if (kind==='Individual') {
+      data={...data, trade_name:null, company_name:null, founded:null }
+    } else {
+      data = {...data, name:null, surname:null, nick:null, dob:null}
+    }
     setFormData(data)
     handleClose()
   }
@@ -96,7 +108,26 @@ export const ContactEdit = (props: any) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
+<<<<<<< Updated upstream
         <FormControl margin='normal'>
+=======
+        {
+          canPublic&&(
+            <FormControl margin="normal">
+              <FormLabel>Select Visibility</FormLabel>
+              <RadioGroup name="visibility" value={visibility} onChange={handleVisibility}>
+                <Grid container>
+                  <FormControlLabel value="Public" control={<Radio color="default" />} label="Public" />
+                  <FormControlLabel value="Private" control={<Radio color="default" />} label="Private" />
+                </Grid>
+              </RadioGroup>
+            </FormControl>
+          )
+        }
+
+        {/* contact type */}
+        <FormControl margin="normal">
+>>>>>>> Stashed changes
           <FormLabel>Select Contact Type</FormLabel>
           <RadioGroup name="kind" value={kind} onChange={handleKind}>
             <Grid container>
@@ -132,6 +163,7 @@ export const ContactEdit = (props: any) => {
 
         {kind === 'Company' ? (
           <>
+<<<<<<< Updated upstream
             <TextField
               name="trade_name"
               label="Trade_name"
@@ -205,6 +237,151 @@ export const ContactEdit = (props: any) => {
               inputRef={register({ required: false })}
               className={classes.root}
             />
+=======
+            {/* trade name */}
+            <FormControl margin="dense">
+              <FormLabel>Trade Name</FormLabel>
+              <TextField
+                name="trade_name"
+                id='trade_name'
+                defaultValue={selectedContact.attributes.trade_name}
+                placeholder="Trade name"
+                autoComplete="off"
+                inputRef={register({ required: true, minLength: 3 })}
+                variant="outlined"
+                size="small"
+              />
+              {errors.trade_name && errors.trade_name.type === 'required' && (
+                <Alert severity="error">Trade name is required</Alert>
+              )}
+              {errors.trade_name && errors.trade_name.type === 'minLength' && (
+                <Alert severity="error">Trade name should be at-least 3 characters.</Alert>
+              )}
+            </FormControl>
+
+            {/* company name */}
+            <FormControl margin="dense">
+              <FormLabel>Company Name</FormLabel>
+              <TextField
+                name="company_name"
+                id='company_name'
+                autoComplete="off"
+                defaultValue={selectedContact.attributes.company_name}
+                placeholder="Company name"
+                inputRef={register({ required: false })}
+                variant="outlined"
+                size="small"
+              />
+            </FormControl>
+
+            {/* company number */}
+            <FormControl margin="dense">
+              <FormLabel>Company Number</FormLabel>
+              <TextField
+                name="id_number"
+                id='id_number'
+                variant="outlined"
+                defaultValue={selectedContact.attributes.id_number}
+                placeholder="Company Number"
+                inputRef={register({ required: false })}
+                size="small"
+              />
+            </FormControl>
+
+            {/* founded */}
+            <FormControl margin="dense">
+              <FormLabel>Founded</FormLabel>
+              <TextField
+                name="founded"
+                type="date"
+                autoComplete="off"
+                defaultValue={selectedContact.attributes.founded}
+                inputRef={register({ required: false })}
+                variant="outlined"
+                size="small"
+                className={classes.datePicker}
+              />
+            </FormControl>
+          </>
+        ) : (
+          <>
+            {/* name */}
+            <FormControl margin="dense">
+              <FormLabel>Name</FormLabel>
+              <TextField
+                name="name"
+                id='name'
+                variant="outlined"
+                placeholder="Name"
+                defaultValue={selectedContact.attributes.name}
+                autoComplete="off"
+                inputRef={register({ required: true, minLength: 3 })}
+                size="small"
+              />
+              {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
+              {errors.name && errors.name.type === 'minLength' && (
+                <Alert severity="error">Name should be at-least 3 characters.</Alert>
+              )}
+            </FormControl>
+            {/* surname */}
+            <FormControl margin="dense">
+              <FormLabel>Surname</FormLabel>
+              <TextField
+                name="surname"
+                id='surname'
+                // label="Surname"
+                variant="outlined"
+                autoComplete="off"
+                defaultValue={selectedContact.attributes.surname}
+                placeholder="Surname"
+                inputRef={register({ required: false })}
+                size="small"
+              />
+            </FormControl>
+            {/* nick */}
+            <FormControl margin="dense">
+              <FormLabel>Nick</FormLabel>
+              <TextField
+                name="nick"
+                id='nick'
+                // label="Nick"
+                variant="outlined"
+                autoComplete="off"
+                defaultValue={selectedContact.attributes.nick}
+                placeholder="Nick"
+                inputRef={register({ required: false })}
+                size="small"
+              />
+            </FormControl>
+            {/* id number */}
+            <FormControl margin="dense">
+              <FormLabel>ID Number</FormLabel>
+              <TextField
+                name="id_number"
+                id='id_number'
+                // label="ID Number"
+                variant="outlined"
+                defaultValue={selectedContact.attributes.id_number}
+                placeholder="ID Number"
+                inputRef={register({ required: false })}
+                size="small"
+              />
+            </FormControl>
+            {/* dob */}
+            <FormControl margin="dense">
+              <FormLabel>Date of Bird</FormLabel>
+              <TextField
+                name="dob"
+                type="date"
+                autoComplete="off"
+                defaultValue={selectedContact.attributes.dob}
+                inputRef={register({ required: false })}
+                variant="outlined"
+                size="small"
+                className={classes.datePicker}
+              />
+            </FormControl>
+>>>>>>> Stashed changes
           </>
         )}
         <TextField
@@ -235,9 +412,13 @@ export const ContactEdit = (props: any) => {
           </Grid>
           <Grid item>
             <Button onClick={handleClose}>Cancel</Button>
+<<<<<<< Updated upstream
             <Button type="submit" variant='contained'>
               Save
             </Button>
+=======
+            <Button type="submit" color='primary'>Save</Button>
+>>>>>>> Stashed changes
           </Grid>
         </Grid>
       </Grid>
