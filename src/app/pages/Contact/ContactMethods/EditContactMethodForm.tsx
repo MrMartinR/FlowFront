@@ -71,7 +71,7 @@ export const EditContactMethodForm = (props: any) => {
             <CardHeader title="Edit Contact Method" />
             <CardContent>
               {/* type */}
-              <FormControl required fullWidth size="small">
+              <FormControl fullWidth size="small">
                 <FormLabel>Type</FormLabel>
                 <TextField
                   value={type}
@@ -118,11 +118,11 @@ export const EditContactMethodForm = (props: any) => {
               <Grid item xs={9}>
                 <Grid container justify="flex-end">
                   {/* cancel */}
-                  <Button id="cancel" onClick={handleClose}>
+                  <Button onClick={handleClose}>
                     Cancel
                   </Button>
                   {/* save */}
-                  <Button id="submit" type="submit">
+                  <Button type="submit" color='primary'>
                     Save
                   </Button>
                 </Grid>

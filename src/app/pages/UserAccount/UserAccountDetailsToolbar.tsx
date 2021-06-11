@@ -23,15 +23,24 @@ export const UserAccountDetailsToolbar = (props: any) => {
   const [loans, setLoans] = useState(null as any)
   const [loanId, setLoanId] = useState(null as any)
   const dispatch = useDispatch()
+  const handleTransaction = () => {
+
+  }
+  const handleTransfer = () => {
+
+  }
+  const handleClick = () => {
+
+  }
   const handleImport = () => {
-    loans.map((loan: any) => {
+    /* loans.map((loan: any) => {
       if (loan.attributes.code === data[1].ID) {
         setLoanId(loan.id)
       }
       return loan.id
-    })
+    }) */
   }
-  useEffect(() => {
+  /* useEffect(() => {
     const form = {
       description: data[1].Concept,
       ref: data[1].Ref,
@@ -43,13 +52,13 @@ export const UserAccountDetailsToolbar = (props: any) => {
       loan_id: loanId,
     }
     if (loanId !== null) dispatch(userAccountsActions.createTransaction(form))
-  }, [loanId, dispatch, singleAccount])
-  useEffect(() => {
+  }, [loanId, dispatch, singleAccount]) */
+  /* useEffect(() => {
     dispatch(loansActions.fetchLoansData())
-  }, [dispatch])
-  useEffect(() => {
+  }, [dispatch]) */
+  /* useEffect(() => {
     setLoans(loanState.loansData)
-  }, [loanState.loansData])
+  }, [loanState.loansData]) */
   return (
     <Toolbar variant="dense" className={classes.root}>
       <Grid item xs={12}>
@@ -65,10 +74,10 @@ export const UserAccountDetailsToolbar = (props: any) => {
           subheader={'Value ' + value + ' Balance ' + balance.toFixed(2)}
           action={
             <>
-              <Button>Add Transfer</Button>
-              <Button>Add Transaction</Button>
+              <Button onClick={handleTransfer}>Add Transfer</Button>
+              <Button onClick={handleTransaction}>Add Transaction</Button>
               <Button onClick={handleImport}>Import</Button>
-              <Button>•••</Button>
+              <Button onClick={handleClick}>•••</Button>
             </>
           }
         ></CardHeader>

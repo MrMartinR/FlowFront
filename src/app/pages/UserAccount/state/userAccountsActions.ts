@@ -35,45 +35,47 @@ export const fetchuserAccount = (id: any) => (dispatch: any) => {
     })
 }
 
-// export const deleteUserAccount = (id) => (dispatch) => {
-//   dispatch(actions.startCall({ callType: callTypes.action }))
-//   return requestFromServer
-//     .deleteUserAccount(id)
-//     .then((response) => {
-//       dispatch(actions.userAccountDeleted({ id, response }))
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't delete userAccount"
-//       dispatch(actions.catchError({ error, callType: callTypes.action }))
-//     })
-// }
+export const deleteUserAccount = (id:string) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  return requestFromServer
+    .deleteUserAccount(id)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.userAccountDelete(data))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't delete userAccount"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+}
 
-// export const createUserAccount = (userAccountForCreation) => (dispatch) => {
-//   dispatch(actions.startCall({ callType: callTypes.action }))
-//   return requestFromServer
-//     .createUserAccount(userAccountForCreation)
-//     .then((response) => {
-//       const { userAccount } = response.data
-//       dispatch(actions.userAccountCreated({ userAccount }))
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't create userAccount"
-//       dispatch(actions.catchError({ error, callType: callTypes.action }))
-//     })
-// }
+export const createUserAccount = (data: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  return requestFromServer
+    .createUserAccount(data)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.userAccountCreate(data))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't create userAccount"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+}
 
-// export const updateUserAccount = (userAccount) => (dispatch) => {
-//   dispatch(actions.startCall({ callType: callTypes.action }))
-//   return requestFromServer
-//     .updateUserAccount(userAccount)
-//     .then(() => {
-//       dispatch(actions.userAccountUpdated({ userAccount }))
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't update userAccount"
-//       dispatch(actions.catchError({ error, callType: callTypes.action }))
-//     })
-// }
+export const updateUserAccount = (data: any, id:string) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  return requestFromServer
+    .updateUserAccount(data, id)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.userAccountUpdate(data))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't update userAccount"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+}
 
 // export const updateUserAccountsStatus = (ids, status) => (dispatch) => {
 //   dispatch(actions.startCall({ callType: callTypes.action }))
@@ -114,21 +116,64 @@ export const fetchAccountTransaction = (id: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
 }
-export const resetSuccess = () => (dispatch: any) => {
-  dispatch( actions.resetSuccess({ success: null }));
-}
 
-export const createTransaction = (data: any) => (dispatch: any) => {
-  dispatch(actions.startCall({ callType: callTypes.list }))
+export const fetchAccountTransactionById = (userId: string, transactionId:string) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
-    .createTransaction(data)
+    .getUserTransactionById(userId, transactionId)
     .then((response) => {
       const { data } = response
-      console.log(response)
-      dispatch(actions.transactionCreate(data))
+      dispatch(actions.userAccountTransactions(data))
     })
     .catch((error) => {
-      error.clientMessage = "Can't find contact"
-      dispatch(actions.catchError({ error, callType: callTypes.list }))
+      error.clientMessage = "Can't find userAccount"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
 }
+
+export const createTransaction = (data: any, id:string) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.list }))
+  return requestFromServer
+  .createUserTransaction(data, id)
+  .then((response) => {
+    const { data } = response
+    console.log(response)
+    dispatch(actions.transactionCreate(data))
+  })
+  .catch((error) => {
+    error.clientMessage = "Can't find contact"
+      dispatch(actions.catchError({ error, callType: callTypes.list }))
+    })
+  }
+  export const updateTransaction = (data: any, userId:string, transactionId:string) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }))
+  return requestFromServer
+    .updateUserTransaction(data, userId, transactionId)
+    .then((response) => {
+      const { data } = response
+      dispatch(actions.transactionUpdate(data))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't update userTransaction"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+  }
+  export const deleteUserTransaction = (transactionId:string) => (dispatch: any) => {
+    dispatch(actions.startCall({ callType: callTypes.action }))
+    return requestFromServer
+    .deleteUserTransaction(transactionId)
+    .then((response) => {
+      const { data } = response
+      const id = { itm: transactionId }
+      const returnedTarget = Object.assign(data, id)
+      dispatch(actions.transactionDelete(returnedTarget))
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't delete userTransaction"
+      dispatch(actions.catchError({ error, callType: callTypes.action }))
+    })
+  }
+  
+  export const resetSuccess = () => (dispatch: any) => {
+    dispatch( actions.resetSuccess({ success: null }));
+  }

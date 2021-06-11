@@ -73,7 +73,7 @@ export const IndividualForm = (props: any) => {
           {errors.name && errors.name.type === 'minLength' && (
             <Alert severity="error">Name should be at-least 3 characters.</Alert>
           )}
-        <Button type="submit" variant="contained">
+        <Button type="submit" color='primary'>
           Save
         </Button>
       </Grid>

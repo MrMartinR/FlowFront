@@ -1,4 +1,4 @@
-import { makeStyles, Container, Toolbar, Grid, CardHeader, Avatar, Button, ButtonGroup } from '@material-ui/core'
+import { makeStyles, Container, Toolbar, Grid, CardHeader, Avatar, Button } from '@material-ui/core'
 
 /* styles */
 const useStyles = makeStyles({
@@ -15,7 +15,7 @@ export const PlatformDetailsToolbar = (props: any) => {
   /* styles */
   const classes = useStyles()
   const { setTab, id, trade_name, company_name } = props
-  // funcion que cabia de pantalla segun a opcion escollida no buttongroup
+  // funcion que cabia de pantalla segun a opcion escollida
   const handleClick = (e: any) => {
     setTab(`${e.target.innerHTML}`)
   }
@@ -29,11 +29,9 @@ export const PlatformDetailsToolbar = (props: any) => {
             subheader={company_name}
             action={
               <>
-                <ButtonGroup>
-                  <Button onClick={handleClick}>Info</Button>
-                  <Button onClick={handleClick}>Originators</Button>
-                  <Button onClick={handleClick}>Loans</Button>
-                </ButtonGroup>
+                <Button onClick={handleClick}>Info</Button>
+                <Button onClick={handleClick}>Originators</Button>
+                <Button onClick={handleClick}>Loans</Button>
                 <Button href={`/contacts/${id}`}>Contact</Button>
               </>
             }

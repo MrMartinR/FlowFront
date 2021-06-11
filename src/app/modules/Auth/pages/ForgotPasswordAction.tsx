@@ -1,14 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
-import * as Yup from 'yup'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import Logo from '../../../../common/media/flow-logo.svg'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Button, CardMedia, FormControl, Grid, TextField, Typography } from '@material-ui/core'
 import queryString from 'query-string'
 import { RootState } from '../../../../redux/rootReducer'
 import { UserAlert } from '../../../utils/UserAlert'
+import { Alert } from '@material-ui/lab'
 
 const initialValues = {
   password: '',
@@ -29,20 +28,8 @@ export const ForgotPasswordAction = (props: any) => {
   const { client = '' } = queryString.parse(search)
   const { uid = '' } = queryString.parse(search)
   const { expiry = '' } = queryString.parse(search)
-  const ForgotPasswordSchema = Yup.object().shape({
-    password: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Required'),
-    changepassword: Yup.string()
-      .min(3, 'Minimum 3 symbols')
-      .max(50, 'Maximum 50 symbols')
-      .required('Required')
-      .when('password', {
-        is: (val: any) => !!(val && val.length > 0),
-        then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
-      }),
-  })
 
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(ForgotPasswordSchema),
+  const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: initialValues,
   })
   const dispatch = useDispatch()
@@ -86,10 +73,18 @@ export const ForgotPasswordAction = (props: any) => {
                 variant="outlined"
                 autoComplete="off"
                 type="password"
-                inputRef={register()}
+                inputRef={register({ required: true, minLength: 3, maxLength: 50 })}
                 name="password"
               />
-              <span> {errors.password && errors.password.message}</span>
+              {errors.password && errors.password.type === 'required' && (
+                  <Alert severity="error">Password is required</Alert>
+                )}
+              {errors.password && errors.password.type === 'minLength' && (
+                  <Alert severity="error">Password should be at-least 3 characters.</Alert>
+                )}
+              {errors.password && errors.password.type === 'maxLength' && (
+                  <Alert severity="error">Username should be less than 50 characters.</Alert>
+                )}
             </FormControl>
             {/* end: Password */}
 
@@ -102,10 +97,22 @@ export const ForgotPasswordAction = (props: any) => {
                 autoComplete="off"
                 type="password"
                 name="changepassword"
-                inputRef={register()}
+                inputRef={register({ required: true, minLength: 3, maxLength: 50, validate: (value) => {return value===watch('password')} })}
               />
-              <span> {errors.changepassword && errors.changepassword.message}</span>
+              {errors.changepassword && errors.changepassword.type === 'required' && (
+                  <Alert severity="error">Password is required</Alert>
+                )}
+              {errors.changepassword && errors.changepassword.type === 'minLength' && (
+                  <Alert severity="error">Password should be at-least 3 characters.</Alert>
+                )}
+              {errors.changepassword && errors.changepassword.type === 'maxLength' && (
+                  <Alert severity="error">Username should be less than 50 characters.</Alert>
+                )}
+              {errors.changepassword && errors.changepassword.type === 'validate' && (
+                  <Alert severity="error">Password and Confirm Password didn't match</Alert>
+                )}
               {/* end: Confirm Password */}
+
               <Button type="submit" variant="contained">
                 Submit
               </Button>

@@ -18,7 +18,7 @@ export const LendingDetails = () => {
           <CardHeader title="My Platforms" />
           <CardContent>
             <PlatformIcon />
-            <Button variant="outlined" href="/user-platform-overall">
+            <Button href="/user-platform-overall">
               Platforms
             </Button>
           </CardContent>
@@ -30,7 +30,7 @@ export const LendingDetails = () => {
           <CardHeader title="My Originators" />
           <CardContent>
             <OriginatorIcon />
-            <Button variant="outlined" href="/user-originators">
+            <Button href="/user-originators">
               Originators
             </Button>
           </CardContent>
@@ -42,7 +42,7 @@ export const LendingDetails = () => {
           <CardHeader title="My Loans" />
           <CardContent>
             <LendingIcon />
-            <Button variant="outlined" href="/user-loans">
+            <Button href="/user-loans">
               Loans
             </Button>
           </CardContent>

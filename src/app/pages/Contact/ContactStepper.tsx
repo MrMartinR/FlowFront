@@ -143,7 +143,7 @@ export const VerticalLinearStepper = (props: any) => {
                 <Button disabled={activeStep === 0} onClick={handleBack}>
                   Back
                 </Button>
-                <Button variant="contained" color="primary" disabled={activeStep === steps.length - 1} onClick={handleNext}>
+                <Button color="primary" disabled={activeStep === steps.length - 1} onClick={handleNext}>
                   Next
                 </Button>
               </>
