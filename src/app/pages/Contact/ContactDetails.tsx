@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core'
 import { ContactEdit } from './ContactEdit'
 import { RootState } from '../../../redux/rootReducer'
+import IconOption from '../../../common/layout/components/icons/Options'
 
 /* styles */
 const useStyles = makeStyles({
@@ -81,7 +82,7 @@ export const ContactDetails = (props: any) => {
     edit === true ? (
       <>
         <Typography variant="h4">Edit Contact</Typography>
-        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} handleOpen={handleOpen}/>
+        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} handleOpen={handleOpen} />
       </>
     ) : (
       <>
@@ -116,7 +117,9 @@ export const ContactDetails = (props: any) => {
               title="Details"
               action={
                 canEdit && (
-                  <Button onClick={(e) => handleOpen(e, 'edit')}>•••</Button>
+                  <Button onClick={(e) => handleOpen(e, 'edit')} color="primary">
+                    <IconOption />
+                  </Button>
                 )
               }
             />

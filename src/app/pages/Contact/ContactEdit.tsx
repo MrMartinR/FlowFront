@@ -85,10 +85,10 @@ export const ContactEdit = (props: any) => {
   const onSubmit = (data: any, e: any) => {
     SetParams(selectedContact.id)
     data = { ...data, kind: kind, country_id: country, visibility: visibility }
-    if (kind==='Individual') {
-      data={...data, trade_name:null, company_name:null, founded:null }
+    if (kind === 'Individual') {
+      data = { ...data, trade_name: null, company_name: null, founded: null }
     } else {
-      data = {...data, name:null, surname:null, nick:null, dob:null}
+      data = { ...data, name: null, surname: null, nick: null, dob: null }
     }
     setFormData(data)
     handleClose()
@@ -111,19 +111,17 @@ export const ContactEdit = (props: any) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.root}>
       <Grid container direction="column">
-        {
-          canPublic&&(
-            <FormControl margin="normal">
-              <FormLabel>Select Visibility</FormLabel>
-              <RadioGroup name="visibility" value={visibility} onChange={handleVisibility}>
-                <Grid container>
-                  <FormControlLabel value="Public" control={<Radio color="default" />} label="Public" />
-                  <FormControlLabel value="Private" control={<Radio color="default" />} label="Private" />
-                </Grid>
-              </RadioGroup>
-            </FormControl>
-          )
-        }
+        {canPublic && (
+          <FormControl margin="normal">
+            <FormLabel>Select Visibility</FormLabel>
+            <RadioGroup name="visibility" value={visibility} onChange={handleVisibility}>
+              <Grid container>
+                <FormControlLabel value="Public" control={<Radio color="default" />} label="Public" />
+                <FormControlLabel value="Private" control={<Radio color="default" />} label="Private" />
+              </Grid>
+            </RadioGroup>
+          </FormControl>
+        )}
 
         {/* contact type */}
         <FormControl margin="normal">
@@ -161,7 +159,7 @@ export const ContactEdit = (props: any) => {
         </FormControl>
 
         {kind === 'Company' ? (
-         <>
+          <>
             {/* trade name */}
             <FormControl margin="dense">
               <FormLabel>Trade Name</FormLabel>
@@ -324,8 +322,9 @@ export const ContactEdit = (props: any) => {
           </Grid>
           <Grid item>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" color='primary'>Save</Button>
-
+            <Button type="submit" color="primary">
+              Save
+            </Button>
           </Grid>
         </Grid>
       </Grid>

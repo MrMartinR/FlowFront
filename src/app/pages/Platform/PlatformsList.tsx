@@ -1,6 +1,10 @@
 import { useHistory } from 'react-router-dom'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
 import { makeStyles, Grid, LinearProgress, CardMedia } from '@material-ui/core/'
+import IconProtectionBuyBack from '../../../common/layout/components/icons/ProtectionBuyBack'
+import IconProtectionPersonal from '../../../common/layout/components/icons/ProtectionPersonal'
+import IconProtectionCollateral from '../../../common/layout/components/icons/ProtectionCollateral'
+import IconProtectionFund from '../../../common/layout/components/icons/ProtectionFund'
 
 /* styles */
 const useStyles = makeStyles({
@@ -27,7 +31,7 @@ const columns: GridColDef[] = [
           component="img"
           src={'/media/svg/platform-status/' + `${params.value}`.toLowerCase() + '.svg'}
           alt={`${params.value}`}
-          style={{ padding: '18px' }}
+          style={{ padding: '30px' }}
         />
       </>
     ),
@@ -52,7 +56,19 @@ const columns: GridColDef[] = [
   { field: 'account_category', headerName: 'Investors', width: 130 },
   { field: 'invest_mode', headerName: 'Invest Mode', width: 130 },
   { field: 'min_investment', headerName: 'Min Investment', width: 130 },
-  { field: 'protection_scheme', headerName: 'Protection Scheme', width: 130 },
+  /* @TODO: Fix this crap code, en vez de or, facer que mostren todos os iconos relevantes o contido..
+   *  o texto do array xuntao con unha comma... */
+  /* @TODO: Meterlle tooltips nos iconos. */
+  {
+    field: 'protection_scheme',
+    headerName: 'Protection Scheme',
+    width: 130,
+    renderCell: (params: GridCellParams) =>
+      (params.value == 'Collateral' && <IconProtectionCollateral />) ||
+      (params.value == 'BuyBack Guarantee' && <IconProtectionBuyBack />) ||
+      (params.value == 'Personal Guarantee' && <IconProtectionPersonal />) ||
+      (params.value == 'Provision Fund' && <IconProtectionFund />),
+  },
   { field: 'secondary_market', type: 'boolean', headerName: 'SM', description: 'Secondary Market', width: 80 },
   { field: 'structure', headerName: 'Structure', width: 130 },
   { field: 'term', headerName: 'Term', width: 130 },

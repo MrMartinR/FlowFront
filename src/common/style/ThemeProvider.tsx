@@ -11,7 +11,6 @@ const theme = createMuiTheme({
   },
 
   palette: {
-    // values 'dark', 'light' (default)
     type: 'light',
 
     background: {

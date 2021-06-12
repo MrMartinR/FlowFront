@@ -89,6 +89,7 @@ export const PlatformInfo = (props: any) => {
                 <ToggleButton value="Corporate">Corporate</ToggleButton>
                 <ToggleButton value="Accredited">Accredited</ToggleButton>
               </ToggleButtonGroup>
+              {/* @TODO: only show IFISA on platforms from the UK */}
               <Typography>IFISA: {platformDetails.attributes?.ifisa}</Typography>
             </CardContent>
           </Card>
