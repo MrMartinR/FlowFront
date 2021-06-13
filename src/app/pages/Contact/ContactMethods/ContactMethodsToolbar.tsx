@@ -1,7 +1,7 @@
-import { Grid, CardHeader, Button } from "@material-ui/core"
-import AddIcon from '@material-ui/icons/Add'
+import { Grid, CardHeader, Button } from '@material-ui/core'
+import IconAdd from '../../../../common/layout/components/icons/Add'
 export const ContactMethodsToolbar = (props: any) => {
-    const { canEdit, handleOpen } = props
+  const { canEdit, handleOpen } = props
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -9,8 +9,8 @@ export const ContactMethodsToolbar = (props: any) => {
           title="Contact Methods"
           action={
             canEdit && (
-              <Button>
-                <AddIcon id="add" onClick={(e) => handleOpen(e, 'add')} />
+              <Button onClick={(e) => handleOpen(e, 'add')}>
+                <IconAdd />
               </Button>
             )
           }

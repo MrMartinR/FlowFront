@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import {
   makeStyles,
   Grid,
@@ -12,9 +13,9 @@ import {
   Button,
 } from '@material-ui/core'
 import { VerticalLinearStepper } from './ContactStepper'
-import LockIcon from '@material-ui/icons/Lock'
-import LockOpenIcon from '@material-ui/icons/LockOpen'
-import { useHistory } from 'react-router'
+import IconUnlock from '../../../common/layout/components/icons/Unlock'
+import IconLock from '../../../common/layout/components/icons/Lock'
+import IconAdd from '../../../common/layout/components/icons/Add'
 
 /* styles */
 const useStyles = makeStyles({
@@ -83,20 +84,16 @@ export const ContactToolBar = (props: any) => {
             action={
               <>
                 {selectedContact?.relationships?.platform.data !== null && (
-                  <Button onClick={handlePlatform}>
-                    Platform
-                  </Button>
+                  <Button onClick={handlePlatform}>Platform</Button>
                 )}
                 {selectedContact?.relationships?.originator.data !== null && (
-                  <Button onClick={handleOriginator}>
-                    Originator
-                  </Button>
+                  <Button onClick={handleOriginator}>Originator</Button>
                 )}
-                <Button id="add" onClick={(e) => handleOpen(e, 'add')}>
-                  +
+                <Button onClick={(e) => handleOpen(e, 'add')}>
+                  <IconAdd />
                 </Button>
                 <Button onClick={(e) => handleClick(e, 1)}>
-                  {selectedContact?.attributes?.visibility === 'Public' ? <LockOpenIcon /> : <LockIcon />}
+                  {selectedContact?.attributes?.visibility === 'Public' ? <IconUnlock /> : <IconLock />}
                 </Button>
                 <Popover
                   id={id}
@@ -129,9 +126,7 @@ export const ContactToolBar = (props: any) => {
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>
-              Cancel
-            </Button>
+            <Button onClick={handleClose}>Cancel</Button>
           </DialogActions>
         </Dialog>
       </Toolbar>
