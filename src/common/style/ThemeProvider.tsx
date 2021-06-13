@@ -69,8 +69,10 @@ const theme = createMuiTheme({
      */
     // @REV: fill none is not working... ??
     MuiSvgIcon: {
-      width: '100%',
-      height: '100%',
+      // width: '24px',
+      // height: '24px',
+      // display: 'inline-block',
+      viewBox: '0 0 32 32',
       // fontSize: 'large',
       // viewBox: '0 0 100% 100%',
       fill: 'none',
