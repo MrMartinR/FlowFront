@@ -92,13 +92,17 @@ export const EditContactMethodForm = (props: any) => {
                 </TextField>
                 {/* data */}
                 <FormLabel>Data</FormLabel>
-                <OutlinedInput
-                  name="data"
-                  label="Data"
+                <TextField
+                  inputRef={register({ required: true, minLength: 3 })}
                   autoComplete="off"
                   defaultValue={edit.data}
-                  inputRef={register({ required: true, minLength: 3 })}
+                  name="data"
+                  multiline
+                  placeholder="Description"
+                  variant="outlined"
+                  size="small"
                 />
+
                 {errors.data && errors.data.type === 'required' && <Alert severity="error">Data is required</Alert>}
                 {errors.data && errors.data.type === 'minLength' && (
                   <Alert severity="error">Data should be at-least 3 characters.</Alert>
@@ -118,11 +122,9 @@ export const EditContactMethodForm = (props: any) => {
               <Grid item xs={9}>
                 <Grid container justify="flex-end">
                   {/* cancel */}
-                  <Button onClick={handleClose}>
-                    Cancel
-                  </Button>
+                  <Button onClick={handleClose}>Cancel</Button>
                   {/* save */}
-                  <Button type="submit" color='primary'>
+                  <Button type="submit" color="primary">
                     Save
                   </Button>
                 </Grid>

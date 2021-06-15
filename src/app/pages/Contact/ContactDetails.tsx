@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core'
 import { ContactEdit } from './ContactEdit'
 import { RootState } from '../../../redux/rootReducer'
-import IconOption from '../../../common/layout/components/icons/Options'
+import IconOption from '../../../common/layout/components/icons/Option'
 
 /* styles */
 const useStyles = makeStyles({

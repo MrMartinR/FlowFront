@@ -1,6 +1,4 @@
 import { colors, createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
-import { Palette } from '@material-ui/icons'
-// import { blueGrey } from '@material-ui/core/colors'
 
 /* See Documentation @link {https://material-ui.com/customization/theming/} */
 const theme = createMuiTheme({
@@ -74,7 +72,6 @@ const theme = createMuiTheme({
       // display: 'inline-block',
       viewBox: '0 0 32 32',
       // fontSize: 'large',
-      // viewBox: '0 0 100% 100%',
       fill: 'none',
       color: 'inherit',
       htmlColor: 'transparent',

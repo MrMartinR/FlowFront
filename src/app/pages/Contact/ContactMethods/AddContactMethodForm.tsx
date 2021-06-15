@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Grid, TextField, Button, CardHeader, MenuItem } from '@material-ui/core'
+import { Grid, TextField, Button, FormControl, FormLabel, CardHeader, MenuItem, OutlinedInput } from '@material-ui/core'
 import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
 import { Alert } from '@material-ui/lab'
@@ -69,7 +69,7 @@ export const types = [
 ]
 /* types */
 type AddContactMethodType = {
-  data: string,
+  data: string
 }
 export const AddContactMethodForm = (props: any) => {
   const { selectedContact, handleClose } = props
@@ -105,37 +105,42 @@ export const AddContactMethodForm = (props: any) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
         <CardHeader title="Add Contact Method" />
-        <TextField
-          select
-          name="kind"
-          label="Type"
-          margin="normal"
-          value={type}
-          onChange={handleChange}
-          inputRef={register}
-        >
-          {types.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          name="data"
-          label="Data"
-          margin="normal"
-          autoComplete="off"
-          inputRef={register({ required: true, minLength: 3 })}
-        />
-        {errors.data && errors.data.type === 'required' && (
-            <Alert severity="error">Data is required</Alert>
-          )}
+        <FormControl margin="normal">
+          <FormLabel>Type</FormLabel>
+          <TextField
+            value={type}
+            onChange={handleChange}
+            inputRef={register}
+            select
+            name="Type"
+            variant="outlined"
+            size="small"
+          >
+            {types.map((option) => (
+              <MenuItem value={option.value} key={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </FormControl>
+        <FormControl margin="normal">
+          <FormLabel>Data</FormLabel>
+          <OutlinedInput
+            name="data"
+            multiline
+            margin="dense"
+            autoComplete="off"
+            inputRef={register({ required: true, minLength: 3 })}
+          />
+        </FormControl>
+        {/* @TODO: Replace validations to no empty */}
+        {errors.data && errors.data.type === 'required' && <Alert severity="error">Data is required</Alert>}
         {errors.data && errors.data.type === 'minLength' && (
-            <Alert severity="error">Data should be at-least 3 characters.</Alert>
-          )}
+          <Alert severity="error">Data should be at-least 3 characters.</Alert>
+        )}
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" color='primary'>
+          <Button type="submit" color="primary">
             Save
           </Button>
         </Grid>

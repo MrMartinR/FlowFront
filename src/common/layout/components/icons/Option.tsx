@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function IconOptions(props: any) {
+export default function IconOption(props: any) {
   const classes = useStyles()
   return (
     <SvgIcon {...props}>

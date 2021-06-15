@@ -1,11 +1,30 @@
 import { Button } from '@material-ui/core'
 import { CardActions, ListItem, Grid, ListItemAvatar, Typography, Avatar, makeStyles } from '@material-ui/core'
-import IconOptions from '../../../../common/layout/components/icons/Options'
+import IconFacebook from '../../../../common/layout/components/icons/Facebook'
+import IconFacebookGroup from '../../../../common/layout/components/icons/FacebookGroup'
+import IconFacebookPage from '../../../../common/layout/components/icons/FacebookPage'
+import IconInstagram from '../../../../common/layout/components/icons/Instagram'
+import IconLink from '../../../../common/layout/components/icons/Link'
+import IconLinkedIn from '../../../../common/layout/components/icons/LinkedIn'
+import IconLocation from '../../../../common/layout/components/icons/Location'
+import IconMail from '../../../../common/layout/components/icons/Mail'
+import IconOptions from '../../../../common/layout/components/icons/Option'
+import IconPhone from '../../../../common/layout/components/icons/Phone'
+import IconSkype from '../../../../common/layout/components/icons/Skype'
+import IconTelegram from '../../../../common/layout/components/icons/Telegram'
+import IconTwitter from '../../../../common/layout/components/icons/Twitter'
+import IconVimeo from '../../../../common/layout/components/icons/Vimeo'
+import IconYouTube from '../../../../common/layout/components/icons/YouTube'
 /* styles */
 const useStyles = makeStyles({
+  cardActions: {
+    padding: '0px',
+    margin: '0px',
+  },
   avatar: {
-    height: '2vh',
-    width: '2vh',
+    height: '3vh',
+    width: '3vh',
+    backgroundColor: 'transparent',
   },
 })
 export const ContactMethodsItem = (props: any) => {
@@ -13,7 +32,7 @@ export const ContactMethodsItem = (props: any) => {
   const classes = useStyles()
   const { itm, handleOpen, canEdit } = props
   return (
-    <CardActions>
+    <CardActions className={classes.cardActions}>
       <Grid container alignItems="center">
         {/* renders the icon and data */}
         <Grid item xs={11}>
@@ -41,16 +60,23 @@ export const ContactMethodsItem = (props: any) => {
             }
           >
             <ListItemAvatar>
-              <Avatar
-                src={'/media/svg/icons/' + itm.kind + '.svg'}
-                alt={itm.data}
-                variant="square"
-                className={classes.avatar}
-              />
+              <Avatar variant="square" className={classes.avatar}>
+                {(itm.kind === 'Telegram' && <IconTelegram alt={itm.data} />) ||
+                  (itm.kind === 'YouTube' && <IconYouTube alt={itm.data} />) ||
+                  (itm.kind === 'Vimeo' && <IconVimeo alt={itm.data} />) ||
+                  (itm.kind === 'Twitter' && <IconTwitter alt={itm.data} />) ||
+                  (itm.kind === 'LinkedIn' && <IconLinkedIn alt={itm.data} />) ||
+                  (itm.kind === 'Instagram' && <IconInstagram alt={itm.data} />) ||
+                  (itm.kind === 'FB Profile' && <IconFacebook alt={itm.data} />) ||
+                  (itm.kind === 'FB Group' && <IconFacebookGroup alt={itm.data} />) ||
+                  (itm.kind === 'FB Page' && <IconFacebookPage alt={itm.data} />) ||
+                  (itm.kind === 'Skype' && <IconSkype alt={itm.data} />) ||
+                  (itm.kind === 'Email' && <IconMail alt={itm.data} />) ||
+                  (itm.kind === 'Phone' && <IconPhone alt={itm.data} />) ||
+                  (itm.kind === 'Address' && <IconLocation alt={itm.data} />) || <IconLink alt={itm.data} />}
+              </Avatar>
             </ListItemAvatar>
-            <Typography noWrap variant="body1">
-              {itm.data}
-            </Typography>
+            <Typography noWrap>{itm.data}</Typography>
           </ListItem>
         </Grid>
         {/* the options button */}
