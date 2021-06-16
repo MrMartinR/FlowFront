@@ -1,12 +1,18 @@
+import { TextField } from "@material-ui/core"
+import { FormControl, FormLabel } from "@material-ui/core"
 import { Button, Card, CardActions, CardContent, CardHeader, Grid, makeStyles } from "@material-ui/core"
+import { Alert } from "@material-ui/lab"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import * as transactionActions from './state/userAccountsActions'
 /* types */
 type EditTransactionType = {
+    date: string
     kind: string
-    data: string
+    category: string
+    description: string
+    amount: string
   }
   /* styles */
 const useStyles = makeStyles({
@@ -27,19 +33,20 @@ export const EditTransactionForm = (props:any) => {
     const [formData, setFormData] = useState(null as any)
     const dispatch = useDispatch()
     // funcion que prepara os datos do formulario para o envio
-  const onSubmit = ({ kind, data }: EditTransactionType) => {
+  const onSubmit = (data: EditTransactionType) => {
     setTransactionId(transaction.id)
     const form = {
-      data,
-      kind,
+      ...data,
+      user_account_id: userId,
+      loan_id: transaction.loanId,
     }
     setFormData(form)
     handleClose()
   }
-  // chamada a action updateContactMethods cos datos do formulario
+  // chamada a action updateTransaction cos datos do formulario
   useEffect(() => {
     if (formData !== null) {
-      dispatch(transactionActions.updateTransaction(formData, userId, transactionId))
+      dispatch(transactionActions.updateTransaction(formData, transactionId))
     }
   }, [formData, dispatch, transactionId, userId])
   const handleDelete = () => {
@@ -51,9 +58,61 @@ export const EditTransactionForm = (props:any) => {
         <Grid container direction="column">
         <Card className={classes.root}>
           <Grid item xs={12}>
-            <CardHeader title="Edit Contact Method" />
+            <CardHeader title="Edit Transaction" />
             <CardContent>
-
+              <FormControl fullWidth size='small'>
+                <FormLabel>Date</FormLabel>
+                  <TextField
+                    name="date"
+                    type='date'
+                    margin='normal'
+                    variant="outlined"
+                    autoComplete="off"
+                    defaultValue={transaction.date}
+                    inputRef={register({ required: true, minLength: 3 })}
+                  />
+                <FormLabel>Type</FormLabel>
+                  <TextField
+                    name="kind"
+                    margin='normal'
+                    variant="outlined"
+                    autoComplete="off"
+                    defaultValue={transaction.kind}
+                    inputRef={register({ required: true, minLength: 3 })}
+                  />
+                  {errors.kind && errors.kind.type === 'required' && <Alert severity="error">Type is required</Alert>}
+                {errors.kind && errors.kind.type === 'minLength' && (
+                  <Alert severity="error">Type should be at-least 3 characters.</Alert>
+                )}
+                <FormLabel>Category</FormLabel>
+                  <TextField
+                    name="category"
+                    margin='normal'
+                    variant="outlined"
+                    autoComplete="off"
+                    defaultValue={transaction.category}
+                    inputRef={register({ required: true, minLength: 3 })}
+                  />
+                <FormLabel>Description</FormLabel>
+                  <TextField
+                    name="description"
+                    margin='normal'
+                    multiline
+                    variant="outlined"
+                    autoComplete="off"
+                    defaultValue={transaction.description}
+                    inputRef={register({ required: true, minLength: 3 })}
+                  />
+                <FormLabel>Amount</FormLabel>
+                  <TextField
+                    name="amount"
+                    margin='normal'
+                    variant="outlined"
+                    autoComplete="off"
+                    defaultValue={transaction.amount}
+                    inputRef={register({ required: true, minLength: 3 })}
+                  />
+              </FormControl>
             </CardContent>
             </Grid>
 

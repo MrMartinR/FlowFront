@@ -1,4 +1,5 @@
 import { Card, CardContent, Grid, CardHeader, Button, Avatar, makeStyles } from '@material-ui/core'
+import IconOption from '../../../common/layout/components/icons/Option'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -31,7 +32,9 @@ export const AccountDetailsToolbar = (props: any) => {
               action={
                 <>
                   <Button href={`/contacts/${id}`}>Contact</Button>
-                  <Button onClick={(e) => handleOpen(e, 'edit')}>•••</Button>
+                  <Button onClick={(e) => handleOpen(e, 'edit')}>
+                    <IconOption />
+                  </Button>
                 </>
               }
               classes={{

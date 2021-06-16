@@ -2,6 +2,7 @@ import { Button, Container, makeStyles } from '@material-ui/core'
 import { Grid, TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { useEffect, useState } from 'react'
+import IconOption from '../../../common/layout/components/icons/Option'
 /* styles */
 const useStyles = makeStyles({
   search: {
@@ -44,7 +45,9 @@ export const ContactListToolbar = (props: any) => {
             />
           </Grid>
           <Grid item xs={2}>
-            <Button>•••</Button>
+            <Button>
+              <IconOption />
+            </Button>
           </Grid>
         </Grid>
       </Grid>

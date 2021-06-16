@@ -64,10 +64,10 @@ const columns: GridColDef[] = [
     headerName: 'Protection Scheme',
     width: 130,
     renderCell: (params: GridCellParams) =>
-      (params.value == 'Collateral' && <IconProtectionCollateral />) ||
-      (params.value == 'BuyBack Guarantee' && <IconProtectionBuyBack />) ||
-      (params.value == 'Personal Guarantee' && <IconProtectionPersonal />) ||
-      (params.value == 'Provision Fund' && <IconProtectionFund />),
+      (params.value === 'Collateral' && <IconProtectionCollateral />) ||
+      (params.value === 'BuyBack Guarantee' && <IconProtectionBuyBack />) ||
+      (params.value === 'Personal Guarantee' && <IconProtectionPersonal />) ||
+      (params.value === 'Provision Fund' && <IconProtectionFund />),
   },
   { field: 'secondary_market', type: 'boolean', headerName: 'SM', description: 'Secondary Market', width: 80 },
   { field: 'structure', headerName: 'Structure', width: 130 },
