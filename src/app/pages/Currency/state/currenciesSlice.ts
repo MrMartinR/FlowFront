@@ -4,7 +4,7 @@ const initialCurrenciesState = {
   listLoading: true,
   actionsLoading: false,
   currenciesTable: {
-    entities: [] as any,
+    entities: null as any,
   },
   singleCurrency: {} as any,
   success: null as any,

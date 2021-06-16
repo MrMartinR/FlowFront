@@ -52,7 +52,7 @@ export const UserAccountsDetails = (props: any) => {
     })
     setBalance(aux)
   }, [allTransactions])
-  const handleClick = (e:any) => {
+  const handleClick = (e: any) => {
     setTransaction(e.row)
     setOpen(true)
   }
@@ -66,6 +66,7 @@ export const UserAccountsDetails = (props: any) => {
         category: transaction.attributes.category,
         description: transaction.attributes.description,
         amount: transaction.attributes.amount,
+        loanId: transaction.attributes.loan?.id
       }
       rows.push(newRow)
       return rows
@@ -74,10 +75,8 @@ export const UserAccountsDetails = (props: any) => {
   const handleClose = () => {
     setOpen(false)
   }
-  /* add, edit, delete content */
-  const body = (
-    <EditTransactionForm transaction={transaction} handleClose={handleClose} userId={singleAccount.id} />
-  )
+
+  const body = <EditTransactionForm transaction={transaction} handleClose={handleClose} userId={singleAccount.id} />
   return (
     <Container>
       <Grid item xs={12}>
@@ -97,8 +96,8 @@ export const UserAccountsDetails = (props: any) => {
         </Card>
         {/* invoke the add edit delete window */}
         <Dialog open={open} onClose={handleClose}>
-        <DialogContent>{body}</DialogContent>
-      </Dialog>
+          <DialogContent>{body}</DialogContent>
+        </Dialog>
       </Grid>
     </Container>
   )

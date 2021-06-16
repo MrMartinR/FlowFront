@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialLoansState = {
   loading: false,
-  loansData: [],
-  loanDetails: [],
+  loansData: null as any,
+  loanDetails: null as any,
   error: null as any,
   success: null as any,
   message: null as any,

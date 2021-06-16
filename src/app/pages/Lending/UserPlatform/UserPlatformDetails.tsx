@@ -26,7 +26,7 @@ export const UserPlatformsDetails = (props: any) => {
     <>
       <CardHeader title="User Platform Performance"></CardHeader>
       <Grid container direction="row" justify="space-between">
-        <Grid container direction="column" xs={12}>
+        <Grid container direction="column">
           <Card>
             <CardContent>
               {!platformDetails ? (

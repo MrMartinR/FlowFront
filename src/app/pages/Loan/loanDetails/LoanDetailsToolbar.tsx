@@ -1,5 +1,6 @@
 import { Grid, Button, ButtonBase, Typography, Toolbar, Avatar, makeStyles, Container } from '@material-ui/core/'
 import { useHistory } from 'react-router'
+import IconOption from '../../../../common/layout/components/icons/Option'
 
 /* styles */
 const useStyles = makeStyles({
@@ -82,7 +83,7 @@ export const LoanDetailsToolbar = (props: any) => {
               Link
             </Button>
             {/* // Only visible to Admin/Contributors */}
-            <Button>•••</Button>
+            <Button><IconOption /></Button>
           </Grid>
           {/* </Grid> */}
         </Grid>

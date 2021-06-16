@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom'
-import { Grid, LinearProgress, makeStyles, Card, CardMedia, colors, Button, CardContent } from '@material-ui/core/'
-import { XGrid, GridColDef, GridCellParams, GridValueGetterParams, GridValueFormatterParams } from '@material-ui/x-grid'
+import { Grid, LinearProgress, makeStyles, CardMedia } from '@material-ui/core/'
+import { XGrid, GridColDef, GridCellParams,  GridValueFormatterParams } from '@material-ui/x-grid'
 import IconConsumer from '../../../common/layout/components/icons/Consumer'
 import IconBusiness from '../../../common/layout/components/icons/Business'
 import IconPlatform from '../../../common/layout/components/icons/Platform'
@@ -91,7 +91,7 @@ const columns: GridColDef[] = [
     width: 80,
     sortable: false,
     renderCell: (params: GridCellParams) =>
-      (params.value == 'Consumer' && <IconConsumer />) || (params.value == 'Business' && <IconBusiness />),
+      (params.value === 'Consumer' && <IconConsumer />) || (params.value === 'Business' && <IconBusiness />),
   },
   { field: 'category', headerName: 'Category', width: 180, sortable: false },
 
@@ -129,10 +129,10 @@ const columns: GridColDef[] = [
     headerName: 'Protection Scheme',
     width: 100,
     renderCell: (params: GridCellParams) =>
-      (params.value == 'Collateral' && <IconProtectionCollateral />) ||
-      (params.value == 'BuyBack' && <IconProtectionBuyBack />) ||
-      (params.value == 'Personal Guarantee' && <IconProtectionPersonal />) ||
-      (params.value == 'Provision Fund' && <IconProtectionFund />),
+      (params.value === 'Collateral' && <IconProtectionCollateral />) ||
+      (params.value === 'BuyBack' && <IconProtectionBuyBack />) ||
+      (params.value === 'Personal Guarantee' && <IconProtectionPersonal />) ||
+      (params.value === 'Provision Fund' && <IconProtectionFund />),
   },
   { field: 'rating', headerName: 'Rating', width: 130 },
   { field: 'status', headerName: 'Status', width: 130 },

@@ -1,10 +1,10 @@
-import { makeStyles, Toolbar, Grid, CardHeader, Button, Avatar } from '@material-ui/core/'
-import { useEffect, useState } from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../redux/rootReducer'
-import * as data from './import/iuvo-2020-01-30-2200 (2).json'
-import * as userAccountsActions from './state/userAccountsActions'
-import * as loansActions from './../Loan/state/loansActions'
+import { makeStyles, Toolbar, Dialog, DialogContent, Grid, CardHeader, Button, Avatar, Typography } from '@material-ui/core/'
+import { useState } from 'react'
+import IconOption from '../../../common/layout/components/icons/Option'
+
+import { CreateTransactionForm } from './CreateTransactionForm'
+import { CreateTransferForm } from './CreateTransferForm'
+import { ImportTransactions } from './ImportTransactions'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -18,47 +18,48 @@ const useStyles = makeStyles({
 export const UserAccountDetailsToolbar = (props: any) => {
   /* styles */
   const classes = useStyles()
-  const { loanState } = useSelector((state: RootState) => ({ loanState: state.loans }), shallowEqual)
   const { value, balance, singleAccount } = props
-  const [loans, setLoans] = useState(null as any)
-  const [loanId, setLoanId] = useState(null as any)
-  const dispatch = useDispatch()
+  const [ open, setOpen ] = useState(false)
+  const [ option, setOption ] = useState('')
   const handleTransaction = () => {
-
+    setOption('transaction')
+    setOpen(true)
   }
   const handleTransfer = () => {
-
+    setOption('transfer')
+    setOpen(true)
   }
-  const handleClick = () => {
-
-  }
+  const handleClick = () => {}
   const handleImport = () => {
-    /* loans.map((loan: any) => {
-      if (loan.attributes.code === data[1].ID) {
-        setLoanId(loan.id)
-      }
-      return loan.id
-    }) */
+    setOption('import')
+    setOpen(true)
   }
-  /* useEffect(() => {
-    const form = {
-      description: data[1].Concept,
-      ref: data[1].Ref,
-      amount: data[1].Amount,
-      date: data[1].Date,
-      time: data[1].Time,
-      category: data[1].Category,
-      user_account_id: singleAccount.id,
-      loan_id: loanId,
-    }
-    if (loanId !== null) dispatch(userAccountsActions.createTransaction(form))
-  }, [loanId, dispatch, singleAccount]) */
-  /* useEffect(() => {
-    dispatch(loansActions.fetchLoansData())
-  }, [dispatch]) */
-  /* useEffect(() => {
-    setLoans(loanState.loansData)
-  }, [loanState.loansData]) */
+  /* function close dialog window */
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const body =
+    option==='transaction' ? (
+      <>
+        <Typography variant="h4">Create Transaction</Typography>
+        <CreateTransactionForm handleClose={handleClose} />
+      </>
+    ) : (
+      option==='transfer' ? (
+        <>
+          <Typography variant="h4">Create Transfer</Typography>
+          <CreateTransferForm handleClose={handleClose} />
+        </>
+      ) : (
+        option==='import' && (
+          <>
+            <Typography variant="h4">Import Transactions</Typography>
+            <ImportTransactions handleClose={handleClose} />
+          </>
+        )
+      )
+    )
   return (
     <Toolbar variant="dense" className={classes.root}>
       <Grid item xs={12}>
@@ -77,11 +78,16 @@ export const UserAccountDetailsToolbar = (props: any) => {
               <Button onClick={handleTransfer}>Add Transfer</Button>
               <Button onClick={handleTransaction}>Add Transaction</Button>
               <Button onClick={handleImport}>Import</Button>
-              <Button onClick={handleClick}>•••</Button>
+              <Button onClick={handleClick}>
+                <IconOption />
+              </Button>
             </>
           }
         ></CardHeader>
       </Grid>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>{body}</DialogContent>
+      </Dialog>
     </Toolbar>
   )
 }

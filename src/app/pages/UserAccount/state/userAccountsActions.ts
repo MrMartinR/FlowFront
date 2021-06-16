@@ -131,24 +131,24 @@ export const fetchAccountTransactionById = (userId: string, transactionId:string
     })
 }
 
-export const createTransaction = (data: any, id:string) => (dispatch: any) => {
+export const createTransaction = (data: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.list }))
   return requestFromServer
-  .createUserTransaction(data, id)
+  .createUserTransaction(data)
   .then((response) => {
     const { data } = response
     console.log(response)
     dispatch(actions.transactionCreate(data))
   })
   .catch((error) => {
-    error.clientMessage = "Can't find contact"
+    error.clientMessage = "Can't create userTransaction"
       dispatch(actions.catchError({ error, callType: callTypes.list }))
     })
   }
-  export const updateTransaction = (data: any, userId:string, transactionId:string) => (dispatch: any) => {
+  export const updateTransaction = (data: any, transactionId:string) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }))
   return requestFromServer
-    .updateUserTransaction(data, userId, transactionId)
+    .updateUserTransaction(data, transactionId)
     .then((response) => {
       const { data } = response
       dispatch(actions.transactionUpdate(data))

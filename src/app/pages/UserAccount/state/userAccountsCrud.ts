@@ -73,19 +73,19 @@ export const getUserTransactions = (id:string) => {
  * @returns detalles de la transaction
  */
 export const getUserTransactionById = (user_id:string, transaction_id:string) => {
-  return axios.get(`${USER_ACCOUNTS_URL}/${user_id}/transactions/${transaction_id}`, optionsHeaders())
+  return axios.get(`${TRANSACTIONS_URL}/${transaction_id}`, optionsHeaders())
 }
 /**
  * Metodo POST que crea una nueva transaction para un user_account concreto
  * @param data 
  * @returns La nueva transaction creada
  */
-export const createUserTransaction = (data: any, id: string) => {
+export const createUserTransaction = (data: any) => {
     const form = {
       transaction: data,
     }
   
-    return axios.post(`${USER_ACCOUNTS_URL}/${id}/transactions/`, form, optionsHeaders())
+    return axios.post(`${TRANSACTIONS_URL}`, form, optionsHeaders())
   }
 /**
  * Metodo PUT para modificar los datos de una transaction
@@ -93,12 +93,12 @@ export const createUserTransaction = (data: any, id: string) => {
  * @param id 
  * @returns La transaction actualizada
  */
-export const updateUserTransaction = (data: any, user_id: string, transaction_id: string) => {
+export const updateUserTransaction = (data: any, transaction_id: string) => {
   const form = {
-    contact: data,
+    transaction: data,
   }
 
-  return axios.put(`${USER_ACCOUNTS_URL}/${user_id}/transactions/${transaction_id}`, form, optionsHeaders())
+  return axios.put(`${TRANSACTIONS_URL}/${transaction_id}`, form, optionsHeaders())
 }
 /**
  * MEtodo DELETE para borrar una transaction
