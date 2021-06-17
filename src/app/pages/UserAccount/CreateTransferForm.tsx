@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core'
 import { Button, Grid, TextField, LinearProgress, FormControl, MenuItem } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -112,6 +113,7 @@ export const CreateTransferForm = (props: any) => {
   }, [userAccount])
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Typography variant="h4">Create Transfer</Typography>
       <Grid container direction="column">
         <Grid container justify="space-between">
           <Grid item xs={4}>

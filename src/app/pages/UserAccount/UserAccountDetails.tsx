@@ -76,7 +76,7 @@ export const UserAccountsDetails = (props: any) => {
     setOpen(false)
   }
 
-  const body = <EditTransactionForm transaction={transaction} handleClose={handleClose} userId={singleAccount.id} />
+  const body = <EditTransactionForm transaction={transaction} handleClose={handleClose} userId={singleAccount?.id} />
   return (
     <Container>
       <Grid item xs={12}>

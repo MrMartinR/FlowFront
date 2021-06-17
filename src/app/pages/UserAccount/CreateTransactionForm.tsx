@@ -1,5 +1,4 @@
-import { MenuItem } from '@material-ui/core'
-import { Button, Grid, TextField, FormControl } from '@material-ui/core'
+import { Button, Grid, TextField, FormControl, MenuItem, Typography } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -33,82 +32,7 @@ const categoriesOutcome = [
     name: 'Tax',
   },
 ]
-const incomesList = [
-  {
-    value: 'Allowance',
-    name: 'Allowance',
-  },
-  {
-    value: 'Child Support',
-    name: 'Child Support',
-  },
-  {
-    value: 'Salary',
-    name: 'Salary',
-  },
-  {
-    value: 'Social Security',
-    name: 'Social Security',
-  },
-  {
-    value: 'Other',
-    name: 'Other',
-  },
-]
-const expensesList = [
-  {
-    value: 'Transportation',
-    name: 'Transportation',
-  },
-  {
-    value: 'Housing',
-    name: 'Housing',
-  },
-  {
-    value: 'Food',
-    name: 'Food',
-  },
-  {
-    value: 'Utilities',
-    name: 'Utilities',
-  },
-  {
-    value: 'Clothing',
-    name: 'Clothing',
-  },
-  {
-    value: 'Healthcare',
-    name: 'Healthcare',
-  },
-  {
-    value: 'Insurance',
-    name: 'Insurance',
-  },
-  {
-    value: 'Supplies',
-    name: 'Supplies',
-  },
-  {
-    value: 'Gifts',
-    name: 'Gifts',
-  },
-  {
-    value: 'Other',
-    name: 'Other',
-  },
-  {
-    value: 'Entertainment',
-    name: 'Entertainment',
-  },
-  {
-    value: 'Education',
-    name: 'Education',
-  },
-  {
-    value: 'Personal',
-    name: 'Personal',
-  },
-]
+
 export const CreateTransactionForm = (props: any) => {
   const { handleClose } = props
   const { register, handleSubmit } = useForm()
@@ -116,32 +40,25 @@ export const CreateTransactionForm = (props: any) => {
   const [today, setToday] = useState('')
   const [income, setIncome] = useState('Bonus')
   const [outcome, setOutcome] = useState('Expense')
-  const [expenses, setExpenses] = useState('Transportation')
-  const [incomes, setIncomes] = useState('Allowance')
   const [kind, setKind] = useState('')
   const { currentState } = useSelector((state: RootState) => ({ currentState: state.userAccounts }), shallowEqual)
   const dispatch = useDispatch()
-  // onSubmit garda os datos do fomrulario nunha variable e pecha o formulario
+  // onSubmit garda os datos do formulario nunha variable e pecha o formulario
   const onSubmit = (data: any) => {
-    let category, subcategory
+    let category
     if (kind === 'Income') {
       category = income
     } else category = outcome
-    if (category === 'Expense') {
-      subcategory = expenses
-    } else if (category === 'Income') {
-      subcategory = incomes
-    } else subcategory = ''
     const form = {
       ...data,
       kind,
       category,
-      subcategory,
       user_account_id: currentState.userAccountsDetails.id
     }
     setFormData(form)
     handleClose()
   }
+  // preparados os datos envianse a userAccountsActions
   useEffect(() => {
     if (formData !== null) {
         dispatch(userAccountsActions.createTransaction(formData))
@@ -170,14 +87,9 @@ export const CreateTransactionForm = (props: any) => {
   const handleOutcome = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOutcome(event.target.value)
   }
-  const handleExpenses = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setExpenses(event.target.value)
-  }
-  const handleIncomes = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIncomes(event.target.value)
-  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Typography variant="h4">Create Transaction</Typography>
       <Grid container direction="column">
         <Grid container justify="space-between">
           <Grid item xs={4}>
@@ -194,7 +106,7 @@ export const CreateTransactionForm = (props: any) => {
               )}
             </FormControl>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <FormControl fullWidth>
               {kind === 'Income' ? (
                 <TextField
@@ -229,43 +141,7 @@ export const CreateTransactionForm = (props: any) => {
               )}
             </FormControl>
           </Grid>
-          <Grid item xs={2}>
-            <FormControl fullWidth>
-              {income === 'Income' && kind === 'Income' && (
-                <TextField
-                  select
-                  value={incomes}
-                  name='incomes'
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleIncomes}
-                >
-                  {incomesList.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-              {outcome === 'Expense' && kind === 'Outcome' && (
-                <TextField
-                  select
-                  name='expenses'
-                  value={expenses}
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleExpenses}
-                >
-                  {expensesList.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-            </FormControl>
-          </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <FormControl fullWidth>
               <Grid container>
                 <Grid item xs={7}>
