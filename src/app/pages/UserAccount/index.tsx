@@ -28,7 +28,7 @@ export const UserAccountsPage = (props: any) => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(true)
   const [actionsLoading, setActionsLoading] = useState(true)
-  const [singleAccount, setSingleAccount] = useState({})
+  const [singleAccount, setSingleAccount] = useState(null as any)
   let selectedUserAccount = null as any
 
   if (list.length > 0 && list[selectedItemIndex]) {

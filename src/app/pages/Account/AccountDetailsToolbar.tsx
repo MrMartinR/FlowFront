@@ -17,7 +17,7 @@ export const AccountDetailsToolbar = (props: any) => {
   return (
     <Card>
       <CardContent>
-        <Grid container direction="row">
+        <Grid container>
           <Grid item xs={12} className={classes.root}>
             <CardHeader
               avatar={
