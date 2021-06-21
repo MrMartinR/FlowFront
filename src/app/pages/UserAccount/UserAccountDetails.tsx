@@ -2,13 +2,11 @@
 import { useEffect, useState } from 'react'
 import { makeStyles, Container, Grid, Card, Dialog, DialogContent } from '@material-ui/core'
 import { UserAccountDetailsToolbar } from './UserAccountDetailsToolbar'
-
-import { LicenseInfo } from '@material-ui/x-license'
-import { GridColDef, XGrid } from '@material-ui/x-grid'
+import { GridColDef, XGrid, GridCellParams } from '@material-ui/x-grid'
 import { EditTransactionForm } from './EditTransactionForm'
-LicenseInfo.setLicenseKey(
-  'f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x'
-)
+import IconTransfer from '../../../common/layout/components/icons/Transfer'
+import IconIncome from '../../../common/layout/components/icons/Income'
+import IconOutcome from '../../../common/layout/components/icons/Outcome'
 
 /* styles */
 const useStyles = makeStyles({
@@ -27,7 +25,17 @@ const columns: GridColDef[] = [
   /*
    * @ToDo Replace this kind for icons
    */
-  { field: 'kind', headerName: 'Type', width: 120 },
+  {
+    field: 'kind',
+    headerName: 'Type',
+    width: 120,
+
+    renderCell: (params: GridCellParams) =>
+      (params.value === 'Transfer' && <IconTransfer />) ||
+      (params.value === 'Income' && <IconIncome />) ||
+      (params.value === 'Outcome' && <IconOutcome />),
+  },
+  // { field: 'kind', headerName: 'Type', width: 120 },
   { field: 'category', headerName: 'Category', width: 120 },
   { field: 'description', headerName: 'Description', width: 360 },
   { field: 'amount', headerName: 'Amount', width: 120, headerAlign: 'right', align: 'right' },
@@ -66,7 +74,7 @@ export const UserAccountsDetails = (props: any) => {
         category: transaction.attributes.category,
         description: transaction.attributes.description,
         amount: transaction.attributes.amount,
-        loanId: transaction.attributes.loan?.id
+        loanId: transaction.attributes.loan?.id,
       }
       rows.push(newRow)
       return rows

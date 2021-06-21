@@ -59,7 +59,7 @@ export const UserAccountsList = (props: any) => {
   }
   useEffect(() => {
     let opt = [] as any
-    if (listFilteredToggle.length >= 1) {  
+    if (listFilteredToggle.length >= 1) {
       listFilteredToggle.map((option: any) => {
         opt.push(option.attributes.name)
         return opt
@@ -90,14 +90,13 @@ export const UserAccountsList = (props: any) => {
   }
   return (
     <Container className={classes.root}>
-      <Autocomplete
+      {/* @REV: Decidir si cepillarme este buscador (probablemente si) */}
+      {/* <Autocomplete
         freeSolo
         options={options}
         onChange={handlePick}
-        renderInput={(params: any) => (
-          <TextField {...params} size="small" label="Search" margin="normal" variant="outlined" />
-        )}
-      />
+        renderInput={(params: any) => <TextField {...params} size="small" label="Search" />}
+      /> */}
 
       <Grid container>
         <Grid item xs={10}>

@@ -142,14 +142,14 @@ export const AddUserAccount = (props: any) => {
       case 1:
         return (
           <FormControl margin="normal">
-            {(!isLoading) ? (
+            {!isLoading ? (
               <Select labelId="Accounts" value={account} onChange={handleAccount}>
                 {listFiltered !== null &&
                   listFiltered.map((account: any) => (
-                      <MenuItem value={account.id} key={account.id}>
-                        {account.attributes.contact.trade_name}
-                      </MenuItem>
-                    ))}
+                    <MenuItem value={account.id} key={account.id}>
+                      {account.attributes.contact.trade_name}
+                    </MenuItem>
+                  ))}
               </Select>
             ) : (
               <LinearProgress />
@@ -187,21 +187,22 @@ export const AddUserAccount = (props: any) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container direction="column">
               <Grid item>
-              <TextField
-                name="name"
-                label="name"
-                variant="outlined"
-                placeholder="Name"
-                autoComplete="off"
-                inputRef={register({ required: true, minLength: 3 })}
-              />
-              {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
-              {errors.name && errors.name.type === 'minLength' && (
-                <Alert severity="error">Name should be at-least 3 characters.</Alert>
-              )}
+                <TextField
+                  name="name"
+                  label="name"
+                  placeholder="Name"
+                  autoComplete="off"
+                  inputRef={register({ required: true, minLength: 3 })}
+                />
+                {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
+                {errors.name && errors.name.type === 'minLength' && (
+                  <Alert severity="error">Name should be at-least 3 characters.</Alert>
+                )}
               </Grid>
               <Grid item>
-                <Button type='submit' color='primary'>Save</Button>
+                <Button type="submit" color="primary">
+                  Create Account
+                </Button>
               </Grid>
             </Grid>
           </form>
@@ -213,26 +214,36 @@ export const AddUserAccount = (props: any) => {
 
   return (
     <>
-      <Typography variant="h4">Add User Account</Typography>
+      <Typography variant="h6">Add User Account</Typography>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
             <StepContent>
               <Typography>{getStepContent(index)}</Typography>
-              <>
+              {/* <>
                 <Button disabled={activeStep === 0} onClick={handleBack}>
                   Back
                 </Button>
                 <Button color="primary" disabled={activeStep === steps.length - 1} onClick={handleNext}>
                   Next
                 </Button>
-              </>
+              </> */}
             </StepContent>
           </Step>
         ))}
       </Stepper>
-      <Button onClick={handleClose}>Cancel</Button>
+      <>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button disabled={activeStep === 0} onClick={handleBack}>
+          Back
+        </Button>
+        <Button color="primary" disabled={activeStep === steps.length - 1} onClick={handleNext}>
+          Next
+        </Button>
+        {/* @TODO: Replace the Next button with the Create Account/Submit Button {activeStep === 4}?? */}
+        {/* @TODO: Mantener visible la seleccion a medida que se avanza en el stepper */}
+      </>
     </>
   )
 }

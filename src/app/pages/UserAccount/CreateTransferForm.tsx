@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { FormLabel, Typography } from '@material-ui/core'
 import { Button, Grid, TextField, LinearProgress, FormControl, MenuItem } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -31,39 +31,41 @@ export const CreateTransferForm = (props: any) => {
   // Chama a accion createTransaction para orixe e destrino
   useEffect(() => {
     if (formData !== null) {
-        const amount2 = -1 * formData.amount*formData.fx
-        let kind1, kind2, notes
-        if (formData.amount < 0) {
-            kind1='Outcome'
-            kind2='Income'
-        } else {
-            kind1='Income'
-            kind2='Outcome'
-        }
-        if (formData.fx !== 1) {
-            notes = `Exchange Rate 1 ${currentState.userAccountsDetails.attributes.currency.code} = ${formData.fx} ${userAccount?.attributes?.currency.code}. Amount ${amount2 * formData.fx} ${userAccount?.attributes?.currency.code} `
-        } else notes=''
-        const transfer1= {
-            date: formData.date,
-            description: formData.description,
-            amount: formData.amount,
-            kind: kind1,
-            ref:'',
-            time:'',
-            loan_id:'',
-            user_account_id: currentState.userAccountsDetails.id,
-        }
-        const transfer2 = {
-            date: formData.date,
-            description: formData.description,
-            amount: amount2,
-            kind: kind2,
-            ref:'',
-            user_account_id: formData.user_account_id,
-            notes,
-            time:'',
-            loan_id:'',
-        }
+      const amount2 = -1 * formData.amount * formData.fx
+      let kind1, kind2, notes
+      if (formData.amount < 0) {
+        kind1 = 'Outcome'
+        kind2 = 'Income'
+      } else {
+        kind1 = 'Income'
+        kind2 = 'Outcome'
+      }
+      if (formData.fx !== 1) {
+        notes = `Exchange Rate 1 ${currentState.userAccountsDetails.attributes.currency.code} = ${formData.fx} ${
+          userAccount?.attributes?.currency.code
+        }. Amount ${amount2 * formData.fx} ${userAccount?.attributes?.currency.code} `
+      } else notes = ''
+      const transfer1 = {
+        date: formData.date,
+        description: formData.description,
+        amount: formData.amount,
+        kind: kind1,
+        ref: '',
+        time: '',
+        loan_id: '',
+        user_account_id: currentState.userAccountsDetails.id,
+      }
+      const transfer2 = {
+        date: formData.date,
+        description: formData.description,
+        amount: amount2,
+        kind: kind2,
+        ref: '',
+        user_account_id: formData.user_account_id,
+        notes,
+        time: '',
+        loan_id: '',
+      }
       dispatch(userAccountsActions.createTransaction(transfer1))
       dispatch(userAccountsActions.createTransaction(transfer2))
     }
@@ -84,7 +86,7 @@ export const CreateTransferForm = (props: any) => {
     setList(currentState.userAccountsTable)
     // na base de datos o fx_eur do euro gardase como 0, pero matematicamente deberia ser 1
     if (currentState.userAccountsDetails?.attributes?.currency.fx_eur === 0) {
-        setFX1('1')
+      setFX1('1')
     } else setFX1(currentState.userAccountsDetails?.attributes?.currency.fx_eur)
   }, [currentState])
   // filtra o user_account actual da lista
@@ -108,37 +110,24 @@ export const CreateTransferForm = (props: any) => {
   // seleccionado un userAccount calcula o fx_rate
   useEffect(() => {
     if (userAccount?.attributes?.currency.fx_eur === 0) {
-        setFX2('1')
+      setFX2('1')
     } else setFX2(userAccount?.attributes?.currency.fx_eur)
   }, [userAccount])
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant="h4">Create Transfer</Typography>
+      <Typography variant="h6">Create Transfer</Typography>
       <Grid container direction="column">
         <Grid container justify="space-between">
           <Grid item xs={4}>
             <FormControl fullWidth>
-              {today !== '' && (
-                <TextField
-                  name="date"
-                  type="date"
-                  margin="normal"
-                  variant="outlined"
-                  defaultValue={today}
-                  inputRef={register()}
-                />
-              )}
+              <FormLabel>Date</FormLabel>
+              {today !== '' && <TextField name="date" type="date" defaultValue={today} inputRef={register()} />}
             </FormControl>
           </Grid>
-          <Grid item xs={3}>
-              <TextField
-                select
-                value={account}
-                name='accounts'
-                margin="normal"
-                variant="outlined"
-                onChange={handleChange}
-              >
+          <Grid item xs={4}>
+            <FormControl fullWidth>
+              <FormLabel>Account</FormLabel>
+              <TextField select value={account} name="accounts" onChange={handleChange}>
                 {listFiltered !== null ? (
                   listFiltered.map((option: any) => (
                     <MenuItem key={option.id} value={option.id}>
@@ -149,58 +138,41 @@ export const CreateTransferForm = (props: any) => {
                   <LinearProgress />
                 )}
               </TextField>
+            </FormControl>
           </Grid>
           <Grid item xs={4}>
             <FormControl fullWidth>
+              <FormLabel>Amount</FormLabel>
               <Grid container>
                 <Grid item xs={7}>
-                  <TextField name="amount" label="Amount" margin="normal" variant="outlined" inputRef={register()} />
+                  <TextField name="amount" placeholder="Amount" inputRef={register()} />
                 </Grid>
                 <Grid item xs={5}>
-                  <TextField
-                    disabled
-                    margin="normal"
-                    variant="outlined"
-                    value={currentState.userAccountsDetails.attributes.currency.code}
-                  />
+                  <Typography>{currentState.userAccountsDetails.attributes.currency.code}</Typography>
                 </Grid>
               </Grid>
             </FormControl>
           </Grid>
         </Grid>
         <Grid container justify="space-between">
-          <Grid item xs={7}>
+          <Grid item xs={8}>
             <FormControl fullWidth>
-              <TextField
-                multiline
-                name="description"
-                label="description"
-                margin="normal"
-                variant="outlined"
-                inputRef={register()}
-              />
+              <FormLabel>Description</FormLabel>
+              <TextField name="description" placeholder="Description" inputRef={register()} />
             </FormControl>
           </Grid>
           <Grid item xs={4}>
             <FormControl fullWidth>
+              <FormLabel>FX</FormLabel>
               <Grid container>
                 <Grid item xs={7}>
-                  <TextField
-                    name="fx"
-                    value={fx2 / fx1 }
-                    label="FX"
-                    margin="normal"
-                    variant="outlined"
-                    inputRef={register()}
-                  />
+                  {/* @TODO: Por defecto debe cubrirse el fx que esta en la DB, pero tiene que poder ser editado por el user
+                   * para la transfer q se va a realizar, no se guarda en la DB, por ejemplo el fx de EUR USD de la BD muestra 0.84,
+                   * pero el FX real que le aplico su banco al hacer la conversion fue de 0.82*/}
+                  <TextField name="fx" value={fx2 / fx1} placeholder="FX" inputRef={register()} />
                 </Grid>
                 <Grid item xs={5}>
-                  <TextField
-                    disabled
-                    margin="normal"
-                    variant="outlined"
-                    value={userAccount?.attributes?.currency.code}
-                  />
+                  <Typography>{userAccount?.attributes?.currency.code}</Typography>
                 </Grid>
               </Grid>
             </FormControl>
@@ -209,7 +181,7 @@ export const CreateTransferForm = (props: any) => {
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" color="primary">
-            Save
+            Submit
           </Button>
         </Grid>
       </Grid>

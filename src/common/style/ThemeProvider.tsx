@@ -45,6 +45,12 @@ const theme = createMuiTheme({
       elevation: 0,
     },
 
+    MuiTextField: {
+      size: 'small',
+      variant: 'outlined',
+      margin: 'dense',
+    },
+
     /* Set default elevation to 0 for cards */
     MuiCard: {
       elevation: 0,

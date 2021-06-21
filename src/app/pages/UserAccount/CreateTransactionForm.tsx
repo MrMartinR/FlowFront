@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, FormControl, MenuItem, Typography } from '@material-ui/core'
+import { Button, Grid, TextField, FormControl, MenuItem, Typography, FormLabel } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -53,7 +53,7 @@ export const CreateTransactionForm = (props: any) => {
       ...data,
       kind,
       category,
-      user_account_id: currentState.userAccountsDetails.id
+      user_account_id: currentState.userAccountsDetails.id,
     }
     setFormData(form)
     handleClose()
@@ -61,7 +61,7 @@ export const CreateTransactionForm = (props: any) => {
   // preparados os datos envianse a userAccountsActions
   useEffect(() => {
     if (formData !== null) {
-        dispatch(userAccountsActions.createTransaction(formData))
+      dispatch(userAccountsActions.createTransaction(formData))
     }
   }, [dispatch, formData])
   // Prepara o formato da fecha actual para por por defecto no datepicker
@@ -89,34 +89,20 @@ export const CreateTransactionForm = (props: any) => {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant="h4">Create Transaction</Typography>
+      <Typography variant="h6">Create Transaction</Typography>
       <Grid container direction="column">
         <Grid container justify="space-between">
           <Grid item xs={4}>
             <FormControl fullWidth>
-              {today !== '' && (
-                <TextField
-                  name="date"
-                  type="date"
-                  margin="normal"
-                  variant="outlined"
-                  defaultValue={today}
-                  inputRef={register()}
-                />
-              )}
+              <FormLabel>Date</FormLabel>
+              {today !== '' && <TextField name="date" type="date" defaultValue={today} inputRef={register()} />}
             </FormControl>
           </Grid>
           <Grid item xs={3}>
             <FormControl fullWidth>
+              <FormLabel>Category</FormLabel>
               {kind === 'Income' ? (
-                <TextField
-                  select
-                  value={income}
-                  margin="normal"
-                  name='income'
-                  variant="outlined"
-                  onChange={handleIncome}
-                >
+                <TextField select value={income} name="income" onChange={handleIncome}>
                   {categoriesIncome.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.name}
@@ -124,14 +110,7 @@ export const CreateTransactionForm = (props: any) => {
                   ))}
                 </TextField>
               ) : (
-                <TextField
-                  select
-                  value={outcome}
-                  name='outcome'
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleOutcome}
-                >
+                <TextField select value={outcome} name="outcome" onChange={handleOutcome}>
                   {categoriesOutcome.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.name}
@@ -145,23 +124,11 @@ export const CreateTransactionForm = (props: any) => {
             <FormControl fullWidth>
               <Grid container>
                 <Grid item xs={7}>
-                  <TextField
-                    name="amount"
-                    label="Amount"
-                    onChange={handleInputChange}
-                    margin="normal"
-                    variant="outlined"
-                    inputRef={register()}
-                  />
+                  <FormLabel>Amount</FormLabel>
+                  <TextField name="amount" placeholder="Amount" onChange={handleInputChange} inputRef={register()} />
                 </Grid>
                 <Grid item xs={5}>
-                  <TextField
-                    disabled
-                    name='currency'
-                    margin="normal"
-                    variant="outlined"
-                    value={currentState.userAccountsDetails.attributes.currency.code}
-                  />
+                  <Typography>{currentState.userAccountsDetails.attributes.currency.code}</Typography>
                 </Grid>
               </Grid>
             </FormControl>
@@ -169,20 +136,14 @@ export const CreateTransactionForm = (props: any) => {
         </Grid>
         <Grid container justify="space-between">
           <FormControl fullWidth>
-            <TextField
-              multiline
-              name="description"
-              label="description"
-              margin="normal"
-              variant="outlined"
-              inputRef={register()}
-            />
+            <FormLabel>Description</FormLabel>
+            <TextField name="description" placeholder="Description" inputRef={register()} />
           </FormControl>
         </Grid>
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" color="primary">
-            Save
+            Submit
           </Button>
         </Grid>
       </Grid>

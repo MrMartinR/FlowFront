@@ -138,15 +138,7 @@ export const ContactEdit = (props: any) => {
         <FormControl margin="normal">
           <FormLabel>Select Country</FormLabel>
           {!isLoading ? (
-            <TextField
-              value={country}
-              onChange={handleCountry}
-              inputRef={register}
-              select
-              name="Country"
-              variant="outlined"
-              size="small"
-            >
+            <TextField value={country} onChange={handleCountry} inputRef={register} select name="Country">
               {list.map((country: any) => (
                 <MenuItem value={country.id} key={country.id}>
                   {country.attributes.name}
@@ -166,11 +158,9 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="trade_name"
                 defaultValue={selectedContact.attributes.trade_name}
-                placeholder="Trade name"
+                placeholder="Trade Name"
                 autoComplete="off"
                 inputRef={register({ required: true, minLength: 3 })}
-                variant="outlined"
-                size="small"
               />
               {errors.trade_name && errors.trade_name.type === 'required' && (
                 <Alert severity="error">Trade name is required</Alert>
@@ -189,8 +179,6 @@ export const ContactEdit = (props: any) => {
                 defaultValue={selectedContact.attributes.company_name}
                 placeholder="Company name"
                 inputRef={register({ required: false })}
-                variant="outlined"
-                size="small"
               />
             </FormControl>
 
@@ -199,11 +187,9 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Company Number</FormLabel>
               <TextField
                 name="id_number"
-                variant="outlined"
                 defaultValue={selectedContact.attributes.id_number}
                 placeholder="Company Number"
                 inputRef={register({ required: false })}
-                size="small"
               />
             </FormControl>
 
@@ -216,8 +202,6 @@ export const ContactEdit = (props: any) => {
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.founded}
                 inputRef={register({ required: false })}
-                variant="outlined"
-                size="small"
                 className={classes.datePicker}
               />
             </FormControl>
@@ -229,12 +213,10 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Name</FormLabel>
               <TextField
                 name="name"
-                variant="outlined"
                 placeholder="Name"
                 defaultValue={selectedContact.attributes.name}
                 autoComplete="off"
                 inputRef={register({ required: true, minLength: 3 })}
-                size="small"
               />
               {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
               {errors.name && errors.name.type === 'minLength' && (
@@ -247,12 +229,10 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="surname"
                 // label="Surname"
-                variant="outlined"
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.surname}
                 placeholder="Surname"
                 inputRef={register({ required: false })}
-                size="small"
               />
             </FormControl>
             {/* nick */}
@@ -261,12 +241,10 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="nick"
                 // label="Nick"
-                variant="outlined"
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.nick}
                 placeholder="Nick"
                 inputRef={register({ required: false })}
-                size="small"
               />
             </FormControl>
             {/* id number */}
@@ -275,11 +253,9 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="id_number"
                 // label="ID Number"
-                variant="outlined"
                 defaultValue={selectedContact.attributes.id_number}
                 placeholder="ID Number"
                 inputRef={register({ required: false })}
-                size="small"
               />
             </FormControl>
             {/* dob */}
@@ -291,8 +267,6 @@ export const ContactEdit = (props: any) => {
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.dob}
                 inputRef={register({ required: false })}
-                variant="outlined"
-                size="small"
                 className={classes.datePicker}
               />
             </FormControl>
@@ -309,8 +283,6 @@ export const ContactEdit = (props: any) => {
             // label="description"
             multiline
             placeholder="Description"
-            variant="outlined"
-            size="small"
           />
         </FormControl>
 

@@ -64,9 +64,9 @@ export const ImportTransactions = (props: any) => {
   }, [list, currentState, loans, dispatch])
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant="h4">Import Transactions</Typography>
+      <Typography variant="h6">Import Transactions</Typography>
       <Grid container direction="column">
-        <TextField name="file" type="file" margin="normal" variant="outlined" inputRef={register({ required: true })} />
+        <TextField name="file" type="file" inputRef={register({ required: true })} />
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" color="primary">
