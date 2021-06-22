@@ -22,6 +22,8 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import * as accountsActions from '../Account/state/accountsActions'
 import * as userAccountsActions from './state/userAccountsActions'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 function getSteps() {
   return ['Select Account Type', 'Select Account', 'Select Country', 'Select Currency', 'Choose a Name for the Account']
 }
@@ -31,13 +33,13 @@ export const AddUserAccount = (props: any) => {
   const [account, setAccount] = useState('')
   const [country, setCountry] = useState('')
   const [currency, setCurrency] = useState('')
+  const [name, setName] = useState('')
   const [list, setList] = useState(null as any)
   const [countryList, setCountryList] = useState(null as any)
   const [currencyList, setCurrencyList] = useState(null as any)
   const [listFiltered, setListFiltered] = useState(null as any)
   const [isLoading, setIsLoading] = useState(true)
   const [activeStep, setActiveStep] = useState(0)
-  const { register, handleSubmit, errors } = useForm()
   const [formData, setFormData] = useState(null as any)
   const steps = getSteps()
   const { accountsState } = useSelector(
@@ -46,6 +48,16 @@ export const AddUserAccount = (props: any) => {
     }),
     shallowEqual
   )
+  const AddUserAccountSchema = Yup.object().shape({
+    name: Yup.string()
+      .required('Name is required')
+      .min(3, 'Name should be at-least 3 characters.')
+      .max(50, 'Name should be less than 50 characters'),
+  })
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(AddUserAccountSchema),
+  })
   // peticion da lista de accounts
   const dispatch = useDispatch()
   useEffect(() => {
@@ -62,6 +74,7 @@ export const AddUserAccount = (props: any) => {
         setCountry(l[0].attributes.country_id[0])
         setCurrencyList(l[0].attributes.currency_id)
         setCurrency(l[0].attributes.currency_id[0])
+        setName(l[0].attributes.contact.trade_name)
       }
     }
   }, [list, kind])
@@ -85,6 +98,7 @@ export const AddUserAccount = (props: any) => {
     setCountry(l.attributes.country_id[0])
     setCurrencyList(l.attributes.currency_id)
     setCurrency(l.attributes.currency_id[0])
+    setName(l.attributes.contact.trade_name)
   }
   // funcion para pasar o seguinte paso
   const handleNext = () => {
@@ -141,71 +155,102 @@ export const AddUserAccount = (props: any) => {
         )
       case 1:
         return (
-          <FormControl margin="normal">
-            {!isLoading ? (
-              <Select labelId="Accounts" value={account} onChange={handleAccount}>
-                {listFiltered !== null &&
-                  listFiltered.map((account: any) => (
-                    <MenuItem value={account.id} key={account.id}>
-                      {account.attributes.contact.trade_name}
-                    </MenuItem>
-                  ))}
-              </Select>
-            ) : (
-              <LinearProgress />
-            )}
-          </FormControl>
+          <Grid container direction="column">
+            <Grid item>
+              {/* Sustituir por un icono cando existan*/}
+              <Typography>{kind}</Typography>
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal">
+                {!isLoading ? (
+                  <Select labelId="Accounts" value={account} onChange={handleAccount}>
+                    {listFiltered !== null &&
+                      listFiltered.map((account: any) => (
+                        <MenuItem value={account.id} key={account.id}>
+                          {account.attributes.contact.trade_name}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                ) : (
+                  <LinearProgress />
+                )}
+              </FormControl>
+            </Grid>
+          </Grid>
         )
       case 2:
         return (
-          <FormControl margin="normal">
-            <Select labelId="Country" id="country" value={country} onChange={handleCountry}>
-              {countryList !== null &&
-                countryList.map((country: any) => (
-                  <MenuItem value={country} key={country}>
-                    {country}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
+          <Grid container direction="column">
+            <Grid item>
+              {/* Sustituir por un icono cando existan*/}
+              <Typography>{kind}</Typography>
+              {/* Sustituir por icono*/}
+              <Typography>{name}</Typography>
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal">
+                <Select labelId="Country" id="country" value={country} onChange={handleCountry}>
+                  {countryList !== null &&
+                    countryList.map((country: any) => (
+                      <MenuItem value={country} key={country}>
+                        {country}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
         )
       case 3:
         return (
-          <FormControl margin="normal">
-            <Select labelId="Currency" id="currency" value={currency} onChange={handleCurrency}>
-              {currencyList !== null &&
-                currencyList.map((currency: any) => (
-                  <MenuItem value={currency} key={currency}>
-                    {currency}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
+          <Grid container direction="column">
+            <Grid item>
+              {/* Sustituir por un icono cando existan*/}
+              <Typography>{kind}</Typography>
+              {/* Sustituir por icono*/}
+              <Typography>{name}</Typography>
+              {/* Sustituir por bandeira cando a resposta inclua os attributes*/}
+              <Typography>{country}</Typography>
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal">
+                <Select labelId="Currency" id="currency" value={currency} onChange={handleCurrency}>
+                  {currencyList !== null &&
+                    currencyList.map((currency: any) => (
+                      <MenuItem value={currency} key={currency}>
+                        {currency}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
         )
       case 4:
         return (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid container direction="column">
-              <Grid item>
-                <TextField
-                  name="name"
-                  label="name"
-                  placeholder="Name"
-                  autoComplete="off"
-                  inputRef={register({ required: true, minLength: 3 })}
-                />
-                {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
-                {errors.name && errors.name.type === 'minLength' && (
-                  <Alert severity="error">Name should be at-least 3 characters.</Alert>
-                )}
-              </Grid>
-              <Grid item>
-                <Button type="submit" color="primary">
-                  Create Account
-                </Button>
-              </Grid>
+          <Grid container direction="column">
+            <Grid item>
+              {/* Sustituir por un icono cando existan*/}
+              <Typography>{kind}</Typography>
+              {/* Sustituir por icono*/}
+              <Typography>{name}</Typography>
+              {/* Sustituir por bandeira cando a resposta inclua os attributes*/}
+              <Typography>{country}</Typography>
+              {/* Sustituir por CODE cando a resposta inclua os attributes*/}
+              <Typography>{currency}</Typography>
             </Grid>
-          </form>
+            <Grid item>
+              <TextField
+                name="name"
+                defaultValue={name}
+                label="name"
+                placeholder="Name"
+                autoComplete="off"
+                inputRef={register()}
+              />
+              {errors.name && <Alert severity="error">{errors.name.message}</Alert>}
+            </Grid>
+          </Grid>
         )
       default:
         return 'Unknown step'
@@ -213,7 +258,7 @@ export const AddUserAccount = (props: any) => {
   }
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h6">Add User Account</Typography>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
@@ -221,19 +266,11 @@ export const AddUserAccount = (props: any) => {
             <StepLabel>{label}</StepLabel>
             <StepContent>
               <Typography>{getStepContent(index)}</Typography>
-              {/* <>
-                <Button disabled={activeStep === 0} onClick={handleBack}>
-                  Back
-                </Button>
-                <Button color="primary" disabled={activeStep === steps.length - 1} onClick={handleNext}>
-                  Next
-                </Button>
-              </> */}
             </StepContent>
           </Step>
         ))}
       </Stepper>
-      <>
+      <Grid>
         <Button onClick={handleClose}>Cancel</Button>
         <Button disabled={activeStep === 0} onClick={handleBack}>
           Back
@@ -241,9 +278,11 @@ export const AddUserAccount = (props: any) => {
         <Button color="primary" disabled={activeStep === steps.length - 1} onClick={handleNext}>
           Next
         </Button>
-        {/* @TODO: Replace the Next button with the Create Account/Submit Button {activeStep === 4}?? */}
+        <Button type="submit" disabled={activeStep !== steps.length - 1} color="primary">
+          Create Account
+        </Button>
         {/* @TODO: Mantener visible la seleccion a medida que se avanza en el stepper */}
-      </>
-    </>
+      </Grid>
+    </form>
   )
 }

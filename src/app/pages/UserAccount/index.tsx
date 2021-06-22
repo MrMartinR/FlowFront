@@ -22,38 +22,34 @@ export const UserAccountsPage = (props: any) => {
   /* Getting curret state of accounts list from store (Redux) */
   const { currentState } = useSelector((state: RootState) => ({ currentState: state.userAccounts }), shallowEqual)
 
-  const [selectedItemIndex, setSelectedItemIndex] = useState(0)
+  const [selectedUserAccountId, setSelectedUserAccountId] = useState(null as any)
   const [list, setList] = useState([])
   const [allTransactions, setAllTransactions] = useState([])
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(true)
   const [actionsLoading, setActionsLoading] = useState(true)
   const [singleAccount, setSingleAccount] = useState(null as any)
-  let selectedUserAccount = null as any
-
-  if (list.length > 0 && list[selectedItemIndex]) {
-    selectedUserAccount = list[selectedItemIndex]
-  }
   // peticion da lista de user Accounts
   useEffect(() => {
     dispatch(userAccountsActions.fetchUserAccountsList())
   }, [dispatch])
   // peticion dos details dun user account
   useEffect(() => {
-    if (selectedUserAccount) {
-      dispatch(userAccountsActions.fetchuserAccount(selectedUserAccount?.id))
+    if (selectedUserAccountId) {
+      dispatch(userAccountsActions.fetchuserAccount(selectedUserAccountId))
     }
-  }, [dispatch, selectedUserAccount])
+  }, [dispatch, selectedUserAccountId])
   // peticion dos trasactions dun user account
   useEffect(() => {
-    if (selectedUserAccount) {
-      dispatch(userAccountsActions.fetchAccountTransaction(selectedUserAccount?.id))
+    if (selectedUserAccountId) {
+      dispatch(userAccountsActions.fetchAccountTransaction(selectedUserAccountId))
     }
-  }, [dispatch, selectedUserAccount])
+  }, [dispatch, selectedUserAccountId])
   // actualiza a lista de userAccounts cos datos do state
   useEffect(() => {
     if (currentState.userAccountsTable) {
       setList(currentState.userAccountsTable)
+      setSelectedUserAccountId(currentState.userAccountsTable[0]?.id)
     }
   }, [currentState.userAccountsTable])
   // actualiza a lista de tranactions cos datos do state
@@ -80,7 +76,7 @@ export const UserAccountsPage = (props: any) => {
   return (
     <Grid container direction="row" item xs={12} className={classes.root}>
       <Grid item xs={3}>
-        <UserAccountsList isLoading={isLoading} list={list} setSelectedItemIndex={setSelectedItemIndex} />
+        <UserAccountsList isLoading={isLoading} list={list} setSelectedUserAccountId={setSelectedUserAccountId} />
       </Grid>
       <Grid item xs={9}>
         <UserAccountsDetails

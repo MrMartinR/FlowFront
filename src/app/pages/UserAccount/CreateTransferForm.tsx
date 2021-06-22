@@ -1,5 +1,5 @@
 import { FormLabel, Typography } from '@material-ui/core'
-import { Button, Grid, TextField, LinearProgress, FormControl, MenuItem } from '@material-ui/core'
+import { Button, Grid, TextField, LinearProgress, FormControl, MenuItem, InputAdornment } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -143,14 +143,17 @@ export const CreateTransferForm = (props: any) => {
           <Grid item xs={4}>
             <FormControl fullWidth>
               <FormLabel>Amount</FormLabel>
-              <Grid container>
-                <Grid item xs={7}>
-                  <TextField name="amount" placeholder="Amount" inputRef={register()} />
-                </Grid>
-                <Grid item xs={5}>
-                  <Typography>{currentState.userAccountsDetails.attributes.currency.code}</Typography>
-                </Grid>
-              </Grid>
+              <TextField
+                name="amount"
+                type='number'
+                placeholder="Amount"
+                defaultValue={0}
+                inputProps={{ step: "0.01" }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">{currentState.userAccountsDetails.attributes.currency.code}</InputAdornment>,
+                }}
+                inputRef={register()}
+              />
             </FormControl>
           </Grid>
         </Grid>
@@ -164,17 +167,17 @@ export const CreateTransferForm = (props: any) => {
           <Grid item xs={4}>
             <FormControl fullWidth>
               <FormLabel>FX</FormLabel>
-              <Grid container>
-                <Grid item xs={7}>
-                  {/* @TODO: Por defecto debe cubrirse el fx que esta en la DB, pero tiene que poder ser editado por el user
-                   * para la transfer q se va a realizar, no se guarda en la DB, por ejemplo el fx de EUR USD de la BD muestra 0.84,
-                   * pero el FX real que le aplico su banco al hacer la conversion fue de 0.82*/}
-                  <TextField name="fx" value={fx2 / fx1} placeholder="FX" inputRef={register()} />
-                </Grid>
-                <Grid item xs={5}>
-                  <Typography>{userAccount?.attributes?.currency.code}</Typography>
-                </Grid>
-              </Grid>
+              <TextField
+                name="fx"
+                defaultValue={fx2 / fx1}
+                type='number'
+                placeholder="FX"
+                inputProps={{ step: "0.01" }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">{userAccount?.attributes?.currency.code}</InputAdornment>,
+                }}
+                inputRef={register()}
+              />
             </FormControl>
           </Grid>
         </Grid>

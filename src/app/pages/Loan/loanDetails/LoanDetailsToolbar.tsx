@@ -1,7 +1,21 @@
-import { Grid, Button, ButtonBase, Typography, Toolbar, Avatar, makeStyles, Container } from '@material-ui/core/'
+import {
+  Grid,
+  Button,
+  ButtonBase,
+  Typography,
+  Toolbar,
+  Avatar,
+  makeStyles,
+  Container,
+  Dialog,
+  DialogContent,
+} from '@material-ui/core/'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import IconOption from '../../../../common/layout/components/icons/Option'
-
+import * as loansActions from './../state/loansActions'
+import { LoanEdit } from './LoanEdit'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -15,7 +29,8 @@ const useStyles = makeStyles({
 
 export const LoanDetailsToolbar = (props: any) => {
   const classes = useStyles()
-
+  const [open, setOpen] = useState(false)
+  const [edit, setEdit] = useState(false)
   const { loanDetails } = props
   const linkTo = useHistory()
   // Se premes no icono do platform leva a paxina dos details do platform
@@ -26,8 +41,53 @@ export const LoanDetailsToolbar = (props: any) => {
   const handleOriginator = (e: any) => {
     linkTo.push(`/originators/${loanDetails.attributes?.originator.id}`)
   }
+  // funcion que abre o dialog de edit ou delete
+  const handleOpen = (e: any, value: any) => {
+    if (value === 'edit') setEdit(true)
+    if (value === 'delete') setEdit(false)
+    setOpen(true)
+  }
+  // funcion que pecha o dialog
+  const handleClose = () => {
+    setOpen(false)
+  }
+   // funcion que chama a accion de borrar o contact seleccionado
+   const dispatch = useDispatch()
+   const handleDelete = () => {
+    dispatch(loansActions.deleteLoan(loanDetails.id))
+    handleClose()
+  }
+// corpo do dialog de edit ou delete
+const body =
+edit === true ? (
+  <>
+    <Typography variant="h4">Edit Loan</Typography>
+    <LoanEdit loanDetails={loanDetails} handleClose={handleClose} handleOpen={handleOpen} />
+  </>
+) : (
+  <>
+    <Typography variant="h4" paragraph>
+      Delete Loan
+    </Typography>
+    <Typography paragraph variant="body1">
+      Are you sure you want to delete the loan?
+    </Typography>
+    <Grid container justify="space-between">
+      <Button onClick={handleClose}>Cancel</Button>
+      <Button onClick={handleDelete} color="secondary">
+        Delete
+      </Button>
+    </Grid>
+  </>
+)
   return (
     <Container>
+      {/* edit contact dialog */}
+      <>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogContent>{body}</DialogContent>
+        </Dialog>
+      </>
       <Toolbar variant="dense" className={classes.root}>
         {/* <Grid container> */}
         <Grid container>
@@ -83,7 +143,9 @@ export const LoanDetailsToolbar = (props: any) => {
               Link
             </Button>
             {/* // Only visible to Admin/Contributors */}
-            <Button><IconOption /></Button>
+            <Button onClick={(e) => handleOpen(e, 'edit')} color="primary">
+              <IconOption />
+            </Button>
           </Grid>
           {/* </Grid> */}
         </Grid>

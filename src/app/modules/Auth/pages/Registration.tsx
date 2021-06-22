@@ -20,11 +20,12 @@ import {
 } from '@material-ui/core'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
-import { countriesList } from '../data/countriesList'
+import { countriesList } from './../../../utils/types'
 import { UserAlert } from '../../../utils/UserAlert'
 import { RootState } from '../../../../redux/rootReducer'
 import { Alert } from '@material-ui/lab'
-
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 /* initializing values */
 const initialValues = {
   email: '',
@@ -61,6 +62,32 @@ export const Registration = () => {
   /* styles */
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
+  const RegistrationSchema = Yup.object().shape({
+    email: Yup.string()
+      .required('Email is required')
+      .email('Entered value does not match email format')
+      .min(3, 'Email should be at-least 3 characters.'),
+    username: Yup.string()
+      .required('Username is required')
+      .min(3, 'Username should be at-least 3 characters.')
+      .max(50, 'Username should be less than 50 characters'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(3, 'Password should be at-least 3 characters.')
+      .max(50, 'Password should be less than 50 characters'),
+    name: Yup.string()
+      .required('Name is required')
+      .min(3, 'Name should be at-least 3 characters.')
+      .max(50, 'Name should be less than 50 characters'),
+    acceptTerms: Yup.boolean()
+      .required('You must accept the terms and conditions')
+      .oneOf([true], 'You must accept the terms and conditions'),
+  })
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(RegistrationSchema),
+    defaultValues: initialValues,
+  })
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.auth,
@@ -76,16 +103,11 @@ export const Registration = () => {
   const handleClose = () => {
     setOpen(false)
   }
-
-  const { register, handleSubmit, errors } = useForm({
-    defaultValues: initialValues,
-  })
-
   const dispatch = useDispatch()
   const resetSuccess = () => {
     dispatch(authActions.resetSuccess())
   }
-  const [country, setCountry] = useState('61c2888b-8b6a-4536-830f-3a14e86a9cd5')
+  const [country, setCountry] = useState(countriesList[0].id)
   const handleCountry = (e: any) => {
     setCountry(e.target.value)
   }
@@ -131,123 +153,50 @@ export const Registration = () => {
             {/* begin: Name */}
             <FormControl fullWidth size="small">
               <FormLabel>Name</FormLabel>
-              <OutlinedInput
-                name="name"
-                type="text"
-                autoComplete="on"
-                inputRef={register({ required: true, minLength: 3, maxLength: 50 })}
-                fullWidth
-              />
+              <OutlinedInput name="name" type="text" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Type your name</FormHelperText>
-              {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
-              {errors.name && errors.name.type === 'minLength' && (
-                <Alert severity="error">Name should be at-least 3 characters.</Alert>
-              )}
-              {errors.name && errors.name.type === 'maxLength' && (
-                <Alert severity="error">Name should be less than 50 characters.</Alert>
-              )}
+              {errors.name && <Alert severity="error">{errors.name.message}</Alert>}
             </FormControl>
             {/* end: Name */}
             {/* begin: Email */}
             <FormControl fullWidth size="small">
               <FormLabel>Email</FormLabel>
-              <OutlinedInput
-                name="email"
-                type="email"
-                autoComplete="on"
-                inputRef={register({
-                  required: true,
-                  minLength: 3,
-                  maxLength: 50,
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: 'Entered value does not match email format',
-                  },
-                })}
-                fullWidth
-              />
+              <OutlinedInput name="email" type="email" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Type your email</FormHelperText>
-              {errors.email && errors.email.type === 'required' && <Alert severity="error">Email is required</Alert>}
-              {errors.email && errors.email.type === 'minLength' && (
-                <Alert severity="error">Email should be at-least 3 characters.</Alert>
-              )}
-              {errors.email && errors.email.type === 'maxLength' && (
-                <Alert severity="error">Email should be less than 50 characters.</Alert>
-              )}
-              {errors.email && errors.email.type === 'pattern' && (
-                <Alert severity="error">{errors.email.message}</Alert>
-              )}
+              {errors.email && <Alert severity="error">{errors.email.message}</Alert>}
             </FormControl>
             {/* end: Email */}
             {/* begin: Username */}
             <FormControl fullWidth size="small">
               <FormLabel>Username</FormLabel>
-              <OutlinedInput
-                name="username"
-                type="text"
-                autoComplete="on"
-                inputRef={register({ required: true, minLength: 3, maxLength: 50 })}
-                fullWidth
-              />
+              <OutlinedInput name="username" type="text" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Choose a username</FormHelperText>
-              {errors.username && errors.username.type === 'required' && <Alert severity="error">Username is required</Alert>}
-              {errors.username && errors.username.type === 'minLength' && (
-                <Alert severity="error">Username should be at-least 3 characters.</Alert>
-              )}
-              {errors.username && errors.username.type === 'maxLength' && (
-                <Alert severity="error">Username should be less than 50 characters.</Alert>
-              )}
+              {errors.username && <Alert severity="error">{errors.username.message}</Alert>}
             </FormControl>
             {/* end: Username */}
             {/* begin: Password */}
             <FormControl fullWidth size="small">
               <FormLabel>Password</FormLabel>
-              <OutlinedInput
-                name="password"
-                type="password"
-                autoComplete="on"
-                inputRef={register({
-                  required: true,
-                  minLength: 3,
-                  maxLength: 50,
-                })}
-                fullWidth
-              />
+              <OutlinedInput name="password" type="password" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Choose a password</FormHelperText>
-              {errors.password && errors.password.type === 'required' && <Alert severity="error">Password is required</Alert>}
-              {errors.password && errors.password.type === 'minLength' && (
-                <Alert severity="error">Password should be at-least 3 characters.</Alert>
-              )}
-              {errors.password && errors.password.type === 'maxLength' && (
-                <Alert severity="error">Password should be less than 50 characters.</Alert>
-              )}
+              {errors.password && <Alert severity="error">{errors.password.message}</Alert>}
             </FormControl>
             {/* end: Password */}
-
             {/* begin: Terms and Conditions */}
             <Grid>
-              <FormControlLabel
-                control={
-                  <Checkbox name="acceptTerms" inputRef={register({ required: true })} />
-                }
-                label="I accept the"
-              />
+              <FormControlLabel control={<Checkbox name="acceptTerms" inputRef={register()} />} label="I accept the" />
               <Button onClick={handleOpen}>Terms & Conditions.</Button>
             </Grid>
-            {errors.acceptTerms && errors.acceptTerms.type === 'required' && <Alert severity="error">
-              You must accept terms and conditions
-            </Alert>}
+            {errors.acceptTerms && <Alert severity="error">{errors.acceptTerms.message}</Alert>}
 
             <FormControl fullWidth size="small">
               <Button disabled={loading} type="submit" color="primary">
                 Sign Up
               </Button>
             </FormControl>
-
             <Typography variant="body2" align="center">
               Already registered? <Link to="/auth/login">Sign in</Link>
             </Typography>
-
             {/* end: Terms and Conditions */}
           </Grid>
         </form>
@@ -324,7 +273,9 @@ export const Registration = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color='primary'>Close</Button>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </Grid>

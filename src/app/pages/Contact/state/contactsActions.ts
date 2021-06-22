@@ -73,7 +73,7 @@ export const updateContact = (data: any, id: any) => (dispatch: any) => {
       dispatch(actions.contactUpdate(data))
     })
     .catch((error) => {
-      error.clientMessage = "Can't find contact methods"
+      error.clientMessage = "Can't find contact"
       dispatch(actions.catchError({ error, callType: callTypes.action }))
     })
 }

@@ -15,9 +15,10 @@ import {
 } from '@material-ui/core'
 import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
-import { types } from './AddContactMethodForm'
+import { contactMethodTypes } from './../../../utils/types'
 import { Alert } from '@material-ui/lab'
-
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -40,9 +41,16 @@ export const EditContactMethodForm = (props: any) => {
   const [formData, setFormData] = useState(null as any)
   const [params, SetParams] = useState('' as any)
   const [type, setType] = useState(edit.kind)
-  const dispatch = useDispatch()
-  const { register, handleSubmit, errors } = useForm()
+  const EditContactMethodSchema = Yup.object().shape({
+    data: Yup.string()
+    .required('Data is required')
+    .min(3, 'Data should be at-least 3 characters.')
+  })
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(EditContactMethodSchema),
+  })
   // funcion que prepara os datos do formulario para o envio
+  const dispatch = useDispatch()
   const onSubmit = ({ kind, data }: EditContactMethodType) => {
     SetParams(edit.id)
     const form = {
@@ -75,15 +83,13 @@ export const EditContactMethodForm = (props: any) => {
                 <TextField
                   value={type}
                   onChange={handleChange}
-                  inputRef={register}
                   select
                   name="kind"
-                  // label="Type"
                   variant="outlined"
                   size="small"
                   className={classes.type}
                 >
-                  {types.map((option) => (
+                  {contactMethodTypes.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -92,7 +98,7 @@ export const EditContactMethodForm = (props: any) => {
                 {/* data */}
                 <FormLabel>Data</FormLabel>
                 <TextField
-                  inputRef={register({ required: true, minLength: 3 })}
+                  inputRef={register()}
                   autoComplete="off"
                   defaultValue={edit.data}
                   name="data"
@@ -101,11 +107,7 @@ export const EditContactMethodForm = (props: any) => {
                   variant="outlined"
                   size="small"
                 />
-
-                {errors.data && errors.data.type === 'required' && <Alert severity="error">Data is required</Alert>}
-                {errors.data && errors.data.type === 'minLength' && (
-                  <Alert severity="error">Data should be at-least 3 characters.</Alert>
-                )}
+                {errors.data && <Alert severity="error">{errors.data.message}</Alert>}
               </FormControl>
             </CardContent>
           </Grid>

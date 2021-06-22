@@ -4,70 +4,9 @@ import { Grid, TextField, Button, FormControl, FormLabel, CardHeader, MenuItem, 
 import * as contactsActions from './../state/contactsActions'
 import { useDispatch } from 'react-redux'
 import { Alert } from '@material-ui/lab'
-/* define the types */
-export const types = [
-  {
-    value: 'Address',
-    label: 'Address',
-  },
-  {
-    value: 'Email',
-    label: 'Email',
-  },
-  {
-    value: 'Phone',
-    label: 'Phone',
-  },
-  {
-    value: 'Skype',
-    label: 'Skype',
-  },
-  {
-    value: 'Telegram',
-    label: 'Telegram',
-  },
-  {
-    value: 'Instagram',
-    label: 'Instagram',
-  },
-  {
-    value: 'FB Page',
-    label: 'FB Page',
-  },
-  {
-    value: 'FB Profile',
-    label: 'FB Profile',
-  },
-  {
-    value: 'FB Group',
-    label: 'FB Group',
-  },
-  {
-    value: 'LinkedIn',
-    label: 'LinkedIn',
-  },
-  {
-    value: 'Twitter',
-    label: 'Twitter',
-  },
-  {
-    value: 'Vimeo',
-    label: 'Vimeo',
-  },
-  {
-    value: 'YouTube',
-    label: 'YouTube',
-  },
-  {
-    value: 'Web',
-    label: 'Web',
-  },
-  {
-    value: 'Other',
-    label: 'Other',
-  },
-]
-/* types */
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { contactMethodTypes } from './../../../utils/types'
 type AddContactMethodType = {
   data: string
 }
@@ -75,14 +14,21 @@ export const AddContactMethodForm = (props: any) => {
   const { selectedContact, handleClose } = props
   const [type, setType] = useState('Address')
   const [formData, setFormData] = useState(null as any)
+  const AddContactMethodSchema = Yup.object().shape({
+    data: Yup.string()
+    .required('Data is required')
+    .min(3, 'Data should be at-least 3 characters.')
+  })
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(AddContactMethodSchema),
+  })
+  
   // garda o tipo de contact method seleccionado na lista
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value)
   }
-  const { register, handleSubmit, errors } = useForm()
-  const dispatch = useDispatch()
-
   // Prepara os datos para enviar e pecha o dialog
+  const dispatch = useDispatch()
   const onSubmit = ({ data }: AddContactMethodType) => {
     const form = {
       data,
@@ -110,13 +56,12 @@ export const AddContactMethodForm = (props: any) => {
           <TextField
             value={type}
             onChange={handleChange}
-            inputRef={register}
             select
             name="Type"
             variant="outlined"
             size="small"
           >
-            {types.map((option) => (
+            {contactMethodTypes.map((option) => (
               <MenuItem value={option.value} key={option.value}>
                 {option.label}
               </MenuItem>
@@ -130,14 +75,10 @@ export const AddContactMethodForm = (props: any) => {
             multiline
             margin="dense"
             autoComplete="off"
-            inputRef={register({ required: true, minLength: 3 })}
+            inputRef={register()}
           />
         </FormControl>
-        {/* @TODO: Replace validations to no empty */}
-        {errors.data && errors.data.type === 'required' && <Alert severity="error">Data is required</Alert>}
-        {errors.data && errors.data.type === 'minLength' && (
-          <Alert severity="error">Data should be at-least 3 characters.</Alert>
-        )}
+        {errors.data && <Alert severity="error">{errors.data.message}</Alert>}
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" color="primary">

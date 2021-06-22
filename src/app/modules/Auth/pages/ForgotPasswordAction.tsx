@@ -8,15 +8,16 @@ import queryString from 'query-string'
 import { RootState } from '../../../../redux/rootReducer'
 import { UserAlert } from '../../../utils/UserAlert'
 import { Alert } from '@material-ui/lab'
-
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 const initialValues = {
   password: '',
   changepassword: '',
 }
 
 type ForgotPasswordType = {
-  password: any
-  changepassword: any
+  password: string
+  changepassword: string
 }
 
 /**
@@ -28,8 +29,19 @@ export const ForgotPasswordAction = (props: any) => {
   const { client = '' } = queryString.parse(search)
   const { uid = '' } = queryString.parse(search)
   const { expiry = '' } = queryString.parse(search)
-
-  const { register, handleSubmit, errors, watch } = useForm({
+  const ForgotPasswordSchema = Yup.object().shape({
+    password: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Required'),
+    changepassword: Yup.string()
+      .min(3, 'Minimum 3 symbols')
+      .max(50, 'Maximum 50 symbols')
+      .required('Required')
+      .when('password', {
+        is: (val: any) => !!(val && val.length > 0),
+        then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
+      }),
+  })
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
   const dispatch = useDispatch()
@@ -73,18 +85,10 @@ export const ForgotPasswordAction = (props: any) => {
                 variant="outlined"
                 autoComplete="off"
                 type="password"
-                inputRef={register({ required: true, minLength: 3, maxLength: 50 })}
+                inputRef={register()}
                 name="password"
               />
-              {errors.password && errors.password.type === 'required' && (
-                  <Alert severity="error">Password is required</Alert>
-                )}
-              {errors.password && errors.password.type === 'minLength' && (
-                  <Alert severity="error">Password should be at-least 3 characters.</Alert>
-                )}
-              {errors.password && errors.password.type === 'maxLength' && (
-                  <Alert severity="error">Username should be less than 50 characters.</Alert>
-                )}
+              {errors.password && <Alert severity="error">{errors.password.message}</Alert>}
             </FormControl>
             {/* end: Password */}
 
@@ -97,20 +101,9 @@ export const ForgotPasswordAction = (props: any) => {
                 autoComplete="off"
                 type="password"
                 name="changepassword"
-                inputRef={register({ required: true, minLength: 3, maxLength: 50, validate: (value) => {return value===watch('password')} })}
+                inputRef={register()}
               />
-              {errors.changepassword && errors.changepassword.type === 'required' && (
-                  <Alert severity="error">Password is required</Alert>
-                )}
-              {errors.changepassword && errors.changepassword.type === 'minLength' && (
-                  <Alert severity="error">Password should be at-least 3 characters.</Alert>
-                )}
-              {errors.changepassword && errors.changepassword.type === 'maxLength' && (
-                  <Alert severity="error">Username should be less than 50 characters.</Alert>
-                )}
-              {errors.changepassword && errors.changepassword.type === 'validate' && (
-                  <Alert severity="error">Password and Confirm Password didn't match</Alert>
-                )}
+              {errors.changepassword && <Alert severity="error">{errors.changepassword.message}</Alert>}
               {/* end: Confirm Password */}
 
               <Button type="submit" variant="contained">

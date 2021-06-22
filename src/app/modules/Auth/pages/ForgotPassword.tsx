@@ -18,6 +18,8 @@ import { UserAlert } from '../../../utils/UserAlert'
 import { RootState } from '../../../../redux/rootReducer'
 import { useEffect, useState } from 'react'
 import { Alert } from '@material-ui/lab'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 /* Styles */
 const useStyles = makeStyles({
@@ -44,8 +46,14 @@ export const ForgotPassword = () => {
   /* styles */
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
-  
+  const ForgotPasswordSchema = Yup.object().shape({
+    email: Yup.string()
+      .required('Email is required')
+      .min(3, 'Email should be at-least 3 characters.')
+      .email('Entered value does not match email format'),
+  })
   const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
   })
   const dispatch = useDispatch()
@@ -80,38 +88,17 @@ export const ForgotPassword = () => {
             {/* begin: Email */}
             <FormControl fullWidth size="small">
               <FormLabel>Email</FormLabel>
-              <OutlinedInput
-                name="email"
-                type="email"
-                autoComplete="on"
-                inputRef={register({
-                  required: true,
-                  minLength: 3,
-                  maxLength: 50,
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: 'Entered value does not match email format',
-                  },
-                })}
-                fullWidth
-              />
+              <OutlinedInput name="email" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>
                 Enter your linked Flow email to receive instructions to set a new password
               </FormHelperText>
-              {errors.email && errors.email.type === 'required' && <Alert severity="error">Email is required</Alert>}
-              {errors.email && errors.email.type === 'minLength' && (
-                <Alert severity="error">Email should be at-least 3 characters.</Alert>
-              )}
-              {errors.email && errors.email.type === 'maxLength' && (
-                <Alert severity="error">Email should be less than 50 characters.</Alert>
-              )}
-              {errors.email && errors.email.type === 'pattern' && (
-                <Alert severity="error">{errors.email.message}</Alert>
-              )}
+              {errors.email && <Alert severity="error">{errors.email.message}</Alert>}
             </FormControl>
             {/* end: Email */}
 
-            <Button disabled={loading} type="submit" color='primary'>Request new Password</Button>
+            <Button disabled={loading} type="submit" color="primary">
+              Request new Password
+            </Button>
             <Typography variant="body2" align="center">
               Already registered? <Link to="/auth/login">Sign in</Link>
             </Typography>
