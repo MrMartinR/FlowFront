@@ -24,3 +24,18 @@ export const LOANS_URL = `${API_URL}/api/v1/loans`
    export const getLoanById = (id: any) => {
     return axios.get(`${LOANS_URL}/${id}`, optionsHeaders());
   }
+  /*
+ * promise function to process the axios puts given data
+ * sends header/ authorization
+ */
+export const updateLoan = (data: any, id: any) => {
+  const form = {
+    contact: data,
+  }
+
+  return axios.put(`${LOANS_URL}/${id}`, form, optionsHeaders())
+}
+  export const deleteLoan = (id: any) => {
+    return axios.delete(`${LOANS_URL}/${id}`, optionsHeaders())
+  }
+  

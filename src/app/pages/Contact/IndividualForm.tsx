@@ -6,7 +6,8 @@ import { TextField, Button, Grid } from '@material-ui/core'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import * as contactsActions from './state/contactsActions'
 import Alert from '@material-ui/lab/Alert'
-
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -17,9 +18,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const IndividualForm = (props: any) => {
   const { kind, visibility, country, handleClose } = props
-  const { register, handleSubmit, errors } = useForm()
   const classes = useStyles()
   const [formData, setFormData] = useState(null as any)
+  const AddContactSchema = Yup.object().shape({
+    name: Yup.string()
+      .required('Name is required')
+      .min(3, 'Name should be at-least 3 characters.')
+      .max(50, 'Name should be less than 50 characters'),
+  })
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(AddContactSchema),
+  })
   // preparacion dos datos do formulario
   const onSubmit = (data: any, e: any) => {
     data = {
@@ -42,22 +51,13 @@ export const IndividualForm = (props: any) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
-        <TextField
-          name="kind"
-          label="Kind"
-          disabled
-          value={kind}
-          variant="filled"
-          inputRef={register}
-          className={classes.root}
-        />
+        <TextField name="kind" label="Kind" disabled value={kind} variant="filled" className={classes.root} />
         <TextField
           name="visibility"
           label="Select"
           variant="filled"
           value={visibility}
           disabled
-          inputRef={register}
           className={classes.root}
         ></TextField>
         <TextField
@@ -66,14 +66,11 @@ export const IndividualForm = (props: any) => {
           variant="outlined"
           placeholder="Name"
           autoComplete="off"
-          inputRef={register({ required: true, minLength: 3 })}
+          inputRef={register()}
           className={classes.root}
         />
-          {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
-          {errors.name && errors.name.type === 'minLength' && (
-            <Alert severity="error">Name should be at-least 3 characters.</Alert>
-          )}
-        <Button type="submit" color='primary'>
+        {errors.name && <Alert severity="error">{errors.name.message}</Alert>}
+        <Button type="submit" color="primary">
           Save
         </Button>
       </Grid>
