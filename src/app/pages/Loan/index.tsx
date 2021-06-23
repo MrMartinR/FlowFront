@@ -78,8 +78,8 @@ export const LoansPage = () => {
     })
   // actualizanse os flags de loading cos datos do state
   useEffect(() => {
-    setIsLoading(currentState.loading)
-  }, [currentState.loading])
+    setIsLoading(currentState.listLoading)
+  }, [currentState.listLoading])
   // funcion que se pasa como parametro o snackbar para resetear a mensaxe
   const resetSuccess = () => {
     dispatch(loansActions.resetSuccess())

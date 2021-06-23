@@ -9,11 +9,10 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  TextField,
   Switch,
   Grid,
 } from '@material-ui/core'
-import { Autocomplete, ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 
 /* styles */
 const useStyles = makeStyles({
@@ -45,8 +44,7 @@ export const UserAccountsList = (props: any) => {
   /* styles */
   const classes = useStyles()
 
-  const { setSelectedItemIndex, isLoading, list } = props
-  const [options, setOptions] = useState([] as any)
+  const { setSelectedUserAccountId, isLoading, list } = props
   const [active, setActive] = useState(false)
   const [listFiltered, setListFiltered] = useState([] as any)
   const [listFilteredToggle, setListFilteredToggle] = useState([] as any)
@@ -57,16 +55,6 @@ export const UserAccountsList = (props: any) => {
   const handleChange = (e: any) => {
     setActive(e.target.checked)
   }
-  useEffect(() => {
-    let opt = [] as any
-    if (listFilteredToggle.length >= 1) {
-      listFilteredToggle.map((option: any) => {
-        opt.push(option.attributes.name)
-        return opt
-      })
-    }
-    setOptions(opt)
-  }, [listFilteredToggle])
   useEffect(() => {
     let l
     if (kind === null) {
@@ -84,20 +72,9 @@ export const UserAccountsList = (props: any) => {
       } else setListFiltered(list)
     }
   }, [list, active])
-  const handlePick = (e: any, v: any) => {
-    let selected = listFilteredToggle.findIndex((itm: any) => itm.attributes.name === v)
-    setSelectedItemIndex(selected)
-  }
+  
   return (
     <Container className={classes.root}>
-      {/* @REV: Decidir si cepillarme este buscador (probablemente si) */}
-      {/* <Autocomplete
-        freeSolo
-        options={options}
-        onChange={handlePick}
-        renderInput={(params: any) => <TextField {...params} size="small" label="Search" />}
-      /> */}
-
       <Grid container>
         <Grid item xs={10}>
           <ToggleButtonGroup value={kind} exclusive onChange={handleKind}>
@@ -136,7 +113,7 @@ export const UserAccountsList = (props: any) => {
               <ListItem
                 button
                 onClick={(e) => {
-                  setSelectedItemIndex(idx)
+                  setSelectedUserAccountId(item.id)
                 }}
               >
                 <ListItemAvatar>

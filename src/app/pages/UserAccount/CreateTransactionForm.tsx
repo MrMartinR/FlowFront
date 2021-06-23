@@ -1,56 +1,28 @@
-import { Button, Grid, TextField, FormControl, MenuItem, Typography, FormLabel } from '@material-ui/core'
+import { Button, Grid, TextField, FormControl, Typography, FormLabel, NativeSelect, InputAdornment } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import * as userAccountsActions from './state/userAccountsActions'
-const categoriesIncome = [
-  {
-    value: 'Bonus',
-    name: 'Bonus',
-  },
-  {
-    value: 'Income',
-    name: 'Income',
-  },
-  {
-    value: 'Referral',
-    name: 'Referral',
-  },
-]
-const categoriesOutcome = [
-  {
-    value: 'Expense',
-    name: 'Expense',
-  },
-  {
-    value: 'Fee',
-    name: 'Fee',
-  },
-  {
-    value: 'Tax',
-    name: 'Tax',
-  },
-]
 
 export const CreateTransactionForm = (props: any) => {
   const { handleClose } = props
   const { register, handleSubmit } = useForm()
   const [formData, setFormData] = useState(null as any)
   const [today, setToday] = useState('')
-  const [income, setIncome] = useState('Bonus')
-  const [outcome, setOutcome] = useState('Expense')
-  const [kind, setKind] = useState('')
+  const [category, setCategory] = useState('Bonus')
+  const [kind, setKind] = useState('Income')
   const { currentState } = useSelector((state: RootState) => ({ currentState: state.userAccounts }), shallowEqual)
   const dispatch = useDispatch()
   // onSubmit garda os datos do formulario nunha variable e pecha o formulario
   const onSubmit = (data: any) => {
-    let category
-    if (kind === 'Income') {
-      category = income
-    } else category = outcome
+    let amount
+    if (kind ==='Income') {
+      amount = data.amount
+    } else amount = -1*data.amount
     const form = {
       ...data,
+      amount,
       kind,
       category,
       user_account_id: currentState.userAccountsDetails.id,
@@ -75,17 +47,11 @@ export const CreateTransactionForm = (props: any) => {
     const day = date.getDate()
     setToday(`${year}-${month}-${day}`)
   }, [setToday])
-  const handleInputChange = (e: any) => {
-    const amount = e.target.value
-    if (amount < 0) {
+  const handleCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(event.target.value)
+    if (event.target.value === 'Bonus' || event.target.value === 'Income' || event.target.value === 'Referral') {
       setKind('Income')
     } else setKind('Outcome')
-  }
-  const handleIncome = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIncome(event.target.value)
-  }
-  const handleOutcome = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOutcome(event.target.value)
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -101,36 +67,35 @@ export const CreateTransactionForm = (props: any) => {
           <Grid item xs={3}>
             <FormControl fullWidth>
               <FormLabel>Category</FormLabel>
-              {kind === 'Income' ? (
-                <TextField select value={income} name="income" onChange={handleIncome}>
-                  {categoriesIncome.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              ) : (
-                <TextField select value={outcome} name="outcome" onChange={handleOutcome}>
-                  {categoriesOutcome.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
+              <NativeSelect value={category} name="category" onChange={handleCategory}>
+                <optgroup label="Income">
+                  <option value="Bonus">Bonus</option>
+                  <option value="Income">Income</option>
+                  <option value="Referral">Referral</option>
+                </optgroup>
+                <optgroup label="Outcome">
+                  <option value="Expense">Expense</option>
+                  <option value="Fee">Fee</option>
+                  <option value="Tax">Tax</option>
+                </optgroup>
+              </NativeSelect>
             </FormControl>
           </Grid>
           <Grid item xs={4}>
             <FormControl fullWidth>
-              <Grid container>
-                <Grid item xs={7}>
-                  <FormLabel>Amount</FormLabel>
-                  <TextField name="amount" placeholder="Amount" onChange={handleInputChange} inputRef={register()} />
-                </Grid>
-                <Grid item xs={5}>
-                  <Typography>{currentState.userAccountsDetails.attributes.currency.code}</Typography>
-                </Grid>
-              </Grid>
+              <FormLabel>Amount</FormLabel>
+              <TextField
+                name="amount"
+                type='number'
+                placeholder="Amount"
+                defaultValue={0}
+                inputProps={{ step: "0.01" }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">{kind==='Outcome'&&'-'}</InputAdornment>,
+                  endAdornment: <InputAdornment position="end">{currentState.userAccountsDetails.attributes.currency.code}</InputAdornment>,
+                }}
+                inputRef={register()}
+              />
             </FormControl>
           </Grid>
         </Grid>

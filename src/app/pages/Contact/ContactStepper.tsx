@@ -64,7 +64,7 @@ export const VerticalLinearStepper = (props: any) => {
       if (countryState.error === null) {
         setList(countryState.countryTable.entities)
         setIsLoading(countryState.listLoading)
-        setCountry('a8891cb3-dca8-4d0e-a3bf-463f9ecce594')
+        setCountry(countryState.countryTable.entities[0].id)
       } else {
         alert(countryState.error)
       }
