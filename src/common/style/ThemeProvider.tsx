@@ -51,6 +51,17 @@ const theme = createMuiTheme({
       margin: 'dense',
     },
 
+    MuiFormControl: {
+      variant: 'outlined',
+    },
+
+    MuiInput: {
+      margin: 'dense',
+    },
+    MuiOutlinedInput: {
+      margin: 'dense',
+    },
+
     /* Set default elevation to 0 for cards */
     MuiCard: {
       elevation: 0,
