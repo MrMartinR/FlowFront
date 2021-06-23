@@ -2,6 +2,8 @@ import { Grid, CardMedia, LinearProgress, makeStyles } from '@material-ui/core/'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
 
 import { useHistory } from 'react-router'
+import IconBusiness from '../../../common/layout/components/icons/Business'
+import IconConsumer from '../../../common/layout/components/icons/Consumer'
 
 /* styles */
 const useStyles = makeStyles({
@@ -30,7 +32,26 @@ const columns: GridColDef[] = [
       />
     ),
   },
-  { field: 'customer_category', headerName: 'Customer', width: 250 },
+  /* @TODO: Fix this crap combination */
+  {
+    field: 'customer_category',
+    headerName: 'Customer',
+    width: 80,
+    renderCell: (params: GridCellParams) =>
+      (params.value == 'Business' && <IconBusiness />) ||
+      (params.value == 'Consumer' && <IconConsumer />) ||
+      (params.value == 'Business,Consumer' && (
+        <>
+          <IconConsumer /> <IconBusiness />
+        </>
+      )) ||
+      (params.value == 'Consumer,Business' && (
+        <>
+          <IconConsumer /> <IconBusiness />
+        </>
+      )),
+  },
+  // { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
   { field: 'apr', headerName: 'APR', width: 100 },

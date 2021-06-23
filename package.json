@@ -30,8 +30,8 @@
     "dependenciesDocumentation": "https://dev.flowfin.tech/docs-front/dependencies.html"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-react": "^3.0.2",
     "@ckeditor/ckeditor5-build-classic": "^28.0.0",
+    "@ckeditor/ckeditor5-react": "^3.0.2",
     "@formatjs/intl-relativetimeformat": "^8.0.4",
     "@hookform/resolvers": "^1.3.4",
     "@manaflair/redux-batch": "1.0.0",
@@ -46,6 +46,8 @@
     "clipboard-copy": "4.0.1",
     "clsx": "1.1.1",
     "eslint-config-react-app": "^6.0.0",
+    "highcharts": "^9.1.2",
+    "highcharts-react-official": "^3.0.0",
     "object-path": "0.11.5",
     "perfect-scrollbar": "1.5.0",
     "prop-types": "15.7.2",
