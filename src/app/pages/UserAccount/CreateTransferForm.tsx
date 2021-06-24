@@ -12,6 +12,7 @@ export const CreateTransferForm = (props: any) => {
   const [today, setToday] = useState('')
   const [fx1, setFX1] = useState(null as any)
   const [fx2, setFX2] = useState(null as any)
+  const [fx, setFX] = useState(null as any)
   const [account, setAccount] = useState('')
   const [userAccount, setUserAccount] = useState(null as any)
   const [list, setList] = useState(null as any)
@@ -31,7 +32,7 @@ export const CreateTransferForm = (props: any) => {
   // Chama a accion createTransaction para orixe e destrino
   useEffect(() => {
     if (formData !== null) {
-      const amount2 = -1 * formData.amount * formData.fx
+      const amount2 = -1 * formData.amount * fx
       let kind1, kind2, notes
       if (formData.amount < 0) {
         kind1 = 'Outcome'
@@ -41,9 +42,9 @@ export const CreateTransferForm = (props: any) => {
         kind2 = 'Outcome'
       }
       if (formData.fx !== 1) {
-        notes = `Exchange Rate 1 ${currentState.userAccountsDetails.attributes.currency.code} = ${formData.fx} ${
+        notes = `Exchange Rate 1 ${currentState.userAccountsDetails.attributes.currency.code} = ${fx} ${
           userAccount?.attributes?.currency.code
-        }. Amount ${amount2 * formData.fx} ${userAccount?.attributes?.currency.code} `
+        }. Amount ${amount2 * fx} ${userAccount?.attributes?.currency.code} `
       } else notes = ''
       const transfer1 = {
         date: formData.date,
@@ -69,7 +70,7 @@ export const CreateTransferForm = (props: any) => {
       dispatch(userAccountsActions.createTransaction(transfer1))
       dispatch(userAccountsActions.createTransaction(transfer2))
     }
-  }, [dispatch, formData, currentState.userAccountsDetails, userAccount])
+  }, [dispatch, formData, currentState.userAccountsDetails, userAccount, fx])
   // Prepara o formato da fecha actual para por por defecto no datepicker
   useEffect(() => {
     const date = new Date()
@@ -111,8 +112,18 @@ export const CreateTransferForm = (props: any) => {
   useEffect(() => {
     if (userAccount?.attributes?.currency.fx_eur === 0) {
       setFX2('1')
+      setFX(null)
     } else setFX2(userAccount?.attributes?.currency.fx_eur)
   }, [userAccount])
+  useEffect(() => {
+    if (fx2!==null && fx1!==null) {
+      const x = fx2/fx1
+      setFX(x.toFixed(2))
+    }
+  }, [fx2, fx1])
+  const handleFX = (e:any) => {
+    setFX(e.target.value)
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h6">Create Transfer</Typography>
@@ -146,6 +157,7 @@ export const CreateTransferForm = (props: any) => {
               <TextField
                 name="amount"
                 type='number'
+                autoComplete="off"
                 placeholder="Amount"
                 defaultValue={0}
                 inputProps={{ step: "0.01" }}
@@ -161,7 +173,7 @@ export const CreateTransferForm = (props: any) => {
           <Grid item xs={8}>
             <FormControl fullWidth>
               <FormLabel>Description</FormLabel>
-              <TextField name="description" placeholder="Description" inputRef={register()} />
+              <TextField name="description" placeholder="Description"  autoComplete="off" inputRef={register()} />
             </FormControl>
           </Grid>
           <Grid item xs={4}>
@@ -169,14 +181,15 @@ export const CreateTransferForm = (props: any) => {
               <FormLabel>FX</FormLabel>
               <TextField
                 name="fx"
-                defaultValue={fx2 / fx1}
+                value={fx}
+                onChange={handleFX}
                 type='number'
+                autoComplete="off"
                 placeholder="FX"
                 inputProps={{ step: "0.01" }}
                 InputProps={{
                   endAdornment: <InputAdornment position="end">{userAccount?.attributes?.currency.code}</InputAdornment>,
                 }}
-                inputRef={register()}
               />
             </FormControl>
           </Grid>

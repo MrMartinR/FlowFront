@@ -66,18 +66,18 @@ export const Registration = () => {
     email: Yup.string()
       .required('Email is required')
       .email('Entered value does not match email format')
-      .min(3, 'Email should be at-least 3 characters.'),
+      .min(3, 'Email should be at least 3 characters.'),
     username: Yup.string()
       .required('Username is required')
-      .min(3, 'Username should be at-least 3 characters.')
+      .min(3, 'Username should be at least 3 characters.')
       .max(50, 'Username should be less than 50 characters'),
     password: Yup.string()
       .required('Password is required')
-      .min(3, 'Password should be at-least 3 characters.')
+      .min(3, 'Password should be at least 3 characters.')
       .max(50, 'Password should be less than 50 characters'),
     name: Yup.string()
       .required('Name is required')
-      .min(3, 'Name should be at-least 3 characters.')
+      .min(3, 'Name should be at least 3 characters.')
       .max(50, 'Name should be less than 50 characters'),
     acceptTerms: Yup.boolean()
       .required('You must accept the terms and conditions')

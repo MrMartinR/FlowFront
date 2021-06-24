@@ -166,3 +166,27 @@ export const countriesList = [
     name: 'Hungary',
   },
 ]
+
+export const borrowerType = [
+  {
+    value: "Consumer"
+  },
+  {
+    value: "Business"
+  }
+]
+
+export const protectionSchemeTypes = [
+  {
+    value: "Collateral"
+  },
+  {
+    value: "BuyBack"
+  },
+  {
+    value: "Personal Guarantee"
+  },
+  {
+    value: "Provision Fund"
+  }
+]

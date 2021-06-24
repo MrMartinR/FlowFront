@@ -1,19 +1,60 @@
-import { Button, Grid } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import {
+  Button,
+  Grid,
+  Typography,
+  FormControl,
+  FormLabel,
+  TextField,
+  MenuItem,
+  LinearProgress,
+} from '@material-ui/core'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as loansActions from './../state/loansActions'
+import { Alert } from '@material-ui/lab'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as countriesActions from '../../Country/state/countriesActions'
+import * as currenciesActions from '../../Currency/state/currenciesActions'
+import { RootState } from '../../../../redux/rootReducer'
+import { borrowerType, protectionSchemeTypes } from '../../../utils/types'
 
 export const LoanEdit = (props: any) => {
-    const { loanDetails, handleClose, handleOpen } = props
-    const [params, SetParams] = useState('' as any)
-    const [formData, setFormData] = useState(null as any)
-    const { register, handleSubmit, errors } = useForm()
-    const dispatch = useDispatch()
-    // Funcion que prepara os datos do formulario para enviar
+  const { loanDetails, handleClose, handleOpen } = props
+  const [params, SetParams] = useState('' as any)
+  const [formData, setFormData] = useState(null as any)
+  const [country, setCountry] = useState('')
+  const [list, setList] = useState([] as any)
+  const [isLoading, setIsLoading] = useState(true)
+  const [currency, setCurrency] = useState('')
+  const [currencyList, setCurrencyList] = useState([] as any)
+  const [currencyLoading, setCurrencyLoading] = useState(true)
+  const [borrower_type, SetBorrowerType] = useState('')
+  const { countryState, currencyState } = useSelector(
+    (state: RootState) => ({
+      countryState: state.countries,
+      currencyState: state.currencies,
+    }),
+    shallowEqual
+  )
+  const EditLoanSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required').min(3, 'Name should be at least 3 characters.'),
+  })
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(EditLoanSchema),
+  })
+  const dispatch = useDispatch()
+  // Funcion que prepara os datos do formulario para enviar
   const onSubmit = (data: any, e: any) => {
     SetParams(loanDetails.id)
-    setFormData(data)
+    const form = {
+      ...data,
+      currency_id: currency,
+      country_id: country,
+      borrower_type,
+    }
+    setFormData(form)
     handleClose()
   }
   // chamada a accion de updateContact cos datos do formulario
@@ -22,10 +63,267 @@ export const LoanEdit = (props: any) => {
       dispatch(loansActions.updateLoan(formData, params))
     }
   }, [formData, dispatch, params])
+  // peticion da lista de countries
+  useEffect(() => {
+    dispatch(countriesActions.fetchCountries())
+    dispatch(currenciesActions.getAllCurrencies())
+  }, [dispatch])
+  // recibida a resposta actualiza as listas
+  useEffect(() => {
+    if (countryState && countryState.countryTable && countryState.countryTable.entities.length > 0) {
+      if (countryState.error === null) {
+        setList(countryState.countryTable.entities)
+        setIsLoading(countryState.listLoading)
+        setCountry(loanDetails.attributes.country.id)
+      } else {
+        alert(countryState.error)
+      }
+    }
+  }, [countryState, loanDetails])
+  // funcion que garda o id co country seleccionado
+  const handleCountry = (e: any) => {
+    setCountry(e.target.value)
+  }
 
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid container justify="space-between">
+  // peticion da lista de currencies
+  useEffect(() => {
+    if (loanDetails!== null) {
+      SetBorrowerType(loanDetails.attributes.borrower_type)
+    }
+  }, [loanDetails])
+  // recibida a resposta actualiza as listas
+  useEffect(() => {
+    if (currencyState && currencyState.currenciesTable && currencyState.currenciesTable.entities) {
+      if (currencyState.error === null) {
+        setCurrencyList(currencyState.currenciesTable.entities)
+        setCurrencyLoading(currencyState.listLoading)
+        setCurrency(loanDetails.attributes.currency.id)
+      } else {
+        alert(currencyState.error)
+      }
+    }
+  }, [currencyState, loanDetails])
+  // funcion que garda o id co currency seleccionado
+  const handleCurrency = (e: any) => {
+    setCurrency(e.target.value)
+  }
+  // funcion que garda o id co country seleccionado
+  const handleBorrower = (e: any) => {
+    SetBorrowerType(e.target.value)
+  }
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container direction="column">
+        <Typography variant="h4">Edit Loan</Typography>
+        {/* name */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Name</FormLabel>
+          <TextField
+            name="name"
+            defaultValue={loanDetails.attributes.name}
+            placeholder="Name"
+            autoComplete="off"
+            inputRef={register()}
+          />
+          {errors.name && <Alert severity="error">{errors.name.message}</Alert>}
+        </FormControl>
+        {/* code */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Code</FormLabel>
+          <TextField
+            name="code"
+            defaultValue={loanDetails.attributes.code}
+            placeholder="Code"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* status */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Status</FormLabel>
+          <TextField
+            name="status"
+            defaultValue={loanDetails.attributes.status}
+            placeholder="Status"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* country */}
+        <FormControl margin="dense">
+          <FormLabel>Country</FormLabel>
+          {!isLoading ? (
+            <TextField select variant="outlined" value={country} onChange={handleCountry}>
+              {list.map((country: any) => (
+                <MenuItem value={country.id} key={country.id}>
+                  {country.attributes.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          ) : (
+            <LinearProgress />
+          )}
+        </FormControl>
+        {/* currency */}
+        <FormControl margin="dense">
+          <FormLabel>Currency</FormLabel>
+          {!currencyLoading ? (
+            <TextField select variant="outlined" value={currency} onChange={handleCurrency}>
+              {currencyList.map((currency: any) => (
+                <MenuItem value={currency.id} key={currency.id}>
+                  {currency.attributes.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          ) : (
+            <LinearProgress />
+          )}
+        </FormControl>
+        {/* link */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Link</FormLabel>
+          <TextField
+            name="link"
+            defaultValue={loanDetails.attributes.link}
+            placeholder="Link"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* borrower */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Borrower</FormLabel>
+          <TextField
+            name="borrower"
+            defaultValue={loanDetails.attributes.borrower}
+            placeholder="Borrower"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* borrower type */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Borrower type</FormLabel>
+          <TextField select variant="outlined" value={borrower_type} onChange={handleBorrower}>
+            {borrowerType.map((b: any) => (
+              <MenuItem value={b.value} key={b.value}>
+                {b.value}
+              </MenuItem>
+            ))}
+          </TextField>
+        </FormControl>
+        {/* category */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Category</FormLabel>
+          <TextField
+            name="category"
+            defaultValue={loanDetails.attributes.category}
+            placeholder="Category"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* dti Rating */}
+        {borrower_type==='Consumer'&&<FormControl fullWidth margin="dense">
+          <FormLabel>DTI Rating</FormLabel>
+          <TextField
+            name="dti_rating"
+            defaultValue={loanDetails.attributes.dti_rating}
+            placeholder="DTI Rating"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>}
+        {/* description */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Description</FormLabel>
+          <TextField
+            name="description"
+            multiline
+            defaultValue={loanDetails.attributes.description}
+            placeholder="Description"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* notes */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Notes</FormLabel>
+          <TextField
+            name="notes"
+            defaultValue={loanDetails.attributes.notes}
+            placeholder="Notes"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* amortization */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Amortization</FormLabel>
+          <TextField
+            name="amortization"
+            defaultValue={loanDetails.attributes.amortization}
+            placeholder="Amortization"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* installment */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Installment</FormLabel>
+          <TextField
+            name="installment"
+            defaultValue={loanDetails.attributes.installment}
+            placeholder="Installment"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* air */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Air</FormLabel>
+          <TextField
+            name="air"
+            defaultValue={loanDetails.attributes.air}
+            placeholder="Air"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* xirr */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>XIRR</FormLabel>
+          <TextField
+            name="xirr"
+            defaultValue={loanDetails.attributes.xirr}
+            placeholder="XIRR"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* amount */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Amount</FormLabel>
+          <TextField
+            name="amount"
+            defaultValue={loanDetails.attributes.amount}
+            placeholder="Amount"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* notes */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Notes</FormLabel>
+          <TextField
+            name="notes"
+            defaultValue={loanDetails.attributes.notes}
+            placeholder="Notes"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        <Grid container justify="space-between">
           <Grid item>
             <Button onClick={(e) => handleOpen(e, 'delete')} color="secondary">
               Delete
@@ -38,6 +336,7 @@ export const LoanEdit = (props: any) => {
             </Button>
           </Grid>
         </Grid>
-        </form>
-    )
+      </Grid>
+    </form>
+  )
 }

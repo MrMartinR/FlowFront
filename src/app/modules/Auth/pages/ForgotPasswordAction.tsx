@@ -30,11 +30,14 @@ export const ForgotPasswordAction = (props: any) => {
   const { uid = '' } = queryString.parse(search)
   const { expiry = '' } = queryString.parse(search)
   const ForgotPasswordSchema = Yup.object().shape({
-    password: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Required'),
+    password: Yup.string()
+      .min(3, 'Password should be at least 3 characters.')
+      .max(50, 'Password should be less than 50 characters')
+      .required('Password is required'),
     changepassword: Yup.string()
-      .min(3, 'Minimum 3 symbols')
-      .max(50, 'Maximum 50 symbols')
-      .required('Required')
+      .min(3, 'Confirm Password should be at least 3 characters.')
+      .max(50, 'COnfirm Password should be less than 50 characters')
+      .required('Confirm Password is required')
       .when('password', {
         is: (val: any) => !!(val && val.length > 0),
         then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
