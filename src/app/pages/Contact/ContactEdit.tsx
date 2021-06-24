@@ -45,14 +45,14 @@ export const ContactEdit = (props: any) => {
     EditContactSchema = Yup.object().shape({
       name: Yup.string()
         .required('Name is required')
-        .min(3, 'Name should be at-least 3 characters.')
+        .min(3, 'Name should be at least 3 characters.')
         .max(50, 'Name should be less than 50 characters'),
     })
   } else {
     EditContactSchema = Yup.object().shape({
       trade_name: Yup.string()
         .required('Trade name is required')
-        .min(3, 'Trade name should be at-least 3 characters.')
+        .min(3, 'Trade name should be at least 3 characters.')
         .max(50, 'Trade name should be less than 50 characters'),
     })
   }

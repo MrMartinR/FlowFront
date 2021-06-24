@@ -20,7 +20,7 @@ export const CompanyForm = (props: any) => {
   const AddContactSchema = Yup.object().shape({
     trade_name: Yup.string()
       .required('Trade name is required')
-      .min(3, 'Trade name should be at-least 3 characters.')
+      .min(3, 'Trade name should be at least 3 characters.')
       .max(50, 'Trade name should be less than 50 characters'),
   })
   const { register, handleSubmit, errors } = useForm({

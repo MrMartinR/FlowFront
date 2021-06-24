@@ -53,11 +53,11 @@ export const Login = () => {
   const LoginSchema = Yup.object().shape({
     username: Yup.string()
       .required('Username is required')
-      .min(3, 'Username should be at-least 3 characters.')
+      .min(3, 'Username should be at least 3 characters.')
       .max(50, 'Username should be less than 50 characters'),
     password: Yup.string()
       .required('Password is required')
-      .min(3, 'Password should be at-least 3 characters.')
+      .min(3, 'Password should be at least 3 characters.')
       .max(50, 'Password should be less than 50 characters'),
   })
   const { register, handleSubmit, errors } = useForm({

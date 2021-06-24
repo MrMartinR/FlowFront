@@ -49,7 +49,7 @@ export const ForgotPassword = () => {
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .required('Email is required')
-      .min(3, 'Email should be at-least 3 characters.')
+      .min(3, 'Email should be at least 3 characters.')
       .email('Entered value does not match email format'),
   })
   const { register, handleSubmit, errors } = useForm({

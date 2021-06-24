@@ -17,7 +17,7 @@ export const AddContactMethodForm = (props: any) => {
   const AddContactMethodSchema = Yup.object().shape({
     data: Yup.string()
     .required('Data is required')
-    .min(3, 'Data should be at-least 3 characters.')
+    .min(3, 'Data should be at least 3 characters.')
   })
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(AddContactMethodSchema),

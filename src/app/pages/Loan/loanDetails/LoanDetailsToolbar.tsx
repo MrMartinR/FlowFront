@@ -60,10 +60,7 @@ export const LoanDetailsToolbar = (props: any) => {
 // corpo do dialog de edit ou delete
 const body =
 edit === true ? (
-  <>
-    <Typography variant="h4">Edit Loan</Typography>
-    <LoanEdit loanDetails={loanDetails} handleClose={handleClose} handleOpen={handleOpen} />
-  </>
+  <LoanEdit loanDetails={loanDetails} handleClose={handleClose} handleOpen={handleOpen} />
 ) : (
   <>
     <Typography variant="h4" paragraph>
@@ -83,11 +80,9 @@ edit === true ? (
   return (
     <Container>
       {/* edit contact dialog */}
-      <>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogContent>{body}</DialogContent>
-        </Dialog>
-      </>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>{body}</DialogContent>
+      </Dialog>
       <Toolbar variant="dense" className={classes.root}>
         {/* <Grid container> */}
         <Grid container>

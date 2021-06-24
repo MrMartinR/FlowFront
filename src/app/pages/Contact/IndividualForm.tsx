@@ -23,7 +23,7 @@ export const IndividualForm = (props: any) => {
   const AddContactSchema = Yup.object().shape({
     name: Yup.string()
       .required('Name is required')
-      .min(3, 'Name should be at-least 3 characters.')
+      .min(3, 'Name should be at least 3 characters.')
       .max(50, 'Name should be less than 50 characters'),
   })
   const { register, handleSubmit, errors } = useForm({

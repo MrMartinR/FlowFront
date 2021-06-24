@@ -1,4 +1,13 @@
-import { Button, Grid, TextField, FormControl, Typography, FormLabel, NativeSelect, InputAdornment } from '@material-ui/core'
+import {
+  Button,
+  Grid,
+  TextField,
+  FormControl,
+  Typography,
+  FormLabel,
+  NativeSelect,
+  InputAdornment,
+} from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -17,9 +26,9 @@ export const CreateTransactionForm = (props: any) => {
   // onSubmit garda os datos do formulario nunha variable e pecha o formulario
   const onSubmit = (data: any) => {
     let amount
-    if (kind ==='Income') {
+    if (kind === 'Income') {
       amount = data.amount
-    } else amount = -1*data.amount
+    } else amount = -1 * data.amount
     const form = {
       ...data,
       amount,
@@ -86,13 +95,18 @@ export const CreateTransactionForm = (props: any) => {
               <FormLabel>Amount</FormLabel>
               <TextField
                 name="amount"
-                type='number'
+                type="number"
+                autoComplete="off"
                 placeholder="Amount"
                 defaultValue={0}
-                inputProps={{ step: "0.01" }}
+                inputProps={{ step: '0.01' }}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">{kind==='Outcome'&&'-'}</InputAdornment>,
-                  endAdornment: <InputAdornment position="end">{currentState.userAccountsDetails.attributes.currency.code}</InputAdornment>,
+                  startAdornment: <InputAdornment position="start">{kind === 'Outcome' && '-'}</InputAdornment>,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {currentState.userAccountsDetails.attributes.currency.code}
+                    </InputAdornment>
+                  ),
                 }}
                 inputRef={register()}
               />
@@ -102,7 +116,7 @@ export const CreateTransactionForm = (props: any) => {
         <Grid container justify="space-between">
           <FormControl fullWidth>
             <FormLabel>Description</FormLabel>
-            <TextField name="description" placeholder="Description" inputRef={register()} />
+            <TextField name="description" placeholder="Description" autoComplete="off" inputRef={register()} />
           </FormControl>
         </Grid>
         <Grid container justify="space-between">
