@@ -1,6 +1,12 @@
 import { useHistory } from 'react-router-dom'
-import { Grid, LinearProgress, makeStyles, CardMedia } from '@material-ui/core/'
+import { Grid, LinearProgress, makeStyles, Tooltip, IconButton } from '@material-ui/core/'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
+import IconConsumer from '../../../common/layout/components/icons/Consumer'
+import IconBusiness from '../../../common/layout/components/icons/Business'
+import IconProtectionCollateral from '../../../common/layout/components/icons/ProtectionCollateral'
+import IconProtectionBuyBack from '../../../common/layout/components/icons/ProtectionBuyBack'
+import IconProtectionPersonal from '../../../common/layout/components/icons/ProtectionPersonal'
+import IconProtectionFund from '../../../common/layout/components/icons/ProtectionFund'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -14,54 +20,34 @@ const useStyles = makeStyles({
 })
 const columns: GridColDef[] = [
   // column definition format here
-  {
-    field: 'platform',
-    headerName: 'Platform',
-    width: 100,
-    renderCell: (params: GridCellParams) => (
-      <CardMedia
-        component="img"
-        title={`${params.value}`}
-        alt={`${params.value}`}
-        src={'/media/svg/contact/icons/' + params.value + '.svg'}
-      />
-    ),
-  },
-  {
-    field: 'originator',
-    headerName: 'Originator',
-    width: 100,
-    renderCell: (params: GridCellParams) => (
-      <CardMedia
-        component="img"
-        title={`${params.value}`}
-        alt={`${params.value}`}
-        src={'/media/svg/contact/icons/' + params.value + '.svg'}
-      />
-    ),
-  },
-  { field: 'name', headerName: 'Name', width: 180 },
+  
+  { field: 'name', headerName: 'Name', width: 300 },
   { field: 'air', headerName: 'AIR', width: 180 },
-  {
-    field: 'country',
-    headerName: 'Flag',
-    width: 100,
-    renderCell: (params: GridCellParams) => (
-      <CardMedia
-        component="img"
-        src={'/media/svg/flags/' + params.value + '.svg'}
-        title={`${params.value}`}
-        alt={`${params.value}`}
-        style={{ padding: '18px' }}
-      />
-    ),
-  },
-  { field: 'country_name', headerName: 'Country', width: 180 },
-  { field: 'currency', headerName: 'Currency', width: 180 },
   { field: 'amortization', headerName: 'Amortization', width: 180 },
   { field: 'amount', headerName: 'Amount', width: 180 },
   { field: 'borrower', headerName: 'Borrower', width: 180 },
-  { field: 'borrower_type', headerName: 'Borrower Type', width: 180 },
+  {
+    field: 'borrower_type',
+    headerName: 'Borrower Type',
+    description: 'Borrower Type: Consumer | Business',
+    width: 160,
+    sortable: false,
+    renderCell: (params: GridCellParams) =>
+      (params.value === 'Consumer' && (
+        <Tooltip title="Consumer">
+          <IconButton>
+            <IconConsumer />
+          </IconButton>
+        </Tooltip>
+      )) ||
+      (params.value === 'Business' && (
+        <Tooltip title="Business">
+          <IconButton>
+            <IconBusiness />
+          </IconButton>
+        </Tooltip>
+      )),
+  },
   { field: 'category', headerName: 'Category', width: 180 },
   { field: 'code', headerName: 'Code', width: 180 },
   { field: 'date_issued', headerName: 'Issued', width: 180 },
@@ -76,10 +62,47 @@ const columns: GridColDef[] = [
   { field: 'investment_amount', headerName: 'Investment Amount', width: 180 },
   { field: 'date_in', headerName: 'Date In', width: 180 },
   { field: 'date_out', headerName: 'Date Out', width: 180 },
-  { field: 'loan_id', headerName: 'Loan ID', width: 180 },
   { field: 'invest_mode', headerName: 'Invest Mode', width: 180 },
-
-  { field: 'protection_scheme', headerName: 'Protection Scheme', width: 180 },
+  {
+    field: 'protection_scheme',
+    headerName: 'Protection Scheme',
+    width: 220,
+    renderCell: (params: GridCellParams) =>
+      params.value && (
+        <>
+          <>
+            {params.value.toString().includes('Collateral') && (
+              <Tooltip title="Colaterall">
+                <IconButton>
+                  <IconProtectionCollateral />
+                </IconButton>
+              </Tooltip>
+            )}
+            {params.value.toString().includes('BuyBack') && (
+              <Tooltip title="BuyBack">
+                <IconButton>
+                  <IconProtectionBuyBack />
+                </IconButton>
+              </Tooltip>
+            )}
+            {params.value.toString().includes('Personal Guarantee') && (
+              <Tooltip title="Personal Guarantee">
+                <IconButton>
+                  <IconProtectionPersonal />
+                </IconButton>
+              </Tooltip>
+            )}
+            {params.value.toString().includes('Provision Fund') && (
+              <Tooltip title="Provision Fund">
+                <IconButton>
+                  <IconProtectionFund />
+                </IconButton>
+              </Tooltip>
+            )}
+          </>
+        </>
+      ),
+  },
   { field: 'rating', headerName: 'Rating', width: 180 },
   { field: 'status', headerName: 'Status', width: 180 },
   { field: 'xirr', headerName: 'XIRR', width: 180 },

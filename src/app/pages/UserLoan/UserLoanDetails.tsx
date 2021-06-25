@@ -69,7 +69,6 @@ export const UserLoanDetails = (props: any) => {
                       <Button>+</Button>
                     </span>
                   }
-                  fullwidth
                 />
                 <CardContent>
                   <Typography>Market: {userLoanDetails.attributes?.market}</Typography>
@@ -85,7 +84,7 @@ export const UserLoanDetails = (props: any) => {
             </Grid>
             <Grid item xs={6}>
               <Card>
-                <CardHeader title="Cashflow" action={<Button>•••</Button>} fullwidth />
+                <CardHeader title="Cashflow" action={<Button>•••</Button>} />
                 <CardContent></CardContent>
               </Card>
             </Grid>

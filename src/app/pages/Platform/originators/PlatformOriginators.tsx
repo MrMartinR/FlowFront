@@ -3,9 +3,10 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as platformsActions from '../state/platformsActions'
 import { RootState } from '../../../../redux/rootReducer'
 import { useHistory } from 'react-router'
-import { makeStyles, Grid, LinearProgress, CardMedia } from '@material-ui/core/'
+import { makeStyles, Grid, LinearProgress, CardMedia, Tooltip, IconButton } from '@material-ui/core/'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
-
+import IconBusiness from '../../../../common/layout/components/icons/Business'
+import IconConsumer from '../../../../common/layout/components/icons/Consumer'
 //* styles */
 const useStyles = makeStyles({
   root: {
@@ -32,14 +33,38 @@ const columns: GridColDef[] = [
           src={'/media/svg/contact/logos/' + params.value + '.svg'}
           title={`${params.value}`}
           alt={`${params.value}`}
+          style={{padding: '40px'}}
         />
       </>
     ),
   },
-  { field: 'customer_category', headerName: 'Customer', width: 250 },
+  {
+    field: 'customer_category',
+    headerName: 'Customer',
+    width: 250,
+    renderCell: (params: GridCellParams) =>
+      params.value && (
+        <>
+          {params.value.toString().includes('Business') && (
+            <Tooltip title="Business">
+              <IconButton>
+                <IconBusiness />
+              </IconButton>
+            </Tooltip>
+          )}
+          {params.value.toString().includes('Consumer') && (
+            <Tooltip title="Consumer">
+              <IconButton>
+                <IconConsumer />
+              </IconButton>
+            </Tooltip>
+          )}
+        </>
+      ),
+  },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
-  { field: 'apr', headerName: 'APR', width: 100 },
+  { field: 'apr', headerName: 'APR', width: 120 },
 ] as any
 
 export const PlatformOriginators = (props: any) => {

@@ -1,4 +1,4 @@
-import { Grid, CardMedia, LinearProgress, makeStyles } from '@material-ui/core/'
+import { Grid, CardMedia, LinearProgress, makeStyles, Tooltip, IconButton } from '@material-ui/core/'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
 
 import { useHistory } from 'react-router'
@@ -32,29 +32,33 @@ const columns: GridColDef[] = [
       />
     ),
   },
-  /* @TODO: Fix this crap combination */
   {
     field: 'customer_category',
     headerName: 'Customer',
-    width: 80,
+    width: 150,
     renderCell: (params: GridCellParams) =>
-      (params.value == 'Business' && <IconBusiness />) ||
-      (params.value == 'Consumer' && <IconConsumer />) ||
-      (params.value == 'Business,Consumer' && (
+      params.value && (
         <>
-          <IconConsumer /> <IconBusiness />
+          {params.value.toString().includes('Business') && (
+            <Tooltip title="Business">
+              <IconButton>
+                <IconBusiness />
+              </IconButton>
+            </Tooltip>
+          )}
+          {params.value.toString().includes('Consumer') && (
+            <Tooltip title="Consumer">
+              <IconButton>
+                <IconConsumer />
+              </IconButton>
+            </Tooltip>
+          )}
         </>
-      )) ||
-      (params.value == 'Consumer,Business' && (
-        <>
-          <IconConsumer /> <IconBusiness />
-        </>
-      )),
+      ),
   },
-  // { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
-  { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
-  { field: 'apr', headerName: 'APR', width: 100 },
+  { field: 'product_category_consumer', headerName: 'Consumer', width: 250 },
+  { field: 'apr', headerName: 'APR', width: 120 },
 ] as any
 
 export const OriginatorsList = (props: any) => {

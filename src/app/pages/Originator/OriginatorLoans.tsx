@@ -25,7 +25,7 @@ const columns: GridColDef[] = [
   {
     field: 'country',
     headerName: 'Flag',
-    width: 100,
+    width: 120,
     renderCell: (params: GridCellParams) => (
       <strong>
         <Avatar variant="square">

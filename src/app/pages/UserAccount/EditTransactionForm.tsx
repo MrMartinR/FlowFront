@@ -69,7 +69,7 @@ export const EditTransactionForm = (props:any) => {
                     variant="outlined"
                     autoComplete="off"
                     defaultValue={transaction.date}
-                    inputRef={register({ required: true, minLength: 3 })}
+                    inputRef={register()}
                   />
                 <FormLabel>Type</FormLabel>
                   <TextField
@@ -78,12 +78,8 @@ export const EditTransactionForm = (props:any) => {
                     variant="outlined"
                     autoComplete="off"
                     defaultValue={transaction.kind}
-                    inputRef={register({ required: true, minLength: 3 })}
+                    inputRef={register()}
                   />
-                  {errors.kind && errors.kind.type === 'required' && <Alert severity="error">Type is required</Alert>}
-                {errors.kind && errors.kind.type === 'minLength' && (
-                  <Alert severity="error">Type should be at-least 3 characters.</Alert>
-                )}
                 <FormLabel>Category</FormLabel>
                   <TextField
                     name="category"
@@ -91,7 +87,7 @@ export const EditTransactionForm = (props:any) => {
                     variant="outlined"
                     autoComplete="off"
                     defaultValue={transaction.category}
-                    inputRef={register({ required: true, minLength: 3 })}
+                    inputRef={register()}
                   />
                 <FormLabel>Description</FormLabel>
                   <TextField
@@ -101,7 +97,7 @@ export const EditTransactionForm = (props:any) => {
                     variant="outlined"
                     autoComplete="off"
                     defaultValue={transaction.description}
-                    inputRef={register({ required: true, minLength: 3 })}
+                    inputRef={register()}
                   />
                 <FormLabel>Amount</FormLabel>
                   <TextField
@@ -110,7 +106,7 @@ export const EditTransactionForm = (props:any) => {
                     variant="outlined"
                     autoComplete="off"
                     defaultValue={transaction.amount}
-                    inputRef={register({ required: true, minLength: 3 })}
+                    inputRef={register()}
                   />
               </FormControl>
             </CardContent>

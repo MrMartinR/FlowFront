@@ -7,7 +7,6 @@ import {
   CardHeader,
   Dialog,
   Popover,
-  DialogActions,
   DialogContent,
   Typography,
   Button,
@@ -69,10 +68,7 @@ export const ContactToolBar = (props: any) => {
   const id = open ? 'simple-popover' : undefined
   // corpo do dialog de engadir contact
   const body = (
-    <>
-      <Typography variant="h4">Add Contact</Typography>
-      <VerticalLinearStepper selectedContact={selectedContact} edit={false} handleClose={handleClose} />
-    </>
+    <VerticalLinearStepper selectedContact={selectedContact} edit={false} handleClose={handleClose} />
   )
   return (
     <>
@@ -125,9 +121,6 @@ export const ContactToolBar = (props: any) => {
 
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-          </DialogActions>
         </Dialog>
       </Toolbar>
     </>

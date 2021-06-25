@@ -59,9 +59,7 @@ export const deleteLoan = (id: any) => (dispatch: any) => {
     .deleteLoan(loanId)
     .then((response) => {
       const { data } = response
-      const id = { itm: loanId }
-      const returnedTarget = Object.assign(data, id)
-      dispatch(actions.loanDelete(returnedTarget))
+      dispatch(actions.loanDelete(data))
     })
     .catch((error) => {
       error.clientMessage = "Can't find loan"

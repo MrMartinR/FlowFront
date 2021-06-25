@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
-import { makeStyles, Grid, LinearProgress, CardMedia } from '@material-ui/core/'
+import { makeStyles, Grid, LinearProgress, CardMedia, Tooltip, IconButton } from '@material-ui/core/'
 import IconProtectionBuyBack from '../../../common/layout/components/icons/ProtectionBuyBack'
 import IconProtectionPersonal from '../../../common/layout/components/icons/ProtectionPersonal'
 import IconProtectionCollateral from '../../../common/layout/components/icons/ProtectionCollateral'
@@ -24,16 +24,18 @@ const columns: GridColDef[] = [
     field: 'status',
     headerName: 'Status',
     description: 'Status',
-    width: 100,
+    width: 125,
     renderCell: (params: GridCellParams) => (
-      <>
-        <CardMedia
-          component="img"
-          src={'/media/svg/platform-status/' + `${params.value}`.toLowerCase() + '.svg'}
-          alt={`${params.value}`}
-          style={{ padding: '30px' }}
-        />
-      </>
+      <Tooltip title={`${params.value}`}>
+        <IconButton style={{ width: '50px' }}>
+          <CardMedia
+            component="img"
+            src={'/media/svg/platform-status/' + `${params.value}`.toLowerCase() + '.svg'}
+            alt={`${params.value}`}
+            
+          />
+        </IconButton>
+      </Tooltip>
     ),
   },
   {
@@ -52,29 +54,54 @@ const columns: GridColDef[] = [
       </>
     ),
   },
-  { field: 'category', headerName: 'Category', width: 130, resizable: false },
-  { field: 'account_category', headerName: 'Investors', width: 130 },
-  { field: 'invest_mode', headerName: 'Invest Mode', width: 130 },
-  { field: 'min_investment', headerName: 'Min Investment', width: 130 },
-  /* @TODO: Fix this crap code, en vez de or, facer que mostren todos os iconos relevantes o contido..
-   *  o texto do array xuntao con unha comma... */
-  /* @TODO: Meterlle tooltips nos iconos. */
+  { field: 'category', headerName: 'Category', width: 150, resizable: false },
+  { field: 'account_category', headerName: 'Investors', width: 150 },
+  { field: 'invest_mode', headerName: 'Invest Mode', width: 180 },
+  { field: 'min_investment', headerName: 'Min Investment', width: 190 },
   {
     field: 'protection_scheme',
     headerName: 'Protection Scheme',
-    width: 130,
+    width: 220,
     renderCell: (params: GridCellParams) =>
-      (params.value === 'Collateral' && <IconProtectionCollateral />) ||
-      (params.value === 'BuyBack Guarantee' && <IconProtectionBuyBack />) ||
-      (params.value === 'Personal Guarantee' && <IconProtectionPersonal />) ||
-      (params.value === 'Provision Fund' && <IconProtectionFund />),
+      params.value && (
+        <>
+          {params.value.toString().includes('Collateral') && (
+            <Tooltip title="Colaterall">
+              <IconButton>
+                <IconProtectionCollateral />
+              </IconButton>
+            </Tooltip>
+          )}
+          {params.value.toString().includes('BuyBack Guarantee') && (
+            <Tooltip title="BuyBack Guarantee">
+              <IconButton>
+                <IconProtectionBuyBack />
+              </IconButton>
+            </Tooltip>
+          )}
+          {params.value.toString().includes('Personal Guarantee') && (
+            <Tooltip title="Personal Guarantee">
+              <IconButton>
+                <IconProtectionPersonal />
+              </IconButton>
+            </Tooltip>
+          )}
+          {params.value.toString().includes('Provision Fund') && (
+            <Tooltip title="Provision Fund">
+              <IconButton>
+                <IconProtectionFund />
+              </IconButton>
+            </Tooltip>
+          )}
+        </>
+      ),
   },
-  { field: 'secondary_market', type: 'boolean', headerName: 'SM', description: 'Secondary Market', width: 80 },
-  { field: 'structure', headerName: 'Structure', width: 130 },
+  { field: 'secondary_market', type: 'boolean', headerName: 'SM', description: 'Secondary Market', width: 100 },
+  { field: 'structure', headerName: 'Structure', width: 150 },
   { field: 'term', headerName: 'Term', width: 130 },
-  { field: 'liquidity', headerName: 'Liquidity', width: 130 },
+  { field: 'liquidity', headerName: 'Liquidity', width: 150 },
   { field: 'promo', headerName: 'Promo', width: 130 },
-  { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 130 },
+  { field: 'welcome_bonus', headerName: 'Welcome Bonus', width: 190 },
 ]
 
 export const PlatformsList = (props: any) => {

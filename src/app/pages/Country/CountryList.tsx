@@ -22,10 +22,10 @@ const columns: GridColDef[] = [
   {
     field: 'flag',
     headerName: 'Flag',
-    width: 100,
+    width: 120,
     renderCell: (params: GridCellParams) => (
       <CardMedia
-        style={{ padding: '18px' }}
+        style={{ width: '36px' }}
         component="img"
         src={'/media/svg/flags/' + params.value + '.svg'}
         alt={`${params.row.name}`}
@@ -35,8 +35,8 @@ const columns: GridColDef[] = [
   },
   { field: 'iso_code', headerName: 'ISO', width: 100 },
   { field: 'name', headerName: 'Name', width: 200 },
-  { field: 'currency', headerName: 'Currency', width: 120 },
-  { field: 'fiscal_year_start', headerName: 'Fiscal Year', width: 140 },
+  { field: 'currency', headerName: 'Currency', width: 150 },
+  { field: 'fiscal_year_start', headerName: 'Fiscal Year', width: 160 },
 ]
 
 export const CountriesList = (props: any) => {
