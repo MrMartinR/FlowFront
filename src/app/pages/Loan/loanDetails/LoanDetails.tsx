@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 
 export const LoanDetails = (props: any) => {
   const { loanDetails } = props
-  const [security, setSecurity] = useState()
+  const [security, setSecurity] = useState([])
+  
   // carga os datos do togglebutton
   useEffect(() => {
     setSecurity(loanDetails.attributes?.protection_scheme)
@@ -17,7 +18,7 @@ export const LoanDetails = (props: any) => {
           {/* borrower */}
           <Grid item>
             <Card>
-              <CardHeader title="Borrower" action={<Button>•••</Button>} fullwidth />
+              <CardHeader title="Borrower" action={<Button>•••</Button>} />
               <CardContent>
                 <Typography variant="h6"> {loanDetails.attributes?.borrower}</Typography>
                 <Typography>Type: {loanDetails.attributes?.borrower_type}</Typography>
@@ -32,7 +33,7 @@ export const LoanDetails = (props: any) => {
           {/* description */}
           <Grid item>
             <Card>
-              <CardHeader title="Description" action={<Button>•••</Button>} fullwidth />
+              <CardHeader title="Description" action={<Button>•••</Button>} />
               <CardContent>
                 <Typography>Description: {loanDetails.attributes?.description}</Typography>
               </CardContent>
@@ -41,7 +42,7 @@ export const LoanDetails = (props: any) => {
           {/* notes */}
           <Grid item>
             <Card>
-              <CardHeader title="Notes" action={<Button>•••</Button>} fullwidth />
+              <CardHeader title="Notes" action={<Button>•••</Button>} />
               <CardContent>
                 <Typography>{loanDetails.attributes?.notes}</Typography>
               </CardContent>
@@ -54,12 +55,12 @@ export const LoanDetails = (props: any) => {
           {/* details */}
           <Grid item>
             <Card>
-              <CardHeader title="Details" action={<Button>•••</Button>} fullwidth />
+              <CardHeader title="Details" action={<Button>•••</Button>} />
               <CardContent>
                 <Typography>Amortization: {loanDetails.attributes?.amortization}</Typography>
                 <Typography>Installment: {loanDetails.attributes?.installment}</Typography>
-                <Typography>Air: {loanDetails.attributes?.air}</Typography>
-                <Typography>XIRR: {loanDetails.attributes?.xirr}</Typography>
+                <Typography>Air: {loanDetails.attributes?.air && loanDetails.attributes.air.toFixed(2)}</Typography>
+                <Typography>XIRR: {loanDetails.attributes?.xirr && loanDetails.attributes.xirr.toFixed(2)}</Typography>
                 <Typography>Amount: {loanDetails.attributes?.amount}</Typography>
                 <Typography>Term: [Calculation]</Typography>
                 <Typography>Remaining: [Calculation]</Typography>
@@ -73,13 +74,13 @@ export const LoanDetails = (props: any) => {
           {/* security */}
           <Grid item>
             <Card>
-              <CardHeader title="Security" action={<Button>•••</Button>} fullwidth />
+              <CardHeader title="Security" action={<Button>•••</Button>} />
               <CardContent>
                 <ToggleButtonGroup value={security} size="small">
-                  {loanDetails.attributes?.protection_scheme}
-                  <ToggleButton value="Buyback">Buyback</ToggleButton>
+                  <ToggleButton value="BuyBack">BuyBack</ToggleButton>
                   <ToggleButton value="Personal Guarantee">Personal Guarantee</ToggleButton>
                   <ToggleButton value="Collateral">Collateral</ToggleButton>
+                  <ToggleButton value="Provision Fund">Provision Fund</ToggleButton>
                 </ToggleButtonGroup>
                 <Typography>{loanDetails.attributes?.security_details}</Typography>
               </CardContent>

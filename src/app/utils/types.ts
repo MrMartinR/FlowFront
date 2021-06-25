@@ -190,3 +190,60 @@ export const protectionSchemeTypes = [
     value: "Provision Fund"
   }
 ]
+
+export const statusTypes = [
+  {
+    value: "On Market"
+  },
+  {
+    value: "Withdrawn"
+  },
+  {
+    value: "Current"
+  },
+  {
+    value: "Exited"
+  },
+  {
+    value: "Late"
+  },
+  {
+    value: "Recovery"
+  },
+  {
+    value: "Default"
+  },
+]
+
+export const amortizationTypes = [
+  {
+    value: "Full"
+  },
+  {
+    value: "Mixed"
+  },
+  {
+    value: "Interest"
+  },
+  {
+    value: "Bullet"
+  }
+]
+
+export const installmentTypes = [
+  {
+    value: "1 week"
+  },
+  {
+    value: "2 weeks"
+  },
+  {
+    value: "1 Month"
+  },
+  {
+    value: "3 Months"
+  },
+  {
+    value: "6 Months"
+  },
+]

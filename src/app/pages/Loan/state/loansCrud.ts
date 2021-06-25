@@ -30,7 +30,7 @@ export const LOANS_URL = `${API_URL}/api/v1/loans`
  */
 export const updateLoan = (data: any, id: any) => {
   const form = {
-    contact: data,
+    loan: data,
   }
 
   return axios.put(`${LOANS_URL}/${id}`, form, optionsHeaders())

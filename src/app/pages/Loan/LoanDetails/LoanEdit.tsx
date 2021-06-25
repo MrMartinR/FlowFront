@@ -12,13 +12,13 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as loansActions from './../state/loansActions'
-import { Alert } from '@material-ui/lab'
+import { Alert, ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as countriesActions from '../../Country/state/countriesActions'
 import * as currenciesActions from '../../Currency/state/currenciesActions'
 import { RootState } from '../../../../redux/rootReducer'
-import { borrowerType, protectionSchemeTypes } from '../../../utils/types'
+import { statusTypes, installmentTypes, amortizationTypes } from '../../../utils/types'
 
 export const LoanEdit = (props: any) => {
   const { loanDetails, handleClose, handleOpen } = props
@@ -30,7 +30,13 @@ export const LoanEdit = (props: any) => {
   const [currency, setCurrency] = useState('')
   const [currencyList, setCurrencyList] = useState([] as any)
   const [currencyLoading, setCurrencyLoading] = useState(true)
-  const [borrower_type, SetBorrowerType] = useState('')
+  const [borrower_type, setBorrowerType] = useState('')
+  const [category, setCategory] = useState('')
+  const [status, setStatus] = useState('')
+  const [installment, setInstallment] = useState('')
+  const [amortization, setAmortization] = useState('')
+  const [security, setSecurity] = useState([] as any)
+
   const { countryState, currencyState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
@@ -48,11 +54,17 @@ export const LoanEdit = (props: any) => {
   // Funcion que prepara os datos do formulario para enviar
   const onSubmit = (data: any, e: any) => {
     SetParams(loanDetails.id)
+    if (borrower_type !== 'Consumer') data.dti_rating = null
     const form = {
       ...data,
       currency_id: currency,
       country_id: country,
       borrower_type,
+      status,
+      installment,
+      amortization,
+      category,
+      protection_scheme: security,
     }
     setFormData(form)
     handleClose()
@@ -87,8 +99,13 @@ export const LoanEdit = (props: any) => {
 
   // peticion da lista de currencies
   useEffect(() => {
-    if (loanDetails!== null) {
-      SetBorrowerType(loanDetails.attributes.borrower_type)
+    if (loanDetails !== null) {
+      setBorrowerType(loanDetails.attributes.borrower_type)
+      setStatus(loanDetails.attributes.status)
+      setCategory(loanDetails.attributes.category)
+      setAmortization(loanDetails.attributes.amortization)
+      setInstallment(loanDetails.attributes.installment)
+      setSecurity(loanDetails.attributes?.protection_scheme)
     }
   }, [loanDetails])
   // recibida a resposta actualiza as listas
@@ -107,10 +124,31 @@ export const LoanEdit = (props: any) => {
   const handleCurrency = (e: any) => {
     setCurrency(e.target.value)
   }
-  // funcion que garda o id co country seleccionado
+  // funcion que garda o borrower_type seleccionado
   const handleBorrower = (e: any) => {
-    SetBorrowerType(e.target.value)
+    setBorrowerType(e.target.value)
   }
+  // funcion que garda o category seleccionado
+  const handleCategory = (e: any) => {
+    setCategory(e.target.value)
+  }
+  // funcion que garda o status seleccionado
+  const handleStatus = (e: any) => {
+    setStatus(e.target.value)
+  }
+  // funcion que garda o status seleccionado
+  const handleInstallment = (e: any) => {
+    setInstallment(e.target.value)
+  }
+  // funcion que garda o status seleccionado
+  const handleAmortization = (e: any) => {
+    setAmortization(e.target.value)
+  }
+  // funcion que garda os datos do togglebutton
+  const handleSecurity = (event: React.MouseEvent<HTMLElement>, newSecurity: string[]) => {
+    setSecurity(newSecurity)
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
@@ -138,16 +176,27 @@ export const LoanEdit = (props: any) => {
             inputRef={register()}
           />
         </FormControl>
-        {/* status */}
+        {/* rating */}
         <FormControl fullWidth margin="dense">
-          <FormLabel>Status</FormLabel>
+          <FormLabel>Rating</FormLabel>
           <TextField
-            name="status"
-            defaultValue={loanDetails.attributes.status}
-            placeholder="Status"
+            name="rating"
+            defaultValue={loanDetails.attributes.rating}
+            placeholder="Rating"
             autoComplete="off"
             inputRef={register()}
           />
+        </FormControl>
+        {/* status */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Status</FormLabel>
+          <TextField value={status} onChange={handleStatus} select variant="outlined">
+            {statusTypes.map((sta: any) => (
+              <MenuItem value={sta.value} key={sta.value}>
+                {sta.value}
+              </MenuItem>
+            ))}
+          </TextField>
         </FormControl>
         {/* country */}
         <FormControl margin="dense">
@@ -205,9 +254,9 @@ export const LoanEdit = (props: any) => {
         <FormControl fullWidth margin="dense">
           <FormLabel>Borrower type</FormLabel>
           <TextField select variant="outlined" value={borrower_type} onChange={handleBorrower}>
-            {borrowerType.map((b: any) => (
-              <MenuItem value={b.value} key={b.value}>
-                {b.value}
+            {loanDetails.attributes.originator.customer_category.map((b: any) => (
+              <MenuItem value={b} key={b}>
+                {b}
               </MenuItem>
             ))}
           </TextField>
@@ -215,25 +264,33 @@ export const LoanEdit = (props: any) => {
         {/* category */}
         <FormControl fullWidth margin="dense">
           <FormLabel>Category</FormLabel>
-          <TextField
-            name="category"
-            defaultValue={loanDetails.attributes.category}
-            placeholder="Category"
-            autoComplete="off"
-            inputRef={register()}
-          />
+          <TextField select variant="outlined" value={category} onChange={handleCategory}>
+            {borrower_type === 'Business'
+              ? loanDetails.attributes.originator.product_category_business.map((b: any) => (
+                  <MenuItem value={b} key={b}>
+                    {b}
+                  </MenuItem>
+                ))
+              : loanDetails.attributes.originator.product_category_consumer.map((b: any) => (
+                  <MenuItem value={b} key={b}>
+                    {b}
+                  </MenuItem>
+                ))}
+          </TextField>
         </FormControl>
         {/* dti Rating */}
-        {borrower_type==='Consumer'&&<FormControl fullWidth margin="dense">
-          <FormLabel>DTI Rating</FormLabel>
-          <TextField
-            name="dti_rating"
-            defaultValue={loanDetails.attributes.dti_rating}
-            placeholder="DTI Rating"
-            autoComplete="off"
-            inputRef={register()}
-          />
-        </FormControl>}
+        {borrower_type === 'Consumer' && (
+          <FormControl fullWidth margin="dense">
+            <FormLabel>DTI Rating</FormLabel>
+            <TextField
+              name="dti_rating"
+              defaultValue={loanDetails.attributes.dti_rating}
+              placeholder="DTI Rating"
+              autoComplete="off"
+              inputRef={register()}
+            />
+          </FormControl>
+        )}
         {/* description */}
         <FormControl fullWidth margin="dense">
           <FormLabel>Description</FormLabel>
@@ -251,6 +308,7 @@ export const LoanEdit = (props: any) => {
           <FormLabel>Notes</FormLabel>
           <TextField
             name="notes"
+            multiline
             defaultValue={loanDetails.attributes.notes}
             placeholder="Notes"
             autoComplete="off"
@@ -260,25 +318,25 @@ export const LoanEdit = (props: any) => {
         {/* amortization */}
         <FormControl fullWidth margin="dense">
           <FormLabel>Amortization</FormLabel>
-          <TextField
-            name="amortization"
-            defaultValue={loanDetails.attributes.amortization}
-            placeholder="Amortization"
-            autoComplete="off"
-            inputRef={register()}
-          />
+          <TextField value={amortization} onChange={handleAmortization} select variant="outlined">
+            {amortizationTypes.map((item: any) => (
+              <MenuItem value={item.value} key={item.value}>
+                {item.value}
+              </MenuItem>
+            ))}
+          </TextField>
         </FormControl>
         {/* installment */}
-        <FormControl fullWidth margin="dense">
+        {amortization !== "Bullet" && <FormControl fullWidth margin="dense">
           <FormLabel>Installment</FormLabel>
-          <TextField
-            name="installment"
-            defaultValue={loanDetails.attributes.installment}
-            placeholder="Installment"
-            autoComplete="off"
-            inputRef={register()}
-          />
-        </FormControl>
+          <TextField value={installment} onChange={handleInstallment} select variant="outlined">
+            {installmentTypes.map((item: any) => (
+              <MenuItem value={item.value} key={item.value}>
+                {item.value}
+              </MenuItem>
+            ))}
+          </TextField>
+        </FormControl>}
         {/* air */}
         <FormControl fullWidth margin="dense">
           <FormLabel>Air</FormLabel>
@@ -312,13 +370,70 @@ export const LoanEdit = (props: any) => {
             inputRef={register()}
           />
         </FormControl>
-        {/* notes */}
+        {/* internal code */}
         <FormControl fullWidth margin="dense">
-          <FormLabel>Notes</FormLabel>
+          <FormLabel>Internal Code</FormLabel>
           <TextField
-            name="notes"
-            defaultValue={loanDetails.attributes.notes}
-            placeholder="Notes"
+            name="internal_code"
+            defaultValue={loanDetails.attributes.internal_code}
+            placeholder="Internal Code"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* protection scheme */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Protection Scheme</FormLabel>
+          <ToggleButtonGroup value={security} size="small" onChange={handleSecurity}>
+            <ToggleButton value="BuyBack">BuyBack</ToggleButton>
+            <ToggleButton value="Personal Guarantee">Personal Guarantee</ToggleButton>
+            <ToggleButton value="Collateral">Collateral</ToggleButton>
+            <ToggleButton value="Provision Fund">Provision Fund</ToggleButton>
+          </ToggleButtonGroup>
+        </FormControl>
+        {/* security details */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Security Details</FormLabel>
+          <TextField
+            name="security_details"
+            defaultValue={loanDetails.attributes.security_details}
+            placeholder="Security Details"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* date listed */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Date Listed</FormLabel>
+          <TextField
+            name="date_listed"
+            type="date"
+            defaultValue={loanDetails.attributes.date_listed}
+            placeholder="Date Listed"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* date issued */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Date Issued</FormLabel>
+          <TextField
+            name="date_issued"
+            type="date"
+            defaultValue={loanDetails.attributes.date_issued}
+            placeholder="Date Issued"
+            autoComplete="off"
+            inputRef={register()}
+          />
+        </FormControl>
+        {/* date maturity */}
+        <FormControl fullWidth margin="dense">
+          <FormLabel>Date Maturity</FormLabel>
+          <TextField
+            name="date_maturity"
+            type="date"
+            defaultValue={loanDetails.attributes.date_maturity}
+            placeholder="Date Maturity"
             autoComplete="off"
             inputRef={register()}
           />

@@ -23,7 +23,7 @@ const columns: GridColDef[] = [
   { field: 'customer_category', headerName: 'Customer', width: 250 },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
   { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
-  { field: 'apr', headerName: 'APR', width: 100 },
+  { field: 'apr', headerName: 'APR', width: 120 },
 ] as any
 
 export const UserOriginatorsList = (props: any) => {

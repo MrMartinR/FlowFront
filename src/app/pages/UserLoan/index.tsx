@@ -43,11 +43,15 @@ export const UserLoansPage = () => {
   const rows = [] as any
   if (list.length > 1)
     list.map((loan: any) => {
+      let xirr=null
+      let air=null
+      if (loan.attributes.xirr) xirr = loan.attributes.xirr.toFixed(2)
+      if (loan.attributes.loan?.air) air = loan.attributes.loan?.air.toFixed(2)
       const newRow = {
-        id: loan.id || '', // este campo seguramente deberiase gardar pero non mostrar na tabla
-        name: loan.attributes.loan?.name || '',
-        air: loan.attributes.loan?.air || '',
-        country: loan.attributes.loan?.country || '', // deberia traer o iso_code do country para poder mostrar a bandeira ou quitar o campo
+        id: loan.id, // este campo seguramente deberiase gardar pero non mostrar na tabla
+        name: loan.attributes.loan?.name,
+        air: air,
+        country: loan.attributes.loan?.country, // deberia traer o iso_code do country para poder mostrar a bandeira ou quitar o campo
         country_name: loan.attributes.loan?.country_id || '', // deberia traer o name do country para mostrar na tabla ou quitar o campo
         currency: loan.attributes.loan?.currency_id || '', // deberia traer o name ou o code do currency para mostrar na tabla ou quitar o campo
         amortization: loan.attributes.loan?.amortization || '',
@@ -77,7 +81,7 @@ export const UserLoansPage = () => {
         rating: loan.attributes.loan?.rating || '',
         security_details: loan.attributes.loan?.security_details || '',
         status: loan.attributes.loan?.status || '',
-        xirr: loan.attributes.xirr,
+        xirr: xirr,
         market: loan.attributes.market,
       }
       rows.push(newRow)

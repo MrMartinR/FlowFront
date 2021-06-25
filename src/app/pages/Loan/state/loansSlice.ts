@@ -57,7 +57,7 @@ export const loansSlice = createSlice({
       state.success = true
     },
     loanDelete: (state, action) => {
-      const { itm, success, message } = action.payload
+      const { success, message } = action.payload
       state.listLoading = false
       state.success = success
       state.message = message

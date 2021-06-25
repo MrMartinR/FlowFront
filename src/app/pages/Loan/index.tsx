@@ -43,13 +43,17 @@ export const LoansPage = () => {
   const rows = [] as any
   if (list.length > 0)
     list.map((loan: any) => {
+      let xirr=null
+      let air=null
+      if (loan.attributes.xirr) xirr = loan.attributes.xirr.toFixed(2)
+      if (loan.attributes.air) air = loan.attributes.air.toFixed(2)
       const newRow = {
         id: loan.id,
         name: loan.attributes.name,
-        air: loan.attributes.air,
+        air: air,
         country: loan.attributes.country.iso_code,
         country_name: loan.attributes.country.name,
-        currency: loan.attributes.currency.name,
+        currency: loan.attributes.currency.code,
         amortization: loan.attributes.amortization,
         amount: loan.attributes.amount,
         borrower: loan.attributes.borrower,
@@ -71,7 +75,7 @@ export const LoansPage = () => {
         rating: loan.attributes.rating,
         security_details: loan.attributes.security_details,
         status: loan.attributes.status,
-        xirr: loan.attributes.xirr,
+        xirr: xirr,
       }
       rows.push(newRow)
       return rows

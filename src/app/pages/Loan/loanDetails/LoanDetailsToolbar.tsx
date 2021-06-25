@@ -56,6 +56,7 @@ export const LoanDetailsToolbar = (props: any) => {
    const handleDelete = () => {
     dispatch(loansActions.deleteLoan(loanDetails.id))
     handleClose()
+    linkTo.push(`/loans`)
   }
 // corpo do dialog de edit ou delete
 const body =
@@ -133,7 +134,7 @@ edit === true ? (
           </Grid>
 
           {/* block 3 */}
-          <Grid container xs={2} justify="space-around" className={classes.root}>
+          <Grid container item xs={2} justify="space-around" className={classes.root}>
             <Button href={loanDetails.attributes?.link} target="_blank">
               Link
             </Button>

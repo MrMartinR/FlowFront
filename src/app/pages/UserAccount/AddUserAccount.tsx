@@ -281,7 +281,6 @@ export const AddUserAccount = (props: any) => {
         <Button type="submit" disabled={activeStep !== steps.length - 1} color="primary">
           Create Account
         </Button>
-        {/* @TODO: Mantener visible la seleccion a medida que se avanza en el stepper */}
       </Grid>
     </form>
   )
