@@ -152,7 +152,7 @@ export const LoanEdit = (props: any) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
-        <Typography variant="h4">Edit Loan</Typography>
+        <Typography variant="h5">Edit Loan</Typography>
         {/* name */}
         <FormControl fullWidth margin="dense">
           <FormLabel>Name</FormLabel>
@@ -327,34 +327,25 @@ export const LoanEdit = (props: any) => {
           </TextField>
         </FormControl>
         {/* installment */}
-        {amortization !== "Bullet" && <FormControl fullWidth margin="dense">
-          <FormLabel>Installment</FormLabel>
-          <TextField value={installment} onChange={handleInstallment} select variant="outlined">
-            {installmentTypes.map((item: any) => (
-              <MenuItem value={item.value} key={item.value}>
-                {item.value}
-              </MenuItem>
-            ))}
-          </TextField>
-        </FormControl>}
+        {amortization !== 'Bullet' && (
+          <FormControl fullWidth margin="dense">
+            <FormLabel>Installment</FormLabel>
+            <TextField value={installment} onChange={handleInstallment} select variant="outlined">
+              {installmentTypes.map((item: any) => (
+                <MenuItem value={item.value} key={item.value}>
+                  {item.value}
+                </MenuItem>
+              ))}
+            </TextField>
+          </FormControl>
+        )}
         {/* air */}
         <FormControl fullWidth margin="dense">
-          <FormLabel>Air</FormLabel>
+          <FormLabel>AIR</FormLabel>
           <TextField
             name="air"
             defaultValue={loanDetails.attributes.air}
             placeholder="Air"
-            autoComplete="off"
-            inputRef={register()}
-          />
-        </FormControl>
-        {/* xirr */}
-        <FormControl fullWidth margin="dense">
-          <FormLabel>XIRR</FormLabel>
-          <TextField
-            name="xirr"
-            defaultValue={loanDetails.attributes.xirr}
-            placeholder="XIRR"
             autoComplete="off"
             inputRef={register()}
           />

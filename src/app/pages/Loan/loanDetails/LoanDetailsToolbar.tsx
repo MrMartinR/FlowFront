@@ -13,6 +13,7 @@ import {
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
+import IconOpenNewWindow from '../../../../common/layout/components/icons/OpenNewWindow'
 import IconOption from '../../../../common/layout/components/icons/Option'
 import * as loansActions from './../state/loansActions'
 import { LoanEdit } from './LoanEdit'
@@ -33,51 +34,54 @@ export const LoanDetailsToolbar = (props: any) => {
   const [edit, setEdit] = useState(false)
   const { loanDetails } = props
   const linkTo = useHistory()
-  // Se premes no icono do platform leva a paxina dos details do platform
+  /* handle the navigation for the platform buton/icon loading the platform details */
   const handlePlatform = (e: any) => {
     linkTo.push(`/platforms/${loanDetails.attributes?.platform.id}`)
   }
-  // Se premes no icono de originator leva a paxina dos details do originator
+  /* handle the navigation for the originator buton/icon loading the originator details */
   const handleOriginator = (e: any) => {
     linkTo.push(`/originators/${loanDetails.attributes?.originator.id}`)
   }
-  // funcion que abre o dialog de edit ou delete
+  /* handle the edit/delete opening dialog
+   * @Params ['edit', 'delete']
+   */
+
   const handleOpen = (e: any, value: any) => {
     if (value === 'edit') setEdit(true)
     if (value === 'delete') setEdit(false)
     setOpen(true)
   }
-  // funcion que pecha o dialog
+  /* handle the edit/delete closing dialog */
   const handleClose = () => {
     setOpen(false)
   }
-   // funcion que chama a accion de borrar o contact seleccionado
-   const dispatch = useDispatch()
-   const handleDelete = () => {
+  // funcion que chama a accion de borrar o contact seleccionado
+  const dispatch = useDispatch()
+  const handleDelete = () => {
     dispatch(loansActions.deleteLoan(loanDetails.id))
     handleClose()
     linkTo.push(`/loans`)
   }
-// corpo do dialog de edit ou delete
-const body =
-edit === true ? (
-  <LoanEdit loanDetails={loanDetails} handleClose={handleClose} handleOpen={handleOpen} />
-) : (
-  <>
-    <Typography variant="h4" paragraph>
-      Delete Loan
-    </Typography>
-    <Typography paragraph variant="body1">
-      Are you sure you want to delete the loan?
-    </Typography>
-    <Grid container justify="space-between">
-      <Button onClick={handleClose}>Cancel</Button>
-      <Button onClick={handleDelete} color="secondary">
-        Delete
-      </Button>
-    </Grid>
-  </>
-)
+  // corpo do dialog de edit ou delete
+  const body =
+    edit === true ? (
+      <LoanEdit loanDetails={loanDetails} handleClose={handleClose} handleOpen={handleOpen} />
+    ) : (
+      <>
+        <Typography variant="h4" paragraph>
+          Delete Loan
+        </Typography>
+        <Typography paragraph variant="body1">
+          Are you sure you want to delete the loan?
+        </Typography>
+        <Grid container justify="space-between">
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleDelete} color="secondary">
+            Delete
+          </Button>
+        </Grid>
+      </>
+    )
   return (
     <Container>
       {/* edit contact dialog */}
@@ -136,7 +140,7 @@ edit === true ? (
           {/* block 3 */}
           <Grid container item xs={2} justify="space-around" className={classes.root}>
             <Button href={loanDetails.attributes?.link} target="_blank">
-              Link
+              <IconOpenNewWindow />
             </Button>
             {/* // Only visible to Admin/Contributors */}
             <Button onClick={(e) => handleOpen(e, 'edit')} color="primary">
