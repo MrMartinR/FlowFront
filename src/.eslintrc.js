@@ -8,7 +8,7 @@ const restrictedPaths = [{ name: '@material-ui/core' }].map((pkg) =>
   }))
 )
 
-// TODO: Wait for https://github.com/facebook/create-react-app/pull/7036 to enable rules in react-scripts.
+// TODO Wait for https://github.com/facebook/create-react-app/pull/7036 to enable rules in react-scripts.
 
 module.exports = {
   extends: 'eslint-config-react-app',

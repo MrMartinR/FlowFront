@@ -22,9 +22,8 @@ const useStyles = makeStyles({
 /* define the columns for the table */
 const columns: GridColDef[] = [
   { field: 'date', headerName: 'Date', width: 120, headerAlign: 'right', align: 'right' },
-  /*
-   * @ToDo Replace this kind for icons
-   */
+
+  /* TODO Replace this kind for icons */
   {
     field: 'kind',
     headerName: 'Type',

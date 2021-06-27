@@ -5,7 +5,7 @@ import { Alert, AlertTitle } from '@material-ui/lab'
  * See {@link https://github.com/iamhosseindhv/notistack/}
  */
 
-/* @TODO: pass the duration in a prop calculating the lenght of the content
+/* TODO pass the duration in a prop calculating the lenght of the content
  * 100ms for each character
  * something like MAX( MIN( LEN(text) x 50, 2000), 7000)
  */

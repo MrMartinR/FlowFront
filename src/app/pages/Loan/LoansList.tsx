@@ -69,13 +69,13 @@ const columns: GridColDef[] = [
     resizable: false,
     sortable: false,
     renderCell: (params: GridCellParams) => (
-          <CardMedia
-            component="img"
-            src={'/media/svg/flags/' + params.value + '.svg'}
-            title={`${params.value}`}
-            alt={`${params.value}`}
-            style={{ padding: '36px' }}
-          />
+      <CardMedia
+        component="img"
+        src={'/media/svg/flags/' + params.value + '.svg'}
+        title={`${params.value}`}
+        alt={`${params.value}`}
+        style={{ padding: '36px' }}
+      />
     ),
   },
   { field: 'code', headerName: 'Code', width: 120 },
@@ -111,7 +111,7 @@ const columns: GridColDef[] = [
 
   // { field: 'borrower', headerName: 'Borrower', width: 180 },
 
-  //   /* @TODO: Make the Consumer/Business icon to render || hold this.. not sure if I want to show the borrower*/
+  //   /* TODO Make the Consumer/Business icon to render || hold this.. not sure if I want to show the borrower*/
   // {
   //   field: 'borrower_custom',
   //   headerName: 'Borrower',

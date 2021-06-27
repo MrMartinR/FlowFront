@@ -14,7 +14,7 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { useEffect, useState } from 'react'
 import IconOption from '../../../../common/layout/components/icons/Option'
 
-// @TODO: intentei meterlle o marginRight auto para q alinee a esqueda o seguinte bloque desde o ThemeProvider,
+// TODO intentei meterlle o marginRight auto para q alinee a esqueda o seguinte bloque desde o ThemeProvider,
 // pero InputLabel non soporta ese comando... asi q llo metin aqui.. non sei si hay forma de aplicalo a todos os
 // InputLabels da view esta... en CSS soname que se pode aplicar cousas a todos os elementos, digo por
 // que me parece algo raro ter q enchufarlle className={classes.inputLabel} a todos os ImputLabels... pero bueno..
@@ -37,7 +37,7 @@ export const LoanDetails = (props: any) => {
     setSecurity(loanDetails.attributes?.protection_scheme)
   }, [loanDetails])
 
-  // @TODO: Creo que cando se carga a paxina ainda non hay valores no loanDetails.attributes?.currency.code
+  // TODO Creo que cando se carga a paxina ainda non hay valores no loanDetails.attributes?.currency.code
   //  e dame error RangeError: Invalid currency code : undefined...
   // si a view esta cargada si que funciona...
 
@@ -186,11 +186,11 @@ export const LoanDetails = (props: any) => {
                     <InputLabel className={classes.inputLabel}>Remaining</InputLabel>
                   </Grid>
                   <Grid item xs={7}>
-                    {/* @TODO: Calcular el % de progreso desde la fecha de Issued a fecha de Maturity */}
+                    {/* TODO Calcular el % de progreso desde la fecha de Issued a fecha de Maturity */}
                     <LinearProgress variant="determinate" value={80} />
                   </Grid>
                   <Grid item xs={2}>
-                    {/* @TODO: calcular el tiempo restante entre Fecha Actual y Maturity y mostrarlo como: x years, y months and z days
+                    {/* TODO calcular el tiempo restante entre Fecha Actual y Maturity y mostrarlo como: x years, y months and z days
                      * y reemplazar ese 3000000, asumo q hay q pasar la fecha maturity a formato numerico */}
 
                     <Typography>
@@ -214,7 +214,7 @@ export const LoanDetails = (props: any) => {
                 </Grid>
                 {/* Listed */}
                 {/* Renders the Listed date if exists */}
-                {/* @TODO: Misma historia pasar a fecha a numero e formateala */}
+                {/* TODO Misma historia pasar a fecha a numero e formateala */}
                 {loanDetails.attributes?.date_listed && (
                   <Grid container alignItems="center">
                     <InputLabel className={classes.inputLabel}>Listed</InputLabel>
@@ -222,14 +222,14 @@ export const LoanDetails = (props: any) => {
                   </Grid>
                 )}
                 {/* Issued */}
-                {/* @TODO: Misma historia pasar a fecha a numero e formateala */}
+                {/* TODO Misma historia pasar a fecha a numero e formateala */}
                 <Grid container alignItems="center">
                   <InputLabel className={classes.inputLabel}>Issued</InputLabel>
                   <Typography>{loanDetails.attributes?.date_issued}</Typography>
                 </Grid>
 
                 {/* Maturity */}
-                {/* @TODO: Misma historia pasar a fecha a numero e formateala */}
+                {/* TODO Misma historia pasar a fecha a numero e formateala */}
                 <Grid container alignItems="center">
                   <InputLabel className={classes.inputLabel}>Maturity</InputLabel>
                   {(loanDetails.attributes?.date_maturity && (

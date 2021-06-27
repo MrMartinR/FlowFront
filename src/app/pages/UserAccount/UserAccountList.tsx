@@ -72,7 +72,7 @@ export const UserAccountsList = (props: any) => {
       } else setListFiltered(list)
     }
   }, [list, active])
-  
+
   return (
     <Container className={classes.root}>
       <Grid container>
@@ -125,7 +125,7 @@ export const UserAccountsList = (props: any) => {
                   />
                 </ListItemAvatar>
                 <ListItemText primary={`${item.attributes.name}`} className={classes.text} />
-                {/* @ToDo add the value and balance in the right part of the card */}
+                {/* TODO add the value and balance in the right part of the card */}
                 {/* <ListItemText secondary={`${item.attributes.value}`} />
                   <ListItemText secondary={`${item.attributes.balance}`} /> */}
               </ListItem>

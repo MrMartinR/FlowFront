@@ -82,7 +82,7 @@ const theme = createMuiTheme({
      * Make sure you use stroke-width in increments of 0.5px or 1.5625%, along with size (height/width) increments of 24px, 32px, 48px, 64px. This allows for optimal pixel-hinting.
      * If you decide to use a larger stroke-width with stroke-linejoin: miter (Squared off style), I recommend using overflow: visible just in case the linecap edge falls just outside the viewBox. This prevents any of the points of the icon from getting cut off.
      */
-    // @REV: fill none is not working... ??
+
     MuiSvgIcon: {
       // width: '24px',
       // height: '24px',
