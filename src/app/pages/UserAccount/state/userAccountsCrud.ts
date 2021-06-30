@@ -14,7 +14,7 @@ export const TRANSACTIONS_URL = `${API_URL}/api/v1/transactions`
  * @returns List of all the User Accounts
  */
  export const getAllUserAccounts = () => {
-    return axios.get(USER_ACCOUNTS_URL, optionsHeaders());
+    return axios.get(`${USER_ACCOUNTS_URL}?include=account,currency`, optionsHeaders());
   }
 
   /**
@@ -23,7 +23,7 @@ export const TRANSACTIONS_URL = `${API_URL}/api/v1/transactions`
  * @returns Data about a specific User Account
  */
 export const getUserAccountById = (id: string) => {
-    return axios.get(`${USER_ACCOUNTS_URL}/${id}`, optionsHeaders())
+    return axios.get(`${USER_ACCOUNTS_URL}/${id}?include=account,country`, optionsHeaders())
   }
 /**
  * MEtodo POST para crear unha nova user_account

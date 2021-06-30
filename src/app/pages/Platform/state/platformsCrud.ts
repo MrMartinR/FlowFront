@@ -13,7 +13,7 @@ export const PLATFORMS_URL = `${API_URL}/api/v1/platforms`
  * @returns List of all the Platforms
  */
  export const getAllPlatforms = () => {
-    return axios.get(PLATFORMS_URL, optionsHeaders());
+    return axios.get(`${PLATFORMS_URL}?include=contact`, optionsHeaders());
   }
 
 /**
@@ -22,7 +22,7 @@ export const PLATFORMS_URL = `${API_URL}/api/v1/platforms`
  * @returns Data about a specific Platform
  */
   export const getPlatformById = (id: any) => {
-    return axios.get(`${PLATFORMS_URL}/${id}`, optionsHeaders());
+    return axios.get(`${PLATFORMS_URL}/${id}?include=contact`, optionsHeaders());
   }
 
 /**

@@ -27,7 +27,6 @@ const useStyles = makeStyles({
 const columns: GridColDef[] = [
   {
     field: 'platform',
-    // headerName: 'Platform',
     headerName: <IconPlatform />,
     description: 'Platform',
     width: 80,
@@ -45,7 +44,6 @@ const columns: GridColDef[] = [
   },
   {
     field: 'originator',
-    // headerName: 'Originator',
     headerName: <IconOriginator />,
     width: 80,
     resizable: false,
@@ -81,7 +79,6 @@ const columns: GridColDef[] = [
   { field: 'code', headerName: 'Code', width: 120 },
   { field: 'name', headerName: 'Name', width: 180 },
 
-  // { field: 'country_name', headerName: 'Country', width: 180,  },
   { field: 'currency', headerName: 'Currency', width: 120, sortable: false },
   {
     field: 'borrower_type',
@@ -106,32 +103,10 @@ const columns: GridColDef[] = [
       )),
   },
   { field: 'category', headerName: 'Category', width: 180, sortable: false },
-
-  // { field: 'amount', headerName: 'Amount', width: 180 },
-
-  // { field: 'borrower', headerName: 'Borrower', width: 180 },
-
-  //   /* TODO Make the Consumer/Business icon to render || hold this.. not sure if I want to show the borrower*/
-  // {
-  //   field: 'borrower_custom',
-  //   headerName: 'Borrower',
-  //   width: 180,
-  //   sortable: false,
-  //   valueGetter: (params: GridValueGetterParams) =>
-  //     `${
-  //       (params.getValue(params.id, 'borrower_type') == 'Consumer' && <IconConsumer />) ||
-  //       (params.getValue(params.id, 'borrower_type') == 'Business' && <IconBusiness />)
-  //     } ${params.getValue(params.id, 'borrower')}`,
-  // },
-
   { field: 'date_issued', headerName: 'Issued', width: 130, resizable: false },
   { field: 'date_listed', headerName: 'Listed', width: 130, resizable: false },
   { field: 'date_maturity', headerName: 'Maturity', width: 140, resizable: false },
-  // { field: 'description', headerName: 'Description', width: 180 },
-  // { field: 'dti_rating', headerName: 'Dti rating', width: 180 },
-  // { field: 'gender', headerName: 'Gender', width: 180 },
   { field: 'amortization', headerName: 'Amortization', width: 180, sortable: false },
-  // { field: 'installment', headerName: 'Installment', width: 180, sortable: false },
   { field: 'internal_code', headerName: 'Internal code', width: 180, hide: true },
   {
     field: 'protection_scheme',

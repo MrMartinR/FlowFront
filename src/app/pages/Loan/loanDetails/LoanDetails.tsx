@@ -2,55 +2,119 @@ import {
   Container,
   Grid,
   Card,
+  Chip,
   CardHeader,
   CardContent,
+  Dialog,
+  DialogContent,
   Button,
   Typography,
   InputLabel,
-  makeStyles,
   LinearProgress,
 } from '@material-ui/core/'
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { useEffect, useState } from 'react'
 import IconOption from '../../../../common/layout/components/icons/Option'
+import { BorrowerEdit } from './BorrowerEdit'
+import { DescriptionEdit } from './DescriptionEdit'
+import { DetailsEdit } from './DetailsEdit'
+import { NotesEdit } from './NotesEdit'
+import { SecurityEdit } from './SecurityEdit'
 
-// TODO intentei meterlle o marginRight auto para q alinee a esqueda o seguinte bloque desde o ThemeProvider,
-// pero InputLabel non soporta ese comando... asi q llo metin aqui.. non sei si hay forma de aplicalo a todos os
-// InputLabels da view esta... en CSS soname que se pode aplicar cousas a todos os elementos, digo por
-// que me parece algo raro ter q enchufarlle className={classes.inputLabel} a todos os ImputLabels... pero bueno..
-
-/* styles */
-const useStyles = makeStyles({
-  inputLabel: {
-    marginRight: 'auto',
-  },
-})
-
+const milisecToText = (milisecs: number) => {
+  const days = Math.floor(milisecs / 86400000)
+  const months = Math.floor(days / 30)
+  const daysr = days % 30
+  const years = Math.floor(months / 12)
+  const monthsr = months % 12
+  return `${years} year/s, ${monthsr} month/s and ${daysr} day/s`
+}
 export const LoanDetails = (props: any) => {
   const { loanDetails } = props
   const [security, setSecurity] = useState([])
+  const [date, setDate] = useState(null as any)
+  const [issued, setIssued] = useState(null as any)
+  const [progress, setProgress] = useState(null as any)
+  const [maturity, setMaturity] = useState(null as any)
+  const [remaining, setRemaining] = useState(null as any)
+  const [term, setTerm] = useState(null as any)
+  const [remainingText, setRemainingText] = useState(null as any)
+  const [termText, setTermText] = useState(null as any)
+  const [open, setOpen] = useState(false)
+  const [edit, setEdit] = useState('')
 
-  /* styles */
-  const classes = useStyles()
   // carga os datos do togglebutton
   useEffect(() => {
-    setSecurity(loanDetails.attributes?.protection_scheme)
+    setSecurity(loanDetails.attributes.protection_scheme)
   }, [loanDetails])
 
-  // TODO Creo que cando se carga a paxina ainda non hay valores no loanDetails.attributes?.currency.code
-  //  e dame error RangeError: Invalid currency code : undefined...
-  // si a view esta cargada si que funciona...
-
+  useEffect(() => {
+    setDate(new Date().getTime())
+    if (loanDetails.attributes.date_maturity) {
+      setMaturity(new Date(loanDetails.attributes.date_maturity).getTime())
+    } else setMaturity(null)
+    if (loanDetails.attributes.date_issued) {
+      setIssued(new Date(loanDetails.attributes.date_issued).getTime())
+    } else setIssued(null)
+  }, [loanDetails])
   const numberCurrencyFormat = (value: any) =>
     new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'EUR',
-      // currency: `${loanDetails.attributes?.currency_code}`,
-      // currency: `${loanDetails.attributes?.currency.code}`,
+      currency: `${loanDetails.attributes.currency.code}`,
     }).format(value)
+
+  useEffect(() => {
+    if (maturity && date) {
+      setRemaining(maturity - date)
+    }
+    if (maturity && issued) {
+      setTerm(maturity - issued)
+    }
+  }, [maturity, issued, date])
+  useEffect(() => {
+    if (remaining) {
+      if (remaining > 0) {
+        setRemainingText(milisecToText(remaining))
+      } else setRemainingText('0 days')
+    }
+    if (term) {
+      setTermText(milisecToText(term))
+    }
+    if (remaining & term) {
+      if (remaining > 0) {
+        setProgress(100 * (1 - remaining / term))
+      } else setProgress(100)
+    }
+  }, [remaining, term])
+
+  const handleOpen = (e: any, value: any) => {
+    setEdit(value)
+    setOpen(true)
+  }
+  /* handle the edit/delete closing dialog */
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  // corpo do dialog de edit
+  const body =
+    edit === 'borrower' ? (
+      <BorrowerEdit loanDetails={loanDetails} handleClose={handleClose} />
+    ) : edit === 'description' ? (
+      <DescriptionEdit loanDetails={loanDetails} handleClose={handleClose} />
+    ) : edit === 'notes' ? (
+      <NotesEdit loanDetails={loanDetails} handleClose={handleClose} />
+    ) : edit === 'details' ? (
+      <DetailsEdit loanDetails={loanDetails} handleClose={handleClose} />
+    ) : edit === 'security' &&
+      <SecurityEdit loanDetails={loanDetails} handleClose={handleClose} />
+    
 
   return (
     <Container>
+      {/* edit loan dialog */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>{body}</DialogContent>
+      </Dialog>
       <Grid container spacing={2}>
         {/* block 1 */}
         <Grid container direction="column" item xs={6} spacing={2}>
@@ -60,32 +124,32 @@ export const LoanDetails = (props: any) => {
               <CardHeader
                 title="Borrower"
                 action={
-                  <Button>
+                  <Button onClick={(e) => handleOpen(e, 'borrower')} color="primary">
                     <IconOption />
                   </Button>
                 }
               />
               <CardContent>
-                <Typography variant="h6"> {loanDetails.attributes?.borrower}</Typography>
+                <Typography variant="h6"> {loanDetails.attributes.borrower}</Typography>
 
                 {/* Type */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Type</InputLabel>
-                  <Typography>{loanDetails.attributes?.borrower_type}</Typography>
+                <Grid container justify="space-between">
+                  <InputLabel>Type</InputLabel>
+                  <Typography>{loanDetails.attributes.borrower_type}</Typography>
                 </Grid>
 
                 {/* Category */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Category</InputLabel>
-                  <Typography>{loanDetails.attributes?.category}</Typography>
+                <Grid container justify="space-between">
+                  <InputLabel>Category</InputLabel>
+                  <Typography>{loanDetails.attributes.category}</Typography>
                 </Grid>
 
                 {/* DTI */}
                 {/* Only show if Borrower = Consumer */}
                 {loanDetails.attributes?.borrower_type === 'Consumer' && (
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>DTI</InputLabel>
-                    <Typography>{loanDetails.attributes?.dti_rating}</Typography>
+                  <Grid container justify="space-between">
+                    <InputLabel>DTI</InputLabel>
+                    <Typography>{loanDetails.attributes.dti_rating}</Typography>
                   </Grid>
                 )}
               </CardContent>
@@ -97,13 +161,13 @@ export const LoanDetails = (props: any) => {
               <CardHeader
                 title="Description"
                 action={
-                  <Button>
+                  <Button onClick={(e) => handleOpen(e, 'description')} color="primary">
                     <IconOption />
                   </Button>
                 }
               />
               <CardContent>
-                <Typography>Description: {loanDetails.attributes?.description}</Typography>
+                <Typography>Description: {loanDetails.attributes.description}</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -113,13 +177,13 @@ export const LoanDetails = (props: any) => {
               <CardHeader
                 title="Notes"
                 action={
-                  <Button>
+                  <Button onClick={(e) => handleOpen(e, 'notes')} color="primary">
                     <IconOption />
                   </Button>
                 }
               />
               <CardContent>
-                <Typography>{loanDetails.attributes?.notes}</Typography>
+                <Typography>{loanDetails.attributes.notes}</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -133,109 +197,78 @@ export const LoanDetails = (props: any) => {
               <CardHeader
                 title="Details"
                 action={
-                  <Button>
+                  <Button onClick={(e) => handleOpen(e, 'details')} color="primary">
                     <IconOption />
                   </Button>
                 }
               />
               <CardContent>
                 {/* Amortization */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Amortization</InputLabel>
-                  <Typography>{loanDetails.attributes?.amortization}</Typography>
+                <Grid container justify="space-between">
+                  <InputLabel>Amortization</InputLabel>
+                  <Typography>{loanDetails.attributes.amortization}</Typography>
                 </Grid>
                 {/* Installment */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Installment</InputLabel>
-                  <Typography>{loanDetails.attributes?.installment}</Typography>
+                <Grid container justify="space-between">
+                  <InputLabel>Installment</InputLabel>
+                  <Typography>{loanDetails.attributes.installment}</Typography>
                 </Grid>
                 {/* AIR */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>AIR</InputLabel>
-                  <Typography>
-                    {loanDetails.attributes?.air && (loanDetails.attributes.air * 100).toFixed(2)}
-                  </Typography>
+                <Grid container justify="space-between">
+                  <InputLabel>AIR</InputLabel>
+                  <Typography>{loanDetails.attributes.air && (loanDetails.attributes.air * 100).toFixed(2)}</Typography>
                 </Grid>
                 {/* XIRR */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>XIRR</InputLabel>
+                <Grid container justify="space-between">
+                  <InputLabel>XIRR</InputLabel>
 
-                  {(loanDetails.attributes?.xirr && (
-                    <Typography> (loanDetails.attributes.xirr * 100).toFixed(2)) </Typography>
+                  {(loanDetails.attributes.xirr && (
+                    <Typography>{(loanDetails.attributes.xirr * 100).toFixed(2)}</Typography>
                   )) || <Typography color="primary">n/a</Typography>}
                 </Grid>
                 {/* Amount */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Amount</InputLabel>
+                <Grid container justify="space-between">
+                  <InputLabel>Amount</InputLabel>
                   <Typography>
-                    {numberCurrencyFormat(loanDetails.attributes?.amount.toFixed(2))}
-                    {/* {loanDetails.attributes?.currency.symbol} {loanDetails.attributes?.amount.toFixed(2)} */}
+                    {loanDetails.attributes.amount && numberCurrencyFormat(loanDetails.attributes.amount.toFixed(2))}
                   </Typography>
                 </Grid>
                 {/* Term */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Term</InputLabel>
-                  <Typography>[Calculation]</Typography>
+                <Grid container justify="space-between">
+                  <InputLabel>Term</InputLabel>
+                  <Typography>{termText}</Typography>
                 </Grid>
 
                 {/* Remaining */}
-                {/* Derivar estes calculos a o backend?? De todas formas o asunto do formateo de fechas vai
-                     ser asunto do frontend, non queria usar unha dependencia para esto...  */}
-                <Grid container alignItems="center">
-                  <Grid item xs={3}>
-                    <InputLabel className={classes.inputLabel}>Remaining</InputLabel>
-                  </Grid>
-                  <Grid item xs={7}>
-                    {/* TODO Calcular el % de progreso desde la fecha de Issued a fecha de Maturity */}
-                    <LinearProgress variant="determinate" value={80} />
-                  </Grid>
-                  <Grid item xs={2}>
-                    {/* TODO calcular el tiempo restante entre Fecha Actual y Maturity y mostrarlo como: x years, y months and z days
-                     * y reemplazar ese 3000000, asumo q hay q pasar la fecha maturity a formato numerico */}
+                <Grid container justify="space-between">
+                  <InputLabel>Remaining</InputLabel>
 
-                    <Typography>
-                      {new Intl.DateTimeFormat('en-GB', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                      }).format(Date.now() - 300000000)}
-                      {/* {loanDetails.attributes?.date_maturity} */}
-                      {/* {new Intl.DateTimeFormat('en-GB', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                      }).format(Date.now())} */}
-                      {/* {Date.now().toLocaleString('en-GB')} */}
-                    </Typography>
-                  </Grid>
+                  <Typography>{remainingText}</Typography>
                 </Grid>
+                <LinearProgress variant="determinate" value={progress} />
                 {/* Listed */}
-                {/* Renders the Listed date if exists */}
-                {/* TODO Misma historia pasar a fecha a numero e formateala */}
-                {loanDetails.attributes?.date_listed && (
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Listed</InputLabel>
-                    <Typography>{loanDetails.attributes?.date_listed}</Typography>
+                {loanDetails.attributes.date_listed && (
+                  <Grid container justify="space-between">
+                    <InputLabel>Listed</InputLabel>
+                    <Typography>{loanDetails.attributes.date_listed}</Typography>
                   </Grid>
                 )}
                 {/* Issued */}
-                {/* TODO Misma historia pasar a fecha a numero e formateala */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Issued</InputLabel>
-                  <Typography>{loanDetails.attributes?.date_issued}</Typography>
-                </Grid>
-
+                {loanDetails.attributes.date_issued && (
+                  <Grid container justify="space-between">
+                    <InputLabel>Issued</InputLabel>
+                    <Typography>{loanDetails.attributes.date_issued}</Typography>
+                  </Grid>
+                )}
                 {/* Maturity */}
-                {/* TODO Misma historia pasar a fecha a numero e formateala */}
-                <Grid container alignItems="center">
-                  <InputLabel className={classes.inputLabel}>Maturity</InputLabel>
-                  {(loanDetails.attributes?.date_maturity && (
-                    <Typography>{loanDetails.attributes?.date_maturity}</Typography>
-                  )) || <Typography color="primary">n/a</Typography>}
-                </Grid>
+                {loanDetails.attributes.date_maturity && (
+                  <Grid container justify="space-between">
+                    <InputLabel>Maturity</InputLabel>
+                    {(loanDetails.attributes.date_maturity && (
+                      <Typography>{loanDetails.attributes.date_maturity}</Typography>
+                    )) || <Typography color="primary">n/a</Typography>}
+                  </Grid>
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -246,19 +279,14 @@ export const LoanDetails = (props: any) => {
               <CardHeader
                 title="Security"
                 action={
-                  <Button>
+                  <Button onClick={(e) => handleOpen(e, 'security')} color="primary">
                     <IconOption />
                   </Button>
                 }
               />
               <CardContent>
-                <ToggleButtonGroup value={security} size="small">
-                  <ToggleButton value="BuyBack">BuyBack</ToggleButton>
-                  <ToggleButton value="Personal Guarantee">Personal Guarantee</ToggleButton>
-                  <ToggleButton value="Collateral">Collateral</ToggleButton>
-                  <ToggleButton value="Provision Fund">Provision Fund</ToggleButton>
-                </ToggleButtonGroup>
-                <Typography>{loanDetails.attributes?.security_details}</Typography>
+                {security && security.map((item: string, idx: number) => <Chip label={item} key={idx} />)}
+                <Typography>{loanDetails.attributes.security_details}</Typography>
               </CardContent>
             </Card>
           </Grid>

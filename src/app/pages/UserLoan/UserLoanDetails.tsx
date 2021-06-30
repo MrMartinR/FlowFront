@@ -69,37 +69,37 @@ export const UserLoanDetails = (props: any) => {
               <Card>
                 <CardHeader title={'Investment'} />
                 <CardContent>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Market</InputLabel>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Market</InputLabel>
                     <Typography>{userLoanDetails.attributes?.market}</Typography>
                   </Grid>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Investment Amount</InputLabel>
-                    <Typography>{userLoanDetails.attributes?.investment_amount}</Typography>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Investment Amount</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.investment_amount.toFixed(2)}</Typography>
                   </Grid>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Slice</InputLabel>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Slice</InputLabel>
                     <Typography>{userLoanDetails.attributes?.slice_name}</Typography>
                   </Grid>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Invest Mode</InputLabel>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Invest Mode</InputLabel>
                     <Typography>{userLoanDetails.attributes?.invest_mode}</Typography>
                   </Grid>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Date In</InputLabel>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Date In</InputLabel>
                     <Typography>{userLoanDetails.attributes?.date_in}</Typography>
                   </Grid>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Date Out</InputLabel>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Date Out</InputLabel>
                     <Typography>{userLoanDetails.attributes?.date_out}</Typography>
                   </Grid>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>Position</InputLabel>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Position</InputLabel>
                     <Typography>{userLoanDetails.attributes?.position}</Typography>
                   </Grid>
-                  <Grid container alignItems="center">
-                    <InputLabel className={classes.inputLabel}>XIRR</InputLabel>
-                    <Typography>{userLoanDetails.attributes?.xirr}</Typography>
+                  <Grid container justify='space-between'>
+                    <InputLabel>XIRR</InputLabel>
+                    <Typography>{(userLoanDetails.attributes?.xirr * 100).toFixed(2)}</Typography>
                   </Grid>
                 </CardContent>
               </Card>
@@ -128,7 +128,7 @@ export const UserLoanDetails = (props: any) => {
       ) : (
         <Card className={classes.root}>
           <CardContent>
-            <Grid container direction="column" alignItems="center">
+            <Grid container direction="column" justify='space-between'>
               <Typography variant="h5">You haven't invested in this loan</Typography>
               <Button>Add Loan to your Portfolio</Button>
             </Grid>

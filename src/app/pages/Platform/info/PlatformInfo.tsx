@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { makeStyles, Grid, Card, CardHeader, CardContent, Typography, Container } from '@material-ui/core/'
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+import { makeStyles, Chip, Grid, Card, CardHeader, CardContent, Typography, Container } from '@material-ui/core/'
 
 /* styles */
 const useStyles = makeStyles({
@@ -18,18 +17,18 @@ export const PlatformInfo = (props: any) => {
   /* styles */
   const classes = useStyles()
   const { platformDetails } = props
-  const [accounts, setAccounts] = useState()
-  const [agreement, setAgreement] = useState()
-  const [protection, setProtection] = useState()
-  const [investment, setInvestment] = useState()
-  const [cashflow, setCashflow] = useState()
+  const [accounts, setAccounts] = useState(null as any)
+  const [agreement, setAgreement] = useState(null as any)
+  const [protection, setProtection] = useState(null as any)
+  const [investment, setInvestment] = useState(null as any)
+  const [cashflow, setCashflow] = useState(null as any)
   // actualizaciond e variables para os toggleButtons
   useEffect(() => {
-    setAccounts(platformDetails.attributes?.account_category)
-    setAgreement(platformDetails.attributes?.structure)
-    setProtection(platformDetails.attributes?.protection_scheme)
-    setInvestment(platformDetails.attributes?.invest_mode)
-    setCashflow(platformDetails.attributes?.cashflow_options)
+    setAccounts(platformDetails?.data.attributes.account_category)
+    setAgreement(platformDetails?.data.attributes.structure)
+    setProtection(platformDetails?.data.attributes.protection_scheme)
+    setInvestment(platformDetails?.data.attributes.invest_mode)
+    setCashflow(platformDetails?.data.attributes.cashflow_options)
   }, [platformDetails])
   return (
     <Container>
@@ -42,7 +41,7 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Status" />
             <CardContent>
-              <Typography>{platformDetails.attributes?.status}</Typography>
+              <Typography>{platformDetails?.data.attributes.status}</Typography>
             </CardContent>
           </Card>
 
@@ -50,7 +49,10 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Type" />
             <CardContent>
-              <Typography>{platformDetails.attributes?.category}</Typography>
+              {platformDetails?.data.attributes.category &&
+                platformDetails.data.attributes.category.map((item: string, idx: number) => (
+                  <Chip label={item} key={idx} />
+                ))}
             </CardContent>
           </Card>
 
@@ -58,11 +60,11 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Details" />
             <CardContent>
-              <Typography>Term: {platformDetails.attributes?.term}</Typography>
+              <Typography>Term: {platformDetails?.data.attributes.term}</Typography>
               <Typography>AIR: </Typography>
               <Typography>Default: </Typography>
               <Typography>Loss: </Typography>
-              <Typography>Liquidity: {platformDetails.attributes?.liquidity}</Typography>
+              <Typography>Liquidity: {platformDetails?.data.attributes.liquidity}</Typography>
             </CardContent>
           </Card>
 
@@ -70,7 +72,7 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Company" />
             <CardContent>
-              <Typography>Profitable: {platformDetails.attributes?.profitable}</Typography>
+              <Typography>Profitable: {platformDetails?.data.attributes.profitable}</Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -84,13 +86,11 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Accounts" />
             <CardContent>
-              <ToggleButtonGroup value={accounts} size="small">
-                <ToggleButton value="Personal">Personal</ToggleButton>
-                <ToggleButton value="Corporate">Corporate</ToggleButton>
-                <ToggleButton value="Accredited">Accredited</ToggleButton>
-              </ToggleButtonGroup>
-              {/* TODO only show IFISA on platforms from the UK */}
-              <Typography>IFISA: {platformDetails.attributes?.ifisa}</Typography>
+              {accounts && accounts.map((item: string, idx: number) => <Chip label={item} key={idx} />)}
+              {platformDetails?.included[0].relationships.country.data.id ===
+                '61c2888b-8b6a-4536-830f-3a14e86a9cd5' && (
+                <Typography>IFISA: {platformDetails?.data.attributes.ifisa ? 'Yes' : 'No'}</Typography>
+              )}
             </CardContent>
           </Card>
 
@@ -98,12 +98,8 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Agreement Structure" />
             <CardContent>
-              <ToggleButtonGroup value={agreement} size="small">
-                <ToggleButton value="Indirect">Indirect</ToggleButton>
-                <ToggleButton value="Direct">Direct</ToggleButton>
-                <ToggleButton value="Bilateral">Bilateral</ToggleButton>
-              </ToggleButtonGroup>
-              <Typography>Taxes: {platformDetails.attributes?.taxes}</Typography>
+              {agreement && agreement.map((item: string, idx: number) => <Chip label={item} key={idx} />)}
+              <Typography>Taxes: {platformDetails?.data.attributes.taxes}</Typography>
             </CardContent>
           </Card>
 
@@ -111,12 +107,7 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Protection Scheme" />
             <CardContent>
-              <ToggleButtonGroup value={protection} size="small">
-                <ToggleButton value="Buyback">BuyBack</ToggleButton>
-                <ToggleButton value="Provision Fund">Provision Fund</ToggleButton>
-                <ToggleButton value="Personal">Personal</ToggleButton>
-                <ToggleButton value="Collateral">Collateral</ToggleButton>
-              </ToggleButtonGroup>
+              {protection && protection.map((item: string, idx: number) => <Chip label={item} key={idx} />)}
             </CardContent>
           </Card>
         </Grid>
@@ -131,22 +122,13 @@ export const PlatformInfo = (props: any) => {
             <CardHeader title="Investment Details"> </CardHeader>
             <CardContent>
               <Typography>Invest Mode: </Typography>
-              <ToggleButtonGroup value={investment} size="small">
-                <ToggleButton value="Bid">Bid</ToggleButton>
-                <ToggleButton value="Manual">Manual</ToggleButton>
-                <ToggleButton value="Preset">Preset</ToggleButton>
-                <ToggleButton value="Auto">Auto</ToggleButton>
-              </ToggleButtonGroup>
-              <Typography>Secondary Market: {platformDetails.attributes?.secondary_market}</Typography>
-              <Typography>SM Notes: {platformDetails.attributes?.sm_notes}</Typography>
-              <Typography>Cost: {platformDetails.attributes?.cost}</Typography>
-              <Typography>Min. Investment: {platformDetails.attributes?.min_investment}</Typography>
+              {investment && investment.map((item: string, idx: number) => <Chip label={item} key={idx} />)}
+              <Typography>Secondary Market: {platformDetails?.data.attributes.secondary_market}</Typography>
+              <Typography>SM Notes: {platformDetails?.data.attributes.sm_notes}</Typography>
+              <Typography>Cost: {platformDetails?.data.attributes.cost}</Typography>
+              <Typography>Min. Investment: {platformDetails?.data.attributes.min_investment}</Typography>
               <Typography>Cashflow options:</Typography>
-              <ToggleButtonGroup value={cashflow} size="small">
-                <ToggleButton value="Bank Transfer">Bank Transfer</ToggleButton>
-                <ToggleButton value="Revolut">Revolut</ToggleButton>
-                <ToggleButton value="Debit Card">Debit Card</ToggleButton>
-              </ToggleButtonGroup>
+              {cashflow && cashflow.map((item: string, idx: number) => <Chip label={item} key={idx} />)}
             </CardContent>
           </Card>
 
@@ -154,9 +136,9 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Promotions" />
             <CardContent>
-              <Typography>Welcome bonus: {platformDetails.attributes?.welcome_bonus}</Typography>
-              <Typography>Promo: {platformDetails.attributes?.promo}</Typography>
-              <Typography>Promo end: {platformDetails.attributes?.promo_end}</Typography>
+              <Typography>Welcome bonus: {platformDetails?.data.attributes.welcome_bonus}</Typography>
+              <Typography>Promo: {platformDetails?.data.attributes.promo}</Typography>
+              <Typography>Promo end: {platformDetails?.data.attributes.promo_end}</Typography>
             </CardContent>
           </Card>
         </Grid>

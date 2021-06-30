@@ -41,7 +41,7 @@ const columns: GridColDef[] = [
   {
     field: 'trade_name',
     headerName: 'Platform',
-    width: 120,
+    width: 180,
     resizable: false,
     renderCell: (params: GridCellParams) => (
       <>

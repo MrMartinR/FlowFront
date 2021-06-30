@@ -84,7 +84,7 @@ export const LoanDetailsToolbar = (props: any) => {
     )
   return (
     <Container>
-      {/* edit contact dialog */}
+      {/* edit loan dialog */}
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>{body}</DialogContent>
       </Dialog>
@@ -97,8 +97,8 @@ export const LoanDetailsToolbar = (props: any) => {
               <Avatar
                 component={ButtonBase}
                 onClick={handlePlatform}
-                src={'/media/svg/contact/icons/' + loanDetails.attributes?.platform_contact_id + '.svg'}
-                alt={loanDetails.attributes?.platform.trade_name}
+                src={'/media/svg/contact/icons/' + loanDetails.attributes.platform_contact_id + '.svg'}
+                alt={loanDetails.attributes.platform.trade_name}
                 variant="square"
               ></Avatar>
             </Grid>
@@ -106,8 +106,8 @@ export const LoanDetailsToolbar = (props: any) => {
               <Avatar
                 component={ButtonBase}
                 onClick={handleOriginator}
-                src={'/media/svg/contact/icons/' + loanDetails.attributes?.originator_contact_id + '.svg'}
-                alt={loanDetails.attributes?.originator_trade_name}
+                src={'/media/svg/contact/icons/' + loanDetails.attributes.originator_contact_id + '.svg'}
+                alt={loanDetails.attributes.originator_trade_name}
                 variant="square"
               ></Avatar>
             </Grid>
@@ -120,26 +120,26 @@ export const LoanDetailsToolbar = (props: any) => {
           {/* block 2 */}
           <Grid item xs={2} container alignItems="center" justify="space-around" className={classes.root}>
             <Grid>
-              <Typography>{loanDetails.attributes?.rating}</Typography>
+              <Typography>{loanDetails.attributes.rating}</Typography>
             </Grid>
             <Grid>
               <Avatar
                 variant="square"
-                src={'/media/svg/flags/' + loanDetails.attributes?.country_iso_code + '.svg'}
-                alt={loanDetails.attributes?.country_name}
+                src={'/media/svg/flags/' + loanDetails.attributes.country_iso_code + '.svg'}
+                alt={loanDetails.attributes.country_name}
               />
             </Grid>
             <Grid>
-              <Typography>{loanDetails.attributes?.currency_code}</Typography>
+              <Typography>{loanDetails.attributes.currency_code}</Typography>
             </Grid>
             <Grid>
-              <Typography>{loanDetails.attributes?.status}</Typography>
+              <Typography>{loanDetails.attributes.status}</Typography>
             </Grid>
           </Grid>
 
           {/* block 3 */}
           <Grid container item xs={2} justify="space-around" className={classes.root}>
-            <Button href={loanDetails.attributes?.link} target="_blank">
+            <Button href={loanDetails.attributes.link} target="_blank">
               <IconOpenNewWindow />
             </Button>
             {/* // Only visible to Admin/Contributors */}
