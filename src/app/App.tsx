@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Routes } from './Routes'
 import { FlowThemeProvider } from '../common/style/ThemeProvider'
-// TODO Added type any to funtion app, check if make sense
+
 export default function App({ store, persistor, basename }: any) {
   return (
     /* Provide Redux store */

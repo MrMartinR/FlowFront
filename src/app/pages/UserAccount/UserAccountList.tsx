@@ -118,7 +118,7 @@ export const UserAccountsList = (props: any) => {
               >
                 <ListItemAvatar>
                   <Avatar
-                    src={'/media/svg/contact/icons/' + item.attributes.account.contact_id + '.svg'}
+                    src={'/media/svg/contact/icons/' + item.attributes.account?.contact_id + '.svg'}
                     alt={item.attributes.name}
                     variant="square"
                     className={classes.avatar}

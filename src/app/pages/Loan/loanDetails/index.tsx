@@ -10,7 +10,7 @@ import { UserAlert } from '../../../utils/UserAlert'
 
 export const LoanDetailsPage = (props: any) => {
   const { params } = props.match
-  const [loanDetails, setLoanDetails] = useState({} as any)
+  const [loanDetails, setLoanDetails] = useState(null as any)
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.loans,
@@ -32,7 +32,7 @@ export const LoanDetailsPage = (props: any) => {
   }
   return (
     <Grid container direction="column">
-      <LoanDetailsToolbar loanDetails={loanDetails} />
+      {loanDetails && <LoanDetailsToolbar loanDetails={loanDetails} />}
       <UserAlert
         resetSuccess={resetSuccess}
         success={currentState.success}
@@ -41,10 +41,10 @@ export const LoanDetailsPage = (props: any) => {
       />
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
-          <LoanDetails loanDetails={loanDetails} />
+          {loanDetails && <LoanDetails loanDetails={loanDetails} />}
         </Grid>
         <Grid item xs={12}>
-          <UserLoanDetails id={loanDetails.attributes?.user_loan_id} />
+          {loanDetails && <UserLoanDetails id={loanDetails.attributes.user_loan_id} />}
         </Grid>
       </Grid>
     </Grid>
