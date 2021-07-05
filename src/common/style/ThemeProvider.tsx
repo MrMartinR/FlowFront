@@ -1,13 +1,27 @@
 import { colors, createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
+/* @See {https://github.com/mui-org/material-ui/issues/19655} */
+import type {} from '@material-ui/lab/themeAugmentation'
 
 /* See Documentation @link {https://material-ui.com/customization/theming/} */
 const theme = createMuiTheme({
+  /*
+   * ---------------------
+   * Typography
+   * ---------------------
+   */
+
   typography: {
     fontFamily: ['Poppins'].join(','),
     button: {
       textTransform: 'none',
     },
   },
+
+  /*
+   * ---------------------
+   * Palette
+   * ---------------------
+   */
 
   palette: {
     type: 'light',
@@ -39,6 +53,12 @@ const theme = createMuiTheme({
     },
   },
 
+  /*
+   * ---------------------
+   * Props
+   * ---------------------
+   */
+
   props: {
     /* Set default elevation to 0 for popovers */
     MuiPopover: {
@@ -53,6 +73,14 @@ const theme = createMuiTheme({
 
     MuiFormControl: {
       variant: 'outlined',
+    },
+
+    MuiToggleButtonGroup: {
+      size: 'small',
+    },
+
+    MuiToggleButton: {
+      size: 'small',
     },
 
     MuiInput: {
@@ -105,6 +133,19 @@ const theme = createMuiTheme({
       stroke: colors.blueGrey[500],
     },
   },
+
+  /*
+   * ---------------------
+   * Overrides
+   * ---------------------
+   */
+
+  // overrides: {
+  // MuiToggleButtonGroup: {
+  //   size: 'small',
+  // },
+
+  // },
 })
 
 export const FlowThemeProvider = (props: any) => {
