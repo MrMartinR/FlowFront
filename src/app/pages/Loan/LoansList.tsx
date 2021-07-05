@@ -117,7 +117,7 @@ const columns: GridColDef[] = [
         <>
           <>
             {params.value.toString().includes('Collateral') && (
-              <Tooltip title="Colaterall">
+              <Tooltip title="Collateral">
                 <IconButton>
                   <IconProtectionCollateral />
                 </IconButton>

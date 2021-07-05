@@ -76,6 +76,10 @@ const theme = createMuiTheme({
       disableRipple: true,
     },
 
+    MuiTooltip: {
+      arrow: true,
+    },
+
     /*
      * See @link: {https://github.com/danklammer/bytesize-icons}
      * Since there is a 2px margin between the paths and viewBox, I recommend not having a stroke-width larger than 4px (or 12.5%). 4px might seems small but it's relative to the 32x32 grid.
@@ -84,11 +88,13 @@ const theme = createMuiTheme({
      */
 
     MuiSvgIcon: {
-      // width: '24px',
-      // height: '24px',
+      // width: '100%',
+      // height: '100%',
       // display: 'inline-block',
+      // viewBox: 'inherit',
       viewBox: '0 0 32 32',
       // fontSize: 'large',
+      // preserveAspectRatio: 'xMidYMid meet',
       fill: 'none',
       color: 'inherit',
       htmlColor: 'transparent',

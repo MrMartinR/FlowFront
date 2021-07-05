@@ -1,6 +1,16 @@
 import { useHistory } from 'react-router-dom'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
-import { makeStyles, Grid, LinearProgress, CardMedia, Tooltip, IconButton } from '@material-ui/core/'
+import {
+  makeStyles,
+  Grid,
+  LinearProgress,
+  CardMedia,
+  Tooltip,
+  IconButton,
+  Fab,
+  Button,
+  createGenerateClassName,
+} from '@material-ui/core/'
 import IconProtectionBuyBack from '../../../common/layout/components/icons/ProtectionBuyBack'
 import IconProtectionPersonal from '../../../common/layout/components/icons/ProtectionPersonal'
 import IconProtectionCollateral from '../../../common/layout/components/icons/ProtectionCollateral'
@@ -32,7 +42,6 @@ const columns: GridColDef[] = [
             component="img"
             src={'/media/svg/platform-status/' + `${params.value}`.toLowerCase() + '.svg'}
             alt={`${params.value}`}
-            
           />
         </IconButton>
       </Tooltip>
@@ -41,7 +50,7 @@ const columns: GridColDef[] = [
   {
     field: 'trade_name',
     headerName: 'Platform',
-    width: 180,
+    width: 160,
     resizable: false,
     renderCell: (params: GridCellParams) => (
       <>
@@ -50,6 +59,7 @@ const columns: GridColDef[] = [
           src={'/media/svg/contact/logos/' + params.row.contact_id + '.svg'}
           title={`${params.value}`}
           alt={`${params.value}`}
+          style={{ height: '42px', width: 'auto' }}
         />
       </>
     ),
@@ -60,41 +70,50 @@ const columns: GridColDef[] = [
   { field: 'min_investment', headerName: 'Min Investment', width: 190 },
   {
     field: 'protection_scheme',
-    headerName: 'Protection Scheme',
-    width: 220,
+    headerName: 'Protection',
+    width: 160,
     renderCell: (params: GridCellParams) =>
       params.value && (
-        <>
+        <Grid container alignItems="center">
           {params.value.toString().includes('Collateral') && (
-            <Tooltip title="Colaterall">
-              <IconButton>
-                <IconProtectionCollateral />
-              </IconButton>
+            <Tooltip title="Collateral">
+              <Grid>
+                <IconButton disabled style={{ padding: '2px' }}>
+                  <IconProtectionCollateral />
+                </IconButton>
+              </Grid>
             </Tooltip>
           )}
           {params.value.toString().includes('BuyBack Guarantee') && (
-            <Tooltip title="BuyBack Guarantee">
-              <IconButton>
-                <IconProtectionBuyBack />
-              </IconButton>
+            <Tooltip title={'BuyBack Guarantee'}>
+              <Grid>
+                <IconButton disabled style={{ padding: '2px' }}>
+                  <IconProtectionBuyBack />
+                </IconButton>
+              </Grid>
             </Tooltip>
           )}
           {params.value.toString().includes('Personal Guarantee') && (
             <Tooltip title="Personal Guarantee">
-              <IconButton>
-                <IconProtectionPersonal />
-              </IconButton>
+              <Grid>
+                <IconButton disabled style={{ padding: '2px' }}>
+                  <IconProtectionPersonal />
+                </IconButton>
+              </Grid>
             </Tooltip>
           )}
           {params.value.toString().includes('Provision Fund') && (
             <Tooltip title="Provision Fund">
-              <IconButton>
-                <IconProtectionFund />
-              </IconButton>
+              <Grid>
+                <IconButton disabled style={{ padding: '2px' }}>
+                  <IconProtectionFund />
+                </IconButton>
+              </Grid>
             </Tooltip>
           )}
-        </>
+        </Grid>
       ),
+    sortable: false,
   },
   { field: 'secondary_market', type: 'boolean', headerName: 'SM', description: 'Secondary Market', width: 100 },
   { field: 'structure', headerName: 'Structure', width: 150 },
@@ -109,7 +128,8 @@ export const PlatformsList = (props: any) => {
   const classes = useStyles()
   const { isLoading, rows } = props
   const linkTo = useHistory()
-  // se premes nunha fila redirixe a paxina dos details de ese platform
+
+  /* function to handle the click on row to route to platform details */
   const handleClick = (e: any) => linkTo.push(`/platforms/${e.row.id}`)
 
   return (

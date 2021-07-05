@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 })
 const columns: GridColDef[] = [
   // column definition format here
-  
+
   { field: 'name', headerName: 'Name', width: 300 },
   { field: 'air', headerName: 'AIR', width: 180 },
   { field: 'amortization', headerName: 'Amortization', width: 180 },
@@ -72,7 +72,7 @@ const columns: GridColDef[] = [
         <>
           <>
             {params.value.toString().includes('Collateral') && (
-              <Tooltip title="Colaterall">
+              <Tooltip title="Collateral">
                 <IconButton>
                   <IconProtectionCollateral />
                 </IconButton>
