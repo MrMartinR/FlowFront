@@ -1,10 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
-import * as Yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import {
   makeStyles,
   Button,
@@ -22,10 +20,12 @@ import {
 } from '@material-ui/core'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import Logo from '../../../../common/media/flow-logo.svg'
-import { countriesList } from '../data/countriesList'
+import { countriesList } from './../../../utils/types'
 import { UserAlert } from '../../../utils/UserAlert'
 import { RootState } from '../../../../redux/rootReducer'
-
+import { Alert } from '@material-ui/lab'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 /* initializing values */
 const initialValues = {
   email: '',
@@ -61,6 +61,33 @@ const useStyles = makeStyles({
 export const Registration = () => {
   /* styles */
   const classes = useStyles()
+  const [loading, setLoading] = useState(false)
+  const RegistrationSchema = Yup.object().shape({
+    email: Yup.string()
+      .required('Email is required')
+      .email('Entered value does not match email format')
+      .min(3, 'Email should be at least 3 characters.'),
+    username: Yup.string()
+      .required('Username is required')
+      .min(3, 'Username should be at least 3 characters.')
+      .max(50, 'Username should be less than 50 characters'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(3, 'Password should be at least 3 characters.')
+      .max(50, 'Password should be less than 50 characters'),
+    name: Yup.string()
+      .required('Name is required')
+      .min(3, 'Name should be at least 3 characters.')
+      .max(50, 'Name should be less than 50 characters'),
+    acceptTerms: Yup.boolean()
+      .required('You must accept the terms and conditions')
+      .oneOf([true], 'You must accept the terms and conditions'),
+  })
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(RegistrationSchema),
+    defaultValues: initialValues,
+  })
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.auth,
@@ -76,34 +103,11 @@ export const Registration = () => {
   const handleClose = () => {
     setOpen(false)
   }
-
-  /*
-   * schema for yup validation
-   */
-  const RegistrationSchema = Yup.object().shape({
-    username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    email: Yup.string()
-      .email('Wrong email format')
-      .min(6, 'Minimum 6 characters')
-      .max(50, 'Maximum 50 characters')
-      .required('Required'),
-    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    name: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    acceptTerms: Yup.boolean()
-      .oneOf([true], 'You must accept the terms and conditions')
-      .required('You must accept the terms and conditions'),
-  })
-
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(RegistrationSchema),
-    defaultValues: initialValues,
-  })
-
   const dispatch = useDispatch()
   const resetSuccess = () => {
     dispatch(authActions.resetSuccess())
   }
-  const [country, setCountry] = useState('61c2888b-8b6a-4536-830f-3a14e86a9cd5')
+  const [country, setCountry] = useState(countriesList[0].id)
   const handleCountry = (e: any) => {
     setCountry(e.target.value)
   }
@@ -111,7 +115,9 @@ export const Registration = () => {
   const onSubmit = ({ email, username, password, name }: RegisterType) => {
     dispatch(authActions.registration(email, name, username, password, country))
   }
-
+  useEffect(() => {
+    setLoading(currentState.loading)
+  }, [currentState.loading])
   return (
     <Grid container className={classes.root}>
       <UserAlert
@@ -132,17 +138,9 @@ export const Registration = () => {
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column" justify="center" alignItems="center">
             {/* begin: Country */}
-            <FormControl required fullWidth variant="outlined" size="small">
+            <FormControl fullWidth variant="outlined" size="small">
               <FormLabel>Country</FormLabel>
-              <Select
-                labelId="Country"
-                id="country"
-                name="country"
-                value={country}
-                required
-                onChange={handleCountry}
-                fullWidth
-              >
+              <Select labelId="Country" id="country" name="country" value={country} onChange={handleCountry} fullWidth>
                 {countriesList.map((country: any) => (
                   <MenuItem value={country.id} key={country.id}>
                     {country.name}
@@ -153,83 +151,52 @@ export const Registration = () => {
             </FormControl>
             {/* end: Country */}
             {/* begin: Name */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Name</FormLabel>
-              <OutlinedInput
-                id="name"
-                name="name"
-                type="text"
-                required
-                autoComplete="on"
-                inputRef={register()}
-                fullWidth
-              />
+              <OutlinedInput name="name" type="text" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Type your name</FormHelperText>
-              <Typography variant="caption"> {errors.name && errors.name.message}</Typography>
+              {errors.name && <Alert severity="error">{errors.name.message}</Alert>}
             </FormControl>
             {/* end: Name */}
             {/* begin: Email */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Email</FormLabel>
-              <OutlinedInput
-                id="email"
-                name="email"
-                type="email"
-                required
-                autoComplete="on"
-                inputRef={register()}
-                fullWidth
-              />
+              <OutlinedInput name="email" type="email" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Type your email</FormHelperText>
-              <Typography variant="caption"> {errors.email && errors.email.message}</Typography>
+              {errors.email && <Alert severity="error">{errors.email.message}</Alert>}
             </FormControl>
             {/* end: Email */}
             {/* begin: Username */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Username</FormLabel>
-              <OutlinedInput
-                id="username"
-                name="username"
-                type="text"
-                required
-                autoComplete="on"
-                inputRef={register()}
-                fullWidth
-              />
+              <OutlinedInput name="username" type="text" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Choose a username</FormHelperText>
-              <Typography variant="caption"> {errors.username && errors.username.message}</Typography>
+              {errors.username && <Alert severity="error">{errors.username.message}</Alert>}
             </FormControl>
             {/* end: Username */}
             {/* begin: Password */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Password</FormLabel>
-              <OutlinedInput
-                id="password"
-                name="password"
-                type="password"
-                required
-                autoComplete="on"
-                inputRef={register()}
-                fullWidth
-              />
+              <OutlinedInput name="password" type="password" autoComplete="on" inputRef={register()} fullWidth />
               <FormHelperText>Choose a password</FormHelperText>
-              <Typography variant="caption"> {errors.password && errors.password.message}</Typography>
+              {errors.password && <Alert severity="error">{errors.password.message}</Alert>}
             </FormControl>
             {/* end: Password */}
-
             {/* begin: Terms and Conditions */}
             <Grid>
-              <FormControlLabel control={<Checkbox name="acceptTerms" id="acceptTerms" inputRef={register()}/>} label="I accept the" />
+              <FormControlLabel control={<Checkbox name="acceptTerms" inputRef={register()} />} label="I accept the" />
               <Button onClick={handleOpen}>Terms & Conditions.</Button>
             </Grid>
-            <Typography variant="caption"> {errors.acceptTerms && errors.acceptTerms.message}</Typography>
+            {errors.acceptTerms && <Alert severity="error">{errors.acceptTerms.message}</Alert>}
 
-            <Button type="submit">Sign Up</Button>
-
+            <FormControl fullWidth size="small">
+              <Button disabled={loading} type="submit" color="primary">
+                Sign Up
+              </Button>
+            </FormControl>
             <Typography variant="body2" align="center">
               Already registered? <Link to="/auth/login">Sign in</Link>
             </Typography>
-
             {/* end: Terms and Conditions */}
           </Grid>
         </form>
@@ -306,7 +273,9 @@ export const Registration = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </Grid>

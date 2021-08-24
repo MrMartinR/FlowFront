@@ -15,10 +15,10 @@ import {
   Dialog,
   DialogContent,
   Button,
-  ButtonGroup,
 } from '@material-ui/core'
 import { ContactEdit } from './ContactEdit'
 import { RootState } from '../../../redux/rootReducer'
+import IconOption from '../../../common/layout/components/icons/Option'
 
 /* styles */
 const useStyles = makeStyles({
@@ -82,7 +82,7 @@ export const ContactDetails = (props: any) => {
     edit === true ? (
       <>
         <Typography variant="h4">Edit Contact</Typography>
-        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} handleOpen={handleOpen}/>
+        <ContactEdit selectedContact={selectedContact} handleClose={handleClose} handleOpen={handleOpen} />
       </>
     ) : (
       <>
@@ -94,7 +94,7 @@ export const ContactDetails = (props: any) => {
         </Typography>
         <Grid container justify="space-between">
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete} variant="contained" color="secondary">
+          <Button onClick={handleDelete} color="secondary">
             Delete
           </Button>
         </Grid>
@@ -117,9 +117,9 @@ export const ContactDetails = (props: any) => {
               title="Details"
               action={
                 canEdit && (
-                  <ButtonGroup>
-                    <Button onClick={(e) => handleOpen(e, 'edit')}>•••</Button>
-                  </ButtonGroup>
+                  <Button onClick={(e) => handleOpen(e, 'edit')} color="primary">
+                    <IconOption />
+                  </Button>
                 )
               }
             />
@@ -148,6 +148,7 @@ export const ContactDetails = (props: any) => {
                   <ListItemText primary={` ${selectedContact.attributes?.surname || err}`} />
                   <ListItemText primary={` ${selectedContact.attributes?.nick || err}`} />
                   <ListItemText primary={` ${selectedContact.attributes?.id_number || err}`} />
+                  <ListItemText primary={` ${selectedContact.attributes?.dob || err}`} />
                 </List>
               )}
             </Grid>

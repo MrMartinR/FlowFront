@@ -74,14 +74,14 @@ export const UserPlatformsPage = () => {
         {/* Details */}
         <Grid item>
           <Grid container justify="space-between">
-            <Grid xs={2}>
+            <Grid item xs={2}>
               <Grid container direction="column" spacing={1}>
                 <UserPlatformListToolbar list={rows} />
                 <CardHeader title="User Platforms"></CardHeader>
                 <UserPlatformsList isLoading={isLoading} rows={rows} />
               </Grid>
             </Grid>
-            <Grid xs={9}>
+            <Grid item xs={9}>
               <UserPlatformsDetails />
             </Grid>
           </Grid>

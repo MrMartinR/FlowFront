@@ -1,10 +1,12 @@
-import { Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import { UserAlert } from '../../utils/UserAlert'
 import { CurrencyDetailsToolbar } from './CurrencyDetailsToolbar'
 import * as currenciesActions from './state/currenciesActions'
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core'
+
 export const CurrencyDetails = (props: any) => {
   const { params } = props.match
   const { currentState } = useSelector(

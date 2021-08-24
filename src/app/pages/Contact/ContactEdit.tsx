@@ -21,30 +21,56 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as contactsActions from './state/contactsActions'
 import * as countriesActions from '../Country/state/countriesActions'
 import { RootState } from '../../../redux/rootReducer'
-
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 export const ContactEdit = (props: any) => {
   const { selectedContact, handleClose, handleOpen } = props
-  const { countryState } = useSelector(
+  const { countryState, authState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
+      authState: state.auth,
     }),
     shallowEqual
   )
-  const { register, handleSubmit, errors } = useForm()
   const [formData, setFormData] = useState(null as any)
   const [params, SetParams] = useState('' as any)
   const [visibility, setVisibility] = useState(selectedContact.attributes.visibility)
   const [kind, setKind] = useState(selectedContact.attributes.kind)
   const [country, setCountry] = useState('')
   const [list, setList] = useState([] as any)
+  const [canPublic, setCanPublic] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  let EditContactSchema 
+  if (kind === 'Individual') {
+    EditContactSchema = Yup.object().shape({
+      name: Yup.string()
+        .required('Name is required')
+        .min(3, 'Name should be at least 3 characters.')
+        .max(50, 'Name should be less than 50 characters'),
+    })
+  } else {
+    EditContactSchema = Yup.object().shape({
+      trade_name: Yup.string()
+        .required('Trade name is required')
+        .min(3, 'Trade name should be at least 3 characters.')
+        .max(50, 'Trade name should be less than 50 characters'),
+    })
+  }
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(EditContactSchema),
+  })
   // funcion que enche os formularios cos datos a editar
   useEffect(() => {
     setKind(selectedContact?.attributes.kind)
     setCountry(selectedContact?.attributes.country.id)
     setVisibility(selectedContact?.attributes.visibility)
   }, [selectedContact])
-
+  // funcion que garda un boolean que indica se o user actual pode editar ou borrar o contact actual
+  useEffect(() => {
+    if (authState.role !== 'user') {
+      setCanPublic(true)
+    } else setCanPublic(false)
+  }, [authState])
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -78,6 +104,11 @@ export const ContactEdit = (props: any) => {
   const onSubmit = (data: any, e: any) => {
     SetParams(selectedContact.id)
     data = { ...data, kind: kind, country_id: country, visibility: visibility }
+    if (kind === 'Individual') {
+      data = { ...data, trade_name: null, company_name: null, founded: null }
+    } else {
+      data = { ...data, name: null, surname: null, nick: null, dob: null }
+    }
     setFormData(data)
     handleClose()
   }
@@ -99,16 +130,17 @@ export const ContactEdit = (props: any) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.root}>
       <Grid container direction="column">
-        {/* @TODO: Este bloque que solo sea visible a admin/contributors */}
-        <FormControl margin="normal">
-          <FormLabel>Select Visibility</FormLabel>
-          <RadioGroup name="visibility" value={visibility} onChange={handleVisibility}>
-            <Grid container>
-              <FormControlLabel value="Public" control={<Radio color="default" />} label="Public" />
-              <FormControlLabel value="Private" control={<Radio color="default" />} label="Private" />
-            </Grid>
-          </RadioGroup>
-        </FormControl>
+        {canPublic && (
+          <FormControl margin="normal">
+            <FormLabel>Select Visibility</FormLabel>
+            <RadioGroup name="visibility" value={visibility} onChange={handleVisibility}>
+              <Grid container>
+                <FormControlLabel value="Public" control={<Radio color="default" />} label="Public" />
+                <FormControlLabel value="Private" control={<Radio color="default" />} label="Private" />
+              </Grid>
+            </RadioGroup>
+          </FormControl>
+        )}
 
         {/* contact type */}
         <FormControl margin="normal">
@@ -125,15 +157,7 @@ export const ContactEdit = (props: any) => {
         <FormControl margin="normal">
           <FormLabel>Select Country</FormLabel>
           {!isLoading ? (
-            <TextField
-              value={country}
-              onChange={handleCountry}
-              inputRef={register}
-              select
-              name="Country"
-              variant="outlined"
-              size="small"
-            >
+            <TextField value={country} onChange={handleCountry} inputRef={register} select name="Country">
               {list.map((country: any) => (
                 <MenuItem value={country.id} key={country.id}>
                   {country.attributes.name}
@@ -153,18 +177,11 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="trade_name"
                 defaultValue={selectedContact.attributes.trade_name}
-                placeholder="Trade name"
+                placeholder="Trade Name"
                 autoComplete="off"
-                inputRef={register({ required: true, minLength: 3 })}
-                variant="outlined"
-                size="small"
+                inputRef={register()}
               />
-              {errors.trade_name && errors.trade_name.type === 'required' && (
-                <Alert severity="error">Trade name is required</Alert>
-              )}
-              {errors.trade_name && errors.trade_name.type === 'minLength' && (
-                <Alert severity="error">Trade name should be at-least 3 characters.</Alert>
-              )}
+            {errors.trade_name && <Alert severity="error">{errors.trade_name.message}</Alert>}
             </FormControl>
 
             {/* company name */}
@@ -175,9 +192,7 @@ export const ContactEdit = (props: any) => {
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.company_name}
                 placeholder="Company name"
-                inputRef={register({ required: false })}
-                variant="outlined"
-                size="small"
+                inputRef={register()}
               />
             </FormControl>
 
@@ -186,11 +201,9 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Company Number</FormLabel>
               <TextField
                 name="id_number"
-                variant="outlined"
                 defaultValue={selectedContact.attributes.id_number}
                 placeholder="Company Number"
-                inputRef={register({ required: false })}
-                size="small"
+                inputRef={register()}
               />
             </FormControl>
 
@@ -202,9 +215,7 @@ export const ContactEdit = (props: any) => {
                 type="date"
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.founded}
-                inputRef={register({ required: false })}
-                variant="outlined"
-                size="small"
+                inputRef={register()}
                 className={classes.datePicker}
               />
             </FormControl>
@@ -216,17 +227,12 @@ export const ContactEdit = (props: any) => {
               <FormLabel>Name</FormLabel>
               <TextField
                 name="name"
-                variant="outlined"
                 placeholder="Name"
                 defaultValue={selectedContact.attributes.name}
                 autoComplete="off"
-                inputRef={register({ required: true, minLength: 3 })}
-                size="small"
+                inputRef={register()}
               />
-              {errors.name && errors.name.type === 'required' && <Alert severity="error">Name is required</Alert>}
-              {errors.name && errors.name.type === 'minLength' && (
-                <Alert severity="error">Name should be at-least 3 characters.</Alert>
-              )}
+              {errors.name && <Alert severity="error">{errors.name.message}</Alert>}
             </FormControl>
             {/* surname */}
             <FormControl margin="dense">
@@ -234,12 +240,10 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="surname"
                 // label="Surname"
-                variant="outlined"
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.surname}
                 placeholder="Surname"
-                inputRef={register({ required: false })}
-                size="small"
+                inputRef={register()}
               />
             </FormControl>
             {/* nick */}
@@ -248,12 +252,10 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="nick"
                 // label="Nick"
-                variant="outlined"
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.nick}
                 placeholder="Nick"
-                inputRef={register({ required: false })}
-                size="small"
+                inputRef={register()}
               />
             </FormControl>
             {/* id number */}
@@ -262,11 +264,9 @@ export const ContactEdit = (props: any) => {
               <TextField
                 name="id_number"
                 // label="ID Number"
-                variant="outlined"
                 defaultValue={selectedContact.attributes.id_number}
                 placeholder="ID Number"
-                inputRef={register({ required: false })}
-                size="small"
+                inputRef={register()}
               />
             </FormControl>
             {/* dob */}
@@ -277,9 +277,7 @@ export const ContactEdit = (props: any) => {
                 type="date"
                 autoComplete="off"
                 defaultValue={selectedContact.attributes.dob}
-                inputRef={register({ required: false })}
-                variant="outlined"
-                size="small"
+                inputRef={register()}
                 className={classes.datePicker}
               />
             </FormControl>
@@ -290,14 +288,12 @@ export const ContactEdit = (props: any) => {
         <FormControl margin="dense">
           <FormLabel>Description</FormLabel>
           <TextField
-            inputRef={register({ required: false })}
+            inputRef={register()}
             defaultValue={selectedContact.attributes.description}
             name="description"
             // label="description"
             multiline
             placeholder="Description"
-            variant="outlined"
-            size="small"
           />
         </FormControl>
 
@@ -309,7 +305,9 @@ export const ContactEdit = (props: any) => {
           </Grid>
           <Grid item>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Save</Button>
+            <Button type="submit" color="primary">
+              Save
+            </Button>
           </Grid>
         </Grid>
       </Grid>

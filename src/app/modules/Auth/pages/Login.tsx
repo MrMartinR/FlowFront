@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import * as Yup from 'yup'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import {
   makeStyles,
@@ -14,11 +13,12 @@ import {
 import * as authActions from '../state/authActions'
 import Logo from '../../../../common/media/flow-logo.svg'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { RootState } from '../../../../redux/rootReducer'
 import { Link } from 'react-router-dom'
 import { UserAlert } from '../../../utils/UserAlert'
-
+import { Alert } from '@material-ui/lab'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 /* Styles */
 const useStyles = makeStyles({
   root: {
@@ -30,23 +30,17 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  image: {
+    width: '170px',
+    heigth: '170px',
+  },
 })
-
 /**
  * User login component
  */
 export const Login = () => {
   const classes = useStyles()
-
-  const loginSchema = Yup.object().shape({
-    username: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-    password: Yup.string().min(3, 'Minimum 3 characters').max(50, 'Maximum 50 characters').required('Required'),
-  })
-
   const [loading, setLoading] = useState(false)
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(loginSchema),
-  })
   const dispatch = useDispatch()
   const resetSuccess = () => {
     dispatch(authActions.resetSuccess())
@@ -56,6 +50,19 @@ export const Login = () => {
     username: string
     password: string
   }
+  const LoginSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Username is required')
+      .min(3, 'Username should be at least 3 characters.')
+      .max(50, 'Username should be less than 50 characters'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(3, 'Password should be at least 3 characters.')
+      .max(50, 'Password should be less than 50 characters'),
+  })
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(LoginSchema),
+  })
   const { currentState } = useSelector(
     (state: RootState) => ({
       currentState: state.auth,
@@ -67,52 +74,35 @@ export const Login = () => {
   }, [currentState.loading])
 
   const onSubmit = ({ username, password }: Credentials) => {
-    localStorage.removeItem('forgot_pwd_notif')
     dispatch(authActions.login(username, password))
   }
   return (
     /* main grid */
-    <Grid container className={classes.root}>
+    <Grid container direction="column" className={classes.root}>
       {/* logo */}
-      <Grid item>
-        <CardMedia src={Logo} component="img" />
+      <Grid item xs={2}>
+        <CardMedia src={Logo} className={classes.image} component="img" />
       </Grid>
       {/* form */}
       <Grid item>
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
           <Grid container direction="column">
             {/* begin: Username */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Username</FormLabel>
-              <OutlinedInput
-                id="username"
-                name="username"
-                type="text"
-                required
-                autoComplete="on"
-                inputRef={register()}
-                fullWidth
-              />
-              <span> {errors.username && errors.username.message}</span>
+              <OutlinedInput name="username" type="text" autoComplete="on" inputRef={register()} fullWidth />
+              {errors.username && <Alert severity="error">{errors.username.message}</Alert>}
             </FormControl>
             {/* end: Username */}
 
             {/* begin: Password */}
-            <FormControl required fullWidth size="small">
+            <FormControl fullWidth size="small">
               <FormLabel>Password</FormLabel>
-              <OutlinedInput
-                id="password"
-                name="password"
-                type="password"
-                required
-                autoComplete="on"
-                inputRef={register()}
-                fullWidth
-              />
-              <span> {errors.password && errors.password.message}</span>
+              <OutlinedInput name="password" type="password" autoComplete="on" inputRef={register()} fullWidth />
+              {errors.password && <Alert severity="error">{errors.password.message}</Alert>}
             </FormControl>
             {/* end: Password */}
-            <Button disabled={loading} type="submit">
+            <Button disabled={loading} type="submit" color="primary">
               Sign In
             </Button>
           </Grid>

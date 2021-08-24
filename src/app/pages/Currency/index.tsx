@@ -43,7 +43,7 @@ export const Currencies = () => {
   }, [currentState.currenciesTable])
   // definense as filas da tabla cos datos da lista
   const rows = [] as any
-  if (list.length > 1)
+  if (list?.length > 0)
     list.map((currency: any) => {
       const newRow = {
         id: currency.id,

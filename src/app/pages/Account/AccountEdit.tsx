@@ -7,7 +7,7 @@ import * as countriesActions from '../Country/state/countriesActions'
 import * as accountsActions from './state/accountsActions'
 
 export const AccountEdit = (props: any) => {
-  const { selectedAccount, handleClose } = props
+  const { selectedAccount, handleClose, handleOpen } = props
   const { countryState } = useSelector(
     (state: RootState) => ({
       countryState: state.countries,
@@ -70,9 +70,10 @@ export const AccountEdit = (props: any) => {
         <LinearProgress />
       )}
       <Grid container justify="space-between">
+        <Button onClick={(e) => handleOpen(e, 'delete')} color='secondary'>Delete</Button>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button type="submit" disabled variant="contained">
-          Submit
+        <Button type="submit" color='primary'>
+          Save
         </Button>
       </Grid>
     </form>

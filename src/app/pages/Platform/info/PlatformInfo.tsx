@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react'
-import { makeStyles, Grid, Card, CardHeader, CardContent, Typography, Container } from '@material-ui/core/'
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+import {
+  makeStyles,
+  Chip,
+  Grid,
+  Card,
+  CardHeader,
+  CardContent,
+  Typography,
+  Container,
+  InputLabel,
+  Tooltip,
+  IconButton,
+} from '@material-ui/core/'
+import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab/'
+import IconInfo from '../../../../common/layout/components/icons/Info'
 
 /* styles */
 const useStyles = makeStyles({
@@ -18,18 +31,18 @@ export const PlatformInfo = (props: any) => {
   /* styles */
   const classes = useStyles()
   const { platformDetails } = props
-  const [accounts, setAccounts] = useState()
-  const [agreement, setAgreement] = useState()
-  const [protection, setProtection] = useState()
-  const [investment, setInvestment] = useState()
-  const [cashflow, setCashflow] = useState()
+  const [accounts, setAccounts] = useState(null as any)
+  const [agreement, setAgreement] = useState(null as any)
+  const [protection, setProtection] = useState(null as any)
+  const [investment, setInvestment] = useState(null as any)
+  const [cashflow, setCashflow] = useState(null as any)
   // actualizaciond e variables para os toggleButtons
   useEffect(() => {
-    setAccounts(platformDetails.attributes?.account_category)
-    setAgreement(platformDetails.attributes?.structure)
-    setProtection(platformDetails.attributes?.protection_scheme)
-    setInvestment(platformDetails.attributes?.invest_mode)
-    setCashflow(platformDetails.attributes?.cashflow_options)
+    setAccounts(platformDetails?.data.attributes.account_category)
+    setAgreement(platformDetails?.data.attributes.structure)
+    setProtection(platformDetails?.data.attributes.protection_scheme)
+    setInvestment(platformDetails?.data.attributes.invest_mode)
+    setCashflow(platformDetails?.data.attributes.cashflow_options)
   }, [platformDetails])
   return (
     <Container>
@@ -42,7 +55,7 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Status" />
             <CardContent>
-              <Typography>{platformDetails.attributes?.status}</Typography>
+              <Typography>{platformDetails?.data.attributes.status}</Typography>
             </CardContent>
           </Card>
 
@@ -50,7 +63,10 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Type" />
             <CardContent>
-              <Typography>{platformDetails.attributes?.category}</Typography>
+              {platformDetails?.data.attributes.category &&
+                platformDetails.data.attributes.category.map((item: string, idx: number) => (
+                  <Chip label={item} key={idx} size="small" style={{ margin: '4px' }} />
+                ))}
             </CardContent>
           </Card>
 
@@ -58,11 +74,29 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Details" />
             <CardContent>
-              <Typography>Term: {platformDetails.attributes?.term}</Typography>
-              <Typography>AIR: </Typography>
-              <Typography>Default: </Typography>
-              <Typography>Loss: </Typography>
-              <Typography>Liquidity: {platformDetails.attributes?.liquidity}</Typography>
+              <Grid container justify="space-between">
+                <InputLabel>Term</InputLabel>
+                <Typography>{platformDetails?.data.attributes.term || 'n/a'}</Typography>
+              </Grid>
+              <Grid container justify="space-between">
+                <InputLabel>AIR</InputLabel>
+                {/* TODO Missing data from the Backend */}
+                <Typography>n/a</Typography>
+              </Grid>
+              <Grid container justify="space-between">
+                <InputLabel>Default</InputLabel>
+                {/* TODO Missing data from the Backend */}
+                <Typography>n/a</Typography>
+              </Grid>
+              <Grid container justify="space-between">
+                <InputLabel>Loss</InputLabel>
+                {/* TODO Missing data from the Backend */}
+                <Typography>n/a</Typography>
+              </Grid>
+              <Grid container justify="space-between">
+                <InputLabel>Liquidity</InputLabel>
+                <Typography>{platformDetails?.data.attributes.liquidity || 'n/a'}</Typography>
+              </Grid>
             </CardContent>
           </Card>
 
@@ -70,7 +104,10 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Company" />
             <CardContent>
-              <Typography>Profitable: {platformDetails.attributes?.profitable}</Typography>
+              <Grid container justify="space-between">
+                <InputLabel>Profitable</InputLabel>
+                <Typography>{platformDetails?.data.attributes.profitable || 'n/a'} </Typography>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
@@ -84,12 +121,19 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Accounts" />
             <CardContent>
-              <ToggleButtonGroup value={accounts} size="small">
+              <ToggleButtonGroup value={accounts}>
                 <ToggleButton value="Personal">Personal</ToggleButton>
                 <ToggleButton value="Corporate">Corporate</ToggleButton>
                 <ToggleButton value="Accredited">Accredited</ToggleButton>
               </ToggleButtonGroup>
-              <Typography>IFISA: {platformDetails.attributes?.ifisa}</Typography>
+              {platformDetails?.included[0].relationships.country.data.id ===
+                '61c2888b-8b6a-4536-830f-3a14e86a9cd5' && (
+                <Grid container justify="space-between">
+                  {/* TODO if the value is null/empty shows n/a */}
+                  <InputLabel>IFISA</InputLabel>
+                  <Typography>{platformDetails?.data.attributes.ifisa ? 'Yes' : 'No'}</Typography>
+                </Grid>
+              )}
             </CardContent>
           </Card>
 
@@ -97,12 +141,15 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Agreement Structure" />
             <CardContent>
-              <ToggleButtonGroup value={agreement} size="small">
+              <ToggleButtonGroup value={agreement}>
                 <ToggleButton value="Indirect">Indirect</ToggleButton>
                 <ToggleButton value="Direct">Direct</ToggleButton>
                 <ToggleButton value="Bilateral">Bilateral</ToggleButton>
               </ToggleButtonGroup>
-              <Typography>Taxes: {platformDetails.attributes?.taxes}</Typography>
+              <Grid container justify="space-between">
+                <InputLabel>Taxes</InputLabel>
+                <Typography>{platformDetails?.data.attributes.taxes || 'n/a'} </Typography>
+              </Grid>
             </CardContent>
           </Card>
 
@@ -110,7 +157,7 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Protection Scheme" />
             <CardContent>
-              <ToggleButtonGroup value={protection} size="small">
+              <ToggleButtonGroup value={protection}>
                 <ToggleButton value="Buyback">BuyBack</ToggleButton>
                 <ToggleButton value="Provision Fund">Provision Fund</ToggleButton>
                 <ToggleButton value="Personal">Personal</ToggleButton>
@@ -129,23 +176,56 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Investment Details"> </CardHeader>
             <CardContent>
-              <Typography>Invest Mode: </Typography>
-              <ToggleButtonGroup value={investment} size="small">
-                <ToggleButton value="Bid">Bid</ToggleButton>
-                <ToggleButton value="Manual">Manual</ToggleButton>
-                <ToggleButton value="Preset">Preset</ToggleButton>
-                <ToggleButton value="Auto">Auto</ToggleButton>
-              </ToggleButtonGroup>
-              <Typography>Secondary Market: {platformDetails.attributes?.secondary_market}</Typography>
-              <Typography>SM Notes: {platformDetails.attributes?.sm_notes}</Typography>
-              <Typography>Cost: {platformDetails.attributes?.cost}</Typography>
-              <Typography>Min. Investment: {platformDetails.attributes?.min_investment}</Typography>
-              <Typography>Cashflow options:</Typography>
-              <ToggleButtonGroup value={cashflow} size="small">
-                <ToggleButton value="Bank Transfer">Bank Transfer</ToggleButton>
-                <ToggleButton value="Revolut">Revolut</ToggleButton>
-                <ToggleButton value="Debit Card">Debit Card</ToggleButton>
-              </ToggleButtonGroup>
+              <Grid container justify="space-between" alignItems="center">
+                <InputLabel>Invest Mode</InputLabel>
+                <ToggleButtonGroup value={investment}>
+                  <ToggleButton value="Bid">Bid</ToggleButton>
+                  <ToggleButton value="Manual">Manual</ToggleButton>
+                  <ToggleButton value="Preset">Preset</ToggleButton>
+                  <ToggleButton value="Auto">Auto</ToggleButton>
+                </ToggleButtonGroup>
+              </Grid>
+              <Grid container alignItems="center">
+                {/* <Grid container justify="space-between" alignItems="center"> */}
+                <Grid xs={10}>
+                  <InputLabel>Secondary Market</InputLabel>
+                </Grid>
+                {platformDetails?.data.attributes.sm_notes ? (
+                  <>
+                    <Grid xs={1}>
+                      <Typography>{platformDetails?.data.attributes.secondary_market || 'n/a'} </Typography>
+                    </Grid>
+                    <Tooltip title={platformDetails?.data.attributes.sm_notes}>
+                      <Grid xs={1}>
+                        <IconButton disabled style={{ padding: '4px' }}>
+                          <IconInfo />
+                        </IconButton>
+                      </Grid>
+                    </Tooltip>
+                  </>
+                ) : (
+                  <Grid xs={2}>
+                    <Typography align="right">{platformDetails?.data.attributes.secondary_market || 'n/a'} </Typography>
+                  </Grid>
+                )}
+
+                {/* <Typography>{platformDetails?.data.attributes.sm_notes}</Typography> */}
+              </Grid>
+
+              <Grid container justify="space-between">
+                <InputLabel>Cost</InputLabel>
+                <Typography>{platformDetails?.data.attributes.cost || 'n/a'} </Typography>
+              </Grid>
+              <Grid container justify="space-between">
+                <InputLabel>Min. Investment</InputLabel>
+                <Typography>{platformDetails?.data.attributes.min_investment || 'n/a'} </Typography>
+              </Grid>
+              <Grid container justify="space-between">
+                <InputLabel>Cashflow Options</InputLabel>
+                <Typography>
+                  {(cashflow && cashflow.map((item: string, idx: number) => <Chip label={item} key={idx} />)) || 'n/a'}{' '}
+                </Typography>
+              </Grid>
             </CardContent>
           </Card>
 
@@ -153,9 +233,22 @@ export const PlatformInfo = (props: any) => {
           <Card className={classes.card}>
             <CardHeader title="Promotions" />
             <CardContent>
-              <Typography>Welcome bonus: {platformDetails.attributes?.welcome_bonus}</Typography>
-              <Typography>Promo: {platformDetails.attributes?.promo}</Typography>
-              <Typography>Promo end: {platformDetails.attributes?.promo_end}</Typography>
+              <Grid container justify="space-between">
+                <InputLabel>Welcome Bonus</InputLabel>
+                <Typography>{platformDetails?.data.attributes.welcome_bonus || 'n/a'} </Typography>
+              </Grid>
+              <Grid container justify="space-between">
+                <InputLabel>Promotion</InputLabel>
+                <Typography>{platformDetails?.data.attributes.promo || 'n/a'} </Typography>
+              </Grid>
+              {platformDetails?.data.attributes.promo_end ? (
+                <Grid container justify="space-between">
+                  <InputLabel>Promotion Ends</InputLabel>
+                  <Typography>{platformDetails?.data.attributes.promo_end}</Typography>
+                </Grid>
+              ) : (
+                ''
+              )}
             </CardContent>
           </Card>
         </Grid>

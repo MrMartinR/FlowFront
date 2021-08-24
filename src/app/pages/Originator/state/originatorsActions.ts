@@ -25,7 +25,6 @@ export const fetchOriginatorDetails = (id: any) => (dispatch: any) => {
    return requestFromServer
    .getOriginatorById(id)
     .then((response) => {
-      console.log(JSON.stringify(response))
       const { data } = response
       dispatch(actions.originatorDetailsReceived(data))
     })

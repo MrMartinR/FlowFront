@@ -19,11 +19,11 @@ const useStyles = makeStyles({
 /* define the columns for the table */
 const columns: GridColDef[] = [
   { field: 'kind', headerName: 'Type', width: 120 },
-  { field: 'code', headerName: 'Code', width: 100 },
+  { field: 'code', headerName: 'Code', width: 120 },
   { field: 'name', headerName: 'Name', width: 300 },
-  { field: 'symbol', headerName: 'Symbol', width: 120 },
-  { field: 'decimal_places', headerName: 'Decimals', width: 120 },
-  { field: 'fx_eur', headerName: 'FX EUR', width: 120 },
+  { field: 'symbol', headerName: 'Symbol', width: 140 },
+  { field: 'decimal_places', headerName: 'Decimals', width: 150 },
+  { field: 'fx_eur', headerName: 'FX EUR', width: 140 },
 ]
 
 export const CurrenciesList = (props: any) => {

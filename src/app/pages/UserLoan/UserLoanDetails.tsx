@@ -8,9 +8,11 @@ import {
   Container,
   makeStyles,
   CardHeader,
+  InputLabel,
 } from '@material-ui/core/'
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import IconOption from '../../../common/layout/components/icons/Option'
 import { RootState } from '../../../redux/rootReducer'
 import { UserAlert } from '../../utils/UserAlert'
 import * as userLoansActions from './../UserLoan/state/userLoansActions'
@@ -21,7 +23,11 @@ const useStyles = makeStyles({
     padding: 0,
     margin: 'auto',
   },
+  inputLabel: {
+    marginRight: 'auto',
+  },
 })
+
 export const UserLoanDetails = (props: any) => {
   const classes = useStyles()
   const { id } = props
@@ -61,31 +67,53 @@ export const UserLoanDetails = (props: any) => {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Card>
-                <CardHeader
-                  title={'Investment ' /*userLoanDetails.attributes?.user_account?.name*/}
-                  action={
-                    <span>
-                      <Button>[ICONAccount]</Button>
-                      <Button>+</Button>
-                    </span>
-                  }
-                  fullwidth
-                />
+                <CardHeader title={'Investment'} />
                 <CardContent>
-                  <Typography>Market: {userLoanDetails.attributes?.market}</Typography>
-                  <Typography>Investment amount: {userLoanDetails.attributes?.investment_amount}</Typography>
-                  <Typography>Slice: {userLoanDetails.attributes?.slice_name}</Typography>
-                  <Typography>Invest mode: {userLoanDetails.attributes?.invest_mode}</Typography>
-                  <Typography>Date in: {userLoanDetails.attributes?.date_in}</Typography>
-                  <Typography>Date out: {userLoanDetails.attributes?.date_out}</Typography>
-                  <Typography>Position: {userLoanDetails.attributes?.position}</Typography>
-                  <Typography>XIRR: {userLoanDetails.attributes?.xirr}</Typography>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Market</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.market}</Typography>
+                  </Grid>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Investment Amount</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.investment_amount.toFixed(2)}</Typography>
+                  </Grid>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Slice</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.slice_name}</Typography>
+                  </Grid>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Invest Mode</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.invest_mode}</Typography>
+                  </Grid>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Date In</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.date_in}</Typography>
+                  </Grid>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Date Out</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.date_out}</Typography>
+                  </Grid>
+                  <Grid container justify='space-between'>
+                    <InputLabel>Position</InputLabel>
+                    <Typography>{userLoanDetails.attributes?.position}</Typography>
+                  </Grid>
+                  <Grid container justify='space-between'>
+                    <InputLabel>XIRR</InputLabel>
+                    <Typography>{(userLoanDetails.attributes?.xirr * 100).toFixed(2)}</Typography>
+                  </Grid>
                 </CardContent>
               </Card>
             </Grid>
             <Grid item xs={6}>
               <Card>
-                <CardHeader title="Cashflow" action={<Button>•••</Button>} fullwidth />
+                <CardHeader
+                  title="Cashflow"
+                  action={
+                    <Button>
+                      <IconOption />
+                    </Button>
+                  }
+                />
                 <CardContent></CardContent>
               </Card>
             </Grid>
@@ -100,9 +128,9 @@ export const UserLoanDetails = (props: any) => {
       ) : (
         <Card className={classes.root}>
           <CardContent>
-            <Grid container direction="column" alignItems="center">
-              <Typography variant="h5">You are not invested in this loan</Typography>
-              <Button>Create an account</Button>
+            <Grid container direction="column" justify='space-between'>
+              <Typography variant="h5">You haven't invested in this loan</Typography>
+              <Button>Add Loan to your Portfolio</Button>
             </Grid>
           </CardContent>
         </Card>

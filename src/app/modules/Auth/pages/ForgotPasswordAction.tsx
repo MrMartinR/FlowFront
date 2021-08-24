@@ -1,23 +1,23 @@
 import { Link, useLocation } from 'react-router-dom'
-import * as Yup from 'yup'
 import * as authActions from '../state/authActions'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import Logo from '../../../../common/media/flow-logo.svg'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Button, CardMedia, FormControl, Grid, TextField, Typography } from '@material-ui/core'
 import queryString from 'query-string'
 import { RootState } from '../../../../redux/rootReducer'
 import { UserAlert } from '../../../utils/UserAlert'
-
+import { Alert } from '@material-ui/lab'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 const initialValues = {
   password: '',
   changepassword: '',
 }
 
 type ForgotPasswordType = {
-  password: any
-  changepassword: any
+  password: string
+  changepassword: string
 }
 
 /**
@@ -30,17 +30,19 @@ export const ForgotPasswordAction = (props: any) => {
   const { uid = '' } = queryString.parse(search)
   const { expiry = '' } = queryString.parse(search)
   const ForgotPasswordSchema = Yup.object().shape({
-    password: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Required'),
+    password: Yup.string()
+      .min(3, 'Password should be at least 3 characters.')
+      .max(50, 'Password should be less than 50 characters')
+      .required('Password is required'),
     changepassword: Yup.string()
-      .min(3, 'Minimum 3 symbols')
-      .max(50, 'Maximum 50 symbols')
-      .required('Required')
+      .min(3, 'Confirm Password should be at least 3 characters.')
+      .max(50, 'COnfirm Password should be less than 50 characters')
+      .required('Confirm Password is required')
       .when('password', {
         is: (val: any) => !!(val && val.length > 0),
         then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
       }),
   })
-
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(ForgotPasswordSchema),
     defaultValues: initialValues,
@@ -89,7 +91,7 @@ export const ForgotPasswordAction = (props: any) => {
                 inputRef={register()}
                 name="password"
               />
-              <span> {errors.password && errors.password.message}</span>
+              {errors.password && <Alert severity="error">{errors.password.message}</Alert>}
             </FormControl>
             {/* end: Password */}
 
@@ -104,8 +106,9 @@ export const ForgotPasswordAction = (props: any) => {
                 name="changepassword"
                 inputRef={register()}
               />
-              <span> {errors.changepassword && errors.changepassword.message}</span>
+              {errors.changepassword && <Alert severity="error">{errors.changepassword.message}</Alert>}
               {/* end: Confirm Password */}
+
               <Button type="submit" variant="contained">
                 Submit
               </Button>

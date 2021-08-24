@@ -11,7 +11,7 @@ import { UserAlert } from '../../utils/UserAlert'
 export const PlatformDetailsPage = (props: any) => {
   const { params } = props.match
   const [currentTab, setTab] = useState('')
-  const [platformDetails, setPlatformDetails] = useState({} as any)
+  const [platformDetails, setPlatformDetails] = useState(null as any)
   const dispatch = useDispatch()
   const { currentState } = useSelector(
     (state: RootState) => ({
@@ -47,12 +47,12 @@ export const PlatformDetailsPage = (props: any) => {
   }
   return (
     <>
-      <PlatformDetailsToolbar
-        id={platformDetails.relationships?.contact?.data.id}
-        trade_name={platformDetails.relationships?.contact?.data.attributes?.trade_name}
-        company_name={platformDetails.relationships?.contact?.data.attributes?.company_name}
+      {platformDetails &&<PlatformDetailsToolbar
+        id={platformDetails.data?.relationships?.contact?.data.id}
+        trade_name={platformDetails.included[0].attributes?.trade_name}
+        company_name={platformDetails.included[0].attributes?.company_name}
         setTab={setTab}
-      />
+      />}
       <UserAlert
         resetSuccess={resetSuccess}
         success={currentState.success}

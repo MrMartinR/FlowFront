@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid, makeStyles, Toolbar, Typography } from '@material-ui/core'
+import { Button, Grid, makeStyles, Toolbar, Typography } from '@material-ui/core'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -16,17 +16,9 @@ export const LendingToolbar = () => {
           <Typography variant="h4">Lending</Typography>
         </Grid>
         <Grid item xs={4}>
-          <ButtonGroup>
-            <Button variant="outlined" href="/platforms">
-              All Platforms
-            </Button>
-            <Button variant="outlined" href="/originators">
-              All Originators
-            </Button>
-            <Button variant="outlined" href="/loans">
-              All Loans
-            </Button>
-          </ButtonGroup>
+          <Button href="/platforms">All Platforms</Button>
+          <Button href="/originators">All Originators</Button>
+          <Button href="/loans">All Loans</Button>
         </Grid>
       </Grid>
     </Toolbar>

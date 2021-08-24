@@ -1,10 +1,21 @@
-import { makeStyles, Toolbar, Grid, CardHeader, Button, Avatar } from '@material-ui/core/'
-import { useEffect, useState } from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../redux/rootReducer'
-import * as data from './import/iuvo-2020-01-30-2200 (2).json'
-import * as userAccountsActions from './state/userAccountsActions'
-import * as loansActions from './../Loan/state/loansActions'
+import {
+  makeStyles,
+  Toolbar,
+  Dialog,
+  DialogContent,
+  Grid,
+  CardHeader,
+  Button,
+  Avatar,
+} from '@material-ui/core/'
+import { useState } from 'react'
+import IconOption from '../../../common/layout/components/icons/Option'
+import { CreateTransactionForm } from './CreateTransactionForm'
+import { CreateTransferForm } from './CreateTransferForm'
+import { ImportTransactions } from './ImportTransactions'
+import { AddUserAccount } from './AddUserAccount'
+import { EditUserAccount } from './EditUserAccount'
+import { DeleteUserAccount } from './DeleteUserAccount'
 /* styles */
 const useStyles = makeStyles({
   root: {
@@ -18,61 +29,89 @@ const useStyles = makeStyles({
 export const UserAccountDetailsToolbar = (props: any) => {
   /* styles */
   const classes = useStyles()
-  const { loanState } = useSelector((state: RootState) => ({ loanState: state.loans }), shallowEqual)
   const { value, balance, singleAccount } = props
-  const [loans, setLoans] = useState(null as any)
-  const [loanId, setLoanId] = useState(null as any)
-  const dispatch = useDispatch()
-  const handleImport = () => {
-    loans.map((loan: any) => {
-      if (loan.attributes.code === data[1].ID) {
-        setLoanId(loan.id)
-      }
-      return loan.id
-    })
+  const [open, setOpen] = useState(false)
+  const [option, setOption] = useState('')
+  const handleTransaction = () => {
+    setOption('transaction')
+    setOpen(true)
   }
-  useEffect(() => {
-    const form = {
-      description: data[1].Concept,
-      ref: data[1].Ref,
-      amount: data[1].Amount,
-      date: data[1].Date,
-      time: data[1].Time,
-      category: data[1].Category,
-      user_account_id: singleAccount.id,
-      loan_id: loanId,
-    }
-    if (loanId !== null) dispatch(userAccountsActions.createTransaction(form))
-  }, [loanId, dispatch, singleAccount])
-  useEffect(() => {
-    dispatch(loansActions.fetchLoansData())
-  }, [dispatch])
-  useEffect(() => {
-    setLoans(loanState.loansData)
-  }, [loanState.loansData])
+  const handleTransfer = () => {
+    setOption('transfer')
+    setOpen(true)
+  }
+  const handleClick = () => {
+    setOption('edit')
+    setOpen(true)
+  }
+  const handleAdd = () => {
+    setOption('add')
+    setOpen(true)
+  }
+  const handleImport = () => {
+    setOption('import')
+    setOpen(true)
+  }
+  /* function close dialog window */
+  const handleClose = () => {
+    setOpen(false)
+  }
+const handleDelete = () => {
+    setOption('delete')
+    setOpen(true)
+}
+  const body =
+    option === 'transaction' ? (
+      <CreateTransactionForm handleClose={handleClose} />
+    ) : option === 'transfer' ? (
+      <CreateTransferForm handleClose={handleClose} />
+    ) : option === 'import' ? (
+      <ImportTransactions handleClose={handleClose} />
+    ) : option === 'edit' ? (
+      <>
+        
+        <EditUserAccount handleClose={handleClose} singleAccount={singleAccount} handleDelete={handleDelete}/>
+      </>
+    ) : option === 'add' ? (
+        <AddUserAccount handleClose={handleClose} />
+    ) : option === 'delete' && (
+        <DeleteUserAccount handleClose={handleClose} singleAccount={singleAccount} />
+    )
   return (
     <Toolbar variant="dense" className={classes.root}>
-      <Grid item xs={12}>
-        <CardHeader
-          avatar={
-            <Avatar
-              src={'/media/svg/contact/icons/' + singleAccount.attributes?.account?.contact_id + '.svg'}
-              alt={singleAccount.attributes?.name}
-              variant="square"
-            />
-          }
-          title={singleAccount.attributes?.name}
-          subheader={'Value ' + value + ' Balance ' + balance.toFixed(2)}
-          action={
-            <>
-              <Button>Add Transfer</Button>
-              <Button>Add Transaction</Button>
-              <Button onClick={handleImport}>Import</Button>
-              <Button>•••</Button>
-            </>
-          }
-        ></CardHeader>
+      <Grid container>
+        <Grid item xs={12} container justify='flex-end'>
+          <Button onClick={handleAdd}>Add User Account</Button>
+        </Grid>
+        <Grid item xs={12}>
+          {singleAccount !== null && (
+            <CardHeader
+              avatar={
+                <Avatar
+                  src={'/media/svg/contact/icons/' + singleAccount.attributes?.account?.contact_id + '.svg'}
+                  alt={singleAccount.attributes?.name}
+                  variant="square"
+                />
+              }
+              title={singleAccount.attributes?.name}
+              subheader={'Value ' + value + ' Balance ' + balance.toFixed(2)}
+              action={
+                <>
+                  <Button onClick={handleTransfer}>Add Transfer</Button>
+                  <Button onClick={handleTransaction}>Add Transaction</Button>
+                  <Button onClick={handleImport}>Import</Button>
+                  <Button onClick={handleClick}>
+                    <IconOption />
+                  </Button>
+                </>
+              }
+            ></CardHeader>
+          )}
+        </Grid>
       </Grid>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>{body}</DialogContent>
+      </Dialog>
     </Toolbar>
   )
 }

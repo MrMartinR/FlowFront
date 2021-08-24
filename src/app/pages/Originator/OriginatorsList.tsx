@@ -1,7 +1,9 @@
-import { Grid, CardMedia, LinearProgress, makeStyles } from '@material-ui/core/'
+import { Grid, CardMedia, LinearProgress, makeStyles, Tooltip, IconButton } from '@material-ui/core/'
 import { XGrid, GridColDef, GridCellParams } from '@material-ui/x-grid'
 
 import { useHistory } from 'react-router'
+import IconBusiness from '../../../common/layout/components/icons/Business'
+import IconConsumer from '../../../common/layout/components/icons/Consumer'
 
 /* styles */
 const useStyles = makeStyles({
@@ -24,16 +26,39 @@ const columns: GridColDef[] = [
     renderCell: (params: GridCellParams) => (
       <CardMedia
         component="img"
-        src={'/media/svg/contact/logos/' + params.getValue('contact_id') + '.svg'}
+        src={'/media/svg/contact/logos/' + params.row.contact_id + '.svg'}
         title={`${params.value}`}
         alt={`${params.value}`}
       />
     ),
   },
-  { field: 'customer_category', headerName: 'Customer', width: 250 },
+  {
+    field: 'customer_category',
+    headerName: 'Customer',
+    width: 150,
+    renderCell: (params: GridCellParams) =>
+      params.value && (
+        <>
+          {params.value.toString().includes('Business') && (
+            <Tooltip title="Business">
+              <IconButton>
+                <IconBusiness />
+              </IconButton>
+            </Tooltip>
+          )}
+          {params.value.toString().includes('Consumer') && (
+            <Tooltip title="Consumer">
+              <IconButton>
+                <IconConsumer />
+              </IconButton>
+            </Tooltip>
+          )}
+        </>
+      ),
+  },
   { field: 'product_category_business', headerName: 'Business', width: 250 },
-  { field: 'product_category_consumer', headerName: 'Consumer', width: 350 },
-  { field: 'apr', headerName: 'APR', width: 100 },
+  { field: 'product_category_consumer', headerName: 'Consumer', width: 250 },
+  { field: 'apr', headerName: 'APR', width: 120 },
 ] as any
 
 export const OriginatorsList = (props: any) => {

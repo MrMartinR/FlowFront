@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import {
   makeStyles,
   Grid,
@@ -6,16 +7,14 @@ import {
   CardHeader,
   Dialog,
   Popover,
-  DialogActions,
   DialogContent,
   Typography,
-  ButtonGroup,
   Button,
 } from '@material-ui/core'
 import { VerticalLinearStepper } from './ContactStepper'
-import LockIcon from '@material-ui/icons/Lock'
-import LockOpenIcon from '@material-ui/icons/LockOpen'
-import { useHistory } from 'react-router'
+import IconUnlock from '../../../common/layout/components/icons/Unlock'
+import IconLock from '../../../common/layout/components/icons/Lock'
+import IconAdd from '../../../common/layout/components/icons/Add'
 
 /* styles */
 const useStyles = makeStyles({
@@ -46,11 +45,11 @@ export const ContactToolBar = (props: any) => {
   }
   // funcion para cambiar a view de originatorDetails
   const handleOriginator = () => {
-    linkTo.push(`/originators/${selectedContact.attributes.originator.id}`)
+    linkTo.push(`/originators/${selectedContact.relationships.originator.data.id}`)
   }
   // funcion para cambair a view de platformDetails
   const handlePlatform = () => {
-    linkTo.push(`/platforms/${selectedContact.attributes.platform.id}`)
+    linkTo.push(`/platforms/${selectedContact.relationships.platform.data.id}`)
   }
   // funcion que pecha o dialog de engadir contact
   const handleClose = () => {
@@ -69,10 +68,7 @@ export const ContactToolBar = (props: any) => {
   const id = open ? 'simple-popover' : undefined
   // corpo do dialog de engadir contact
   const body = (
-    <>
-      <Typography variant="h4">Add Contact</Typography>
-      <VerticalLinearStepper selectedContact={selectedContact} edit={false} handleClose={handleClose} />
-    </>
+    <VerticalLinearStepper selectedContact={selectedContact} edit={false} handleClose={handleClose} />
   )
   return (
     <>
@@ -83,23 +79,17 @@ export const ContactToolBar = (props: any) => {
             subheader="Public and Private contacts"
             action={
               <>
-                <ButtonGroup>
-                  {selectedContact?.attributes?.platform !== null && (
-                    <Button variant="outlined" onClick={handlePlatform}>
-                      Platform
-                    </Button>
-                  )}
-                  {selectedContact?.attributes?.originator !== null && (
-                    <Button variant="outlined" onClick={handleOriginator}>
-                      Originator
-                    </Button>
-                  )}
-                </ButtonGroup>
-                <Button id="add" onClick={(e) => handleOpen(e, 'add')}>
-                  +
+                {selectedContact?.relationships?.platform.data !== null && (
+                  <Button onClick={handlePlatform}>Platform</Button>
+                )}
+                {selectedContact?.relationships?.originator.data !== null && (
+                  <Button onClick={handleOriginator}>Originator</Button>
+                )}
+                <Button onClick={(e) => handleOpen(e, 'add')}>
+                  <IconAdd />
                 </Button>
                 <Button onClick={(e) => handleClick(e, 1)}>
-                  {selectedContact?.attributes?.visibility === 'Public' ? <LockOpenIcon /> : <LockIcon />}
+                  {selectedContact?.attributes?.visibility === 'Public' ? <IconUnlock /> : <IconLock />}
                 </Button>
                 <Popover
                   id={id}
@@ -131,11 +121,6 @@ export const ContactToolBar = (props: any) => {
 
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>{body}</DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} variant="contained">
-              Cancel
-            </Button>
-          </DialogActions>
         </Dialog>
       </Toolbar>
     </>
