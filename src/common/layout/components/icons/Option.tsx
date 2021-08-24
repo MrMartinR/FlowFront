@@ -21,7 +21,7 @@ export default function IconOption(props: any) {
     <SvgIcon {...props}>
       <circle cx="7" cy="16" r="2" />
       <circle cx="16" cy="16" r="2" />
-      <circle cx="25" cy="16" r="2" />{' '}
+      <circle cx="25" cy="16" r="2" />
     </SvgIcon>
   )
 }

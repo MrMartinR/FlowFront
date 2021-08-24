@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { RootState } from '../../../../redux/rootReducer'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { LoanDetails } from './LoanDetails'
+import { LoanDetails } from './BananaLoanDetails'
 import { UserLoanDetails } from '../../UserLoan/UserLoanDetails'
 import { LoanDetailsToolbar } from './LoanDetailsToolbar'
-import * as loansActions from './../state/loansActions'
+import * as loansActions from '../state/loansActions'
 import { Grid } from '@material-ui/core/'
 import { UserAlert } from '../../../utils/UserAlert'
 

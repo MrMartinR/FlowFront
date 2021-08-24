@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import * as loansActions from './../state/loansActions'
+import * as loansActions from '../state/loansActions'
 import { Alert } from '@material-ui/lab'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'

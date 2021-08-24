@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import IconOpenNewWindow from '../../../../common/layout/components/icons/OpenNewWindow'
 import IconOption from '../../../../common/layout/components/icons/Option'
-import * as loansActions from './../state/loansActions'
+import * as loansActions from '../state/loansActions'
 import { LoanEdit } from './LoanEdit'
 /* styles */
 const useStyles = makeStyles({

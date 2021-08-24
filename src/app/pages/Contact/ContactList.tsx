@@ -1,10 +1,5 @@
 /* eslint-disable no-restricted-imports*/
-import {
-  makeStyles,
-  Container,
-  LinearProgress,
-  List,
-} from '@material-ui/core'
+import { makeStyles, Container, LinearProgress, List } from '@material-ui/core'
 import { ContactListToolbar } from './ContactListToolbar'
 import { ContactListItem } from './ContactListItem'
 /* styles */
@@ -24,14 +19,14 @@ export const ContactsList = (props: any) => {
   const { setSelectedItemIndex, isLoading, list } = props
   return (
     <>
-      <ContactListToolbar list={list} setSelectedItemIndex={setSelectedItemIndex}  />
+      <ContactListToolbar list={list} setSelectedItemIndex={setSelectedItemIndex} />
       <Container className={classes.root}>
         <List>
           {isLoading ? (
             <LinearProgress />
           ) : (
             list.map((item: any, idx: any) => (
-              <ContactListItem key = {item.id} setSelectedItemIndex={setSelectedItemIndex} item={item} idx={idx} />
+              <ContactListItem key={item.id} setSelectedItemIndex={setSelectedItemIndex} item={item} idx={idx} />
             ))
           )}
         </List>

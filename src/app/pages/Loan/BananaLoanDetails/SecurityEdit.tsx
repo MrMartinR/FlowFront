@@ -3,7 +3,7 @@ import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import * as loansActions from './../state/loansActions'
+import * as loansActions from '../state/loansActions'
 export const SecurityEdit = (props: any) => {
   const { loanDetails, handleClose } = props
   const { register, handleSubmit } = useForm()
